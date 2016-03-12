@@ -1,5 +1,6 @@
 package ro.fmarket.admin.account;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
@@ -25,4 +26,9 @@ public class NewAccountRequest {
 	
 	@ValidAccountStatus
 	private String accountStatus;
+	
+	private String name;
+	
+	@Min(1)
+	private String cityId;
 }
