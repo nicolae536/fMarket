@@ -1,0 +1,30 @@
+{
+    "active": "true",
+    "type": "sediu central",
+    "address": {
+        "id": "1",
+        "apartament":"3",
+        "block":"C4",
+        "entrance":"2",
+        "floor": "3",
+        "number": "2",
+        "postal_code": "123",
+        "street": "street name",
+        "city": {
+            "id": "1",
+            "name": "CLUJ NAPOCA",
+            "county": {
+                "id": "1",
+                "name": "cluj",
+                "initials": "CJ",
+                "country": {
+                    "id": "1",
+                    "name": "romania",
+                    "initials": "RO"
+                }
+            }
+        }
+
+        
+    }
+}
