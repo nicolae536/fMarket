@@ -1,0 +1,6 @@
+.modal{
+	opacity: 0;
+	transition-duration: .15s;
+	-webkit-animation: linear 1s;
+	animation: linear 1s;
+}
