@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewEncapsulation,Injectable} from 'angular2/core';
-import {RouteConfig, Route, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Location } from 'angular2/router';
+import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Location } from 'angular2/router';
 import {UsersPage} from './usersPage/usersPage';
+import {SubscribersPage} from './subscribersPage/subscribersPage';
 
 var applicationPath:string = '/app/pages/AdminPage';
 
@@ -12,14 +13,17 @@ var applicationPath:string = '/app/pages/AdminPage';
 
 @RouteConfig([
     new Route({ path: '/users', component: UsersPage, name: 'Users' }),
+    new Route({ path: '/subscribers', component: SubscribersPage, name: 'Subscribers' }),
     //{ path: '/jquery', component: JqueryIntegration, name: 'JqueryIntegration' }),
 ])
 
 export class AdminPage {
 	
-	 location:Location;
+	location:Location;
+	router:Router;
 
-    constructor(location:Location) {
+    constructor(location:Location, router:Router) {
         this.location = location;
+        this.router=router;
     }
 } 

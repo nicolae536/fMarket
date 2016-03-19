@@ -1,0 +1,50 @@
+
+<link rel="stylesheet" type="text/css" href="/app/pages/adminPage/subscribersPage/subscribersPage.css">
+<div class="subscribers-page">
+	<!-- TODO catch close event -->
+	<div class="page-title">
+		<div class="row">
+			<div class="secondary">
+				<input type="button" class="btn btn-primary" (click)="createAccount()" value="Adauga user" />
+			</div>						
+			<span class="h1">Subscribers</span>					
+		</div>	
+	</div>
+	<div class="page-content">
+		<div class="row">
+			<div class="filters">
+				<strong class="h3">Filtre</strong>
+				<div class="clearfix filter-container">
+					<div class="col-md-2">
+						<div class="form-group">
+							<span>Email:</span>
+							<input type="text" [(ngModel)]="emailFilter" class="form-control" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<span>Name:</span>
+							<input type="text" [(ngModel)]="nameFilter" class="form-control"/>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<span>Status:</span>
+						<div>
+							<select class="user-status-select" [(ngModel)]="selectedStatusFilter"> 
+								<option *ngFor="#option of statusList" [value]="option">{{option}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<span>City:</span>
+							<input type="text" [(ngModel)]="cityFilter" class="form-control"/>
+						</div>
+					</div>
+					<div class="secondary">
+						<button class="btn btn-success" (clicl)="applyFilters()">Aplica Filtre</button> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 

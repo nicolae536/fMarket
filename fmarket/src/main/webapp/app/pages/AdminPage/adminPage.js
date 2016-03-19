@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './usersPage/usersPage'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './usersPage/usersPage', './subscribersPage/subscribersPage'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './usersPage/usersPage'], f
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, usersPage_1;
+    var core_1, router_1, usersPage_1, subscribersPage_1;
     var applicationPath, AdminPage;
     return {
         setters:[
@@ -22,12 +22,16 @@ System.register(['angular2/core', 'angular2/router', './usersPage/usersPage'], f
             },
             function (usersPage_1_1) {
                 usersPage_1 = usersPage_1_1;
+            },
+            function (subscribersPage_1_1) {
+                subscribersPage_1 = subscribersPage_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/AdminPage';
             AdminPage = (function () {
-                function AdminPage(location) {
+                function AdminPage(location, router) {
                     this.location = location;
+                    this.router = router;
                 }
                 AdminPage = __decorate([
                     core_1.Component({
@@ -37,8 +41,9 @@ System.register(['angular2/core', 'angular2/router', './usersPage/usersPage'], f
                     }),
                     router_1.RouteConfig([
                         new router_1.Route({ path: '/users', component: usersPage_1.UsersPage, name: 'Users' }),
+                        new router_1.Route({ path: '/subscribers', component: subscribersPage_1.SubscribersPage, name: 'Subscribers' }),
                     ]), 
-                    __metadata('design:paramtypes', [router_1.Location])
+                    __metadata('design:paramtypes', [router_1.Location, router_1.Router])
                 ], AdminPage);
                 return AdminPage;
             }());

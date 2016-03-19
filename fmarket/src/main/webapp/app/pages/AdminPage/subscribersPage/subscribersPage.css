@@ -1,0 +1,36 @@
+ 
+/*page title*/
+
+.subscribers-page .page-title .row{
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.subscribers-page .page-title .row .secondary{
+	float: right;	
+}
+
+.subscribers-page .page-title .row .secondary input{
+	margin-left: 5px;
+}
+
+/*page content*/
+.subscribers-page .page-content .row{
+	margin-bottom: 12px;
+}
+
+.subscribers-page .page-content .row .filters .filter-container{
+	position: relative;
+	padding-bottom: 5px;
+}
+
+.subscribers-page .page-content .row .filters .filter-container .col-md-2 .user-status-select{
+	height: 34px;
+	width: 100%;
+}
+
+ .subscribers-page .page-content .row .filters .filter-container .secondary{
+ 	float: right;
+ 	padding-top: 1.3%;
+ }
+

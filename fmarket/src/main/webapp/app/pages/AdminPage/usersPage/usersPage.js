@@ -40,7 +40,6 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
             UsersPage = (function () {
                 function UsersPage(_userService) {
                     this._userService = _userService;
-                    this.usersList = new Array();
                     this.userPageNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
                     this.userPagesSubNumber = new Array();
                     this.currentPageIndex = 1;
@@ -51,21 +50,24 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     this.nameFilter = "";
                     this.cityFilter = "";
                     this.selectedStatusFilter = "";
-                    this.userPagesSubNumber = this.userPageNumber.slice(0, 5);
                 }
                 UsersPage.prototype.ngOnInit = function () {
+                    var me = this;
                     this.getUsers();
+                    this.userPagesSubNumber = this.userPageNumber.slice(0, 5);
                 };
                 UsersPage.prototype.referenceActionDialogInComponent = function (modal) {
-                    this.actionDialog = modal;
+                    this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
                 };
                 UsersPage.prototype.referenceCreateUserDialogInComponent = function (modal) {
                     this.userDialog = modal; // Here you get a reference to the modal so you can control it programmatically
                 };
                 UsersPage.prototype.getUsers = function () {
-                    var _this = this;
-                    this._userService.getUsers().then(function (users) {
-                        _this.usersList = users;
+                    var me = this;
+                    this._userService.getUsersWithFilters(this.currentPageIndex, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityFilter)
+                        .subscribe(function (users) {
+                        me.usersList = [];
+                        //todo change this
                         console.log(users);
                     });
                 };
@@ -74,8 +76,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     user.isInEditMode = true;
                 };
                 UsersPage.prototype.editUser = function (user) {
+                    var me = this;
                     this.userDialog.editUser(user, this.cityList, this.statusList).then(function (actionResult) {
-                        // body...
+                        me._userService.updateUser(user);
                     });
                 };
                 UsersPage.prototype.deleteUser = function (user) {
@@ -107,10 +110,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 UsersPage.prototype.sortUsers = function (user) {
                 };
                 UsersPage.prototype.applyFilters = function () {
-                    var _this = this;
-                    this._userService.getUsersWithFilters(this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityFilter).then(function (users) {
-                        _this.usersList = users;
-                    });
+                    this.getUsers();
                 };
                 UsersPage.prototype.navigateLeft = function () {
                     if (this.currentPageIndex - 1 > this.userPageNumber[0]) {

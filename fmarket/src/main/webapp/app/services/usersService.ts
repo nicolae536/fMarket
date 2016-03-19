@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {HTTP_PROVIDERS, Http} from 'angular2/http';
+import {HTTP_PROVIDERS, Http, BaseRequestOptions} from 'angular2/http';
 import {User} from "../models/user";
 import {USERS} from "./mock-providers/mock-Users";
 
@@ -17,10 +17,19 @@ export class UserService {
 	}
 
 	updateUser(user:User){
-
+		this.http.post('/admin/users', JSON.stringify(user));
 	}
 
-	getUsersWithFilters(emailFilter :string, nameFilter :string, selectedStatusFilter :string, cityFilter :string){
-		return Promise.resolve(USERS);
+	getUsersWithFilters(pageIndex:number, emailFilter :string, nameFilter :string, selectedStatusFilter :string, cityFilter :string){
+		var requestOptions:RequestOptions = {email:emailFilter, name:nameFilter, status:selectedStatusFilter, city:cityFilter, pageIndex:pageIndex};
+		return this.http.get('/admin/users', requestOptions);
 	}
+}
+
+interface RequestOptions{	
+	email:string;
+	name:string;
+	status:string;
+	city:string;
+	pageIndex:number;
 }

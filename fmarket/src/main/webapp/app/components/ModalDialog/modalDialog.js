@@ -21,8 +21,6 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             ModalDialog = (function () {
                 function ModalDialog() {
                     this.showModal = false;
-                    this.cancelLabel = 'Cancel';
-                    this.positiveLabel = 'OK';
                     this.loadedEmitter = new core_1.EventEmitter();
                 }
                 ModalDialog.prototype.show = function () {
@@ -51,18 +49,6 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 ModalDialog.prototype.stopPropagation = function ($event) {
                     $event.stopPropagation();
                 };
-                __decorate([
-                    core_1.Input('title'), 
-                    __metadata('design:type', String)
-                ], ModalDialog.prototype, "title", void 0);
-                __decorate([
-                    core_1.Input('cancel-label'), 
-                    __metadata('design:type', String)
-                ], ModalDialog.prototype, "cancelLabel", void 0);
-                __decorate([
-                    core_1.Input('positive-label'), 
-                    __metadata('design:type', String)
-                ], ModalDialog.prototype, "positiveLabel", void 0);
                 __decorate([
                     core_1.Output('loaded'), 
                     __metadata('design:type', core_1.EventEmitter)

@@ -21,7 +21,7 @@ var applicationPath: string = '/app/pages/adminPage/usersPage';
 })
 
 export class UsersPage implements OnInit{
-	usersList:  Array<User> = new Array<User>();
+	usersList:  Observable<User[]>;
 	userDialog: CreateUserDialog;
 	actionDialog: ActionDialog;
 
@@ -40,15 +40,16 @@ export class UsersPage implements OnInit{
 
 
     constructor(private _userService: UserService) {		
-        this.userPagesSubNumber = this.userPageNumber.slice(0, 5);
     }
 
     ngOnInit(){
+        var me= this;
         this.getUsers();
+        this.userPagesSubNumber = this.userPageNumber.slice(0, 5);
     }
 
     referenceActionDialogInComponent(modal: ActionDialog){
-        this.actionDialog = modal;
+        this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
     }
 
     referenceCreateUserDialogInComponent(modal: CreateUserDialog) {
@@ -56,10 +57,14 @@ export class UsersPage implements OnInit{
     }
 
     getUsers(){
-    	this._userService.getUsers().then(users => {
-    		this.usersList = users;
-    		console.log(users);
-    	})
+    	var me= this;
+        this._userService.getUsersWithFilters(this.currentPageIndex, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityFilter)
+        .subscribe(users => {
+            me.usersList = []
+            //todo change this
+            console.log(users);
+        }
+        );
     }
 
 
@@ -69,8 +74,9 @@ export class UsersPage implements OnInit{
     }
 
     editUser(user: User){
+        var me =this;
     	this.userDialog.editUser(user, this.cityList, this.statusList).then(actionResult => {
-    		// body...
+    		me._userService.updateUser(user);
     	});
     }
 
@@ -108,9 +114,7 @@ export class UsersPage implements OnInit{
     }
 
     applyFilters(){
-        this._userService.getUsersWithFilters(this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityFilter).then(users => {
-            this.usersList = users;
-        })
+        this.getUsers();
     }
 
 

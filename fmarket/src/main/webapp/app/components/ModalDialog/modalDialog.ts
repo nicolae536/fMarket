@@ -3,9 +3,6 @@ import {Input, Output, EventEmitter, OnInit} from 'angular2/core';
 export class ModalDialog  implements OnInit{
   showModal: boolean = false;
   resolveModal;
-  @Input('title') title: string;
-  @Input('cancel-label') cancelLabel: string = 'Cancel';
-  @Input('positive-label') positiveLabel: string = 'OK';
   @Output('loaded') loadedEmitter: EventEmitter<ModalDialog> = new EventEmitter<ModalDialog>();
 
   show():Promise<DialogActionResult> {

@@ -33,9 +33,11 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-Users"
                     return Promise.resolve(mock_Users_1.USERS);
                 };
                 UserService.prototype.updateUser = function (user) {
+                    this.http.post('/admin/users', JSON.stringify(user));
                 };
-                UserService.prototype.getUsersWithFilters = function (emailFilter, nameFilter, selectedStatusFilter, cityFilter) {
-                    return Promise.resolve(mock_Users_1.USERS);
+                UserService.prototype.getUsersWithFilters = function (pageIndex, emailFilter, nameFilter, selectedStatusFilter, cityFilter) {
+                    var requestOptions = { email: emailFilter, name: nameFilter, status: selectedStatusFilter, city: cityFilter, pageIndex: pageIndex };
+                    return this.http.get('/admin/users', requestOptions);
                 };
                 UserService = __decorate([
                     core_1.Injectable(), 

@@ -30,8 +30,22 @@ System.register(['angular2/core', '../ModalDialog/modalDialog'], function(export
                 __extends(ActionDialog, _super);
                 function ActionDialog() {
                     _super.call(this);
+                    this.positiveLabel = 'OK';
+                    this.cancelLabel = 'Cancel';
                     this.loadedEmitter = new core_1.EventEmitter();
                 }
+                __decorate([
+                    core_1.Input('title'), 
+                    __metadata('design:type', String)
+                ], ActionDialog.prototype, "title", void 0);
+                __decorate([
+                    core_1.Input('positive-label'), 
+                    __metadata('design:type', String)
+                ], ActionDialog.prototype, "positiveLabel", void 0);
+                __decorate([
+                    core_1.Input('cancel-label'), 
+                    __metadata('design:type', String)
+                ], ActionDialog.prototype, "cancelLabel", void 0);
                 __decorate([
                     core_1.Output('loaded'), 
                     __metadata('design:type', core_1.EventEmitter)
