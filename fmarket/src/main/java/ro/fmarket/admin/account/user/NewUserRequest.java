@@ -1,4 +1,4 @@
-package ro.fmarket.admin.account;
+package ro.fmarket.admin.account.user;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -6,12 +6,17 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 
 import lombok.Data;
-import ro.fmarket.core.validation.api.ValidAccountStatus;
-import ro.fmarket.core.validation.api.ValidAccountType;
 import ro.fmarket.core.validation.api.ValidPassword;
+import ro.fmarket.model.account.consts.AccountStatus;
+import ro.fmarket.model.account.consts.AccountType;
 
+/**
+ * Account type is 'USER'
+ * @author Luci
+ *
+ */
 @Data
-public class NewAccountRequest {
+public class NewUserRequest {
 
 	@NotNull
 	@Email
@@ -21,14 +26,14 @@ public class NewAccountRequest {
 	@ValidPassword
 	private String password;
 	
-	@ValidAccountType
-	private String accountType;
-	
-	@ValidAccountStatus
-	private String accountStatus;
+	private AccountStatus accountStatus;
 	
 	private String name;
 	
 	@Min(1)
-	private String cityId;
+	private Integer cityId;
+	
+	private String phone;
+	
+	private boolean closed;
 }

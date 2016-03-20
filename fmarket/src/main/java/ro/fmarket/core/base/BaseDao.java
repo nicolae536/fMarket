@@ -64,5 +64,10 @@ public class BaseDao<T> {
 			query.setParameter("id", id);
 			query.executeUpdate();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public T load(Integer id) {
+		return (T) getSession().load(type, id);
+	}
 
 }

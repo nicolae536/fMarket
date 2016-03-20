@@ -1,14 +1,17 @@
 package ro.fmarket.core.converter;
 
-import ro.fmarket.admin.account.AccountDTO;
+import java.util.ArrayList;
+import java.util.List;
+
+import ro.fmarket.admin.account.user.UserDTO;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.account.details.AccountDetails;
 import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
 
 public class AccountConverter {
 
-	public static AccountDTO toDTO(Account account) {
-		final AccountDTO r = new AccountDTO();
+	public static UserDTO toDTO(Account account) {
+		final UserDTO r = new UserDTO();
 		r.setId(account.getId());
 		r.setEmail(account.getEmail());
 		final AccountDetails details = account.getAccountDetails();
@@ -26,6 +29,14 @@ public class AccountConverter {
 		r.setLastLoginDate(historicalInfo.getLastLoginDate());
 		r.setLastPasswordChangeDate(historicalInfo.getLastPasswordChangeDate());
 		return r;
+	}
+	
+	public static List<UserDTO> toDTOList(List<Account> accounts) {
+		List<UserDTO> resultList = new ArrayList<>();
+		for (Account a : accounts) {
+			resultList.add(toDTO(a));
+		}
+		return resultList;
 	}
 
 }
