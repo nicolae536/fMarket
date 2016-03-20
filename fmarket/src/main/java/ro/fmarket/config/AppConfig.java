@@ -11,7 +11,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan
+@ComponentScan("ro.fmarket")
+@EntityScan("ro.fmarket")
 @EnableTransactionManagement
 public class AppConfig {
 
