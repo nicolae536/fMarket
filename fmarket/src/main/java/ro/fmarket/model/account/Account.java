@@ -21,16 +21,18 @@ import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "id", "email" }) })
 public class Account extends BaseEntity {
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 60)
 	private String email;
 
 	@Column(nullable = false, columnDefinition = "binary", length = 70)
 	private String password;
 
 	@Enumerated(EnumType.STRING)
+	@Column(length = 15)
 	private AccountType type;
 
 	@Enumerated(EnumType.STRING)
+	@Column(length = 15)
 	private AccountStatus status;
 
 	@OneToOne(optional = false, cascade = CascadeType.ALL)

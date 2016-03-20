@@ -13,7 +13,7 @@ import ro.fmarket.core.base.BaseEntity;
 @MappedSuperclass
 public class TokenEntity extends BaseEntity {
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, length = 50)
 	private String token;
 
 	@Column(nullable = false)
