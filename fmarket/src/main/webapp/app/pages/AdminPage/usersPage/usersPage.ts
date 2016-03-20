@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation, Injectable} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 import {HTTP_PROVIDERS, Http} from 'angular2/http';
 
+import {PageWithNavigation} from '../../../components/pageWithNavigation/pageWithNavigation';
 import {CreateUserDialog} from '../../../components/CreateUserDialog/createUserDialog';
 import {ActionDialog} from '../../../components/ActionDialog/actionDialog';
 import {DialogActionResult} from  '../../../components/ModalDialog/modalDialog';
@@ -20,14 +21,14 @@ var applicationPath: string = '/app/pages/adminPage/usersPage';
 	directives:[ActionDialog, CreateUserDialog, NgForm]
 })
 
-export class UsersPage implements OnInit{
+export class UsersPage extends PageWithNavigation implements OnInit{
 	usersList:  Observable<User[]>;
 	userDialog: CreateUserDialog;
 	actionDialog: ActionDialog;
 
-    userPageNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
-    userPagesSubNumber: Array<number> = new Array<number>();
-    currentPageIndex: number = 1;
+    // userPageNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+    // userPagesSubNumber: Array<number> = new Array<number>();
+    // currentPageIndex: number = 1;
 
     cityList:  Array<string> = ["Cluj", "Dorna", "Blaj"];         
 
@@ -39,13 +40,14 @@ export class UsersPage implements OnInit{
     selectedStatusFilter: string = "";
 
 
-    constructor(private _userService: UserService) {		
+    constructor(private _userService: UserService) {	
+        super();	
     }
 
     ngOnInit(){
         var me= this;
         this.getUsers();
-        this.userPagesSubNumber = this.userPageNumber.slice(0, 5);
+        this.pageNumbsersSubset = this.pageNumbers.slice(0, 5);
     }
 
     referenceActionDialogInComponent(modal: ActionDialog){
@@ -58,13 +60,14 @@ export class UsersPage implements OnInit{
 
     getUsers(){
     	var me= this;
-        this._userService.getUsersWithFilters(this.currentPageIndex, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityFilter)
-        .subscribe(users => {
-            me.usersList = []
-            //todo change this
-            console.log(users);
-        }
-        );
+        this._userService.getUsers().then(r=>this.usersList = r);
+        // this._userService.getUsersWithFilters(this.currentPageIndex, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityFilter)
+        // .subscribe(users => {
+        //     me.usersList = []
+        //     //todo change this
+        //     console.log(users);
+        // }
+        // );
     }
 
 
@@ -115,73 +118,5 @@ export class UsersPage implements OnInit{
 
     applyFilters(){
         this.getUsers();
-    }
-
-
-    navigateLeft(){
-        if(this.currentPageIndex - 1 > this.userPageNumber[0]){
-            return;
-        }
-
-        this.currentPageIndex = this.currentPageIndex-1;
-        this.goToPage(this.currentPageIndex);
-    }
-
-    navigateRight(){
-        if(this.currentPageIndex + 1 === this.userPageNumber.length){
-            return;
-        }
-
-        this.currentPageIndex = this.currentPageIndex+1;
-        this.goToPage(this.currentPageIndex);
-    }
-
-    goToPageUsingIndex(pageIndex: number){
-        this.currentPageIndex = pageIndex;
-        this.goToPage(this.currentPageIndex);
-    }
-
-    isPageActive(page: number){
-        if(page === this.currentPageIndex){
-            return 'btn btn-default active-page';
-        }
-        return 'btn btn-default';
-    }
-
-    goToPage(pageIndex: number){
-        if(this.userPagesSubNumber.length === this.userPageNumber.length){
-            //get users with filters from that page
-            return;
-        }
-
-        var elementIndex = this.userPagesSubNumber.indexOf(this.currentPageIndex) ;
-        var auxArray = JSON.parse(JSON.stringify(this.userPagesSubNumber));
-
-        if(elementIndex > 2){
-            var lastElement = auxArray[auxArray.length-1];
-            var indexOfItemToTake =this.userPageNumber.indexOf(lastElement)+1;
-            if(indexOfItemToTake === this.userPageNumber.length){
-                this.currentPageIndex = this.userPageNumber[this.userPageNumber.length - 1];
-                return;    
-            }
-            auxArray = auxArray.slice(1,5);
-            auxArray[auxArray.length] = this.userPageNumber[indexOfItemToTake]; 
-            //get users with filters from that page
-        }
-
-
-        if(elementIndex < 2){
-            var firstElement = auxArray[0]
-            var indexOfItemToTake =this.userPageNumber.indexOf(firstElement)-1;
-            if(indexOfItemToTake === -1){
-                this.currentPageIndex = 0;
-                return;    
-            }
-            auxArray = auxArray.slice(0, 4);
-            auxArray.unshift(this.userPageNumber[indexOfItemToTake]); 
-            //get users with filters from that page
-        }
-
-        this.userPagesSubNumber = auxArray;
     }
 }

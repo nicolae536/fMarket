@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/ActionDialog/actionDialog'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../models/subscriber', '../../../components/ActionDialog/actionDialog'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, http_1, actionDialog_1;
+    var core_1, common_1, http_1, subscriber_1, actionDialog_1;
     var applicationPath, SubscribersPage;
     return {
         setters:[
@@ -23,6 +23,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
             function (http_1_1) {
                 http_1 = http_1_1;
             },
+            function (subscriber_1_1) {
+                subscriber_1 = subscriber_1_1;
+            },
             function (actionDialog_1_1) {
                 actionDialog_1 = actionDialog_1_1;
             }],
@@ -30,9 +33,17 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
             applicationPath = '/app/pages/adminPage/subscribersPage';
             SubscribersPage = (function () {
                 function SubscribersPage() {
+                    this.orderList = new Array("Ascending", "Descending");
+                    this.subscribersList = new Array(new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234));
                     // code...
                 }
                 SubscribersPage.prototype.ngOnInit = function () {
+                };
+                SubscribersPage.prototype.toggleEditMode = function (subscriber) {
+                    subscriber.isInEditMode = true;
+                };
+                SubscribersPage.prototype.saveEditedSubscriber = function (subscriber) {
+                    subscriber.isInEditMode = false;
                 };
                 SubscribersPage = __decorate([
                     core_1.Component({

@@ -55,7 +55,7 @@
 				</div>
 			</div>
 		</div>
-		<table class="table table-striped table-bordered" cellspacing="0" width="100%">
+		<table class="table table-striped" cellspacing="0" width="100%">
 			<thead>
 				<tr>
 					<th class="col-md-1">Id</th>
@@ -67,7 +67,7 @@
 				</tr>
 			</thead>
 			<tbody class="table-body">
-				<tr *ngFor="#user of usersList">
+				<tr *ngFor="#user of usersList"  [ngClass]="user.isInEditMode ? 'success':''">
 					<td>
 						<span >{{user.id}}</span>
 					</td>
@@ -114,7 +114,7 @@
 						</div>
 						<div class="col-xs-10">
 							<div class="btn-group" role="group">
-								<button *ngFor="#page of userPagesSubNumber" [class]="isPageActive(page)" type="button" (click)="goToPageUsingIndex(page)">{{page}}</button>
+								<button *ngFor="#page of pageNumbsersSubset" [class]="isPageActive(page)" type="button" (click)="goToPageUsingIndex(page)">{{page}}</button>
 							</div>
 						</div>
 						<div class="col-xs-1">

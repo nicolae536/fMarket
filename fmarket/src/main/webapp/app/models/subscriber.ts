@@ -5,6 +5,7 @@ export class Subscriber{
 	public subscribeDate: Date;
 	public unsubscribeDate: Date;
 	public unsubscribeToken: number;
+	public isInEditMode:boolean=false;
 
 	constructor(id: string, description: string, email: string, subscribeDate:Date, unsubscribeDate: Date, unsubscribeToken: number ) {
 		this.id = id? id : "";

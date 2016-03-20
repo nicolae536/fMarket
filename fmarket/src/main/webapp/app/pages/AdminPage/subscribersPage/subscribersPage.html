@@ -13,38 +13,108 @@
 	<div class="page-content">
 		<div class="row">
 			<div class="filters">
-				<strong class="h3">Filtre</strong>
+				<strong class="h3">Filtre</strong>				
 				<div class="clearfix filter-container">
-					<div class="col-md-2">
-						<div class="form-group">
-							<span>Email:</span>
-							<input type="text" [(ngModel)]="emailFilter" class="form-control" />
+					<div class="col-lg-6">
+						<div class="col-lg-6">					
+							<div class="form-group">
+								<span>Email:</span>
+								<input type="text" [(ngModel)]="emailFilter" class="form-control" />
+							</div>
 						</div>
-					</div>
-					<div class="col-md-2">
-						<div class="form-group">
-							<span>Name:</span>
-							<input type="text" [(ngModel)]="nameFilter" class="form-control"/>
-						</div>
-					</div>
-					<div class="col-md-2">
-						<span>Status:</span>
-						<div>
-							<select class="user-status-select" [(ngModel)]="selectedStatusFilter"> 
-								<option *ngFor="#option of statusList" [value]="option">{{option}}</option>
+						<div class="col-lg-6">					
+							<span>Ordoneaza dupa email:</span>
+							<select class="user-status-select" [(ngModel)]="emailOrder"> 
+								<option *ngFor="#option of orderList" [value]="option">{{option}}</option>
 							</select>
 						</div>
 					</div>
-					<div class="col-md-2">
-						<div class="form-group">
-							<span>City:</span>
-							<input type="text" [(ngModel)]="cityFilter" class="form-control"/>
+					<div class="col-lg-6">
+						<div class="col-lg-6">					
+							<div class="form-group">
+								<span>Subscribe date:</span>
+								<input type="text" [(ngModel)]="nameFilter" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-lg-6">					
+							<span>Ordoneaza dupa Subscribe date:</span>
+							<select class="user-status-select" [(ngModel)]="subscribeDateOrder"> 
+								<option *ngFor="#option of orderList" [value]="option">{{option}}</option>
+							</select>
 						</div>
 					</div>
-					<div class="secondary">
-						<button class="btn btn-success" (clicl)="applyFilters()">Aplica Filtre</button> 
+					
+					<div class="col-lg-6">
+						<div class="col-lg-6">	
+							<div class="form-group">
+								<span>Unsubscribe date:</span>
+								<input type="text" [(ngModel)]="cityFilter" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-lg-6">	
+							<span>Ordoneaza dupa Unsubscribe date:</span>
+							<select class="user-status-select" [(ngModel)]="cityOrder"> 
+								<option *ngFor="#option of orderList" [value]="option">{{option}}</option>
+							</select>
+						</div>
 					</div>
+					<div class="col-lg-6">						
+						<div class="secondary">
+							<button class="btn btn-success" (clicl)="applyFilters()">Aplica Filtre</button> 
+						</div>
+					</div>
+					
+				</div>	
+			</div>
+			<div class="subscribers">
+				<div class="table-responsiv">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th class="col-md-1">Id</th>
+								<th class="col-md-3">Email</th>
+								<th class="col-md-2">Subscribe date</th>
+								<th class="col-md-2">Unsubscribe date</th>
+								<th class="col-md-3">Unsubscribe token</th>
+								<th colspan="2">Actiuni</th>
+							</tr>
+						</thead>
+						<tbody class="table-body">
+							<tr *ngFor="#subscriber of subscribersList" [ngClass]="subscriber.isInEditMode ? 'success':''">
+								<td>
+									<span >{{subscriber.id}}</span>
+								</td>
+								<td>
+									<span *ngIf="!subscriber.isInEditMode">{{subscriber.email}}</span>
+									<input *ngIf="subscriber.isInEditMode" type="text" class="form-control" [(ngModel)]="subscriber.email" />
+								</td>
+								<td>
+									<span>{{subscriber.subscribeDate}}</span>
+								</td>
+								<td class="fit-select-to-td">
+									<span>{{subscriber.unsubscribeDate}}</span>
+								</td>
+								<td class="fit-select-to-td">
+									<span >{{subscriber.unsubscribeToken}}</span>
+								</td>
+								<td>
+									<a href="javascript:void(0)" *ngIf="!subscriber.isInEditMode" (click)="toggleEditMode(subscriber)">
+										<span class="glyphicon glyphicon-cog"></span>
+									</a>
+									<a href="javascript:void(0)" *ngIf="subscriber.isInEditMode" (click)="saveEditedSubscriber(subscriber)">
+										<span *ngIf="subscriber.isInEditMode" class="glyphicon glyphicon-ok"></span>
+									</a>
+								</td>
+								<td>
+								<a href="javascript:void(0)" (click)="unsubscribe(subscriber)">
+										<span class="glyphicon glyphicon-trash"></span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div> 
+</div>

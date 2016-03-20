@@ -1,6 +1,11 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/CreateUserDialog/createUserDialog', '../../../components/ActionDialog/actionDialog', '../../../components/ModalDialog/modalDialog', '../../../services/usersService'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/CreateUserDialog/createUserDialog', '../../../components/ActionDialog/actionDialog', '../../../components/ModalDialog/modalDialog', '../../../services/usersService'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
+    var __extends = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,7 +15,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, http_1, createUserDialog_1, actionDialog_1, modalDialog_1, usersService_1;
+    var core_1, common_1, http_1, pageWithNavigation_1, createUserDialog_1, actionDialog_1, modalDialog_1, usersService_1;
     var applicationPath, UsersPage;
     return {
         setters:[
@@ -22,6 +27,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
             },
             function (http_1_1) {
                 http_1 = http_1_1;
+            },
+            function (pageWithNavigation_1_1) {
+                pageWithNavigation_1 = pageWithNavigation_1_1;
             },
             function (createUserDialog_1_1) {
                 createUserDialog_1 = createUserDialog_1_1;
@@ -37,12 +45,14 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/usersPage';
-            UsersPage = (function () {
+            UsersPage = (function (_super) {
+                __extends(UsersPage, _super);
                 function UsersPage(_userService) {
+                    _super.call(this);
                     this._userService = _userService;
-                    this.userPageNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
-                    this.userPagesSubNumber = new Array();
-                    this.currentPageIndex = 1;
+                    // userPageNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+                    // userPagesSubNumber: Array<number> = new Array<number>();
+                    // currentPageIndex: number = 1;
                     this.cityList = ["Cluj", "Dorna", "Blaj"];
                     this.statusList = ["Active", "Inactive", "Pending"];
                     this.usersPerPage = 10;
@@ -54,7 +64,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 UsersPage.prototype.ngOnInit = function () {
                     var me = this;
                     this.getUsers();
-                    this.userPagesSubNumber = this.userPageNumber.slice(0, 5);
+                    this.pageNumbsersSubset = this.pageNumbers.slice(0, 5);
                 };
                 UsersPage.prototype.referenceActionDialogInComponent = function (modal) {
                     this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
@@ -63,13 +73,16 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     this.userDialog = modal; // Here you get a reference to the modal so you can control it programmatically
                 };
                 UsersPage.prototype.getUsers = function () {
+                    var _this = this;
                     var me = this;
-                    this._userService.getUsersWithFilters(this.currentPageIndex, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityFilter)
-                        .subscribe(function (users) {
-                        me.usersList = [];
-                        //todo change this
-                        console.log(users);
-                    });
+                    this._userService.getUsers().then(function (r) { return _this.usersList = r; });
+                    // this._userService.getUsersWithFilters(this.currentPageIndex, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityFilter)
+                    // .subscribe(users => {
+                    //     me.usersList = []
+                    //     //todo change this
+                    //     console.log(users);
+                    // }
+                    // );
                 };
                 //user actions
                 UsersPage.prototype.toggleEditMode = function (user) {
@@ -112,59 +125,6 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 UsersPage.prototype.applyFilters = function () {
                     this.getUsers();
                 };
-                UsersPage.prototype.navigateLeft = function () {
-                    if (this.currentPageIndex - 1 > this.userPageNumber[0]) {
-                        return;
-                    }
-                    this.currentPageIndex = this.currentPageIndex - 1;
-                    this.goToPage(this.currentPageIndex);
-                };
-                UsersPage.prototype.navigateRight = function () {
-                    if (this.currentPageIndex + 1 === this.userPageNumber.length) {
-                        return;
-                    }
-                    this.currentPageIndex = this.currentPageIndex + 1;
-                    this.goToPage(this.currentPageIndex);
-                };
-                UsersPage.prototype.goToPageUsingIndex = function (pageIndex) {
-                    this.currentPageIndex = pageIndex;
-                    this.goToPage(this.currentPageIndex);
-                };
-                UsersPage.prototype.isPageActive = function (page) {
-                    if (page === this.currentPageIndex) {
-                        return 'btn btn-default active-page';
-                    }
-                    return 'btn btn-default';
-                };
-                UsersPage.prototype.goToPage = function (pageIndex) {
-                    if (this.userPagesSubNumber.length === this.userPageNumber.length) {
-                        //get users with filters from that page
-                        return;
-                    }
-                    var elementIndex = this.userPagesSubNumber.indexOf(this.currentPageIndex);
-                    var auxArray = JSON.parse(JSON.stringify(this.userPagesSubNumber));
-                    if (elementIndex > 2) {
-                        var lastElement = auxArray[auxArray.length - 1];
-                        var indexOfItemToTake = this.userPageNumber.indexOf(lastElement) + 1;
-                        if (indexOfItemToTake === this.userPageNumber.length) {
-                            this.currentPageIndex = this.userPageNumber[this.userPageNumber.length - 1];
-                            return;
-                        }
-                        auxArray = auxArray.slice(1, 5);
-                        auxArray[auxArray.length] = this.userPageNumber[indexOfItemToTake];
-                    }
-                    if (elementIndex < 2) {
-                        var firstElement = auxArray[0];
-                        var indexOfItemToTake = this.userPageNumber.indexOf(firstElement) - 1;
-                        if (indexOfItemToTake === -1) {
-                            this.currentPageIndex = 0;
-                            return;
-                        }
-                        auxArray = auxArray.slice(0, 4);
-                        auxArray.unshift(this.userPageNumber[indexOfItemToTake]);
-                    }
-                    this.userPagesSubNumber = auxArray;
-                };
                 UsersPage = __decorate([
                     core_1.Component({
                         selector: 'users-Page',
@@ -177,7 +137,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     __metadata('design:paramtypes', [usersService_1.UserService])
                 ], UsersPage);
                 return UsersPage;
-            }());
+            }(pageWithNavigation_1.PageWithNavigation));
             exports_1("UsersPage", UsersPage);
         }
     }

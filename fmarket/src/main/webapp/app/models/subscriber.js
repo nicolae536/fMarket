@@ -7,6 +7,7 @@ System.register([], function(exports_1, context_1) {
         execute: function() {
             Subscriber = (function () {
                 function Subscriber(id, description, email, subscribeDate, unsubscribeDate, unsubscribeToken) {
+                    this.isInEditMode = false;
                     this.id = id ? id : "";
                     this.description = description ? description : "";
                     this.email = email ? email : "";

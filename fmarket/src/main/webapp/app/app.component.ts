@@ -3,7 +3,6 @@ import {RouteConfig, Router, Route, Location, ROUTER_DIRECTIVES, ROUTER_PROVIDER
 
 import {AdminPage} from './pages/AdminPage/adminPage';
 import {UserService} from './services/usersService';
-import {UsersPage} from './pages/usersPage/usersPage';
 
 var applicationPath: string = '/app/pages/usersPage';
 

@@ -19,18 +19,38 @@
 	margin-bottom: 12px;
 }
 
-.subscribers-page .page-content .row .filters .filter-container{
-	position: relative;
+.subscribers-page .page-content .row .filters{
+	padding-top: 5px;
 	padding-bottom: 5px;
 }
 
-.subscribers-page .page-content .row .filters .filter-container .col-md-2 .user-status-select{
+.subscribers-page .page-content .row .filters .filter-container{
+	position: relative;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.subscribers-page .page-content .row .filters .filter-container .col-lg-2 .user-status-select{
 	height: 34px;
 	width: 100%;
 }
 
- .subscribers-page .page-content .row .filters .filter-container .secondary{
- 	float: right;
- 	padding-top: 1.3%;
- }
+.subscribers-page .page-content .row .filters .filter-container .col-lg-6 .user-status-select{
+	height: 34px;
+	width: 100%;
+}
 
+.subscribers-page .page-content .row .filters .filter-container .secondary{
+	float: right;
+	padding-top: 16px;
+}
+
+.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td > input{
+	text-align:center; 
+}
+
+.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td,th{
+	text-align:center; 
+	vertical-align:middle;
+	height: 50px;
+}
