@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/CreateUserDialog/createUserDialog', '../../../components/ActionDialog/actionDialog', '../../../components/ModalDialog/modalDialog', '../../../services/usersService'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createUserDialog/createUserDialog', '../../../components/actionDialog/actionDialog', '../../../components/modalDialog/modalDialog', '../../../services/usersService'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {

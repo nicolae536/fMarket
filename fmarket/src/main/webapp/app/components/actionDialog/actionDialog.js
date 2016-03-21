@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../ModalDialog/modalDialog'], function(exports_1, context_1) {
+System.register(['angular2/core', '../modalDialog/modalDialog'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -55,7 +55,7 @@ System.register(['angular2/core', '../ModalDialog/modalDialog'], function(export
                         selector: 'action-dialog'
                     }),
                     core_1.View({
-                        templateUrl: 'app/components/ActionDialog/actionDialog.html'
+                        templateUrl: 'app/components/actionDialog/actionDialog.html'
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ActionDialog);

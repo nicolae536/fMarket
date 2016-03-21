@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './pages/AdminPage/adminPage'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './pages/adminPage/adminPage'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/router', './pages/AdminPage/adminPag
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1, adminPage_1;
-    var applicationPath, AppComponent;
+    var AppComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -24,7 +24,6 @@ System.register(['angular2/core', 'angular2/router', './pages/AdminPage/adminPag
                 adminPage_1 = adminPage_1_1;
             }],
         execute: function() {
-            applicationPath = '/app/pages/usersPage';
             AppComponent = (function () {
                 function AppComponent(router, location) {
                     this.router = router;
@@ -35,7 +34,6 @@ System.register(['angular2/core', 'angular2/router', './pages/AdminPage/adminPag
                         selector: 'my-app',
                         template: "<router-outlet></router-outlet>",
                         directives: [router_1.ROUTER_DIRECTIVES],
-                        providers: [router_1.ROUTER_PROVIDERS]
                     }),
                     router_1.RouteConfig([
                         new router_1.Route({

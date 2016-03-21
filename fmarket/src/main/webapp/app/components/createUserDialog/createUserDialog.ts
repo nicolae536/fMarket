@@ -1,12 +1,12 @@
 import {Component, Injectable, View, Input, Output, EventEmitter} from 'angular2/core';
-import {ModalDialog, DialogAction} from '../ModalDialog/modalDialog';
+import {ModalDialog, DialogActionResult} from '../modalDialog/modalDialog';
 import {User} from '../../models/user';
 
 @Component({
   selector: 'create-user-dialog'
 })
 @View({
-  templateUrl: 'app/components/CreateUserDialog/createUserDialog.html'
+  templateUrl: 'app/components/createUserDialog/createUserDialog.html'
 })
 
 export class CreateUserDialog extends ModalDialog{

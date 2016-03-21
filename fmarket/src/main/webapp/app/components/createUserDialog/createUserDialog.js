@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../ModalDialog/modalDialog', '../../models/user'], function(exports_1, context_1) {
+System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/user'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -84,7 +84,7 @@ System.register(['angular2/core', '../ModalDialog/modalDialog', '../../models/us
                         selector: 'create-user-dialog'
                     }),
                     core_1.View({
-                        templateUrl: 'app/components/CreateUserDialog/createUserDialog.html'
+                        templateUrl: 'app/components/createUserDialog/createUserDialog.html'
                     }), 
                     __metadata('design:paramtypes', [])
                 ], CreateUserDialog);

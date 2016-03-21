@@ -3,8 +3,8 @@ import {NgForm} from 'angular2/common';
 import {HTTP_PROVIDERS, Http} from 'angular2/http';
 
 import {Subscriber} from '../../../models/subscriber'
-import {ActionDialog} from '../../../components/ActionDialog/actionDialog';
-import {DialogActionResult} from  '../../../components/ModalDialog/modalDialog';
+import {ActionDialog} from '../../../components/actionDialog/actionDialog';
+import {DialogActionResult} from  '../../../components/modalDialog/modalDialog';
 
 var applicationPath: string = '/app/pages/adminPage/subscribersPage';
 

@@ -27,7 +27,7 @@ System.register(['angular2/core', 'angular2/router', './usersPage/usersPage', '.
                 subscribersPage_1 = subscribersPage_1_1;
             }],
         execute: function() {
-            applicationPath = '/app/pages/AdminPage';
+            applicationPath = '/app/pages/adminPage';
             AdminPage = (function () {
                 function AdminPage(location, router) {
                     this.location = location;

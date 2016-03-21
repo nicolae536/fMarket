@@ -3,7 +3,7 @@ import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Locatio
 import {UsersPage} from './usersPage/usersPage';
 import {SubscribersPage} from './subscribersPage/subscribersPage';
 
-var applicationPath:string = '/app/pages/AdminPage';
+var applicationPath:string = '/app/pages/adminPage';
 
 @Component({
 	selector: 'admin-Page',

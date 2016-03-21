@@ -3,9 +3,9 @@ import {NgForm} from 'angular2/common';
 import {HTTP_PROVIDERS, Http} from 'angular2/http';
 
 import {PageWithNavigation} from '../../../components/pageWithNavigation/pageWithNavigation';
-import {CreateUserDialog} from '../../../components/CreateUserDialog/createUserDialog';
-import {ActionDialog} from '../../../components/ActionDialog/actionDialog';
-import {DialogActionResult} from  '../../../components/ModalDialog/modalDialog';
+import {CreateUserDialog} from '../../../components/createUserDialog/createUserDialog';
+import {ActionDialog} from '../../../components/actionDialog/actionDialog';
+import {DialogActionResult} from  '../../../components/modalDialog/modalDialog';
 import {UserService} from '../../../services/usersService';
 import {User} from '../../../models/user';
 

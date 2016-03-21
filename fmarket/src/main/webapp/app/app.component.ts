@@ -1,17 +1,14 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, Router, Route, Location, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 
-import {AdminPage} from './pages/AdminPage/adminPage';
+import {AdminPage} from './pages/adminPage/adminPage';
 import {UserService} from './services/usersService';
-
-var applicationPath: string = '/app/pages/usersPage';
-
 
 @Component({
 	selector: 'my-app',
 	template:`<router-outlet></router-outlet>`,
 	directives:[ROUTER_DIRECTIVES],
-	providers: [ROUTER_PROVIDERS]
+//providers: [ROUTER_PROVIDERS]
 })
 
 @RouteConfig([
