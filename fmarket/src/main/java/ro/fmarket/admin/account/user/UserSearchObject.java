@@ -8,7 +8,7 @@ public class UserSearchObject {
 
 	private Integer id;
 	private String email;
-	private AccountStatus status;
+	public AccountStatus status;
 	private String name;
 	private Integer cityId;
 	

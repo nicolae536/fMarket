@@ -1,11 +1,13 @@
 import {Injectable} from 'angular2/core';
-import {HTTP_PROVIDERS, Http, BaseRequestOptions} from 'angular2/http';
+import {HTTP_PROVIDERS, Http, BaseRequestOptions, Headers} from 'angular2/http';
 import {User} from "../models/user";
+import {AccountStatus} from "../models/user";
 import {USERS} from "./mock-providers/mock-Users";
 
 @Injectable()
 export class UserService {
 	http: Http;
+	adminUsersControllerRoute:string = '/admin/users';
 
 	constructor(http: Http) {
 		console.log('Http injected');
@@ -20,16 +22,36 @@ export class UserService {
 		this.http.post('/admin/users', JSON.stringify(user));
 	}
 
-	getUsersWithFilters(pageIndex:number, emailFilter :string, nameFilter :string, selectedStatusFilter :string, cityFilter :string){
-		var requestOptions:RequestOptions = {email:emailFilter, name:nameFilter, status:selectedStatusFilter, city:cityFilter, pageIndex:pageIndex};
-		return this.http.get('/admin/users', requestOptions);
+	getUsersWithFilters(id:number, emailFilter :string, nameFilter :string, selectedStatusFilter :AccountStatus, cityId :number, pageIndex:number){
+		var requestOptions:RequestOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);
+
+		var headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+
+		return this.http.post(this.adminUsersControllerRoute + '/search?page=' + pageIndex, JSON.stringify(requestOptions), {headers:headers});
+	}
+
+	buildSearchObject(id:number, emailFilter :string, nameFilter :string, selectedStatusFilter :AccountStatus, cityId :number, pageIndex:number):RequestOptions{
+		var requestOptions:RequestOptions ={
+			id:id === -1 ? -1 : id, 
+			email: emailFilter,
+			name: nameFilter, 
+			status: selectedStatusFilter ? selectedStatusFilter : AccountStatus.AUTO, 
+			cityId: cityId === -1 ? -1 : cityId 			
+		};
+		return requestOptions;
 	}
 }
 
-interface RequestOptions{	
+interface SearchObject{
+	searchObject:RequestOptions;
+	page:number;
+}
+
+interface RequestOptions{
+	id	:number;
 	email:string;
 	name:string;
-	status:string;
-	city:string;
-	pageIndex:number;
+	status:AccountStatus;
+	cityId:number;
 }

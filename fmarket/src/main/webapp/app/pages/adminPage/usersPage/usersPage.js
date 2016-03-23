@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createUserDialog/createUserDialog', '../../../components/actionDialog/actionDialog', '../../../components/modalDialog/modalDialog', '../../../services/usersService'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createUserDialog/createUserDialog', '../../../components/actionDialog/actionDialog', '../../../components/modalDialog/modalDialog', '../../../services/usersService', '../../../models/user'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -15,7 +13,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, http_1, pageWithNavigation_1, createUserDialog_1, actionDialog_1, modalDialog_1, usersService_1;
+    var core_1, common_1, http_1, pageWithNavigation_1, createUserDialog_1, actionDialog_1, modalDialog_1, usersService_1, user_1;
     var applicationPath, UsersPage;
     return {
         setters:[
@@ -42,6 +40,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
             },
             function (usersService_1_1) {
                 usersService_1 = usersService_1_1;
+            },
+            function (user_1_1) {
+                user_1 = user_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/usersPage';
@@ -58,8 +59,8 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     this.usersPerPage = 10;
                     this.emailFilter = "";
                     this.nameFilter = "";
-                    this.cityFilter = "";
-                    this.selectedStatusFilter = "";
+                    this.cityId = -1;
+                    this.selectedStatusFilter = user_1.AccountStatus.AUTO;
                 }
                 UsersPage.prototype.ngOnInit = function () {
                     var me = this;
@@ -73,16 +74,12 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     this.userDialog = modal; // Here you get a reference to the modal so you can control it programmatically
                 };
                 UsersPage.prototype.getUsers = function () {
-                    var _this = this;
                     var me = this;
-                    this._userService.getUsers().then(function (r) { return _this.usersList = r; });
-                    // this._userService.getUsersWithFilters(this.currentPageIndex, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityFilter)
-                    // .subscribe(users => {
-                    //     me.usersList = []
-                    //     //todo change this
-                    //     console.log(users);
-                    // }
-                    // );
+                    this._userService.getUsersWithFilters(-1, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
+                        .subscribe(function (users) {
+                        me.usersList = [];
+                        console.log(users);
+                    });
                 };
                 //user actions
                 UsersPage.prototype.toggleEditMode = function (user) {
@@ -137,7 +134,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     __metadata('design:paramtypes', [usersService_1.UserService])
                 ], UsersPage);
                 return UsersPage;
-            }(pageWithNavigation_1.PageWithNavigation));
+            })(pageWithNavigation_1.PageWithNavigation);
             exports_1("UsersPage", UsersPage);
         }
     }

@@ -8,7 +8,6 @@ import {UserService} from './services/usersService';
 	selector: 'my-app',
 	template:`<router-outlet></router-outlet>`,
 	directives:[ROUTER_DIRECTIVES],
-//providers: [ROUTER_PROVIDERS]
 })
 
 @RouteConfig([

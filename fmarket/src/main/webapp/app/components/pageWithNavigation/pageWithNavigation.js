@@ -1,6 +1,4 @@
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register([], function(exports_1) {
     var PageWithNavigation;
     return {
         setters:[],
@@ -66,7 +64,7 @@ System.register([], function(exports_1, context_1) {
                     this.pageNumbsersSubset = auxArray;
                 };
                 return PageWithNavigation;
-            }());
+            })();
             exports_1("PageWithNavigation", PageWithNavigation);
         }
     }

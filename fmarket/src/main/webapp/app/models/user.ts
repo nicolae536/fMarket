@@ -4,7 +4,7 @@ export class User{
 	public name:string;
 	public password:string;
 	public type:string;
-	public status:string;
+	public status:AccountStatus;
 	public creationDate: Date;
 	public closedDate: Date;
 	public lastPasswordChangeDate: Date;
@@ -17,12 +17,12 @@ export class User{
 	public isInEditMode:boolean=false;
 
 	//constructor()
-	constructor(id, name, email, type, status, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes) {
+	constructor(id, name, email, type, status:AccountStatus, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes) {
 		this.id = id ? id:-1;
 		this.name = name ? name:"";
 		this.email = email ? email:"";
 		this.type = type ? type:"";
-		this.status = status ? status:"";
+		this.status = status ? status : AccountStatus.AUTO;
 		this.creationDate = creationDate ? creationDate.toLocaleDateString("en-US") :new Date(1,1,1,0,0,0,0).toLocaleDateString("en-US");
 		this.closedDate = closedDate ? closedDate.toLocaleDateString("en-US") :new Date(1,1,1,0,0,0,0).toLocaleDateString("en-US");
 		this.lastPasswordChangeDate = lastPasswordChangeDate ? lastPasswordChangeDate.toLocaleDateString("en-US") :new Date(1,1,1,0,0,0,0).toLocaleDateString("en-US");
@@ -85,4 +85,8 @@ export class User{
 
 		return true;
 	}
+}
+
+export enum AccountStatus {
+	ACTIVE, PENDING, DISABLED, AUTO
 }

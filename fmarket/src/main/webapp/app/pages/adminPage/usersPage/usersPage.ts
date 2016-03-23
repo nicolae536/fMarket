@@ -8,6 +8,7 @@ import {ActionDialog} from '../../../components/actionDialog/actionDialog';
 import {DialogActionResult} from  '../../../components/modalDialog/modalDialog';
 import {UserService} from '../../../services/usersService';
 import {User} from '../../../models/user';
+import {AccountStatus} from '../../../models/user';
 
 var applicationPath: string = '/app/pages/adminPage/usersPage';
 
@@ -36,8 +37,8 @@ export class UsersPage extends PageWithNavigation implements OnInit{
     usersPerPage: number =10;    
     emailFilter: string = "";
     nameFilter: string = "";
-    cityFilter: string = "";
-    selectedStatusFilter: string = "";
+    cityId: number = -1;
+    selectedStatusFilter: AccountStatus = AccountStatus.AUTO;
 
 
     constructor(private _userService: UserService) {	
@@ -60,14 +61,12 @@ export class UsersPage extends PageWithNavigation implements OnInit{
 
     getUsers(){
     	var me= this;
-        this._userService.getUsers().then(r=>this.usersList = r);
-        // this._userService.getUsersWithFilters(this.currentPageIndex, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityFilter)
-        // .subscribe(users => {
-        //     me.usersList = []
-        //     //todo change this
-        //     console.log(users);
-        // }
-        // );
+        this._userService.getUsersWithFilters(-1, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
+            .subscribe(users => {
+                me.usersList = []
+                console.log(users);
+            }
+        );
     }
 
 

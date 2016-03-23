@@ -1,7 +1,5 @@
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
-    var User;
+System.register([], function(exports_1) {
+    var User, AccountStatus;
     return {
         setters:[],
         execute: function() {
@@ -13,7 +11,7 @@ System.register([], function(exports_1, context_1) {
                     this.name = name ? name : "";
                     this.email = email ? email : "";
                     this.type = type ? type : "";
-                    this.status = status ? status : "";
+                    this.status = status ? status : AccountStatus.AUTO;
                     this.creationDate = creationDate ? creationDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
                     this.closedDate = closedDate ? closedDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
                     this.lastPasswordChangeDate = lastPasswordChangeDate ? lastPasswordChangeDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
@@ -64,8 +62,15 @@ System.register([], function(exports_1, context_1) {
                     return true;
                 };
                 return User;
-            }());
+            })();
             exports_1("User", User);
+            (function (AccountStatus) {
+                AccountStatus[AccountStatus["ACTIVE"] = 0] = "ACTIVE";
+                AccountStatus[AccountStatus["PENDING"] = 1] = "PENDING";
+                AccountStatus[AccountStatus["DISABLED"] = 2] = "DISABLED";
+                AccountStatus[AccountStatus["AUTO"] = 3] = "AUTO";
+            })(AccountStatus || (AccountStatus = {}));
+            exports_1("AccountStatus", AccountStatus);
         }
     }
 });

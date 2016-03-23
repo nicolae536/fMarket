@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-Users"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/http', "../models/user", "./mock-providers/mock-Users"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,7 +8,7 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-Users"
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, mock_Users_1;
+    var core_1, http_1, user_1, mock_Users_1;
     var UserService;
     return {
         setters:[
@@ -20,12 +18,16 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-Users"
             function (http_1_1) {
                 http_1 = http_1_1;
             },
+            function (user_1_1) {
+                user_1 = user_1_1;
+            },
             function (mock_Users_1_1) {
                 mock_Users_1 = mock_Users_1_1;
             }],
         execute: function() {
             UserService = (function () {
                 function UserService(http) {
+                    this.adminUsersControllerRoute = '/admin/users';
                     console.log('Http injected');
                     this.http = http;
                 }
@@ -35,16 +37,28 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-Users"
                 UserService.prototype.updateUser = function (user) {
                     this.http.post('/admin/users', JSON.stringify(user));
                 };
-                UserService.prototype.getUsersWithFilters = function (pageIndex, emailFilter, nameFilter, selectedStatusFilter, cityFilter) {
-                    var requestOptions = { email: emailFilter, name: nameFilter, status: selectedStatusFilter, city: cityFilter, pageIndex: pageIndex };
-                    return this.http.get('/admin/users', requestOptions);
+                UserService.prototype.getUsersWithFilters = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
+                    var requestOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    return this.http.post(this.adminUsersControllerRoute + '/search?page=' + pageIndex, JSON.stringify(requestOptions), { headers: headers });
+                };
+                UserService.prototype.buildSearchObject = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
+                    var requestOptions = {
+                        id: id === -1 ? -1 : id,
+                        email: emailFilter,
+                        name: nameFilter,
+                        status: selectedStatusFilter ? selectedStatusFilter : user_1.AccountStatus.AUTO,
+                        cityId: cityId === -1 ? -1 : cityId
+                    };
+                    return requestOptions;
                 };
                 UserService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
                 ], UserService);
                 return UserService;
-            }());
+            })();
             exports_1("UserService", UserService);
         }
     }
