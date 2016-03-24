@@ -19,16 +19,16 @@ export class UserService {
 	}
 
 	updateUser(user:User){
-		this.http.post('/admin/users', JSON.stringify(user));
+		this.http.put('/admin/users', JSON.stringify(user));
+	}
+
+	createUser(user:User){
+		return this.http.post(this.adminUsersControllerRoute, JSON.stringify(user), this.getRequestOptions());
 	}
 
 	getUsersWithFilters(id:number, emailFilter :string, nameFilter :string, selectedStatusFilter :AccountStatus, cityId :number, pageIndex:number){
 		var requestOptions:RequestOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);
-
-		var headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-
-		return this.http.post(this.adminUsersControllerRoute + '/search?page=' + pageIndex, JSON.stringify(requestOptions), {headers:headers});
+		return this.http.post(this.adminUsersControllerRoute + '/search?page=' + pageIndex, JSON.stringify(requestOptions), this.getRequestOptions());
 	}
 
 	buildSearchObject(id:number, emailFilter :string, nameFilter :string, selectedStatusFilter :AccountStatus, cityId :number, pageIndex:number):RequestOptions{
@@ -40,6 +40,12 @@ export class UserService {
 			cityId: cityId === -1 ? -1 : cityId 			
 		};
 		return requestOptions;
+	}
+
+	getRequestOptions(){
+		var headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		return {headers:headers};
 	}
 }
 

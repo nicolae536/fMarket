@@ -15,9 +15,9 @@ export class CreateUserDialog extends ModalDialog{
   @Input('cancel-label') cancelLabel: string = 'Cancel';
   @Input('positive-label') positiveLabel: string = 'Create User';
   @Output('loaded') loadedEmitter: EventEmitter<CreateUserDialog> = new EventEmitter<CreateUserDialog>();
-  cityList:  Array<string> = ["Cluj", "Dorna", "Blaj"];         
-
-  statusList: Array<string> = ["Active", "Inactive", "Pending"];  
+  
+  cityList:  Array<Object>;         
+  statusList: Array<Object>;
   newUser: User = new User();
 
   constructor() {
@@ -39,12 +39,12 @@ export class CreateUserDialog extends ModalDialog{
     return this.newUser;
   }
 
-  show(cityList, statusList):Promise<DialogAction> {
+  show(cityList, statusList):Promise<DialogActionResult> {
     this.showModal = true;
     this.cityList = cityList;
     this.statusList = statusList;
     var me=this;
-    return new Promise<DialogAction>((resolve, reject)=>{
+    return new Promise<DialogActionResult>((resolve, reject)=>{
       me.resolveModal =  resolve;
     });    
   }  

@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createUserDialog/createUserDialog', '../../../components/actionDialog/actionDialog', '../../../components/modalDialog/modalDialog', '../../../services/usersService', '../../../models/user'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createUserDialog/createUserDialog', '../../../components/actionDialog/actionDialog', '../../../components/modalDialog/modalDialog', '../../../services/usersService', '../../../models/user'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -54,8 +56,14 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     // userPageNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
                     // userPagesSubNumber: Array<number> = new Array<number>();
                     // currentPageIndex: number = 1;
-                    this.cityList = ["Cluj", "Dorna", "Blaj"];
-                    this.statusList = ["Active", "Inactive", "Pending"];
+                    this.cityList = [{ id: 0, name: "Cluj" },
+                        { id: 1, name: "Dorna" },
+                        { id: 2, name: "Blaj" }];
+                    this.statusList = [
+                        { status: user_1.AccountStatus.ACTIVE, displayName: "ACTIVE" },
+                        { status: user_1.AccountStatus.AUTO, displayName: "AUTO" },
+                        { status: user_1.AccountStatus.DISABLED, displayName: "DISABLED" },
+                        { status: user_1.AccountStatus.DISABLED, displayName: "PENDING" }];
                     this.usersPerPage = 10;
                     this.emailFilter = "";
                     this.nameFilter = "";
@@ -114,7 +122,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                             return;
                         }
                         //post to backend
-                        _this.userDialog.getValue();
+                        _this._userService.createUser(_this.userDialog.getValue()).subscribe(function (resp) { });
                     });
                 };
                 UsersPage.prototype.sortUsers = function (user) {
@@ -134,7 +142,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     __metadata('design:paramtypes', [usersService_1.UserService])
                 ], UsersPage);
                 return UsersPage;
-            })(pageWithNavigation_1.PageWithNavigation);
+            }(pageWithNavigation_1.PageWithNavigation));
             exports_1("UsersPage", UsersPage);
         }
     }

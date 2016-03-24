@@ -1,4 +1,6 @@
-System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/user'], function(exports_1) {
+System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/user'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -36,8 +38,6 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/us
                     this.cancelLabel = 'Cancel';
                     this.positiveLabel = 'Create User';
                     this.loadedEmitter = new core_1.EventEmitter();
-                    this.cityList = ["Cluj", "Dorna", "Blaj"];
-                    this.statusList = ["Active", "Inactive", "Pending"];
                     this.newUser = new user_1.User();
                 }
                 CreateUserDialog.prototype.editUser = function (user, cityList, statusList) {
@@ -87,7 +87,7 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/us
                     __metadata('design:paramtypes', [])
                 ], CreateUserDialog);
                 return CreateUserDialog;
-            })(modalDialog_1.ModalDialog);
+            }(modalDialog_1.ModalDialog));
             exports_1("CreateUserDialog", CreateUserDialog);
         }
     }

@@ -18,7 +18,7 @@ var applicationPath: string = '/app/pages/adminPage/usersPage';
 	styleUrls:[	applicationPath + '/usersPage.css'],
 	encapsulation: ViewEncapsulation.None, 
 
-	providers:[UserService, HTTP_PROVIDERS],
+	providers:[UserService, HTTP_PROVIDERS], 
 	directives:[ActionDialog, CreateUserDialog, NgForm]
 })
 
@@ -31,9 +31,15 @@ export class UsersPage extends PageWithNavigation implements OnInit{
     // userPagesSubNumber: Array<number> = new Array<number>();
     // currentPageIndex: number = 1;
 
-    cityList:  Array<string> = ["Cluj", "Dorna", "Blaj"];         
+    cityList:  Array<Object> = [{id:0,name: "Cluj"}, 
+                                {id:1, name:"Dorna"}, 
+                                {id:2, name:"Blaj"}];         
 
-    statusList: Array<string> = ["Active", "Inactive", "Pending"];	
+    statusList: Array<Object> = [
+                                {status:AccountStatus.ACTIVE, displayName: "ACTIVE"},
+                                 {status:AccountStatus.AUTO, displayName: "AUTO"},
+                                 {status:AccountStatus.DISABLED, displayName: "DISABLED"},
+                                 {status:AccountStatus.DISABLED, displayName: "PENDING"}];	
     usersPerPage: number =10;    
     emailFilter: string = "";
     nameFilter: string = "";
@@ -64,7 +70,7 @@ export class UsersPage extends PageWithNavigation implements OnInit{
         this._userService.getUsersWithFilters(-1, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
             .subscribe(users => {
                 me.usersList = []
-                console.log(users);
+                console.log(users);   
             }
         );
     }
@@ -77,9 +83,9 @@ export class UsersPage extends PageWithNavigation implements OnInit{
 
     editUser(user: User){
         var me =this;
-    	this.userDialog.editUser(user, this.cityList, this.statusList).then(actionResult => {
-    		me._userService.updateUser(user);
-    	});
+        this.userDialog.editUser(user, this.cityList, this.statusList).then(actionResult => {
+            me._userService.updateUser(user);
+        });
     }
 
     deleteUser(user: User){
@@ -107,7 +113,9 @@ export class UsersPage extends PageWithNavigation implements OnInit{
     			return;
     		}
     		//post to backend
-    		this.userDialog.getValue();
+    		this._userService.createUser(this.userDialog.getValue()).subscribe(resp => {
+                //todo do something with the response
+            });
     	});
     }
 

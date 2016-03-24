@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/http', "../models/user", "./mock-providers/mock-Users"], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', "../models/user", "./mock-providers/mock-Users"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -35,13 +37,14 @@ System.register(['angular2/core', 'angular2/http', "../models/user", "./mock-pro
                     return Promise.resolve(mock_Users_1.USERS);
                 };
                 UserService.prototype.updateUser = function (user) {
-                    this.http.post('/admin/users', JSON.stringify(user));
+                    this.http.put('/admin/users', JSON.stringify(user));
+                };
+                UserService.prototype.createUser = function (user) {
+                    return this.http.post(this.adminUsersControllerRoute, JSON.stringify(user), this.getRequestOptions());
                 };
                 UserService.prototype.getUsersWithFilters = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
                     var requestOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);
-                    var headers = new http_1.Headers();
-                    headers.append('Content-Type', 'application/json');
-                    return this.http.post(this.adminUsersControllerRoute + '/search?page=' + pageIndex, JSON.stringify(requestOptions), { headers: headers });
+                    return this.http.post(this.adminUsersControllerRoute + '/search?page=' + pageIndex, JSON.stringify(requestOptions), this.getRequestOptions());
                 };
                 UserService.prototype.buildSearchObject = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
                     var requestOptions = {
@@ -53,12 +56,17 @@ System.register(['angular2/core', 'angular2/http', "../models/user", "./mock-pro
                     };
                     return requestOptions;
                 };
+                UserService.prototype.getRequestOptions = function () {
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    return { headers: headers };
+                };
                 UserService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
                 ], UserService);
                 return UserService;
-            })();
+            }());
             exports_1("UserService", UserService);
         }
     }

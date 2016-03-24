@@ -5,6 +5,7 @@ export class User{
 	public password:string;
 	public type:string;
 	public status:AccountStatus;
+	public phone: string;
 	public creationDate: Date;
 	public closedDate: Date;
 	public lastPasswordChangeDate: Date;
@@ -16,8 +17,8 @@ export class User{
 	public autoLoginTimes:number;
 	public isInEditMode:boolean=false;
 
-	//constructor()
-	constructor(id, name, email, type, status:AccountStatus, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes) {
+	constructor();
+	constructor(id, name, email, type, status:AccountStatus, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes, phone) {
 		this.id = id ? id:-1;
 		this.name = name ? name:"";
 		this.email = email ? email:"";
@@ -32,6 +33,7 @@ export class User{
 		this.city =city ?  city: "";
 		this.loginTimes = loginTimes ? loginTimes : -1;
 		this.autoLoginTimes = autoLoginTimes ? autoLoginTimes: -1;
+		this.phone = phone  ? phone : "";
 	}
 
 	isValid(): boolean{
@@ -80,6 +82,10 @@ export class User{
 		}
 
 		if(!this.autoLoginTimes || this.autoLoginTimes === -1){
+			return false;
+		}
+
+		if(!this.phone || this.phone === ""){
 			return false;
 		}
 

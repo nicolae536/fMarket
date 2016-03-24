@@ -1,11 +1,12 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var User, AccountStatus;
     return {
         setters:[],
         execute: function() {
             User = (function () {
-                //constructor()
-                function User(id, name, email, type, status, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes) {
+                function User(id, name, email, type, status, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes, phone) {
                     this.isInEditMode = false;
                     this.id = id ? id : -1;
                     this.name = name ? name : "";
@@ -21,6 +22,7 @@ System.register([], function(exports_1) {
                     this.city = city ? city : "";
                     this.loginTimes = loginTimes ? loginTimes : -1;
                     this.autoLoginTimes = autoLoginTimes ? autoLoginTimes : -1;
+                    this.phone = phone ? phone : "";
                 }
                 User.prototype.isValid = function () {
                     if (!this.id || this.id === -1) {
@@ -59,10 +61,13 @@ System.register([], function(exports_1) {
                     if (!this.autoLoginTimes || this.autoLoginTimes === -1) {
                         return false;
                     }
+                    if (!this.phone || this.phone === "") {
+                        return false;
+                    }
                     return true;
                 };
                 return User;
-            })();
+            }());
             exports_1("User", User);
             (function (AccountStatus) {
                 AccountStatus[AccountStatus["ACTIVE"] = 0] = "ACTIVE";
