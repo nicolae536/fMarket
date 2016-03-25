@@ -4,4 +4,7 @@ import {provide} from 'angular2/core';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 
 //console.log(HTTP_PROVIDERS);
-bootstrap(AppComponent);
+bootstrap(AppComponent, [
+	ROUTER_PROVIDERS,
+	provide(LocationStrategy, {useClass: HashLocationStrategy})
+	]);

@@ -67,7 +67,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     this.usersPerPage = 10;
                     this.emailFilter = "";
                     this.nameFilter = "";
-                    this.cityId = -1;
+                    this.cityId = 1;
                     this.selectedStatusFilter = user_1.AccountStatus.AUTO;
                 }
                 UsersPage.prototype.ngOnInit = function () {

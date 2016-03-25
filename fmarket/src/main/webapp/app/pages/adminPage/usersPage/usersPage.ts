@@ -43,7 +43,7 @@ export class UsersPage extends PageWithNavigation implements OnInit{
     usersPerPage: number =10;    
     emailFilter: string = "";
     nameFilter: string = "";
-    cityId: number = -1;
+    cityId: number = 1;
     selectedStatusFilter: AccountStatus = AccountStatus.AUTO;
 
 
