@@ -1,5 +1,6 @@
 package ro.fmarket.model.account;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,7 +24,7 @@ public class Account extends BaseEntity {
 	@Column(nullable = false)
 	private String email;
 
-	@Column(nullable = false, columnDefinition = "bit", length = 70)
+	@Column(nullable = false, columnDefinition = "binary", length = 70)
 	private String password;
 
 	@Enumerated(EnumType.STRING)
@@ -32,10 +33,10 @@ public class Account extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private AccountStatus status;
 
-	@OneToOne(optional = false)
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	private AccountHistoricalInfo historicalInfo;
 
-	@OneToOne(optional = false)
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	private AccountDetails accountDetails;
 
 }

@@ -32,8 +32,8 @@ public class BaseDao<T> {
 		return (T) getSession().get(type, id);
 	}
 
-	public Long save(T entity) {
-		return (Long) getSession().save(entity);
+	public Integer save(T entity) {
+		return (Integer) getSession().save(entity);
 	}
 
 	public void update(T entity) {

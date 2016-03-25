@@ -31,8 +31,8 @@ export class UsersPage extends PageWithNavigation implements OnInit{
     // userPagesSubNumber: Array<number> = new Array<number>();
     // currentPageIndex: number = 1;
 
-    cityList:  Array<Object> = [{id:0,name: "Cluj"}, 
-                                {id:1, name:"Dorna"}, 
+    cityList:  Array<Object> = [{id:1,name: "Cluj"}, 
+                                {id:0, name:"Dorna"}, 
                                 {id:2, name:"Blaj"}];         
 
     statusList: Array<Object> = [

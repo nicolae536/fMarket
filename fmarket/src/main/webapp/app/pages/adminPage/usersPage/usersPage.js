@@ -56,8 +56,8 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     // userPageNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
                     // userPagesSubNumber: Array<number> = new Array<number>();
                     // currentPageIndex: number = 1;
-                    this.cityList = [{ id: 0, name: "Cluj" },
-                        { id: 1, name: "Dorna" },
+                    this.cityList = [{ id: 1, name: "Cluj" },
+                        { id: 0, name: "Dorna" },
                         { id: 2, name: "Blaj" }];
                     this.statusList = [
                         { status: user_1.AccountStatus.ACTIVE, displayName: "ACTIVE" },
@@ -122,7 +122,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                             return;
                         }
                         //post to backend
-                        _this._userService.createUser(_this.userDialog.getValue()).subscribe(function (resp) { });
+                        _this._userService.createUser(_this.userDialog.getValue()).subscribe(function (resp) {
+                            //todo do something with the response
+                        });
                     });
                 };
                 UsersPage.prototype.sortUsers = function (user) {
