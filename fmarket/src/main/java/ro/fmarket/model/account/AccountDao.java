@@ -36,7 +36,7 @@ public class AccountDao extends BaseDao<Account> {
 	@SuppressWarnings("unchecked")
 	public List<Account> getUsers(Criteria criteria, Integer page) {
 		criteria.setMaxResults(PaginationConstants.ACCOUNTS_PAGE_SIZE);
-		criteria.setFirstResult((page - 1) * PaginationConstants.ACCOUNTS_PAGE_SIZE + 1);
+		criteria.setFirstResult((page - 1) * PaginationConstants.ACCOUNTS_PAGE_SIZE);
 		return criteria.list();
 	}
 
