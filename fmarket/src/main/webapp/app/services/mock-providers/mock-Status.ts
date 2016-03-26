@@ -1,3 +1,5 @@
+import {AccountStatus} from '../../models/user';
+
 export var STATUS = [
     {status:null, displayName: "Chose..."},
     {status:AccountStatus.AUTO, displayName: "AUTO"},

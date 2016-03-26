@@ -106,9 +106,35 @@
 									</a>
 								</td>
 								<td>
-								<a href="javascript:void(0)" (click)="unsubscribe(subscriber)">
+									<a href="javascript:void(0)" (click)="unsubscribe(subscriber)">
 										<span class="glyphicon glyphicon-trash"></span>
 									</a>
+								</td>
+							</tr>
+							<tr class="navigation-row">
+								<td colspan="5" class="navigation-column">
+									<div class="col-xs-1">
+										<a href="javascript: void(0)" (click)="navigateLeft()">
+											<span class="glyphicon glyphicon-chevron-left"></span>
+										</a>
+									</div>
+									<div class="col-xs-9">
+										<div class="btn-group" role="group" *ngIf="pageNumbsersSubset.length > 1">
+											<button *ngFor="#page of pageNumbsersSubset" [class]="isPageActive(page)" type="button" (click)="goToPageUsingIndex(page)">{{page}}</button>
+										</div>
+									</div>
+									<div class="pull-right">
+										<a href="javascript: void(0)" (click)="navigateRight()">
+											<span class="glyphicon glyphicon-chevron-right"></span>
+										</a>
+									</div>
+								</td>
+								<td class="fit-select-to-td" colspan="2">
+									<select [(ngModel)]="usersPerPage" (ngModelChange)="getUsers()">
+										<option value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+									</select>
 								</td>
 							</tr>
 						</tbody>

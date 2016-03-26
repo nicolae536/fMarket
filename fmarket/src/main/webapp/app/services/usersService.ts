@@ -1,38 +1,35 @@
 import {Injectable} from 'angular2/core';
-import {HTTP_PROVIDERS, Http, BaseRequestOptions, Headers} from 'angular2/http';
+import {Http} from 'angular2/http';
 import {User} from "../models/user";
 import {AccountStatus} from "../models/user";
-import {USERS} from "./mock-providers/mock-Users";
+//import {USERS} from "./mock-providers/mock-Users";
+import {FMarketApi} from "./fMarketApi";
+
 
 @Injectable()
 export class UserService {
-	http: Http;
 	adminUsersControllerRoute:string = '/admin/users';
+	api:FMarketApi;
 
 	constructor(http: Http) {
-		console.log('Http injected');
-		this.http = http;
-	}
-
-	getUsers() {
-		return Promise.resolve(USERS);
+		this.api = new FMarketApi(http);
 	}
 
 	updateUser(user:User){
-		return this.http.put(this.adminUsersControllerRoute + '/'+ user.id, JSON.stringify(user), this.getRequestOptions());
+		return this.api.put(this.adminUsersControllerRoute + `/${user.id}` , JSON.stringify(user));
 	}
 
 	createUser(user:User){
-		return this.http.post(this.adminUsersControllerRoute, JSON.stringify(user), this.getRequestOptions());
+		return this.api.post(this.adminUsersControllerRoute, JSON.stringify(user));
 	}
 
 	deleteUser(user:User){
-		return this.http.delete(this.adminUsersControllerRoute + '/' + user.id, this.getRequestOptions());
+		return this.api.delete(this.adminUsersControllerRoute + `/${user.id}`);
 	}
 
 	getUsersWithFilters(id, emailFilter, nameFilter, selectedStatusFilter :AccountStatus, cityId, pageIndex){
 		var requestOptions:FilterOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);
-		return this.http.post(this.adminUsersControllerRoute + '/search?page=' + pageIndex, JSON.stringify(requestOptions), this.getRequestOptions());
+		return this.api.post(this.adminUsersControllerRoute + `/search?page=${pageIndex}`, JSON.stringify(requestOptions));
 	}
 
 	buildSearchObject(id:number, emailFilter :string, nameFilter :string, selectedStatusFilter :AccountStatus, cityId :number, pageIndex:number):FilterOptions{
@@ -44,12 +41,6 @@ export class UserService {
 			cityId: cityId === -1 ? null : cityId		
 		};
 		return requestOptions;
-	}
-
-	getRequestOptions(){
-		var headers = new Headers();
-		headers.append('Content-Type', 'application/json');
-		return {headers:headers};
 	}
 }
 

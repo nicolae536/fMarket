@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-Users"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-Users"
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, mock_Users_1;
+    var core_1, http_1, fMarketApi_1;
     var UserService;
     return {
         setters:[
@@ -20,31 +20,27 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-Users"
             function (http_1_1) {
                 http_1 = http_1_1;
             },
-            function (mock_Users_1_1) {
-                mock_Users_1 = mock_Users_1_1;
+            function (fMarketApi_1_1) {
+                fMarketApi_1 = fMarketApi_1_1;
             }],
         execute: function() {
             UserService = (function () {
                 function UserService(http) {
                     this.adminUsersControllerRoute = '/admin/users';
-                    console.log('Http injected');
-                    this.http = http;
+                    this.api = new fMarketApi_1.FMarketApi(http);
                 }
-                UserService.prototype.getUsers = function () {
-                    return Promise.resolve(mock_Users_1.USERS);
-                };
                 UserService.prototype.updateUser = function (user) {
-                    return this.http.put(this.adminUsersControllerRoute + '/' + user.id, JSON.stringify(user), this.getRequestOptions());
+                    return this.api.put(this.adminUsersControllerRoute + ("/" + user.id), JSON.stringify(user));
                 };
                 UserService.prototype.createUser = function (user) {
-                    return this.http.post(this.adminUsersControllerRoute, JSON.stringify(user), this.getRequestOptions());
+                    return this.api.post(this.adminUsersControllerRoute, JSON.stringify(user));
                 };
                 UserService.prototype.deleteUser = function (user) {
-                    return this.http.delete(this.adminUsersControllerRoute + '/' + user.id, this.getRequestOptions());
+                    return this.api.delete(this.adminUsersControllerRoute + ("/" + user.id));
                 };
                 UserService.prototype.getUsersWithFilters = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
                     var requestOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);
-                    return this.http.post(this.adminUsersControllerRoute + '/search?page=' + pageIndex, JSON.stringify(requestOptions), this.getRequestOptions());
+                    return this.api.post(this.adminUsersControllerRoute + ("/search?page=" + pageIndex), JSON.stringify(requestOptions));
                 };
                 UserService.prototype.buildSearchObject = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
                     var requestOptions = {
@@ -55,11 +51,6 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-Users"
                         cityId: cityId === -1 ? null : cityId
                     };
                     return requestOptions;
-                };
-                UserService.prototype.getRequestOptions = function () {
-                    var headers = new http_1.Headers();
-                    headers.append('Content-Type', 'application/json');
-                    return { headers: headers };
                 };
                 UserService = __decorate([
                     core_1.Injectable(), 
