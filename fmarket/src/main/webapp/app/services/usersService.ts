@@ -33,10 +33,10 @@ export class UserService {
 
 	buildSearchObject(id:number, emailFilter :string, nameFilter :string, selectedStatusFilter :AccountStatus, cityId :number, pageIndex:number):FilterOptions{
 		var requestOptions:FilterOptions ={
-			id:id , 
-			email: emailFilter,
-			name: nameFilter, 
-			status: selectedStatusFilter ? selectedStatusFilter : AccountStatus.AUTO, 
+			id: null , 
+			email: emailFilter.length > 0 ? emailFilter : null,
+			name: nameFilter.length > 0 ? emailFilter : null, 
+			status: selectedStatusFilter ? selectedStatusFilter : null, 
 			cityId: cityId === -1 ? null : cityId		
 		};
 		return requestOptions;

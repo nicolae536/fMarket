@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', "../models/user", "./mock-providers/mock-Users"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-Users"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/http', "../models/user", "./mock-pro
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, user_1, mock_Users_1;
+    var core_1, http_1, mock_Users_1;
     var UserService;
     return {
         setters:[
@@ -19,9 +19,6 @@ System.register(['angular2/core', 'angular2/http', "../models/user", "./mock-pro
             },
             function (http_1_1) {
                 http_1 = http_1_1;
-            },
-            function (user_1_1) {
-                user_1 = user_1_1;
             },
             function (mock_Users_1_1) {
                 mock_Users_1 = mock_Users_1_1;
@@ -48,10 +45,10 @@ System.register(['angular2/core', 'angular2/http', "../models/user", "./mock-pro
                 };
                 UserService.prototype.buildSearchObject = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
                     var requestOptions = {
-                        id: id,
-                        email: emailFilter,
-                        name: nameFilter,
-                        status: selectedStatusFilter ? selectedStatusFilter : user_1.AccountStatus.AUTO,
+                        id: null,
+                        email: emailFilter.length > 0 ? emailFilter : null,
+                        name: nameFilter.length > 0 ? emailFilter : null,
+                        status: selectedStatusFilter ? selectedStatusFilter : null,
                         cityId: cityId === -1 ? null : cityId
                     };
                     return requestOptions;
