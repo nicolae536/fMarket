@@ -37,9 +37,9 @@ public class SubscriberControllerAdmin {
 		service.unsubscribe(id);
 	}
 
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public CollectionResponse<SubscriberDTO> searchSubscribers(@Valid @RequestBody SubscriberSearchObject searchObject, @RequestParam("page") Integer page) {
-		return null;
+		return service.searchSubscribers(searchObject, page);
 	}
 
 	/**
