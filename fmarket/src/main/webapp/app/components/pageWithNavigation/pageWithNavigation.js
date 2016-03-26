@@ -19,6 +19,7 @@ System.register([], function(exports_1, context_1) {
                     }
                     this.currentPageIndex = currentPageIndex;
                     this.pageNumbers = pagesArray;
+                    this.pageNumbsersSubset = this.pageNumbers.slice(0, 5);
                     this.goToPage(this.currentPageIndex);
                 };
                 PageWithNavigation.prototype.navigateLeft = function () {

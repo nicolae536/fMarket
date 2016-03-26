@@ -15,7 +15,8 @@ export class PageWithNavigation{
         }
 
         this.currentPageIndex = currentPageIndex;
-        this.pageNumbers = pagesArray;
+        this.pageNumbers = pagesArray;        
+        this.pageNumbsersSubset = this.pageNumbers.slice(0,5);
         this.goToPage(this.currentPageIndex);
     }
 

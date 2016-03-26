@@ -32,7 +32,7 @@ public class Account extends BaseEntity {
 	private AccountType type;
 
 	@Enumerated(EnumType.STRING)
-	@Column(length = 15)
+	@Column(length = 15, nullable = false)
 	private AccountStatus status;
 
 	@OneToOne(optional = false, cascade = CascadeType.ALL)

@@ -107,19 +107,19 @@
 						</a>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="5">
+				<tr class="navigation-row">
+					<td colspan="5" class="navigation-column">
 						<div class="col-xs-1">
 							<a href="javascript: void(0)" (click)="navigateLeft()">
 								<span class="glyphicon glyphicon-chevron-left"></span>
 							</a>
 						</div>
 						<div class="col-xs-9">
-							<div class="btn-group" role="group">
+							<div class="btn-group" role="group" *ngIf="pageNumbsersSubset.length > 1">
 								<button *ngFor="#page of pageNumbsersSubset" [class]="isPageActive(page)" type="button" (click)="goToPageUsingIndex(page)">{{page}}</button>
 							</div>
 						</div>
-						<div class="col-xs-1">
+						<div class="pull-right">
 							<a href="javascript: void(0)" (click)="navigateRight()">
 								<span class="glyphicon glyphicon-chevron-right"></span>
 							</a>

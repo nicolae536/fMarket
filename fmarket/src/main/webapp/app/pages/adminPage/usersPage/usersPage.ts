@@ -4,7 +4,7 @@ import {HTTP_PROVIDERS, Http} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 
 //import operators
-import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/map';//-map
 
 import {PageWithNavigation} from '../../../components/pageWithNavigation/pageWithNavigation';
 import {CreateUserDialog} from '../../../components/createUserDialog/createUserDialog';

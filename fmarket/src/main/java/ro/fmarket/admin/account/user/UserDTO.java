@@ -20,6 +20,6 @@ public class UserDTO {
 	private String name;
 	private Integer cityId;
 	private String city;
-	private int loginTimes;
-	private int autoLoginTimes;
+	private Integer loginTimes;
+	private Integer autoLoginTimes;
 }
