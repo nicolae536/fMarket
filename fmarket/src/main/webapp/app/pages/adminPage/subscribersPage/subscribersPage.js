@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../models/subscriber', '../../../components/actionDialog/actionDialog', '../../../components/pageWithNavigation/pageWithNavigation', '../../../services/mock-providers/mock-City'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/actionDialog/actionDialog', '../../../services/subscribersService', '../../../components/modalDialog/modalDialog', '../../../components/pageWithNavigation/pageWithNavigation', '../../../services/mock-providers/mock-City'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, http_1, subscriber_1, actionDialog_1, pageWithNavigation_1, mock_City_1;
+    var core_1, common_1, http_1, actionDialog_1, subscribersService_1, modalDialog_1, pageWithNavigation_1, mock_City_1;
     var applicationPath, SubscribersPage;
     return {
         setters:[
@@ -28,11 +28,14 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
             function (http_1_1) {
                 http_1 = http_1_1;
             },
-            function (subscriber_1_1) {
-                subscriber_1 = subscriber_1_1;
-            },
             function (actionDialog_1_1) {
                 actionDialog_1 = actionDialog_1_1;
+            },
+            function (subscribersService_1_1) {
+                subscribersService_1 = subscribersService_1_1;
+            },
+            function (modalDialog_1_1) {
+                modalDialog_1 = modalDialog_1_1;
             },
             function (pageWithNavigation_1_1) {
                 pageWithNavigation_1 = pageWithNavigation_1_1;
@@ -44,7 +47,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
             applicationPath = '/app/pages/adminPage/subscribersPage';
             SubscribersPage = (function (_super) {
                 __extends(SubscribersPage, _super);
-                function SubscribersPage() {
+                function SubscribersPage(subscribersService) {
                     _super.call(this);
                     this.orderList = new Array({ value: -1, text: "Chose..." }, { value: 1, text: "Ascending" }, { value: 2, text: "Descending" });
                     this.emailFilter = "";
@@ -53,13 +56,57 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     this.subscribeDateOrder = -1;
                     this.unsubscribeDateFilter = "";
                     this.unsubscribeDateOrder = -1;
-                    this.subscribersList = new Array(new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234), new subscriber_1.Subscriber("1", "asd", "asd", new Date(1, 1, 1, 1, 1, 1, 1), new Date(1, 1, 1, 1, 1, 1, 1), 1234));
+                    this.subscribersList = new Array();
+                    this._subscribersService = subscribersService;
                 }
                 SubscribersPage.prototype.ngOnInit = function () {
                     this.cityList = mock_City_1.CITYES;
                     this.getSubscribersWithFilters();
                 };
+                SubscribersPage.prototype.referenceActionDialogInComponent = function (modal) {
+                    this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
+                };
                 SubscribersPage.prototype.getSubscribersWithFilters = function () {
+                    var me = this;
+                    this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.currentPageIndex)
+                        .map(function (response) { return response.json(); })
+                        .subscribe(function (response) {
+                        me.subscribersList = response.data;
+                        me.mapPageIndexes(response.totalPages, response.page);
+                    }, function (error) {
+                    });
+                };
+                SubscribersPage.prototype.subscribe = function (subscriber) {
+                    this._subscribersService.subscribe(subscriber.email)
+                        .map(function (response) { return response.json(); })
+                        .subscribe(function (response) {
+                    }, function (error) {
+                    });
+                };
+                SubscribersPage.prototype.unsubscribe = function (subscriber) {
+                    this._subscribersService.unsubscribe(subscriber.id)
+                        .map(function (response) { return response.json(); })
+                        .subscribe(function (response) {
+                    }, function (error) {
+                    });
+                };
+                SubscribersPage.prototype.delete = function (subscriber) {
+                    var _this = this;
+                    var me = this;
+                    this.actionDialog.show().then(function (response) {
+                        if (response && response.actionResult == modalDialog_1.DialogActionResult.CANCEL) {
+                            return;
+                        }
+                        _this._subscribersService.delete(subscriber.id)
+                            .map(function (response) { return response.json(); })
+                            .subscribe(function (response) {
+                            var subscriberIndex = me.subscribersList.indexOf(subscriber);
+                            if (subscriberIndex !== -1) {
+                                me.subscribersList.splice(subscriberIndex, 1);
+                            }
+                        }, function (error) {
+                        });
+                    });
                 };
                 SubscribersPage.prototype.toggleEditMode = function (subscriber) {
                     subscriber.isInEditMode = true;
@@ -73,10 +120,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                         templateUrl: applicationPath + '/subscribersPage.html',
                         styleUrls: [applicationPath + '/subscribersPage.css'],
                         encapsulation: core_1.ViewEncapsulation.None,
-                        providers: [http_1.HTTP_PROVIDERS],
+                        providers: [subscribersService_1.SubscribersService, http_1.HTTP_PROVIDERS],
                         directives: [actionDialog_1.ActionDialog, common_1.NgForm]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [subscribersService_1.SubscribersService])
                 ], SubscribersPage);
                 return SubscribersPage;
             }(pageWithNavigation_1.PageWithNavigation));

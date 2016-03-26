@@ -4,6 +4,7 @@ import {HTTP_PROVIDERS, Http} from 'angular2/http';
 
 import {Subscriber} from '../../../models/subscriber'
 import {ActionDialog} from '../../../components/actionDialog/actionDialog';
+import {SubscribersService} from '../../../services/subscribersService';
 import {DialogActionResult} from  '../../../components/modalDialog/modalDialog';
 import {PageWithNavigation} from  '../../../components/pageWithNavigation/pageWithNavigation';
 
@@ -18,11 +19,14 @@ var applicationPath: string = '/app/pages/adminPage/subscribersPage';
 	styleUrls:[	applicationPath + '/subscribersPage.css'],
 	encapsulation: ViewEncapsulation.None, 
 
-	providers:[HTTP_PROVIDERS],
+	providers:[SubscribersService,HTTP_PROVIDERS],
 	directives:[ActionDialog, NgForm]
 })
 
 export class SubscribersPage extends PageWithNavigation implements OnInit{
+	_subscribersService:SubscribersService;
+	actionDialog:ActionDialog;
+
 	orderList:Array<Object> =  new Array<Object>(
 		{value:-1 , text:"Chose..."}, 
 		{value:1 , text:"Ascending"}, 
@@ -36,17 +40,12 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
 	subscribeDateOrder = -1;
 	unsubscribeDateFilter = "";
 	unsubscribeDateOrder = -1;
+	subscriberBackup :Subscriber;
+	subscribersList: Array<Subscriber> = new Array<Subscriber>();
 
-	subscribersList: Array<Subscriber> = new Array<Subscriber> (new Subscriber("1","asd","asd",new Date(1,1,1,1,1,1,1),new Date(1,1,1,1,1,1,1),1234),
-		new Subscriber("1","asd","asd",new Date(1,1,1,1,1,1,1),new Date(1,1,1,1,1,1,1),1234),
-		new Subscriber("1","asd","asd",new Date(1,1,1,1,1,1,1),new Date(1,1,1,1,1,1,1),1234),
-		new Subscriber("1","asd","asd",new Date(1,1,1,1,1,1,1),new Date(1,1,1,1,1,1,1),1234),
-		new Subscriber("1","asd","asd",new Date(1,1,1,1,1,1,1),new Date(1,1,1,1,1,1,1),1234),
-		new Subscriber("1","asd","asd",new Date(1,1,1,1,1,1,1),new Date(1,1,1,1,1,1,1),1234),
-		new Subscriber("1","asd","asd",new Date(1,1,1,1,1,1,1),new Date(1,1,1,1,1,1,1),1234))
-
-	constructor() {
+	constructor(subscribersService: SubscribersService) {
 		super();
+		this._subscribersService = subscribersService;
 	}
 
 	ngOnInit(){
@@ -54,15 +53,73 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
 		this.getSubscribersWithFilters();
 	}
 
-	getSubscribersWithFilters(){
-		
-	}
+	referenceActionDialogInComponent(modal: ActionDialog){
+        this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
+    }
 
-	toggleEditMode(subscriber: Subscriber){
-		subscriber.isInEditMode = true;
-	}
+    getSubscribersWithFilters(){
+    	var me=this;
+    	this._subscribersService.getSubscribersWithFilters(null,this.emailFilter,this.currentPageIndex)
+    	.map((response) => response.json())
+    	.subscribe(
+    		response => {
+    			me.subscribersList = response.data;
+    			me.mapPageIndexes(response.totalPages, response.page);
+    		},
+    		error =>{
 
-	saveEditedSubscriber(subscriber: Subscriber){
-		subscriber.isInEditMode = false;
-	}
+    		});
+    }
+
+    subscribe(subscriber:Subscriber){
+    	this._subscribersService.subscribe(subscriber.email)
+    	.map((response) => response.json())
+    	.subscribe(
+    		response => {
+    		},error=>{
+
+    		})
+    }
+
+    unsubscribe(subscriber:Subscriber){
+    	this._subscribersService.unsubscribe(subscriber.id)
+    	.map((response) => response.json())
+    	.subscribe(
+    		response => {
+    		},error=>{
+
+    		})
+    }
+
+
+    delete(subscriber:Subscriber){
+    	var me=this;
+
+    	this.actionDialog.show().then(response => {
+    		if(response && response.actionResult == DialogActionResult.CANCEL){
+    			return;
+    		}
+
+    		this._subscribersService.delete(subscriber.id)
+    		.map((response) => response.json())
+    		.subscribe(
+    			response => {
+    				var subscriberIndex = me.subscribersList.indexOf(subscriber);
+                    if(subscriberIndex !== -1)
+                    {
+                        me.subscribersList.splice(subscriberIndex,1);
+                    }
+    			},error=>{
+
+    			});
+    	});
+    }
+
+    toggleEditMode(subscriber: Subscriber){
+    	subscriber.isInEditMode = true;
+    }
+
+    saveEditedSubscriber(subscriber: Subscriber){
+    	subscriber.isInEditMode = false;
+    }
 }

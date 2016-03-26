@@ -6,7 +6,7 @@ import {AccountStatus} from "../models/user";
 import {FMarketApi} from "./fMarketApi";
 
 @Injectable()
-export class subscribersService{
+export class SubscribersService{
 	api:FMarketApi;
 	apiSubscribersControllerUrl:string = "/admin/subscribers";
 

@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, http_1, fMarketApi_1;
-    var subscribersService;
+    var SubscribersService;
     return {
         setters:[
             function (core_1_1) {
@@ -24,31 +24,31 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                 fMarketApi_1 = fMarketApi_1_1;
             }],
         execute: function() {
-            subscribersService = (function () {
-                function subscribersService(http) {
+            SubscribersService = (function () {
+                function SubscribersService(http) {
                     this.apiSubscribersControllerUrl = "/admin/subscribers";
                     this.api = new fMarketApi_1.FMarketApi(http);
                 }
-                subscribersService.prototype.getSubscribersWithFilters = function (id, email, currentPageIndex) {
+                SubscribersService.prototype.getSubscribersWithFilters = function (id, email, currentPageIndex) {
                     var filterObject = { id: id, email: email };
                     return this.api.post(this.apiSubscribersControllerUrl + ("/search?page=" + currentPageIndex), JSON.stringify(filterObject));
                 };
-                subscribersService.prototype.subscribe = function (email) {
+                SubscribersService.prototype.subscribe = function (email) {
                     return this.api.post(this.apiSubscribersControllerUrl + ("/email=" + email), "");
                 };
-                subscribersService.prototype.unsubscribe = function (id) {
+                SubscribersService.prototype.unsubscribe = function (id) {
                     return this.api.put(this.apiSubscribersControllerUrl + ("/" + id + "/unsubscribe"), "");
                 };
-                subscribersService.prototype.delete = function (id) {
+                SubscribersService.prototype.delete = function (id) {
                     return this.api.delete(this.apiSubscribersControllerUrl + ("/" + id));
                 };
-                subscribersService = __decorate([
+                SubscribersService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
-                ], subscribersService);
-                return subscribersService;
+                ], SubscribersService);
+                return SubscribersService;
             }());
-            exports_1("subscribersService", subscribersService);
+            exports_1("SubscribersService", SubscribersService);
         }
     }
 });

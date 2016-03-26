@@ -95,19 +95,20 @@ export class UsersPage extends PageWithNavigation implements OnInit{
     }
 
     deleteUser(user: User){
-    	this.actionDialog.show().then(response => {
-    		if(response && response.actionResult == DialogActionResult.CANCEL){
-    			return;
-    		}
+        var me=this;
+        this.actionDialog.show().then(response => {
+            if(response && response.actionResult == DialogActionResult.CANCEL){
+                return;
+            }
 
             this._userService.deleteUser(user)
             .map((response) => response.json())
             .subscribe(
                 response =>{
-                    var userIndex = this.usersList.indexOf(user);
+                    var userIndex = me.usersList.indexOf(user);
                     if(userIndex !== -1)
                     {
-                        this.usersList.splice(userIndex,1);
+                        me.usersList.splice(userIndex,1);
                     }
                 },
                 error=>{

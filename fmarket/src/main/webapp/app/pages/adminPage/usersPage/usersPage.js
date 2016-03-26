@@ -101,6 +101,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                 };
                 UsersPage.prototype.deleteUser = function (user) {
                     var _this = this;
+                    var me = this;
                     this.actionDialog.show().then(function (response) {
                         if (response && response.actionResult == modalDialog_1.DialogActionResult.CANCEL) {
                             return;
@@ -108,9 +109,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                         _this._userService.deleteUser(user)
                             .map(function (response) { return response.json(); })
                             .subscribe(function (response) {
-                            var userIndex = _this.usersList.indexOf(user);
+                            var userIndex = me.usersList.indexOf(user);
                             if (userIndex !== -1) {
-                                _this.usersList.splice(userIndex, 1);
+                                me.usersList.splice(userIndex, 1);
                             }
                         }, function (error) {
                             //display be message                    

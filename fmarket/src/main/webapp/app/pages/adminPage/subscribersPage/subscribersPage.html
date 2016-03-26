@@ -1,5 +1,13 @@
 
 <link rel="stylesheet" type="text/css" href="/app/pages/adminPage/subscribersPage/subscribersPage.css">
+<div class="users-page">
+	<!-- TODO catch close event -->
+	<action-dialog
+	[title]="'Delete'"
+	[positive-label]="'Delete'"
+	(loaded)="referenceActionDialogInComponent($event)">
+	<h4>Are you sure that you want to delete this subscriber ?</h4>
+</action-dialog>
 <div class="subscribers-page">
 	<!-- TODO catch close event -->
 	<div class="page-title">
