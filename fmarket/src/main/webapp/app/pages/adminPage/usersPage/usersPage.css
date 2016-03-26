@@ -59,3 +59,7 @@
 .users-page .page-content .row .table .btn-group .active-page {
 	color: blue;
 }
+
+.users-page .page-content .row .table .table-body .navigation-row .navigation-column{
+	padding-right: 3%;
+}
