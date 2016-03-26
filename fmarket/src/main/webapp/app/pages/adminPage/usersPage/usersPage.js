@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/operator/map', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createUserDialog/createUserDialog', '../../../components/actionDialog/actionDialog', '../../../components/modalDialog/modalDialog', '../../../services/usersService', '../../../models/user'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/operator/map', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createUserDialog/createUserDialog', '../../../components/actionDialog/actionDialog', '../../../components/modalDialog/modalDialog', '../../../services/usersService', '../../../services/mock-providers/mock-City', '../../../services/mock-providers/mock-Status'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, http_1, pageWithNavigation_1, createUserDialog_1, actionDialog_1, modalDialog_1, usersService_1, user_1;
+    var core_1, common_1, http_1, pageWithNavigation_1, createUserDialog_1, actionDialog_1, modalDialog_1, usersService_1, mock_City_1, mock_Status_1;
     var applicationPath, UsersPage;
     return {
         setters:[
@@ -44,8 +44,11 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
             function (usersService_1_1) {
                 usersService_1 = usersService_1_1;
             },
-            function (user_1_1) {
-                user_1 = user_1_1;
+            function (mock_City_1_1) {
+                mock_City_1 = mock_City_1_1;
+            },
+            function (mock_Status_1_1) {
+                mock_Status_1 = mock_Status_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/usersPage';
@@ -54,20 +57,8 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                 function UsersPage(_userService) {
                     _super.call(this);
                     this._userService = _userService;
-                    // userPageNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
-                    // userPagesSubNumber: Array<number> = new Array<number>();
-                    // currentPageIndex: number = 1;
-                    this.cityList = [
-                        { id: -1, name: "Chose..." },
-                        { id: 1, name: "Cluj" },
-                        { id: 2, name: "Dorna" },
-                        { id: 3, name: "Blaj" }];
-                    this.statusList = [
-                        { status: null, displayName: "Chose..." },
-                        { status: user_1.AccountStatus.AUTO, displayName: "AUTO" },
-                        { status: user_1.AccountStatus.ACTIVE, displayName: "ACTIVE" },
-                        { status: user_1.AccountStatus.DISABLED, displayName: "DISABLED" },
-                        { status: user_1.AccountStatus.DISABLED, displayName: "PENDING" }];
+                    this.cityList = mock_City_1.CITYES;
+                    this.statusList = mock_Status_1.STATUS;
                     this.usersPerPage = 10;
                     this.emailFilter = "";
                     this.nameFilter = "";

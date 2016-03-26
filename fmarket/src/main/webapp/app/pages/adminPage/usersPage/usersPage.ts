@@ -14,6 +14,11 @@ import {UserService} from '../../../services/usersService';
 import {User} from '../../../models/user';
 import {AccountStatus} from '../../../models/user';
 
+//import mocks
+import {CITYES} from '../../../services/mock-providers/mock-City';
+import {STATUS} from '../../../services/mock-providers/mock-Status';
+
+
 var applicationPath: string = '/app/pages/adminPage/usersPage';
 
 @Component({
@@ -31,22 +36,9 @@ export class UsersPage extends PageWithNavigation implements OnInit{
 	userDialog: CreateUserDialog;
 	actionDialog: ActionDialog;
     userBackup: User;
-    // userPageNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
-    // userPagesSubNumber: Array<number> = new Array<number>();
-    // currentPageIndex: number = 1;
 
-    cityList:  Array<Object> = [
-    {id:-1, name: "Chose..."}, 
-    {id:1, name: "Cluj"}, 
-    {id:2, name:"Dorna"}, 
-    {id:3, name:"Blaj"}];         
-
-    statusList: Array<Object> = [
-    {status:null, displayName: "Chose..."},
-    {status:AccountStatus.AUTO, displayName: "AUTO"},
-    {status:AccountStatus.ACTIVE, displayName: "ACTIVE"},
-    {status:AccountStatus.DISABLED, displayName: "DISABLED"},
-    {status:AccountStatus.DISABLED, displayName: "PENDING"}];	
+    cityList:  Array<Object> = CITYES;         
+    statusList: Array<Object> = STATUS;	
     
     usersPerPage: number = 10;    
     emailFilter: string = "";

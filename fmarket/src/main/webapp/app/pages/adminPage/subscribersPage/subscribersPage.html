@@ -19,13 +19,13 @@
 						<div class="col-lg-6">					
 							<div class="form-group">
 								<span>Email:</span>
-								<input type="text" [(ngModel)]="emailFilter" class="form-control" />
+								<input type="text" [(ngModel)]="emailFilter" placeholder="email@domain.com" class="form-control" />
 							</div>
 						</div>
 						<div class="col-lg-6">					
 							<span>Ordoneaza dupa email:</span>
 							<select class="user-status-select" [(ngModel)]="emailOrder"> 
-								<option *ngFor="#option of orderList" [value]="option">{{option}}</option>
+								<option *ngFor="#option of orderList" [value]="option.value">{{option.text}}</option>
 							</select>
 						</div>
 					</div>
@@ -33,13 +33,13 @@
 						<div class="col-lg-6">					
 							<div class="form-group">
 								<span>Subscribe date:</span>
-								<input type="text" [(ngModel)]="nameFilter" class="form-control"/>
+								<input type="text" placeholder="dd-mm-yyyy" [(ngModel)]="subscribeDateFilter" class="form-control"/>
 							</div>
 						</div>
 						<div class="col-lg-6">					
 							<span>Ordoneaza dupa Subscribe date:</span>
 							<select class="user-status-select" [(ngModel)]="subscribeDateOrder"> 
-								<option *ngFor="#option of orderList" [value]="option">{{option}}</option>
+								<option *ngFor="#option of orderList" [value]="option.value">{{option.text}}</option>
 							</select>
 						</div>
 					</div>
@@ -48,13 +48,13 @@
 						<div class="col-lg-6">	
 							<div class="form-group">
 								<span>Unsubscribe date:</span>
-								<input type="text" [(ngModel)]="cityFilter" class="form-control"/>
+								<input type="text" [(ngModel)]="unsubscribeDateFilter" placeholder="dd-mm-yyyy" class="form-control"/>
 							</div>
 						</div>
 						<div class="col-lg-6">	
 							<span>Ordoneaza dupa Unsubscribe date:</span>
-							<select class="user-status-select" [(ngModel)]="cityOrder"> 
-								<option *ngFor="#option of orderList" [value]="option">{{option}}</option>
+							<select class="user-status-select" [(ngModel)]="unsubscribeDateOrder"> 
+								<option *ngFor="#option of orderList" [value]="option.value">{{option.text}}</option>
 							</select>
 						</div>
 					</div>
