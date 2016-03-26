@@ -69,12 +69,15 @@ System.register([], function(exports_1, context_1) {
                 return User;
             }());
             exports_1("User", User);
-            (function (AccountStatus) {
-                AccountStatus[AccountStatus["ACTIVE"] = 0] = "ACTIVE";
-                AccountStatus[AccountStatus["PENDING"] = 1] = "PENDING";
-                AccountStatus[AccountStatus["DISABLED"] = 2] = "DISABLED";
-                AccountStatus[AccountStatus["AUTO"] = 3] = "AUTO";
-            })(AccountStatus || (AccountStatus = {}));
+            AccountStatus = (function () {
+                function AccountStatus() {
+                }
+                AccountStatus.ACTIVE = "ACTIVE";
+                AccountStatus.PENDING = "PENDING";
+                AccountStatus.DISABLED = "DISABLED";
+                AccountStatus.AUTO = "AUTO";
+                return AccountStatus;
+            }());
             exports_1("AccountStatus", AccountStatus);
         }
     }

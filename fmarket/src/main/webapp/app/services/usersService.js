@@ -34,10 +34,13 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-Users"
                     return Promise.resolve(mock_Users_1.USERS);
                 };
                 UserService.prototype.updateUser = function (user) {
-                    this.http.put('/admin/users', JSON.stringify(user));
+                    return this.http.put(this.adminUsersControllerRoute + '/' + user.id, JSON.stringify(user), this.getRequestOptions());
                 };
                 UserService.prototype.createUser = function (user) {
                     return this.http.post(this.adminUsersControllerRoute, JSON.stringify(user), this.getRequestOptions());
+                };
+                UserService.prototype.deleteUser = function (user) {
+                    return this.http.delete(this.adminUsersControllerRoute + '/' + user.id, this.getRequestOptions());
                 };
                 UserService.prototype.getUsersWithFilters = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
                     var requestOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);

@@ -19,11 +19,15 @@ export class UserService {
 	}
 
 	updateUser(user:User){
-		this.http.put('/admin/users', JSON.stringify(user));
+		return this.http.put(this.adminUsersControllerRoute + '/'+ user.id, JSON.stringify(user), this.getRequestOptions());
 	}
 
 	createUser(user:User){
 		return this.http.post(this.adminUsersControllerRoute, JSON.stringify(user), this.getRequestOptions());
+	}
+
+	deleteUser(user:User){
+		return this.http.delete(this.adminUsersControllerRoute + '/' + user.id, this.getRequestOptions());
 	}
 
 	getUsersWithFilters(id, emailFilter, nameFilter, selectedStatusFilter :AccountStatus, cityId, pageIndex){

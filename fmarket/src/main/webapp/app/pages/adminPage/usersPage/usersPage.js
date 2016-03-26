@@ -99,6 +99,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                 };
                 //user actions
                 UsersPage.prototype.toggleEditMode = function (user) {
+                    this.userBackup = user;
                     user.isInEditMode = true;
                 };
                 UsersPage.prototype.editUser = function (user) {
@@ -109,18 +110,36 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                 };
                 UsersPage.prototype.deleteUser = function (user) {
                     var _this = this;
-                    this.actionDialog.show().then(function (actionResult) {
+                    this.actionDialog.show().then(function (response) {
                         if (response && response.actionResult == modalDialog_1.DialogActionResult.CANCEL) {
                             return;
                         }
-                        var userIndex = _this.usersList.indexOf(user);
-                        if (userIndex !== -1) {
-                            _this.usersList.splice(userIndex, 1);
-                        }
+                        _this._userService.deleteUser(user)
+                            .map(function (response) { return response.json(); })
+                            .subscribe(function (response) {
+                            var userIndex = _this.usersList.indexOf(user);
+                            if (userIndex !== -1) {
+                                _this.usersList.splice(userIndex, 1);
+                            }
+                        }, function (error) {
+                            //display be message                    
+                        });
                     });
                 };
                 UsersPage.prototype.saveEditedUser = function (user) {
+                    var _this = this;
                     user.isInEditMode = false;
+                    this._userService.updateUser(user)
+                        .map(function (response) { return response.json(); })
+                        .subscribe(function (response) {
+                        //success
+                    }, function (error) {
+                        //display be message
+                        var userIndex = _this.usersList.indexOf(user);
+                        if (userIndex !== -1) {
+                            _this.usersList[userIndex] = _this.userBackup;
+                        }
+                    });
                 };
                 //grid
                 UsersPage.prototype.createAccount = function () {
@@ -133,10 +152,10 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                         //post to backend
                         _this._userService.createUser(_this.userDialog.getValue()).subscribe(function (resp) {
                             //todo do something with the response
+                        }, function (error) {
+                            //display message
                         });
                     });
-                };
-                UsersPage.prototype.sortUsers = function (user) {
                 };
                 UsersPage.prototype.applyFilters = function () {
                     this.getUsers();

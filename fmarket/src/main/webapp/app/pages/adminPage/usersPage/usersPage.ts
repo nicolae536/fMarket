@@ -30,23 +30,23 @@ export class UsersPage extends PageWithNavigation implements OnInit{
 	usersList:  User[];
 	userDialog: CreateUserDialog;
 	actionDialog: ActionDialog;
-
+    userBackup: User;
     // userPageNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
     // userPagesSubNumber: Array<number> = new Array<number>();
     // currentPageIndex: number = 1;
 
     cityList:  Array<Object> = [
-            {id:-1, name: "Chose..."}, 
-            {id:1, name: "Cluj"}, 
-            {id:2, name:"Dorna"}, 
-            {id:3, name:"Blaj"}];         
+    {id:-1, name: "Chose..."}, 
+    {id:1, name: "Cluj"}, 
+    {id:2, name:"Dorna"}, 
+    {id:3, name:"Blaj"}];         
 
     statusList: Array<Object> = [
-            {status:null, displayName: "Chose..."},
-            {status:AccountStatus.AUTO, displayName: "AUTO"},
-            {status:AccountStatus.ACTIVE, displayName: "ACTIVE"},
-            {status:AccountStatus.DISABLED, displayName: "DISABLED"},
-            {status:AccountStatus.DISABLED, displayName: "PENDING"}];	
+    {status:null, displayName: "Chose..."},
+    {status:AccountStatus.AUTO, displayName: "AUTO"},
+    {status:AccountStatus.ACTIVE, displayName: "ACTIVE"},
+    {status:AccountStatus.DISABLED, displayName: "DISABLED"},
+    {status:AccountStatus.DISABLED, displayName: "PENDING"}];	
     
     usersPerPage: number = 10;    
     emailFilter: string = "";
@@ -91,6 +91,7 @@ export class UsersPage extends PageWithNavigation implements OnInit{
 
     //user actions
     toggleEditMode(user){
+        this.userBackup = user;
         user.isInEditMode = true;
     }
 
@@ -102,21 +103,43 @@ export class UsersPage extends PageWithNavigation implements OnInit{
     }
 
     deleteUser(user: User){
-    	this.actionDialog.show().then(actionResult => {
+    	this.actionDialog.show().then(response => {
     		if(response && response.actionResult == DialogActionResult.CANCEL){
     			return;
     		}
 
-    		var userIndex = this.usersList.indexOf(user);
-    		if(userIndex !== -1)
-    		{
-    			this.usersList.splice(userIndex,1);
-    		}
-    	})    	
+            this._userService.deleteUser(user)
+            .map((response) => response.json())
+            .subscribe(
+                response =>{
+                    var userIndex = this.usersList.indexOf(user);
+                    if(userIndex !== -1)
+                    {
+                        this.usersList.splice(userIndex,1);
+                    }
+                },
+                error=>{
+                    //display be message                    
+                });            
+        })    	
     }
 
     saveEditedUser(user: User){
         user.isInEditMode = false;
+        this._userService.updateUser(user)
+        .map((response) => response.json())
+        .subscribe(
+            response =>{
+                //success
+            },
+            error=>{
+                    //display be message
+                    var userIndex = this.usersList.indexOf(user);
+                    if(userIndex !== -1)
+                    {
+                        this.usersList[userIndex] = this.userBackup;
+                    }
+                });
     }
 
     //grid
@@ -126,15 +149,14 @@ export class UsersPage extends PageWithNavigation implements OnInit{
                 this.userDialog.clearData();
                 return;
             }
+
     		//post to backend
     		this._userService.createUser(this.userDialog.getValue()).subscribe(resp => {
                 //todo do something with the response
+            }, error =>{
+                //display message
             });
     	});
-    }
-
-    sortUsers(user: User){
-
     }
 
     applyFilters(){

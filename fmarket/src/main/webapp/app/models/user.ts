@@ -16,6 +16,7 @@ export class User{
 	public loginTimes:number;
 	public autoLoginTimes:number;
 	public isInEditMode:boolean=false;
+	
 
 	constructor();
 	constructor(id, name, email, type, status:AccountStatus, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes, phone) {
@@ -33,7 +34,7 @@ export class User{
 		this.city =city ?  city: -1;
 		this.loginTimes = loginTimes ? loginTimes : -1;
 		this.autoLoginTimes = autoLoginTimes ? autoLoginTimes: -1;
-		this.phone = phone  ? phone : "";
+		this.phone = phone  ? phone : "";		
 	}
 
 	isValid(): boolean{
@@ -93,6 +94,9 @@ export class User{
 	}
 }
 
-export enum AccountStatus {
-	ACTIVE, PENDING, DISABLED, AUTO
+export class AccountStatus {
+	static ACTIVE = "ACTIVE";
+	static PENDING = "PENDING";
+	static DISABLED = "DISABLED";
+	static AUTO = "AUTO"
 }
