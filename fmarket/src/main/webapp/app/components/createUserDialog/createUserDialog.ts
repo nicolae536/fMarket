@@ -3,9 +3,7 @@ import {ModalDialog, DialogActionResult} from '../modalDialog/modalDialog';
 import {User} from '../../models/user';
 
 @Component({
-  selector: 'create-user-dialog'
-})
-@View({
+  selector: 'create-user-dialog',
   templateUrl: 'app/components/createUserDialog/createUserDialog.html'
 })
 

@@ -52,9 +52,7 @@ System.register(['angular2/core', '../modalDialog/modalDialog'], function(export
                 ], ActionDialog.prototype, "loadedEmitter", void 0);
                 ActionDialog = __decorate([
                     core_1.Component({
-                        selector: 'action-dialog'
-                    }),
-                    core_1.View({
+                        selector: 'action-dialog',
                         templateUrl: 'app/components/actionDialog/actionDialog.html'
                     }), 
                     __metadata('design:paramtypes', [])

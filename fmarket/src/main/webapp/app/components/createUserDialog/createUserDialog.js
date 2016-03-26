@@ -82,9 +82,7 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/us
                 ], CreateUserDialog.prototype, "loadedEmitter", void 0);
                 CreateUserDialog = __decorate([
                     core_1.Component({
-                        selector: 'create-user-dialog'
-                    }),
-                    core_1.View({
+                        selector: 'create-user-dialog',
                         templateUrl: 'app/components/createUserDialog/createUserDialog.html'
                     }), 
                     __metadata('design:paramtypes', [])

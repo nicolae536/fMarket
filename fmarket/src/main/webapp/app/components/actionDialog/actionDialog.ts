@@ -2,10 +2,9 @@ import {Component, View, Output, Input, EventEmitter} from 'angular2/core';
 import {ModalDialog} from '../modalDialog/modalDialog';
 
 @Component({
-	selector: 'action-dialog'
-})
-@View({
+	selector: 'action-dialog',
 	templateUrl: 'app/components/actionDialog/actionDialog.html'
+
 })
 
 
