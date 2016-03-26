@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="/app/pages/adminPage/usersPage/usersPage.css">
 <div class="users-page">
 	<!-- TODO catch close event -->
-<action-dialog
+	<action-dialog
 	[title]="'Delete'"
 	[positive-label]="'Delete'"
 	(loaded)="referenceActionDialogInComponent($event)">
@@ -27,27 +27,29 @@
 				<div class="col-md-2">
 					<div class="form-group">
 						<span>Email:</span>
-						<input type="text" [(ngModel)]="emailFilter" class="form-control" />
+						<input type="text" [(ngModel)]="emailFilter" placeholder="user@domain.com" class="form-control" />
 					</div>
 				</div>
 				<div class="col-md-2">
 					<div class="form-group">
 						<span>Name:</span>
-						<input type="text" [(ngModel)]="nameFilter" class="form-control"/>
+						<input type="text" [(ngModel)]="nameFilter" placeholder="Andrei" class="form-control"/>
 					</div>
 				</div>
 				<div class="col-md-2">
 					<span>Status:</span>
 					<div>
 						<select class="user-status-select" [(ngModel)]="selectedStatusFilter"> 
-							<option *ngFor="#option of statusList" [value]="option">{{option}}</option>
+							<option *ngFor="#option of statusList" [value]="option.status">{{option.displayName}}</option>
 						</select>
 					</div>
 				</div>
 				<div class="col-md-2">
-					<div class="form-group">
-						<span>City:</span>
-						<input type="text" [(ngModel)]="cityId" class="form-control"/>
+					<span>City:</span>
+					<div>
+						<select class="user-status-select" [(ngModel)]="cityId"> 
+							<option *ngFor="#option of cityList" [value]="option.id">{{option.name}}</option>
+						</select>
 					</div>
 				</div>
 				<div class="secondary">
@@ -112,7 +114,7 @@
 								<span class="glyphicon glyphicon-chevron-left"></span>
 							</a>
 						</div>
-						<div class="col-xs-10">
+						<div class="col-xs-9">
 							<div class="btn-group" role="group">
 								<button *ngFor="#page of pageNumbsersSubset" [class]="isPageActive(page)" type="button" (click)="goToPageUsingIndex(page)">{{page}}</button>
 							</div>

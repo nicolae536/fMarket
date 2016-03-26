@@ -31,6 +31,10 @@ export class CreateUserDialog extends ModalDialog{
     return this.show(cityList, statusList);
   }
 
+  clearData(){
+    this.newUser = new User();
+  }
+
   setValue(user: User){
     this.newUser = user;
   }

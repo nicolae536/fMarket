@@ -46,6 +46,9 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/us
                     this.setValue(user);
                     return this.show(cityList, statusList);
                 };
+                CreateUserDialog.prototype.clearData = function () {
+                    this.newUser = new user_1.User();
+                };
                 CreateUserDialog.prototype.setValue = function (user) {
                     this.newUser = user;
                 };

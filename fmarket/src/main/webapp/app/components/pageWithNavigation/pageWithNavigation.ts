@@ -8,6 +8,17 @@ export class PageWithNavigation{
 		// code...
 	}
 
+    mapPageIndexes(pagesCount, currentPageIndex){
+        var pagesArray=[]
+        for(var i=1; i<=pagesCount; i++){
+            pagesArray[pagesArray.length]=1;
+        }
+
+        this.currentPageIndex = currentPageIndex;
+        this.pageNumbers = pagesArray;
+        this.goToPage(this.currentPageIndex);
+    }
+
     navigateLeft(){
         if(this.currentPageIndex - 1 > this.pageNumbers[0]){
             return;

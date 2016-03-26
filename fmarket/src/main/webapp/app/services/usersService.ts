@@ -26,18 +26,18 @@ export class UserService {
 		return this.http.post(this.adminUsersControllerRoute, JSON.stringify(user), this.getRequestOptions());
 	}
 
-	getUsersWithFilters(id:number, emailFilter :string, nameFilter :string, selectedStatusFilter :AccountStatus, cityId :number, pageIndex:number){
-		var requestOptions:RequestOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);
+	getUsersWithFilters(id, emailFilter, nameFilter, selectedStatusFilter :AccountStatus, cityId, pageIndex){
+		var requestOptions:FilterOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);
 		return this.http.post(this.adminUsersControllerRoute + '/search?page=' + pageIndex, JSON.stringify(requestOptions), this.getRequestOptions());
 	}
 
-	buildSearchObject(id:number, emailFilter :string, nameFilter :string, selectedStatusFilter :AccountStatus, cityId :number, pageIndex:number):RequestOptions{
-		var requestOptions:RequestOptions ={
-			id:id, 
+	buildSearchObject(id:number, emailFilter :string, nameFilter :string, selectedStatusFilter :AccountStatus, cityId :number, pageIndex:number):FilterOptions{
+		var requestOptions:FilterOptions ={
+			id:id , 
 			email: emailFilter,
 			name: nameFilter, 
 			status: selectedStatusFilter ? selectedStatusFilter : AccountStatus.AUTO, 
-			cityId: cityId 			
+			cityId: cityId === -1 ? null : cityId		
 		};
 		return requestOptions;
 	}
@@ -50,14 +50,14 @@ export class UserService {
 }
 
 interface SearchObject{
-	searchObject:RequestOptions;
+	searchObject:FilterOptions;
 	page:number;
 }
 
-interface RequestOptions{
-	id	:number;
-	email:string;
-	name:string;
+interface FilterOptions{
+	id	:Object;
+	email:Object;
+	name:Object;
 	status:AccountStatus;
-	cityId:number;
+	cityId:Object;
 }

@@ -23,14 +23,14 @@ export class User{
 		this.name = name ? name:"";
 		this.email = email ? email:"";
 		this.type = type ? type:"";
-		this.status = status ? status : AccountStatus.AUTO;
+		this.status = status ? status : null;
 		this.creationDate = creationDate ? creationDate.toLocaleDateString("en-US") :new Date(1,1,1,0,0,0,0).toLocaleDateString("en-US");
 		this.closedDate = closedDate ? closedDate.toLocaleDateString("en-US") :new Date(1,1,1,0,0,0,0).toLocaleDateString("en-US");
 		this.lastPasswordChangeDate = lastPasswordChangeDate ? lastPasswordChangeDate.toLocaleDateString("en-US") :new Date(1,1,1,0,0,0,0).toLocaleDateString("en-US");
 		this.lastLoginDate = lastLoginDate ? lastLoginDate.toLocaleDateString("en-US") :new Date(1,1,1,0,0,0,0).toLocaleDateString("en-US");
 		this.lastAutoLoginDate = lastAutoLoginDate ? lastAutoLoginDate.toLocaleDateString("en-US") :new Date(1,1,1,0,0,0,0).toLocaleDateString("en-US");
 		this.cityId = cityId ? cityId:-1;
-		this.city =city ?  city: "";
+		this.city =city ?  city: -1;
 		this.loginTimes = loginTimes ? loginTimes : -1;
 		this.autoLoginTimes = autoLoginTimes ? autoLoginTimes: -1;
 		this.phone = phone  ? phone : "";

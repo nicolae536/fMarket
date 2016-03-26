@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createUserDialog/createUserDialog', '../../../components/actionDialog/actionDialog', '../../../components/modalDialog/modalDialog', '../../../services/usersService', '../../../models/user'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/operator/map', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createUserDialog/createUserDialog', '../../../components/actionDialog/actionDialog', '../../../components/modalDialog/modalDialog', '../../../services/usersService', '../../../models/user'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -28,6 +28,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
             function (http_1_1) {
                 http_1 = http_1_1;
             },
+            function (_1) {},
             function (pageWithNavigation_1_1) {
                 pageWithNavigation_1 = pageWithNavigation_1_1;
             },
@@ -56,24 +57,26 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                     // userPageNumber: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
                     // userPagesSubNumber: Array<number> = new Array<number>();
                     // currentPageIndex: number = 1;
-                    this.cityList = [{ id: 1, name: "Cluj" },
-                        { id: 0, name: "Dorna" },
-                        { id: 2, name: "Blaj" }];
+                    this.cityList = [
+                        { id: -1, name: "Chose..." },
+                        { id: 1, name: "Cluj" },
+                        { id: 2, name: "Dorna" },
+                        { id: 3, name: "Blaj" }];
                     this.statusList = [
-                        { status: user_1.AccountStatus.ACTIVE, displayName: "ACTIVE" },
+                        { status: null, displayName: "Chose..." },
                         { status: user_1.AccountStatus.AUTO, displayName: "AUTO" },
+                        { status: user_1.AccountStatus.ACTIVE, displayName: "ACTIVE" },
                         { status: user_1.AccountStatus.DISABLED, displayName: "DISABLED" },
                         { status: user_1.AccountStatus.DISABLED, displayName: "PENDING" }];
                     this.usersPerPage = 10;
                     this.emailFilter = "";
                     this.nameFilter = "";
-                    this.cityId = 1;
-                    this.selectedStatusFilter = user_1.AccountStatus.AUTO;
+                    this.cityId = -1;
+                    this.selectedStatusFilter = null;
                 }
                 UsersPage.prototype.ngOnInit = function () {
                     var me = this;
                     this.getUsers();
-                    this.pageNumbsersSubset = this.pageNumbers.slice(0, 5);
                 };
                 UsersPage.prototype.referenceActionDialogInComponent = function (modal) {
                     this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
@@ -83,10 +86,15 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 };
                 UsersPage.prototype.getUsers = function () {
                     var me = this;
-                    this._userService.getUsersWithFilters(-1, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
-                        .subscribe(function (users) {
-                        me.usersList = [];
-                        console.log(users);
+                    this._userService.getUsersWithFilters("", this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
+                        .map(function (response) { return response.json(); })
+                        .subscribe(function (response) {
+                        me.usersList = response.data;
+                        me.mapPageIndexes(response.totalPages, response.page);
+                        console.log(response);
+                    }, function (error) {
+                        console.log(error);
+                        //todo handler
                     });
                 };
                 //user actions
@@ -102,12 +110,12 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 UsersPage.prototype.deleteUser = function (user) {
                     var _this = this;
                     this.actionDialog.show().then(function (actionResult) {
-                        if (actionResult == modalDialog_1.DialogActionResult.CANCEL) {
+                        if (response && response.actionResult == modalDialog_1.DialogActionResult.CANCEL) {
                             return;
                         }
-                        var index = _this.usersList.indexOf(user);
-                        if (index) {
-                            _this.usersList.splice(index, 1);
+                        var userIndex = _this.usersList.indexOf(user);
+                        if (userIndex !== -1) {
+                            _this.usersList.splice(userIndex, 1);
                         }
                     });
                 };
@@ -118,7 +126,8 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 UsersPage.prototype.createAccount = function () {
                     var _this = this;
                     this.userDialog.show(this.cityList, this.statusList).then(function (response) {
-                        if (response == modalDialog_1.DialogActionResult.CANCEL) {
+                        if (response && response.actionResult == modalDialog_1.DialogActionResult.CANCEL) {
+                            _this.userDialog.clearData();
                             return;
                         }
                         //post to backend

@@ -12,6 +12,15 @@ System.register([], function(exports_1, context_1) {
                     this.pageNumbsersSubset = new Array();
                     // code...
                 }
+                PageWithNavigation.prototype.mapPageIndexes = function (pagesCount, currentPageIndex) {
+                    var pagesArray = [];
+                    for (var i = 1; i <= pagesCount; i++) {
+                        pagesArray[pagesArray.length] = 1;
+                    }
+                    this.currentPageIndex = currentPageIndex;
+                    this.pageNumbers = pagesArray;
+                    this.goToPage(this.currentPageIndex);
+                };
                 PageWithNavigation.prototype.navigateLeft = function () {
                     if (this.currentPageIndex - 1 > this.pageNumbers[0]) {
                         return;

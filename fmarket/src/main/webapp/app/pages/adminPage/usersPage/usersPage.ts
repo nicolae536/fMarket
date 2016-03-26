@@ -1,6 +1,10 @@
 import {Component, OnInit, ViewEncapsulation, Injectable} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 import {HTTP_PROVIDERS, Http} from 'angular2/http';
+import {Observable} from 'rxjs/Observable';
+
+//import operators
+import 'rxjs/add/operator/map';
 
 import {PageWithNavigation} from '../../../components/pageWithNavigation/pageWithNavigation';
 import {CreateUserDialog} from '../../../components/createUserDialog/createUserDialog';
@@ -23,7 +27,7 @@ var applicationPath: string = '/app/pages/adminPage/usersPage';
 })
 
 export class UsersPage extends PageWithNavigation implements OnInit{
-	usersList:  Observable<User[]>;
+	usersList:  User[];
 	userDialog: CreateUserDialog;
 	actionDialog: ActionDialog;
 
@@ -31,20 +35,24 @@ export class UsersPage extends PageWithNavigation implements OnInit{
     // userPagesSubNumber: Array<number> = new Array<number>();
     // currentPageIndex: number = 1;
 
-    cityList:  Array<Object> = [{id:1,name: "Cluj"}, 
-                                {id:0, name:"Dorna"}, 
-                                {id:2, name:"Blaj"}];         
+    cityList:  Array<Object> = [
+            {id:-1, name: "Chose..."}, 
+            {id:1, name: "Cluj"}, 
+            {id:2, name:"Dorna"}, 
+            {id:3, name:"Blaj"}];         
 
     statusList: Array<Object> = [
-                                {status:AccountStatus.ACTIVE, displayName: "ACTIVE"},
-                                 {status:AccountStatus.AUTO, displayName: "AUTO"},
-                                 {status:AccountStatus.DISABLED, displayName: "DISABLED"},
-                                 {status:AccountStatus.DISABLED, displayName: "PENDING"}];	
-    usersPerPage: number =10;    
+            {status:null, displayName: "Chose..."},
+            {status:AccountStatus.AUTO, displayName: "AUTO"},
+            {status:AccountStatus.ACTIVE, displayName: "ACTIVE"},
+            {status:AccountStatus.DISABLED, displayName: "DISABLED"},
+            {status:AccountStatus.DISABLED, displayName: "PENDING"}];	
+    
+    usersPerPage: number = 10;    
     emailFilter: string = "";
     nameFilter: string = "";
-    cityId: number = 1;
-    selectedStatusFilter: AccountStatus = AccountStatus.AUTO;
+    cityId = -1;
+    selectedStatusFilter: AccountStatus = null;
 
 
     constructor(private _userService: UserService) {	
@@ -53,8 +61,7 @@ export class UsersPage extends PageWithNavigation implements OnInit{
 
     ngOnInit(){
         var me= this;
-        this.getUsers();
-        this.pageNumbsersSubset = this.pageNumbers.slice(0, 5);
+        this.getUsers();        
     }
 
     referenceActionDialogInComponent(modal: ActionDialog){
@@ -67,12 +74,18 @@ export class UsersPage extends PageWithNavigation implements OnInit{
 
     getUsers(){
     	var me= this;
-        this._userService.getUsersWithFilters(-1, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
-            .subscribe(users => {
-                me.usersList = []
-                console.log(users);   
-            }
-        );
+        this._userService.getUsersWithFilters("", this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
+        .map((response) => response.json())
+        .subscribe(
+            response => {
+                me.usersList = response.data;
+                me.mapPageIndexes(response.totalPages, response.page);
+                console.log(response);   
+            },
+            error => {
+                console.log(error);
+                //todo handler
+            });
     }
 
 
@@ -90,14 +103,14 @@ export class UsersPage extends PageWithNavigation implements OnInit{
 
     deleteUser(user: User){
     	this.actionDialog.show().then(actionResult => {
-    		if(actionResult == DialogActionResult.CANCEL){
+    		if(response && response.actionResult == DialogActionResult.CANCEL){
     			return;
     		}
 
-    		var index = this.usersList.indexOf(user);
-    		if(index)
+    		var userIndex = this.usersList.indexOf(user);
+    		if(userIndex !== -1)
     		{
-    			this.usersList.splice(index,1)
+    			this.usersList.splice(userIndex,1);
     		}
     	})    	
     }
@@ -109,9 +122,10 @@ export class UsersPage extends PageWithNavigation implements OnInit{
     //grid
     createAccount(){
     	this.userDialog.show(this.cityList, this.statusList).then(response => {
-    		if(response == DialogActionResult.CANCEL){
-    			return;
-    		}
+    		if(response && response.actionResult == DialogActionResult.CANCEL){
+                this.userDialog.clearData();
+                return;
+            }
     		//post to backend
     		this._userService.createUser(this.userDialog.getValue()).subscribe(resp => {
                 //todo do something with the response

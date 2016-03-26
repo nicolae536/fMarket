@@ -48,11 +48,11 @@ System.register(['angular2/core', 'angular2/http', "../models/user", "./mock-pro
                 };
                 UserService.prototype.buildSearchObject = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
                     var requestOptions = {
-                        id: id === -1 ? -1 : id,
+                        id: id,
                         email: emailFilter,
                         name: nameFilter,
                         status: selectedStatusFilter ? selectedStatusFilter : user_1.AccountStatus.AUTO,
-                        cityId: cityId === -1 ? -1 : cityId
+                        cityId: cityId === -1 ? null : cityId
                     };
                     return requestOptions;
                 };
