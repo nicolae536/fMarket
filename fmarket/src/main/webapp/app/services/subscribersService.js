@@ -34,7 +34,7 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                     return this.api.post(this.apiSubscribersControllerUrl + ("/search?page=" + currentPageIndex), JSON.stringify(filterObject));
                 };
                 SubscribersService.prototype.subscribe = function (email) {
-                    return this.api.post(this.apiSubscribersControllerUrl + ("/email=" + email), "");
+                    return this.api.post(this.apiSubscribersControllerUrl, JSON.stringify({ email: email }));
                 };
                 SubscribersService.prototype.unsubscribe = function (id) {
                     return this.api.put(this.apiSubscribersControllerUrl + ("/" + id + "/unsubscribe"), "");

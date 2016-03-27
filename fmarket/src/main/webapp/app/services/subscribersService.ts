@@ -20,7 +20,7 @@ export class SubscribersService{
 	}	
 
 	subscribe(email){
-		return this.api.post(this.apiSubscribersControllerUrl + `/email=${email}`,"");
+		return this.api.post(this.apiSubscribersControllerUrl,JSON.stringify({email: email}));
 	}
 
 	unsubscribe(id){

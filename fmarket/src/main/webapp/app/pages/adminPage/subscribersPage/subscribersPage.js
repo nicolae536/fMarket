@@ -71,7 +71,6 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 };
                 SubscribersPage.prototype.referenceCreateSubscriberDialogInComponent = function (modal) {
                     this.createSubscriberDialog = modal;
-                    debugger;
                 };
                 SubscribersPage.prototype.createSubscriber = function () {
                     var _this = this;

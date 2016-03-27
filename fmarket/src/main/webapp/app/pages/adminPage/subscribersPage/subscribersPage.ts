@@ -62,7 +62,6 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
 
     referenceCreateSubscriberDialogInComponent(modal: CreateSubscriberDialog){
         this.createSubscriberDialog = modal;
-        debugger;
     }
 
     createSubscriber(){
