@@ -1,7 +1,5 @@
 package ro.fmarket.admin.account.user;
 
-import java.util.List;
-
 import ro.fmarket.core.rest.CollectionResponse;
 
 public interface UserServiceAdmin {
