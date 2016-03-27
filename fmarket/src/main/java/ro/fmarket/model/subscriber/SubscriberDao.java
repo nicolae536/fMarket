@@ -35,7 +35,7 @@ public class SubscriberDao extends BaseDao<Subscriber> {
 	@SuppressWarnings("unchecked")
 	public List<Subscriber> searchSubscribers(Criteria criteria, Integer page) {
 		criteria.setMaxResults(PaginationConstants.SUBSCRIBERS_PAGE_SIZE);
-		criteria.setFirstResult((page - 1) * PaginationConstants.SUBSCRIBERS_PAGE_SIZE + 1);
+		criteria.setFirstResult((page - 1) * PaginationConstants.SUBSCRIBERS_PAGE_SIZE);
 		return criteria.list();
 	}
 	
