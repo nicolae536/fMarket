@@ -15,7 +15,7 @@ export class SubscribersService{
 	}
 
 	getSubscribersWithFilters(id, email, currentPageIndex){
-		var filterObject:SubscriberSearchObject = {id:id,email:email}
+		var filterObject:SubscriberSearchObject = {id:id,email:email == "" ? null : email}
 		return this.api.post(this.apiSubscribersControllerUrl + `/search?page=${currentPageIndex}` , JSON.stringify(filterObject));
 	}	
 

@@ -30,7 +30,7 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                     this.api = new fMarketApi_1.FMarketApi(http);
                 }
                 SubscribersService.prototype.getSubscribersWithFilters = function (id, email, currentPageIndex) {
-                    var filterObject = { id: id, email: email };
+                    var filterObject = { id: id, email: email == "" ? null : email };
                     return this.api.post(this.apiSubscribersControllerUrl + ("/search?page=" + currentPageIndex), JSON.stringify(filterObject));
                 };
                 SubscribersService.prototype.subscribe = function (email) {
