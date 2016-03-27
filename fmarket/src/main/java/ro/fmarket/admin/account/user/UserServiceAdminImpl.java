@@ -16,6 +16,7 @@ import ro.fmarket.core.utils.DateUtils;
 import ro.fmarket.core.utils.PaginationUtils;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.account.AccountDao;
+import ro.fmarket.model.account.consts.AccountStatus;
 import ro.fmarket.model.account.consts.AccountType;
 import ro.fmarket.model.account.details.AccountDetails;
 import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
@@ -53,20 +54,22 @@ public class UserServiceAdminImpl implements UserServiceAdmin {
 
 	@Override
 	public void createUser(NewUserRequest request) {
-		final Account account = createEmptyAccount();
-		fillAccountFields(account, request);
+		final Account account = createEmptyUser();
+		fillUserFields(account, request);
 		accountDao.save(account);
 	}
 
 	@Override
 	public void updateUser(Integer accountId, NewUserRequest request) {
 		final Account account = accountDao.get(accountId);
-		fillAccountFields(account, request);
+		fillUserFields(account, request);
 		accountDao.update(account);
 	}
 
-	private void fillAccountFields(Account account, NewUserRequest request) {
+	private void fillUserFields(Account account, NewUserRequest request) {
 		account.setEmail(request.getEmail());
+		account.setStatus(AccountStatus.ACTIVE);
+		account.setType(AccountType.USER);
 		if (request.getPassword() != null) {
 			account.setPassword(passwordEncoder.encode(request.getPassword()));
 		}
@@ -86,7 +89,7 @@ public class UserServiceAdminImpl implements UserServiceAdmin {
 		}
 	}
 
-	private Account createEmptyAccount() {
+	private Account createEmptyUser() {
 		final Account account = new Account();
 		final AccountDetails details = new AccountDetails();
 		final AccountHistoricalInfo historicalInfo = new AccountHistoricalInfo();
@@ -95,6 +98,7 @@ public class UserServiceAdminImpl implements UserServiceAdmin {
 
 		historicalInfo.setCreationDate(DateUtils.now());
 		account.setType(AccountType.USER);
+		account.setStatus(AccountStatus.ACTIVE);
 		return account;
 	}
 

@@ -23,8 +23,8 @@ public class SubscriberControllerAdmin {
 	private SubscriberServiceAdmin service;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void subscribe(@RequestParam("email") String email) {
-		service.subscribe(email);
+	public void subscribe(@Valid @RequestBody NewSubscriberRequest request) {
+		service.subscribe(request.getEmail());
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
