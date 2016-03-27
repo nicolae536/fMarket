@@ -18,8 +18,7 @@ export class User{
 	public isInEditMode:boolean=false;
 	
 
-	constructor();
-	constructor(id, name, email, type, status:AccountStatus, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes, phone) {
+	constructor(id ?, name ?, email?, type?, status?:AccountStatus, creationDate?, closedDate?, lastPasswordChangeDate?, lastLoginDate?, lastAutoLoginDate?, cityId?, city?, loginTimes?, autoLoginTimes?, phone?) {
 		this.id = id ? id:-1;
 		this.name = name ? name:"";
 		this.email = email ? email:"";

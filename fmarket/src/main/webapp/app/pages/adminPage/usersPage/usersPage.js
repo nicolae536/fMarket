@@ -102,7 +102,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                 UsersPage.prototype.deleteUser = function (user) {
                     var _this = this;
                     var me = this;
-                    this.actionDialog.show().then(function (response) {
+                    this.actionDialog.show("Are you sure that you want to delete this user ?").then(function (response) {
                         if (response && response.actionResult == modalDialog_1.DialogActionResult.CANCEL) {
                             return;
                         }

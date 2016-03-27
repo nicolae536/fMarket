@@ -1,4 +1,4 @@
-import {Component, View, Output, Input, EventEmitter} from 'angular2/core';
+import {Component, Output, Input, EventEmitter} from 'angular2/core';
 import {ModalDialog} from '../modalDialog/modalDialog';
 
 @Component({
@@ -6,7 +6,6 @@ import {ModalDialog} from '../modalDialog/modalDialog';
 	templateUrl: 'app/components/actionDialog/actionDialog.html'
 
 })
-
 
 export class ActionDialog extends ModalDialog{
 	@Input('title') title: string;

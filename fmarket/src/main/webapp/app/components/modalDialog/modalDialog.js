@@ -23,8 +23,9 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     this.showModal = false;
                     this.loadedEmitter = new core_1.EventEmitter();
                 }
-                ModalDialog.prototype.show = function () {
+                ModalDialog.prototype.show = function (message) {
                     this.showModal = true;
+                    this.message = message ? message : "";
                     var me = this;
                     return new Promise(function (resolve, reject) {
                         me.resolveModal = resolve;

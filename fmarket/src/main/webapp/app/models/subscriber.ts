@@ -7,7 +7,7 @@ export class Subscriber{
 	public unsubscribeToken: number;
 	public isInEditMode:boolean=false;
 
-	constructor(id: string, description: string, email: string, subscribeDate:Date, unsubscribeDate: Date, unsubscribeToken: number ) {
+	constructor(id ?: string, description?: string, email?: string, subscribeDate?:Date, unsubscribeDate: Date, unsubscribeToken?: number ) {
 		this.id = id? id : "";
 		this.description = description? description : "";
 		this.email = email? email : "";

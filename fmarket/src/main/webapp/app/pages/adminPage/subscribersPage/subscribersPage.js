@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/actionDialog/actionDialog', '../../../services/subscribersService', '../../../components/modalDialog/modalDialog', '../../../components/pageWithNavigation/pageWithNavigation', '../../../services/mock-providers/mock-City'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/actionDialog/actionDialog', '../../../services/subscribersService', '../../../components/modalDialog/modalDialog', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createSubscriberDialog/createSubscriberDialog', '../../../services/mock-providers/mock-City'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, http_1, actionDialog_1, subscribersService_1, modalDialog_1, pageWithNavigation_1, mock_City_1;
+    var core_1, common_1, http_1, actionDialog_1, subscribersService_1, modalDialog_1, pageWithNavigation_1, createSubscriberDialog_1, mock_City_1;
     var applicationPath, SubscribersPage;
     return {
         setters:[
@@ -39,6 +39,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
             },
             function (pageWithNavigation_1_1) {
                 pageWithNavigation_1 = pageWithNavigation_1_1;
+            },
+            function (createSubscriberDialog_1_1) {
+                createSubscriberDialog_1 = createSubscriberDialog_1_1;
             },
             function (mock_City_1_1) {
                 mock_City_1 = mock_City_1_1;
@@ -65,6 +68,26 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 };
                 SubscribersPage.prototype.referenceActionDialogInComponent = function (modal) {
                     this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
+                };
+                SubscribersPage.prototype.referenceCreateSubscriberDialogInComponent = function (modal) {
+                    this.createSubscriberDialog = modal;
+                    debugger;
+                };
+                SubscribersPage.prototype.createSubscriber = function () {
+                    var _this = this;
+                    var me = this;
+                    this.createSubscriberDialog.show().then(function (response) {
+                        if (response == modalDialog_1.DialogActionResult.CANCEL) {
+                            return;
+                        }
+                        _this._subscribersService.subscribe(_this.createSubscriberDialog.getValue().email)
+                            .map(function (response) { return response.json(); })
+                            .subscribe(function (response) {
+                            me.getSubscribersWithFilters();
+                        }, function (error) {
+                        });
+                        ;
+                    });
                 };
                 SubscribersPage.prototype.getSubscribersWithFilters = function () {
                     var me = this;
@@ -93,8 +116,8 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 SubscribersPage.prototype.delete = function (subscriber) {
                     var _this = this;
                     var me = this;
-                    this.actionDialog.show().then(function (response) {
-                        if (response && response.actionResult == modalDialog_1.DialogActionResult.CANCEL) {
+                    this.actionDialog.show("Are you sure that you want to delete this subscriber ?").then(function (response) {
+                        if (response && response.data == modalDialog_1.DialogActionResult.CANCEL) {
                             return;
                         }
                         _this._subscribersService.delete(subscriber.id)
@@ -114,6 +137,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 SubscribersPage.prototype.saveEditedSubscriber = function (subscriber) {
                     subscriber.isInEditMode = false;
                 };
+                SubscribersPage.prototype.applyFilters = function () {
+                    this.getSubscribersWithFilters();
+                };
                 SubscribersPage = __decorate([
                     core_1.Component({
                         selector: 'subscribers-Page',
@@ -121,7 +147,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                         styleUrls: [applicationPath + '/subscribersPage.css'],
                         encapsulation: core_1.ViewEncapsulation.None,
                         providers: [subscribersService_1.SubscribersService, http_1.HTTP_PROVIDERS],
-                        directives: [actionDialog_1.ActionDialog, common_1.NgForm]
+                        directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm]
                     }), 
                     __metadata('design:paramtypes', [subscribersService_1.SubscribersService])
                 ], SubscribersPage);

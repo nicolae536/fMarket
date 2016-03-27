@@ -7,6 +7,8 @@ import {ActionDialog} from '../../../components/actionDialog/actionDialog';
 import {SubscribersService} from '../../../services/subscribersService';
 import {DialogActionResult} from  '../../../components/modalDialog/modalDialog';
 import {PageWithNavigation} from  '../../../components/pageWithNavigation/pageWithNavigation';
+import {CreateSubscriberDialog} from '../../../components/createSubscriberDialog/createSubscriberDialog';
+
 
 //import mocks
 import {CITYES} from '../../../services/mock-providers/mock-City';
@@ -20,7 +22,7 @@ var applicationPath: string = '/app/pages/adminPage/subscribersPage';
 	encapsulation: ViewEncapsulation.None, 
 
 	providers:[SubscribersService,HTTP_PROVIDERS],
-	directives:[ActionDialog, NgForm]
+	directives:[CreateSubscriberDialog ,ActionDialog, NgForm]
 })
 
 export class SubscribersPage extends PageWithNavigation implements OnInit{
@@ -41,20 +43,45 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
 	unsubscribeDateFilter = "";
 	unsubscribeDateOrder = -1;
 	subscriberBackup :Subscriber;
-	subscribersList: Array<Subscriber> = new Array<Subscriber>();
+	createSubscriberDialog:CreateSubscriberDialog;
+    subscribersList: Array<Subscriber> = new Array<Subscriber>();
 
-	constructor(subscribersService: SubscribersService) {
-		super();
-		this._subscribersService = subscribersService;
-	}
+    constructor(subscribersService: SubscribersService) {
+        super();
+        this._subscribersService = subscribersService;
+    }
 
-	ngOnInit(){
-		this.cityList = CITYES;
-		this.getSubscribersWithFilters();
-	}
+    ngOnInit(){
+        this.cityList = CITYES;
+        this.getSubscribersWithFilters();
+    }
 
-	referenceActionDialogInComponent(modal: ActionDialog){
+    referenceActionDialogInComponent(modal: ActionDialog){
         this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
+    }
+
+    referenceCreateSubscriberDialogInComponent(modal: CreateSubscriberDialog){
+        this.createSubscriberDialog = modal;
+        debugger;
+    }
+
+    createSubscriber(){
+        var me = this;
+        this.createSubscriberDialog.show().then(response=>{
+            if(response == DialogActionResult.CANCEL){
+                return;
+            }
+
+            this._subscribersService.subscribe(this.createSubscriberDialog.getValue().email)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    me.getSubscribersWithFilters();
+                },
+                error =>{
+                    
+                });;
+        });
     }
 
     getSubscribersWithFilters(){
@@ -95,8 +122,8 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
     delete(subscriber:Subscriber){
     	var me=this;
 
-    	this.actionDialog.show().then(response => {
-    		if(response && response.actionResult == DialogActionResult.CANCEL){
+    	this.actionDialog.show("Are you sure that you want to delete this subscriber ?").then(response => {
+    		if(response && response.data == DialogActionResult.CANCEL){
     			return;
     		}
 
@@ -109,9 +136,9 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
                     {
                         me.subscribersList.splice(subscriberIndex,1);
                     }
-    			},error=>{
+                },error=>{
 
-    			});
+                });
     	});
     }
 
@@ -121,5 +148,9 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
 
     saveEditedSubscriber(subscriber: Subscriber){
     	subscriber.isInEditMode = false;
+    }
+
+    applyFilters(){
+    	this.getSubscribersWithFilters();
     }
 }

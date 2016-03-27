@@ -1,4 +1,4 @@
-import {Component, Injectable, View, Input, Output, EventEmitter} from 'angular2/core';
+import {Component, Injectable, Input, Output, EventEmitter} from 'angular2/core';
 import {ModalDialog, DialogActionResult} from '../modalDialog/modalDialog';
 import {User} from '../../models/user';
 

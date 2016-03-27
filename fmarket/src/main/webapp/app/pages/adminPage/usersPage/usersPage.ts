@@ -18,7 +18,6 @@ import {AccountStatus} from '../../../models/user';
 import {CITYES} from '../../../services/mock-providers/mock-City';
 import {STATUS} from '../../../services/mock-providers/mock-Status';
 
-
 var applicationPath: string = '/app/pages/adminPage/usersPage';
 
 @Component({
@@ -77,7 +76,7 @@ export class UsersPage extends PageWithNavigation implements OnInit{
             error => {
                 console.log(error);
                 //todo handler
-            });
+            });        
     }
 
 
@@ -96,7 +95,7 @@ export class UsersPage extends PageWithNavigation implements OnInit{
 
     deleteUser(user: User){
         var me=this;
-        this.actionDialog.show().then(response => {
+        this.actionDialog.show("Are you sure that you want to delete this user ?").then(response => {
             if(response && response.actionResult == DialogActionResult.CANCEL){
                 return;
             }
