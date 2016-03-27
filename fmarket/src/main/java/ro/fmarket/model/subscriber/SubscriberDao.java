@@ -21,7 +21,7 @@ public class SubscriberDao extends BaseDao<Subscriber> {
 
 	@SuppressWarnings("unchecked")
 	public Subscriber getByEmail(String email) {
-		final String hql = "select Subscriber where email = :email";
+		final String hql = "from Subscriber where email = :email";
 		final Query query = getSession().createQuery(hql);
 		query.setParameter("email", email);
 		List<Subscriber> list = query.list();
