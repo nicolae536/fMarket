@@ -30,6 +30,10 @@
 	padding-top: 5px;
 }
 
+.subscribers-page .page-content .row .filters .filter-container .col-lg-3.no-right-padding{
+	padding-right: 0px;
+}
+
 .subscribers-page .page-content .row .filters .filter-container .col-lg-2 .user-status-select{
 	height: 34px;
 	width: 100%;
@@ -53,4 +57,14 @@
 	text-align:center; 
 	vertical-align:middle;
 	height: 50px;
+}
+
+.subscribers-page .page-content .row .table .table-body .navigation-row .navigation-column{
+	padding-right: 3%;
+}
+
+
+/*helper classes*/
+.pointer-cursor{
+	cursor: pointer;
 }

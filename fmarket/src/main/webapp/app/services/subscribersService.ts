@@ -14,8 +14,8 @@ export class SubscribersService{
 		this.api = new FMarketApi(http);
 	}
 
-	getSubscribersWithFilters(id, email, currentPageIndex){
-		var filterObject:SubscriberSearchObject = {id:id,email:email == "" ? null : email}
+	getSubscribersWithFilters(id, email, currentPageIndex, sortKey, ascendingOrder){
+		var filterObject:SubscriberSearchObject = {id:id,email:email == "" ? null : email, sortKey:sortKey, desc: !ascendingOrder}
 		return this.api.post(this.apiSubscribersControllerUrl + `/search?page=${currentPageIndex}` , JSON.stringify(filterObject));
 	}	
 
@@ -35,4 +35,6 @@ export class SubscribersService{
 interface SubscriberSearchObject {
 	id;
 	email;	
+	sortKey;
+	desc;
 }

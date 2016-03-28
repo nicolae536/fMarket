@@ -53,12 +53,14 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 function SubscribersPage(subscribersService) {
                     _super.call(this);
                     this.orderList = new Array({ value: -1, text: "Chose..." }, { value: 1, text: "Ascending" }, { value: 2, text: "Descending" });
+                    this.sortKey = "email";
+                    this.sortOrder = true;
                     this.emailFilter = "";
-                    this.emailOrder = -1;
+                    this.emailOrder = true;
                     this.subscribeDateFilter = "";
-                    this.subscribeDateOrder = -1;
+                    this.subscribeDateOrder = true;
                     this.unsubscribeDateFilter = "";
-                    this.unsubscribeDateOrder = -1;
+                    this.unsubscribeDateOrder = true;
                     this.subscribersList = new Array();
                     this._subscribersService = subscribersService;
                 }
@@ -90,7 +92,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 };
                 SubscribersPage.prototype.getSubscribersWithFilters = function () {
                     var me = this;
-                    this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.currentPageIndex)
+                    this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.currentPageIndex, this.sortKey, this.sortOrder)
                         .map(function (response) { return response.json(); })
                         .subscribe(function (response) {
                         me.subscribersList = response.data;
@@ -129,6 +131,43 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                         }, function (error) {
                         });
                     });
+                };
+                SubscribersPage.prototype.getClassForSorting = function (orderColum) {
+                    switch (orderColum) {
+                        case "email":
+                            return this.emailOrder ? "glyphicon glyphicon-sort-by-attributes" : "glyphicon glyphicon-sort-by-attributes-alt";
+                            break;
+                        case "subscribeOrderDate":
+                            return this.subscribeDateOrder ? "glyphicon glyphicon-sort-by-attributes" : "glyphicon glyphicon-sort-by-attributes-alt";
+                            break;
+                        case "unSubscribeOrderDate":
+                            return this.unsubscribeDateOrder ? "glyphicon glyphicon-sort-by-attributes" : "glyphicon glyphicon-sort-by-attributes-alt";
+                            break;
+                    }
+                };
+                SubscribersPage.prototype.sortByEmail = function () {
+                    this.emailOrder = !this.emailOrder;
+                    this.subscribeDateOrder = true;
+                    this.unsubscribeDateOrder = true;
+                    this.sortKey = "email";
+                    this.sortOrder = this.emailOrder;
+                    this.getSubscribersWithFilters();
+                };
+                SubscribersPage.prototype.sortBySubscribeDate = function () {
+                    this.subscribeDateOrder = !this.subscribeDateOrder;
+                    this.emailOrder = true;
+                    this.unsubscribeDateOrder = true;
+                    this.sortKey = "subscribeDate";
+                    this.sortOrder = this.subscribeDateOrder;
+                    this.getSubscribersWithFilters();
+                };
+                SubscribersPage.prototype.sortByUnSubscribeDate = function () {
+                    this.unsubscribeDateOrder = !this.unsubscribeDateOrder;
+                    this.emailOrder = true;
+                    this.subscribeDateOrder = true;
+                    this.sortKey = "unsubscribeDate";
+                    this.sortOrder = this.unsubscribeDateOrder;
+                    this.getSubscribersWithFilters();
                 };
                 SubscribersPage.prototype.toggleEditMode = function (subscriber) {
                     subscriber.isInEditMode = true;

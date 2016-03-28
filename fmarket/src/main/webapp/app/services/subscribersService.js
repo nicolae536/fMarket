@@ -29,8 +29,8 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                     this.apiSubscribersControllerUrl = "/admin/subscribers";
                     this.api = new fMarketApi_1.FMarketApi(http);
                 }
-                SubscribersService.prototype.getSubscribersWithFilters = function (id, email, currentPageIndex) {
-                    var filterObject = { id: id, email: email == "" ? null : email };
+                SubscribersService.prototype.getSubscribersWithFilters = function (id, email, currentPageIndex, sortKey, ascendingOrder) {
+                    var filterObject = { id: id, email: email == "" ? null : email, sortKey: sortKey, desc: !ascendingOrder };
                     return this.api.post(this.apiSubscribersControllerUrl + ("/search?page=" + currentPageIndex), JSON.stringify(filterObject));
                 };
                 SubscribersService.prototype.subscribe = function (email) {

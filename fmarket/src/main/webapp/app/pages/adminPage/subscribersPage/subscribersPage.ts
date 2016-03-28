@@ -36,12 +36,15 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
 
 	cityList:  Array<Object>;         
 
+    sortKey = "email";
+    sortOrder = true;
+
 	emailFilter = "";
-	emailOrder = -1;
+	emailOrder = true;
 	subscribeDateFilter = "";
-	subscribeDateOrder = -1;
+	subscribeDateOrder = true;
 	unsubscribeDateFilter = "";
-	unsubscribeDateOrder = -1;
+	unsubscribeDateOrder = true;
 	subscriberBackup :Subscriber;
 	createSubscriberDialog:CreateSubscriberDialog;
     subscribersList: Array<Subscriber> = new Array<Subscriber>();
@@ -85,7 +88,7 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
 
     getSubscribersWithFilters(){
     	var me=this;
-    	this._subscribersService.getSubscribersWithFilters(null,this.emailFilter,this.currentPageIndex)
+    	this._subscribersService.getSubscribersWithFilters(null,this.emailFilter,this.currentPageIndex, this.sortKey, this.sortOrder)
     	.map((response) => response.json())
     	.subscribe(
     		response => {
@@ -139,6 +142,53 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
 
                 });
     	});
+    }
+
+    getClassForSorting(orderColum){
+        switch (orderColum) {
+            case "email":
+                return this.emailOrder ? "glyphicon glyphicon-sort-by-attributes" : "glyphicon glyphicon-sort-by-attributes-alt";
+                break;
+            case "subscribeOrderDate":
+                return this.subscribeDateOrder ? "glyphicon glyphicon-sort-by-attributes" : "glyphicon glyphicon-sort-by-attributes-alt";
+                break;
+            case "unSubscribeOrderDate":
+                return this.unsubscribeDateOrder ? "glyphicon glyphicon-sort-by-attributes" : "glyphicon glyphicon-sort-by-attributes-alt";
+                break;
+        }
+    }
+
+    sortByEmail(){
+        this.emailOrder = !this.emailOrder;        
+        this.subscribeDateOrder = true;
+        this.unsubscribeDateOrder = true;
+
+        this.sortKey = "email";
+        this.sortOrder = this.emailOrder;
+
+        this.getSubscribersWithFilters();
+    }
+
+    sortBySubscribeDate(){
+        this.subscribeDateOrder = !this.subscribeDateOrder;
+        this.emailOrder = true;
+        this.unsubscribeDateOrder = true;
+
+        this.sortKey = "subscribeDate";
+        this.sortOrder = this.subscribeDateOrder;
+        
+        this.getSubscribersWithFilters();
+    }
+
+    sortByUnSubscribeDate(){
+        this.unsubscribeDateOrder = !this.unsubscribeDateOrder;
+        this.emailOrder = true;
+        this.subscribeDateOrder = true;
+
+        this.sortKey = "unsubscribeDate";
+        this.sortOrder = this.unsubscribeDateOrder;
+
+        this.getSubscribersWithFilters();
     }
 
     toggleEditMode(subscriber: Subscriber){
