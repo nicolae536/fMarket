@@ -81,8 +81,7 @@
 									<span >{{subscriber.id}}</span>
 								</td>
 								<td>
-									<span *ngIf="!subscriber.isInEditMode">{{subscriber.email}}</span>
-									<input *ngIf="subscriber.isInEditMode" type="text" class="form-control" [(ngModel)]="subscriber.email" />
+									<span>{{subscriber.email}}</span>									
 								</td>
 								<td>
 									<span>{{subscriber.subscribeDate}}</span>
