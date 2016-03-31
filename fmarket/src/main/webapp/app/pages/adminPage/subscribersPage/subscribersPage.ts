@@ -53,9 +53,9 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
 
     constructor(subscribersService: SubscribersService) {
         super();
-        this.sortkeyAndFilter["email"] = true;
-        this.sortkeyAndFilter["subscribeDate"] = true;
-        this.sortkeyAndFilter["unsubscribeDate"] = true;
+        this.sortkeyAndFilter["EMAIL"] = true;
+        this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
+        this.sortkeyAndFilter["UNSUBSCRIBE_DATE"] = true;
         this._subscribersService = subscribersService;
     }
 

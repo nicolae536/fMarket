@@ -62,9 +62,9 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                     this.subscribeDateFilter = "";
                     this.unsubscribeDateFilter = "";
                     this.subscribersList = new Array();
-                    this.sortkeyAndFilter["email"] = true;
-                    this.sortkeyAndFilter["subscribeDate"] = true;
-                    this.sortkeyAndFilter["unsubscribeDate"] = true;
+                    this.sortkeyAndFilter["EMAIL"] = true;
+                    this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
+                    this.sortkeyAndFilter["UNSUBSCRIBE_DATE"] = true;
                     this._subscribersService = subscribersService;
                 }
                 SubscribersPage.prototype.ngOnInit = function () {
