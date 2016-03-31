@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../components/actionDialog/actionDialog', '../../../services/subscribersService', '../../../components/modalDialog/modalDialog', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createSubscriberDialog/createSubscriberDialog', '../../../services/mock-providers/mock-City'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/operator/map', '../../../components/actionDialog/actionDialog', '../../../services/subscribersService', '../../../components/modalDialog/modalDialog', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createSubscriberDialog/createSubscriberDialog', '../../../services/mock-providers/mock-City'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -28,6 +28,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
             function (http_1_1) {
                 http_1 = http_1_1;
             },
+            function (_1) {},
             function (actionDialog_1_1) {
                 actionDialog_1 = actionDialog_1_1;
             },
@@ -53,19 +54,22 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                 function SubscribersPage(subscribersService) {
                     _super.call(this);
                     this.orderList = new Array({ value: -1, text: "Chose..." }, { value: 1, text: "Ascending" }, { value: 2, text: "Descending" });
-                    this.sortKey = "email";
+                    this.sortKey = "";
                     this.sortOrder = true;
+                    //sortOrder true -> ascending
+                    this.sortkeyAndFilter = [];
                     this.emailFilter = "";
-                    this.emailOrder = true;
                     this.subscribeDateFilter = "";
-                    this.subscribeDateOrder = true;
                     this.unsubscribeDateFilter = "";
-                    this.unsubscribeDateOrder = true;
                     this.subscribersList = new Array();
+                    this.sortkeyAndFilter["email"] = true;
+                    this.sortkeyAndFilter["subscribeDate"] = true;
+                    this.sortkeyAndFilter["unsubscribeDate"] = true;
                     this._subscribersService = subscribersService;
                 }
                 SubscribersPage.prototype.ngOnInit = function () {
                     this.cityList = mock_City_1.CITYES;
+                    this.matchSortOrderByColumn('');
                     this.getSubscribersWithFilters();
                 };
                 SubscribersPage.prototype.referenceActionDialogInComponent = function (modal) {
@@ -132,42 +136,25 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', '../../../
                         });
                     });
                 };
-                SubscribersPage.prototype.getClassForSorting = function (orderColum) {
-                    switch (orderColum) {
-                        case "email":
-                            return this.emailOrder ? "glyphicon glyphicon-sort-by-attributes" : "glyphicon glyphicon-sort-by-attributes-alt";
-                            break;
-                        case "subscribeOrderDate":
-                            return this.subscribeDateOrder ? "glyphicon glyphicon-sort-by-attributes" : "glyphicon glyphicon-sort-by-attributes-alt";
-                            break;
-                        case "unSubscribeOrderDate":
-                            return this.unsubscribeDateOrder ? "glyphicon glyphicon-sort-by-attributes" : "glyphicon glyphicon-sort-by-attributes-alt";
-                            break;
+                SubscribersPage.prototype.getClassForSorting = function (columnName) {
+                    return this.sortkeyAndFilter[columnName] ? "glyphicon glyphicon-sort-by-attributes-alt" : "glyphicon glyphicon-sort-by-attributes";
+                };
+                SubscribersPage.prototype.sortByColumn = function (columnName) {
+                    this.matchSortOrderByColumn(columnName);
+                    this.getSubscribersWithFilters();
+                };
+                SubscribersPage.prototype.matchSortOrderByColumn = function (columnName) {
+                    var me = this;
+                    this.sortKey = columnName;
+                    for (var sortkey in this.sortkeyAndFilter) {
+                        if (sortkey === columnName) {
+                            me.sortOrder = this.sortkeyAndFilter[sortkey] = !this.sortkeyAndFilter[sortkey];
+                        }
+                        else {
+                            //true -> ascending
+                            this.sortkeyAndFilter[sortkey] = true;
+                        }
                     }
-                };
-                SubscribersPage.prototype.sortByEmail = function () {
-                    this.emailOrder = !this.emailOrder;
-                    this.subscribeDateOrder = true;
-                    this.unsubscribeDateOrder = true;
-                    this.sortKey = "email";
-                    this.sortOrder = this.emailOrder;
-                    this.getSubscribersWithFilters();
-                };
-                SubscribersPage.prototype.sortBySubscribeDate = function () {
-                    this.subscribeDateOrder = !this.subscribeDateOrder;
-                    this.emailOrder = true;
-                    this.unsubscribeDateOrder = true;
-                    this.sortKey = "subscribeDate";
-                    this.sortOrder = this.subscribeDateOrder;
-                    this.getSubscribersWithFilters();
-                };
-                SubscribersPage.prototype.sortByUnSubscribeDate = function () {
-                    this.unsubscribeDateOrder = !this.unsubscribeDateOrder;
-                    this.emailOrder = true;
-                    this.subscribeDateOrder = true;
-                    this.sortKey = "unsubscribeDate";
-                    this.sortOrder = this.unsubscribeDateOrder;
-                    this.getSubscribersWithFilters();
                 };
                 SubscribersPage.prototype.toggleEditMode = function (subscriber) {
                     subscriber.isInEditMode = true;

@@ -25,8 +25,7 @@ public class UserControllerAdmin {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void createUser(@RequestBody NewUserRequest request) {
-		System.out.println(request.getPassword()+"------------------------------------------------------------------------");
+	public void createUser(@RequestBody NewUserRequest request) {		
 		userService.createUser(request);
 	}
 
