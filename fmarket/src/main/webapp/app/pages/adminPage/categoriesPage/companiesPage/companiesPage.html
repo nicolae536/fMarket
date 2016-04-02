@@ -24,7 +24,7 @@
  					<input *ngIf="companieType.isInEditMode" class="form-control" [(ngModel)]="companieType.name" />
  				</div>
  				<div class="col-md-3">
- 					<a class="secondary">
+ 					<a class="secondary" (click)="deleteCompanyType(companyType)">
  						<span class="glyphicon glyphicon-trash"></span>
  					</a>
  					<a *ngIf="!companieType.isInEditMode" class="secondary" (click)="toggleEditMode(companieType)">

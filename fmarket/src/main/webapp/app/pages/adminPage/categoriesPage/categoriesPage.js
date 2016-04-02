@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesPage"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesPage", "./requestsPage/requestsPage"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesP
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, companiesPage_1;
+    var core_1, router_1, companiesPage_1, requestsPage_1;
     var applicationPath, CategoriesPage;
     return {
         setters:[
@@ -22,12 +22,15 @@ System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesP
             },
             function (companiesPage_1_1) {
                 companiesPage_1 = companiesPage_1_1;
+            },
+            function (requestsPage_1_1) {
+                requestsPage_1 = requestsPage_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/categoriesPage';
             CategoriesPage = (function () {
                 function CategoriesPage(location, router) {
-                    this.tabPagesList = new Array({ name: 'Companii', link: 'Categories/Companies' });
+                    this.tabPagesList = new Array({ name: 'Companii', link: 'Categories/Companies' }, { name: 'Cereri', link: 'Categories/Requests' });
                     this.location = location;
                     this.router = router;
                 }
@@ -40,6 +43,7 @@ System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesP
                     }),
                     router_1.RouteConfig([
                         new router_1.Route({ path: '/firme', component: companiesPage_1.CompaniesPage, name: 'Companies' }),
+                        new router_1.Route({ path: '/cereri', component: requestsPage_1.RequestsPage, name: 'Requests' }),
                     ]), 
                     __metadata('design:paramtypes', [router_1.Location, router_1.Router])
                 ], CategoriesPage);

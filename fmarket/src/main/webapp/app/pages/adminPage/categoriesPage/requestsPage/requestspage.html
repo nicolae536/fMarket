@@ -1,0 +1,41 @@
+  <link rel="stylesheet" type="text/css" href="/app/pages/adminPage/categoriesPage/companiesPage/companiesPage.css">
+
+ <div class="requests-page">
+ 	<div class="requests-type-filter clearfix">
+ 		<div class="pull-right">
+ 			<button class="btn btn-primary">Adauga tip de cerere</button>
+ 		</div>
+ 		<div class="search-field">
+ 			<div class="input-group">
+ 				<span class="input-group-addon">
+ 					<span class="glyphicon glyphicon-search"></span>
+ 				</span>
+ 				<input class="form-control" placeholder="Search..." [(ngModel)]="searchQuery" (ngModelChange)="getRequestsTypesWithFilters()"/>	
+ 			</div>
+ 		</div>
+ 	</div>
+ 	<div class="requests-type">
+ 		<ul class="list-group">
+ 			<li *ngFor="#requestType of requestTypes" class="list-group-item clearfix"> 			
+ 				<div class="col-md-9">
+ 					<span *ngIf="!requestType.isInEditMode">
+ 						{{requestType.name}}
+ 					</span> 			
+ 					<input *ngIf="requestType.isInEditMode" class="form-control" [(ngModel)]="requestType.name" />
+ 				</div>
+ 				<div class="col-md-3">
+ 					<a class="secondary" (click)="deleteRequestType(requestType)">
+ 						<span class="glyphicon glyphicon-trash"></span>
+ 					</a>
+ 					<a *ngIf="!requestType.isInEditMode" class="secondary" (click)="toggleEditMode(requestType)">
+ 						<span class="glyphicon glyphicon-cog"></span>
+ 					</a>
+ 					<a *ngIf="requestType.isInEditMode" class="secondary" (click)="editRequestType(requestType)">
+ 						<span class="glyphicon glyphicon-ok"></span>
+ 					</a>
+ 					<span class="pull-right label label-info">- Companii - {{requestType.companies}}</span>
+ 				</div>
+ 			</li>
+ 		</ul>
+ 	</div>
+ </div>
