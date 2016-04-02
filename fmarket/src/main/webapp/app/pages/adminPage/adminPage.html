@@ -9,6 +9,7 @@
         <ul class="nav nav-pills nav-stacked">
           <li [ngClass]="router.isRouteActive(router.generate(['Admin/Users'])) ? 'active':''"><a [routerLink]="['Admin/Users']">Users</a></li>
           <li [ngClass]="router.isRouteActive(router.generate(['Admin/Subscribers'])) ? 'active':''"><a [routerLink]="['Admin/Subscribers']">Subscribers</a></li>
+          <li [ngClass]="router.isRouteActive(router.generate(['Admin/Categories/Companies'])) ? 'active':''"><a [routerLink]="['Admin/Categories/Companies']">Categories</a></li>
       </ul>
     </div>
 

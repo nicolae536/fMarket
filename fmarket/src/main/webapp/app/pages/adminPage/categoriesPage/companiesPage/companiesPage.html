@@ -1,0 +1,41 @@
+ <link rel="stylesheet" type="text/css" href="/app/pages/adminPage/categoriesPage/companiesPage/companiesPage.css">
+
+ <div class="companies-page">
+ 	<div class="companie-type-filter clearfix">
+ 		<div class="pull-right">
+ 			<button class="btn btn-primary">Adauga tip de companie</button>
+ 		</div>
+ 		<div class="search-field">
+ 			<div class="input-group">
+ 				<span class="input-group-addon">
+ 					<span class="glyphicon glyphicon-search"></span>
+ 				</span>
+ 				<input class="form-control" placeholder="Search..." [(ngModel)]="searchQuery" (ngModelChange)="getCompanyTypesWithFilters()"/>	
+ 			</div>
+ 		</div>
+ 	</div>
+ 	<div class="companie-type">
+ 		<ul class="list-group">
+ 			<li *ngFor="#companieType of companieTypes" class="list-group-item clearfix"> 			
+ 				<div class="col-md-9">
+ 					<span *ngIf="!companieType.isInEditMode">
+ 						{{companieType.name}}
+ 					</span> 			
+ 					<input *ngIf="companieType.isInEditMode" class="form-control" [(ngModel)]="companieType.name" />
+ 				</div>
+ 				<div class="col-md-3">
+ 					<a class="secondary">
+ 						<span class="glyphicon glyphicon-trash"></span>
+ 					</a>
+ 					<a *ngIf="!companieType.isInEditMode" class="secondary" (click)="toggleEditMode(companieType)">
+ 						<span class="glyphicon glyphicon-cog"></span>
+ 					</a>
+ 					<a *ngIf="companieType.isInEditMode" class="secondary" (click)="editCompaniType(companieType)">
+ 						<span class="glyphicon glyphicon-ok"></span>
+ 					</a>
+ 					<span class="pull-right label label-info">- Companii - {{companieType.companies}}</span>
+ 				</div>
+ 			</li>
+ 		</ul>
+ 	</div>
+ </div>
