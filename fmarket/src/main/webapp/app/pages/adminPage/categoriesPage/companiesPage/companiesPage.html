@@ -3,7 +3,9 @@
  <div class="companies-page">
  	<div class="companie-type-filter clearfix">
  		<div class="pull-right">
- 			<button class="btn btn-primary">Adauga tip de companie</button>
+ 			<button class="btn btn-primary" (click)="toggleAddCompanieDomain(true)">
+ 				<span class="glyphicon glyphicon-plus"></span> Adauga tip de companie
+ 			</button>
  		</div>
  		<div class="search-field">
  			<div class="input-group">
@@ -11,6 +13,22 @@
  					<span class="glyphicon glyphicon-search"></span>
  				</span>
  				<input class="form-control" placeholder="Search..." [(ngModel)]="searchQuery" (ngModelChange)="getCompanyTypesWithFilters()"/>	
+ 			</div>
+ 		</div>
+ 	</div>
+ 	<!-- *ngIf="showAddCompanieDomainRow" -->
+ 	<div class="add-companie">
+ 		<div class="input-group">
+ 			<input class="form-control" [(ngModel)]="newDomain" />
+ 			<div class="input-group-btn">
+ 				<button type="button" class="btn btn-secondary btn-primary">
+ 					<span class="glyphicon glyphicon-ok"></span>
+ 					Creeaza
+ 				</button>
+ 				<button type="button" class="btn btn-secondary btn-default">
+ 					<span class="glyphicon glyphicon-remove"></span>
+ 					Confirma
+ 				</button> 				
  			</div>
  		</div>
  	</div>
@@ -28,12 +46,12 @@
  						<span class="glyphicon glyphicon-trash"></span>
  					</a>
  					<a *ngIf="!companieType.isInEditMode" class="secondary" (click)="toggleEditMode(companieType)">
- 						<span class="glyphicon glyphicon-cog"></span>
+ 						<span class="glyphicon glyphicon-pencil"></span>
  					</a>
  					<a *ngIf="companieType.isInEditMode" class="secondary" (click)="editCompaniType(companieType)">
  						<span class="glyphicon glyphicon-ok"></span>
  					</a>
- 					<span class="pull-right label label-info">- Companii - {{companieType.companies}}</span>
+ 					<span class="pull-right label label-info">- Companii - {{companieType.companies_no}}</span>
  				</div>
  			</li>
  		</ul>

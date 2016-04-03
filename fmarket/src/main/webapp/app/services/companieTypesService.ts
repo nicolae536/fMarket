@@ -8,8 +8,8 @@ import {FMarketApi} from "./fMarketApi";
 
 @Injectable()
 export class CompanieTypeService {
-	adminUsersControllerRoute:string = '/company/types';
-	api:FMarketApi;
+	private adminUsersControllerRoute:string = '/company/types';
+	private api:FMarketApi;
 
 	constructor(http:Http) {
 		this.api = new FMarketApi(http);
@@ -27,7 +27,7 @@ export class CompanieTypeService {
 		return this.api.put(this.adminUsersControllerRoute, JSON.stringify(company));
 	}
 
-	addCompanyType(company){
+	addCompanyType(companyName){
 		return this.api.put(this.adminUsersControllerRoute, JSON.stringify(company));	
 	}
 }

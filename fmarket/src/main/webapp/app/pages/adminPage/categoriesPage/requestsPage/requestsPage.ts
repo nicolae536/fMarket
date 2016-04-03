@@ -44,6 +44,8 @@
 
  	}
 
+ 	//addRequestType()
+
  	deleteRequestType(requestType:RequestType){
  		this._requestTypeService.deleteRequestType(requestType.id)
  		.map((response) => response.json())

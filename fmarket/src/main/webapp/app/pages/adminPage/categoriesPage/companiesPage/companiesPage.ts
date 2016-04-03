@@ -20,6 +20,8 @@ let applicationPath: string = '/app/pages/adminPage/categoriesPage/companiesPage
 export class CompaniesPage implements OnInit {
 	companieTypes:Array<CompanieType> = new Array(new CompanieType("", "test",1),new CompanieType("", "test",3),new CompanieType("", "test",2));
 	searchQuery: string = "";
+	newDomain:string;
+	showAddCompanieDomainRow:boolean;
 
 	_companieTypeService:CompanieTypeService
 
@@ -44,6 +46,18 @@ export class CompaniesPage implements OnInit {
 
 	}
 
+	addCompanieDomain(){
+		this._companieTypeService.addCompanyType(this.newDomain)
+		.map((response) => response.json())
+		.subscribe(
+			response => {
+				this.getCompanyTypesWithFilters();
+			},
+			error => {
+				//this.companieTypes = [];
+			});		
+	}
+
 	deleteCompanyType(companyType:CompanieType){
 		this._companieTypeService.deleteCompanyType(companyType.id)
 		.map((response) => response.json())
@@ -54,7 +68,7 @@ export class CompaniesPage implements OnInit {
 			error => {
 				this.companieTypes = [];
 			});
-			
+
 	}
 
 	editCompaniType(companyType:CompanieType){
@@ -73,5 +87,9 @@ export class CompaniesPage implements OnInit {
 
 	toggleEditMode(companyType:CompanieType){
 		companyType.isInEditMode = true;
+	}
+
+	toggleAddCompanieDomain(value:boolean){
+		this.showAddCompanieDomainRow=value;
 	}
 }

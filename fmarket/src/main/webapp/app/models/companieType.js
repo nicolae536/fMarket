@@ -10,7 +10,7 @@ System.register([], function(exports_1, context_1) {
                     this.isInEditMode = false;
                     this.id = id;
                     this.name = name;
-                    this.companies = companies;
+                    this.companies_no = companies;
                 }
                 return CompanieType;
             }());

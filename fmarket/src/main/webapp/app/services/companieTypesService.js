@@ -38,7 +38,7 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                 CompanieTypeService.prototype.editCompaniType = function (company) {
                     return this.api.put(this.adminUsersControllerRoute, JSON.stringify(company));
                 };
-                CompanieTypeService.prototype.addCompanyType = function (company) {
+                CompanieTypeService.prototype.addCompanyType = function (companyName) {
                     return this.api.put(this.adminUsersControllerRoute, JSON.stringify(company));
                 };
                 CompanieTypeService = __decorate([

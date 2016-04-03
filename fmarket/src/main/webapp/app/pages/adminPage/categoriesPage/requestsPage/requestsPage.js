@@ -47,6 +47,7 @@ System.register(['angular2/core', 'angular2/http', '../../../../models/requestTy
                         _this.requestTypes = [];
                     });
                 };
+                //addRequestType()
                 RequestsPage.prototype.deleteRequestType = function (requestType) {
                     var _this = this;
                     this._requestTypeService.deleteRequestType(requestType.id)

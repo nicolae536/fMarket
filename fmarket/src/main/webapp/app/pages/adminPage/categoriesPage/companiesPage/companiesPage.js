@@ -47,6 +47,16 @@ System.register(['angular2/core', 'angular2/http', '../../../../models/companieT
                         _this.companieTypes = [];
                     });
                 };
+                CompaniesPage.prototype.addCompanieDomain = function () {
+                    var _this = this;
+                    this._companieTypeService.addCompanyType(this.newDomain)
+                        .map(function (response) { return response.json(); })
+                        .subscribe(function (response) {
+                        _this.getCompanyTypesWithFilters();
+                    }, function (error) {
+                        //this.companieTypes = [];
+                    });
+                };
                 CompaniesPage.prototype.deleteCompanyType = function (companyType) {
                     var _this = this;
                     this._companieTypeService.deleteCompanyType(companyType.id)
@@ -70,6 +80,9 @@ System.register(['angular2/core', 'angular2/http', '../../../../models/companieT
                 };
                 CompaniesPage.prototype.toggleEditMode = function (companyType) {
                     companyType.isInEditMode = true;
+                };
+                CompaniesPage.prototype.toggleAddCompanieDomain = function (value) {
+                    this.showAddCompanieDomainRow = value;
                 };
                 CompaniesPage = __decorate([
                     core_1.Component({
