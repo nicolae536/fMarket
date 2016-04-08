@@ -1,70 +1,68 @@
- 
 /*page title*/
 
-.subscribers-page .page-title .row{
-	padding-top: 15px;
-	padding-bottom: 15px;
+.subscribers-page .page-title .row {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
-.subscribers-page .page-title .row .secondary{
-	float: right;	
+.subscribers-page .page-title .row .secondary {
+    float: right;
 }
 
-.subscribers-page .page-title .row .secondary input{
-	margin-left: 5px;
+.subscribers-page .page-title .row .secondary input {
+    margin-left: 5px;
 }
 
 /*page content*/
-.subscribers-page .page-content .row{
-	margin-bottom: 12px;
+.subscribers-page .page-content .row {
+    margin-bottom: 12px;
 }
 
-.subscribers-page .page-content .row .filters{
-	padding-top: 5px;
-	padding-bottom: 5px;
+.subscribers-page .page-content .row .filters {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-.subscribers-page .page-content .row .filters .filter-container{
-	position: relative;
-	padding-bottom: 5px;
-	padding-top: 5px;
+.subscribers-page .page-content .row .filters .filter-container {
+    position: relative;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 
-.subscribers-page .page-content .row .filters .filter-container .col-lg-3.no-right-padding{
-	padding-right: 0px;
+.subscribers-page .page-content .row .filters .filter-container .col-lg-3.no-right-padding {
+    padding-right: 0px;
 }
 
-.subscribers-page .page-content .row .filters .filter-container .col-lg-2 .user-status-select{
-	height: 34px;
-	width: 100%;
+.subscribers-page .page-content .row .filters .filter-container .col-lg-2 .user-status-select {
+    height: 34px;
+    width: 100%;
 }
 
-.subscribers-page .page-content .row .filters .filter-container .col-lg-6 .user-status-select{
-	height: 34px;
-	width: 100%;
+.subscribers-page .page-content .row .filters .filter-container .col-lg-6 .user-status-select {
+    height: 34px;
+    width: 100%;
 }
 
-.subscribers-page .page-content .row .filters .filter-container .secondary{
-	float: right;
-	padding-top: 16px;
+.subscribers-page .page-content .row .filters .filter-container .secondary {
+    float: right;
+    padding-top: 16px;
 }
 
-.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td > input{
-	text-align:center; 
+.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td > input {
+    text-align: center;
 }
 
-.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td,th{
-	text-align:center; 
-	vertical-align:middle;
-	height: 50px;
+.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td, th {
+    text-align: center;
+    vertical-align: middle;
+    height: 50px;
 }
 
-.subscribers-page .page-content .row .table .table-body .navigation-row .navigation-column{
-	padding-right: 3%;
+.subscribers-page .page-content .row .table .table-body .navigation-row .navigation-column {
+    padding-right: 3%;
 }
-
 
 /*helper classes*/
-.pointer-cursor{
-	cursor: pointer;
+.pointer-cursor {
+    cursor: pointer;
 }

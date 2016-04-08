@@ -1,143 +1,150 @@
-
 <link rel="stylesheet" type="text/css" href="/app/pages/adminPage/subscribersPage/subscribersPage.css">
 <div class="users-page">
-	<!-- TODO catch close event -->
-	<action-dialog
-	[title]="'Delete'"
-	[positive-label]="'Delete'"
-	(loaded)="referenceActionDialogInComponent($event)">
-	<h4>Are you sure that you want to delete this subscriber ?</h4>
-</action-dialog>
-<create-subscriber-dialog
-	(loaded)="referenceCreateSubscriberDialogInComponent($event)">
-</create-subscriber-dialog>
-<div class="subscribers-page">
-	<!-- TODO catch close event -->
-	<div class="page-title">
-		<div class="row">
-			<div class="secondary">
-				<input type="button" class="btn btn-primary" (click)="createSubscriber()" value="Adauga subscriber" />
-			</div>						
-			<span class="h1">Subscribers</span>					
-		</div>	
-	</div>
-	<div class="page-content">
-		<div class="row">
-			<div class="filters">
-				<strong class="h3">Filtre</strong>				
-				<div class="clearfix filter-container">
-					<div class="col-lg-3">					
-						<div class="form-group">
-							<span>Email:</span>
-							<input type="text" [(ngModel)]="emailFilter" placeholder="email@domain.com" class="form-control" />
-						</div>
-					</div>
-					<div class="col-lg-3">					
-						<div class="form-group">
-							<span>Subscribe date:</span>
-							<input type="text" placeholder="dd-mm-yyyy" [(ngModel)]="subscribeDateFilter" class="form-control"/>
-						</div>
-					</div>
-					
-					<div class="col-lg-3">	
-						<div class="form-group">
-							<span>Unsubscribe date:</span>
-							<input type="text" [(ngModel)]="unsubscribeDateFilter" placeholder="dd-mm-yyyy" class="form-control"/>
-						</div>
-					</div>
-					<div class="col-lg-3 no-right-p">						
-						<div class="secondary">
-							<button class="btn btn-success" (clicl)="applyFilters()">Aplica Filtre</button> 
-						</div>
-					</div>
-					
-				</div>	
-			</div>
-			<div class="subscribers">
-				<div class="table-responsiv">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th class="col-md-1">Id</th>
-								<th class="col-md-3 pointer-cursor" (click)="sortByColumn('EMAIL')">
-									<span>Email</span>
-									<span [ngClass]="getClassForSorting('EMAIL')"></span>
-								</th>
-								<th class="col-md-2 pointer-cursor" (click)="sortByColumn('SUBSCRIBE_DATE')">
-									<span>Subscribe date</span>
-									<span [ngClass]="getClassForSorting('SUBSCRIBE_DATE')"></span>
-								</th>
-								<th class="col-md-2 pointer-cursor" (click)="sortByColumn('UNSUBSCRIBE_DATE')">
-									<span>Unsubscribe date</span>
-									<span [ngClass]="getClassForSorting('UNSUBSCRIBE_DATE')"></span>
-								</th>
-								<th class="col-md-3">Unsubscribe token</th>
-								<th colspan="3">Actiuni</th>
-							</tr>
-						</thead>
-						<tbody class="table-body">
-							<tr *ngFor="#subscriber of subscribersList" [ngClass]="subscriber.isInEditMode ? 'success':''">
-								<td>
-									<span >{{subscriber.id}}</span>
-								</td>
-								<td>
-									<span>{{subscriber.email}}</span>									
-								</td>
-								<td>
-									<span>{{subscriber.subscribeDate}}</span>
-								</td>
-								<td class="fit-select-to-td">
-									<span>{{subscriber.unsubscribeDate}}</span>
-								</td>
-								<td class="fit-select-to-td">
-									<span >{{subscriber.unsubscribeToken}}</span>
-								</td>
-								<td>
-									<a href="javascript:void(0)" title="Subscribe" (click)="subscribe(subscriber)">
-										<span class="glyphicon glyphicon-log-in"></span>
-									</a>							
-								</td>
-								<td>
-									<a href="javascript:void(0)" title="Unsubscribe" (click)="unsubscribe(subscriber)">
-										<span class="glyphicon glyphicon-log-out	Try it"></span>
-									</a>
-								</td>
-								<td>
-									<a href="javascript:void(0)" title="Delete" (click)="delete(subscriber)">
-										<span class="glyphicon glyphicon-trash"></span>
-									</a>
-								</td>
-							</tr>
-							<tr class="navigation-row">
-								<td colspan="8" class="navigation-column">
-									<div class="col-xs-1">
-										<a href="javascript: void(0)" (click)="navigateLeft()">
-											<span class="glyphicon glyphicon-chevron-left"></span>
-										</a>
-									</div>
-									<div class="col-xs-9">
-										<div class="btn-group" role="group" *ngIf="pageNumbsersSubset.length > 1">
-											<button *ngFor="#page of pageNumbsersSubset" [class]="isPageActive(page)" type="button" (click)="goToPageUsingIndex(page)">{{page}}</button>
-										</div>
-									</div>
-									<div class="pull-right">
-										<a href="javascript: void(0)" (click)="navigateRight()">
-											<span class="glyphicon glyphicon-chevron-right"></span>
-										</a>
-									</div>
-								</td>
-								<!-- <td class="fit-select-to-td" colspan="2">
-									<select [(ngModel)]="usersPerPage" (ngModelChange)="getUsers()">
-										<option value="10">10</option>
-										<option value="25">25</option>
-										<option value="50">50</option>
-									</select>
-								</td> -->
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div> 
-</div>
+    <!-- TODO catch close event -->
+    <action-dialog
+            [title]="'Delete'"
+            [positive-label]="'Delete'"
+            (loaded)="referenceActionDialogInComponent($event)">
+        <h4>Are you sure that you want to delete this subscriber ?</h4>
+    </action-dialog>
+    <create-subscriber-dialog
+            (loaded)="referenceCreateSubscriberDialogInComponent($event)">
+    </create-subscriber-dialog>
+    <div class="subscribers-page">
+        <!-- TODO catch close event -->
+        <div class="page-title">
+            <div class="row">
+                <div class="secondary">
+                    <input type="button" class="btn btn-primary" (click)="createSubscriber()"
+                           value="Adauga subscriber"/>
+                </div>
+                <span class="h1">Subscribers</span>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="row">
+                <div class="filters">
+                    <strong class="h3">Filtre</strong>
+
+                    <div class="clearfix filter-container">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <span>Email:</span>
+                                <input type="text" [(ngModel)]="emailFilter" placeholder="email@domain.com"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <span>Subscribe date:</span>
+                                <input type="text" placeholder="dd-mm-yyyy" [(ngModel)]="subscribeDateFilter"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <span>Unsubscribe date:</span>
+                                <input type="text" [(ngModel)]="unsubscribeDateFilter" placeholder="dd-mm-yyyy"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 no-right-p">
+                            <div class="secondary">
+                                <button class="btn btn-success" (clicl)="applyFilters()">Aplica Filtre</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="subscribers">
+                    <div class="table-responsiv">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th class="col-md-1">Id</th>
+                                <th class="col-md-3 pointer-cursor" (click)="sortByColumn('EMAIL')">
+                                    <span>Email</span>
+                                    <span [ngClass]="getClassForSorting('EMAIL')"></span>
+                                </th>
+                                <th class="col-md-2 pointer-cursor" (click)="sortByColumn('SUBSCRIBE_DATE')">
+                                    <span>Subscribe date</span>
+                                    <span [ngClass]="getClassForSorting('SUBSCRIBE_DATE')"></span>
+                                </th>
+                                <th class="col-md-2 pointer-cursor" (click)="sortByColumn('UNSUBSCRIBE_DATE')">
+                                    <span>Unsubscribe date</span>
+                                    <span [ngClass]="getClassForSorting('UNSUBSCRIBE_DATE')"></span>
+                                </th>
+                                <th class="col-md-3">Unsubscribe token</th>
+                                <th colspan="3">Actiuni</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-body">
+                            <tr *ngFor="#subscriber of subscribersList"
+                                [ngClass]="subscriber.isInEditMode ? 'success':''">
+                                <td>
+                                    <span>{{subscriber.id}}</span>
+                                </td>
+                                <td>
+                                    <span>{{subscriber.email}}</span>
+                                </td>
+                                <td>
+                                    <span>{{subscriber.subscribeDate}}</span>
+                                </td>
+                                <td class="fit-select-to-td">
+                                    <span>{{subscriber.unsubscribeDate}}</span>
+                                </td>
+                                <td class="fit-select-to-td">
+                                    <span>{{subscriber.unsubscribeToken}}</span>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" title="Subscribe" (click)="subscribe(subscriber)">
+                                        <span class="glyphicon glyphicon-log-in"></span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" title="Unsubscribe" (click)="unsubscribe(subscriber)">
+                                        <span class="glyphicon glyphicon-log-out	Try it"></span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" title="Delete" (click)="delete(subscriber)">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="navigation-row">
+                                <td colspan="8" class="navigation-column">
+                                    <div class="col-xs-1">
+                                        <a href="javascript: void(0)" (click)="navigateLeft()">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <div class="btn-group" role="group" *ngIf="pageNumbsersSubset.length > 1">
+                                            <button *ngFor="#page of pageNumbsersSubset" [class]="isPageActive(page)"
+                                                    type="button" (click)="goToPageUsingIndex(page)">{{page}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="javascript: void(0)" (click)="navigateRight()">
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <!-- <td class="fit-select-to-td" colspan="2">
+                                    <select [(ngModel)]="usersPerPage" (ngModelChange)="getUsers()">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </td> -->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, http_1, fMarketApi_1;
-    var CompanieTypeService;
+    var CategoriesMenuService;
     return {
         setters:[
             function (core_1_1) {
@@ -24,31 +24,31 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                 fMarketApi_1 = fMarketApi_1_1;
             }],
         execute: function() {
-            CompanieTypeService = (function () {
-                function CompanieTypeService(http) {
-                    this.adminUsersControllerRoute = '/company/types';
+            CategoriesMenuService = (function () {
+                function CategoriesMenuService(http) {
+                    this.adminUsersControllerRoute = '/company/menu';
                     this.api = new fMarketApi_1.FMarketApi(http);
                 }
-                CompanieTypeService.prototype.getCompanyTypesWithFilters = function (searchQuery) {
-                    return this.api.get(this.adminUsersControllerRoute + ("/?searchQuery=" + searchQuery));
+                CategoriesMenuService.prototype.getMenuDictionary = function () {
+                    return this.api.get(this.adminUsersControllerRoute);
                 };
-                CompanieTypeService.prototype.deleteCompanyType = function (companyId) {
-                    return this.api.delete(this.adminUsersControllerRoute + ("/" + companyId));
+                CategoriesMenuService.prototype.deleteMenuItem = function (id) {
+                    return this.api.delete(this.adminUsersControllerRoute + ("/" + id));
                 };
-                CompanieTypeService.prototype.editCompaniType = function (companyDomain) {
-                    return this.api.put(this.adminUsersControllerRoute, JSON.stringify({ domain: companyDomain }));
+                CategoriesMenuService.prototype.editMenuItem = function (menuItem) {
+                    return this.api.put(this.adminUsersControllerRoute, JSON.stringify(menuItem));
                 };
-                CompanieTypeService.prototype.addCompanyType = function (companyDomain) {
-                    return this.api.put(this.adminUsersControllerRoute, JSON.stringify({ domain: companyDomain }));
+                CategoriesMenuService.prototype.addMenuItem = function (menuData) {
+                    return this.api.post(this.adminUsersControllerRoute, JSON.stringify(menuData));
                 };
-                CompanieTypeService = __decorate([
+                CategoriesMenuService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
-                ], CompanieTypeService);
-                return CompanieTypeService;
+                ], CategoriesMenuService);
+                return CategoriesMenuService;
             })();
-            exports_1("CompanieTypeService", CompanieTypeService);
+            exports_1("CategoriesMenuService", CategoriesMenuService);
         }
     }
 });
-//# sourceMappingURL=companieTypesService.js.map
+//# sourceMappingURL=categoriesMenuService.js.map

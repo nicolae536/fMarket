@@ -1,13 +1,15 @@
- <link rel="stylesheet" type="text/css" href="/app/pages/adminPage/categoriesPage/categoriesPage.css">
+<link rel="stylesheet" type="text/css" href="/app/pages/adminPage/categoriesPage/categoriesPage.css">
 
- <div>
+<div>
 
- 	<!-- Nav tabs -->
- 	<ul class="nav nav-tabs" role="tablist">
- 		<li role="presentation" *ngFor="#tab of tabPagesList" [ngClass]="router.isRouteActive(router.generate([tab.link])) ? 'active':''"><a [routerLink]="[tab.link]">{{tab.name}}</a></li> 		
- 	</ul>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" *ngFor="#tab of tabPagesList"
+            [ngClass]="router.isRouteActive(router.generate([tab.link])) ? 'active':''"><a [routerLink]="[tab.link]">{{tab.name}}</a>
+        </li>
+    </ul>
 
- 	<div>
- 		<router-outlet></router-outlet>
- 	</div>
- </div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

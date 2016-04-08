@@ -10,25 +10,25 @@ import {CategoriesPage} from './categoriesPage/categoriesPage';
 var applicationPath:string = '/app/pages/adminPage';
 
 @Component({
-	selector: 'admin-Page',
-	templateUrl: applicationPath + '/adminPage.html',
-	directives:[ROUTER_DIRECTIVES]
+    selector: 'admin-Page',
+    templateUrl: applicationPath + '/adminPage.html',
+    directives: [ROUTER_DIRECTIVES]
 })
 
 @RouteConfig([
-    new Route({ path: '/users', component: UsersPage, name: 'Users' }),
-    new Route({ path: '/subscribers', component: SubscribersPage, name: 'Subscribers' }),
-    new Route({ path: '/categorii/...', component: CategoriesPage, name: 'Categories' }),
+    new Route({path: '/users', component: UsersPage, name: 'Users'}),
+    new Route({path: '/subscribers', component: SubscribersPage, name: 'Subscribers'}),
+    new Route({path: '/categorii/...', component: CategoriesPage, name: 'Categories'}),
     //{ path: '/jquery', component: JqueryIntegration, name: 'JqueryIntegration' }),
 ])
 
 export class AdminPage {
-	
-	location:Location;
-	router:Router;
+
+    location:Location;
+    router:Router;
 
     constructor(location:Location, router:Router) {
         this.location = location;
-        this.router=router;
+        this.router = router;
     }
 } 

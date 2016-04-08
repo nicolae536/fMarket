@@ -2,8 +2,8 @@ import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
 
 //used template to not download the same html multiple times
 @Component({
-	selector: 'base-menu',
-	template:`
+    selector: 'base-menu',
+    template: `
 	<div class="base-menu-component">
 		<ul class="nav nav-pills nav-stacked">
 			<div class="input-group">
@@ -23,7 +23,7 @@ import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
 		</ul>
 	</div>
 	`,
-	styles:[`
+    styles: [`
 		.base-menu-component .nav.nav-pills.nav-stacked .input-group .input-group-btn .btn{
 			height:34px;
 		}
@@ -35,48 +35,49 @@ import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
 })
 
 export class BaseMenuComponent implements OnInit {
-	@Input('menu-items-list') menuItemsList:Array<MenuItem>;
-	@Input('menu-layer') menuLayer:number;
-	@Output('select-menu-item') broadcastMenuItem: EventEmitter<MenuData> = new EventEmitter<MenuData>();
-	@Output('add-new-item') broadcastNewItem: EventEmitter<MenuData> = new EventEmitter<MenuData>();
+    @Input('menu-items-list') menuItemsList:Array<MenuItem>;
+    @Input('menu-layer') menuLayer:number;
+    @Output('select-menu-item') broadcastMenuItem:EventEmitter<MenuData> = new EventEmitter<MenuData>();
+    @Output('add-new-item') broadcastNewItem:EventEmitter<MenuData> = new EventEmitter<MenuData>();
 
-	selectedItem:MenuItem;
-	newMenuItem:string;
+    selectedItem:MenuItem;
+    newMenuItem:string;
 
-	constructor() { }
+    constructor() {
+    }
 
-	ngOnInit(){
-		//this.selectItem(this.menuItemsList && this.menuItemsList.length > 0 ? this.menuItemsList[0] : null);
-		this.newMenuItem = "";
-	}
+    ngOnInit() {
+        //this.selectItem(this.menuItemsList && this.menuItemsList.length > 0 ? this.menuItemsList[0] : null);
+        this.newMenuItem = "";
+    }
 
-	isItemSelected(menuItem){
-		return this.selectedItem == menuItem;
-	}
+    isItemSelected(menuItem) {
+        return this.selectedItem == menuItem;
+    }
 
-	selectItem(menuItem){
-		this.selectedItem = menuItem;
-		this.broadcastMenuItem.emit({menuItem:menuItem, menuLayer:this.menuLayer});
-	}
+    selectItem(menuItem) {
+        this.selectedItem = menuItem;
+        this.broadcastMenuItem.emit({menuItem: menuItem, menuLayer: this.menuLayer});
+    }
 
-	addMenuItem(){
-		this.broadcastNewItem.emit({menuItem:this.newMenuItem, menuLayer:this.menuLayer});
-		this.clearMenuItem();
-	}
+    addMenuItem() {
+        this.broadcastNewItem.emit({menuItem: this.newMenuItem, menuLayer: this.menuLayer});
+        this.clearMenuItem();
+    }
 
-	clearMenuItem(){
-		this.newMenuItem = "";
-	}
+    clearMenuItem() {
+        this.newMenuItem = "";
+    }
 }
 
-interface MenuItem{
-	id;
-	layer;
-	parentId;
-	name;
+export interface MenuItem {
+    id;
+    layer;
+    parentId;
+    name;
 }
 
-interface MenuData{
-	menuItem;
-	menuLayer;
+export interface MenuData {
+    menuItem;
+    menuLayer;
 }

@@ -1,59 +1,61 @@
-  <link rel="stylesheet" type="text/css" href="/app/pages/adminPage/categoriesPage/requestsPage/requestsPage.css">
+<link rel="stylesheet" type="text/css" href="/app/pages/adminPage/categoriesPage/requestsPage/requestsPage.css">
 
-  <div class="requests-page">
-  	<div class="requests-type-filter clearfix">
-  		<div class="pull-right">
-  			<button class="btn btn-primary" (click)="toggleAddRequestType(true)">
-  				<span class="glyphicon glyphicon-plus"></span> Adauga tip de cerere
-  			</button>
-  		</div>
-  		<div class="search-field">
-  			<div class="input-group">
+<div class="requests-page">
+    <div class="requests-type-filter clearfix">
+        <div class="pull-right">
+            <button class="btn btn-primary" (click)="toggleAddRequestType(true)">
+                <span class="glyphicon glyphicon-plus"></span> Adauga tip de cerere
+            </button>
+        </div>
+        <div class="search-field">
+            <div class="input-group">
   				<span class="input-group-addon">
   					<span class="glyphicon glyphicon-search"></span>
   				</span>
-  				<input class="form-control" placeholder="Search..." [(ngModel)]="searchQuery" (ngModelChange)="getRequestsTypesWithFilters()"/>	
-  			</div>
-  		</div>
-  	</div>
-  	<!-- *ngIf="showAddRequestRow" -->
-  	<div class="add-request" *ngIf="showAddRequestRow">
-  		<div class="input-group">
-  			<input class="form-control" [(ngModel)]="newRequestType" />
-  			<div class="input-group-btn">
-  				<button type="button" class="btn btn-secondary btn-primary" (click)="addRequestType()">
-  					<span class="glyphicon glyphicon-ok"></span>
-  					Creeaza
-  				</button>
-  				<button type="button" class="btn btn-secondary btn-default" (click)="toggleAddRequestType(false)">
-  					<span class="glyphicon glyphicon-remove"></span>
-  					Cancel
-  				</button> 				
-  			</div>
-  		</div>
-  	</div>
-  	<div class="requests-type">
-  		<ul class="list-group">
-  			<li *ngFor="#requestType of requestTypes" class="list-group-item clearfix"> 			
-  				<div class="col-md-9">
+                <input class="form-control" placeholder="Search..." [(ngModel)]="searchQuery"
+                       (ngModelChange)="getRequestsTypesWithFilters()"/>
+            </div>
+        </div>
+    </div>
+    <!-- *ngIf="showAddRequestRow" -->
+    <div class="add-request" *ngIf="showAddRequestRow">
+        <div class="input-group">
+            <input class="form-control" [(ngModel)]="newRequestType"/>
+
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-secondary btn-primary" (click)="addRequestType()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Creeaza
+                </button>
+                <button type="button" class="btn btn-secondary btn-default" (click)="toggleAddRequestType(false)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="requests-type">
+        <ul class="list-group">
+            <li *ngFor="#requestType of requestTypes" class="list-group-item clearfix">
+                <div class="col-md-9">
   					<span *ngIf="!requestType.isInEditMode">
   						{{requestType.name}}
-  					</span> 			
-  					<input *ngIf="requestType.isInEditMode" class="form-control" [(ngModel)]="requestType.name" />
-  				</div>
-  				<div class="col-md-3">
-  					<a class="secondary" (click)="deleteRequestType(requestType)">
-  						<span class="glyphicon glyphicon-trash"></span>
-  					</a>
-  					<a *ngIf="!requestType.isInEditMode" class="secondary" (click)="toggleEditMode(requestType)">
-  						<span class="glyphicon glyphicon-cog"></span>
-  					</a>
-  					<a *ngIf="requestType.isInEditMode" class="secondary" (click)="editRequestType(requestType)">
-  						<span class="glyphicon glyphicon-ok"></span>
-  					</a>
-  					<span class="pull-right label label-info">- Companii - {{requestType.companies}}</span>
-  				</div>
-  			</li>
-  		</ul>
-  	</div>
-  </div>
+  					</span>
+                    <input *ngIf="requestType.isInEditMode" class="form-control" [(ngModel)]="requestType.name"/>
+                </div>
+                <div class="col-md-3">
+                    <a class="secondary" (click)="deleteRequestType(requestType)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                    <a *ngIf="!requestType.isInEditMode" class="secondary" (click)="toggleEditMode(requestType)">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                    <a *ngIf="requestType.isInEditMode" class="secondary" (click)="editRequestType(requestType)">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                    <span class="pull-right label label-info">- Companii - {{requestType.companies}}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

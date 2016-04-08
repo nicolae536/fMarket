@@ -1,96 +1,101 @@
 import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
 import {BaseMenuComponent} from './baseMenuComponent/baseMenuComponent';
+import {MenuItem} from './baseMenuComponent/baseMenuComponent';
+import {MenuData} from './baseMenuComponent/baseMenuComponent';
 
 @Component({
-	selector: 'menu-component',
-	templateUrl: '/app/components/menuComponent/menuTreeComponent.html',
-	directives:[BaseMenuComponent]
-}) 
+    selector: 'menu-component',
+    templateUrl: '/app/components/menuComponent/menuTreeComponent.html',
+    directives: [BaseMenuComponent]
+})
 
 export class MenuTreeComponent implements OnInit {
-	@Input('menu-tree-data') menuDictionary:Array<Object>;
-	//menuDictionary;
-	@Output('item-selected') selectItem:EventEmitter<Object> = new EventEmitter<Object>();
-	@Output('add-new-item') broadcastNewItem:EventEmitter<Object>  = new EventEmitter<Object>();
-	ROOT_ID:number = 0; 
-	ROOT_LAYER:number = 0;
+    @Input('menu-tree-data') menuDictionary:Array<MenuItem>;
+    //menuDictionary;
+    @Output('item-selected') selectItem:EventEmitter<MenuData> = new EventEmitter<MenuData>();
+    @Output('add-new-item') broadcastNewItem:EventEmitter<MenuData> = new EventEmitter<MenuData>();
+    ROOT_ID:number = 0;
+    ROOT_LAYER:number = 0;
 
-	menuTreeView:Array<Object> = new Array<Object>();
-	//TODO implement menuService
-	constructor() {
-		
-	}
+    menuTreeView:Array<Object> = [];
+    //TODO implement menuService
+    constructor() {
 
-	ngOnInit(){
-		//this.selectItem = new EventEmitter<Object>();
-		//this.broadcastNewItem = new EventEmitter<Object>();	
-		this.menuDictionary = this.mapManuTree(this.menuDictionary);	
-		this.menuTreeView.push(this.getRootLayer());
-	}
+    }
 
-	mapManuTree(menuTree){
-		for (let i = 0; i < menuTree.length; i++) {
-			menuTree[i].hasChildrens = this.checkIfMenuItemHasChildrens(menuTree[i], menuTree);
-		}
-		return menuTree;
-	}
+    ngOnInit() {
+        //this.selectItem = new EventEmitter<Object>();
+        //this.broadcastNewItem = new EventEmitter<Object>();
+        this.menuDictionary = this.mapManuTree(this.menuDictionary);
+        this.menuTreeView.push(this.getRootLayer());
+    }
 
-	checkIfMenuItemHasChildrens(menuItem, menuTree){
-		for (let i = 0; i < menuTree.length; i++) {
-			if(menuItem.id === menuTree[i].parentId){
-				return true;
-			}
-		}
-		return false;
-	}
+    mapManuTree(menuTree) {
+        for (let i = 0; i < menuTree.length; i++) {
+            menuTree[i].hasChildrens = this.checkIfMenuItemHasChildrens(menuTree[i], menuTree);
+        }
+        return menuTree;
+    }
 
-	selectMenuItem(menu){
-		if(!menu.menuItem.hasChildrens){
-			this.selectItem.emit(menu.menuItem);
-			//return;
-		}
-		this.menuTreeView = this.getTreeViewForMenuItem(menu.menuItem);
-	}
+    checkIfMenuItemHasChildrens(menuItem, menuTree) {
+        for (let i = 0; i < menuTree.length; i++) {
+            if (menuItem.id === menuTree[i].parentId) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	getTreeViewForMenuItem(menuItem){
-		var nextLayer = menuItem.layer + 1;
-		let menuView = this.getActiveTreeView(menuItem.layer);
+    selectMenuItem(menu) {
+        if (!menu.menuItem.hasChildrens) {
+            this.selectItem.emit(menu.menuItem);
+            //return;
+        }
+        this.menuTreeView = this.getTreeViewForMenuItem(menu.menuItem);
+    }
+
+    addMenuItem(menuData) {
+        this.broadcastNewItem.emit(menuData);
+    }
+
+    getTreeViewForMenuItem(menuItem) {
+        var nextLayer = menuItem.layer + 1;
+        let menuView = this.getActiveTreeView(menuItem.layer);
 
 
-		menuView[nextLayer] = new Array<Object>();
+        menuView[nextLayer] = [];
 
-		for (var i = 0; i < this.menuDictionary.length; i++) {
-			if (this.menuDictionary[i].parentId === menuItem.id){
-				menuView[nextLayer].push(this.menuDictionary[i]);
-			}
-		}
+        for (var i = 0; i < this.menuDictionary.length; i++) {
+            if (this.menuDictionary[i].parentId === menuItem.id) {
+                menuView[nextLayer].push(this.menuDictionary[i]);
+            }
+        }
 
-		if(menuView[nextLayer].length < 1){
-			menuView.splice(nextLayer,1);
-		}
-		return menuView;
-	}	
+        if (menuView[nextLayer].length < 1) {
+            menuView.splice(nextLayer, 1);
+        }
+        return menuView;
+    }
 
-	getActiveTreeView(lastLayer){
-		let layer = 0
-		var menuColector = []
-		while (layer<=lastLayer){
-			menuColector[layer] = this.menuTreeView[layer];
-			layer++;
-		}
-		return menuColector;
-	}
+    getActiveTreeView(lastLayer) {
+        let layer = 0;
+        var menuColector = [];
+        while (layer <= lastLayer) {
+            menuColector[layer] = this.menuTreeView[layer];
+            layer++;
+        }
+        return menuColector;
+    }
 
-	getRootLayer(){
-		let firstLayer = new Array<Object>();
+    getRootLayer() {
+        let firstLayer = [];
 
-		for (var i = 0; i < this.menuDictionary.length; i++) {			
-			if(this.menuDictionary[i].layer === this.ROOT_LAYER)
-			{
-				firstLayer.push(this.menuDictionary[i]);
-			} 
-		}
+        for (var i = 0; i < this.menuDictionary.length; i++) {
+            if (this.menuDictionary[i].layer === this.ROOT_LAYER) {
+                firstLayer.push(this.menuDictionary[i]);
+            }
+        }
 
-		return firstLayer
-	}
+        return firstLayer
+    }
 }

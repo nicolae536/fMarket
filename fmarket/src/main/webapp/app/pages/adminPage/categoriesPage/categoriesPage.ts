@@ -5,34 +5,33 @@ import {CompaniesPage} from "./companiesPage/companiesPage";
 import {RequestsPage} from "./requestsPage/requestsPage";
 import {CategoriesMenuPage} from "./categoriesMenuPage/CategoriesMenuPage";
 
-let applicationPath: string = '/app/pages/adminPage/categoriesPage';
+let applicationPath:string = '/app/pages/adminPage/categoriesPage';
 
 @Component({
-	selector: 'categoryes-page',
-	templateUrl: applicationPath + '/categoriesPage.html',
-	styleUrls:[	applicationPath + '/categoriesPage.css'],
-	directives:[ROUTER_DIRECTIVES]
+    selector: 'categoryes-page',
+    templateUrl: applicationPath + '/categoriesPage.html',
+    styleUrls: [applicationPath + '/categoriesPage.css'],
+    directives: [ROUTER_DIRECTIVES]
 })
 
 @RouteConfig([
-	new Route({ path: '/meniu', component: CategoriesMenuPage, name: 'CategoriesMenu' }),
-	new Route({ path: '/firme', component: CompaniesPage, name: 'Companies' }),
-	new Route({ path: '/cereri', component: RequestsPage, name: 'Requests' }),
+    new Route({path: '/meniu', component: CategoriesMenuPage, name: 'CategoriesMenu'}),
+    new Route({path: '/firme', component: CompaniesPage, name: 'Companies'}),
+    new Route({path: '/cereri', component: RequestsPage, name: 'Requests'}),
     //{ path: '/jquery', component: JqueryIntegration, name: 'JqueryIntegration' }),
-    ])
+])
 
 
 export class CategoriesPage {
-	
-	location:Location;
-	router:Router;
-	tabPagesList = new Array<Object>(
-		{name:'Categori', link:'Categories/CategoriesMenu'}, 
-		{name:'Companii', link:'Categories/Companies'}, 
-		{name:'Cereri', link:'Categories/Requests'});
 
-	constructor(location:Location, router:Router) {
-		this.location = location;
-		this.router = router;
-	}
+    location:Location;
+    router:Router;
+    tabPagesList = [{name: 'Categori', link: 'Categories/CategoriesMenu'},
+        {name: 'Companii', link: 'Categories/Companies'},
+        {name: 'Cereri', link: 'Categories/Requests'}];
+
+    constructor(location:Location, router:Router) {
+        this.location = location;
+        this.router = router;
+    }
 } 

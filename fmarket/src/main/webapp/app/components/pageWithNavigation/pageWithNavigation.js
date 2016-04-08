@@ -1,6 +1,4 @@
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register([], function(exports_1) {
     var PageWithNavigation;
     return {
         setters:[],
@@ -8,8 +6,8 @@ System.register([], function(exports_1, context_1) {
             PageWithNavigation = (function () {
                 function PageWithNavigation() {
                     this.currentPageIndex = 1;
-                    this.pageNumbers = new Array();
-                    this.pageNumbsersSubset = new Array();
+                    this.pageNumbers = [];
+                    this.pageNumbsersSubset = [];
                     // code...
                 }
                 PageWithNavigation.prototype.mapPageIndexes = function (pagesCount, currentPageIndex) {
@@ -76,7 +74,7 @@ System.register([], function(exports_1, context_1) {
                     this.pageNumbsersSubset = auxArray;
                 };
                 return PageWithNavigation;
-            }());
+            })();
             exports_1("PageWithNavigation", PageWithNavigation);
         }
     }

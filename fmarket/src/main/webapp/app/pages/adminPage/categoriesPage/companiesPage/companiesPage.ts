@@ -4,102 +4,102 @@ import {HTTP_PROVIDERS} from 'angular2/http';
 import {CompanieType} from '../../../../models/companieType';
 import {CompanieTypeService} from '../../../../services/companieTypesService';
 
-let applicationPath: string = '/app/pages/adminPage/categoriesPage/companiesPage';
+let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage';
 
 @Component({
-	selector: 'companies-Page',
-	templateUrl: applicationPath + '/companiesPage.html',
-	styleUrls:[	applicationPath + '/companiesPage.css'],
-	//encapsulation: ViewEncapsulation.None, 
+    selector: 'companies-Page',
+    templateUrl: applicationPath + '/companiesPage.html',
+    styleUrls: [applicationPath + '/companiesPage.css'],
+    //encapsulation: ViewEncapsulation.None,
 
-	providers:[CompanieTypeService, HTTP_PROVIDERS], 
+    providers: [CompanieTypeService, HTTP_PROVIDERS],
 })
 
 export class CompaniesPage implements OnInit {
-	companieTypes:Array<CompanieType> = new Array(new CompanieType("", "test",1),new CompanieType("", "test",3),new CompanieType("", "test",2));
-	searchQuery: string = "";
-	newDomain:string;
-	showAddCompanieDomainRow:boolean;
-	_companieTypeService:CompanieTypeService
+    companieTypes:Array<CompanieType> = [new CompanieType("", "test", 1), new CompanieType("", "test", 3), new CompanieType("", "test", 2)];
+    searchQuery:string = "";
+    newDomain:string;
+    showAddCompanieDomainRow:boolean;
+    _companieTypeService:CompanieTypeService;
 
-	constructor(companieTypeService:CompanieTypeService) {
-		this._companieTypeService = companieTypeService;
-	}
+    constructor(companieTypeService:CompanieTypeService) {
+        this._companieTypeService = companieTypeService;
+    }
 
-	ngOnInit(){
-		this.getCompanyTypesWithFilters();		
-	}
-
-
-	selectMenuItem(data){
-
-	}
-
-	addMenuItem(data){
-
-	}
+    ngOnInit() {
+        this.getCompanyTypesWithFilters();
+    }
 
 
-	getCompanyTypesWithFilters(){
-		this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-		.map((response) => response.json())
-		.subscribe(
-			response => {
-				this.companieTypes = response.data;
-			},
-			error => {
-				this.companieTypes = [];
-			});
+    selectMenuItem(data) {
 
-	}
+    }
 
-	addCompanieDomain(){
-		this._companieTypeService.addCompanyType(this.newDomain)
-		.map((response) => response.json())
-		.subscribe(
-			response => {
-				this.getCompanyTypesWithFilters();
-				this.newDomain = "";
-				this.toggleAddCompanieDomain(false);
-			},
-			error => {
-				//make the field red
-				//this.companieTypes = [];
-			});		
-	}
+    addMenuItem(data) {
 
-	deleteCompanyType(companyType:CompanieType){
-		this._companieTypeService.deleteCompanyType(companyType.id)
-		.map((response) => response.json())
-		.subscribe(
-			response => {
-				this.companieTypes = response.data;
-			},
-			error => {
-				this.companieTypes = [];
-			});
+    }
 
-	}
 
-	editCompaniType(companyType:CompanieType){
-		this._companieTypeService.editCompaniType(companyType)
-		.map((response) => response.json())
-		.subscribe(
-			response => {
-				companyType.isInEditMode = false;
-				companyType
-				//this.companieTypes = response.data;
-			},
-			error => {
-				//this.companieTypes = [];
-			});
-	}
+    getCompanyTypesWithFilters() {
+        this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    this.companieTypes = response.data;
+                },
+                error => {
+                    this.companieTypes = [];
+                });
 
-	toggleEditMode(companyType:CompanieType){
-		companyType.isInEditMode = true;
-	}
+    }
 
-	toggleAddCompanieDomain(value:boolean){
-		this.showAddCompanieDomainRow=value;
-	}
+    addCompanieDomain() {
+        this._companieTypeService.addCompanyType(this.newDomain)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    this.getCompanyTypesWithFilters();
+                    this.newDomain = "";
+                    this.toggleAddCompanieDomain(false);
+                },
+                error => {
+                    //make the field red
+                    //this.companieTypes = [];
+                });
+    }
+
+    deleteCompanyType(companyType:CompanieType) {
+        this._companieTypeService.deleteCompanyType(companyType.id)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    this.companieTypes = response.data;
+                },
+                error => {
+                    this.companieTypes = [];
+                });
+
+    }
+
+    editCompaniType(companyType:CompanieType) {
+        this._companieTypeService.editCompaniType(companyType)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    companyType.isInEditMode = false;
+                    companyType;
+                    //this.companieTypes = response.data;
+                },
+                error => {
+                    //this.companieTypes = [];
+                });
+    }
+
+    toggleEditMode(companyType:CompanieType) {
+        companyType.isInEditMode = true;
+    }
+
+    toggleAddCompanieDomain(value:boolean) {
+        this.showAddCompanieDomainRow = value;
+    }
 }

@@ -8,26 +8,26 @@ import {FMarketApi} from "./fMarketApi";
 
 @Injectable()
 export class RequestTypeService {
-	controllerRoute:string = '/request/types';
-	api:FMarketApi;
+    controllerRoute:string = '/request/types';
+    api:FMarketApi;
 
-	constructor(http:Http) {
-		this.api = new FMarketApi(http);
-	}
+    constructor(http:Http) {
+        this.api = new FMarketApi(http);
+    }
 
-	getRequestTypesWithFilters(searchQuery:string){
-		return this.api.get(this.controllerRoute+`/?searchQuery=${searchQuery}`);
-	}
+    getRequestTypesWithFilters(searchQuery:string) {
+        return this.api.get(this.controllerRoute + `/?searchQuery=${searchQuery}`);
+    }
 
-	deleteRequestType(requestId){
-		return this.api.delete(this.controllerRoute +`/${requestId}`);
-	}
+    deleteRequestType(requestId) {
+        return this.api.delete(this.controllerRoute + `/${requestId}`);
+    }
 
-	editRequestType(request){
-		return this.api.put(this.controllerRoute, JSON.stringify(request));
-	}
+    editRequestType(request) {
+        return this.api.put(this.controllerRoute, JSON.stringify(request));
+    }
 
-	addRequestType(request){
-		return this.api.put(this.controllerRoute, JSON.stringify(request));	
-	}
+    addRequestType(request) {
+        return this.api.put(this.controllerRoute, JSON.stringify(request));
+    }
 }

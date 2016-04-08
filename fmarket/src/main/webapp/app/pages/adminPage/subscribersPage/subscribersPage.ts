@@ -15,28 +15,27 @@ import {CreateSubscriberDialog} from '../../../components/createSubscriberDialog
 //import mocks
 import {CITYES} from '../../../services/mock-providers/mock-City';
 
-var applicationPath: string = '/app/pages/adminPage/subscribersPage';
+var applicationPath:string = '/app/pages/adminPage/subscribersPage';
 
 @Component({
-	selector: 'subscribers-Page',
-	templateUrl: applicationPath + '/subscribersPage.html',
-	styleUrls:[	applicationPath + '/subscribersPage.css'],
-	encapsulation: ViewEncapsulation.None, 
+    selector: 'subscribers-Page',
+    templateUrl: applicationPath + '/subscribersPage.html',
+    styleUrls: [applicationPath + '/subscribersPage.css'],
+    encapsulation: ViewEncapsulation.None,
 
-	providers:[SubscribersService,HTTP_PROVIDERS],
-	directives:[CreateSubscriberDialog ,ActionDialog, NgForm]
+    providers: [SubscribersService, HTTP_PROVIDERS],
+    directives: [CreateSubscriberDialog, ActionDialog, NgForm]
 })
 
-export class SubscribersPage extends PageWithNavigation implements OnInit{
-	_subscribersService:SubscribersService;
-	actionDialog:ActionDialog;
+export class SubscribersPage extends PageWithNavigation implements OnInit {
+    _subscribersService:SubscribersService;
+    actionDialog:ActionDialog;
 
-	orderList:Array<Object> =  new Array<Object>(
-		{value:-1 , text:"Chose..."}, 
-		{value:1 , text:"Ascending"}, 
-		{value:2 , text:"Descending"});
+    orderList:Array<Object> = [{value: -1, text: "Chose..."},
+        {value: 1, text: "Ascending"},
+        {value: 2, text: "Descending"}];
 
-	cityList:  Array<Object>;         
+    cityList:Array<Object>;
 
     sortKey = "";
     sortOrder = true;
@@ -44,14 +43,14 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
     //sortOrder true -> ascending
     sortkeyAndFilter = [];
 
-    emailFilter = "";    
+    emailFilter = "";
     subscribeDateFilter = "";
     unsubscribeDateFilter = "";
-    subscriberBackup :Subscriber;
+    subscriberBackup:Subscriber;
     createSubscriberDialog:CreateSubscriberDialog;
-    subscribersList: Array<Subscriber> = new Array<Subscriber>();
+    subscribersList:Array<Subscriber> = [];
 
-    constructor(subscribersService: SubscribersService) {
+    constructor(subscribersService:SubscribersService) {
         super();
         this.sortkeyAndFilter["EMAIL"] = true;
         this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
@@ -59,130 +58,129 @@ export class SubscribersPage extends PageWithNavigation implements OnInit{
         this._subscribersService = subscribersService;
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.cityList = CITYES;
         this.matchSortOrderByColumn('');
         this.getSubscribersWithFilters();
     }
 
-    referenceActionDialogInComponent(modal: ActionDialog){
+    referenceActionDialogInComponent(modal:ActionDialog) {
         this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
     }
 
-    referenceCreateSubscriberDialogInComponent(modal: CreateSubscriberDialog){
+    referenceCreateSubscriberDialogInComponent(modal:CreateSubscriberDialog) {
         this.createSubscriberDialog = modal;
     }
 
-    createSubscriber(){
+    createSubscriber() {
         var me = this;
-        this.createSubscriberDialog.show().then(response=>{
-            if(response == DialogActionResult.CANCEL){
+        this.createSubscriberDialog.show().then(response=> {
+            if (response == DialogActionResult.CANCEL) {
                 return;
             }
 
             this._subscribersService.subscribe(this.createSubscriberDialog.getValue().email)
-            .map((response) => response.json())
-            .subscribe(
-                response => {
-                    me.getSubscribersWithFilters();
-                },
-                error =>{
+                .map((response) => response.json())
+                .subscribe(
+                    response => {
+                        me.getSubscribersWithFilters();
+                    },
+                    error => {
 
-                });;
+                    });
         });
     }
 
-    getSubscribersWithFilters(){
-    	var me=this;
-    	this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.currentPageIndex, this.sortKey, this.sortOrder)
-    	.map((response) => response.json())
-    	.subscribe(
-    		response => {
-    			me.subscribersList = response.data;
-    			me.mapPageIndexes(response.totalPages, response.page);
-    		},
-    		error =>{
-
-    		});
-    }
-
-    subscribe(subscriber:Subscriber){
-    	this._subscribersService.subscribe(subscriber.email)
-    	.map((response) => response.json())
-    	.subscribe(
-    		response => {
-    		},error=>{
-
-    		})
-    }
-
-    unsubscribe(subscriber:Subscriber){
-    	this._subscribersService.unsubscribe(subscriber.id)
-    	.map((response) => response.json())
-    	.subscribe(
-    		response => {
-    		},error=>{
-
-    		})
-    }
-
-
-    delete(subscriber:Subscriber){
-    	var me=this;
-
-    	this.actionDialog.show("Are you sure that you want to delete this subscriber ?").then(response => {
-    		if(response && response.data == DialogActionResult.CANCEL){
-    			return;
-    		}
-
-    		this._subscribersService.delete(subscriber.id)
-    		.map((response) => response.json())
-    		.subscribe(
-    			response => {
-    				var subscriberIndex = me.subscribersList.indexOf(subscriber);
-                    if(subscriberIndex !== -1)
-                    {
-                        me.subscribersList.splice(subscriberIndex,1);
-                    }
-                },error=>{
+    getSubscribersWithFilters() {
+        var me = this;
+        this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.currentPageIndex, this.sortKey, this.sortOrder)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    me.subscribersList = response.data;
+                    me.mapPageIndexes(response.totalPages, response.page);
+                },
+                error => {
 
                 });
-    	});
     }
 
-    getClassForSorting(columnName){
-        return this.sortkeyAndFilter[columnName] ? "glyphicon glyphicon-sort-by-attributes-alt" : "glyphicon glyphicon-sort-by-attributes";        
+    subscribe(subscriber:Subscriber) {
+        this._subscribersService.subscribe(subscriber.email)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                }, error=> {
+
+                })
     }
 
-    sortByColumn(columnName){
-        this.matchSortOrderByColumn(columnName);       
+    unsubscribe(subscriber:Subscriber) {
+        this._subscribersService.unsubscribe(subscriber.id)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                }, error=> {
+
+                })
+    }
+
+
+    delete(subscriber:Subscriber) {
+        var me = this;
+
+        this.actionDialog.show("Are you sure that you want to delete this subscriber ?").then(response => {
+            if (response && response.data == DialogActionResult.CANCEL) {
+                return;
+            }
+
+            this._subscribersService.delete(subscriber.id)
+                .map((response) => response.json())
+                .subscribe(
+                    response => {
+                        var subscriberIndex = me.subscribersList.indexOf(subscriber);
+                        if (subscriberIndex !== -1) {
+                            me.subscribersList.splice(subscriberIndex, 1);
+                        }
+                    }, error=> {
+
+                    });
+        });
+    }
+
+    getClassForSorting(columnName) {
+        return this.sortkeyAndFilter[columnName] ? "glyphicon glyphicon-sort-by-attributes-alt" : "glyphicon glyphicon-sort-by-attributes";
+    }
+
+    sortByColumn(columnName) {
+        this.matchSortOrderByColumn(columnName);
         this.getSubscribersWithFilters();
     }
 
-    matchSortOrderByColumn(columnName){
-        var me=this;
+    matchSortOrderByColumn(columnName) {
+        var me = this;
         this.sortKey = columnName;
 
         for (var sortkey in this.sortkeyAndFilter) {
-            if(sortkey === columnName){
-                me.sortOrder = this.sortkeyAndFilter[sortkey] = !this.sortkeyAndFilter[sortkey];                
+            if (sortkey === columnName) {
+                me.sortOrder = this.sortkeyAndFilter[sortkey] = !this.sortkeyAndFilter[sortkey];
             }
-            else{
+            else {
                 //true -> ascending
                 this.sortkeyAndFilter[sortkey] = true;
             }
         }
     }
 
-    toggleEditMode(subscriber: Subscriber){
-    	subscriber.isInEditMode = true;
+    toggleEditMode(subscriber:Subscriber) {
+        subscriber.isInEditMode = true;
     }
 
-    saveEditedSubscriber(subscriber: Subscriber){
-    	subscriber.isInEditMode = false;
+    saveEditedSubscriber(subscriber:Subscriber) {
+        subscriber.isInEditMode = false;
     }
 
-    applyFilters(){
-    	this.getSubscribersWithFilters();
+    applyFilters() {
+        this.getSubscribersWithFilters();
     }
 }

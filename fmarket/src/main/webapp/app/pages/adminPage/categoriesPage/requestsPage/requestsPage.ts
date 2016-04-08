@@ -1,98 +1,98 @@
- import {Component, OnInit, Injectable} from 'angular2/core';
- import {HTTP_PROVIDERS} from 'angular2/http';
+import {Component, OnInit, Injectable} from 'angular2/core';
+import {HTTP_PROVIDERS} from 'angular2/http';
 
- import {RequestType} from '../../../../models/requestType';
- import {RequestTypeService} from '../../../../services/requestTypeService';
+import {RequestType} from '../../../../models/requestType';
+import {RequestTypeService} from '../../../../services/requestTypeService';
 
 
- let applicationPath: string = '/app/pages/adminPage/categoriesPage/requestsPage';
+let applicationPath:string = '/app/pages/adminPage/categoriesPage/requestsPage';
 
- @Component({
- 	selector: 'companies-Page',
- 	templateUrl: applicationPath + '/requestsPage.html',
- 	styleUrls:[	applicationPath + '/requestsPage.css'],
-	//encapsulation: ViewEncapsulation.None, 
+@Component({
+    selector: 'companies-Page',
+    templateUrl: applicationPath + '/requestsPage.html',
+    styleUrls: [applicationPath + '/requestsPage.css'],
+    //encapsulation: ViewEncapsulation.None,
 
-	providers:[RequestTypeService, HTTP_PROVIDERS], 
-	//directives:[ActionDialog, CreateUserDialog, NgForm]
+    providers: [RequestTypeService, HTTP_PROVIDERS],
+    //directives:[ActionDialog, CreateUserDialog, NgForm]
 })
 
- export class RequestsPage implements OnInit {
- 	requestTypes:Array<RequestType> = new Array(new RequestType("", "test",1),new RequestType("", "test",3),new RequestType("", "test",2));
- 	searchQuery: string = "";
-	showAddRequestRow: boolean;
-	newRequestType: string;
+export class RequestsPage implements OnInit {
+    requestTypes:Array<RequestType> = [new RequestType("", "test", 1), new RequestType("", "test", 3), new RequestType("", "test", 2)];
+    searchQuery:string = "";
+    showAddRequestRow:boolean;
+    newRequestType:string;
 
- 	_requestTypeService:RequestTypeService
+    _requestTypeService:RequestTypeService;
 
- 	constructor(requestTypeService:RequestTypeService) {
- 		this._requestTypeService = requestTypeService;
- 	}
+    constructor(requestTypeService:RequestTypeService) {
+        this._requestTypeService = requestTypeService;
+    }
 
- 	ngOnInit(){
- 		this.getRequestTypesWithFilters();
- 	}
+    ngOnInit() {
+        this.getRequestTypesWithFilters();
+    }
 
- 	getRequestTypesWithFilters(){
- 		this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
- 		.map((response) => response.json())
- 		.subscribe(
- 			response => {
- 				this.requestTypes = response.data;
- 			},
- 			error => {
- 				this.requestTypes = [];
- 			});
+    getRequestTypesWithFilters() {
+        this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    this.requestTypes = response.data;
+                },
+                error => {
+                    this.requestTypes = [];
+                });
 
- 	}
+    }
 
- 	addRequestType(){
- 		this._requestTypeService.addRequestType(this.newRequestType)
-		.map((response) => response.json())
-		.subscribe(
-			response => {
-				this.getRequestTypesWithFilters();
-				this.newRequestType = "";
-				this.toggleAddRequestType(false);
-			},
-			error => {
-				//make the field red
-				//this.companieTypes = [];
-			});	
- 	}
+    addRequestType() {
+        this._requestTypeService.addRequestType(this.newRequestType)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    this.getRequestTypesWithFilters();
+                    this.newRequestType = "";
+                    this.toggleAddRequestType(false);
+                },
+                error => {
+                    //make the field red
+                    //this.companieTypes = [];
+                });
+    }
 
- 	deleteRequestType(requestType:RequestType){
- 		this._requestTypeService.deleteRequestType(requestType.id)
- 		.map((response) => response.json())
- 		.subscribe(
- 			response => {
- 				this.requestTypes = response.data;
- 			},
- 			error => {
- 				this.requestTypes = [];
- 			});
- 		
- 	}
+    deleteRequestType(requestType:RequestType) {
+        this._requestTypeService.deleteRequestType(requestType.id)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    this.requestTypes = response.data;
+                },
+                error => {
+                    this.requestTypes = [];
+                });
 
- 	editRequestType(requestType:RequestType){
- 		this._requestTypeService.editRequestType(requestType)
- 		.map((response) => response.json())
- 		.subscribe(
- 			response => {
- 				requestType.isInEditMode = false;
- 				requestType
-				//this.companieTypes = response.data;
-			},
-			error => {
-				//this.companieTypes = [];
-			});
- 	}
+    }
 
- 	toggleAddRequestType(value){
- 		this.showAddRequestRow = value;
- 	}
+    editRequestType(requestType:RequestType) {
+        this._requestTypeService.editRequestType(requestType)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    requestType.isInEditMode = false;
+                    requestType;
+                    //this.companieTypes = response.data;
+                },
+                error => {
+                    //this.companieTypes = [];
+                });
+    }
 
- 	toggleEditMode(requestType:RequestType){
- 		requestType.isInEditMode = true;
- 	}
- }
+    toggleAddRequestType(value) {
+        this.showAddRequestRow = value;
+    }
+
+    toggleEditMode(requestType:RequestType) {
+        requestType.isInEditMode = true;
+    }
+}

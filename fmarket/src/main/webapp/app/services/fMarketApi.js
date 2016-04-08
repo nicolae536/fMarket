@@ -1,6 +1,4 @@
-System.register(['angular2/http'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/http'], function(exports_1) {
     var http_1;
     var FMarketApi;
     return {
@@ -37,12 +35,15 @@ System.register(['angular2/http'], function(exports_1, context_1) {
                 FMarketApi.prototype.getRequestOptions = function (options) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
-                    var newOptions = options ? options : { headers: function () { } };
+                    var newOptions = options ? options : {
+                        headers: function () {
+                        }
+                    };
                     newOptions.headers = headers;
                     return newOptions;
                 };
                 return FMarketApi;
-            }());
+            })();
             exports_1("FMarketApi", FMarketApi);
         }
     }

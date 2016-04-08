@@ -1,59 +1,61 @@
- <link rel="stylesheet" type="text/css" href="/app/pages/adminPage/categoriesPage/companiesPage/companiesPage.css">
+<link rel="stylesheet" type="text/css" href="/app/pages/adminPage/categoriesPage/companiesPage/companiesPage.css">
 
- <div class="companies-page">
- 	<div class="companie-type-filter clearfix">
- 		<div class="pull-right">
- 			<button class="btn btn-primary" (click)="toggleAddCompanieDomain(true)">
- 				<span class="glyphicon glyphicon-plus"></span> Adauga tip de companie
- 			</button>
- 		</div>
- 		<div class="search-field">
- 			<div class="input-group">
+<div class="companies-page">
+    <div class="companie-type-filter clearfix">
+        <div class="pull-right">
+            <button class="btn btn-primary" (click)="toggleAddCompanieDomain(true)">
+                <span class="glyphicon glyphicon-plus"></span> Adauga tip de companie
+            </button>
+        </div>
+        <div class="search-field">
+            <div class="input-group">
  				<span class="input-group-addon">
  					<span class="glyphicon glyphicon-search"></span>
  				</span>
- 				<input class="form-control" placeholder="Search..." [(ngModel)]="searchQuery" (ngModelChange)="getCompanyTypesWithFilters()"/>	
- 			</div>
- 		</div>
- 	</div>
- 	<!-- *ngIf="showAddCompanieDomainRow" -->
- 	<div class="add-companie" *ngIf="showAddCompanieDomainRow">
- 		<div class="input-group">
- 			<input class="form-control" [(ngModel)]="newDomain" />
- 			<div class="input-group-btn">
- 				<button type="button" class="btn btn-secondary btn-primary" (click)="addCompanieDomain()">
- 					<span class="glyphicon glyphicon-ok"></span>
- 					Creeaza
- 				</button>
- 				<button type="button" class="btn btn-secondary btn-default" (click)="toggleAddCompanieDomain(false)">
- 					<span class="glyphicon glyphicon-remove"></span>
- 					Cancel
- 				</button> 				
- 			</div>
- 		</div>
- 	</div>
- 	<div class="companie-type">
- 		<ul class="list-group">
- 			<li *ngFor="#companieType of companieTypes" class="list-group-item clearfix"> 			
- 				<div class="col-md-9">
+                <input class="form-control" placeholder="Search..." [(ngModel)]="searchQuery"
+                       (ngModelChange)="getCompanyTypesWithFilters()"/>
+            </div>
+        </div>
+    </div>
+    <!-- *ngIf="showAddCompanieDomainRow" -->
+    <div class="add-companie" *ngIf="showAddCompanieDomainRow">
+        <div class="input-group">
+            <input class="form-control" [(ngModel)]="newDomain"/>
+
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-secondary btn-primary" (click)="addCompanieDomain()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Creeaza
+                </button>
+                <button type="button" class="btn btn-secondary btn-default" (click)="toggleAddCompanieDomain(false)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="companie-type">
+        <ul class="list-group">
+            <li *ngFor="#companieType of companieTypes" class="list-group-item clearfix">
+                <div class="col-md-9">
  					<span *ngIf="!companieType.isInEditMode">
  						{{companieType.name}}
- 					</span> 			
- 					<input *ngIf="companieType.isInEditMode" class="form-control" [(ngModel)]="companieType.name" />
- 				</div>
- 				<div class="col-md-3">
- 					<a class="secondary" (click)="deleteCompanyType(companyType)">
- 						<span class="glyphicon glyphicon-trash"></span>
- 					</a>
- 					<a *ngIf="!companieType.isInEditMode" class="secondary" (click)="toggleEditMode(companieType)">
- 						<span class="glyphicon glyphicon-pencil"></span>
- 					</a>
- 					<a *ngIf="companieType.isInEditMode" class="secondary" (click)="editCompaniType(companieType)">
- 						<span class="glyphicon glyphicon-ok"></span>
- 					</a>
- 					<span class="pull-right label label-info">- Companii - {{companieType.companies_no}}</span>
- 				</div>
- 			</li>
- 		</ul>
- 	</div>
- </div>
+ 					</span>
+                    <input *ngIf="companieType.isInEditMode" class="form-control" [(ngModel)]="companieType.name"/>
+                </div>
+                <div class="col-md-3">
+                    <a class="secondary" (click)="deleteCompanyType(companyType)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                    <a *ngIf="!companieType.isInEditMode" class="secondary" (click)="toggleEditMode(companieType)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a *ngIf="companieType.isInEditMode" class="secondary" (click)="editCompaniType(companieType)">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                    <span class="pull-right label label-info">- Companii - {{companieType.companies_no}}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
