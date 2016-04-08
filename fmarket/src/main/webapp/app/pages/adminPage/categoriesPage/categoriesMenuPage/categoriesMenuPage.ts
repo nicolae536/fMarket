@@ -1,10 +1,7 @@
  import {Component, OnInit, Injectable} from 'angular2/core';
  import {HTTP_PROVIDERS} from 'angular2/http';
 
-import {BaseMenuComponent} from '../../../../components/baseMenuComponent/baseMenuComponent';
- //import {RequestType} from '../../../../models/requestType';
- //import {RequestTypeService} from '../../../../services/requestTypeService';
-
+ import {MenuTreeComponent} from '../../../../components/menuComponent/menuTreeComponent';
 
  let applicationPath: string = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
 
@@ -15,21 +12,28 @@ import {BaseMenuComponent} from '../../../../components/baseMenuComponent/baseMe
 	//encapsulation: ViewEncapsulation.None, 
 
 	//providers:[RequestTypeService, HTTP_PROVIDERS], 
-	directives:[BaseMenuComponent]
+	directives:[MenuTreeComponent]
 })
 
  export class CategoriesMenuPage implements OnInit {
- 	menuItems: Array<Object>;
+ 	menuDictionary:Array<Object> = [];
+
 
  	constructor() {
  		// code...
  	}
 
  	ngOnInit(){
- 		this.menuItems = new Array<Object>(
- 			{id:0, displayName:"Item 0", hasChildren:true},
- 			{id:1, displayName:"Item 1", hasChildren:false},
- 			{id:2, displayName:"Item 2", hasChildren:false},
- 			{id:3, displayName:"Item 3", hasChildren:false});
+ 		this.menuDictionary = [
+ 		{id:12, layer:0, name:'asd'},
+ 		{id:13, layer:0, name:'asda'},
+ 		{id:14, layer:0, name:'asdd'},
+ 		{id:15, layer:1, parentId:13, name:'asds'},
+ 		{id:16, layer:1, parentId:13, name:'asdg'},
+ 		{id:17, layer:1, parentId:13, name:'asdxz'},
+ 		{id:18, layer:1, parentId:14, name:'asd1e'},
+ 		{id:19, layer:2, parentId:17, name:'asd1e1'},
+ 		{id:20, layer:2, parentId:17, name:'asd1e2'},
+ 		{id:21, layer:2, parentId:17, name:'asd1e3'}]
  	}
  } 

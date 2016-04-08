@@ -1,3 +1,7 @@
-<div>
-	<base-menu [menu-items]="menuItems"></base-menu>
+<div class="categories-menu-page">
+	<menu-component 
+ 			[menu-tree-data]="menuDictionary"
+ 			(item-selected)="selectMenuItem($event)"
+ 			(add-menu-item)="addMenuItem($event)">
+ 		</menu-component>
 </div> 

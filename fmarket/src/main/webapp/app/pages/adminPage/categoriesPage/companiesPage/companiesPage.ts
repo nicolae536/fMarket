@@ -4,7 +4,6 @@ import {HTTP_PROVIDERS} from 'angular2/http';
 import {CompanieType} from '../../../../models/companieType';
 import {CompanieTypeService} from '../../../../services/companieTypesService';
 
-
 let applicationPath: string = '/app/pages/adminPage/categoriesPage/companiesPage';
 
 @Component({
@@ -14,7 +13,6 @@ let applicationPath: string = '/app/pages/adminPage/categoriesPage/companiesPage
 	//encapsulation: ViewEncapsulation.None, 
 
 	providers:[CompanieTypeService, HTTP_PROVIDERS], 
-	//directives:[ActionDialog, CreateUserDialog, NgForm]
 })
 
 export class CompaniesPage implements OnInit {
@@ -22,7 +20,6 @@ export class CompaniesPage implements OnInit {
 	searchQuery: string = "";
 	newDomain:string;
 	showAddCompanieDomainRow:boolean;
-
 	_companieTypeService:CompanieTypeService
 
 	constructor(companieTypeService:CompanieTypeService) {
@@ -30,8 +27,18 @@ export class CompaniesPage implements OnInit {
 	}
 
 	ngOnInit(){
-		this.getCompanyTypesWithFilters();
+		this.getCompanyTypesWithFilters();		
 	}
+
+
+	selectMenuItem(data){
+
+	}
+
+	addMenuItem(data){
+
+	}
+
 
 	getCompanyTypesWithFilters(){
 		this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)

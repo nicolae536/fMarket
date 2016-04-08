@@ -1,4 +1,6 @@
-System.register(['angular2/http'], function(exports_1) {
+System.register(['angular2/http'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var http_1;
     var FMarketApi;
     return {
@@ -40,7 +42,7 @@ System.register(['angular2/http'], function(exports_1) {
                     return newOptions;
                 };
                 return FMarketApi;
-            })();
+            }());
             exports_1("FMarketApi", FMarketApi);
         }
     }

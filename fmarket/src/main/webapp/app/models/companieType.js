@@ -1,4 +1,6 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var CompanieType;
     return {
         setters:[],
@@ -11,7 +13,7 @@ System.register([], function(exports_1) {
                     this.companies_no = companies;
                 }
                 return CompanieType;
-            })();
+            }());
             exports_1("CompanieType", CompanieType);
         }
     }

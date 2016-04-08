@@ -5,18 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="node_modules/jquery/dist/jquery.js"></script>
 
-    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Latest compiled and minified CSS -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" ></script>
-
     <!-- 1. Load libraries -->
     <!-- IE required polyfills, in this exact order -->
     <script src="node_modules/es6-shim/es6-shim.min.js"></script>
@@ -30,7 +18,10 @@
     <script src="node_modules/angular2/bundles/router.dev.js"></script>
     <script src="node_modules/angular2/bundles/http.dev.js"></script>
 
-
+    <!-- bootstrap -->
+	<script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
+	<link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	
     <!-- 2. Configure SystemJS -->
     <script>    
       System.config({
@@ -38,9 +29,12 @@
           app: {
             format: 'register',
             defaultExtension: 'js' 
-        }
-    }
-});
+			},
+			map: {
+				moment: 'node_modules/moment/moment.js'
+			}
+		}
+	});
       System.import('app/main')
       .then(null, console.error.bind(console));
   </script>
@@ -48,6 +42,6 @@
 
 <!-- 3. Display the application -->
 <body>
-    <my-app>Loading...</my-app>
+    <my-app>Loading...</my-app>	
 </body>
 </html>

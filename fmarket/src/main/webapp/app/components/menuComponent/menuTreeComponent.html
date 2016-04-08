@@ -1,0 +1,10 @@
+ <div class="menu-tree" *ngIf="menuTreeView.length>0">
+ 	<div class="col-md-4" *ngFor="#menu of menuTreeView; #i = index" >
+ 		<base-menu 
+ 			[menu-items-list]="menu"
+ 			[menu-layer]="i"
+ 			(select-menu-item)="selectMenuItem($event)"
+ 			(add-new-item)="addMenuItem($event)">
+ 		</base-menu>
+ 	</div>
+ </div>

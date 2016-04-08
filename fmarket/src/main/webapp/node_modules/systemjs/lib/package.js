@@ -194,6 +194,9 @@
   function doMapSync(loader, pkg, pkgName, mapMatch, path, skipExtensions) {
     var mapped = pkg.map[mapMatch];
 
+    if (typeof mapped == 'object')
+      throw new Error('Synchronous conditional normalization not supported sync normalizing ' + mapMatch + ' in ' + pkgName);
+
     validateMapping(mapMatch, mapped, pkgName);
 
     // ignore conditionals in sync
@@ -461,8 +464,7 @@
     var length = Math.max(lastWildcard + 1, path.lastIndexOf('/'));
     return {
       length: length,
-      // NB handle regex control character escapes or simply create a test function here
-      regEx: new RegExp('^(' + path.substr(0, length).replace(/\*/g, '[^\\/]+') + ')(\\/|$)'),
+      regEx: new RegExp('^(' + path.substr(0, length).replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '[^\\/]+') + ')(\\/|$)'),
       wildcard: lastWildcard != -1
     };
   }
@@ -570,7 +572,7 @@
       }
     }
     // exact meta
-    var exactMeta = pkgMeta[subPath] || pkgMeta['./' + subPath];
+    var exactMeta = pkgMeta[subPath] && pkgMeta.hasOwnProperty && pkgMeta.hasOwnProperty(subPath) ? pkgMeta[subPath] : pkgMeta['./' + subPath];
     if (exactMeta)
       matchFn(exactMeta, exactMeta, 0);
   }
