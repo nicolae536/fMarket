@@ -59,7 +59,7 @@ export class CategoriesMenuPage implements OnInit {
                     this.menuDictionary = response.data;
                 },
                 error => {
-                    this.companieTypes = [];
+                    //this.menuDictionary = [];
                 });;
     }
 }
