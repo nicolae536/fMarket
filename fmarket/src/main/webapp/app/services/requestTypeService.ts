@@ -27,7 +27,7 @@ export class RequestTypeService {
 		return this.api.put(this.controllerRoute, JSON.stringify(request));
 	}
 
-	addCompanyType(request){
+	addRequestType(request){
 		return this.api.put(this.controllerRoute, JSON.stringify(request));	
 	}
 }

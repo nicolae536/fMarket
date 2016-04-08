@@ -5,12 +5,12 @@
  import {RequestTypeService} from '../../../../services/requestTypeService';
 
 
- let applicationPath: string = '/app/pages/adminPage/categoriesPage/companiesPage';
+ let applicationPath: string = '/app/pages/adminPage/categoriesPage/requestsPage';
 
  @Component({
  	selector: 'companies-Page',
- 	templateUrl: applicationPath + '/companiesPage.html',
- 	styleUrls:[	applicationPath + '/companiesPage.css'],
+ 	templateUrl: applicationPath + '/requestsPage.html',
+ 	styleUrls:[	applicationPath + '/requestsPage.css'],
 	//encapsulation: ViewEncapsulation.None, 
 
 	providers:[RequestTypeService, HTTP_PROVIDERS], 
@@ -20,6 +20,8 @@
  export class RequestsPage implements OnInit {
  	requestTypes:Array<RequestType> = new Array(new RequestType("", "test",1),new RequestType("", "test",3),new RequestType("", "test",2));
  	searchQuery: string = "";
+	showAddRequestRow: boolean;
+	newRequestType: string;
 
  	_requestTypeService:RequestTypeService
 
@@ -44,7 +46,20 @@
 
  	}
 
- 	//addRequestType()
+ 	addRequestType(){
+ 		this._requestTypeService.addRequestType(this.newRequestType)
+		.map((response) => response.json())
+		.subscribe(
+			response => {
+				this.getRequestTypesWithFilters();
+				this.newRequestType = "";
+				this.toggleAddRequestType(false);
+			},
+			error => {
+				//make the field red
+				//this.companieTypes = [];
+			});	
+ 	}
 
  	deleteRequestType(requestType:RequestType){
  		this._requestTypeService.deleteRequestType(requestType.id)
@@ -71,6 +86,10 @@
 			error => {
 				//this.companieTypes = [];
 			});
+ 	}
+
+ 	toggleAddRequestType(value){
+ 		this.showAddRequestRow = value;
  	}
 
  	toggleEditMode(requestType:RequestType){

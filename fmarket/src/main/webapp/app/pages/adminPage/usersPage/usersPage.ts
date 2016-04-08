@@ -26,7 +26,7 @@ var applicationPath: string = '/app/pages/adminPage/usersPage';
 	styleUrls:[	applicationPath + '/usersPage.css'],
 	encapsulation: ViewEncapsulation.None, 
 
-	providers:[UserService, HTTP_PROVIDERS], 
+	providers:[UserService, HTTP_PROVIDERS],
 	directives:[ActionDialog, CreateUserDialog, NgForm]
 })
 

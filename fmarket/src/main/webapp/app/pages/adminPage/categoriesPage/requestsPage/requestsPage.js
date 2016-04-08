@@ -1,11 +1,11 @@
-System.register(['angular2/core', 'angular2/http', '../../../../models/requestType', '../../../../services/requestTypeService'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/http', '../../../../models/requestType', '../../../../services/requestTypeService'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -27,7 +27,7 @@ System.register(['angular2/core', 'angular2/http', '../../../../models/requestTy
                 requestTypeService_1 = requestTypeService_1_1;
             }],
         execute: function() {
-            applicationPath = '/app/pages/adminPage/categoriesPage/companiesPage';
+            applicationPath = '/app/pages/adminPage/categoriesPage/requestsPage';
             RequestsPage = (function () {
                 function RequestsPage(requestTypeService) {
                     this.requestTypes = new Array(new requestType_1.RequestType("", "test", 1), new requestType_1.RequestType("", "test", 3), new requestType_1.RequestType("", "test", 2));
@@ -47,7 +47,19 @@ System.register(['angular2/core', 'angular2/http', '../../../../models/requestTy
                         _this.requestTypes = [];
                     });
                 };
-                //addRequestType()
+                RequestsPage.prototype.addRequestType = function () {
+                    var _this = this;
+                    this._requestTypeService.addRequestType(this.newRequestType)
+                        .map(function (response) { return response.json(); })
+                        .subscribe(function (response) {
+                        _this.getRequestTypesWithFilters();
+                        _this.newRequestType = "";
+                        _this.toggleAddRequestType(false);
+                    }, function (error) {
+                        //make the field red
+                        //this.companieTypes = [];
+                    });
+                };
                 RequestsPage.prototype.deleteRequestType = function (requestType) {
                     var _this = this;
                     this._requestTypeService.deleteRequestType(requestType.id)
@@ -69,21 +81,24 @@ System.register(['angular2/core', 'angular2/http', '../../../../models/requestTy
                         //this.companieTypes = [];
                     });
                 };
+                RequestsPage.prototype.toggleAddRequestType = function (value) {
+                    this.showAddRequestRow = value;
+                };
                 RequestsPage.prototype.toggleEditMode = function (requestType) {
                     requestType.isInEditMode = true;
                 };
                 RequestsPage = __decorate([
                     core_1.Component({
                         selector: 'companies-Page',
-                        templateUrl: applicationPath + '/companiesPage.html',
-                        styleUrls: [applicationPath + '/companiesPage.css'],
+                        templateUrl: applicationPath + '/requestsPage.html',
+                        styleUrls: [applicationPath + '/requestsPage.css'],
                         //encapsulation: ViewEncapsulation.None, 
                         providers: [requestTypeService_1.RequestTypeService, http_1.HTTP_PROVIDERS],
                     }), 
                     __metadata('design:paramtypes', [requestTypeService_1.RequestTypeService])
                 ], RequestsPage);
                 return RequestsPage;
-            }());
+            })();
             exports_1("RequestsPage", RequestsPage);
         }
     }

@@ -52,8 +52,11 @@ export class CompaniesPage implements OnInit {
 		.subscribe(
 			response => {
 				this.getCompanyTypesWithFilters();
+				this.newDomain = "";
+				this.toggleAddCompanieDomain(false);
 			},
 			error => {
+				//make the field red
 				//this.companieTypes = [];
 			});		
 	}

@@ -23,11 +23,11 @@ export class CompanieTypeService {
 		return this.api.delete(this.adminUsersControllerRoute +`/${companyId}`);
 	}
 
-	editCompaniType(company){
-		return this.api.put(this.adminUsersControllerRoute, JSON.stringify(company));
+	editCompaniType(companyDomain){
+		return this.api.put(this.adminUsersControllerRoute, JSON.stringify({domain:companyDomain}));
 	}
 
-	addCompanyType(companyName){
-		return this.api.put(this.adminUsersControllerRoute, JSON.stringify(company));	
+	addCompanyType(companyDomain){
+		return this.api.put(this.adminUsersControllerRoute, JSON.stringify({domain:companyDomain}));	
 	}
 }

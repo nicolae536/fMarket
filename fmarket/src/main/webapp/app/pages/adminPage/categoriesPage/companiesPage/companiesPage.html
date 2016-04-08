@@ -17,17 +17,17 @@
  		</div>
  	</div>
  	<!-- *ngIf="showAddCompanieDomainRow" -->
- 	<div class="add-companie">
+ 	<div class="add-companie" *ngIf="showAddCompanieDomainRow">
  		<div class="input-group">
  			<input class="form-control" [(ngModel)]="newDomain" />
  			<div class="input-group-btn">
- 				<button type="button" class="btn btn-secondary btn-primary">
+ 				<button type="button" class="btn btn-secondary btn-primary" (click)="addCompanieDomain()">
  					<span class="glyphicon glyphicon-ok"></span>
  					Creeaza
  				</button>
- 				<button type="button" class="btn btn-secondary btn-default">
+ 				<button type="button" class="btn btn-secondary btn-default" (click)="toggleAddCompanieDomain(false)">
  					<span class="glyphicon glyphicon-remove"></span>
- 					Confirma
+ 					Cancel
  				</button> 				
  			</div>
  		</div>

@@ -21,7 +21,7 @@ export class ModalDialog  implements OnInit{
   }  
 
   ngOnInit() {
-    this.loadedEmitter.next(this);
+    this.loadedEmitter.emit(this);
     console.log('modal inited');
   }
   

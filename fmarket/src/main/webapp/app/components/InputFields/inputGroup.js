@@ -1,6 +1,4 @@
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register([], function(exports_1) {
     var InputGroup, InputGroupOptions;
     return {
         setters:[],
@@ -11,13 +9,13 @@ System.register([], function(exports_1, context_1) {
                     this.type = type;
                 }
                 return InputGroup;
-            }());
+            })();
             exports_1("InputGroup", InputGroup);
             InputGroupOptions = (function () {
                 function InputGroupOptions() {
                 }
                 return InputGroupOptions;
-            }());
+            })();
             exports_1("InputGroupOptions", InputGroupOptions);
         }
     }

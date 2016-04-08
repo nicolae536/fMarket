@@ -2,6 +2,10 @@
 	padding-top: 1%;
 }
 
+.requests-page .add-request{
+	padding-top: 1%;
+}
+
 .requests-page .requests-type-filter .search-field{
 	width: 300px;
 }
