@@ -12,3 +12,12 @@
 *.project
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+fmarket/src/main/webapp/.idea/.name
+fmarket/src/main/webapp/.idea/encodings.xml
+fmarket/src/main/webapp/.idea/jsLibraryMappings.xml
+fmarket/src/main/webapp/.idea/libraries/webapp_node_modules.xml
+fmarket/src/main/webapp/.idea/misc.xml
+fmarket/src/main/webapp/.idea/modules.xml
+fmarket/src/main/webapp/.idea/typescript-compiler.xml
+fmarket/src/main/webapp/.idea/webapp.iml
+fmarket/src/main/webapp/.idea/workspace.xml
