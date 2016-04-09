@@ -1,10 +1,10 @@
-import {Component, OnInit, Injectable} from 'angular2/core';
+import {Component, OnInit, Injectable, Pipe} from 'angular2/core';
 import {HTTP_PROVIDERS} from 'angular2/http';
 
 import {MenuTreeComponent} from '../../../../components/menuComponent/menuTreeComponent';
-import {MenuData,MenuItem} from '../../../../components/menuComponent/baseMenuComponent/baseMenuComponent';
+import {UpdateDomainMenuItemRequest,NewDomainMenuItemRequest,MenuItem} from '../../../../components/menuComponent/baseMenuComponent/baseMenuComponent';
 import {CategoriesMenuService} from '../../../../services/categoriesMenuService';
-
+import {IModal, MenuItemDialog} from "../../../../components/menuComponent/menuItemDialog/menuItemDialog";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
 
@@ -15,13 +15,14 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenu
     //encapsulation: ViewEncapsulation.None,
 
     providers: [CategoriesMenuService, HTTP_PROVIDERS],
-    directives: [MenuTreeComponent]
+    directives: [MenuTreeComponent, MenuItemDialog],
 })
 
 export class CategoriesMenuPage implements OnInit {
     menuDictionary:Array<Object> = [];
     private _categoriesMenuService:CategoriesMenuService;
-
+    private _menuItemModal:MenuItemDialog;
+    private _modalInterface:IModal;
 
     constructor(_categoriesMenuService:CategoriesMenuService) {
         this._categoriesMenuService = _categoriesMenuService;
@@ -29,26 +30,11 @@ export class CategoriesMenuPage implements OnInit {
     }
 
     ngOnInit() {
-        this.menuDictionary = [
-            {id: 12, layer: 0, name: 'asd'},
-            {id: 13, layer: 0, name: 'asda'},
-            {id: 14, layer: 0, name: 'asdd'},
-            {id: 15, layer: 1, parentId: 13, name: 'asds'},
-            {id: 16, layer: 1, parentId: 13, name: 'asdg'},
-            {id: 17, layer: 1, parentId: 13, name: 'asdxz'},
-            {id: 18, layer: 1, parentId: 14, name: 'asd1e'},
-            {id: 19, layer: 2, parentId: 17, name: 'asd1e1'},
-            {id: 20, layer: 2, parentId: 17, name: 'asd1e2'},
-            {id: 21, layer: 2, parentId: 17, name: 'asd1e3'}];
         this.getMenuDictionary();
     }
 
-    selectMenuItem(menuItem:MenuData) {
-        //
-    }
-
-    addMenuItem(menuItem:MenuData) {
-        this._categoriesMenuService.addMenuItem(menuItem);
+    referenceModal(modal:MenuItemDialog) {
+        this._menuItemModal = modal;
     }
 
     private getMenuDictionary():void {
@@ -59,7 +45,58 @@ export class CategoriesMenuPage implements OnInit {
                     this.menuDictionary = response.data;
                 },
                 error => {
-                    //this.menuDictionary = [];
-                });;
+                    this.menuDictionary = [];
+                });
+        ;
     }
+
+    selectMenuItem(menuItem:NewDomainMenuItemRequest) {
+        //
+    }
+
+    addMenuItem(parentId:number) {
+        this._modalInterface = {parentId: parentId, operationType: "new", positiveLabel: "Create", id: null};
+        this._menuItemModal.show(this._modalInterface).then((response:NewDomainMenuItemRequest) => {
+            this._categoriesMenuService.addMenuItem(response).map((response)=> {
+                response.json()
+            }).subscribe(
+                response => {
+                    this._menuItemModal.hide();
+                    this.getMenuDictionary();
+                },
+                error=> {
+                    this._menuItemModal.showErrors();
+                }
+            )
+        });
+    }
+
+    editMenuItem(menuToUpdate:UpdateDomainMenuItemRequest) {
+        let newInterface = {menuModel: menuToUpdate, operationType: "update", positiveLabel: "Update", id: null};
+        this._menuItemModal.update(newInterface).then((response:UpdateDomainMenuItemRequest) => {
+            this._categoriesMenuService.updateMenuItem(response).map((response)=> {
+                response.json()
+            }).subscribe(
+                response => {
+                    this._menuItemModal.hide();
+                    this.getMenuDictionary();
+                },
+                error=> {
+                    this._menuItemModal.showErrors();
+                }
+            )
+        });
+    }
+
+    deleteMenuItem(id:number) {
+        this._categoriesMenuService.deleteMenuItem(id).map((response)=> {
+                response.json();
+            })
+            .subscribe(
+                response => {
+                    this.getMenuDictionary();
+                }
+            )
+    }
+
 }

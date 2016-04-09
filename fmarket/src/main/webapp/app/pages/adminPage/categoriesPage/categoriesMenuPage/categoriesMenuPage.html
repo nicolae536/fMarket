@@ -2,9 +2,17 @@
       href="/app/pages/adminPage/categoriesPage/categoriesMenuPage/categoriesMenuPage.css">
 
 <div class="categories-menu-page">
+    <div class="clearfix">
+    <menu-item-dialog
+            (modal-loaded)="referenceModal($event)"
+    ></menu-item-dialog>
     <menu-component
             [menu-tree-data]="menuDictionary"
             (item-selected)="selectMenuItem($event)"
-            (add-menu-item)="addMenuItem($event)">
+            (add-menu-item)="addMenuItem($event)"
+            (edit-menu-item)="editMenuItem($event)"
+            (delete-menu-item)="deleteMenuItem($event)">
     </menu-component>
+    </div>
+
 </div> 

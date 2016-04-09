@@ -1,7 +1,8 @@
 import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
 import {BaseMenuComponent} from './baseMenuComponent/baseMenuComponent';
 import {MenuItem} from './baseMenuComponent/baseMenuComponent';
-import {MenuData} from './baseMenuComponent/baseMenuComponent';
+import {NewDomainMenuItemRequest} from './baseMenuComponent/baseMenuComponent';
+import {UpdateDomainMenuItemRequest} from "./baseMenuComponent/baseMenuComponent";
 
 @Component({
     selector: 'menu-component',
@@ -12,10 +13,13 @@ import {MenuData} from './baseMenuComponent/baseMenuComponent';
 export class MenuTreeComponent implements OnInit {
     @Input('menu-tree-data') menuDictionary:Array<MenuItem>;
     //menuDictionary;
-    @Output('item-selected') selectItem:EventEmitter<MenuData> = new EventEmitter<MenuData>();
-    @Output('add-new-item') broadcastNewItem:EventEmitter<MenuData> = new EventEmitter<MenuData>();
+    @Output('item-selected') selectItem:EventEmitter<NewDomainMenuItemRequest> = new EventEmitter<NewDomainMenuItemRequest>();
+    @Output('add-menu-item') broadcastNewItem:EventEmitter<number> = new EventEmitter<number>();
+    @Output('edit-menu-item') broadcastEditItem:EventEmitter<UpdateDomainMenuItemRequest> = new EventEmitter<UpdateDomainMenuItemRequest>();
+    @Output('delete-menu-item') broadcastDeleteItem:EventEmitter<number> = new EventEmitter<number>();
     ROOT_ID:number = 0;
     ROOT_LAYER:number = 0;
+    selectedMenuItem;
 
     menuTreeView:Array<Object> = [];
     //TODO implement menuService
@@ -24,8 +28,6 @@ export class MenuTreeComponent implements OnInit {
     }
 
     ngOnInit() {
-        //this.selectItem = new EventEmitter<Object>();
-        //this.broadcastNewItem = new EventEmitter<Object>();
         this.menuDictionary = this.mapManuTree(this.menuDictionary);
         this.menuTreeView.push(this.getRootLayer());
     }
@@ -46,21 +48,11 @@ export class MenuTreeComponent implements OnInit {
         return false;
     }
 
-    selectMenuItem(menu) {
-        if (!menu.menuItem.hasChildrens) {
-            this.selectItem.emit(menu.menuItem);
-            //return;
-        }
-        this.menuTreeView = this.getTreeViewForMenuItem(menu.menuItem);
-    }
 
-    addMenuItem(menuData) {
-        this.broadcastNewItem.emit(menuData);
-    }
 
     getTreeViewForMenuItem(menuItem) {
-        var nextLayer = menuItem.layer + 1;
-        let menuView = this.getActiveTreeView(menuItem.layer);
+        var nextLayer = menuItem.level + 1;
+        let menuView = this.getActiveTreeView(menuItem.level);
 
 
         menuView[nextLayer] = [];
@@ -91,11 +83,35 @@ export class MenuTreeComponent implements OnInit {
         let firstLayer = [];
 
         for (var i = 0; i < this.menuDictionary.length; i++) {
-            if (this.menuDictionary[i].layer === this.ROOT_LAYER) {
+            if (this.menuDictionary[i].level === this.ROOT_LAYER) {
                 firstLayer.push(this.menuDictionary[i]);
             }
         }
+        //if(firstLayer.length < 1){
+        //    firstLayer[0] = new Array<Object>();
+        //}
 
-        return firstLayer
+        return firstLayer;
+    }
+
+    selectMenuItem(menuItem) {
+        if (!menuItem.hasChildrens) {
+            this.selectItem.emit(menuItem.name);
+            //return;
+        }
+        this.selectedMenuItem = menuItem;
+        this.menuTreeView = this.getTreeViewForMenuItem(menuItem.name);
+    }
+
+    requestNewMenuItem(parentId:number) {
+        this.broadcastNewItem.emit(parentId);
+    }
+
+    editSubmenu(menuItem:UpdateDomainMenuItemRequest){
+        this.broadcastEditItem.emit(menuItem);
+    }
+
+    deleteSubmenu(menuId:number){
+        this.broadcastDeleteItem.emit(menuId);
     }
 }

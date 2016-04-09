@@ -1,0 +1,40 @@
+<div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>
+<div class="modal fade bs-example-modal-lg in menu-item-dialog" tabindex="-1" (click)="cancelAction()" role="dialog"
+     [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0">
+    <div class="modal-dialog modal" [style.display]="showModal ? 'block' : 'none'"  style="overflow: visible;" (click)="stopPropagation($event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="cancelAction()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title">
+                   <- Titlu sa imi spui ->
+                </h2>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Order number</label>
+                    <input class="form-control" [(ngModel)]="orderNr" />
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" [(ngModel)]="name" />
+                </div>
+                <div class="form-group">
+                    <label>Domain id</label>
+                    <input class="form-control" [(ngModel)]="domainId" />
+                </div>
+                <div>
+                    <select-component
+                        [select-items]="selectItems"
+                        [selected-item]="selectedItem"
+                    ></select-component>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" (click)="hide()">{{cancelLabel}}</button>
+                <button type="button" class="btn btn-danger btn-sm" (click)="positiveAction()"> {{positiveLabel}}</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,7 @@ import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Locatio
 
 import {CompaniesPage} from "./companiesPage/companiesPage";
 import {RequestsPage} from "./requestsPage/requestsPage";
-import {CategoriesMenuPage} from "./categoriesMenuPage/CategoriesMenuPage";
+import {CategoriesMenuPage} from "./categoriesMenuPage/categoriesMenuPage";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage';
 

@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/demand/domains")
+@RestController
+@RequestMapping("/demand/domains")
 public class DemandDomainController {
 
 	@Autowired

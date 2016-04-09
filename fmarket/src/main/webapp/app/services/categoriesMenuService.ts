@@ -4,7 +4,7 @@
 import {Injectable} from 'angular2/core';
 import {Http} from 'angular2/http';
 import {CompanieType} from "../models/companieType";
-import {MenuItem, MenuData} from "../components/menuComponent/baseMenuComponent/baseMenuComponent"
+import {MenuItem, NewDomainMenuItemRequest, UpdateDomainMenuItemRequest} from "../components/menuComponent/baseMenuComponent/baseMenuComponent"
 import {AccountStatus} from "../models/user";
 //import {USERS} from "./mock-providers/mock-Users";
 import {FMarketApi} from "./fMarketApi";
@@ -12,7 +12,7 @@ import {Observable} from "../../node_modules/rxjs/Observable";
 
 @Injectable()
 export class CategoriesMenuService {
-    private adminUsersControllerRoute:string = '/company/menu';
+    private _domainMenuController:string = '/menu/domain';
     private api:FMarketApi;
 
     constructor(http:Http) {
@@ -20,18 +20,19 @@ export class CategoriesMenuService {
     }
 
     getMenuDictionary():Observable<Object> {
-        return this.api.get(this.adminUsersControllerRoute);
+        return this.api.get(this._domainMenuController);
     }
 
-    deleteMenuItem(id:string):Observable<Object> {
-        return this.api.delete(this.adminUsersControllerRoute + `/${id}`);
+    addMenuItem(newDomainMenuItem:NewDomainMenuItemRequest):Observable<Object> {
+        return this.api.post(this._domainMenuController, JSON.stringify(newDomainMenuItem));
     }
 
-    editMenuItem(menuItem:MenuItem):Observable<Object> {
-        return this.api.put(this.adminUsersControllerRoute, JSON.stringify(menuItem));
+    deleteMenuItem(id:number):Observable<Object> {
+        return this.api.delete(this._domainMenuController + `/${id}`);
     }
 
-    addMenuItem(menuData:MenuData):Observable<Object> {
-        return this.api.post(this.adminUsersControllerRoute, JSON.stringify(menuData));
+    updateMenuItem(menuItem:UpdateDomainMenuItemRequest):Observable<Object> {
+        return this.api.put(this._domainMenuController, JSON.stringify(menuItem));
     }
+
 }
