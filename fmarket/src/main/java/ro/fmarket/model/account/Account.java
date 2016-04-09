@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+
+import org.hibernate.validator.constraints.Email;
 
 import lombok.Data;
 import ro.fmarket.core.base.BaseEntity;
@@ -18,10 +18,10 @@ import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
 
 @Data
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "id", "email" }) })
 public class Account extends BaseEntity {
 
-	@Column(nullable = false, length = 60)
+	@Email
+	@Column(unique = true, nullable = false, length = 60)
 	private String email;
 
 	@Column(nullable = false, columnDefinition = "binary", length = 70)
@@ -41,4 +41,5 @@ public class Account extends BaseEntity {
 	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	private AccountDetails accountDetails;
 
+	
 }

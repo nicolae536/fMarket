@@ -20,7 +20,7 @@ public class SubscriberConverter {
 		}
 		return result;
 	}
-	
+
 	public static List<SubscriberDTO> toDTOList(List<Subscriber> subscribers) {
 		final List<SubscriberDTO> result = new ArrayList<>();
 		for (Subscriber s : subscribers) {
@@ -28,5 +28,5 @@ public class SubscriberConverter {
 		}
 		return result;
 	}
-	
+
 }

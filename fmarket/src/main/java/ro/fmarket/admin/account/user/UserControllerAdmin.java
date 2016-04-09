@@ -25,7 +25,11 @@ public class UserControllerAdmin {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
+<<<<<<< 212faea0a4fff2bd40ac205404022a4095b269de
 	public void createUser(@RequestBody NewUserRequest request) {		
+=======
+	public void createUser(@RequestBody NewUserRequest request) {
+>>>>>>> accounts/domains/menu
 		userService.createUser(request);
 	}
 

@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import ro.fmarket.admin.subscriber.SubscriberSearchObject;
+import ro.fmarket.admin.subscriber.SubscriberSortKey;
 import ro.fmarket.core.base.BaseDao;
 import ro.fmarket.core.constants.PaginationConstants;
 
@@ -38,7 +40,7 @@ public class SubscriberDao extends BaseDao<Subscriber> {
 		criteria.setFirstResult((page - 1) * PaginationConstants.SUBSCRIBERS_PAGE_SIZE);
 		return criteria.list();
 	}
-	
+
 	public Criteria createSubscribersCriteria(SubscriberSearchObject searchObject) {
 		final Criteria criteria = getCriteria();
 		if (searchObject.getId() != null) {
@@ -47,12 +49,35 @@ public class SubscriberDao extends BaseDao<Subscriber> {
 		if (searchObject.getEmail() != null) {
 			criteria.add(Restrictions.ilike("email", "%" + searchObject.getEmail() + "%"));
 		}
+		String sortKey = getSortKey(searchObject.getSortKey());
+		if (sortKey != null) {
+			boolean desc = searchObject.getDesc() != null && searchObject.getDesc();
+			if (desc) {
+				criteria.addOrder(Order.desc(sortKey));
+			} else {
+				criteria.addOrder(Order.asc(sortKey));
+			}
+		}
 		return criteria;
 	}
-	
+
 	public Long getCriteriaTotalCount(Criteria criteria) {
 		criteria.setProjection(Projections.rowCount());
 		return (Long) criteria.uniqueResult();
 	}
 
+	private String getSortKey(SubscriberSortKey sortKey) {
+		if (sortKey == null) {
+			return null;
+		}
+		switch (sortKey) {
+		case EMAIL:
+			return "email";
+		case SUBSCRIBE_DATE:
+			return "subscribeDate";
+		case UNSUBSCRIBE_DATE:
+			return "unsubscribeDate";
+		}
+		return null;
+	}
 }

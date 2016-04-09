@@ -3,6 +3,7 @@ package ro.fmarket.model.account.details;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import lombok.Data;
@@ -26,6 +27,7 @@ public class AccountDetails extends BaseEntity {
 	@ManyToOne
 	private City cityFrom;
 	
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime updatedDate;
 	
 }

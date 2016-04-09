@@ -12,4 +12,7 @@ public class SubscriberSearchObject {
 	
 	private String email;
 	
+	private SubscriberSortKey sortKey;
+	
+	private Boolean desc;
 }
