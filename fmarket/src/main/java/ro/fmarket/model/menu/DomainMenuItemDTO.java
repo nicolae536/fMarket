@@ -10,5 +10,6 @@ public class DomainMenuItemDTO {
 	private Integer parentId;
 	private Integer level;
 	private Integer orderNr;
+	private Integer domainId;
 	
 }

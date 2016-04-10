@@ -6,7 +6,7 @@ import java.util.List;
 import ro.fmarket.model.menu.DomainMenuItem;
 import ro.fmarket.model.menu.DomainMenuItemDTO;
 
-public class DomainMenuConverter {
+public class DomainMenuItemConverter {
 
 	public static DomainMenuItemDTO toDTO(DomainMenuItem item) {
 		final DomainMenuItemDTO dto = new DomainMenuItemDTO();
@@ -16,6 +16,9 @@ public class DomainMenuConverter {
 		dto.setOrderNr(item.getOderNr());
 		if (item.getParent() != null) {
 			dto.setParentId(item.getParent().getId());
+		}
+		if (item.getDomain() != null) {
+			dto.setDomainId(item.getDomain().getId());
 		}
 		return dto;
 	}

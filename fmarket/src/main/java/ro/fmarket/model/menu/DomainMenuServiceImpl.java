@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ro.fmarket.core.converter.DomainMenuConverter;
+import ro.fmarket.core.converter.DomainMenuItemConverter;
 import ro.fmarket.model.domain.demand.DemandDomainDao;
 
 @Service
@@ -22,7 +22,7 @@ public class DomainMenuServiceImpl implements DomainMenuService {
 	@Override
 	public List<DomainMenuItemDTO> getMenu() {
 		List<DomainMenuItem> items = dao.getList();
-		return DomainMenuConverter.toDTO(items);
+		return DomainMenuItemConverter.toDTO(items);
 	}
 
 	@Override
