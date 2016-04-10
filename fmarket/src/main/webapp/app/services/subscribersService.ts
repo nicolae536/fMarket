@@ -18,7 +18,7 @@ export class SubscribersService {
         var filterObject:SubscriberSearchObject = {
             id: id,
             email: email == "" ? null : email,
-            sortKey: sortKey,
+            sortKey: sortKey.length > 0 ? sortKey : null,
             desc: !ascendingOrder
         };
         return this.api.post(this.apiSubscribersControllerUrl + `/search?page=${currentPageIndex}`, JSON.stringify(filterObject));

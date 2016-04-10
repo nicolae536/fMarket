@@ -31,7 +31,7 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                     var filterObject = {
                         id: id,
                         email: email == "" ? null : email,
-                        sortKey: sortKey,
+                        sortKey: sortKey.length > 0 ? sortKey : null,
                         desc: !ascendingOrder
                     };
                     return this.api.post(this.apiSubscribersControllerUrl + ("/search?page=" + currentPageIndex), JSON.stringify(filterObject));

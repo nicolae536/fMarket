@@ -27,6 +27,9 @@ import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/in
     styles: [`
         .base-menu-component .nav.nav-pills.nav-stacked .operations-label{
             padding-top:10px;
+        }
+
+        .base-menu-component .nav.nav-pills.nav-stacked .operations-label span{
             cursor:pointer;
         }
 

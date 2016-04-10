@@ -54,7 +54,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                     this.orderList = [{ value: -1, text: "Chose..." },
                         { value: 1, text: "Ascending" },
                         { value: 2, text: "Descending" }];
-                    this.sortKey = "";
+                    this.sortKey = "EMAIL";
                     this.sortOrder = true;
                     //sortOrder true -> ascending
                     this.sortkeyAndFilter = [];

@@ -37,7 +37,7 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
 
     cityList:Array<Object>;
 
-    sortKey = "";
+    sortKey = "EMAIL";
     sortOrder = true;
 
     //sortOrder true -> ascending
