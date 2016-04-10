@@ -26,11 +26,6 @@ System.register(['angular2/core', './filterPipe'], function(exports_1) {
                     this.searchQuery = "";
                     this.dropdownState = false;
                 }
-                SelectComponent.prototype.ngOnChanges = function (changes) {
-                    if (changes.items) {
-                        console.log(this.items);
-                    }
-                };
                 SelectComponent.prototype.ngOnInit = function () {
                     this.loadedSelect.emit(this);
                     this._selectedItem = this.chooseItemValue;

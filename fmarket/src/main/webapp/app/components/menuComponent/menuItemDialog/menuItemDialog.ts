@@ -26,18 +26,18 @@ export class MenuItemDialog implements OnInit, OnChanges {
     private parentId:number;
     private operationType:string;
     private name:string;
-    private orderNr:string;
+    private orderNr:number;
     private domainId:number;
 
     private showModal:boolean;
     private positiveLabel:string;
     private selectedItem;
     private _select:SelectComponent;
-
-    items
+    private _validForm:boolean;
 
     ngOnInit() {
         this.modalLoaded.emit(this);
+        this._validForm=true;
     }
 
     ngOnChanges(changes:{}):any {
@@ -49,6 +49,10 @@ export class MenuItemDialog implements OnInit, OnChanges {
                 };
             })
         }
+    }
+
+    checkIfIsNumber(event){
+
     }
 
     show(newModal:IModal) {

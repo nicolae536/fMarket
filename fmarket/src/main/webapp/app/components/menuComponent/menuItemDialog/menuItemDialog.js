@@ -28,6 +28,7 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                 }
                 MenuItemDialog.prototype.ngOnInit = function () {
                     this.modalLoaded.emit(this);
+                    this._validForm = true;
                 };
                 MenuItemDialog.prototype.ngOnChanges = function (changes) {
                     if (changes.domainsList && this.domainsList) {
@@ -38,6 +39,8 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                             };
                         });
                     }
+                };
+                MenuItemDialog.prototype.checkIfIsNumber = function (event) {
                 };
                 MenuItemDialog.prototype.show = function (newModal) {
                     this.fatchModel(newModal);

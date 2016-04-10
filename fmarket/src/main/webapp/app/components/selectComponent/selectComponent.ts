@@ -85,12 +85,7 @@ import {FilterPipe} from './filterPipe';
     `],
     pipes:[FilterPipe]
 })
-export class SelectComponent implements OnInit, OnChanges {
-    ngOnChanges(changes:{}):any {
-        if(changes.items){
-            console.log(this.items);
-        }
-    }
+export class SelectComponent implements OnInit{
     @Input('select-items') items:Array<Select2Item>;
     @Input('selected-item') _selectedItem:Select2Item;
     @Output('loaded') loadedSelect:EventEmitter<SelectComponent> = new EventEmitter<SelectComponent>();

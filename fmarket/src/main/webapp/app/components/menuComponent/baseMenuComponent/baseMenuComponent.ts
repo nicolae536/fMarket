@@ -10,15 +10,15 @@ import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/in
 			<li *ngFor="#item of menuItemsList" [class]="getItemClass(item)" (click)="selectItem(item)">
 				<a>
 				    <div class="pull-right">
-				        <span class="glyphicon glyphicon-plus operation" (click)="createSubMenu($event, item.id)"></span>
-				        <span class="glyphicon glyphicon-pencil operation" (click)="editMenuItem($event,item)"></span>
-				        <span class="glyphicon glyphicon-remove operation" (click)="removeMenuItem($event,item.id)"></span>
+				        <span class="glyphicon glyphicon-plus operation" (click)="createSubMenu($event, item.id)" title="Adauga submeniu"></span>
+				        <span class="glyphicon glyphicon-pencil operation" (click)="editMenuItem($event,item)" title="Editeaza optiune"></span>
+				        <span class="glyphicon glyphicon-remove operation" (click)="removeMenuItem($event,item.id)" title="Sterge optiune"></span>
 				    </div>
-				    {{item.name}}
+				    {{item.orderNr}}.{{item.name}}
 				</a>
 			</li>
-			<div class="operations-label pull-right">
-			     <span class="glyphicon glyphicon-plus" (click)="addNewMenuItem()"></span>&nbsp;&nbsp;&nbsp;Add menu item
+			<div class="operations-label pull-right" (click)="addNewMenuItem()">
+			     <span class="glyphicon glyphicon-plus" ></span>&nbsp;&nbsp;&nbsp;Add menu item
 			</div>
 		</ul>
 	</div>
