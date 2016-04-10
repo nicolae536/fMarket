@@ -35,10 +35,14 @@ export class RequestsPage implements OnInit {
 
     getRequestTypesWithFilters() {
         this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-            .map((response) => response.json())
+            .map((response) => {
+                if(response._body.length){
+                    return response.json();
+                }
+            })
             .subscribe(
                 response => {
-                    this.requestTypes = response.data;
+                    this.requestTypes = response;
                 },
                 error => {
                     this.requestTypes = [];
@@ -48,7 +52,11 @@ export class RequestsPage implements OnInit {
 
     addRequestType() {
         this._requestTypeService.addRequestType(this.newRequestType)
-            .map((response) => response.json())
+            .map((response) => {
+                if(response._body.length){
+                    return response.json();
+                }
+            })
             .subscribe(
                 response => {
                     this.getRequestTypesWithFilters();
@@ -63,10 +71,14 @@ export class RequestsPage implements OnInit {
 
     deleteRequestType(requestType:RequestType) {
         this._requestTypeService.deleteRequestType(requestType.id)
-            .map((response) => response.json())
+            .map((response) => {
+                if(response._body.length){
+                    return response.json();
+                }
+            })
             .subscribe(
                 response => {
-                    this.requestTypes = response.data;
+                    this.requestTypes = response;
                 },
                 error => {
                     this.requestTypes = [];
@@ -76,11 +88,14 @@ export class RequestsPage implements OnInit {
 
     editRequestType(requestType:RequestType) {
         this._requestTypeService.editRequestType(requestType)
-            .map((response) => response.json())
+            .map((response) => {
+                if(response._body.length){
+                    return response.json();
+                }
+            })
             .subscribe(
                 response => {
                     requestType.isInEditMode = false;
-                    requestType;
                     //this.companieTypes = response.data;
                 },
                 error => {

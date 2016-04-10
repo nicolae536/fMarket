@@ -41,26 +41,37 @@ export class CompaniesPage implements OnInit {
 
 
     getCompanyTypesWithFilters() {
+        var me = this;
+
         this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-            .map((response) => response.json())
+            .map((response) => {
+                if(response._body.length){
+                    return response.json();
+                }
+            })
             .subscribe(
                 response => {
-                    this.companieTypes = response.data;
+                    me.companieTypes = response;
                 },
                 error => {
-                    this.companieTypes = [];
+                    me.companieTypes = [];
                 });
 
     }
 
     addCompanieDomain() {
+        var me = this;
+
         this._companieTypeService.addCompanyType(this.newDomain)
-            .map((response) => response.json())
-            .subscribe(
+            .map((response) => {
+                if(response._body.length){
+                    return response.json();
+                }
+            })            .subscribe(
                 response => {
-                    this.getCompanyTypesWithFilters();
-                    this.newDomain = "";
-                    this.toggleAddCompanieDomain(false);
+                    me.getCompanyTypesWithFilters();
+                    me.newDomain = "";
+                    me.toggleAddCompanieDomain(false);
                 },
                 error => {
                     //make the field red
@@ -69,25 +80,34 @@ export class CompaniesPage implements OnInit {
     }
 
     deleteCompanyType(companyType:CompanieType) {
+        var me = this;
+
         this._companieTypeService.deleteCompanyType(companyType.id)
-            .map((response) => response.json())
-            .subscribe(
+            .map((response) => {
+                if(response._body.length){
+                    return response.json();
+                }
+            })            .subscribe(
                 response => {
-                    this.companieTypes = response.data;
+                    me.getCompanyTypesWithFilters()
                 },
                 error => {
-                    this.companieTypes = [];
+                    //me.companieTypes = [];
                 });
 
     }
 
     editCompaniType(companyType:CompanieType) {
+        var me = this;
+
         this._companieTypeService.editCompaniType(companyType)
-            .map((response) => response.json())
-            .subscribe(
+            .map((response) => {
+                if(response._body.length){
+                    return response.json();
+                }
+            })            .subscribe(
                 response => {
                     companyType.isInEditMode = false;
-                    companyType;
                     //this.companieTypes = response.data;
                 },
                 error => {

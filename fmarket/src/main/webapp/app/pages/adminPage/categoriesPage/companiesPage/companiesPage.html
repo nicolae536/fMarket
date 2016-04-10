@@ -23,13 +23,13 @@
             <input class="form-control" [(ngModel)]="newDomain"/>
 
             <div class="input-group-btn">
-                <button type="button" class="btn btn-secondary btn-primary" (click)="addCompanieDomain()">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    Creeaza
-                </button>
                 <button type="button" class="btn btn-secondary btn-default" (click)="toggleAddCompanieDomain(false)">
                     <span class="glyphicon glyphicon-remove"></span>
                     Cancel
+                </button>
+                <button type="button" class="btn btn-secondary btn-primary" (click)="addCompanieDomain()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Creeaza
                 </button>
             </div>
         </div>
@@ -44,7 +44,7 @@
                     <input *ngIf="companieType.isInEditMode" class="form-control" [(ngModel)]="companieType.name"/>
                 </div>
                 <div class="col-md-3">
-                    <a class="secondary" (click)="deleteCompanyType(companyType)">
+                    <a class="secondary" (click)="deleteCompanyType(companieType)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
                     <a *ngIf="!companieType.isInEditMode" class="secondary" (click)="toggleEditMode(companieType)">

@@ -24,20 +24,21 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
         execute: function() {
             RequestTypeService = (function () {
                 function RequestTypeService(http) {
-                    this.controllerRoute = '/request/types';
+                    this._requestDomains = '/demand/domains';
                     this.api = new fMarketApi_1.FMarketApi(http);
                 }
                 RequestTypeService.prototype.getRequestTypesWithFilters = function (searchQuery) {
-                    return this.api.get(this.controllerRoute + ("/?searchQuery=" + searchQuery));
+                    // + `/?searchQuery=${searchQuery}`
+                    return this.api.get(this._requestDomains);
                 };
                 RequestTypeService.prototype.deleteRequestType = function (requestId) {
-                    return this.api.delete(this.controllerRoute + ("/" + requestId));
+                    return this.api.delete(this._requestDomains + ("/" + requestId));
                 };
                 RequestTypeService.prototype.editRequestType = function (request) {
-                    return this.api.put(this.controllerRoute, JSON.stringify(request));
+                    return this.api.put(this._requestDomains + ("/" + request.id), JSON.stringify({ id: request.id, newName: request.name }));
                 };
                 RequestTypeService.prototype.addRequestType = function (request) {
-                    return this.api.put(this.controllerRoute, JSON.stringify(request));
+                    return this.api.post(this._requestDomains, JSON.stringify({ name: request }));
                 };
                 RequestTypeService = __decorate([
                     core_1.Injectable(), 

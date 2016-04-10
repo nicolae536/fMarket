@@ -40,44 +40,57 @@ System.register(['angular2/core', 'angular2/http', '../../../../models/companieT
                 CompaniesPage.prototype.addMenuItem = function (data) {
                 };
                 CompaniesPage.prototype.getCompanyTypesWithFilters = function () {
-                    var _this = this;
+                    var me = this;
                     this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-                        .map(function (response) { return response.json(); })
+                        .map(function (response) {
+                        if (response._body.length) {
+                            return response.json();
+                        }
+                    })
                         .subscribe(function (response) {
-                        _this.companieTypes = response.data;
+                        me.companieTypes = response;
                     }, function (error) {
-                        _this.companieTypes = [];
+                        me.companieTypes = [];
                     });
                 };
                 CompaniesPage.prototype.addCompanieDomain = function () {
-                    var _this = this;
+                    var me = this;
                     this._companieTypeService.addCompanyType(this.newDomain)
-                        .map(function (response) { return response.json(); })
-                        .subscribe(function (response) {
-                        _this.getCompanyTypesWithFilters();
-                        _this.newDomain = "";
-                        _this.toggleAddCompanieDomain(false);
+                        .map(function (response) {
+                        if (response._body.length) {
+                            return response.json();
+                        }
+                    }).subscribe(function (response) {
+                        me.getCompanyTypesWithFilters();
+                        me.newDomain = "";
+                        me.toggleAddCompanieDomain(false);
                     }, function (error) {
                         //make the field red
                         //this.companieTypes = [];
                     });
                 };
                 CompaniesPage.prototype.deleteCompanyType = function (companyType) {
-                    var _this = this;
+                    var me = this;
                     this._companieTypeService.deleteCompanyType(companyType.id)
-                        .map(function (response) { return response.json(); })
-                        .subscribe(function (response) {
-                        _this.companieTypes = response.data;
+                        .map(function (response) {
+                        if (response._body.length) {
+                            return response.json();
+                        }
+                    }).subscribe(function (response) {
+                        me.getCompanyTypesWithFilters();
                     }, function (error) {
-                        _this.companieTypes = [];
+                        //me.companieTypes = [];
                     });
                 };
                 CompaniesPage.prototype.editCompaniType = function (companyType) {
+                    var me = this;
                     this._companieTypeService.editCompaniType(companyType)
-                        .map(function (response) { return response.json(); })
-                        .subscribe(function (response) {
+                        .map(function (response) {
+                        if (response._body.length) {
+                            return response.json();
+                        }
+                    }).subscribe(function (response) {
                         companyType.isInEditMode = false;
-                        companyType;
                         //this.companieTypes = response.data;
                     }, function (error) {
                         //this.companieTypes = [];

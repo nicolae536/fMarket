@@ -23,13 +23,13 @@
             <input class="form-control" [(ngModel)]="newRequestType"/>
 
             <div class="input-group-btn">
-                <button type="button" class="btn btn-secondary btn-primary" (click)="addRequestType()">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    Creeaza
-                </button>
                 <button type="button" class="btn btn-secondary btn-default" (click)="toggleAddRequestType(false)">
                     <span class="glyphicon glyphicon-remove"></span>
                     Cancel
+                </button>
+                <button type="button" class="btn btn-secondary btn-primary" (click)="addRequestType()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Creeaza
                 </button>
             </div>
         </div>

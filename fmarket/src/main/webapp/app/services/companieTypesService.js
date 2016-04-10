@@ -24,20 +24,21 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
         execute: function() {
             CompanieTypeService = (function () {
                 function CompanieTypeService(http) {
-                    this.adminUsersControllerRoute = '/company/types';
+                    this._CompanyDomainController = '/company/domains';
                     this.api = new fMarketApi_1.FMarketApi(http);
                 }
                 CompanieTypeService.prototype.getCompanyTypesWithFilters = function (searchQuery) {
-                    return this.api.get(this.adminUsersControllerRoute + ("/?searchQuery=" + searchQuery));
+                    //+ `/?searchQuery=${searchQuery}`
+                    return this.api.get(this._CompanyDomainController);
                 };
                 CompanieTypeService.prototype.deleteCompanyType = function (companyId) {
-                    return this.api.delete(this.adminUsersControllerRoute + ("/" + companyId));
+                    return this.api.delete(this._CompanyDomainController + ("/" + companyId));
                 };
                 CompanieTypeService.prototype.editCompaniType = function (companyDomain) {
-                    return this.api.put(this.adminUsersControllerRoute, JSON.stringify({ domain: companyDomain }));
+                    return this.api.put(this._CompanyDomainController, JSON.stringify({ id: companyDomain.id, newName: companyDomain.name }));
                 };
                 CompanieTypeService.prototype.addCompanyType = function (companyDomain) {
-                    return this.api.put(this.adminUsersControllerRoute, JSON.stringify({ domain: companyDomain }));
+                    return this.api.post(this._CompanyDomainController, JSON.stringify({ name: companyDomain }));
                 };
                 CompanieTypeService = __decorate([
                     core_1.Injectable(), 

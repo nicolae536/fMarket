@@ -8,7 +8,7 @@ System.register([], function(exports_1) {
                     this.isInEditMode = false;
                     this.id = id;
                     this.name = name;
-                    this.companies_no = companies;
+                    //this.companies_no = companies;
                 }
                 return CompanieType;
             })();

@@ -15,12 +15,16 @@
 }
 
 .companies-page .companie-type .list-group .list-group-item {
-    padding-top: 15px;
-    height: 54px;
+    padding-top: 12px;
+    height: 42px;
 }
 
 .companies-page .companie-type .list-group .list-group-item .col-md-9 .form-control {
-    margin-top: -6px;
+    margin-top: -13px;
+    height: 42px;
+    margin-left: -31px;
+    text-indent: 18px;
+    z-index: 10;
 }
 
 .companies-page .companie-type .list-group .list-group-item .col-md-3 {
@@ -29,11 +33,12 @@
 
 .companies-page .companie-type .list-group .list-group-item .secondary {
     float: right;
-    padding-left: 15px;
+    padding-left: 13px;
     border-left: 1px solid rgb(221, 221, 221);
     line-height: 20px;
-    height: 54px;
+    height: 42px;
     margin-top: -15px;
     padding-top: 15px;
     margin-left: 15px;
+    cursor: pointer;
 } 

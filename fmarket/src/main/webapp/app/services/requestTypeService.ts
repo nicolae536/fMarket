@@ -8,7 +8,7 @@ import {FMarketApi} from "./fMarketApi";
 
 @Injectable()
 export class RequestTypeService {
-    controllerRoute:string = '/request/types';
+    _requestDomains:string = '/demand/domains';
     api:FMarketApi;
 
     constructor(http:Http) {
@@ -16,18 +16,19 @@ export class RequestTypeService {
     }
 
     getRequestTypesWithFilters(searchQuery:string) {
-        return this.api.get(this.controllerRoute + `/?searchQuery=${searchQuery}`);
+        // + `/?searchQuery=${searchQuery}`
+        return this.api.get(this._requestDomains);
     }
 
     deleteRequestType(requestId) {
-        return this.api.delete(this.controllerRoute + `/${requestId}`);
+        return this.api.delete(this._requestDomains + `/${requestId}`);
     }
 
     editRequestType(request) {
-        return this.api.put(this.controllerRoute, JSON.stringify(request));
+        return this.api.put(this._requestDomains +`/${request.id}`, JSON.stringify({id:request.id, newName:request.name}));
     }
 
     addRequestType(request) {
-        return this.api.put(this.controllerRoute, JSON.stringify(request));
+        return this.api.post(this._requestDomains, JSON.stringify({name: request}));
     }
 }

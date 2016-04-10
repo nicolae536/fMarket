@@ -38,9 +38,13 @@ System.register(['angular2/core', 'angular2/http', '../../../../models/requestTy
                 RequestsPage.prototype.getRequestTypesWithFilters = function () {
                     var _this = this;
                     this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-                        .map(function (response) { return response.json(); })
+                        .map(function (response) {
+                        if (response._body.length) {
+                            return response.json();
+                        }
+                    })
                         .subscribe(function (response) {
-                        _this.requestTypes = response.data;
+                        _this.requestTypes = response;
                     }, function (error) {
                         _this.requestTypes = [];
                     });
@@ -48,7 +52,11 @@ System.register(['angular2/core', 'angular2/http', '../../../../models/requestTy
                 RequestsPage.prototype.addRequestType = function () {
                     var _this = this;
                     this._requestTypeService.addRequestType(this.newRequestType)
-                        .map(function (response) { return response.json(); })
+                        .map(function (response) {
+                        if (response._body.length) {
+                            return response.json();
+                        }
+                    })
                         .subscribe(function (response) {
                         _this.getRequestTypesWithFilters();
                         _this.newRequestType = "";
@@ -61,19 +69,26 @@ System.register(['angular2/core', 'angular2/http', '../../../../models/requestTy
                 RequestsPage.prototype.deleteRequestType = function (requestType) {
                     var _this = this;
                     this._requestTypeService.deleteRequestType(requestType.id)
-                        .map(function (response) { return response.json(); })
+                        .map(function (response) {
+                        if (response._body.length) {
+                            return response.json();
+                        }
+                    })
                         .subscribe(function (response) {
-                        _this.requestTypes = response.data;
+                        _this.requestTypes = response;
                     }, function (error) {
                         _this.requestTypes = [];
                     });
                 };
                 RequestsPage.prototype.editRequestType = function (requestType) {
                     this._requestTypeService.editRequestType(requestType)
-                        .map(function (response) { return response.json(); })
+                        .map(function (response) {
+                        if (response._body.length) {
+                            return response.json();
+                        }
+                    })
                         .subscribe(function (response) {
                         requestType.isInEditMode = false;
-                        requestType;
                         //this.companieTypes = response.data;
                     }, function (error) {
                         //this.companieTypes = [];

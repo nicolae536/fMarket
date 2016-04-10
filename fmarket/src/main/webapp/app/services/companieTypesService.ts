@@ -8,7 +8,7 @@ import {FMarketApi} from "./fMarketApi";
 
 @Injectable()
 export class CompanieTypeService {
-    private adminUsersControllerRoute:string = '/company/types';
+    private _CompanyDomainController:string = '/company/domains';
     private api:FMarketApi;
 
     constructor(http:Http) {
@@ -16,18 +16,19 @@ export class CompanieTypeService {
     }
 
     getCompanyTypesWithFilters(searchQuery:string) {
-        return this.api.get(this.adminUsersControllerRoute + `/?searchQuery=${searchQuery}`);
+        //+ `/?searchQuery=${searchQuery}`
+        return this.api.get(this._CompanyDomainController );
     }
 
     deleteCompanyType(companyId) {
-        return this.api.delete(this.adminUsersControllerRoute + `/${companyId}`);
+        return this.api.delete(this._CompanyDomainController + `/${companyId}`);
     }
 
     editCompaniType(companyDomain) {
-        return this.api.put(this.adminUsersControllerRoute, JSON.stringify({domain: companyDomain}));
+        return this.api.put(this._CompanyDomainController, JSON.stringify({id:companyDomain.id, newName:companyDomain.name}));
     }
 
     addCompanyType(companyDomain) {
-        return this.api.put(this.adminUsersControllerRoute, JSON.stringify({domain: companyDomain}));
+        return this.api.post(this._CompanyDomainController, JSON.stringify({name: companyDomain}));
     }
 }
