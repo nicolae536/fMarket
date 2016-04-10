@@ -39,7 +39,7 @@ public class DomainMenuItem extends BaseEntity {
 	private DemandDomain domain;
 
 	@OrderBy("orderNr")
-	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Set<DomainMenuItem> children = new HashSet<>();
 
 }
