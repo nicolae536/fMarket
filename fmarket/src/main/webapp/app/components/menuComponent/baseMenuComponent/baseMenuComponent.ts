@@ -6,34 +6,41 @@ import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/in
     selector: 'base-menu',
     template: `
 	<div class="base-menu-component">
-		<ul class="nav nav-pills nav-stacked">
+		<ul class="nav nav-pills nav-stacked clearfix">
 			<li *ngFor="#item of menuItemsList" [class]="getItemClass(item)" (click)="selectItem(item)">
 				<a>
 				    <div class="pull-right">
-				        <span class="glyphicon glyphicon-plus" (click)="createSubMenu(item.id)"></span>
-				        <span class="glyphicon glyphicon-pencil" (click)="editMenuItem(item)"></span>
-				        <span class="glyphicon glyphicon-remove" (click)="removeMenuItem(item.id)"></span>
+				        <span class="glyphicon glyphicon-plus operation" (click)="createSubMenu($event, item.id)"></span>
+				        <span class="glyphicon glyphicon-pencil operation" (click)="editMenuItem($event,item)"></span>
+				        <span class="glyphicon glyphicon-remove operation" (click)="removeMenuItem($event,item.id)"></span>
 				    </div>
 				    {{item.name}}
 				</a>
 			</li>
-			<div class="operations-label">
-			    <button class="btn btn-success" (click)="addNewMenuItem()">
-			        <span class="glyphicon glyphicon-plus"></span>
-			    </button>
+			<div class="operations-label pull-right">
+			     <span class="glyphicon glyphicon-plus" (click)="addNewMenuItem()"></span>&nbsp;&nbsp;&nbsp;Add menu item
 			</div>
 		</ul>
 	</div>
 	`,
     styles: [`
         .base-menu-component .nav.nav-pills.nav-stacked .operations-label{
-            width:100%;
+            padding-top:10px;
+            cursor:pointer;
         }
 
-		.base-menu-component .nav.nav-pills.nav-stacked .btn.btn-success{
+		.base-menu-component .nav.nav-pills.nav-stacked .btn.btn-primary{
 			height:34px;
 			width:100%;
 		}
+
+        .base-menu-component .nav.nav-pills.nav-stacked .operation{
+            cursor:pointer;
+        }
+
+        .base-menu-component .nav.nav-pills.nav-stacked .domain-marker{
+
+        }
 
 		.base-menu-component .nav.nav-pills.nav-stacked .input-group{
 			padding-bottom:5px;
@@ -41,9 +48,10 @@ import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/in
 	`]
 })
 
-export class BaseMenuComponent{
+export class BaseMenuComponent implements OnChanges{
     @Input('menu-items-list') menuItemsList:Array<MenuItem>;
     @Input('menu-layer') menuLayer:number;
+    @Input('active-in-tree') activeInTree:MenuItem;
     @Output('select-menu-item') broadcastMenuItem:EventEmitter<UpdateDomainMenuItemRequest> = new EventEmitter<UpdateDomainMenuItemRequest>();
     @Output('add-new-item') broadcastNewItem:EventEmitter<number> = new EventEmitter<number>();
     @Output('edit-submenu') broadcastUpdateItem:EventEmitter<UpdateDomainMenuItemRequest> = new EventEmitter<UpdateDomainMenuItemRequest>();
@@ -54,39 +62,48 @@ export class BaseMenuComponent{
     constructor() {
     }
 
+    ngOnChanges(changes:{}) {
+        if(changes.activeInTree && this.activeInTree){
+            this.selectedItem = this.activeInTree;
+        }
+    }
+
     getItemClass(menuItem) {
         let cssClass = '';
-        if(this.selectedItem == menuItem){
+        if (this.selectedItem == menuItem) {
             cssClass += 'active '
         }
 
-        if (menuItem.domainId == ''){
+        if (menuItem.domainId == '') {
             cssClass += 'domain-marker'
         }
 
         return cssClass;
     }
 
-    addNewMenuItem(){
-        var parentId = this.menuItemsList[0] && this.menuItemsList[0].parentId ? this.menuItemsList[0].parentId : 0;
+    addNewMenuItem() {
+        var parentId = this.menuItemsList[0] && this.menuItemsList[0].parentId ? this.menuItemsList[0].parentId : null;
         this.broadcastNewItem.emit(parentId);
     }
 
-    createSubMenu(id:number){
+    createSubMenu($event, id:number) {
+        $event.stopPropagation();
         this.broadcastNewItem.emit(id);
     }
 
-    editMenuItem(item:UpdateDomainMenuItemRequest){
+    editMenuItem($event, item:UpdateDomainMenuItemRequest) {
+        $event.stopPropagation();
         this.broadcastUpdateItem.emit(item);
     }
 
-    removeMenuItem(id:number){
+    removeMenuItem($event, id:number) {
+        $event.stopPropagation();
         this.broadcastDeleteItem.emit(id);
     }
 
     selectItem(menuItem) {
         this.selectedItem = menuItem;
-        this.broadcastMenuItem.emit({id: this.selectedItem.id, newName: this.selectedItem, orderNr:this.selectedItem.orderNr});
+        this.broadcastMenuItem.emit(menuItem);
     }
 }
 
@@ -96,6 +113,7 @@ export interface MenuItem {
     parentId;
     name;
     orderNr;
+    hasChildrens;
 }
 
 export interface NewDomainMenuItemRequest {
@@ -106,7 +124,7 @@ export interface NewDomainMenuItemRequest {
     domainId;
 }
 
-export interface UpdateDomainMenuItemRequest{
+export interface UpdateDomainMenuItemRequest {
     id;
     newName;
     orderNr;

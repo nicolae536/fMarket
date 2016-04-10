@@ -4,6 +4,7 @@
         <base-menu
                 [menu-items-list]="menu"
                 [menu-layer]="i"
+                [active-in-tree]="getActiveItemInTree(i)"
                 (select-menu-item)="selectMenuItem($event)"
                 (add-new-item)="requestNewMenuItem($event)"
                 (edit-submenu)="editSubmenu($event)"

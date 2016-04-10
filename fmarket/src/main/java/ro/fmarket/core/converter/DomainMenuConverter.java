@@ -14,7 +14,7 @@ public class DomainMenuConverter {
 		dto.setLevel(item.getLevel());
 		dto.setName(item.getName());
 		dto.setOrderNr(item.getOderNr());
-		if (dto.getParentId() != null) {
+		if (item.getParent() != null) {
 			dto.setParentId(item.getParent().getId());
 		}
 		return dto;

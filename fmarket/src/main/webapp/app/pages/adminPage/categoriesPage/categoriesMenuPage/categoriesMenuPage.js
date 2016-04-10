@@ -1,11 +1,9 @@
 System.register(['angular2/core', 'angular2/http', '../../../../components/menuComponent/menuTreeComponent', '../../../../services/categoriesMenuService', "../../../../components/menuComponent/menuItemDialog/menuItemDialog"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -39,59 +37,82 @@ System.register(['angular2/core', 'angular2/http', '../../../../components/menuC
                 }
                 CategoriesMenuPage.prototype.ngOnInit = function () {
                     this.getMenuDictionary();
+                    this.getDomains();
                 };
                 CategoriesMenuPage.prototype.referenceModal = function (modal) {
                     this._menuItemModal = modal;
                 };
                 CategoriesMenuPage.prototype.getMenuDictionary = function () {
-                    var _this = this;
+                    var me = this;
                     this._categoriesMenuService.getMenuDictionary()
-                        .map(function (response) { return response.json(); })
+                        .map(function (response) {
+                        if (response._body.length > 0) {
+                            return response.json();
+                        }
+                    })
                         .subscribe(function (response) {
-                        _this.menuDictionary = response.data;
+                        me.menuDictionary = response;
                     }, function (error) {
-                        _this.menuDictionary = [];
+                        me.menuDictionary = [];
                     });
-                    ;
                 };
                 CategoriesMenuPage.prototype.selectMenuItem = function (menuItem) {
                     //
                 };
-                CategoriesMenuPage.prototype.addMenuItem = function (parentId) {
-                    var _this = this;
+                CategoriesMenuPage.prototype.showAddMenuModal = function (parentId) {
                     this._modalInterface = { parentId: parentId, operationType: "new", positiveLabel: "Create", id: null };
-                    this._menuItemModal.show(this._modalInterface).then(function (response) {
-                        _this._categoriesMenuService.addMenuItem(response).map(function (response) {
-                            response.json();
-                        }).subscribe(function (response) {
-                            _this._menuItemModal.hide();
-                            _this.getMenuDictionary();
-                        }, function (error) {
-                            _this._menuItemModal.showErrors();
-                        });
+                    this._menuItemModal.show(this._modalInterface);
+                };
+                CategoriesMenuPage.prototype.addMenuItem = function (response) {
+                    var me = this;
+                    me._categoriesMenuService.addMenuItem(response).map(function (response) {
+                        if (response._body.length > 0) {
+                            return response.json();
+                        }
+                    }).subscribe(function (response) {
+                        me._menuItemModal.hide();
+                        me.getMenuDictionary();
+                    }, function (error) {
+                        me._menuItemModal.showErrors();
                     });
                 };
-                CategoriesMenuPage.prototype.editMenuItem = function (menuToUpdate) {
-                    var _this = this;
+                CategoriesMenuPage.prototype.showEditMenuModal = function (menuToUpdate) {
                     var newInterface = { menuModel: menuToUpdate, operationType: "update", positiveLabel: "Update", id: null };
-                    this._menuItemModal.update(newInterface).then(function (response) {
-                        _this._categoriesMenuService.updateMenuItem(response).map(function (response) {
-                            response.json();
-                        }).subscribe(function (response) {
-                            _this._menuItemModal.hide();
-                            _this.getMenuDictionary();
-                        }, function (error) {
-                            _this._menuItemModal.showErrors();
-                        });
+                    this._menuItemModal.update(newInterface);
+                };
+                CategoriesMenuPage.prototype.editMenuItem = function (response) {
+                    var me = this;
+                    me._categoriesMenuService.updateMenuItem(response).map(function (response) {
+                        if (response._body.length > 0) {
+                            return response.json();
+                        }
+                    }).subscribe(function (response) {
+                        me._menuItemModal.hide();
+                        me.getMenuDictionary();
+                    }, function (error) {
+                        me._menuItemModal.showErrors();
                     });
                 };
                 CategoriesMenuPage.prototype.deleteMenuItem = function (id) {
                     var _this = this;
                     this._categoriesMenuService.deleteMenuItem(id).map(function (response) {
-                        response.json();
+                        if (response._body.length > 0) {
+                            return response.json();
+                        }
                     })
                         .subscribe(function (response) {
                         _this.getMenuDictionary();
+                    }, function (errod) {
+                    });
+                };
+                CategoriesMenuPage.prototype.getDomains = function () {
+                    var me = this;
+                    this._categoriesMenuService.getDomains().subscribe(function (response) {
+                        console.log(response);
+                        me._domains = response.json();
+                    }, function (error) {
+                        console.log(me._domains);
+                        me._domains = [];
                     });
                 };
                 CategoriesMenuPage = __decorate([

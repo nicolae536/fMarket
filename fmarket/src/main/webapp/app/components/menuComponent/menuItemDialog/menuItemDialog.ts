@@ -2,91 +2,87 @@
  * Created by nick_ on 4/9/2016.
  */
 import {Component, Input, Output, EventEmitter, OnInit, OnChanges} from 'angular2/core';
-import {SelectComponent} from '../../selectComponent/selectComponent';
 
+import {SelectComponent} from '../../selectComponent/selectComponent';
 import {NewDomainMenuItemRequest} from '../baseMenuComponent/baseMenuComponent'
 import {UpdateDomainMenuItemRequest} from "../baseMenuComponent/baseMenuComponent";
+import {Select2Item} from "../../selectComponent/selectComponent";
+
 //used template to not download the same html multiple times
 @Component({
     selector: 'menu-item-dialog',
-    templateUrl:'/app/components/menuComponent/menuItemDialog/menuItemDialog.html',
-    directives:[SelectComponent]
+    templateUrl: '/app/components/menuComponent/menuItemDialog/menuItemDialog.html',
+    directives: [SelectComponent]
 })
 
-export class MenuItemDialog implements OnInit{
+export class MenuItemDialog implements OnInit, OnChanges {
     @Output('modal-loaded') modalLoaded:EventEmitter<MenuItemDialog> = new EventEmitter<MenuItemDialog>();
+    @Output('add-menu-item') newMenuItemEmitter:EventEmitter<NewDomainMenuItemRequest> = new EventEmitter<NewDomainMenuItemRequest>();
+    @Output('update-menu-item') updateMenuItemEmitter:EventEmitter<UpdateDomainMenuItemRequest> = new EventEmitter<UpdateDomainMenuItemRequest>();
 
-    id:string;
-    parentId:number;
-    operationType:string;
-    name:string;
-    orderNr:string;
-    domainId:number;
+    @Input('domains-list') domainsList:Array<Select2Item>;
 
-    showModal:boolean;
-    positiveLabel:string;
-    cancelLabel = 'Cancel';
-    deferendModal:PromiseInterface;
-    selectItems;
-    selectedItem;
-    ngOnInit(){
+    private id:string;
+    private parentId:number;
+    private operationType:string;
+    private name:string;
+    private orderNr:string;
+    private domainId:number;
+
+    private showModal:boolean;
+    private positiveLabel:string;
+    private selectedItem;
+    private _select:SelectComponent;
+
+    items
+
+    ngOnInit() {
         this.modalLoaded.emit(this);
-        this.selectItems = [
-            {displayName:'Amsterdam', boundItem:{}},
-            {displayName:'Antwerp', boundItem:{}},
-            {displayName:'Athens', boundItem:{}},
-            {displayName:'Barcelona', boundItem:{}},
-            {displayName:'Berlin', boundItem:{}},
-            {displayName:'Antwerp', boundItem:{}},
-            {displayName:'Athens', boundItem:{}},
-            {displayName:'Barcelona', boundItem:{}},
-            {displayName:'Berlin', boundItem:{}},
-            {displayName:'Antwerp', boundItem:{}},
-            {displayName:'Athens', boundItem:{}},
-            {displayName:'Barcelona', boundItem:{}},
-            {displayName:'Berlin', boundItem:{}},
-            {displayName:'Antwerp', boundItem:{}},
-            {displayName:'Athens', boundItem:{}},
-            {displayName:'Barcelona', boundItem:{}},
-            {displayName:'Berlin', boundItem:{}},
-            {displayName:'Antwerp', boundItem:{}},
-            {displayName:'Athens', boundItem:{}},
-            {displayName:'Barcelona', boundItem:{}},
-            {displayName:'Berlin', boundItem:{}}];
-        this.selectedItem = this.selectItems[0];
     }
 
-    show(newModal:IModal){
+    ngOnChanges(changes:{}):any {
+        if (changes.domainsList && this.domainsList) {
+            this.items = this.domainsList.map((domain)=> {
+                return {
+                    displayName: domain.name,
+                    boundItem: domain
+                };
+            })
+        }
+    }
+
+    show(newModal:IModal) {
         this.fatchModel(newModal);
         this.showModal = true;
-        return new Promise((resolve, reject)=> {
-            this.deferendModal={resolve: resolve, reject:reject};
-        });
     }
 
-    update(newModal:IUpdateModal){
+    referenceSelectComponent(select:SelectComponent) {
+        this._select = select;
+    }
+
+    update(newModal:IUpdateModal) {
         this.fatchUpdateModel(newModal);
         this.showModal = true;
-        return new Promise((resolve, reject)=> {
-            this.deferendModal.resolve = resolve;
-            this.deferendModal.reject = reject;
-        });
     }
 
 
-    hide(){
+    hide() {
         this.clearModal();
         this.showModal = false;
-        this.deferendModal.reject();
     }
 
-    positiveAction(){
-        switch (this.operationType){
+    positiveAction() {
+        switch (this.operationType) {
             case 'new':
-                this.deferendModal.resolve({parentId:this.parentId, name:this.name, orderNr:this.orderNr, domainId:this.domainId})
+                this.newMenuItemEmitter.emit({
+                    parentId: this.parentId,
+                    name: this.name,
+                    orderNr: this.orderNr,
+                    domainId: this._select.selectedItem.boundItem ? this._select.selectedItem.boundItem.id : null
+                })
                 break;
             case 'update':
-                this.deferendModal.resolve({id:this.id, newName:this.name, orderNr:this.orderNr});
+                this.updateMenuItemEmitter.emit({id: this.id, newName: this.name, orderNr: this.orderNr});
                 break;
         }
     }
@@ -94,7 +90,6 @@ export class MenuItemDialog implements OnInit{
     private cancelAction() {
         console.log('sending close event');
         this.showModal = false;
-        this.deferendModal.reject();
     }
 
     private stopPropagation($event) {
@@ -116,8 +111,8 @@ export class MenuItemDialog implements OnInit{
         this.id = newModal.id;
     }
 
-    showErrors():void {
-        
+    showErrors() {
+
     }
 
     private fatchUpdateModel(newModal:IUpdateModal):void {
@@ -128,52 +123,22 @@ export class MenuItemDialog implements OnInit{
         this.positiveLabel = newModal.positiveLabel;
         this.operationType = newModal.operationType;
     }
-
-    private value:any = {};
-    private _disabledV:string = '0';
-    private disabled:boolean = false;
-
-
-    private get disabledV():string {
-        return this._disabledV;
-    }
-
-    private set disabledV(value:string) {
-        this._disabledV = value;
-        this.disabled = this._disabledV === '1';
-    }
-
-    private selected(value:any) {
-        console.log('Selected value is: ', value);
-    }
-
-    private removed(value:any) {
-        console.log('Removed value is: ', value);
-    }
-
-    private typed(value:any) {
-        console.log('New search input: ', value);
-    }
-
-    private refreshValue(value:any) {
-        this.value = value;
-    }
 }
 
-export interface IModal{
+export interface IModal {
     parentId;
     positiveLabel;
     operationType;
     id;
 }
 
-export interface IUpdateModal{
+export interface IUpdateModal {
     positiveLabel;
     operationType;
     menuModel:UpdateDomainMenuItemRequest
 }
 
-interface PromiseInterface{
+interface PromiseInterface {
     resolve;
     reject;
 }

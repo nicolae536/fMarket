@@ -15,7 +15,7 @@ public class DomainMenuServiceImpl implements DomainMenuService {
 
 	@Autowired
 	private DomainMenuDao dao;
-	
+
 	@Autowired
 	private DemandDomainDao demandDomainDao;
 
@@ -34,7 +34,7 @@ public class DomainMenuServiceImpl implements DomainMenuService {
 	@Override
 	public void deleteMenuItem(int id) {
 		dao.deleteById(id);
-		
+
 	}
 
 	@Override
@@ -48,27 +48,28 @@ public class DomainMenuServiceImpl implements DomainMenuService {
 			dao.update(itemForUpdate);
 		}
 	}
-	
+
 	private DomainMenuItem createNewItem(NewDomainMenuItemRequest request) {
 		final DomainMenuItem newItem = new DomainMenuItem();
 		newItem.setName(request.getName());
 		newItem.setOderNr(request.getOrderNr());
-		
+
 		Integer parentId = request.getParentId();
 		if (parentId != null) {
 			DomainMenuItem parent = dao.get(parentId);
-			newItem.setParent(dao.load(parentId));
-			newItem.setLevel(parent.getLevel() + 1);
+			if (parent != null) {
+				newItem.setParent(dao.load(parentId));
+				newItem.setLevel(parent.getLevel() + 1);
+			}
 		} else {
-			newItem.setLevel(0); // sau 1
+			newItem.setLevel(0);
 		}
 		Integer domainId = request.getDomainId();
 		if (domainId != null) {
 			newItem.setDomain(demandDomainDao.load(domainId));
 		}
-		
+
 		return newItem;
 	}
-	
 
 }

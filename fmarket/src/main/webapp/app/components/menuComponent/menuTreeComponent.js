@@ -1,11 +1,9 @@
 System.register(['angular2/core', './baseMenuComponent/baseMenuComponent'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -29,13 +27,17 @@ System.register(['angular2/core', './baseMenuComponent/baseMenuComponent'], func
                     this.broadcastNewItem = new core_1.EventEmitter();
                     this.broadcastEditItem = new core_1.EventEmitter();
                     this.broadcastDeleteItem = new core_1.EventEmitter();
-                    this.ROOT_ID = 0;
+                    this.ROOT_PARENT_ID = null;
                     this.ROOT_LAYER = 0;
+                    this.treeViewSelectedRoad = [];
                     this.menuTreeView = [];
                 }
-                MenuTreeComponent.prototype.ngOnInit = function () {
-                    this.menuDictionary = this.mapManuTree(this.menuDictionary);
-                    this.menuTreeView.push(this.getRootLayer());
+                MenuTreeComponent.prototype.ngOnChanges = function (changes) {
+                    if (changes.menuDictionary && this.menuDictionary) {
+                        this.menuDictionary = this.mapManuTree(this.menuDictionary);
+                        this.menuTreeView[0] = this.getRootLayer();
+                        this.activateTree();
+                    }
                 };
                 MenuTreeComponent.prototype.mapManuTree = function (menuTree) {
                     for (var i = 0; i < menuTree.length; i++) {
@@ -52,7 +54,7 @@ System.register(['angular2/core', './baseMenuComponent/baseMenuComponent'], func
                     return false;
                 };
                 MenuTreeComponent.prototype.getTreeViewForMenuItem = function (menuItem) {
-                    var nextLayer = menuItem.level + 1;
+                    var nextLayer = !menuItem.level ? 1 : menuItem.level + 1;
                     var menuView = this.getActiveTreeView(menuItem.level);
                     menuView[nextLayer] = [];
                     for (var i = 0; i < this.menuDictionary.length; i++) {
@@ -77,21 +79,19 @@ System.register(['angular2/core', './baseMenuComponent/baseMenuComponent'], func
                 MenuTreeComponent.prototype.getRootLayer = function () {
                     var firstLayer = [];
                     for (var i = 0; i < this.menuDictionary.length; i++) {
-                        if (this.menuDictionary[i].level === this.ROOT_LAYER) {
+                        if (this.menuDictionary[i].parentId === this.ROOT_PARENT_ID) {
                             firstLayer.push(this.menuDictionary[i]);
                         }
                     }
-                    //if(firstLayer.length < 1){
-                    //    firstLayer[0] = new Array<Object>();
-                    //}
                     return firstLayer;
                 };
                 MenuTreeComponent.prototype.selectMenuItem = function (menuItem) {
                     if (!menuItem.hasChildrens) {
                         this.selectItem.emit(menuItem.name);
                     }
+                    this.treeViewSelectedRoad[menuItem.level] = menuItem;
                     this.selectedMenuItem = menuItem;
-                    this.menuTreeView = this.getTreeViewForMenuItem(menuItem.name);
+                    this.menuTreeView = this.getTreeViewForMenuItem(menuItem);
                 };
                 MenuTreeComponent.prototype.requestNewMenuItem = function (parentId) {
                     this.broadcastNewItem.emit(parentId);
@@ -102,26 +102,49 @@ System.register(['angular2/core', './baseMenuComponent/baseMenuComponent'], func
                 MenuTreeComponent.prototype.deleteSubmenu = function (menuId) {
                     this.broadcastDeleteItem.emit(menuId);
                 };
+                MenuTreeComponent.prototype.activateTree = function () {
+                    var me = this;
+                    for (var j = 0; j < me.treeViewSelectedRoad.length; j++) {
+                        var menuItem = me.treeViewSelectedRoad[j];
+                        var newItem = null;
+                        for (var i = 0; i < me.menuDictionary.length; i++) {
+                            if (me.menuDictionary[i].id == menuItem.id) {
+                                newItem = me.menuDictionary[i];
+                                break;
+                            }
+                        }
+                        if (!newItem) {
+                            return;
+                        }
+                        me.selectMenuItem(newItem);
+                    }
+                };
+                MenuTreeComponent.prototype.getActiveItemInTree = function (index) {
+                    if (this.treeViewSelectedRoad && this.treeViewSelectedRoad[index]) {
+                        return this.treeViewSelectedRoad[index];
+                    }
+                    return null;
+                };
                 __decorate([
                     core_1.Input('menu-tree-data'), 
                     __metadata('design:type', Array)
-                ], MenuTreeComponent.prototype, "menuDictionary");
+                ], MenuTreeComponent.prototype, "menuDictionary", void 0);
                 __decorate([
                     core_1.Output('item-selected'), 
                     __metadata('design:type', core_1.EventEmitter)
-                ], MenuTreeComponent.prototype, "selectItem");
+                ], MenuTreeComponent.prototype, "selectItem", void 0);
                 __decorate([
                     core_1.Output('add-menu-item'), 
                     __metadata('design:type', core_1.EventEmitter)
-                ], MenuTreeComponent.prototype, "broadcastNewItem");
+                ], MenuTreeComponent.prototype, "broadcastNewItem", void 0);
                 __decorate([
                     core_1.Output('edit-menu-item'), 
                     __metadata('design:type', core_1.EventEmitter)
-                ], MenuTreeComponent.prototype, "broadcastEditItem");
+                ], MenuTreeComponent.prototype, "broadcastEditItem", void 0);
                 __decorate([
                     core_1.Output('delete-menu-item'), 
                     __metadata('design:type', core_1.EventEmitter)
-                ], MenuTreeComponent.prototype, "broadcastDeleteItem");
+                ], MenuTreeComponent.prototype, "broadcastDeleteItem", void 0);
                 MenuTreeComponent = __decorate([
                     core_1.Component({
                         selector: 'menu-component',

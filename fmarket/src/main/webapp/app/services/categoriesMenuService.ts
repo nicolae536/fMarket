@@ -23,6 +23,10 @@ export class CategoriesMenuService {
         return this.api.get(this._domainMenuController);
     }
 
+    getDomains():Observable<Object> {
+        return this.api.get('/demand/domains');
+    }
+
     addMenuItem(newDomainMenuItem:NewDomainMenuItemRequest):Observable<Object> {
         return this.api.post(this._domainMenuController, JSON.stringify(newDomainMenuItem));
     }

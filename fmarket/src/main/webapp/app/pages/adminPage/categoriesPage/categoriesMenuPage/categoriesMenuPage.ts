@@ -5,6 +5,7 @@ import {MenuTreeComponent} from '../../../../components/menuComponent/menuTreeCo
 import {UpdateDomainMenuItemRequest,NewDomainMenuItemRequest,MenuItem} from '../../../../components/menuComponent/baseMenuComponent/baseMenuComponent';
 import {CategoriesMenuService} from '../../../../services/categoriesMenuService';
 import {IModal, MenuItemDialog} from "../../../../components/menuComponent/menuItemDialog/menuItemDialog";
+import {Select2Item} from "../../../../components/selectComponent/selectComponent";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
 
@@ -23,6 +24,7 @@ export class CategoriesMenuPage implements OnInit {
     private _categoriesMenuService:CategoriesMenuService;
     private _menuItemModal:MenuItemDialog;
     private _modalInterface:IModal;
+    _domains:Array<Select2Item>;
 
     constructor(_categoriesMenuService:CategoriesMenuService) {
         this._categoriesMenuService = _categoriesMenuService;
@@ -31,6 +33,7 @@ export class CategoriesMenuPage implements OnInit {
 
     ngOnInit() {
         this.getMenuDictionary();
+        this.getDomains();
     }
 
     referenceModal(modal:MenuItemDialog) {
@@ -38,65 +41,103 @@ export class CategoriesMenuPage implements OnInit {
     }
 
     private getMenuDictionary():void {
+        var me = this;
         this._categoriesMenuService.getMenuDictionary()
-            .map((response) => response.json())
+            .map((response) => {
+                if (response._body.length > 0) {
+                    return response.json();
+                }
+            })
             .subscribe(
                 response => {
-                    this.menuDictionary = response.data;
+                    me.menuDictionary = response;
                 },
                 error => {
-                    this.menuDictionary = [];
+                    me.menuDictionary = [];
                 });
-        ;
     }
 
     selectMenuItem(menuItem:NewDomainMenuItemRequest) {
         //
     }
 
-    addMenuItem(parentId:number) {
+    showAddMenuModal(parentId:number) {
         this._modalInterface = {parentId: parentId, operationType: "new", positiveLabel: "Create", id: null};
-        this._menuItemModal.show(this._modalInterface).then((response:NewDomainMenuItemRequest) => {
-            this._categoriesMenuService.addMenuItem(response).map((response)=> {
-                response.json()
-            }).subscribe(
-                response => {
-                    this._menuItemModal.hide();
-                    this.getMenuDictionary();
-                },
-                error=> {
-                    this._menuItemModal.showErrors();
-                }
-            )
-        });
+        this._menuItemModal.show(this._modalInterface);
     }
 
-    editMenuItem(menuToUpdate:UpdateDomainMenuItemRequest) {
+    addMenuItem(response:NewDomainMenuItemRequest) {
+        let me = this;
+        me._categoriesMenuService.addMenuItem(response).map((response)=> {
+            if (response._body.length > 0) {
+                return response.json();
+            }
+        }).subscribe(
+            response=> {
+                me._menuItemModal.hide();
+                me.getMenuDictionary();
+            },
+            error=> {
+                me._menuItemModal.showErrors();
+            }
+        );
+    }
+
+    showEditMenuModal(menuToUpdate:UpdateDomainMenuItemRequest) {
         let newInterface = {menuModel: menuToUpdate, operationType: "update", positiveLabel: "Update", id: null};
-        this._menuItemModal.update(newInterface).then((response:UpdateDomainMenuItemRequest) => {
-            this._categoriesMenuService.updateMenuItem(response).map((response)=> {
-                response.json()
-            }).subscribe(
-                response => {
-                    this._menuItemModal.hide();
-                    this.getMenuDictionary();
-                },
-                error=> {
-                    this._menuItemModal.showErrors();
-                }
-            )
-        });
+        this._menuItemModal.update(newInterface)
+    }
+
+    editMenuItem(response:UpdateDomainMenuItemRequest) {
+        let me = this;
+
+
+        me._categoriesMenuService.updateMenuItem(response).map((response)=> {
+            if (response._body.length > 0) {
+                return response.json();
+            }
+        }).subscribe(
+            response=> {
+                me._menuItemModal.hide();
+                me.getMenuDictionary();
+            },
+            error=> {
+                me._menuItemModal.showErrors();
+            }
+        );
     }
 
     deleteMenuItem(id:number) {
         this._categoriesMenuService.deleteMenuItem(id).map((response)=> {
-                response.json();
+                if (response._body.length > 0) {
+                    return response.json();
+                }
             })
             .subscribe(
                 response => {
                     this.getMenuDictionary();
+                },
+                errod=> {
                 }
             )
     }
 
+    getDomains():void {
+        var me = this;
+        this._categoriesMenuService.getDomains().subscribe(
+            response => {
+                console.log(response);
+                me._domains = response.json();
+            },
+            error => {
+                console.log(me._domains);
+                me._domains = [];
+            }
+        )
+    }
+}
+
+interface DomainName {
+    id;
+    name;
 }
