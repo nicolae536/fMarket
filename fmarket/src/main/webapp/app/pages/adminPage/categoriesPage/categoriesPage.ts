@@ -26,7 +26,7 @@ export class CategoriesPage {
 
     location:Location;
     router:Router;
-    tabPagesList = [{name: 'Categori', link: 'Categories/CategoriesMenu'},
+    tabPagesList = [{name: 'Meniu', link: 'Categories/CategoriesMenu'},
         {name: 'Companii', link: 'Categories/Companies'},
         {name: 'Cereri', link: 'Categories/Requests'}];
 
