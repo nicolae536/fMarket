@@ -44,7 +44,6 @@ System.register(['angular2/core'], function(exports_1) {
                     this.broadcastNewItem.emit(parentId);
                 };
                 BaseMenuComponent.prototype.createSubMenu = function ($event, id) {
-                    $event.stopPropagation();
                     this.broadcastNewItem.emit(id);
                 };
                 BaseMenuComponent.prototype.editMenuItem = function ($event, item) {
@@ -90,7 +89,7 @@ System.register(['angular2/core'], function(exports_1) {
                 BaseMenuComponent = __decorate([
                     core_1.Component({
                         selector: 'base-menu',
-                        template: "\n\t<div class=\"base-menu-component\">\n\t\t<ul class=\"nav nav-pills nav-stacked clearfix\">\n\t\t\t<li *ngFor=\"#item of menuItemsList\" [class]=\"getItemClass(item)\" (click)=\"selectItem(item)\">\n\t\t\t\t<a>\n\t\t\t\t    <div class=\"pull-right\">\n\t\t\t\t        <span class=\"glyphicon glyphicon-plus operation\" (click)=\"createSubMenu($event, item.id)\" title=\"Adauga submeniu\"></span>\n\t\t\t\t        <span class=\"glyphicon glyphicon-pencil operation\" (click)=\"editMenuItem($event,item)\" title=\"Editeaza optiune\"></span>\n\t\t\t\t        <span class=\"glyphicon glyphicon-remove operation\" (click)=\"removeMenuItem($event,item.id)\" title=\"Sterge optiune\"></span>\n\t\t\t\t    </div>\n\t\t\t\t    {{item.orderNr}}.{{item.name}}\n\t\t\t\t</a>\n\t\t\t</li>\n\t\t\t<div class=\"operations-label pull-right\" (click)=\"addNewMenuItem()\">\n\t\t\t     <span class=\"glyphicon glyphicon-plus\" ></span>&nbsp;&nbsp;&nbsp;Add menu item\n\t\t\t</div>\n\t\t</ul>\n\t</div>\n\t",
+                        template: "\n\t<div class=\"base-menu-component\">\n\t\t<ul class=\"nav nav-pills nav-stacked clearfix\">\n\t\t\t<li *ngFor=\"#item of menuItemsList\" [class]=\"getItemClass(item)\" (click)=\"selectItem(item)\">\n\t\t\t\t<a>\n\t\t\t\t    <div class=\"pull-right\">\n\t\t\t\t        <span class=\"glyphicon glyphicon-plus operation\" (click)=\"createSubMenu($event, item.id)\" title=\"Adauga submeniu\"></span>\n\t\t\t\t        <span class=\"glyphicon glyphicon-pencil operation\" (click)=\"editMenuItem($event,item)\" title=\"Editeaza optiune\"></span>\n\t\t\t\t        <span class=\"glyphicon glyphicon-remove operation\" (click)=\"removeMenuItem($event,item.id)\" title=\"Sterge optiune\"></span>\n\t\t\t\t    </div>\n\t\t\t\t    {{item.orderNr}}.{{item.name}}\n\t\t\t\t</a>\n\t\t\t</li>\n\t\t\t<div class=\"operations-label\" (click)=\"addNewMenuItem()\">\n\t\t\t     <span class=\"glyphicon glyphicon-plus\" ></span>\n\t\t\t</div>\n\t\t</ul>\n\t</div>\n\t",
                         styles: ["\n        .base-menu-component .nav.nav-pills.nav-stacked .operations-label{\n            padding-top:10px;\n            cursor:pointer;\n        }\n\n\t\t.base-menu-component .nav.nav-pills.nav-stacked .btn.btn-primary{\n\t\t\theight:34px;\n\t\t\twidth:100%;\n\t\t}\n\n        .base-menu-component .nav.nav-pills.nav-stacked .operation{\n            cursor:pointer;\n        }\n\n        .base-menu-component .nav.nav-pills.nav-stacked .domain-marker{\n\n        }\n\n\t\t.base-menu-component .nav.nav-pills.nav-stacked .input-group{\n\t\t\tpadding-bottom:5px;\n\t\t}\n\t"]
                     }), 
                     __metadata('design:paramtypes', [])

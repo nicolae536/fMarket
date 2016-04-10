@@ -17,8 +17,8 @@ import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/in
 				    {{item.orderNr}}.{{item.name}}
 				</a>
 			</li>
-			<div class="operations-label pull-right" (click)="addNewMenuItem()">
-			     <span class="glyphicon glyphicon-plus" ></span>&nbsp;&nbsp;&nbsp;Add menu item
+			<div class="operations-label" (click)="addNewMenuItem()">
+			     <span class="glyphicon glyphicon-plus" ></span>
 			</div>
 		</ul>
 	</div>
@@ -87,7 +87,6 @@ export class BaseMenuComponent implements OnChanges{
     }
 
     createSubMenu($event, id:number) {
-        $event.stopPropagation();
         this.broadcastNewItem.emit(id);
     }
 

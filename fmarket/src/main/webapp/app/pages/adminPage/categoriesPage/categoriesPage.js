@@ -31,7 +31,7 @@ System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesP
             applicationPath = '/app/pages/adminPage/categoriesPage';
             CategoriesPage = (function () {
                 function CategoriesPage(location, router) {
-                    this.tabPagesList = [{ name: 'Categori', link: 'Categories/CategoriesMenu' },
+                    this.tabPagesList = [{ name: 'Meniu', link: 'Categories/CategoriesMenu' },
                         { name: 'Companii', link: 'Categories/Companies' },
                         { name: 'Cereri', link: 'Categories/Requests' }];
                     this.location = location;
