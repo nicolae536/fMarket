@@ -20,7 +20,7 @@ import {FilterPipe} from './filterPipe';
                         <input class="form-control" [(ngModel)]="searchQuery" placeholder="Search.."/>
                     </div>
                     <div class="ui-select2-list">
-                        <div class="ui-select2-list-item" (click)="selectItem(chooseItemValue)">{{chooseItemValue.displayName}}</div>
+                        <div class="ui-select2-list-item" (click)="selectItem(_chooseItemValue)">{{_chooseItemValue.displayName}}</div>
                         <div class="ui-select2-list-item" *ngFor="#i of items|filterItems:searchQuery" (click)="selectItem(i)">{{i.displayName}}</div>
                     </div>
                 </div>
@@ -89,13 +89,13 @@ export class SelectComponent implements OnInit {
     @Input('select-items') items:Array<Select2Item>;
     @Input('selected-item') _selectedItem:Select2Item;
     @Output('loaded') loadedSelect:EventEmitter<SelectComponent> = new EventEmitter<SelectComponent>();
-    private chooseItemValue = {displayName: 'Choose..', boundItem: null};
+    _chooseItemValue = {displayName: 'Choose..', boundItem: null};
     private searchQuery = "";
     private dropdownState:boolean = false;
 
     ngOnInit():any {
         this.loadedSelect.emit(this);
-        this._selectedItem = this.chooseItemValue;
+        this._selectedItem = this._chooseItemValue;
     }
 
     get selectedItem():Select2Item {

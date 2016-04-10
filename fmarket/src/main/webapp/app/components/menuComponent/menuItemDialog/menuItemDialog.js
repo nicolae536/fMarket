@@ -84,7 +84,7 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                     this.id = "";
                     this.name = "";
                     this.orderNr = "";
-                    this.domainId = -1;
+                    this._select._selectedItem = this._select._chooseItemValue;
                 };
                 MenuItemDialog.prototype.fatchModel = function (newModal) {
                     this.parentId = newModal.parentId;

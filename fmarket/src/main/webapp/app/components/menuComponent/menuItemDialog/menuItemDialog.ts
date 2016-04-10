@@ -107,7 +107,7 @@ export class MenuItemDialog implements OnInit, OnChanges {
         this.id = "";
         this.name = "";
         this.orderNr = "";
-        this.domainId = -1;
+        this._select._selectedItem = this._select._chooseItemValue;
     }
 
     private fatchModel(newModal:IModal):void {
