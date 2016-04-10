@@ -14,6 +14,7 @@ import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/in
 				        <span class="glyphicon glyphicon-pencil operation" (click)="editMenuItem($event,item)" title="Editeaza optiune"></span>
 				        <span class="glyphicon glyphicon-remove operation" (click)="removeMenuItem($event,item.id)" title="Sterge optiune"></span>
 				    </div>
+				    <span *ngIf="item.hasChildrens" class="glyphicon glyphicon-arrow-right"></span>
 				    {{item.orderNr}}.{{item.name}}
 				</a>
 			</li>
@@ -34,12 +35,26 @@ import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/in
 			width:100%;
 		}
 
+		.base-menu-component .nav.nav-pills.nav-stacked li{
+            background-color:#ffffcc;
+            border-radius: 5px
+        }
+
+        .base-menu-component .nav.nav-pills.nav-stacked li a{
+            color:black;
+        }
+
+        .base-menu-component .nav.nav-pills.nav-stacked .active a{
+            color:black;
+            background-color:#f0dfd5;
+        }
+
         .base-menu-component .nav.nav-pills.nav-stacked .operation{
             cursor:pointer;
         }
 
         .base-menu-component .nav.nav-pills.nav-stacked .domain-marker{
-
+            background-color:#e8fff5;
         }
 
 		.base-menu-component .nav.nav-pills.nav-stacked .input-group{
@@ -74,7 +89,7 @@ export class BaseMenuComponent implements OnChanges{
             cssClass += 'active '
         }
 
-        if (menuItem.domainId == '') {
+        if (menuItem.domainId) {
             cssClass += 'domain-marker'
         }
 
@@ -112,6 +127,7 @@ export interface MenuItem {
     parentId;
     name;
     orderNr;
+    domainId
     hasChildrens;
 }
 

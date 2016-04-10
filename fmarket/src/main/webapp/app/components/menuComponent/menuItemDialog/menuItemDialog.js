@@ -96,10 +96,21 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                 };
                 MenuItemDialog.prototype.fatchUpdateModel = function (newModal) {
                     this.id = newModal.menuModel.id;
-                    this.name = newModal.menuModel.newName;
+                    this.name = newModal.menuModel.name;
                     this.orderNr = newModal.menuModel.orderNr;
+                    this.selectItemById(newModal.menuModel.domainId);
                     this.positiveLabel = newModal.positiveLabel;
                     this.operationType = newModal.operationType;
+                };
+                MenuItemDialog.prototype.selectItemById = function (domainId) {
+                    var i = 0;
+                    while (i < this.items.length) {
+                        if (this.items[i].boundItem && this.items[i].boundItem.id === domainId) {
+                            this._select._selectedItem = this.items[i];
+                            return;
+                        }
+                        i++;
+                    }
                 };
                 __decorate([
                     core_1.Output('modal-loaded'), 

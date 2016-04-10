@@ -83,15 +83,15 @@ import {FilterPipe} from './filterPipe';
             cursor: pointer;
         }
     `],
-    pipes:[FilterPipe]
+    pipes: [FilterPipe]
 })
-export class SelectComponent implements OnInit{
+export class SelectComponent implements OnInit {
     @Input('select-items') items:Array<Select2Item>;
     @Input('selected-item') _selectedItem:Select2Item;
     @Output('loaded') loadedSelect:EventEmitter<SelectComponent> = new EventEmitter<SelectComponent>();
-    private chooseItemValue = {displayName:'Choose..', boundItem:null};
-    private searchQuery="";
-    private dropdownState:boolean =false;
+    private chooseItemValue = {displayName: 'Choose..', boundItem: null};
+    private searchQuery = "";
+    private dropdownState:boolean = false;
 
     ngOnInit():any {
         this.loadedSelect.emit(this);
@@ -102,30 +102,31 @@ export class SelectComponent implements OnInit{
         return this._selectedItem;
     }
 
-    checkItems(){
-        return !this.items || this.items.length < 1 ;
+    checkItems() {
+        return !this.items || this.items.length < 1;
     }
 
-    toggleSelectDropdown(){
+    toggleSelectDropdown() {
         this.dropdownState = !this.dropdownState;
     }
 
-    removeSearchQuery(){
+    removeSearchQuery() {
         this.searchQuery = "";
     }
 
-    getCarretClass(){
+    getCarretClass() {
         return this.dropdownState ? "glyphicon glyphicon-chevron-up pull-right ui-select2-dropdown-icon" : "glyphicon glyphicon-chevron-down pull-right ui-select2-dropdown-icon";
     }
 
 
-    selectItem(item){
+    selectItem(item) {
         this._selectedItem = item;
         this.toggleSelectDropdown();
     }
+
 }
 
-export interface Select2Item{
+export interface Select2Item {
     displayName:string;
     boundItem:Object;
     //selected:boolean;

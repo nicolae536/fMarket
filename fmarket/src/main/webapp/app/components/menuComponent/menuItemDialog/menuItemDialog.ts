@@ -7,6 +7,7 @@ import {SelectComponent} from '../../selectComponent/selectComponent';
 import {NewDomainMenuItemRequest} from '../baseMenuComponent/baseMenuComponent'
 import {UpdateDomainMenuItemRequest} from "../baseMenuComponent/baseMenuComponent";
 import {Select2Item} from "../../selectComponent/selectComponent";
+import {MenuItem} from "../baseMenuComponent/baseMenuComponent";
 
 //used template to not download the same html multiple times
 @Component({
@@ -19,7 +20,6 @@ export class MenuItemDialog implements OnInit, OnChanges {
     @Output('modal-loaded') modalLoaded:EventEmitter<MenuItemDialog> = new EventEmitter<MenuItemDialog>();
     @Output('add-menu-item') newMenuItemEmitter:EventEmitter<NewDomainMenuItemRequest> = new EventEmitter<NewDomainMenuItemRequest>();
     @Output('update-menu-item') updateMenuItemEmitter:EventEmitter<UpdateDomainMenuItemRequest> = new EventEmitter<UpdateDomainMenuItemRequest>();
-
     @Input('domains-list') domainsList:Array<Select2Item>;
 
     private id:string;
@@ -34,6 +34,8 @@ export class MenuItemDialog implements OnInit, OnChanges {
     private selectedItem;
     private _select:SelectComponent;
     private _validForm:boolean;
+
+    items:Select2Item[];
 
     ngOnInit() {
         this.modalLoaded.emit(this);
@@ -121,11 +123,23 @@ export class MenuItemDialog implements OnInit, OnChanges {
 
     private fatchUpdateModel(newModal:IUpdateModal):void {
         this.id = newModal.menuModel.id;
-        this.name = newModal.menuModel.newName;
+        this.name = newModal.menuModel.name;
         this.orderNr = newModal.menuModel.orderNr;
+        this.selectItemById(newModal.menuModel.domainId);
 
         this.positiveLabel = newModal.positiveLabel;
         this.operationType = newModal.operationType;
+    }
+
+    selectItemById(domainId):void {
+        var i=0;
+        while(i<this.items.length){
+            if(this.items[i].boundItem && this.items[i].boundItem.id === domainId ){
+                this._select._selectedItem = this.items[i];
+                return;
+            }
+            i++;
+        }
     }
 }
 
@@ -139,7 +153,7 @@ export interface IModal {
 export interface IUpdateModal {
     positiveLabel;
     operationType;
-    menuModel:UpdateDomainMenuItemRequest
+    menuModel:MenuItem
 }
 
 interface PromiseInterface {
