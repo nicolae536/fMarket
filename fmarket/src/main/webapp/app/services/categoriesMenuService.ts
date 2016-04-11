@@ -8,7 +8,7 @@ import {MenuItem, NewDomainMenuItemRequest, UpdateDomainMenuItemRequest} from ".
 import {AccountStatus} from "../models/user";
 //import {USERS} from "./mock-providers/mock-Users";
 import {FMarketApi} from "./fMarketApi";
-import {Observable} from "../../node_modules/rxjs/Observable";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class CategoriesMenuService {
