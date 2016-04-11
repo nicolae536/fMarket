@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/operator/map', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createUserDialog/createUserDialog', '../../../components/actionDialog/actionDialog', '../../../components/modalDialog/modalDialog', '../../../services/usersService', '../../../services/mock-providers/mock-City', '../../../services/mock-providers/mock-Status'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createUserDialog/createUserDialog', '../../../components/actionDialog/actionDialog', '../../../services/usersService', '../../../models/user', '../../../services/mock-providers/mock-City', '../../../services/mock-providers/mock-Status'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -13,7 +13,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, http_1, pageWithNavigation_1, createUserDialog_1, actionDialog_1, modalDialog_1, usersService_1, mock_City_1, mock_Status_1;
+    var core_1, common_1, pageWithNavigation_1, createUserDialog_1, actionDialog_1, usersService_1, user_1, mock_City_1, mock_Status_1;
     var applicationPath, UsersPage;
     return {
         setters:[
@@ -22,9 +22,6 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
             },
             function (common_1_1) {
                 common_1 = common_1_1;
-            },
-            function (http_1_1) {
-                http_1 = http_1_1;
             },
             function (_1) {},
             function (pageWithNavigation_1_1) {
@@ -36,11 +33,11 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
             function (actionDialog_1_1) {
                 actionDialog_1 = actionDialog_1_1;
             },
-            function (modalDialog_1_1) {
-                modalDialog_1 = modalDialog_1_1;
-            },
             function (usersService_1_1) {
                 usersService_1 = usersService_1_1;
+            },
+            function (user_1_1) {
+                user_1 = user_1_1;
             },
             function (mock_City_1_1) {
                 mock_City_1 = mock_City_1_1;
@@ -91,29 +88,22 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                     this.userBackup = user;
                     user.isInEditMode = true;
                 };
-                UsersPage.prototype.editUser = function (user) {
-                    var me = this;
-                    this.userDialog.editUser(user, this.cityList, this.statusList).then(function (actionResult) {
-                        me._userService.updateUser(user);
-                    });
-                };
                 UsersPage.prototype.deleteUser = function (user) {
-                    var _this = this;
                     var me = this;
-                    this.actionDialog.show("Are you sure that you want to delete this user ?").then(function (response) {
-                        if (response && response.actionResult == modalDialog_1.DialogActionResult.CANCEL) {
-                            return;
+                    this.actionDialog.show("Are you sure that you want to delete this user ?", user);
+                };
+                UsersPage.prototype.actionDialogConfirmDelete = function (user) {
+                    var me = this;
+                    this.actionDialog.hide();
+                    this._userService.deleteUser(user)
+                        .map(function (response) { return response.json(); })
+                        .subscribe(function (response) {
+                        var userIndex = me.usersList.indexOf(user);
+                        if (userIndex !== -1) {
+                            me.usersList.splice(userIndex, 1);
                         }
-                        _this._userService.deleteUser(user)
-                            .map(function (response) { return response.json(); })
-                            .subscribe(function (response) {
-                            var userIndex = me.usersList.indexOf(user);
-                            if (userIndex !== -1) {
-                                me.usersList.splice(userIndex, 1);
-                            }
-                        }, function (error) {
-                            //display be message
-                        });
+                    }, function (error) {
+                        //display be message
                     });
                 };
                 UsersPage.prototype.saveEditedUser = function (user) {
@@ -133,18 +123,14 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                 };
                 //grid
                 UsersPage.prototype.createAccount = function () {
-                    var _this = this;
-                    this.userDialog.show(this.cityList, this.statusList).then(function (response) {
-                        if (response && response.actionResult == modalDialog_1.DialogActionResult.CANCEL) {
-                            _this.userDialog.clearData();
-                            return;
-                        }
-                        //post to backend
-                        _this._userService.createUser(_this.userDialog.getValue()).subscribe(function (resp) {
-                            //todo do something with the response
-                        }, function (error) {
-                            //display message
-                        });
+                    this.userDialog.show("", new user_1.User());
+                };
+                UsersPage.prototype.confirmCreateUser = function () {
+                    //post to backend
+                    this._userService.createUser(this.userDialog.getValue()).subscribe(function (resp) {
+                        //todo do something with the response
+                    }, function (error) {
+                        //display message
                     });
                 };
                 UsersPage.prototype.applyFilters = function () {
@@ -156,7 +142,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                         templateUrl: applicationPath + '/usersPage.html',
                         styleUrls: [applicationPath + '/usersPage.css'],
                         encapsulation: core_1.ViewEncapsulation.None,
-                        providers: [usersService_1.UserService, http_1.HTTP_PROVIDERS],
+                        providers: [usersService_1.UserService],
                         directives: [actionDialog_1.ActionDialog, createUserDialog_1.CreateUserDialog, common_1.NgForm]
                     }), 
                     __metadata('design:paramtypes', [usersService_1.UserService])

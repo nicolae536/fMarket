@@ -1,5 +1,4 @@
 import {Component, OnInit, Injectable} from 'angular2/core';
-import {HTTP_PROVIDERS} from 'angular2/http';
 
 import {RequestType} from '../../../../models/requestType';
 import {RequestTypeService} from '../../../../services/requestTypeService';
@@ -13,7 +12,7 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/requestsPage';
     styleUrls: [applicationPath + '/requestsPage.css'],
     //encapsulation: ViewEncapsulation.None,
 
-    providers: [RequestTypeService, HTTP_PROVIDERS],
+    providers: [RequestTypeService],
     //directives:[ActionDialog, CreateUserDialog, NgForm]
 })
 

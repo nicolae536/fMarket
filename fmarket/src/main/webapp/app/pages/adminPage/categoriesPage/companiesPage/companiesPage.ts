@@ -1,5 +1,4 @@
 import {Component, OnInit, Injectable} from 'angular2/core';
-import {HTTP_PROVIDERS} from 'angular2/http';
 
 import {CompanieType} from '../../../../models/companieType';
 import {CompanieTypeService} from '../../../../services/companieTypesService';
@@ -12,7 +11,7 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage'
     styleUrls: [applicationPath + '/companiesPage.css'],
     //encapsulation: ViewEncapsulation.None,
 
-    providers: [CompanieTypeService, HTTP_PROVIDERS],
+    providers: [CompanieTypeService],
 })
 
 export class CompaniesPage implements OnInit {

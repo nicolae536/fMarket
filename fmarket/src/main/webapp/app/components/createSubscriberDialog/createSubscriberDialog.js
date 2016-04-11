@@ -36,20 +36,19 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/su
                     this.cancelLabel = 'Cancel';
                     this.positiveLabel = 'Create User';
                     this.loadedEmitter = new core_1.EventEmitter();
-                    this.newSubscriber = new subscriber_1.Subscriber();
                 }
                 CreateSubscriberDialog.prototype.ngOnInit = function () {
-                    this.loadedEmitter.next(this);
-                    console.log('modal inited');
+                    this.loadedEmitter.emit(this);
+                    this.responseObject = new subscriber_1.Subscriber();
                 };
                 CreateSubscriberDialog.prototype.clearData = function () {
-                    this.newSubscriber = new subscriber_1.Subscriber();
+                    this.responseObject = new subscriber_1.Subscriber();
                 };
                 CreateSubscriberDialog.prototype.setValue = function (subscriber) {
-                    this.newSubscriber = subscriber;
+                    this.responseObject = subscriber;
                 };
                 CreateSubscriberDialog.prototype.getValue = function () {
-                    return this.newSubscriber;
+                    return this.responseObject;
                 };
                 __decorate([
                     core_1.Input('title'), 

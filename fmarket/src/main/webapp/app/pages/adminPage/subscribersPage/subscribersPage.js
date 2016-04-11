@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/operator/map', '../../../components/actionDialog/actionDialog', '../../../services/subscribersService', '../../../components/modalDialog/modalDialog', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createSubscriberDialog/createSubscriberDialog', '../../../services/mock-providers/mock-City'], function(exports_1) {
+System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '../../../models/subscriber', '../../../components/actionDialog/actionDialog', '../../../services/subscribersService', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createSubscriberDialog/createSubscriberDialog', '../../../services/mock-providers/mock-City'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -13,7 +13,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, http_1, actionDialog_1, subscribersService_1, modalDialog_1, pageWithNavigation_1, createSubscriberDialog_1, mock_City_1;
+    var core_1, common_1, subscriber_1, actionDialog_1, subscribersService_1, pageWithNavigation_1, createSubscriberDialog_1, mock_City_1;
     var applicationPath, SubscribersPage;
     return {
         setters:[
@@ -23,18 +23,15 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
             function (common_1_1) {
                 common_1 = common_1_1;
             },
-            function (http_1_1) {
-                http_1 = http_1_1;
-            },
             function (_1) {},
+            function (subscriber_1_1) {
+                subscriber_1 = subscriber_1_1;
+            },
             function (actionDialog_1_1) {
                 actionDialog_1 = actionDialog_1_1;
             },
             function (subscribersService_1_1) {
                 subscribersService_1 = subscribersService_1_1;
-            },
-            function (modalDialog_1_1) {
-                modalDialog_1 = modalDialog_1_1;
             },
             function (pageWithNavigation_1_1) {
                 pageWithNavigation_1 = pageWithNavigation_1_1;
@@ -62,6 +59,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                     this.subscribeDateFilter = "";
                     this.unsubscribeDateFilter = "";
                     this.subscribersList = [];
+                    this.deleteMessage = "Are you sure that you want to delete this subscriber ?";
                     this.sortkeyAndFilter["EMAIL"] = true;
                     this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
                     this.sortkeyAndFilter["UNSUBSCRIBE_DATE"] = true;
@@ -78,19 +76,16 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                 SubscribersPage.prototype.referenceCreateSubscriberDialogInComponent = function (modal) {
                     this.createSubscriberDialog = modal;
                 };
+                SubscribersPage.prototype.showSubscriberDialog = function () {
+                    this.createSubscriberDialog.show("", new subscriber_1.Subscriber());
+                };
                 SubscribersPage.prototype.createSubscriber = function () {
-                    var _this = this;
                     var me = this;
-                    this.createSubscriberDialog.show().then(function (response) {
-                        if (response == modalDialog_1.DialogActionResult.CANCEL) {
-                            return;
-                        }
-                        _this._subscribersService.subscribe(_this.createSubscriberDialog.getValue().email)
-                            .map(function (response) { return response.json(); })
-                            .subscribe(function (response) {
-                            me.getSubscribersWithFilters();
-                        }, function (error) {
-                        });
+                    this._subscribersService.subscribe(this.createSubscriberDialog.getValue().email)
+                        .map(function (response) { return response.json(); })
+                        .subscribe(function (response) {
+                        me.getSubscribersWithFilters();
+                    }, function (error) {
                     });
                 };
                 SubscribersPage.prototype.getSubscribersWithFilters = function () {
@@ -117,22 +112,27 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                     }, function (error) {
                     });
                 };
-                SubscribersPage.prototype.delete = function (subscriber) {
-                    var _this = this;
+                //
+                //delete(subscriber:Subscriber) {
+                //    var me = this;
+                //
+                //    this.actionDialog.show("", subscriber);
+                //}
+                SubscribersPage.prototype.actionDialogConfirmDelete = function (subscriber) {
                     var me = this;
-                    this.actionDialog.show("Are you sure that you want to delete this subscriber ?").then(function (response) {
-                        if (response && response.data == modalDialog_1.DialogActionResult.CANCEL) {
-                            return;
+                    this.actionDialog.hide();
+                    this._subscribersService.delete(subscriber.id)
+                        .map(function (response) {
+                        if (response._body.length > 0) {
+                            return response.json();
                         }
-                        _this._subscribersService.delete(subscriber.id)
-                            .map(function (response) { return response.json(); })
-                            .subscribe(function (response) {
-                            var subscriberIndex = me.subscribersList.indexOf(subscriber);
-                            if (subscriberIndex !== -1) {
-                                me.subscribersList.splice(subscriberIndex, 1);
-                            }
-                        }, function (error) {
-                        });
+                    })
+                        .subscribe(function (response) {
+                        var subscriberIndex = me.subscribersList.indexOf(subscriber);
+                        if (subscriberIndex !== -1) {
+                            me.subscribersList.splice(subscriberIndex, 1);
+                        }
+                    }, function (error) {
                     });
                 };
                 SubscribersPage.prototype.getClassForSorting = function (columnName) {
@@ -170,7 +170,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/http', 'rxjs/add/
                         templateUrl: applicationPath + '/subscribersPage.html',
                         styleUrls: [applicationPath + '/subscribersPage.css'],
                         encapsulation: core_1.ViewEncapsulation.None,
-                        providers: [subscribersService_1.SubscribersService, http_1.HTTP_PROVIDERS],
+                        providers: [subscribersService_1.SubscribersService],
                         directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm]
                     }), 
                     __metadata('design:paramtypes', [subscribersService_1.SubscribersService])

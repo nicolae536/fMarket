@@ -4,10 +4,14 @@
     <action-dialog
             [title]="'Delete'"
             [positive-label]="'Delete'"
-            (loaded)="referenceActionDialogInComponent($event)">
+            (loaded)="referenceActionDialogInComponent($event)"
+            (action-confirmed)="actionDialogConfirmDelete($event)">
     </action-dialog>
     <create-user-dialog
-            (loaded)="referenceCreateUserDialogInComponent($event)">
+            [city-list]="cityList"
+            [status-list]="statusList"
+            (loaded)="referenceCreateUserDialogInComponent($event)"
+            (action-confirmed)="confirmCreateUser()">
     </create-user-dialog>
     <div class="page-title">
         <div class="row">

@@ -81,7 +81,7 @@ export class BaseMenuComponent implements OnChanges{
     }
 
     ngOnChanges(changes:{}) {
-        if(changes.activeInTree && this.activeInTree){
+        if(changes.hasOwnProperty('activeInTree') && this.activeInTree){
             this.selectedItem = this.activeInTree;
         }
     }

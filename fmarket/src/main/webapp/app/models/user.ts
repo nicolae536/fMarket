@@ -36,6 +36,10 @@ export class User {
         this.phone = phone ? phone : "";
     }
 
+    getNewInstance():User{
+        return new User();
+    }
+
     isValid():boolean {
         if (!this.id || this.id === -1) {
             return false;

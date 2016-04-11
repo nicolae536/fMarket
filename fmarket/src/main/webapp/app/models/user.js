@@ -22,6 +22,9 @@ System.register([], function(exports_1) {
                     this.autoLoginTimes = autoLoginTimes ? autoLoginTimes : -1;
                     this.phone = phone ? phone : "";
                 }
+                User.prototype.getNewInstance = function () {
+                    return new User();
+                };
                 User.prototype.isValid = function () {
                     if (!this.id || this.id === -1) {
                         return false;

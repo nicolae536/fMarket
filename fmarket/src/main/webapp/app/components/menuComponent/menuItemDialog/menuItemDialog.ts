@@ -26,12 +26,10 @@ export class MenuItemDialog implements OnInit, OnChanges {
     private parentId:number;
     private operationType:string;
     private name:string;
-    private orderNr:number;
-    private domainId:number;
+    private orderNr:string;
 
     private showModal:boolean;
     private positiveLabel:string;
-    private selectedItem;
     private _select:SelectComponent;
     private _validForm:boolean;
 
@@ -43,10 +41,10 @@ export class MenuItemDialog implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes:{}):any {
-        if (changes.domainsList && this.domainsList) {
+        if (changes.hasOwnProperty('domainsList') && this.domainsList) {
             this.items = this.domainsList.map((domain)=> {
                 return {
-                    displayName: domain.name,
+                    displayName: domain['name'],
                     boundItem: domain
                 };
             })
@@ -84,7 +82,7 @@ export class MenuItemDialog implements OnInit, OnChanges {
                     parentId: this.parentId,
                     name: this.name,
                     orderNr: this.orderNr,
-                    domainId: this._select.selectedItem.boundItem ? this._select.selectedItem.boundItem.id : null
+                    domainId: this._select.selectedItem.boundItem ? this._select.selectedItem.boundItem['id'] : null
                 })
                 break;
             case 'update':
@@ -122,10 +120,10 @@ export class MenuItemDialog implements OnInit, OnChanges {
     }
 
     private fatchUpdateModel(newModal:IUpdateModal):void {
-        this.id = newModal.menuModel.id;
-        this.name = newModal.menuModel.name;
-        this.orderNr = newModal.menuModel.orderNr;
-        this.selectItemById(newModal.menuModel.domainId);
+        this.id = newModal.menuModel['id'];
+        this.name = newModal.menuModel['name'];
+        this.orderNr = newModal.menuModel['orderNr'];
+        this.selectItemById(newModal.menuModel['domainId']);
 
         this.positiveLabel = newModal.positiveLabel;
         this.operationType = newModal.operationType;
@@ -134,7 +132,7 @@ export class MenuItemDialog implements OnInit, OnChanges {
     selectItemById(domainId):void {
         var i=0;
         while(i<this.items.length){
-            if(this.items[i].boundItem && this.items[i].boundItem.id === domainId ){
+            if(this.items[i].boundItem && this.items[i].boundItem['id'] === domainId ){
                 this._select._selectedItem = this.items[i];
                 return;
             }
@@ -153,10 +151,6 @@ export interface IModal {
 export interface IUpdateModal {
     positiveLabel;
     operationType;
-    menuModel:MenuItem
-}
-
-interface PromiseInterface {
-    resolve;
-    reject;
+    menuModel:Object;
+    id;
 }

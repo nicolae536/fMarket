@@ -1,42 +1,33 @@
-import {Input, Output, EventEmitter, OnInit} from 'angular2/core';
+import {Input, Output, EventEmitter} from 'angular2/core';
 
-export class ModalDialog implements OnInit {
+export class ModalDialog {
+    responseObject:Object;
     showModal:boolean = false;
-    resolveModal;
-    message;
+    message:string;
 
-    @Output('loaded') loadedEmitter:EventEmitter<ModalDialog> = new EventEmitter<ModalDialog>();
+    @Output('action-confirmed') confirmAction:EventEmitter<Object> = new EventEmitter<Object>();
 
-    show(message?):Promise<DialogActionResult> {
+    show(message?, responseObject?) {
         this.showModal = true;
         this.message = message ? message : "";
-        var me = this;
-        return new Promise<DialogActionResult>((resolve, reject)=> {
-            me.resolveModal = resolve;
-        });
+        this.responseObject = responseObject;
     }
 
     hide() {
         this.showModal = false;
-    }
-
-    ngOnInit() {
-        this.loadedEmitter.emit(this);
-        console.log('modal inited');
+        this.message = "";
+        this.responseObject = this.responseObject['getNewInstance'] && typeof this.responseObject['getNewInstance'] == "function" ? this.responseObject['getNewInstance']():null;
     }
 
     positiveAction() {
-        this.showModal = false;
-        this.resolveModal(DialogActionResult.POSITIVE);
+        this.confirmAction.emit(this.responseObject);
     }
 
     cancelAction() {
-        console.log('sending close event');
-        this.showModal = false;
-        this.resolveModal(DialogActionResult.CANCEL);
+        this.hide();
     }
 
-    stopPropagation($event) {
+    stopPropagation($event){
         $event.stopPropagation();
     }
 }

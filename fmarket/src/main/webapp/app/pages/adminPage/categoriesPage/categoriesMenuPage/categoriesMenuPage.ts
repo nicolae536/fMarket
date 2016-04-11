@@ -1,11 +1,11 @@
 import {Component, OnInit, Injectable, Pipe} from 'angular2/core';
-import {HTTP_PROVIDERS} from 'angular2/http';
 
 import {MenuTreeComponent} from '../../../../components/menuComponent/menuTreeComponent';
 import {UpdateDomainMenuItemRequest,NewDomainMenuItemRequest,MenuItem} from '../../../../components/menuComponent/baseMenuComponent/baseMenuComponent';
 import {CategoriesMenuService} from '../../../../services/categoriesMenuService';
 import {IModal, MenuItemDialog} from "../../../../components/menuComponent/menuItemDialog/menuItemDialog";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";
+import {IUpdateModal} from "../../../../components/menuComponent/menuItemDialog/menuItemDialog";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
 
@@ -15,7 +15,7 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenu
     styleUrls: [applicationPath + '/categoriesMenuPage.css'],
     //encapsulation: ViewEncapsulation.None,
 
-    providers: [CategoriesMenuService, HTTP_PROVIDERS],
+    providers: [CategoriesMenuService],
     directives: [MenuTreeComponent, MenuItemDialog],
 })
 
@@ -84,8 +84,7 @@ export class CategoriesMenuPage implements OnInit {
     }
 
     showEditMenuModal(menuToUpdate:UpdateDomainMenuItemRequest) {
-        let newInterface = {menuModel: menuToUpdate, operationType: "update", positiveLabel: "Update", id: null};
-        this._menuItemModal.update(newInterface)
+        this._menuItemModal.update({operationType: "update", positiveLabel: "Update", menuModel: menuToUpdate, id: null})
     }
 
     editMenuItem(response:UpdateDomainMenuItemRequest) {
@@ -124,10 +123,13 @@ export class CategoriesMenuPage implements OnInit {
 
     getDomains():void {
         var me = this;
-        this._categoriesMenuService.getDomains().subscribe(
+        this._categoriesMenuService.getDomains().map((response)=> {
+                if (response._body.length > 0) {
+                    return response.json();
+                }
+            }).subscribe(
             response => {
-                console.log(response);
-                me._domains = response.json();
+                me._domains = response;
             },
             error => {
                 console.log(me._domains);

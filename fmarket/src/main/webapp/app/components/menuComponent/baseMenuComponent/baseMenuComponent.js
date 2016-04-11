@@ -25,7 +25,7 @@ System.register(['angular2/core'], function(exports_1) {
                     this.broadcastDeleteItem = new core_1.EventEmitter();
                 }
                 BaseMenuComponent.prototype.ngOnChanges = function (changes) {
-                    if (changes.activeInTree && this.activeInTree) {
+                    if (changes.hasOwnProperty('activeInTree') && this.activeInTree) {
                         this.selectedItem = this.activeInTree;
                     }
                 };

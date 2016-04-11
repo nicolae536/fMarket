@@ -1,53 +1,48 @@
 import {Component, Injectable, Input, Output, EventEmitter} from 'angular2/core';
 import {ModalDialog, DialogActionResult} from '../modalDialog/modalDialog';
 import {User} from '../../models/user';
+import {OnInit} from "../../../node_modules/angular2/ts/src/core/linker/interfaces";
 
 @Component({
     selector: 'create-user-dialog',
     templateUrl: 'app/components/createUserDialog/createUserDialog.html'
 })
 
-export class CreateUserDialog extends ModalDialog {
+export class CreateUserDialog extends ModalDialog implements OnInit{
     modaleMode:string = "newUser";
     @Input('title') title:string = "Add new user";
     @Input('cancel-label') cancelLabel:string = 'Cancel';
     @Input('positive-label') positiveLabel:string = 'Create User';
+    @Input('status-list') statusList:Array<Object>;
+    @Input('city-list') cityList:Array<Object>;
     @Output('loaded') loadedEmitter:EventEmitter<CreateUserDialog> = new EventEmitter<CreateUserDialog>();
-
-    cityList:Array<Object>;
-    statusList:Array<Object>;
-    newUser:User = new User();
 
     constructor() {
         super();
+        this.responseObject=new User();
+
+    }
+
+    ngOnInit(){
+        this.loadedEmitter.emit(this);
     }
 
     editUser(user:User, cityList, statusList) {
         this.title = "Name: " + user.name;
         this.positiveLabel = 'Edit';
+        this.show("", user);
         this.setValue(user);
-        return this.show(cityList, statusList);
     }
 
     clearData() {
-        this.newUser = new User();
+        this.responseObject = new User();
     }
 
     setValue(user:User) {
-        this.newUser = user;
+        this.responseObject = user;
     }
 
     getValue():User {
-        return this.newUser;
-    }
-
-    show(cityList, statusList):Promise<DialogActionResult> {
-        this.showModal = true;
-        this.cityList = cityList;
-        this.statusList = statusList;
-        var me = this;
-        return new Promise<DialogActionResult>((resolve, reject)=> {
-            me.resolveModal = resolve;
-        });
+        return this.responseObject as User;
     }
 }

@@ -31,7 +31,11 @@ System.register(['angular2/core', '../modalDialog/modalDialog'], function(export
                     this.positiveLabel = 'OK';
                     this.cancelLabel = 'Cancel';
                     this.loadedEmitter = new core_1.EventEmitter();
+                    this.confirmAction = new core_1.EventEmitter();
                 }
+                ActionDialog.prototype.ngOnInit = function () {
+                    this.loadedEmitter.emit(this);
+                };
                 __decorate([
                     core_1.Input('title'), 
                     __metadata('design:type', String)
@@ -48,6 +52,10 @@ System.register(['angular2/core', '../modalDialog/modalDialog'], function(export
                     core_1.Output('loaded'), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], ActionDialog.prototype, "loadedEmitter", void 0);
+                __decorate([
+                    core_1.Output('action-confirmed'), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], ActionDialog.prototype, "confirmAction", void 0);
                 ActionDialog = __decorate([
                     core_1.Component({
                         selector: 'action-dialog',

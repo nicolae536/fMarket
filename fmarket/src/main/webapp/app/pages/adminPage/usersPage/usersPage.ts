@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, Injectable} from 'angular2/core';
 import {NgForm} from 'angular2/common';
-import {HTTP_PROVIDERS, Http} from 'angular2/http';
+import {Http} from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
 
 //import operators
@@ -26,7 +26,7 @@ var applicationPath:string = '/app/pages/adminPage/usersPage';
     styleUrls: [applicationPath + '/usersPage.css'],
     encapsulation: ViewEncapsulation.None,
 
-    providers: [UserService, HTTP_PROVIDERS],
+    providers: [UserService],
     directives: [ActionDialog, CreateUserDialog, NgForm]
 })
 
@@ -86,33 +86,27 @@ export class UsersPage extends PageWithNavigation implements OnInit {
         user.isInEditMode = true;
     }
 
-    editUser(user:User) {
-        var me = this;
-        this.userDialog.editUser(user, this.cityList, this.statusList).then(actionResult => {
-            me._userService.updateUser(user);
-        });
-    }
-
     deleteUser(user:User) {
         var me = this;
-        this.actionDialog.show("Are you sure that you want to delete this user ?").then(response => {
-            if (response && response.actionResult == DialogActionResult.CANCEL) {
-                return;
-            }
+        this.actionDialog.show("Are you sure that you want to delete this user ?", user);
+    }
 
-            this._userService.deleteUser(user)
-                .map((response) => response.json())
-                .subscribe(
-                    response => {
-                        var userIndex = me.usersList.indexOf(user);
-                        if (userIndex !== -1) {
-                            me.usersList.splice(userIndex, 1);
-                        }
-                    },
-                    error=> {
-                        //display be message
-                    });
-        })
+    actionDialogConfirmDelete(user:User){
+        var me = this;
+
+        this.actionDialog.hide();
+        this._userService.deleteUser(user)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    var userIndex = me.usersList.indexOf(user);
+                    if (userIndex !== -1) {
+                        me.usersList.splice(userIndex, 1);
+                    }
+                },
+                error=> {
+                    //display be message
+                });
     }
 
     saveEditedUser(user:User) {
@@ -134,18 +128,15 @@ export class UsersPage extends PageWithNavigation implements OnInit {
 
     //grid
     createAccount() {
-        this.userDialog.show(this.cityList, this.statusList).then(response => {
-            if (response && response.actionResult == DialogActionResult.CANCEL) {
-                this.userDialog.clearData();
-                return;
-            }
+        this.userDialog.show("", new User());
+    }
 
-            //post to backend
-            this._userService.createUser(this.userDialog.getValue()).subscribe(resp => {
-                //todo do something with the response
-            }, error => {
-                //display message
-            });
+    confirmCreateUser(){
+        //post to backend
+        this._userService.createUser(this.userDialog.getValue()).subscribe(resp => {
+            //todo do something with the response
+        }, error => {
+            //display message
         });
     }
 

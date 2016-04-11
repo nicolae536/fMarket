@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', '../../../../components/menuComponent/menuTreeComponent', '../../../../services/categoriesMenuService', "../../../../components/menuComponent/menuItemDialog/menuItemDialog"], function(exports_1) {
+System.register(['angular2/core', '../../../../components/menuComponent/menuTreeComponent', '../../../../services/categoriesMenuService', "../../../../components/menuComponent/menuItemDialog/menuItemDialog"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,15 +8,12 @@ System.register(['angular2/core', 'angular2/http', '../../../../components/menuC
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, menuTreeComponent_1, categoriesMenuService_1, menuItemDialog_1;
+    var core_1, menuTreeComponent_1, categoriesMenuService_1, menuItemDialog_1;
     var applicationPath, CategoriesMenuPage;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (http_1_1) {
-                http_1 = http_1_1;
             },
             function (menuTreeComponent_1_1) {
                 menuTreeComponent_1 = menuTreeComponent_1_1;
@@ -77,8 +74,7 @@ System.register(['angular2/core', 'angular2/http', '../../../../components/menuC
                     });
                 };
                 CategoriesMenuPage.prototype.showEditMenuModal = function (menuToUpdate) {
-                    var newInterface = { menuModel: menuToUpdate, operationType: "update", positiveLabel: "Update", id: null };
-                    this._menuItemModal.update(newInterface);
+                    this._menuItemModal.update({ operationType: "update", positiveLabel: "Update", menuModel: menuToUpdate, id: null });
                 };
                 CategoriesMenuPage.prototype.editMenuItem = function (response) {
                     var me = this;
@@ -107,9 +103,12 @@ System.register(['angular2/core', 'angular2/http', '../../../../components/menuC
                 };
                 CategoriesMenuPage.prototype.getDomains = function () {
                     var me = this;
-                    this._categoriesMenuService.getDomains().subscribe(function (response) {
-                        console.log(response);
-                        me._domains = response.json();
+                    this._categoriesMenuService.getDomains().map(function (response) {
+                        if (response._body.length > 0) {
+                            return response.json();
+                        }
+                    }).subscribe(function (response) {
+                        me._domains = response;
                     }, function (error) {
                         console.log(me._domains);
                         me._domains = [];
@@ -121,7 +120,7 @@ System.register(['angular2/core', 'angular2/http', '../../../../components/menuC
                         templateUrl: applicationPath + '/categoriesMenuPage.html',
                         styleUrls: [applicationPath + '/categoriesMenuPage.css'],
                         //encapsulation: ViewEncapsulation.None,
-                        providers: [categoriesMenuService_1.CategoriesMenuService, http_1.HTTP_PROVIDERS],
+                        providers: [categoriesMenuService_1.CategoriesMenuService],
                         directives: [menuTreeComponent_1.MenuTreeComponent, menuItemDialog_1.MenuItemDialog],
                     }), 
                     __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])

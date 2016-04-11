@@ -15,4 +15,8 @@ export class Subscriber {
         this.unsubscribeDate = unsubscribeDate ? unsubscribeDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
         this.unsubscribeToken = unsubscribeToken ? unsubscribeToken : -1;
     }
+
+    getNewInstance():Subscriber{
+        return new Subscriber();
+    }
 }

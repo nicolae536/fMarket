@@ -29,7 +29,7 @@ export class MenuTreeComponent implements OnChanges {
     }
 
     ngOnChanges(changes:{}):any {
-        if (changes.menuDictionary && this.menuDictionary) {
+        if (changes.hasOwnProperty('menuDictionary') && this.menuDictionary) {
             this.menuDictionary = this.mapManuTree(this.menuDictionary);
             this.menuTreeView[0] = this.getRootLayer();
             this.activateTree();

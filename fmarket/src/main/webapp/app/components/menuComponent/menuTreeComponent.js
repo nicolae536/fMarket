@@ -33,7 +33,7 @@ System.register(['angular2/core', './baseMenuComponent/baseMenuComponent'], func
                     this.menuTreeView = [];
                 }
                 MenuTreeComponent.prototype.ngOnChanges = function (changes) {
-                    if (changes.menuDictionary && this.menuDictionary) {
+                    if (changes.hasOwnProperty('menuDictionary') && this.menuDictionary) {
                         this.menuDictionary = this.mapManuTree(this.menuDictionary);
                         this.menuTreeView[0] = this.getRootLayer();
                         this.activateTree();

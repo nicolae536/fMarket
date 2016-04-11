@@ -19,39 +19,31 @@ System.register(['angular2/core'], function(exports_1) {
             ModalDialog = (function () {
                 function ModalDialog() {
                     this.showModal = false;
-                    this.loadedEmitter = new core_1.EventEmitter();
+                    this.confirmAction = new core_1.EventEmitter();
                 }
-                ModalDialog.prototype.show = function (message) {
+                ModalDialog.prototype.show = function (message, responseObject) {
                     this.showModal = true;
                     this.message = message ? message : "";
-                    var me = this;
-                    return new Promise(function (resolve, reject) {
-                        me.resolveModal = resolve;
-                    });
+                    this.responseObject = responseObject;
                 };
                 ModalDialog.prototype.hide = function () {
                     this.showModal = false;
-                };
-                ModalDialog.prototype.ngOnInit = function () {
-                    this.loadedEmitter.emit(this);
-                    console.log('modal inited');
+                    this.message = "";
+                    this.responseObject = this.responseObject['getNewInstance'] && typeof this.responseObject['getNewInstance'] == "function" ? this.responseObject['getNewInstance']() : null;
                 };
                 ModalDialog.prototype.positiveAction = function () {
-                    this.showModal = false;
-                    this.resolveModal(DialogActionResult.POSITIVE);
+                    this.confirmAction.emit(this.responseObject);
                 };
                 ModalDialog.prototype.cancelAction = function () {
-                    console.log('sending close event');
-                    this.showModal = false;
-                    this.resolveModal(DialogActionResult.CANCEL);
+                    this.hide();
                 };
                 ModalDialog.prototype.stopPropagation = function ($event) {
                     $event.stopPropagation();
                 };
                 __decorate([
-                    core_1.Output('loaded'), 
+                    core_1.Output('action-confirmed'), 
                     __metadata('design:type', core_1.EventEmitter)
-                ], ModalDialog.prototype, "loadedEmitter", void 0);
+                ], ModalDialog.prototype, "confirmAction", void 0);
                 return ModalDialog;
             })();
             exports_1("ModalDialog", ModalDialog);

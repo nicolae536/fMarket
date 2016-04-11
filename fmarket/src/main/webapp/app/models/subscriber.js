@@ -13,6 +13,9 @@ System.register([], function(exports_1) {
                     this.unsubscribeDate = unsubscribeDate ? unsubscribeDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
                     this.unsubscribeToken = unsubscribeToken ? unsubscribeToken : -1;
                 }
+                Subscriber.prototype.getNewInstance = function () {
+                    return new Subscriber();
+                };
                 return Subscriber;
             })();
             exports_1("Subscriber", Subscriber);

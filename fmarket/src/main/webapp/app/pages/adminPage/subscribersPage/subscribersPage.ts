@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, Injectable} from 'angular2/core';
 import {NgForm} from 'angular2/common';
-import {HTTP_PROVIDERS, Http} from 'angular2/http';
+import {Http} from 'angular2/http';
 
 //import operators
 import 'rxjs/add/operator/map';//-map
@@ -23,7 +23,7 @@ var applicationPath:string = '/app/pages/adminPage/subscribersPage';
     styleUrls: [applicationPath + '/subscribersPage.css'],
     encapsulation: ViewEncapsulation.None,
 
-    providers: [SubscribersService, HTTP_PROVIDERS],
+    providers: [SubscribersService],
     directives: [CreateSubscriberDialog, ActionDialog, NgForm]
 })
 
@@ -49,6 +49,7 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
     subscriberBackup:Subscriber;
     createSubscriberDialog:CreateSubscriberDialog;
     subscribersList:Array<Subscriber> = [];
+    private deleteMessage = "Are you sure that you want to delete this subscriber ?";
 
     constructor(subscribersService:SubscribersService) {
         super();
@@ -72,23 +73,24 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
         this.createSubscriberDialog = modal;
     }
 
+    showSubscriberDialog() {
+        this.createSubscriberDialog.show("", new Subscriber());
+    }
+
     createSubscriber() {
         var me = this;
-        this.createSubscriberDialog.show().then(response=> {
-            if (response == DialogActionResult.CANCEL) {
-                return;
-            }
 
-            this._subscribersService.subscribe(this.createSubscriberDialog.getValue().email)
-                .map((response) => response.json())
-                .subscribe(
-                    response => {
-                        me.getSubscribersWithFilters();
-                    },
-                    error => {
 
-                    });
-        });
+        this._subscribersService.subscribe(this.createSubscriberDialog.getValue().email)
+            .map((response) => response.json())
+            .subscribe(
+                response => {
+                    me.getSubscribersWithFilters();
+                },
+                error => {
+
+                });
+
     }
 
     getSubscribersWithFilters() {
@@ -125,27 +127,32 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
                 })
     }
 
+    //
+    //delete(subscriber:Subscriber) {
+    //    var me = this;
+    //
+    //    this.actionDialog.show("", subscriber);
+    //}
 
-    delete(subscriber:Subscriber) {
+    actionDialogConfirmDelete(subscriber:Subscriber) {
         var me = this;
 
-        this.actionDialog.show("Are you sure that you want to delete this subscriber ?").then(response => {
-            if (response && response.data == DialogActionResult.CANCEL) {
-                return;
-            }
+        this.actionDialog.hide();
+        this._subscribersService.delete(subscriber.id)
+            .map((response) => {
+                if (response._body.length > 0) {
+                    return response.json();
+                }
+            })
+            .subscribe(
+                response => {
+                    var subscriberIndex = me.subscribersList.indexOf(subscriber);
+                    if (subscriberIndex !== -1) {
+                        me.subscribersList.splice(subscriberIndex, 1);
+                    }
+                }, error=> {
 
-            this._subscribersService.delete(subscriber.id)
-                .map((response) => response.json())
-                .subscribe(
-                    response => {
-                        var subscriberIndex = me.subscribersList.indexOf(subscriber);
-                        if (subscriberIndex !== -1) {
-                            me.subscribersList.splice(subscriberIndex, 1);
-                        }
-                    }, error=> {
-
-                    });
-        });
+                });
     }
 
     getClassForSorting(columnName) {

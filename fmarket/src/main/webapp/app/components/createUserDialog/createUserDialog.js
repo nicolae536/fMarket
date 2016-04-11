@@ -36,31 +36,25 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/us
                     this.cancelLabel = 'Cancel';
                     this.positiveLabel = 'Create User';
                     this.loadedEmitter = new core_1.EventEmitter();
-                    this.newUser = new user_1.User();
+                    this.responseObject = new user_1.User();
                 }
+                CreateUserDialog.prototype.ngOnInit = function () {
+                    this.loadedEmitter.emit(this);
+                };
                 CreateUserDialog.prototype.editUser = function (user, cityList, statusList) {
                     this.title = "Name: " + user.name;
                     this.positiveLabel = 'Edit';
+                    this.show("", user);
                     this.setValue(user);
-                    return this.show(cityList, statusList);
                 };
                 CreateUserDialog.prototype.clearData = function () {
-                    this.newUser = new user_1.User();
+                    this.responseObject = new user_1.User();
                 };
                 CreateUserDialog.prototype.setValue = function (user) {
-                    this.newUser = user;
+                    this.responseObject = user;
                 };
                 CreateUserDialog.prototype.getValue = function () {
-                    return this.newUser;
-                };
-                CreateUserDialog.prototype.show = function (cityList, statusList) {
-                    this.showModal = true;
-                    this.cityList = cityList;
-                    this.statusList = statusList;
-                    var me = this;
-                    return new Promise(function (resolve, reject) {
-                        me.resolveModal = resolve;
-                    });
+                    return this.responseObject;
                 };
                 __decorate([
                     core_1.Input('title'), 
@@ -74,6 +68,14 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/us
                     core_1.Input('positive-label'), 
                     __metadata('design:type', String)
                 ], CreateUserDialog.prototype, "positiveLabel", void 0);
+                __decorate([
+                    core_1.Input('status-list'), 
+                    __metadata('design:type', Array)
+                ], CreateUserDialog.prototype, "statusList", void 0);
+                __decorate([
+                    core_1.Input('city-list'), 
+                    __metadata('design:type', Array)
+                ], CreateUserDialog.prototype, "cityList", void 0);
                 __decorate([
                     core_1.Output('loaded'), 
                     __metadata('design:type', core_1.EventEmitter)

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation, Injectable} from 'angular2/core';
-import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Location } from 'angular2/router';
+import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, Location } from 'angular2/router';
 
 import {CompaniesPage} from "./companiesPage/companiesPage";
 import {RequestsPage} from "./requestsPage/requestsPage";

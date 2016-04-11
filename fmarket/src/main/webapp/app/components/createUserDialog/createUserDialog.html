@@ -19,7 +19,7 @@
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-user"></span>
             </span>
-                        <input type="text" [(ngModel)]="newUser.name" class="form-control" placeholder="Name"/>
+                        <input type="text" [(ngModel)]="responseObject.name" class="form-control" placeholder="Name"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -27,7 +27,7 @@
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-envelope"></span>
             </span>
-                        <input type="email" [(ngModel)]="newUser.email" class="form-control" placeholder="E-mail"/>
+                        <input type="email" [(ngModel)]="responseObject.email" class="form-control" placeholder="E-mail"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -35,7 +35,7 @@
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-lock"></span>
             </span>
-                        <input type="password" [(ngModel)]="newUser.password" class="form-control"
+                        <input type="password" [(ngModel)]="responseObject.password" class="form-control"
                                placeholder="Password"/>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-lock"></span>
             </span>
-                        <input type="tel" [(ngModel)]="newUser.phone" class="form-control" placeholder="0777123456"/>
+                        <input type="tel" [(ngModel)]="responseObject.phone" class="form-control" placeholder="0777123456"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -52,7 +52,7 @@
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-lock"></span>
             </span>
-                        <select class="user-status-select" [(ngModel)]="newUser.status">
+                        <select class="user-status-select" [(ngModel)]="responseObject.status">
                             <option *ngFor="#option of statusList" [value]="option.status">{{option.displayName}}
                             </option>
                         </select>
@@ -63,14 +63,14 @@
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-lock"></span>
             </span>
-                        <select class="user-status-select" [(ngModel)]="newUser.cityId">
+                        <select class="user-status-select" [(ngModel)]="responseObject.cityId">
                             <option *ngFor="#option of cityList" [value]="option.id">{{option.name}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Account Details:</label>
-                    <textarea type="text" [(ngModel)]="newUser.accountDetails" class="form-control"></textarea>
+                    <textarea type="text" [(ngModel)]="responseObject.accountDetails" class="form-control"></textarea>
                 </div>
             </div>
             <div class="modal-footer">

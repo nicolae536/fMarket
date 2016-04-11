@@ -16,26 +16,25 @@ export class CreateSubscriberDialog extends ModalDialog {
 
     cityList:Array<Object>;
     statusList:Array<Object>;
-    newSubscriber:Subscriber = new Subscriber();
 
     constructor() {
         super();
     }
 
     ngOnInit() {
-        this.loadedEmitter.next(this);
-        console.log('modal inited');
+        this.loadedEmitter.emit(this);
+        this.responseObject = new Subscriber();
     }
 
     clearData() {
-        this.newSubscriber = new Subscriber();
+        this.responseObject = new Subscriber();
     }
 
     setValue(subscriber:Subscriber) {
-        this.newSubscriber = subscriber;
+        this.responseObject = subscriber;
     }
 
     getValue():Subscriber {
-        return this.newSubscriber;
+        return this.responseObject as Subscriber;
     }
 }

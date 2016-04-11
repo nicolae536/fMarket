@@ -31,10 +31,10 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                     this._validForm = true;
                 };
                 MenuItemDialog.prototype.ngOnChanges = function (changes) {
-                    if (changes.domainsList && this.domainsList) {
+                    if (changes.hasOwnProperty('domainsList') && this.domainsList) {
                         this.items = this.domainsList.map(function (domain) {
                             return {
-                                displayName: domain.name,
+                                displayName: domain['name'],
                                 boundItem: domain
                             };
                         });
@@ -64,7 +64,7 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                                 parentId: this.parentId,
                                 name: this.name,
                                 orderNr: this.orderNr,
-                                domainId: this._select.selectedItem.boundItem ? this._select.selectedItem.boundItem.id : null
+                                domainId: this._select.selectedItem.boundItem ? this._select.selectedItem.boundItem['id'] : null
                             });
                             break;
                         case 'update':
@@ -95,17 +95,17 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                 MenuItemDialog.prototype.showErrors = function () {
                 };
                 MenuItemDialog.prototype.fatchUpdateModel = function (newModal) {
-                    this.id = newModal.menuModel.id;
-                    this.name = newModal.menuModel.name;
-                    this.orderNr = newModal.menuModel.orderNr;
-                    this.selectItemById(newModal.menuModel.domainId);
+                    this.id = newModal.menuModel['id'];
+                    this.name = newModal.menuModel['name'];
+                    this.orderNr = newModal.menuModel['orderNr'];
+                    this.selectItemById(newModal.menuModel['domainId']);
                     this.positiveLabel = newModal.positiveLabel;
                     this.operationType = newModal.operationType;
                 };
                 MenuItemDialog.prototype.selectItemById = function (domainId) {
                     var i = 0;
                     while (i < this.items.length) {
-                        if (this.items[i].boundItem && this.items[i].boundItem.id === domainId) {
+                        if (this.items[i].boundItem && this.items[i].boundItem['id'] === domainId) {
                             this._select._selectedItem = this.items[i];
                             return;
                         }
