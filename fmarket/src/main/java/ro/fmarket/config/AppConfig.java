@@ -16,16 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class AppConfig {
 
-	// @Bean
-	// public MappingJackson2HttpMessageCoOnverter getMessageConverter() {
-	// MappingJackson2HttpMessageConverter result = new MappingJackson2HttpMessageConverter();
-	// ObjectMapper objectMapper = new ObjectMapper();
-	//// objectMapper.registerModule(new JodaModule());
-	//// objectMapper.registerModule(new JtsModule());
-	// result.setObjectMapper(objectMapper);
-	// return result;
-	// }
-
 	@Bean
 	public PasswordEncoder getPasswordEncoderBean() {
 		return new BCryptPasswordEncoder();

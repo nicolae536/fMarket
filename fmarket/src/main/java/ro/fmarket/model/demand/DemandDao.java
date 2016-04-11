@@ -1,7 +1,8 @@
-package ro.fmarket.admin.demand;
+package ro.fmarket.model.demand;
 
 import org.springframework.stereotype.Repository;
 
+import ro.fmarket.admin.demand.Demand;
 import ro.fmarket.core.base.BaseDao;
 
 @Repository
