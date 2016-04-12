@@ -20,9 +20,9 @@ System.register(['angular2/platform/browser', './app.component', 'angular2/core'
         execute: function() {
             //console.log(HTTP_PROVIDERS);
             browser_1.bootstrap(app_component_1.AppComponent, [
+                http_1.HTTP_PROVIDERS,
                 router_1.ROUTER_PROVIDERS,
                 core_1.provide(router_1.LocationStrategy, { useClass: router_1.HashLocationStrategy }),
-                http_1.HTTP_PROVIDERS
             ]);
         }
     }

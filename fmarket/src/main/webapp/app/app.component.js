@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './pages/adminPage/adminPage'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './components/headerComponent/headerComponent', './pages/adminPage/adminPage', "./pages/homePage/homePage"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './pages/adminPage/adminPag
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, adminPage_1;
+    var core_1, router_1, headerComponent_1, adminPage_1, homePage_1;
     var AppComponent;
     return {
         setters:[
@@ -18,8 +18,14 @@ System.register(['angular2/core', 'angular2/router', './pages/adminPage/adminPag
             function (router_1_1) {
                 router_1 = router_1_1;
             },
+            function (headerComponent_1_1) {
+                headerComponent_1 = headerComponent_1_1;
+            },
             function (adminPage_1_1) {
                 adminPage_1 = adminPage_1_1;
+            },
+            function (homePage_1_1) {
+                homePage_1 = homePage_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -30,14 +36,20 @@ System.register(['angular2/core', 'angular2/router', './pages/adminPage/adminPag
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "<router-outlet></router-outlet>",
-                        directives: [router_1.ROUTER_DIRECTIVES],
+                        template: "\n        <header-component></header-component>\n        <div class=\"page-container\">\n            <router-outlet></router-outlet>\n        </div>\n    ",
+                        styles: [".page-container{\n        padding-top:5%;\n        padding-left: 5%;\n        padding-right: 5%;\n    }"],
+                        directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent],
                     }),
                     router_1.RouteConfig([
                         new router_1.Route({
+                            path: '/',
+                            name: 'Home',
+                            component: homePage_1.HomePage,
+                            useAsDefault: true
+                        }),
+                        new router_1.Route({
                             path: '/admin/...',
                             name: 'Admin',
-                            //styleUrls:[applicationPath + '/usersPage.css'],
                             component: adminPage_1.AdminPage
                         })]), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.Location])

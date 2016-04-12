@@ -1,6 +1,6 @@
 //import libraryes
 import {Component, OnInit, ViewEncapsulation,Injectable} from 'angular2/core';
-import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Location } from 'angular2/router';
+import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, Location } from 'angular2/router';
 
 //import application modules
 import {UsersPage} from './usersPage/usersPage';
@@ -16,10 +16,22 @@ var applicationPath:string = '/app/pages/adminPage';
 })
 
 @RouteConfig([
-    new Route({path: '/users', component: UsersPage, name: 'Users'}),
-    new Route({path: '/subscribers', component: SubscribersPage, name: 'Subscribers'}),
-    new Route({path: '/categorii/...', component: CategoriesPage, name: 'Categories'}),
-    //{ path: '/jquery', component: JqueryIntegration, name: 'JqueryIntegration' }),
+    new Route({
+        path: '/users',
+        component: UsersPage,
+        name: 'Users',
+        useAsDefault:true
+    }),
+    new Route({
+        path: '/subscribers',
+        component: SubscribersPage,
+        name: 'Subscribers'
+    }),
+    new Route({
+        path: '/categorii/...',
+        component: CategoriesPage,
+        name: 'Categories'
+    }),
 ])
 
 export class AdminPage {

@@ -15,10 +15,22 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage';
 })
 
 @RouteConfig([
-    new Route({path: '/meniu', component: CategoriesMenuPage, name: 'CategoriesMenu'}),
-    new Route({path: '/firme', component: CompaniesPage, name: 'Companies'}),
-    new Route({path: '/cereri', component: RequestsPage, name: 'Requests'}),
-    //{ path: '/jquery', component: JqueryIntegration, name: 'JqueryIntegration' }),
+    new Route({
+        path: '/meniu',
+        component: CategoriesMenuPage,
+        name: 'CategoriesMenu',
+        useAsDefault:true
+    }),
+    new Route({
+        path: '/firme',
+        component: CompaniesPage,
+        name: 'Companies'
+    }),
+    new Route({
+        path: '/cereri',
+        component: RequestsPage,
+        name: 'Requests'
+    }),
 ])
 
 

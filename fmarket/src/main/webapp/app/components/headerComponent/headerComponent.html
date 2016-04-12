@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="/app/components/headerComponent/headerComponent.css"/>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img class="fMarket-brand-icon" src="/staticResorces/demoIcon.jpg"/>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a [routerLink]="['Home']">Home</a></li>
+                <li dropdown class="dropdown">
+                    <a href="#" class="dropdown-toggle" dropdownToggle role="button" aria-haspopup="true"
+                       aria-expanded="false">Admin <span class="caret"></span></a>
+                    <ul dropdownMenu class="dropdown-menu">
+                        <li *ngFor="#p of _adminApplicationPages"><a [routerLink]="[p.link]">{{p.name}}</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+
+
+
+

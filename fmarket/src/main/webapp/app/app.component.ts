@@ -1,20 +1,36 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, Router, Route, Location, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 
+import {HeaderComponent} from './components/headerComponent/headerComponent'
 import {AdminPage} from './pages/adminPage/adminPage';
-import {UserService} from './services/usersService';
+import {HomePage} from "./pages/homePage/homePage";
 
 @Component({
     selector: 'my-app',
-    template: `<router-outlet></router-outlet>`,
-    directives: [ROUTER_DIRECTIVES],
+    template: `
+        <header-component></header-component>
+        <div class="page-container">
+            <router-outlet></router-outlet>
+        </div>
+    `,
+    styles:[`.page-container{
+        padding-top:5%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }`],
+    directives: [ROUTER_DIRECTIVES, HeaderComponent],
 })
 
 @RouteConfig([
     new Route({
+        path: '/',
+        name: 'Home',
+        component: HomePage,
+        useAsDefault:true
+    }),
+    new Route({
         path: '/admin/...',
         name: 'Admin',
-        //styleUrls:[applicationPath + '/usersPage.css'],
         component: AdminPage
     })])
 

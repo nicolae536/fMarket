@@ -41,9 +41,22 @@ System.register(['angular2/core', 'angular2/router', './usersPage/usersPage', '.
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.RouteConfig([
-                        new router_1.Route({ path: '/users', component: usersPage_1.UsersPage, name: 'Users' }),
-                        new router_1.Route({ path: '/subscribers', component: subscribersPage_1.SubscribersPage, name: 'Subscribers' }),
-                        new router_1.Route({ path: '/categorii/...', component: categoriesPage_1.CategoriesPage, name: 'Categories' }),
+                        new router_1.Route({
+                            path: '/users',
+                            component: usersPage_1.UsersPage,
+                            name: 'Users',
+                            useAsDefault: true
+                        }),
+                        new router_1.Route({
+                            path: '/subscribers',
+                            component: subscribersPage_1.SubscribersPage,
+                            name: 'Subscribers'
+                        }),
+                        new router_1.Route({
+                            path: '/categorii/...',
+                            component: categoriesPage_1.CategoriesPage,
+                            name: 'Categories'
+                        }),
                     ]), 
                     __metadata('design:paramtypes', [router_1.Location, router_1.Router])
                 ], AdminPage);

@@ -1,4 +1,5 @@
 import {Component, OnInit, Injectable, Pipe} from 'angular2/core';
+import {Response} from 'angular2/http';
 
 import {MenuTreeComponent} from '../../../../components/menuComponent/menuTreeComponent';
 import {UpdateDomainMenuItemRequest,NewDomainMenuItemRequest,MenuItem} from '../../../../components/menuComponent/baseMenuComponent/baseMenuComponent';

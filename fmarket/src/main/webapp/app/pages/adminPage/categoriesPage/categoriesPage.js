@@ -45,9 +45,22 @@ System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesP
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.RouteConfig([
-                        new router_1.Route({ path: '/meniu', component: categoriesMenuPage_1.CategoriesMenuPage, name: 'CategoriesMenu' }),
-                        new router_1.Route({ path: '/firme', component: companiesPage_1.CompaniesPage, name: 'Companies' }),
-                        new router_1.Route({ path: '/cereri', component: requestsPage_1.RequestsPage, name: 'Requests' }),
+                        new router_1.Route({
+                            path: '/meniu',
+                            component: categoriesMenuPage_1.CategoriesMenuPage,
+                            name: 'CategoriesMenu',
+                            useAsDefault: true
+                        }),
+                        new router_1.Route({
+                            path: '/firme',
+                            component: companiesPage_1.CompaniesPage,
+                            name: 'Companies'
+                        }),
+                        new router_1.Route({
+                            path: '/cereri',
+                            component: requestsPage_1.RequestsPage,
+                            name: 'Requests'
+                        }),
                     ]), 
                     __metadata('design:paramtypes', [router_1.Location, router_1.Router])
                 ], CategoriesPage);
