@@ -2,6 +2,7 @@ import {Component, OnInit, Injectable} from 'angular2/core';
 
 import {RequestType} from '../../../../models/requestType';
 import {RequestTypeService} from '../../../../services/requestTypeService';
+import {Response} from "angular2/http";
 
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/requestsPage';
@@ -34,8 +35,8 @@ export class RequestsPage implements OnInit {
 
     getRequestTypesWithFilters() {
         this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-            .map((response) => {
-                if(response._body.length){
+            .map((response:Response) => {
+                if(response.text().length){
                     return response.json();
                 }
             })
@@ -51,8 +52,8 @@ export class RequestsPage implements OnInit {
 
     addRequestType() {
         this._requestTypeService.addRequestType(this.newRequestType)
-            .map((response) => {
-                if(response._body.length){
+            .map((response:Response) => {
+                if(response.text().length){
                     return response.json();
                 }
             })
@@ -70,8 +71,8 @@ export class RequestsPage implements OnInit {
 
     deleteRequestType(requestType:RequestType) {
         this._requestTypeService.deleteRequestType(requestType.id)
-            .map((response) => {
-                if(response._body.length){
+            .map((response:Response) => {
+                if(response.text().length){
                     return response.json();
                 }
             })
@@ -87,8 +88,8 @@ export class RequestsPage implements OnInit {
 
     editRequestType(requestType:RequestType) {
         this._requestTypeService.editRequestType(requestType)
-            .map((response) => {
-                if(response._body.length){
+            .map((response:Response) => {
+                if(response.text().length){
                     return response.json();
                 }
             })

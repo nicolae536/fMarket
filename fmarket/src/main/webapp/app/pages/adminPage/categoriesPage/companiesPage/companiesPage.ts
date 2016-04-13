@@ -2,6 +2,7 @@ import {Component, OnInit, Injectable} from 'angular2/core';
 
 import {CompanieType} from '../../../../models/companieType';
 import {CompanieTypeService} from '../../../../services/companieTypesService';
+import {Response} from "angular2/http";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage';
 
@@ -43,8 +44,8 @@ export class CompaniesPage implements OnInit {
         var me = this;
 
         this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-            .map((response) => {
-                if(response._body.length){
+            .map((response:Response) => {
+                if(response.text().length){
                     return response.json();
                 }
             })
@@ -62,8 +63,8 @@ export class CompaniesPage implements OnInit {
         var me = this;
 
         this._companieTypeService.addCompanyType(this.newDomain)
-            .map((response) => {
-                if(response._body.length){
+            .map((response:Response) => {
+                if(response.text().length){
                     return response.json();
                 }
             })            .subscribe(
@@ -82,8 +83,8 @@ export class CompaniesPage implements OnInit {
         var me = this;
 
         this._companieTypeService.deleteCompanyType(companyType.id)
-            .map((response) => {
-                if(response._body.length){
+            .map((response:Response) => {
+                if(response.text().length){
                     return response.json();
                 }
             })            .subscribe(
@@ -100,8 +101,8 @@ export class CompaniesPage implements OnInit {
         var me = this;
 
         this._companieTypeService.editCompaniType(companyType)
-            .map((response) => {
-                if(response._body.length){
+            .map((response:Response) => {
+                if(response.text().length){
                     return response.json();
                 }
             })            .subscribe(

@@ -40,7 +40,7 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
                     var me = this;
                     this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
                         .map(function (response) {
-                        if (response._body.length) {
+                        if (response.text().length) {
                             return response.json();
                         }
                     })
@@ -54,7 +54,7 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
                     var me = this;
                     this._companieTypeService.addCompanyType(this.newDomain)
                         .map(function (response) {
-                        if (response._body.length) {
+                        if (response.text().length) {
                             return response.json();
                         }
                     }).subscribe(function (response) {
@@ -70,7 +70,7 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
                     var me = this;
                     this._companieTypeService.deleteCompanyType(companyType.id)
                         .map(function (response) {
-                        if (response._body.length) {
+                        if (response.text().length) {
                             return response.json();
                         }
                     }).subscribe(function (response) {
@@ -83,7 +83,7 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
                     var me = this;
                     this._companieTypeService.editCompaniType(companyType)
                         .map(function (response) {
-                        if (response._body.length) {
+                        if (response.text().length) {
                             return response.json();
                         }
                     }).subscribe(function (response) {

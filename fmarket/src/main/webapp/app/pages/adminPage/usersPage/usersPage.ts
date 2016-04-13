@@ -66,7 +66,11 @@ export class UsersPage extends PageWithNavigation implements OnInit {
     getUsers() {
         var me = this;
         this._userService.getUsersWithFilters("", this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
-            .map((response) => response.json())
+            .map((response) => {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })
             .subscribe(
                 response => {
                     me.usersList = response.data;
@@ -96,7 +100,11 @@ export class UsersPage extends PageWithNavigation implements OnInit {
 
         this.actionDialog.hide();
         this._userService.deleteUser(user)
-            .map((response) => response.json())
+            .map((response) => {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })    
             .subscribe(
                 response => {
                     var userIndex = me.usersList.indexOf(user);
@@ -112,7 +120,11 @@ export class UsersPage extends PageWithNavigation implements OnInit {
     saveEditedUser(user:User) {
         user.isInEditMode = false;
         this._userService.updateUser(user)
-            .map((response) => response.json())
+            .map((response) => {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })       
             .subscribe(
                 response => {
                     //success

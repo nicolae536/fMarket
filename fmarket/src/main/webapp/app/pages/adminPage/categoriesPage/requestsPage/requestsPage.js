@@ -36,7 +36,7 @@ System.register(['angular2/core', '../../../../models/requestType', '../../../..
                     var _this = this;
                     this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
                         .map(function (response) {
-                        if (response._body.length) {
+                        if (response.text().length) {
                             return response.json();
                         }
                     })
@@ -50,7 +50,7 @@ System.register(['angular2/core', '../../../../models/requestType', '../../../..
                     var _this = this;
                     this._requestTypeService.addRequestType(this.newRequestType)
                         .map(function (response) {
-                        if (response._body.length) {
+                        if (response.text().length) {
                             return response.json();
                         }
                     })
@@ -67,7 +67,7 @@ System.register(['angular2/core', '../../../../models/requestType', '../../../..
                     var _this = this;
                     this._requestTypeService.deleteRequestType(requestType.id)
                         .map(function (response) {
-                        if (response._body.length) {
+                        if (response.text().length) {
                             return response.json();
                         }
                     })
@@ -80,7 +80,7 @@ System.register(['angular2/core', '../../../../models/requestType', '../../../..
                 RequestsPage.prototype.editRequestType = function (requestType) {
                     this._requestTypeService.editRequestType(requestType)
                         .map(function (response) {
-                        if (response._body.length) {
+                        if (response.text().length) {
                             return response.json();
                         }
                     })

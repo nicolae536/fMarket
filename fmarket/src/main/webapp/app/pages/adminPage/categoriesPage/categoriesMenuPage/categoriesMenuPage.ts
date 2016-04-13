@@ -1,12 +1,13 @@
-import {Component, OnInit, Injectable, Pipe} from 'angular2/core';
-import {Response} from 'angular2/http';
-
-import {MenuTreeComponent} from '../../../../components/menuComponent/menuTreeComponent';
-import {UpdateDomainMenuItemRequest,NewDomainMenuItemRequest,MenuItem} from '../../../../components/menuComponent/baseMenuComponent/baseMenuComponent';
-import {CategoriesMenuService} from '../../../../services/categoriesMenuService';
+import {Component, OnInit} from "angular2/core";
+import {Response} from "angular2/http";
+import {MenuTreeComponent} from "../../../../components/menuComponent/menuTreeComponent";
+import {
+    UpdateDomainMenuItemRequest,
+    NewDomainMenuItemRequest
+} from "../../../../components/menuComponent/baseMenuComponent/baseMenuComponent";
+import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
 import {IModal, MenuItemDialog} from "../../../../components/menuComponent/menuItemDialog/menuItemDialog";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";
-import {IUpdateModal} from "../../../../components/menuComponent/menuItemDialog/menuItemDialog";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
 
@@ -44,18 +45,17 @@ export class CategoriesMenuPage implements OnInit {
     private getMenuDictionary():void {
         var me = this;
         this._categoriesMenuService.getMenuDictionary()
-            .map((response) => {
-                if (response._body.length > 0) {
+            .map((response:Response) => {
+                if (response.text().length > 0) {
                     return response.json();
                 }
-            })
-            .subscribe(
-                response => {
-                    me.menuDictionary = response;
-                },
-                error => {
-                    me.menuDictionary = [];
-                });
+            }).subscribe(
+            response => {
+                me.menuDictionary = response;
+            },
+            error => {
+                me.menuDictionary = [];
+            });
     }
 
     selectMenuItem(menuItem:NewDomainMenuItemRequest) {
@@ -67,13 +67,14 @@ export class CategoriesMenuPage implements OnInit {
         this._menuItemModal.show(this._modalInterface);
     }
 
-    addMenuItem(response:NewDomainMenuItemRequest) {
+    addMenuItem(newDomainMenuItemRequest:NewDomainMenuItemRequest) {
         let me = this;
-        me._categoriesMenuService.addMenuItem(response).map((response)=> {
-            if (response._body.length > 0) {
-                return response.json();
-            }
-        }).subscribe(
+        me._categoriesMenuService.addMenuItem(newDomainMenuItemRequest)
+            .map((response:Response) => {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            }).subscribe(
             response=> {
                 me._menuItemModal.hide();
                 me.getMenuDictionary();
@@ -85,18 +86,24 @@ export class CategoriesMenuPage implements OnInit {
     }
 
     showEditMenuModal(menuToUpdate:UpdateDomainMenuItemRequest) {
-        this._menuItemModal.update({operationType: "update", positiveLabel: "Update", menuModel: menuToUpdate, id: null})
+        this._menuItemModal.update({
+            operationType: "update",
+            positiveLabel: "Update",
+            menuModel: menuToUpdate,
+            id: null
+        })
     }
 
-    editMenuItem(response:UpdateDomainMenuItemRequest) {
+    editMenuItem(updateDomainMenuItemRequest:UpdateDomainMenuItemRequest) {
         let me = this;
 
 
-        me._categoriesMenuService.updateMenuItem(response).map((response)=> {
-            if (response._body.length > 0) {
-                return response.json();
-            }
-        }).subscribe(
+        me._categoriesMenuService.updateMenuItem(updateDomainMenuItemRequest)
+            .map((response:Response) => {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            }).subscribe(
             response=> {
                 me._menuItemModal.hide();
                 me.getMenuDictionary();
@@ -108,24 +115,25 @@ export class CategoriesMenuPage implements OnInit {
     }
 
     deleteMenuItem(id:number) {
-        this._categoriesMenuService.deleteMenuItem(id).map((response)=> {
-                if (response._body.length > 0) {
+        this._categoriesMenuService.deleteMenuItem(id)
+            .map((response:Response) => {
+                if (response.text().length > 0) {
                     return response.json();
                 }
-            })
-            .subscribe(
-                response => {
-                    this.getMenuDictionary();
-                },
-                errod=> {
-                }
-            )
+            }).subscribe(
+            response => {
+                this.getMenuDictionary();
+            },
+            errod=> {
+            }
+        )
     }
 
     getDomains():void {
         var me = this;
-        this._categoriesMenuService.getDomains().map((response)=> {
-                if (response._body.length > 0) {
+        this._categoriesMenuService.getDomains()
+            .map((response:Response) => {
+                if (response.text().length > 0) {
                     return response.json();
                 }
             }).subscribe(

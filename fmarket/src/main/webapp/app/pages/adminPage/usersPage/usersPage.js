@@ -73,7 +73,11 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                 UsersPage.prototype.getUsers = function () {
                     var me = this;
                     this._userService.getUsersWithFilters("", this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
-                        .map(function (response) { return response.json(); })
+                        .map(function (response) {
+                        if (response.text().length > 0) {
+                            return response.json();
+                        }
+                    })
                         .subscribe(function (response) {
                         me.usersList = response.data;
                         me.mapPageIndexes(response.totalPages, response.page);
@@ -96,7 +100,11 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                     var me = this;
                     this.actionDialog.hide();
                     this._userService.deleteUser(user)
-                        .map(function (response) { return response.json(); })
+                        .map(function (response) {
+                        if (response.text().length > 0) {
+                            return response.json();
+                        }
+                    })
                         .subscribe(function (response) {
                         var userIndex = me.usersList.indexOf(user);
                         if (userIndex !== -1) {
@@ -110,7 +118,11 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                     var _this = this;
                     user.isInEditMode = false;
                     this._userService.updateUser(user)
-                        .map(function (response) { return response.json(); })
+                        .map(function (response) {
+                        if (response.text().length > 0) {
+                            return response.json();
+                        }
+                    })
                         .subscribe(function (response) {
                         //success
                     }, function (error) {

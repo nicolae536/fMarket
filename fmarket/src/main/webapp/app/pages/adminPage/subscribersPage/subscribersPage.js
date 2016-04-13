@@ -82,8 +82,11 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                 SubscribersPage.prototype.createSubscriber = function () {
                     var me = this;
                     this._subscribersService.subscribe(this.createSubscriberDialog.getValue().email)
-                        .map(function (response) { return response.json(); })
-                        .subscribe(function (response) {
+                        .map(function (response) {
+                        if (response.text().length > 0) {
+                            return response.json();
+                        }
+                    }).subscribe(function (response) {
                         me.getSubscribersWithFilters();
                     }, function (error) {
                     });
@@ -91,8 +94,11 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                 SubscribersPage.prototype.getSubscribersWithFilters = function () {
                     var me = this;
                     this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.currentPageIndex, this.sortKey, this.sortOrder)
-                        .map(function (response) { return response.json(); })
-                        .subscribe(function (response) {
+                        .map(function (response) {
+                        if (response.text().length > 0) {
+                            return response.json();
+                        }
+                    }).subscribe(function (response) {
                         me.subscribersList = response.data;
                         me.mapPageIndexes(response.totalPages, response.page);
                     }, function (error) {
@@ -100,15 +106,21 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                 };
                 SubscribersPage.prototype.subscribe = function (subscriber) {
                     this._subscribersService.subscribe(subscriber.email)
-                        .map(function (response) { return response.json(); })
-                        .subscribe(function (response) {
+                        .map(function (response) {
+                        if (response.text().length > 0) {
+                            return response.json();
+                        }
+                    }).subscribe(function (response) {
                     }, function (error) {
                     });
                 };
                 SubscribersPage.prototype.unsubscribe = function (subscriber) {
                     this._subscribersService.unsubscribe(subscriber.id)
-                        .map(function (response) { return response.json(); })
-                        .subscribe(function (response) {
+                        .map(function (response) {
+                        if (response.text().length > 0) {
+                            return response.json();
+                        }
+                    }).subscribe(function (response) {
                     }, function (error) {
                     });
                 };
@@ -123,7 +135,7 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                     this.actionDialog.hide();
                     this._subscribersService.delete(subscriber.id)
                         .map(function (response) {
-                        if (response._body.length > 0) {
+                        if (response.text().length > 0) {
                             return response.json();
                         }
                     })

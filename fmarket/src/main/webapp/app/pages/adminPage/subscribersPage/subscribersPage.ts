@@ -82,8 +82,11 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
 
 
         this._subscribersService.subscribe(this.createSubscriberDialog.getValue().email)
-            .map((response) => response.json())
-            .subscribe(
+            .map((response) => {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })            .subscribe(
                 response => {
                     me.getSubscribersWithFilters();
                 },
@@ -96,8 +99,11 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
     getSubscribersWithFilters() {
         var me = this;
         this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.currentPageIndex, this.sortKey, this.sortOrder)
-            .map((response) => response.json())
-            .subscribe(
+            .map((response) => {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })            .subscribe(
                 response => {
                     me.subscribersList = response.data;
                     me.mapPageIndexes(response.totalPages, response.page);
@@ -109,8 +115,11 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
 
     subscribe(subscriber:Subscriber) {
         this._subscribersService.subscribe(subscriber.email)
-            .map((response) => response.json())
-            .subscribe(
+            .map((response) => {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })            .subscribe(
                 response => {
                 }, error=> {
 
@@ -119,8 +128,11 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
 
     unsubscribe(subscriber:Subscriber) {
         this._subscribersService.unsubscribe(subscriber.id)
-            .map((response) => response.json())
-            .subscribe(
+            .map((response) => {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })            .subscribe(
                 response => {
                 }, error=> {
 
@@ -140,7 +152,7 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
         this.actionDialog.hide();
         this._subscribersService.delete(subscriber.id)
             .map((response) => {
-                if (response._body.length > 0) {
+                if (response.text().length > 0) {
                     return response.json();
                 }
             })

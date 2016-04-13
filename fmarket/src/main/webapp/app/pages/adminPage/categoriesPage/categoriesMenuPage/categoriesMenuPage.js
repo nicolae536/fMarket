@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../../../components/menuComponent/menuTreeComponent', '../../../../services/categoriesMenuService', "../../../../components/menuComponent/menuItemDialog/menuItemDialog"], function(exports_1) {
+System.register(["angular2/core", "../../../../components/menuComponent/menuTreeComponent", "../../../../services/categoriesMenuService", "../../../../components/menuComponent/menuItemDialog/menuItemDialog"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -43,11 +43,10 @@ System.register(['angular2/core', '../../../../components/menuComponent/menuTree
                     var me = this;
                     this._categoriesMenuService.getMenuDictionary()
                         .map(function (response) {
-                        if (response._body.length > 0) {
+                        if (response.text().length > 0) {
                             return response.json();
                         }
-                    })
-                        .subscribe(function (response) {
+                    }).subscribe(function (response) {
                         me.menuDictionary = response;
                     }, function (error) {
                         me.menuDictionary = [];
@@ -60,10 +59,11 @@ System.register(['angular2/core', '../../../../components/menuComponent/menuTree
                     this._modalInterface = { parentId: parentId, operationType: "new", positiveLabel: "Create", id: null };
                     this._menuItemModal.show(this._modalInterface);
                 };
-                CategoriesMenuPage.prototype.addMenuItem = function (response) {
+                CategoriesMenuPage.prototype.addMenuItem = function (newDomainMenuItemRequest) {
                     var me = this;
-                    me._categoriesMenuService.addMenuItem(response).map(function (response) {
-                        if (response._body.length > 0) {
+                    me._categoriesMenuService.addMenuItem(newDomainMenuItemRequest)
+                        .map(function (response) {
+                        if (response.text().length > 0) {
                             return response.json();
                         }
                     }).subscribe(function (response) {
@@ -74,12 +74,18 @@ System.register(['angular2/core', '../../../../components/menuComponent/menuTree
                     });
                 };
                 CategoriesMenuPage.prototype.showEditMenuModal = function (menuToUpdate) {
-                    this._menuItemModal.update({ operationType: "update", positiveLabel: "Update", menuModel: menuToUpdate, id: null });
+                    this._menuItemModal.update({
+                        operationType: "update",
+                        positiveLabel: "Update",
+                        menuModel: menuToUpdate,
+                        id: null
+                    });
                 };
-                CategoriesMenuPage.prototype.editMenuItem = function (response) {
+                CategoriesMenuPage.prototype.editMenuItem = function (updateDomainMenuItemRequest) {
                     var me = this;
-                    me._categoriesMenuService.updateMenuItem(response).map(function (response) {
-                        if (response._body.length > 0) {
+                    me._categoriesMenuService.updateMenuItem(updateDomainMenuItemRequest)
+                        .map(function (response) {
+                        if (response.text().length > 0) {
                             return response.json();
                         }
                     }).subscribe(function (response) {
@@ -91,20 +97,21 @@ System.register(['angular2/core', '../../../../components/menuComponent/menuTree
                 };
                 CategoriesMenuPage.prototype.deleteMenuItem = function (id) {
                     var _this = this;
-                    this._categoriesMenuService.deleteMenuItem(id).map(function (response) {
-                        if (response._body.length > 0) {
+                    this._categoriesMenuService.deleteMenuItem(id)
+                        .map(function (response) {
+                        if (response.text().length > 0) {
                             return response.json();
                         }
-                    })
-                        .subscribe(function (response) {
+                    }).subscribe(function (response) {
                         _this.getMenuDictionary();
                     }, function (errod) {
                     });
                 };
                 CategoriesMenuPage.prototype.getDomains = function () {
                     var me = this;
-                    this._categoriesMenuService.getDomains().map(function (response) {
-                        if (response._body.length > 0) {
+                    this._categoriesMenuService.getDomains()
+                        .map(function (response) {
+                        if (response.text().length > 0) {
                             return response.json();
                         }
                     }).subscribe(function (response) {
