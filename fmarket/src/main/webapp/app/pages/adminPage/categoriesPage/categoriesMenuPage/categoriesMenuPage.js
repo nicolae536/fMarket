@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../../../../components/menuComponent/menuTreeComponent", "../../../../services/categoriesMenuService", "../../../../components/menuComponent/menuItemDialog/menuItemDialog"], function(exports_1) {
+System.register(["angular2/core", "../../../../components/menuComponent/menuTreeComponent", "../../../../services/categoriesMenuService", "../../../../components/menuComponent/menuItemDialog/menuItemDialog", "../../../../components/selectComponent/selectComponent"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(["angular2/core", "../../../../components/menuComponent/menuTree
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, menuTreeComponent_1, categoriesMenuService_1, menuItemDialog_1;
+    var core_1, menuTreeComponent_1, categoriesMenuService_1, menuItemDialog_1, selectComponent_1;
     var applicationPath, CategoriesMenuPage;
     return {
         setters:[
@@ -23,6 +23,9 @@ System.register(["angular2/core", "../../../../components/menuComponent/menuTree
             },
             function (menuItemDialog_1_1) {
                 menuItemDialog_1 = menuItemDialog_1_1;
+            },
+            function (selectComponent_1_1) {
+                selectComponent_1 = selectComponent_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
@@ -35,6 +38,8 @@ System.register(["angular2/core", "../../../../components/menuComponent/menuTree
                 CategoriesMenuPage.prototype.ngOnInit = function () {
                     this.getMenuDictionary();
                     this.getDomains();
+                };
+                CategoriesMenuPage.prototype.referenceSelectComponent = function (select) {
                 };
                 CategoriesMenuPage.prototype.referenceModal = function (modal) {
                     this._menuItemModal = modal;
@@ -128,7 +133,7 @@ System.register(["angular2/core", "../../../../components/menuComponent/menuTree
                         styleUrls: [applicationPath + '/categoriesMenuPage.css'],
                         //encapsulation: ViewEncapsulation.None,
                         providers: [categoriesMenuService_1.CategoriesMenuService],
-                        directives: [menuTreeComponent_1.MenuTreeComponent, menuItemDialog_1.MenuItemDialog],
+                        directives: [menuTreeComponent_1.MenuTreeComponent, menuItemDialog_1.MenuItemDialog, selectComponent_1.SelectComponent],
                     }), 
                     __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])
                 ], CategoriesMenuPage);

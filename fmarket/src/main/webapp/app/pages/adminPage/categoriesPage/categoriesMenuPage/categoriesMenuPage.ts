@@ -7,7 +7,7 @@ import {
 } from "../../../../components/menuComponent/baseMenuComponent/baseMenuComponent";
 import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
 import {IModal, MenuItemDialog} from "../../../../components/menuComponent/menuItemDialog/menuItemDialog";
-import {Select2Item} from "../../../../components/selectComponent/selectComponent";
+import {Select2Item, SelectComponent} from "../../../../components/selectComponent/selectComponent";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
 
@@ -18,7 +18,7 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenu
     //encapsulation: ViewEncapsulation.None,
 
     providers: [CategoriesMenuService],
-    directives: [MenuTreeComponent, MenuItemDialog],
+    directives: [MenuTreeComponent, MenuItemDialog, SelectComponent],
 })
 
 export class CategoriesMenuPage implements OnInit {
@@ -28,6 +28,8 @@ export class CategoriesMenuPage implements OnInit {
     private _modalInterface:IModal;
     _domains:Array<Select2Item>;
 
+    foobarItems:Array<Select2Item>;
+
     constructor(_categoriesMenuService:CategoriesMenuService) {
         this._categoriesMenuService = _categoriesMenuService;
         // code...
@@ -36,6 +38,10 @@ export class CategoriesMenuPage implements OnInit {
     ngOnInit() {
         this.getMenuDictionary();
         this.getDomains();
+    }
+
+    referenceSelectComponent(select){
+
     }
 
     referenceModal(modal:MenuItemDialog) {
@@ -139,6 +145,7 @@ export class CategoriesMenuPage implements OnInit {
             }).subscribe(
             response => {
                 me._domains = response;
+
             },
             error => {
                 console.log(me._domains);

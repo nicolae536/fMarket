@@ -13,7 +13,7 @@ export class CreateUserDialog extends ModalDialog implements OnInit{
     @Input('title') title:string = "Add new user";
     @Input('cancel-label') cancelLabel:string = 'Cancel';
     @Input('positive-label') positiveLabel:string = 'Create User';
-    @Input('status-list') statusList:Array<Object>;
+    @Input('_dropdownStatus-list') statusList:Array<Object>;
     @Input('city-list') cityList:Array<Object>;
     @Output('loaded') loadedEmitter:EventEmitter<CreateUserDialog> = new EventEmitter<CreateUserDialog>();
 

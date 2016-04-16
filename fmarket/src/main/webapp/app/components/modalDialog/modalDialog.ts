@@ -7,7 +7,7 @@ export class ModalDialog {
 
     @Output('action-confirmed') confirmAction:EventEmitter<Object> = new EventEmitter<Object>();
 
-    show(message?, responseObject?) {
+    show(message?:string, responseObject?:Object) {
         this.showModal = true;
         this.message = message ? message : "";
         this.responseObject = responseObject;

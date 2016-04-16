@@ -69,7 +69,7 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/us
                     __metadata('design:type', String)
                 ], CreateUserDialog.prototype, "positiveLabel", void 0);
                 __decorate([
-                    core_1.Input('status-list'), 
+                    core_1.Input('_dropdownStatus-list'), 
                     __metadata('design:type', Array)
                 ], CreateUserDialog.prototype, "statusList", void 0);
                 __decorate([

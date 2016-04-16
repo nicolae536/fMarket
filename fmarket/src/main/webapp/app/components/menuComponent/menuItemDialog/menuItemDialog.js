@@ -74,6 +74,7 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                 };
                 MenuItemDialog.prototype.cancelAction = function () {
                     console.log('sending close event');
+                    this.clearModal();
                     this.showModal = false;
                 };
                 MenuItemDialog.prototype.stopPropagation = function ($event) {
@@ -84,7 +85,7 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                     this.id = "";
                     this.name = "";
                     this.orderNr = "";
-                    this._select._selectedItem = this._select._chooseItemValue;
+                    this._select.selectItem(this._select._chooseItemValue);
                 };
                 MenuItemDialog.prototype.fatchModel = function (newModal) {
                     this.parentId = newModal.parentId;

@@ -83,7 +83,7 @@ export class MenuItemDialog implements OnInit, OnChanges {
                     name: this.name,
                     orderNr: this.orderNr,
                     domainId: this._select.selectedItem.boundItem ? this._select.selectedItem.boundItem['id'] : null
-                })
+                });
                 break;
             case 'update':
                 this.updateMenuItemEmitter.emit({id: this.id, newName: this.name, orderNr: this.orderNr});
@@ -93,6 +93,7 @@ export class MenuItemDialog implements OnInit, OnChanges {
 
     private cancelAction() {
         console.log('sending close event');
+        this.clearModal();
         this.showModal = false;
     }
 
@@ -105,7 +106,7 @@ export class MenuItemDialog implements OnInit, OnChanges {
         this.id = "";
         this.name = "";
         this.orderNr = "";
-        this._select._selectedItem = this._select._chooseItemValue;
+        this._select.selectItem(this._select._chooseItemValue);
     }
 
     private fatchModel(newModal:IModal):void {

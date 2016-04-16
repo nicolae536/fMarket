@@ -18,8 +18,8 @@ import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/in
 				    {{item.orderNr}}.{{item.name}}
 				</a>
 			</li>
-			<div class="operations-label" (click)="addNewMenuItem()">
-			     <span class="glyphicon glyphicon-plus" ></span>
+			<div class="operations-label">
+			     <span class="glyphicon glyphicon-plus" (click)="addNewMenuItem()"></span>
 			</div>
 		</ul>
 	</div>
