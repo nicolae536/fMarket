@@ -1,6 +1,4 @@
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register([], function(exports_1) {
     var EMAIL_REGEX, PHONE_REGEX, RegexValidation, PhoneRegexValidator;
     return {
         setters:[],
@@ -14,7 +12,7 @@ System.register([], function(exports_1, context_1) {
                     return EMAIL_REGEX.test(c.value);
                 };
                 return RegexValidation;
-            }());
+            })();
             exports_1("RegexValidation", RegexValidation);
             PhoneRegexValidator = (function () {
                 function PhoneRegexValidator() {
@@ -23,7 +21,7 @@ System.register([], function(exports_1, context_1) {
                     return PHONE_REGEX.test(c.value);
                 };
                 return PhoneRegexValidator;
-            }());
+            })();
             exports_1("PhoneRegexValidator", PhoneRegexValidator);
         }
     }

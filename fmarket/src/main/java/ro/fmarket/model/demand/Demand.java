@@ -1,5 +1,6 @@
 package ro.fmarket.model.demand;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -37,7 +38,7 @@ public class Demand extends BaseEntity {
 	private DemandStatus status;
 
 	@OneToMany(mappedBy = "demand", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<DemandCity> cities;
+	private Set<DemandCity> cities = new HashSet<>();
 
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime creationDate;

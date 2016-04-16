@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-City", "./fMarketApi", "rxjs/Observable"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-City", "./fMarketApi", "rxjs/Observable"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,14 +39,23 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-City",
                     });
                 };
                 DemandService.prototype.createDemand = function (demand) {
-                    return this.api.post(this._DemandController, JSON.stringify(demand));
+                    var beckedDemand = this.convertDemand(demand);
+                    return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
+                };
+                DemandService.prototype.convertDemand = function (demand) {
+                    var newDemand = demand;
+                    newDemand.cities = _.map(demand.cities, function (city) {
+                        return city.boundItem['id'];
+                    });
+                    newDemand.domain = demand.domain.boundItem['id'];
+                    return newDemand;
                 };
                 DemandService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
                 ], DemandService);
                 return DemandService;
-            }());
+            })();
             exports_1("DemandService", DemandService);
         }
     }

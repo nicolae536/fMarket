@@ -1,6 +1,4 @@
-System.register(['angular2/core', '../../modalDialog/modalDialog', "../demandComponent"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', '../../modalDialog/modalDialog', "../demandComponent"], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -96,7 +94,7 @@ System.register(['angular2/core', '../../modalDialog/modalDialog', "../demandCom
                     __metadata('design:paramtypes', [])
                 ], DemandDialogComponent);
                 return DemandDialogComponent;
-            }(modalDialog_1.ModalDialog));
+            })(modalDialog_1.ModalDialog);
             exports_1("DemandDialogComponent", DemandDialogComponent);
         }
     }

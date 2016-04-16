@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="/app/components/registrationComponent/registrationComponent.css"/>
+<div class="regisration-component clearfix">
+    <form [ngFormModel]="_registrationForm" (ngSubmit)="registrationFormSubmit()" class="registration-form">
+        <div class="form-group">
+            <label>E-mail</label>
+            <input type="text" class="form-control" [ngFormControl]="_demandForm.controls['email']"/>
+        </div>
+        <div class="form-group">
+            <label>Parola</label>
+            <input type="password" class="form-control" [ngFormControl]="_demandForm.controls['password']"/>
+        </div>
+        <div class="form-group">
+            <label>Inscriema la newsletter</label>
+            <input type="checkbox" [ngFormControl]="_demandForm.controls['subscribeToNewsletter']"/>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Inregistreazate</button>
+        </div>
+    </form>
+</div>

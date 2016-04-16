@@ -2,7 +2,7 @@
 <form [ngFormModel]="_demandForm" (ngSubmit)="demandFormSubmit()" class="demand-component-container clearfix">
     <div class="col-md-6 col-xs-12">
         <div class="demand-control-groups">
-            <h2>Cerere</h2>
+            <h4>Cerere</h4>
             <div class="form-group">
                 <label>Titlu</label>
                 <input type="text" class="form-control" [ngFormControl]="_demandForm.controls['title']"/>
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="account-control-groups">
-            <h1>Cont</h1>
+            <h4>Cont</h4>
             <div class="form-group">
                 <label>E-mail</label>
                 <input type="text" class="form-control" [ngFormControl]="_demandForm.controls['email']"/>
@@ -44,7 +44,7 @@
     </div>
     <div class="col-md-6 col-xs-12">
         <div class="contact-control-groups">
-            <h1>Contact</h1>
+            <h4>Contact</h4>
             <div class="form-group">
                 <label>Telefon</label>
                 <input type="tel" class="form-control" [ngFormControl]="_demandForm.controls['phone']"/>

@@ -72,7 +72,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 	private Account createAutoAccount(String email) {
 		final Account account = new Account();
 		account.setEmail(email);
-		account.setPassword("auto");
+		account.setPassword("auto"); //downloadezi squirell intre timp? da
 
 		final AccountDetails details = new AccountDetails();
 		final AccountHistoricalInfo historicalInfo = new AccountHistoricalInfo();

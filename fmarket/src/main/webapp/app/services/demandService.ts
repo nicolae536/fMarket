@@ -7,6 +7,7 @@ import {CITYES} from "./mock-providers/mock-City";
 import {FMarketApi} from "./fMarketApi";
 import {Observable} from "rxjs/Observable";
 import {Demand} from "../components/demandComponent/demandComponent";
+import {Select2Item} from "../components/selectComponent/selectComponent";
 
 
 @Injectable()
@@ -26,6 +27,17 @@ export class DemandService {
     }
 
     createDemand(demand:Demand) {
-        return this.api.post(this._DemandController, JSON.stringify(demand));
+        var beckedDemand = this.convertDemand(demand);
+        return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
+    }
+
+    private convertDemand(demand:Demand) {
+        let newDemand = demand;
+        newDemand.cities = _.map(demand.cities, (city:Select2Item)=>{
+            return city.boundItem['id'];
+        })
+        newDemand.domain = demand.domain.boundItem['id'];
+
+        return newDemand;
     }
 }
