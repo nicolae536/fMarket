@@ -49,6 +49,11 @@ export class HomePage implements OnInit{
     
     createDemand(demand:Demand){
         var me= this;
+        
+        if(!this._demandDialog.isValidResponse()){
+            return;
+        }
+        
         this._demandService.createDemand(demand).map((response)=>{
             if (response.text().length > 0) {
                 return response.json();

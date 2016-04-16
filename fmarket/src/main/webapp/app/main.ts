@@ -3,6 +3,7 @@ import {AppComponent} from './app.component';
 import {provide} from 'angular2/core';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {HTTP_PROVIDERS} from 'angular2/http';
+import * as _ from 'underscore';
 
 //console.log(HTTP_PROVIDERS);
 bootstrap(AppComponent, [

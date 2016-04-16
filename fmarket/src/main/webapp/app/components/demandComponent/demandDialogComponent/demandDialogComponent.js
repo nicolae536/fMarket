@@ -50,6 +50,9 @@ System.register(['angular2/core', '../../modalDialog/modalDialog', "../demandCom
                     this.responseObject = new demandComponent_1.Demand();
                     this.cancelAction();
                 };
+                DemandDialogComponent.prototype.isValidResponse = function () {
+                    return this._demandComponent.IsValid();
+                };
                 DemandDialogComponent.prototype.createDemand = function () {
                     if (this._demandComponent.IsValid()) {
                         this.responseObject = this._demandComponent.getFormData;

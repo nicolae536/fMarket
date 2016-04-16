@@ -11,7 +11,7 @@ import {Demand} from "../components/demandComponent/demandComponent";
 
 @Injectable()
 export class DemandService {
-    private _DemandController:string = '/demand';
+    private _DemandController:string = '/demands';
     private api:FMarketApi;
 
     constructor(http:Http) {

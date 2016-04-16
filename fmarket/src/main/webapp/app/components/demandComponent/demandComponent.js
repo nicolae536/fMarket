@@ -11,7 +11,7 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, common_1, selectComponent_1;
-    var APPLICATION_PATH, DemandComponent, Demand;
+    var EMAIL_REGEX, PHONE_REGEX, APPLICATION_PATH, DemandComponent, Demand;
     return {
         setters:[
             function (core_1_1) {
@@ -24,6 +24,8 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                 selectComponent_1 = selectComponent_1_1;
             }],
         execute: function() {
+            EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+            PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
             APPLICATION_PATH = '/app/components/demandComponent';
             DemandComponent = (function () {
                 function DemandComponent(_formBuilder) {
@@ -48,11 +50,11 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                 DemandComponent.prototype.ngOnInit = function () {
                     this._demandForm.addControl('title', this._formBuilder.control(this._demandData.title, common_1.Validators.required));
                     this._demandForm.addControl('message', this._formBuilder.control(this._demandData.message, common_1.Validators.required));
-                    this._demandForm.addControl('email', this._formBuilder.control(this._demandData.email, common_1.Validators.required));
-                    this._demandForm.addControl('cityes', this._formBuilder.control(this._demandData.cityes));
+                    this._demandForm.addControl('email', this._formBuilder.control(this._demandData.email, common_1.Validators.compose([common_1.Validators.required])));
+                    this._demandForm.addControl('cities', this._formBuilder.control(this._demandData.cities));
                     this._demandForm.addControl('domain', this._formBuilder.control(this._demandData.domain));
                     this._demandForm.addControl('termsAgreed', this._formBuilder.control(this._demandData.termsAgreed, common_1.Validators.required));
-                    this._demandForm.addControl('phone', this._formBuilder.control(this._demandData.phone, common_1.Validators.required));
+                    this._demandForm.addControl('phone', this._formBuilder.control(this._demandData.phone, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(10)])));
                     this._demandForm.addControl('name', this._formBuilder.control(this._demandData.name, common_1.Validators.required));
                     this._demandForm.addControl('agreePhoneContact', this._formBuilder.control(this._demandData.agreePhoneContact));
                     this._demandForm.addControl('agreeEmailContact', this._formBuilder.control(this._demandData.agreeEmailContact));
@@ -74,14 +76,14 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                     this._selectDomainCompnent = _selectDomainCompnent;
                 };
                 DemandComponent.prototype.IsValid = function () {
-                    return this._demandForm.valid;
+                    return this._demandForm.valid || _.isEmpty(this._selectDomainCompnent.selectedItem) || (this._selectDomainCompnent.selectedItem && this._selectDomainCompnent.selectedItem === null) || this._selectDomainCompnent._selectedItems.length > 0;
                 };
                 Object.defineProperty(DemandComponent.prototype, "getFormData", {
                     get: function () {
                         if (this._demandForm.valid) {
                             var formValue = this._demandForm.value;
                             formValue.domain = this._selectDomainCompnent.selectedItem;
-                            formValue.cityes = this._selectCityCompnent._selectedItems;
+                            formValue.cities = this._selectCityCompnent._selectedItems;
                             return formValue;
                         }
                         return null;
@@ -123,6 +125,15 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
             exports_1("DemandComponent", DemandComponent);
             Demand = (function () {
                 function Demand() {
+                    this.title = '';
+                    this.message = '';
+                    this.email = '';
+                    this.termsAgreed = false;
+                    this.phone = '';
+                    this.name = '';
+                    this.agreePhoneContact = false;
+                    this.agreeEmailContact = false;
+                    this.allCities = false;
                 }
                 return Demand;
             }());

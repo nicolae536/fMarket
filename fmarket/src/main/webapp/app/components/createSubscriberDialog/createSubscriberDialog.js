@@ -1,4 +1,6 @@
-System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/subscriber'], function(exports_1) {
+System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/subscriber'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -74,7 +76,7 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/su
                     __metadata('design:paramtypes', [])
                 ], CreateSubscriberDialog);
                 return CreateSubscriberDialog;
-            })(modalDialog_1.ModalDialog);
+            }(modalDialog_1.ModalDialog));
             exports_1("CreateSubscriberDialog", CreateSubscriberDialog);
         }
     }

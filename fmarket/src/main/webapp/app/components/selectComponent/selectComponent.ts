@@ -141,7 +141,7 @@ export class SelectComponent implements OnInit, OnChanges {
 
     ngOnInit():any {
         this.loadedSelect.emit(this);
-        this._selectedItem =  this._selectedItem ? this._selectedItem : new Select2Item();
+        this._selectedItem =  this._selectedItem ? this._selectedItem : this._chooseItemValue;
         this._selectedItems = this._selectedItems ? this._selectedItems : [];
     }
 

@@ -43,7 +43,11 @@ export class DemandDialogComponent extends ModalDialog{
         this.responseObject = new Demand();
         this.cancelAction();
     }
-    
+
+    isValidResponse():boolean{
+        return this._demandComponent.IsValid();
+    }
+
     createDemand(){
         if(this._demandComponent.IsValid()){
             this.responseObject = this._demandComponent.getFormData;

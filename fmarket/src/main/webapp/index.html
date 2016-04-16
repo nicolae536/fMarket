@@ -18,6 +18,8 @@
     <script src="/node_modules/angular2/bundles/router.dev.js"></script>
     <script src="/node_modules/angular2/bundles/http.dev.js"></script>
 
+    <script src="/node_modules/underscore/underscore.js"></script>
+
     <!-- bootstrap -->
     <script src="/node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
     <link href="/node_modules/ng2-bootstrapCss/bootstrap.min.css" rel="stylesheet">
@@ -33,6 +35,9 @@
         },
         map: {
             moment: 'node_modules/moment/moment.js',
+        },
+        paths: {
+            underscore: './node_modules/underscore/underscore.js'
         }
     });
     System.import('app/main')

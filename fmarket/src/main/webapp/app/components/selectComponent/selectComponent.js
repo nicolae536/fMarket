@@ -39,7 +39,7 @@ System.register(["angular2/core", "ng2-bootstrap/ng2-bootstrap", "./filterPipe"]
                 };
                 SelectComponent.prototype.ngOnInit = function () {
                     this.loadedSelect.emit(this);
-                    this._selectedItem = this._selectedItem ? this._selectedItem : new Select2Item();
+                    this._selectedItem = this._selectedItem ? this._selectedItem : this._chooseItemValue;
                     this._selectedItems = this._selectedItems ? this._selectedItems : [];
                 };
                 Object.defineProperty(SelectComponent.prototype, "selectedItem", {
