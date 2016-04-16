@@ -1,7 +1,12 @@
 package ro.fmarket.model.demand;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,20 +19,30 @@ public class DemandController {
 
 	@Autowired
 	private DemandService service;
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public void addNewDemand(NewDemandRequest request, @AuthenticationPrincipal FMarketPrincipal principal) {
-		service.addDemand(principal.getAccountId(), request);
+	public void addNewDemand( @RequestBody NewDemandRequest request, @AuthenticationPrincipal FMarketPrincipal principal) {
+		test(request);//TODO delete
+		if (principal == null) {
+			service.addDemand(request, false);
+		} else {
+			request.setEmail(principal.getUsername());
+			service.addDemand(request, true);
+		}
 	}
 	
+	private void test(@Valid NewDemandRequest request) {
+		
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
-	public void getAccountDemands(@AuthenticationPrincipal FMarketPrincipal principal) {
-		service.getAccountDemands(principal.getAccountId());
+	public List<SelfDemandDTO> getAccountDemands(@AuthenticationPrincipal FMarketPrincipal principal) {
+		return service.getAccountDemands(principal.getAccountId());
 	}
-	
+
 	@RequestMapping(method = RequestMethod.PUT)
 	public void cancelDemand(CancelDemandRequest request, @AuthenticationPrincipal FMarketPrincipal principal) {
 		service.cancelDemand(principal.getAccountId(), request);
 	}
-	
+
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import ro.fmarket.admin.account.user.UserSearchObject;
 import ro.fmarket.core.base.BaseDao;
 import ro.fmarket.core.constants.PaginationConstants;
+import ro.fmarket.core.exception.NotFoundException;
 import ro.fmarket.model.account.consts.AccountType;
 
 @Repository
@@ -23,6 +24,18 @@ public class AccountDao extends BaseDao<Account> {
 	@SuppressWarnings("unchecked")
 	public Account getByEmail(String email) {
 		final String hql = "select Account where email = :email";
+		final Query query = getSession().createQuery(hql);
+		query.setParameter("email", email);
+		List<Account> list = query.list();
+		if (list.isEmpty()) {
+			return null;
+		} else {
+			return list.get(0);
+		}
+	}
+	
+	public Account getActiveByEmail(String email) {
+		final String hql = "select Account a where a.email = :email and a.status = 'ACTIVE'";
 		final Query query = getSession().createQuery(hql);
 		query.setParameter("email", email);
 		List<Account> list = query.list();
@@ -71,5 +84,16 @@ public class AccountDao extends BaseDao<Account> {
 	public Long getCriteriaTotalCount(Criteria criteria) {
 		criteria.setProjection(Projections.rowCount());
 		return (Long) criteria.uniqueResult();
+	}
+	
+	public void updateAccountPassword(String email, String newPassword) {
+		String hql = "update Account a set a.password = :password where a.email = :email";
+		Query query = getSession().createQuery(hql);
+		query.setParameter("email", email);
+		query.setParameter("password", newPassword);
+		int affectedRows = query.executeUpdate();
+		if (affectedRows == 0) {
+			throw new NotFoundException("Account with email " + email);
+		}
 	}
 }

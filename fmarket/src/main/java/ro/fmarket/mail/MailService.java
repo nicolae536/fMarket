@@ -3,7 +3,6 @@ package ro.fmarket.mail;
 import java.io.UnsupportedEncodingException;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
@@ -26,15 +25,15 @@ public class MailService {
 	@Autowired
 	private SpringTemplateEngine templateEngine;
 	
-	public void sendRegistrationMail() {
+	public void sendRegistrationMail(String emailTo, int accountId, String token) {
 		
 	}
 	
-	public void sendPasswordChangeMail() {
+	public void sendPasswordChangeMail(String emailTo, String token) {
 		
 	}
 	
-	public void sendNewDemandMail() {
+	public void sendDemandConfirmMail(String emailTo, String token) {
 		
 	}
 	

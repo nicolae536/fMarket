@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/accounts")
 public class AccountController {
 
-	public void registerAccount() {
-
-	}
-
 	public void getAccountDetails() {
 
 	}

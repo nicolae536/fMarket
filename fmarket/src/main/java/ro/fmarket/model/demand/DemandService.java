@@ -1,11 +1,13 @@
 package ro.fmarket.model.demand;
 
+import java.util.List;
+
 public interface DemandService {
 
-	void addDemand(Integer accountId, NewDemandRequest request);
+	void addDemand(NewDemandRequest request, boolean isAccountLogged);
 	
 	void cancelDemand(Integer accountId, CancelDemandRequest demandId);
 	
-	void getAccountDemands(Integer accountId);
+	List<SelfDemandDTO> getAccountDemands(Integer accountId);
 
 }

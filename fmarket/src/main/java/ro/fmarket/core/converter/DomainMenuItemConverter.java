@@ -23,7 +23,7 @@ public class DomainMenuItemConverter {
 		return dto;
 	}
 
-	public static List<DomainMenuItemDTO> toDTO(List<DomainMenuItem> items) {
+	public static List<DomainMenuItemDTO> toDTOList(List<DomainMenuItem> items) {
 		final List<DomainMenuItemDTO> result = new ArrayList<>();
 		for (DomainMenuItem item : items) {
 			result.add(toDTO(item));

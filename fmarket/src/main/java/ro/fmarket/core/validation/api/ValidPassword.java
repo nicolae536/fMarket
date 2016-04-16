@@ -10,6 +10,11 @@ import javax.validation.Constraint;
 
 import ro.fmarket.core.validation.impl.PasswordValidator;
 
+/**
+ * Null value is evalued as valid.
+ * @author Luci
+ *
+ */
 @Documented
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

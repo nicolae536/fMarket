@@ -22,7 +22,7 @@ public class DomainMenuServiceImpl implements DomainMenuService {
 	@Override
 	public List<DomainMenuItemDTO> getMenu() {
 		List<DomainMenuItem> items = dao.getList();
-		return DomainMenuItemConverter.toDTO(items);
+		return DomainMenuItemConverter.toDTOList(items);
 	}
 
 	@Override

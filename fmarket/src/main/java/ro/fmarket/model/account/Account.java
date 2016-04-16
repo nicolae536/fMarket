@@ -27,8 +27,8 @@ public class Account extends BaseEntity {
 	@Column(nullable = false, columnDefinition = "binary", length = 70)
 	private String password;
 
+	@Column(length = 15, nullable = false)
 	@Enumerated(EnumType.STRING)
-	@Column(length = 15)
 	private AccountType type;
 
 	@Enumerated(EnumType.STRING)
@@ -41,5 +41,4 @@ public class Account extends BaseEntity {
 	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	private AccountDetails accountDetails;
 
-	
 }

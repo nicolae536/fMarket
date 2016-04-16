@@ -14,13 +14,14 @@ public class AccountConverter {
 		final UserDTO r = new UserDTO();
 		r.setId(account.getId());
 		r.setEmail(account.getEmail());
+		
 		final AccountDetails details = account.getAccountDetails();
 		r.setCity(details.getCity() != null ? details.getCity().getName() : null);
 		r.setName(details.getName());
 		r.setStatus(account.getStatus().name());
 		r.setType(account.getType().name());
+		
 		final AccountHistoricalInfo historicalInfo = account.getHistoricalInfo();
-		System.out.println(historicalInfo);
 		r.setCreationDate(historicalInfo.getCreationDate());
 		r.setClosedDate(historicalInfo.getClosedDate());
 		r.setActivationDate(historicalInfo.getActivationDate());

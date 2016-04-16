@@ -29,7 +29,7 @@ public class SubscriberServiceAdminImpl implements SubscriberServiceAdmin {
 		if (subscriber == null) {
 			subscriber = createNewSubscriber(email);
 			dao.save(subscriber);
-		} else { // active subscriber
+		} else { // activate subscriber
 			subscriber.setUnsubscribeDate(null);
 			subscriber.setSubscribeDate(DateUtils.now());
 			dao.save(subscriber);
