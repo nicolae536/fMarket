@@ -15,6 +15,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import ro.fmarket.core.base.BaseEntity;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.geographical.city.City;
@@ -22,6 +23,7 @@ import ro.fmarket.model.geographical.city.DemandCity;
 
 @Data
 @Entity
+@EqualsAndHashCode(callSuper = false, exclude = "cities")
 public class Demand extends BaseEntity {
 
 	@ManyToOne

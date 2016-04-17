@@ -21,18 +21,13 @@ public class DemandController {
 	private DemandService service;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void addNewDemand( @RequestBody NewDemandRequest request, @AuthenticationPrincipal FMarketPrincipal principal) {
-		test(request);//TODO delete
+	public void addNewDemand(@Valid @RequestBody NewDemandRequest request, @AuthenticationPrincipal FMarketPrincipal principal) {
 		if (principal == null) {
 			service.addDemand(request, false);
 		} else {
 			request.setEmail(principal.getUsername());
 			service.addDemand(request, true);
 		}
-	}
-	
-	private void test(@Valid NewDemandRequest request) {
-		
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

@@ -27,4 +27,9 @@ public class PasswordChangeTokenDao extends BaseDao<PasswordChangeToken> {
 			return list.get(0);
 		}
 	}
+	
+    public void deleteAllTokensForAccount(int accountId) {
+        final String hql = "delete from PasswordChangeToken where account.id = :id";
+        getSession().createQuery(hql).setInteger("id", accountId).executeUpdate();
+    }
 }

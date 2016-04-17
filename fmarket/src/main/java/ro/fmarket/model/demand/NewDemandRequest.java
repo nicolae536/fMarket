@@ -3,7 +3,10 @@ package ro.fmarket.model.demand;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 import lombok.Data;
 
@@ -23,8 +26,9 @@ public class NewDemandRequest {
 	/**
 	 * Account
 	 */
+	@Email
+	@NotNull
 	private String email;
-	private boolean termsAgreed;
 
 	/*
 	 * Contact

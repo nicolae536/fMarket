@@ -1,10 +1,97 @@
 package ro.fmarket.model.confirmation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import ro.fmarket.core.exception.InvalidTokenException;
+import ro.fmarket.core.utils.DateUtils;
+import ro.fmarket.model.account.Account;
+import ro.fmarket.model.account.AccountDao;
+import ro.fmarket.model.account.consts.AccountStatus;
+import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
+import ro.fmarket.model.demand.Demand;
+import ro.fmarket.model.demand.DemandDao;
+import ro.fmarket.model.demand.DemandStatus;
+import ro.fmarket.model.token.DemandToken;
+import ro.fmarket.model.token.PasswordChangeToken;
+import ro.fmarket.model.token.RegistrationToken;
+import ro.fmarket.model.token.TokenEntity;
+import ro.fmarket.model.token.dao.DemandTokenDao;
+import ro.fmarket.model.token.dao.PasswordChangeTokenDao;
+import ro.fmarket.model.token.dao.RegistrationTokenDao;
 
 @Service
 @Transactional
 public class ConfirmationServiceImpl implements ConfirmationService {
+
+	@Autowired
+	private RegistrationTokenDao registrationTokenDao;
+
+	@Autowired
+	private AccountDao accountDao;
+
+	@Autowired
+	private DemandTokenDao demandTokenDao;
+
+	@Autowired
+	private PasswordChangeTokenDao passwordChangeTokenDao;
+	
+	@Autowired
+	private DemandDao demandDao;
+
+	@Override
+	public void confirmRegistration(String token) throws InvalidTokenException {
+		RegistrationToken registrationToken = registrationTokenDao.getByToken(token);
+		notNullValidation(registrationToken);
+		Account account = registrationToken.getAccount();
+		if (registrationToken.isExpired()) {
+			registrationTokenDao.deleteAllTokensForAccount(account.getId());
+			throw new InvalidTokenException("Token is expired");
+		}
+		account.getHistoricalInfo().setActivationDate(DateUtils.now());
+		account.setStatus(AccountStatus.ACTIVE);
+		accountDao.save(account);
+		registrationTokenDao.deleteAllTokensForAccount(account.getId());
+	}
+
+	@Override
+	public void confirmPasswordChange(String token) throws InvalidTokenException {
+		PasswordChangeToken passwordChangeToken = passwordChangeTokenDao.getByToken(token);
+		notNullValidation(passwordChangeToken);
+		final Account account = passwordChangeToken.getAccount();
+		if (passwordChangeToken.isExpired()) {
+			passwordChangeTokenDao.deleteAllTokensForAccount(account.getId());
+			throw new InvalidTokenException("Token is expired");
+		}
+
+		account.setPassword(passwordChangeToken.getNewPassword());
+		account.getHistoricalInfo().setLastPasswordChangeDate(DateUtils.now());
+		accountDao.save(account);
+
+		passwordChangeTokenDao.deleteAllTokensForAccount(account.getId());
+
+	}
+
+	@Override
+	public void confirmDemandCreation(String token) throws InvalidTokenException {
+		DemandToken demandToken = demandTokenDao.getByToken(token);
+		notNullValidation(demandToken);
+		if (demandToken.isExpired()) {
+			demandTokenDao.deleteById(demandToken.getId());
+			throw new InvalidTokenException("Token is expired");
+		}
+		Demand demand = demandToken.getDemand();
+		demand.setStatus(DemandStatus.IN_REVIEW);
+		demandDao.save(demand);
+		demandTokenDao.deleteById(demandToken.getId());
+
+	}
+
+	private void notNullValidation(TokenEntity token) throws InvalidTokenException {
+		if (token == null) {
+			throw new InvalidTokenException("Token not found");
+		}
+	}
 
 }

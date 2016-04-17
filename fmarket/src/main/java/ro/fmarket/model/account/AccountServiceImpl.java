@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ro.fmarket.core.exception.NotFoundException;
 import ro.fmarket.core.utils.DateUtils;
 import ro.fmarket.core.utils.TokenUtils;
 import ro.fmarket.mail.MailService;
@@ -37,10 +38,15 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public void changeAccountPassword(String email, String newPassword, boolean isLoggedIn) {
+		final Account account = accountDao.getByEmail(email);
+		if (account == null) {
+			throw new NotFoundException("Account");
+		}
 		if (isLoggedIn) {
-			accountDao.updateAccountPassword(email, passwordEncoder.encode(newPassword));
+			account.setPassword(passwordEncoder.encode(newPassword));
+			account.getHistoricalInfo().setLastPasswordChangeDate(DateUtils.now());
+			accountDao.save(account);
 		} else {
-			final Account account = accountDao.getByEmail(email);
 			requestPassordChange(account, newPassword);
 		}
 	}

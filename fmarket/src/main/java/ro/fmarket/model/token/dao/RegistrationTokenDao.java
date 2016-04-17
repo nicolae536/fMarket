@@ -27,5 +27,10 @@ public class RegistrationTokenDao extends BaseDao<RegistrationToken>{
 			return list.get(0);
 		}
 	}
+	
+    public void deleteAllTokensForAccount(int accountId) {
+        final String hql = "delete from RegistrationToken where account.id = :id";
+        getSession().createQuery(hql).setInteger("id", accountId).executeUpdate();
+    }
 
 }
