@@ -3,10 +3,12 @@ package ro.fmarket.model.demand;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -16,10 +18,12 @@ public class NewDemandRequest {
 	/*
 	 * Demand
 	 */
+	@NotBlank
 	private String message;
 
-	@Size(min = 1, max = 10)
-	private List<Integer> cities = new ArrayList<>();
+	@Size(max = 10)
+	private List<Integer> cities;
+	
 	private Integer domainId;
 	private String title;
 

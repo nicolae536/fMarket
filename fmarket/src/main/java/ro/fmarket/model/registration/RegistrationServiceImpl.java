@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.fmarket.core.utils.DateUtils;
+import ro.fmarket.core.utils.TokenUtils;
+import ro.fmarket.mail.MailService;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.account.AccountDao;
 import ro.fmarket.model.account.AccountService;
@@ -15,6 +17,8 @@ import ro.fmarket.model.account.consts.AccountType;
 import ro.fmarket.model.account.details.AccountDetails;
 import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
 import ro.fmarket.model.subscriber.SubscriberService;
+import ro.fmarket.model.token.RegistrationToken;
+import ro.fmarket.model.token.dao.RegistrationTokenDao;
 
 @Service
 @Transactional
@@ -31,15 +35,28 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@Autowired
+	private MailService mailService;
+	
+	@Autowired
+	private RegistrationTokenDao tokenDao;
 
 	@Override
 	public void registerAccount(NewAccountRequest request) {
 		Account account = accountDao.getByEmail(request.getEmail());
 		if (account == null) {
-			createNewAccount(request);
+			Account newAccount = createNewAccount(request);
 			accountDao.save(account);
+			String token = createAndSaveRegistrationToken(newAccount);
+			mailService.sendRegistrationMail(newAccount.getEmail(), token);
 		} else {
-			accountService.changeAccountPassword(account.getEmail(), request.getPassword(), false);
+			if (AccountStatus.AUTO.equals(account.getStatus())) { // update account status
+				account.setStatus(AccountStatus.ACTIVE);
+				account.getHistoricalInfo().setActivationDate(DateUtils.now());
+				accountDao.save(account);
+			}
+			accountService.requestPasswordChange(account.getEmail(), request.getPassword(), false);
 		}
 		if (request.getSubscribe()) {
 			subscriberService.subscribeEmail(request.getEmail());
@@ -83,6 +100,15 @@ public class RegistrationServiceImpl implements RegistrationService {
 		account.setType(AccountType.USER);
 		account.setStatus(AccountStatus.AUTO);
 		return account;
+	}
+	
+	private String createAndSaveRegistrationToken(Account account) {
+		final RegistrationToken registrationToken = new RegistrationToken();
+		registrationToken.setAccount(account);
+		registrationToken.setCreationDate(DateUtils.now());
+		registrationToken.setToken(TokenUtils.generateToken());
+		tokenDao.save(registrationToken);
+		return registrationToken.getToken();
 	}
 
 }

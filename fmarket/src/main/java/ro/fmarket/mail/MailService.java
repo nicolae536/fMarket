@@ -25,7 +25,7 @@ public class MailService {
 	@Autowired
 	private SpringTemplateEngine templateEngine;
 	
-	public void sendRegistrationMail(String emailTo, int accountId, String token) {
+	public void sendRegistrationMail(String emailTo, String token) {
 		
 	}
 	

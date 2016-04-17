@@ -4,7 +4,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface AccountService extends UserDetailsService {
 	
-	void changeAccountPassword(String email, String newPassword, boolean isLoggedIn);
+	void requestPasswordChange(String email, String newPassword, boolean isLoggedIn);
 	
-	void changeAccountPassword(Account account, String newPassword);
+	void requestPasswordChange(Account account, String newPassword);
 }

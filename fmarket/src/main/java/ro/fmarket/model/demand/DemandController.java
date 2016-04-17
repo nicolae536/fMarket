@@ -29,7 +29,7 @@ public class DemandController {
 			service.addDemand(request, true);
 		}
 	}
-
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<SelfDemandDTO> getAccountDemands(@AuthenticationPrincipal FMarketPrincipal principal) {
 		return service.getAccountDemands(principal.getAccountId());

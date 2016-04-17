@@ -37,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public void changeAccountPassword(String email, String newPassword, boolean isLoggedIn) {
+	public void requestPasswordChange(String email, String newPassword, boolean isLoggedIn) {
 		final Account account = accountDao.getByEmail(email);
 		if (account == null) {
 			throw new NotFoundException("Account");
@@ -47,17 +47,19 @@ public class AccountServiceImpl implements AccountService {
 			account.getHistoricalInfo().setLastPasswordChangeDate(DateUtils.now());
 			accountDao.save(account);
 		} else {
-			requestPassordChange(account, newPassword);
+			if (!AccountStatus.PENDING.equals(account.getStatus())) {
+				requestPasswordChangeForAccount(account, newPassword);
+			}
 		}
 	}
 
 	@Override
-	public void changeAccountPassword(Account account, String newPassword) {
-		requestPassordChange(account, newPassword);
+	public void requestPasswordChange(Account account, String newPassword) {
+		requestPasswordChangeForAccount(account, newPassword);
 	}
 
-	private void requestPassordChange(Account account, String newPassword) {
-		PasswordChangeToken token = createPasswordChangeToken(account, newPassword);
+	private void requestPasswordChangeForAccount(Account account, String newPassword) {
+		final PasswordChangeToken token = createPasswordChangeToken(account, newPassword);
 		tokenDao.save(token);
 		mailService.sendPasswordChangeMail(account.getEmail(), token.getToken());
 	}
