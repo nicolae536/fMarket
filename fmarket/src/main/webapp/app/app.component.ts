@@ -4,6 +4,7 @@ import {RouteConfig, Router, Route, Location, ROUTER_DIRECTIVES, ROUTER_PROVIDER
 import {HeaderComponent} from './components/headerComponent/headerComponent'
 import {AdminPage} from './pages/adminPage/adminPage';
 import {HomePage} from "./pages/homePage/homePage";
+import {RegistrationPage} from "./pages/registrationPage/registrationPage";
 
 @Component({
     selector: 'my-app',
@@ -27,6 +28,11 @@ import {HomePage} from "./pages/homePage/homePage";
         name: 'Home',
         component: HomePage,
         useAsDefault:true
+    }),
+    new Route({
+        path: '/registration',
+        name: 'Registration',
+        component: RegistrationPage
     }),
     new Route({
         path: '/admin/...',

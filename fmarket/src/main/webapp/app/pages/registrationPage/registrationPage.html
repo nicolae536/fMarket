@@ -1,0 +1,9 @@
+<link href="/app/pages/registrationPage/registrationPage.css" rel="stylesheet" />
+<div class="registration-page clearfix">
+    <registration-component
+        [form-title]="formTitle"
+        [button-label]="buttonLabel"
+        [show-newsletter]="true"
+        (registration-form)="registerUser($event)">
+    </registration-component>
+</div>

@@ -1,4 +1,6 @@
-System.register(['angular2/core', "angular2/common"], function(exports_1) {
+System.register(["angular2/core", "angular2/common"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,29 +23,58 @@ System.register(['angular2/core', "angular2/common"], function(exports_1) {
         execute: function() {
             APPLICATION_PATH = '/app/components/registrationComponent';
             RegistrationComponent = (function () {
-                function RegistrationComponent() {
+                function RegistrationComponent(formBuilder) {
+                    this.$registrationForm = new core_1.EventEmitter();
+                    this._formBuilder = formBuilder;
                 }
                 RegistrationComponent.prototype.ngOnInit = function () {
-                    return undefined;
+                    this._registrationForm = this._formBuilder.group([]);
+                    this._registrationForm.addControl('email', this._formBuilder.control('', common_1.Validators.required));
+                    this._registrationForm.addControl('password', this._formBuilder.control('', common_1.Validators.required));
+                    this._registrationForm.addControl('subscribe', this._formBuilder.control(''));
                 };
+                RegistrationComponent.prototype.registrationFormSubmit = function () {
+                    if (this._registrationForm.valid) {
+                        this.$registrationForm.emit(this._registrationForm.value);
+                        return;
+                    }
+                    this.$registrationForm.emit(null);
+                };
+                __decorate([
+                    core_1.Input('form-title'), 
+                    __metadata('design:type', String)
+                ], RegistrationComponent.prototype, "formTitle", void 0);
+                __decorate([
+                    core_1.Input('button-label'), 
+                    __metadata('design:type', String)
+                ], RegistrationComponent.prototype, "buttonLabel", void 0);
+                __decorate([
+                    core_1.Input('show-newsletter'), 
+                    __metadata('design:type', Boolean)
+                ], RegistrationComponent.prototype, "showNewsletter", void 0);
+                __decorate([
+                    core_1.Output('registration-form'), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], RegistrationComponent.prototype, "$registrationForm", void 0);
                 RegistrationComponent = __decorate([
                     core_1.Component({
                         selector: 'registration-component',
                         templateUrl: APPLICATION_PATH + '/registrationComponent.html',
                         directives: [common_1.FORM_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [common_1.FormBuilder])
                 ], RegistrationComponent);
                 return RegistrationComponent;
-            })();
+            }());
             exports_1("RegistrationComponent", RegistrationComponent);
             RegisterAccount = (function () {
                 function RegisterAccount() {
                     this.password = '';
                     this.email = '';
+                    this.subscribe = false;
                 }
                 return RegisterAccount;
-            })();
+            }());
             exports_1("RegisterAccount", RegisterAccount);
         }
     }

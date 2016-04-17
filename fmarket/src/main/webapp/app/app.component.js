@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/router', './components/headerComponent/headerComponent', './pages/adminPage/adminPage', "./pages/homePage/homePage"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './components/headerComponent/headerComponent', './pages/adminPage/adminPage', "./pages/homePage/homePage", "./pages/registrationPage/registrationPage"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './components/headerCompone
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, headerComponent_1, adminPage_1, homePage_1;
+    var core_1, router_1, headerComponent_1, adminPage_1, homePage_1, registrationPage_1;
     var AppComponent;
     return {
         setters:[
@@ -26,6 +28,9 @@ System.register(['angular2/core', 'angular2/router', './components/headerCompone
             },
             function (homePage_1_1) {
                 homePage_1 = homePage_1_1;
+            },
+            function (registrationPage_1_1) {
+                registrationPage_1 = registrationPage_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -48,6 +53,11 @@ System.register(['angular2/core', 'angular2/router', './components/headerCompone
                             useAsDefault: true
                         }),
                         new router_1.Route({
+                            path: '/registration',
+                            name: 'Registration',
+                            component: registrationPage_1.RegistrationPage
+                        }),
+                        new router_1.Route({
                             path: '/admin/...',
                             name: 'Admin',
                             component: adminPage_1.AdminPage
@@ -55,7 +65,7 @@ System.register(['angular2/core', 'angular2/router', './components/headerCompone
                     __metadata('design:paramtypes', [router_1.Router, router_1.Location])
                 ], AppComponent);
                 return AppComponent;
-            })();
+            }());
             exports_1("AppComponent", AppComponent);
         }
     }

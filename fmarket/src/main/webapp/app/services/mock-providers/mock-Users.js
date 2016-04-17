@@ -1,4 +1,6 @@
-System.register(["../../models/user"], function(exports_1) {
+System.register(["../../models/user"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var user_1, user_2;
     var USERS;
     return {

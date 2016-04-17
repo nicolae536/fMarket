@@ -13,13 +13,18 @@ let directoryPath = '/app/components/headerComponent';
 })
 
 export class HeaderComponent implements OnInit{
-     _adminApplicationPages:Array<IPage>;
-
+    _usersApplicationPages:Array<IPage>;
+    _adminApplicationPages:Array<IPage>;
 
     constructor(
     ){}
 
     ngOnInit():any {
+        this._usersApplicationPages = [
+            {link:'Home', name: 'Home'},
+            {link:'Registration', name: 'Registration'}
+        ];
+
         this._adminApplicationPages = [
             {link: 'Admin/Users', name:'Users'},
             {link: 'Admin/Subscribers', name:'Subscribers'},

@@ -3,10 +3,7 @@
  */
 import {Injectable} from 'angular2/core';
 import {Http} from 'angular2/http';
-import {CompanieType} from "../models/companieType";
-import {MenuItem, NewDomainMenuItemRequest, UpdateDomainMenuItemRequest} from "../components/menuComponent/baseMenuComponent/baseMenuComponent"
-import {AccountStatus} from "../models/user";
-//import {USERS} from "./mock-providers/mock-Users";
+import {NewDomainMenuItemRequest, UpdateDomainMenuItemRequest} from "../components/menuComponent/baseMenuComponent/baseMenuComponent"
 import {FMarketApi} from "./fMarketApi";
 import {Observable} from "rxjs/Observable";
 
