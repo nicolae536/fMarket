@@ -7,6 +7,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -18,6 +19,12 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 public class MailService {
 
 	private static final Logger LOG = Logger.getLogger(MailService.class);
+	private static final String DEMAND_CONFIRM_HTML = "demandConfirm";
+	private static final String PASSWORD_CHANGE_CONFIRM_HTML = "passwordChangeConfirm";
+	private static final String REGISTRATION_CONFIRM_HTML = "registrationConfirm";
+	
+	@Value("${base.url}")
+	private String baseUrl;
 	
 	@Autowired
 	private JavaMailSender mailSender;
@@ -26,15 +33,15 @@ public class MailService {
 	private SpringTemplateEngine templateEngine;
 	
 	public void sendRegistrationMail(String emailTo, String token) {
-		
+		System.out.println(baseUrl);
 	}
 	
 	public void sendPasswordChangeMail(String emailTo, String token) {
-		
+		System.out.println(baseUrl);
 	}
 	
 	public void sendDemandConfirmMail(String emailTo, String token) {
-		
+		System.out.println(baseUrl);
 	}
 	
     @Async

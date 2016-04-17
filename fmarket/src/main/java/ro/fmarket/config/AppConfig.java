@@ -1,6 +1,5 @@
 package ro.fmarket.config;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableAutoConfiguration
 @ComponentScan("ro.fmarket")
 @EntityScan("ro.fmarket")
 @EnableTransactionManagement

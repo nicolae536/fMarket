@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ro.fmarket.core.converter.SelfDemandConverter;
 import ro.fmarket.core.exception.NotFoundException;
+import ro.fmarket.core.utils.AccountUtils;
 import ro.fmarket.core.utils.DateUtils;
 import ro.fmarket.core.utils.TokenUtils;
 import ro.fmarket.mail.MailService;
@@ -115,8 +116,10 @@ public class DemandServiceImpl implements DemandService {
 			account = accountDao.getByEmail(request.getEmail());
 			if (account == null) {
 				account = registrationService.registerAutoAccount(request.getEmail());
+			} else {
+				AccountUtils.validateAccountIsNotClosed(account); //throw exception if account is closed
+				demand.setStatus(DemandStatus.PENDING);
 			}
-			demand.setStatus(DemandStatus.PENDING);
 		}
 		demand.setAccount(account);
 	}

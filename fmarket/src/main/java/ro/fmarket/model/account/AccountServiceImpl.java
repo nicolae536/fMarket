@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.fmarket.core.exception.NotFoundException;
+import ro.fmarket.core.utils.AccountUtils;
 import ro.fmarket.core.utils.DateUtils;
 import ro.fmarket.core.utils.TokenUtils;
 import ro.fmarket.mail.MailService;
@@ -47,9 +48,8 @@ public class AccountServiceImpl implements AccountService {
 			account.getHistoricalInfo().setLastPasswordChangeDate(DateUtils.now());
 			accountDao.save(account);
 		} else {
-			if (!AccountStatus.PENDING.equals(account.getStatus())) {
-				requestPasswordChangeForAccount(account, newPassword);
-			}
+			AccountUtils.validateAccountIsNotClosed(account);
+			requestPasswordChangeForAccount(account, newPassword);
 		}
 	}
 

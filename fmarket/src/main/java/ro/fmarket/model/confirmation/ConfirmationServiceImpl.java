@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.fmarket.core.exception.InvalidTokenException;
+import ro.fmarket.core.utils.AccountUtils;
 import ro.fmarket.core.utils.DateUtils;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.account.AccountDao;
 import ro.fmarket.model.account.consts.AccountStatus;
-import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
 import ro.fmarket.model.demand.Demand;
 import ro.fmarket.model.demand.DemandDao;
 import ro.fmarket.model.demand.DemandStatus;
@@ -45,6 +45,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		RegistrationToken registrationToken = registrationTokenDao.getByToken(token);
 		notNullValidation(registrationToken);
 		Account account = registrationToken.getAccount();
+		AccountUtils.validateAccountIsNotClosed(account);
 		if (registrationToken.isExpired()) {
 			registrationTokenDao.deleteAllTokensForAccount(account.getId());
 			throw new InvalidTokenException("Token is expired");
@@ -60,11 +61,12 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		PasswordChangeToken passwordChangeToken = passwordChangeTokenDao.getByToken(token);
 		notNullValidation(passwordChangeToken);
 		final Account account = passwordChangeToken.getAccount();
+		AccountUtils.validateAccountIsNotClosed(account);
 		if (passwordChangeToken.isExpired()) {
 			passwordChangeTokenDao.deleteAllTokensForAccount(account.getId());
 			throw new InvalidTokenException("Token is expired");
 		}
-
+		account.setStatus(AccountStatus.ACTIVE);
 		account.setPassword(passwordChangeToken.getNewPassword());
 		account.getHistoricalInfo().setLastPasswordChangeDate(DateUtils.now());
 		accountDao.save(account);
@@ -82,8 +84,15 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 			throw new InvalidTokenException("Token is expired");
 		}
 		Demand demand = demandToken.getDemand();
+		
+		Account account = demand.getAccount();
+		AccountUtils.validateAccountIsNotClosed(account);
+		account.setStatus(AccountStatus.ACTIVE);
+		accountDao.save(account);
+		
 		demand.setStatus(DemandStatus.IN_REVIEW);
 		demandDao.save(demand);
+		
 		demandTokenDao.deleteById(demandToken.getId());
 
 	}

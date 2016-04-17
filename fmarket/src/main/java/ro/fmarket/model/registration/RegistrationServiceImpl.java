@@ -1,11 +1,11 @@
 package ro.fmarket.model.registration;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ro.fmarket.core.utils.AccountUtils;
 import ro.fmarket.core.utils.DateUtils;
 import ro.fmarket.core.utils.TokenUtils;
 import ro.fmarket.mail.MailService;
@@ -46,11 +46,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 	public void registerAccount(NewAccountRequest request) {
 		Account account = accountDao.getByEmail(request.getEmail());
 		if (account == null) {
-			Account newAccount = createNewAccount(request);
-			accountDao.save(account);
+			final Account newAccount = createNewAccount(request);
+			accountDao.save(newAccount);
 			String token = createAndSaveRegistrationToken(newAccount);
 			mailService.sendRegistrationMail(newAccount.getEmail(), token);
 		} else {
+			AccountUtils.validateAccountIsNotClosed(account); //throws expcetion if it is 
 			if (AccountStatus.AUTO.equals(account.getStatus())) { // update account status
 				account.setStatus(AccountStatus.ACTIVE);
 				account.getHistoricalInfo().setActivationDate(DateUtils.now());

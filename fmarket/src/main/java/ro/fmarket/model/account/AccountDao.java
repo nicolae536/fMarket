@@ -23,7 +23,6 @@ public class AccountDao extends BaseDao<Account> {
 
 	@SuppressWarnings("unchecked")
 	public Account getByEmail(String email) {
-		System.out.println("EMAILLL: " + email);
 		final String hql = "from Account where email = :email";
 		final Query query = getSession().createQuery(hql);
 		query.setParameter("email", email);
