@@ -3,17 +3,20 @@
  */
 import {Component, OnInit, EventEmitter, Input, Output} from "angular2/core";
 import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from "angular2/common";
+import {ROUTER_DIRECTIVES} from "angular2/router";
 
 const APPLICATION_PATH = '/app/components/registrationComponent';
 @Component({
     selector: 'registration-component',
     templateUrl: APPLICATION_PATH + '/registrationComponent.html',
-    directives: [FORM_DIRECTIVES]
+    directives: [FORM_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class RegistrationComponent implements OnInit {
     @Input('form-title') formTitle:string;
     @Input('button-label') buttonLabel:string;
     @Input('show-newsletter') showNewsletter:boolean;
+    @Input('password-label') passwordLabel:string;
+    @Input('show-forget-password-link') showForgetPasswordLink:boolean;
     @Output('registration-form') $registrationForm:EventEmitter<RegisterAccount> = new EventEmitter<RegisterAccount>();
 
     private _formBuilder:FormBuilder;

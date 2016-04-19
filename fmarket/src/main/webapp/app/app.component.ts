@@ -5,6 +5,7 @@ import {HeaderComponent} from './components/headerComponent/headerComponent'
 import {AdminPage} from './pages/adminPage/adminPage';
 import {HomePage} from "./pages/homePage/homePage";
 import {RegistrationPage} from "./pages/registrationPage/registrationPage";
+import {ForgetPasswordPage} from "./pages/registrationPage/forgetPasswordPage/forgetPasswordPage";
 
 @Component({
     selector: 'my-app',
@@ -33,6 +34,11 @@ import {RegistrationPage} from "./pages/registrationPage/registrationPage";
         path: '/registration',
         name: 'Registration',
         component: RegistrationPage
+    })
+    ,new Route({
+        path: '/forget-password',
+        name: 'ForgetPassword',
+        component: ForgetPasswordPage
     }),
     new Route({
         path: '/admin/...',

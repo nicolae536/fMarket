@@ -26,11 +26,15 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
         execute: function() {
             RegistrationService = (function () {
                 function RegistrationService(http) {
-                    this.ACCOUNT_CONTROLLER = '/registration';
+                    this.REGISTRATION_CONTROLLER = '/registration';
+                    this.ACCOUNT_CONTROLLER = '/account';
                     this.api = new fMarketApi_1.FMarketApi(http);
                 }
                 RegistrationService.prototype.createAccount = function (account) {
-                    return this.api.post(this.ACCOUNT_CONTROLLER + '/user', JSON.stringify(account));
+                    return this.api.post(this.REGISTRATION_CONTROLLER + '/user', JSON.stringify(account));
+                };
+                RegistrationService.prototype.resetPassword = function (account) {
+                    return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({ email: account.email, newPassword: account.password }));
                 };
                 RegistrationService = __decorate([
                     core_1.Injectable(), 

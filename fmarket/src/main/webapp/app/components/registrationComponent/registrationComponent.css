@@ -16,3 +16,8 @@
 .regisration-component.col-md-3.col-md-push-4.col-xs-12.clearfix .btn.btn-primary{
     width: 100%;
 }
+
+.regisration-component .links{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

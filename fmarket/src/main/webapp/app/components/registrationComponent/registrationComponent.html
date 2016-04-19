@@ -7,15 +7,20 @@
             <input type="text" class="form-control" [ngFormControl]="_registrationForm.controls['email']"/>
         </div>
         <div class="form-group">
-            <label>Parola</label>
+            <label>{{passwordLabel}}</label>
             <input type="password" class="form-control" [ngFormControl]="_registrationForm.controls['password']"/>
-        </div>
-        <div *ngIf="showNewsletter" class="form-group">
-            <label>Inscriema la newsletter</label>
-            <input type="checkbox" [ngFormControl]="_registrationForm.controls['subscribe']"/>
         </div>
         <div>
             <button type="submit" class="btn btn-primary">{{buttonLabel}}</button>
+        </div>
+        <div *ngIf="showForgetPasswordLink || showNewsletter"  class="links clearfix">
+            <div *ngIf="showForgetPasswordLink" class="pull-right">
+                <a [routerLink]="['ForgetPassword']">Mi-am uitat parola</a>
+            </div>
+            <div *ngIf="showNewsletter" class="pull-left" >
+                <label>Inscriema la newsletter</label>
+                <input type="checkbox" [ngFormControl]="_registrationForm.controls['subscribe']"/>
+            </div>
         </div>
     </form>
 </div>

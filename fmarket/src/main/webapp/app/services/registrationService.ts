@@ -9,13 +9,18 @@ import {RegisterAccount} from "../components/registrationComponent/registrationC
 @Injectable()
 export class RegistrationService {
     private api:FMarketApi;
-    private ACCOUNT_CONTROLLER:string = '/registration'
+    private REGISTRATION_CONTROLLER:string = '/registration'
+    private ACCOUNT_CONTROLLER:string = '/account'
 
     constructor(http:Http){
         this.api = new FMarketApi(http);
     }
 
     createAccount(account:RegisterAccount){
-        return this.api.post(this.ACCOUNT_CONTROLLER + '/user', JSON.stringify(account));
+        return this.api.post(this.REGISTRATION_CONTROLLER + '/user', JSON.stringify(account));
+    }
+
+    resetPassword(account:RegisterAccount) {
+        return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({email:account.email, newPassword:account.password}));
     }
 }

@@ -11,12 +11,10 @@ const folderPath = '/app/pages/registrationPage';
 @Component({
     selector:'registration-page',
     templateUrl:folderPath + '/registrationPage.html',
-    directives:[RegistrationComponent],
-    providers:[RegistrationService]
+    providers:[RegistrationService],
+    directives:[RegistrationComponent]
 })
 export class RegistrationPage implements OnInit{
-    private formTitle:string = 'Creeaza account';
-    private buttonLabel:string = 'Submit';
     private _registrationService:RegistrationService;
 
     constructor(registrationService:RegistrationService){

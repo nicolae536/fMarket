@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/17/2016.
  */
-System.register(['angular2/core', "../../components/registrationComponent/registrationComponent", "../../services/registrationService"], function(exports_1, context_1) {
+System.register(['angular2/core', "../../../components/registrationComponent/registrationComponent", "../../../services/registrationService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -14,7 +14,7 @@ System.register(['angular2/core', "../../components/registrationComponent/regist
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, registrationComponent_1, registrationService_1;
-    var folderPath, RegistrationPage;
+    var folderPath, ForgetPasswordPage;
     return {
         setters:[
             function (core_1_1) {
@@ -27,16 +27,15 @@ System.register(['angular2/core', "../../components/registrationComponent/regist
                 registrationService_1 = registrationService_1_1;
             }],
         execute: function() {
-            folderPath = '/app/pages/registrationPage';
-            RegistrationPage = (function () {
-                function RegistrationPage(registrationService) {
+            folderPath = '/app/pages/registrationPage/forgetPasswordPage';
+            ForgetPasswordPage = (function () {
+                function ForgetPasswordPage(registrationService) {
                     this._registrationService = registrationService;
                 }
-                RegistrationPage.prototype.ngOnInit = function () {
-                    return undefined;
+                ForgetPasswordPage.prototype.ngOnInit = function () {
                 };
-                RegistrationPage.prototype.registerUser = function (account) {
-                    this._registrationService.createAccount(account)
+                ForgetPasswordPage.prototype.resetPassword = function (account) {
+                    this._registrationService.resetPassword(account)
                         .map(function (response) {
                         if (response.text()) {
                             return response.json();
@@ -46,19 +45,20 @@ System.register(['angular2/core', "../../components/registrationComponent/regist
                     }, function (error) {
                     });
                 };
-                RegistrationPage = __decorate([
+                ForgetPasswordPage = __decorate([
                     core_1.Component({
-                        selector: 'registration-page',
-                        templateUrl: folderPath + '/registrationPage.html',
-                        providers: [registrationService_1.RegistrationService],
-                        directives: [registrationComponent_1.RegistrationComponent]
+                        selector: 'forget=password-page',
+                        templateUrl: folderPath + '/forgetPasswordPage.html',
+                        styles: ["\n    .forget-password-page{\n        padding-top: 14vh;\n    }\n    "],
+                        directives: [registrationComponent_1.RegistrationComponent],
+                        providers: [registrationService_1.RegistrationService]
                     }), 
                     __metadata('design:paramtypes', [registrationService_1.RegistrationService])
-                ], RegistrationPage);
-                return RegistrationPage;
+                ], ForgetPasswordPage);
+                return ForgetPasswordPage;
             }());
-            exports_1("RegistrationPage", RegistrationPage);
+            exports_1("ForgetPasswordPage", ForgetPasswordPage);
         }
     }
 });
-//# sourceMappingURL=registrationPage.js.map
+//# sourceMappingURL=forgetPasswordPage.js.map

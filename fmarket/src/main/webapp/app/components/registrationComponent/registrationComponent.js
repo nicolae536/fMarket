@@ -1,4 +1,4 @@
-System.register(["angular2/core", "angular2/common"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/common", "angular2/router"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "angular2/common"], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1;
+    var core_1, common_1, router_1;
     var APPLICATION_PATH, RegistrationComponent, RegisterAccount;
     return {
         setters:[
@@ -19,6 +19,9 @@ System.register(["angular2/core", "angular2/common"], function(exports_1, contex
             },
             function (common_1_1) {
                 common_1 = common_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }],
         execute: function() {
             APPLICATION_PATH = '/app/components/registrationComponent';
@@ -53,6 +56,14 @@ System.register(["angular2/core", "angular2/common"], function(exports_1, contex
                     __metadata('design:type', Boolean)
                 ], RegistrationComponent.prototype, "showNewsletter", void 0);
                 __decorate([
+                    core_1.Input('password-label'), 
+                    __metadata('design:type', String)
+                ], RegistrationComponent.prototype, "passwordLabel", void 0);
+                __decorate([
+                    core_1.Input('show-forget-password-link'), 
+                    __metadata('design:type', Boolean)
+                ], RegistrationComponent.prototype, "showForgetPasswordLink", void 0);
+                __decorate([
                     core_1.Output('registration-form'), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], RegistrationComponent.prototype, "$registrationForm", void 0);
@@ -60,7 +71,7 @@ System.register(["angular2/core", "angular2/common"], function(exports_1, contex
                     core_1.Component({
                         selector: 'registration-component',
                         templateUrl: APPLICATION_PATH + '/registrationComponent.html',
-                        directives: [common_1.FORM_DIRECTIVES]
+                        directives: [common_1.FORM_DIRECTIVES, router_1.ROUTER_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [common_1.FormBuilder])
                 ], RegistrationComponent);

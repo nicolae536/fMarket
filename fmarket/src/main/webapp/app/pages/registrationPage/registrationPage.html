@@ -1,9 +1,11 @@
 <link href="/app/pages/registrationPage/registrationPage.css" rel="stylesheet" />
 <div class="registration-page clearfix">
     <registration-component
-        [form-title]="formTitle"
-        [button-label]="buttonLabel"
+        [form-title]="'Creeaza account'"
+        [button-label]="'Inregistreaza'"
         [show-newsletter]="true"
+        [password-label]="'Parola'"
+        [show-forget-password-link]="true"
         (registration-form)="registerUser($event)">
     </registration-component>
 </div>

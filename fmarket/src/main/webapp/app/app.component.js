@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './components/headerComponent/headerComponent', './pages/adminPage/adminPage', "./pages/homePage/homePage", "./pages/registrationPage/registrationPage"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './components/headerComponent/headerComponent', './pages/adminPage/adminPage', "./pages/homePage/homePage", "./pages/registrationPage/registrationPage", "./pages/registrationPage/forgetPasswordPage/forgetPasswordPage"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './components/headerCompone
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, headerComponent_1, adminPage_1, homePage_1, registrationPage_1;
+    var core_1, router_1, headerComponent_1, adminPage_1, homePage_1, registrationPage_1, forgetPasswordPage_1;
     var AppComponent;
     return {
         setters:[
@@ -31,6 +31,9 @@ System.register(['angular2/core', 'angular2/router', './components/headerCompone
             },
             function (registrationPage_1_1) {
                 registrationPage_1 = registrationPage_1_1;
+            },
+            function (forgetPasswordPage_1_1) {
+                forgetPasswordPage_1 = forgetPasswordPage_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -56,6 +59,11 @@ System.register(['angular2/core', 'angular2/router', './components/headerCompone
                             path: '/registration',
                             name: 'Registration',
                             component: registrationPage_1.RegistrationPage
+                        }),
+                        new router_1.Route({
+                            path: '/forget-password',
+                            name: 'ForgetPassword',
+                            component: forgetPasswordPage_1.ForgetPasswordPage
                         }),
                         new router_1.Route({
                             path: '/admin/...',
