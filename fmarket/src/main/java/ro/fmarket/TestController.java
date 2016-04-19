@@ -15,7 +15,7 @@ public class TestController {
 	
 	@RequestMapping(value = "/mail")
 	public void sendMail() {
-		mailService.sendMail("lucy_baciu_2006@yahoo.com");
+		mailService.sendPasswordChangeMail("lucybaciu2006@gmail.com", "123456");
 	}
 	
 }
