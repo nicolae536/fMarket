@@ -80,4 +80,17 @@ public class SubscriberDao extends BaseDao<Subscriber> {
 		}
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Subscriber getSubscriberByToken(String token) {
+		final String hql = "from Subscriber where unsubscribeToken = :token";
+		final Query query = getSession().createQuery(hql);
+		query.setParameter("token", token);
+		List<Subscriber> list = query.list();
+		if (list.isEmpty()) {
+			return null;
+		} else {
+			return list.get(0);
+		}
+	}
 }

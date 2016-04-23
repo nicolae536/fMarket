@@ -18,6 +18,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ro.fmarket.core.base.BaseEntity;
 import ro.fmarket.model.account.Account;
+import ro.fmarket.model.demand.consts.DemandStatus;
 import ro.fmarket.model.geographical.city.DemandCity;
 
 @Data
@@ -30,9 +31,9 @@ public class Demand extends BaseEntity {
 
 	private String message;
 
-	private boolean phoneContact;
-	private boolean emailContact;
-	private boolean allCities;
+	private Boolean phoneContact;
+	private Boolean emailContact;
+	private Boolean allCities;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20, nullable = false)

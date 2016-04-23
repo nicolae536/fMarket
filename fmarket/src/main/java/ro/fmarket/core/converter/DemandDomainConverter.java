@@ -12,7 +12,6 @@ public class DemandDomainConverter {
 		final DemandDomainDTO result = new DemandDomainDTO();
 		result.setId(domain.getId());
 		result.setName(domain.getName());
-		//TODO
 		return result;
 	}
 

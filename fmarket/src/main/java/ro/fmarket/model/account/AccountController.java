@@ -27,5 +27,17 @@ public class AccountController {
 		}
 		accountService.requestPasswordChange(request.getEmail(), request.getNewPassword(), isLoggedIn);
 	}
-
+	
+	public void closeAccount() {
+		
+	}
+	
+	public void changeAccountDetails() {
+		
+	}
+	
+	public void changeMailAddress() {
+		
+	}
+	
 }

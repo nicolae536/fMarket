@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ro.fmarket.core.rest.CollectionResponse;
+import ro.fmarket.core.rest.PaginatedResponse;
 import ro.fmarket.model.subscriber.Subscriber;
 
 @RestController
@@ -38,7 +38,7 @@ public class SubscriberControllerAdmin {
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public CollectionResponse<SubscriberDTO> searchSubscribers(@Valid @RequestBody SubscriberSearchObject searchObject, @RequestParam("page") Integer page) {
+	public PaginatedResponse<SubscriberDTO> searchSubscribers(@Valid @RequestBody SubscriberSearchObject searchObject, @RequestParam("page") Integer page) {
 		return service.searchSubscribers(searchObject, page);
 	}
 

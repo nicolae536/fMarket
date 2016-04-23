@@ -12,7 +12,7 @@ import ro.fmarket.model.account.AccountDao;
 import ro.fmarket.model.account.consts.AccountStatus;
 import ro.fmarket.model.demand.Demand;
 import ro.fmarket.model.demand.DemandDao;
-import ro.fmarket.model.demand.DemandStatus;
+import ro.fmarket.model.demand.consts.DemandStatus;
 import ro.fmarket.model.token.DemandToken;
 import ro.fmarket.model.token.PasswordChangeToken;
 import ro.fmarket.model.token.RegistrationToken;

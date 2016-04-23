@@ -2,7 +2,7 @@ package ro.fmarket.admin.subscriber;
 
 import java.util.List;
 
-import ro.fmarket.core.rest.CollectionResponse;
+import ro.fmarket.core.rest.PaginatedResponse;
 import ro.fmarket.model.subscriber.Subscriber;
 
 public interface SubscriberServiceAdmin {
@@ -15,6 +15,6 @@ public interface SubscriberServiceAdmin {
 
 	List<Subscriber> getSubscribersForMobile();
 
-	CollectionResponse<SubscriberDTO> searchSubscribers(SubscriberSearchObject searchObject, Integer page);
+	PaginatedResponse<SubscriberDTO> searchSubscribers(SubscriberSearchObject searchObject, Integer page);
 
 }

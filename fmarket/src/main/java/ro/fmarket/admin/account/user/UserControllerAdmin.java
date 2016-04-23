@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ro.fmarket.core.rest.CollectionResponse;
+import ro.fmarket.core.rest.PaginatedResponse;
 
 @RestController
 @RequestMapping("/admin/users")
@@ -20,7 +20,7 @@ public class UserControllerAdmin {
 	private UserServiceAdmin userService;
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public CollectionResponse<UserDTO> searchUsers(@Valid @RequestBody UserSearchObject searchObject, @RequestParam("page") Integer page) {
+	public PaginatedResponse<UserDTO> searchUsers(@Valid @RequestBody UserSearchObject searchObject, @RequestParam("page") Integer page) {
 		return userService.searchUsers(searchObject, page);
 	}
 
@@ -37,6 +37,11 @@ public class UserControllerAdmin {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void deleteUser(@PathVariable("id") Integer id) {
 		userService.deleteUser(id);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public UserDTO getUserDetails(@PathVariable("id") Integer id) {
+		return userService.getUser(id);
 	}
 	
 }

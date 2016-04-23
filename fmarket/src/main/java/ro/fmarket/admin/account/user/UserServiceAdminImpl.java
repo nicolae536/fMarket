@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.fmarket.core.converter.AccountConverter;
-import ro.fmarket.core.rest.CollectionResponse;
+import ro.fmarket.core.rest.PaginatedResponse;
 import ro.fmarket.core.utils.DateUtils;
 import ro.fmarket.core.utils.PaginationUtils;
 import ro.fmarket.model.account.Account;
@@ -36,13 +36,13 @@ public class UserServiceAdminImpl implements UserServiceAdmin {
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public CollectionResponse<UserDTO> searchUsers(UserSearchObject searchObject, Integer page) {
+	public PaginatedResponse<UserDTO> searchUsers(UserSearchObject searchObject, Integer page) {
 		final Criteria criteria1 = accountDao.createUserCriteria(searchObject);
 		final Criteria criteria2 = accountDao.createUserCriteria(searchObject);
 		List<Account> users = accountDao.getUsers(criteria1, page);
 		int totalCount = accountDao.getCriteriaTotalCount(criteria2).intValue();
 		List<UserDTO> dtoUserList = AccountConverter.toDTOList(users);
-		final CollectionResponse<UserDTO> collectionResponse = new CollectionResponse<>(dtoUserList);
+		final PaginatedResponse<UserDTO> collectionResponse = new PaginatedResponse<>(dtoUserList);
 		collectionResponse.setTotalPages(PaginationUtils.calculateTotalPages(ACCOUNTS_PAGE_SIZE, totalCount));
 		return collectionResponse;
 	}
@@ -100,6 +100,12 @@ public class UserServiceAdminImpl implements UserServiceAdmin {
 		account.setType(AccountType.USER);
 		account.setStatus(AccountStatus.ACTIVE);
 		return account;
+	}
+
+	@Override
+	public UserDTO getUser(Integer accountId) {
+		Account account = accountDao.get(accountId);
+		return AccountConverter.toDTO(account);
 	}
 
 }

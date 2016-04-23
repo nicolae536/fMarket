@@ -5,22 +5,22 @@ import java.util.Collection;
 import lombok.Data;
 
 @Data
-public class CollectionResponse<T> {
+public class PaginatedResponse<T> {
 
 	private int page;
 	private int totalPages;
 	private Collection<T> data;
 	
-	public CollectionResponse(Collection<T> data) {
+	public PaginatedResponse(Collection<T> data) {
 		this.data = data;
 	}
 	
-	public CollectionResponse(Collection<T> data, int totalPAges) {
+	public PaginatedResponse(Collection<T> data, int totalPAges) {
 		this.data = data;
 		this.totalPages = totalPAges;
 	}
 	
-	public CollectionResponse(Collection<T> data, int totalPages, int page) {
+	public PaginatedResponse(Collection<T> data, int totalPages, int page) {
 		this.data = data;
 	}
 	

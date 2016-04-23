@@ -36,8 +36,8 @@ public class DemandController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public void cancelDemand(CancelDemandRequest request, @AuthenticationPrincipal FMarketPrincipal principal) {
-		service.cancelDemand(principal.getAccountId(), request);
+	public void closeDemand(CancelDemandRequest request, @AuthenticationPrincipal FMarketPrincipal principal) {
+		service.closeDemand(principal.getAccountId(), request);
 	}
 
 }

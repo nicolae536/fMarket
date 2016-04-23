@@ -6,7 +6,7 @@ public interface DemandService {
 
 	void addDemand(NewDemandRequest request, boolean isAccountLogged);
 	
-	void cancelDemand(Integer accountId, CancelDemandRequest demandId);
+	void closeDemand(Integer accountId, CancelDemandRequest demandId);
 	
 	List<SelfDemandDTO> getAccountDemands(Integer accountId);
 

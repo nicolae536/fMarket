@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ro.fmarket.core.constants.PaginationConstants;
 import ro.fmarket.core.converter.SubscriberConverter;
-import ro.fmarket.core.rest.CollectionResponse;
+import ro.fmarket.core.rest.PaginatedResponse;
 import ro.fmarket.core.utils.DateUtils;
 import ro.fmarket.core.utils.PaginationUtils;
 import ro.fmarket.core.utils.TokenUtils;
@@ -64,12 +64,12 @@ public class SubscriberServiceAdminImpl implements SubscriberServiceAdmin {
 	}
 
 	@Override
-	public CollectionResponse<SubscriberDTO> searchSubscribers(SubscriberSearchObject searchObject, Integer page) {
+	public PaginatedResponse<SubscriberDTO> searchSubscribers(SubscriberSearchObject searchObject, Integer page) {
 		Criteria criteria1 = dao.createSubscribersCriteria(searchObject);
 		Criteria criteria2 = dao.createSubscribersCriteria(searchObject);
 		List<Subscriber> subscribers = dao.searchSubscribers(criteria1, page);
 		Long totalCount = dao.getCriteriaTotalCount(criteria2);
-		final CollectionResponse<SubscriberDTO> result = new CollectionResponse<>(SubscriberConverter.toDTOList(subscribers));
+		final PaginatedResponse<SubscriberDTO> result = new PaginatedResponse<>(SubscriberConverter.toDTOList(subscribers));
 		result.setTotalPages(PaginationUtils.calculateTotalPages(PaginationConstants.SUBSCRIBERS_PAGE_SIZE, totalCount.intValue()));
 		result.setPage(page);
 		return result;

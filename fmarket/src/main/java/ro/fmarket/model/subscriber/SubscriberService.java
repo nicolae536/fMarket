@@ -4,6 +4,6 @@ public interface SubscriberService {
 
 	void subscribeEmail(String email);
 
-	void unsubscribeEmail(String email);
+	void unsubscribeByToken(String email);
 
 }

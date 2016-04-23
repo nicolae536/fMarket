@@ -14,6 +14,7 @@ import ro.fmarket.core.utils.TokenUtils;
 import ro.fmarket.mail.MailService;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.account.AccountDao;
+import ro.fmarket.model.demand.consts.DemandStatus;
 import ro.fmarket.model.geographical.city.CityDao;
 import ro.fmarket.model.geographical.city.DemandCity;
 import ro.fmarket.model.registration.RegistrationService;
@@ -66,7 +67,7 @@ public class DemandServiceImpl implements DemandService {
 	}
 
 	@Override
-	public void cancelDemand(Integer accountId, CancelDemandRequest request) {
+	public void closeDemand(Integer accountId, CancelDemandRequest request) {
 		final Demand demand = demandDao.get(request.getDemandId());
 		if (demand != null && demand.getAccount().getId().equals(accountId)) {
 			demand.setClosedDate(DateUtils.now());
@@ -111,7 +112,7 @@ public class DemandServiceImpl implements DemandService {
 		Account account;
 		if (isAccountLogged) {
 			account = accountDao.getByEmail(request.getEmail());
-			demand.setStatus(DemandStatus.IN_REVIEW);
+			demand.setStatus(DemandStatus.WAITING_FOR_REVIEW);
 		} else {
 			account = accountDao.getByEmail(request.getEmail());
 			if (account == null) {
