@@ -32,7 +32,7 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-City",
         execute: function() {
             DemandService = (function () {
                 function DemandService(http) {
-                    this._DemandController = '/demands';
+                    this._DemandController = '/admin/demands';
                     this.api = new fMarketApi_1.FMarketApi(http);
                 }
                 DemandService.prototype.getCityList = function () {
@@ -44,6 +44,9 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-City",
                     var beckedDemand = this.convertDemand(demand);
                     return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
                 };
+                DemandService.prototype.getDemands = function (demandsType) {
+                    return this.api.get(this._DemandController + demandsType);
+                };
                 DemandService.prototype.convertDemand = function (demand) {
                     var newDemand = demand;
                     newDemand.cities = _.map(demand.cities, function (city) {
@@ -51,6 +54,18 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-City",
                     });
                     newDemand.domain = demand.domain.boundItem['id'];
                     return newDemand;
+                };
+                DemandService.prototype.getDemand = function (_demandId) {
+                    return this.api.get(this._DemandController + ("/" + _demandId));
+                };
+                DemandService.prototype.acceptDemand = function (demand) {
+                    return this.api.post(this._DemandController + ("/accept/" + demand.id), JSON.stringify(''));
+                };
+                DemandService.prototype.rejectDemand = function (id) {
+                    return this.api.post(this._DemandController + ("/reject/" + id), JSON.stringify(''));
+                };
+                DemandService.prototype.saveDemand = function (demand) {
+                    return this.api.post(this._DemandController, JSON.stringify(demand));
                 };
                 DemandService = __decorate([
                     core_1.Injectable(), 

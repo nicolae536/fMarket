@@ -15,7 +15,7 @@ export class RequestTypeService {
         this.api = new FMarketApi(http);
     }
 
-    getRequestTypesWithFilters(searchQuery:string) {
+    getRequestTypesWithFilters(searchQuery?:string) {
         // + `/?searchQuery=${searchQuery}`
         return this.api.get(this._requestDomains);
     }

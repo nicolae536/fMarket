@@ -34,11 +34,12 @@ System.register(['angular2/core', 'angular2/router', 'ng2-bootstrap/ng2-bootstra
                         { link: 'Registration', name: 'Registration' }
                     ];
                     this._adminApplicationPages = [
-                        { link: 'Admin/Users', name: 'Users' },
-                        { link: 'Admin/Subscribers', name: 'Subscribers' },
-                        { link: 'Admin/Categories/CategoriesMenu', name: 'Categories menu' },
-                        { link: 'Admin/Categories/Companies', name: 'Companies' },
-                        { link: 'Admin/Categories/Requests', name: 'Requests' },
+                        { link: 'Admin/Users', name: 'Useri' },
+                        { link: 'Admin/Subscribers', name: 'Subscriberi' },
+                        { link: 'Admin/Categories/CategoriesMenu', name: 'Meniu categorii' },
+                        { link: 'Admin/Categories/Companies', name: 'Compani' },
+                        { link: 'Admin/Categories/Domains', name: 'Domenii' },
+                        { link: 'Admin/Demands/DemandsList', name: 'Cereri' }
                     ];
                 };
                 HeaderComponent = __decorate([

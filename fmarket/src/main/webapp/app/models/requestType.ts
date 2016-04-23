@@ -1,4 +1,4 @@
-export class RequestType {
+export class RequestType{
     id:string;
     name:string;
     companies:number;

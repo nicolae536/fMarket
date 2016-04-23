@@ -97,6 +97,7 @@ export class DemandComponent implements OnInit {
 }
 
 export class Demand implements IDemand {
+    id:string;
     title:string='';
     message:string='';
     email:string='';
@@ -108,6 +109,7 @@ export class Demand implements IDemand {
     agreePhoneContact:boolean = false;
     agreeEmailContact:boolean = false;
     allCities:boolean = false;
+    isInEditMode:boolean = false
 }
 
 export interface IDemand {

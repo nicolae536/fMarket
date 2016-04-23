@@ -12,7 +12,7 @@ import {Select2Item} from "../components/selectComponent/selectComponent";
 
 @Injectable()
 export class DemandService {
-    private _DemandController:string = '/demands';
+    private _DemandController:string = '/admin/demands';
     private api:FMarketApi;
 
     constructor(http:Http) {
@@ -31,6 +31,11 @@ export class DemandService {
         return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
     }
 
+    getDemands(demandsType:string){
+        return this.api.get(this._DemandController + demandsType);
+    }
+
+
     private convertDemand(demand:Demand) {
         let newDemand = demand;
         newDemand.cities = _.map(demand.cities, (city:Select2Item)=>{
@@ -39,5 +44,21 @@ export class DemandService {
         newDemand.domain = demand.domain.boundItem['id'];
 
         return newDemand;
+    }
+
+    getDemand(_demandId:number) {
+        return this.api.get(this._DemandController + `/${_demandId}`);
+    }
+
+    acceptDemand(demand:Demand) {
+        return this.api.post(this._DemandController + `/accept/${demand.id}`, JSON.stringify(''));
+    }
+
+    rejectDemand(id:number) {
+        return this.api.post(this._DemandController + `/reject/${id}`, JSON.stringify(''));
+    }
+
+    saveDemand(demand:Demand) {
+        return this.api.post(this._DemandController, JSON.stringify(demand))
     }
 }

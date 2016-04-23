@@ -6,6 +6,7 @@ import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, Location } from 'angular2
 import {UsersPage} from './usersPage/usersPage';
 import {SubscribersPage} from './subscribersPage/subscribersPage';
 import {CategoriesPage} from './categoriesPage/categoriesPage';
+import {DemandsPage} from "./demandsPage/demandsPage";
 
 var applicationPath:string = '/app/pages/adminPage';
 
@@ -31,6 +32,11 @@ var applicationPath:string = '/app/pages/adminPage';
         path: '/categorii/...',
         component: CategoriesPage,
         name: 'Categories'
+    }),
+    new Route({
+        path: '/cereri/...',
+        component: DemandsPage,
+        name: 'Demands'
     }),
 ])
 

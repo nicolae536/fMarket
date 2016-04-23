@@ -1,25 +1,25 @@
-.requests-page .requests-type-filter {
+.domains-page .domain-type-filter {
     padding-top: 1%;
 }
 
-.requests-page .add-request {
+.domains-page .add-request {
     padding-top: 1%;
 }
 
-.requests-page .requests-type-filter .search-field {
+.domains-page .domain-type-filter .search-field {
     width: 300px;
 }
 
-.requests-page .requests-type {
+.domains-page .domain-type {
     padding-top: 1%;
 }
 
-.requests-page .requests-type .list-group .list-group-item {
+.domains-page .domain-type .list-group .list-group-item {
     padding-top: 12px;
     height: 42px;
 }
 
-.requests-page .requests-type .list-group .list-group-item .col-md-9 .form-control {
+.domains-page .domain-type .list-group .list-group-item .col-md-9 .form-control {
     margin-top: -13px;
     height: 42px;
     margin-left: -31px;
@@ -27,11 +27,11 @@
     z-index: 10;
 }
 
-.requests-page .requests-type .list-group .list-group-item .col-md-3 {
+.domains-page .domain-type .list-group .list-group-item .col-md-3 {
     padding-right: 0px;
 }
 
-.requests-page .requests-type .list-group .list-group-item .secondary {
+.domains-page .domain-type .list-group .list-group-item .secondary {
     float: right;
     padding-left: 13px;
     border-left: 1px solid rgb(221, 221, 221);

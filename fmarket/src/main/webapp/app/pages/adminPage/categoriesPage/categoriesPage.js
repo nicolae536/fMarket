@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesPage", "./requestsPage/requestsPage", "./categoriesMenuPage/categoriesMenuPage"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesPage", "./domainsPage/domainsPage", "./categoriesMenuPage/categoriesMenuPage", "../../../components/tabsComponent/tabsRoutingComponent"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesP
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, companiesPage_1, requestsPage_1, categoriesMenuPage_1;
+    var core_1, router_1, companiesPage_1, domainsPage_1, categoriesMenuPage_1, tabsRoutingComponent_1;
     var applicationPath, CategoriesPage;
     return {
         setters:[
@@ -23,28 +23,29 @@ System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesP
             function (companiesPage_1_1) {
                 companiesPage_1 = companiesPage_1_1;
             },
-            function (requestsPage_1_1) {
-                requestsPage_1 = requestsPage_1_1;
+            function (domainsPage_1_1) {
+                domainsPage_1 = domainsPage_1_1;
             },
             function (categoriesMenuPage_1_1) {
                 categoriesMenuPage_1 = categoriesMenuPage_1_1;
+            },
+            function (tabsRoutingComponent_1_1) {
+                tabsRoutingComponent_1 = tabsRoutingComponent_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/categoriesPage';
             CategoriesPage = (function () {
-                function CategoriesPage(location, router) {
-                    this.tabPagesList = [{ name: 'Meniu', link: 'Categories/CategoriesMenu' },
-                        { name: 'Companii', link: 'Categories/Companies' },
-                        { name: 'Cereri', link: 'Categories/Requests' }];
-                    this.location = location;
-                    this.router = router;
+                function CategoriesPage() {
+                    this.tabPagesList = [{ name: 'Meniu', link: 'Categories/CategoriesMenu', enableMarker: false, markerContent: "" },
+                        { name: 'Companii', link: 'Categories/Companies', enableMarker: false, markerContent: "" },
+                        { name: 'Cereri', link: 'Categories/Domains', enableMarker: false, markerContent: "" }];
                 }
                 CategoriesPage = __decorate([
                     core_1.Component({
                         selector: 'categoryes-page',
                         templateUrl: applicationPath + '/categoriesPage.html',
                         styleUrls: [applicationPath + '/categoriesPage.css'],
-                        directives: [router_1.ROUTER_DIRECTIVES]
+                        directives: [tabsRoutingComponent_1.TabsRoutingComponent, router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.RouteConfig([
                         new router_1.Route({
@@ -59,12 +60,12 @@ System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesP
                             name: 'Companies'
                         }),
                         new router_1.Route({
-                            path: '/cereri',
-                            component: requestsPage_1.RequestsPage,
-                            name: 'Requests'
+                            path: '/domenii',
+                            component: domainsPage_1.DomainsPage,
+                            name: 'Domains'
                         }),
                     ]), 
-                    __metadata('design:paramtypes', [router_1.Location, router_1.Router])
+                    __metadata('design:paramtypes', [])
                 ], CategoriesPage);
                 return CategoriesPage;
             }());

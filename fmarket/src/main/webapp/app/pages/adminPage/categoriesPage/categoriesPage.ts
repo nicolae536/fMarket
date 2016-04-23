@@ -2,8 +2,9 @@ import {Component, OnInit, ViewEncapsulation, Injectable} from 'angular2/core';
 import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, Location } from 'angular2/router';
 
 import {CompaniesPage} from "./companiesPage/companiesPage";
-import {RequestsPage} from "./requestsPage/requestsPage";
+import {DomainsPage} from "./domainsPage/domainsPage";
 import {CategoriesMenuPage} from "./categoriesMenuPage/categoriesMenuPage";
+import {Tab, TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage';
 
@@ -11,7 +12,7 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage';
     selector: 'categoryes-page',
     templateUrl: applicationPath + '/categoriesPage.html',
     styleUrls: [applicationPath + '/categoriesPage.css'],
-    directives: [ROUTER_DIRECTIVES]
+    directives: [TabsRoutingComponent, ROUTER_DIRECTIVES]
 })
 
 @RouteConfig([
@@ -27,23 +28,20 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage';
         name: 'Companies'
     }),
     new Route({
-        path: '/cereri',
-        component: RequestsPage,
-        name: 'Requests'
+        path: '/domenii',
+        component: DomainsPage,
+        name: 'Domains'
     }),
 ])
 
 
 export class CategoriesPage {
 
-    location:Location;
-    router:Router;
-    tabPagesList = [{name: 'Meniu', link: 'Categories/CategoriesMenu'},
-        {name: 'Companii', link: 'Categories/Companies'},
-        {name: 'Cereri', link: 'Categories/Requests'}];
+    tabPagesList:Array<Tab>;
 
-    constructor(location:Location, router:Router) {
-        this.location = location;
-        this.router = router;
+    constructor() {
+        this.tabPagesList = [{name: 'Meniu', link: 'Categories/CategoriesMenu', enableMarker:false, markerContent: ""},
+            {name: 'Companii', link: 'Categories/Companies', enableMarker:false, markerContent: ""},
+            {name: 'Cereri', link: 'Categories/Domains', enableMarker:false, markerContent: ""}];
     }
 } 

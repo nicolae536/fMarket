@@ -1,7 +1,7 @@
-<link rel="stylesheet" type="text/css" href="/app/pages/adminPage/categoriesPage/requestsPage/requestsPage.css">
+<link rel="stylesheet" type="text/css" href="/app/pages/adminPage/categoriesPage/domainsPage/domainsPage.css">
 
-<div class="requests-page">
-    <div class="requests-type-filter clearfix">
+<div class="domains-page">
+    <div class="domain-type-filter clearfix">
         <div class="pull-right">
             <button class="btn btn-primary" (click)="toggleAddRequestType(true)">
                 <span class="glyphicon glyphicon-plus"></span> Adauga tip de cerere
@@ -34,9 +34,9 @@
             </div>
         </div>
     </div>
-    <div class="requests-type">
+    <div class="domain-type">
         <ul class="list-group">
-            <li *ngFor="#requestType of requestTypes" class="list-group-item clearfix">
+            <li *ngFor="#requestType of domainsTypes" class="list-group-item clearfix">
                 <div class="col-md-9">
   					<span *ngIf="!requestType.isInEditMode">
   						{{requestType.name}}

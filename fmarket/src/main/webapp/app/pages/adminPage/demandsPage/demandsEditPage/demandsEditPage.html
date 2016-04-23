@@ -1,0 +1,10 @@
+<div class="demand-edit-page clearfix">
+    <demand-edit-component
+        [demand]="_demand"
+        [domains-list]="_domainsList"
+        [cities-list]="_cityesList"
+        (reject-demand)="rejectDemand($event)"
+        (accept-demand)="acceptDemand($event)"
+        (save-demand)="saveEditedDemand($event)">
+    </demand-edit-component>
+</div>

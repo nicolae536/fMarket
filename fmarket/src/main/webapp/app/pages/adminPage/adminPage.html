@@ -12,6 +12,8 @@
                             [routerLink]="['Admin/Subscribers']">Subscribers</a></li>
                     <li [ngClass]="router.isRouteActive(router.generate(['Admin/Categories/CategoriesMenu'])) ? 'active':''">
                         <a [routerLink]="['Admin/Categories/CategoriesMenu']">Categories</a></li>
+                    <li [ngClass]="router.isRouteActive(router.generate(['Admin/Demands'])) ? 'active':''">
+                        <a [routerLink]="['Admin/Demands']">Demands</a></li>
                 </ul>
             </div>
 
@@ -21,7 +23,3 @@
         </div>
     </div>
 </div>
-<!-- <footer class="container-fluid">
-  <p>Footer Text</p>
-</footer>
- -->

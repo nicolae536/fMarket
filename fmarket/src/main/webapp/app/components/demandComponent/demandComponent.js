@@ -134,6 +134,7 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                     this.agreePhoneContact = false;
                     this.agreeEmailContact = false;
                     this.allCities = false;
+                    this.isInEditMode = false;
                 }
                 return Demand;
             }());

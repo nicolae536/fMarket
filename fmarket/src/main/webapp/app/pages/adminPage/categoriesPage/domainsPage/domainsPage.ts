@@ -5,20 +5,17 @@ import {RequestTypeService} from '../../../../services/requestTypeService';
 import {Response} from "angular2/http";
 
 
-let applicationPath:string = '/app/pages/adminPage/categoriesPage/requestsPage';
+let applicationPath:string = '/app/pages/adminPage/categoriesPage/domainsPage';
 
 @Component({
     selector: 'companies-Page',
-    templateUrl: applicationPath + '/requestsPage.html',
-    styleUrls: [applicationPath + '/requestsPage.css'],
-    //encapsulation: ViewEncapsulation.None,
-
+    templateUrl: applicationPath + '/domainsPage.html',
+    styleUrls: [applicationPath + '/domainsPage.css'],
     providers: [RequestTypeService],
-    //directives:[ActionDialog, CreateUserDialog, NgForm]
 })
 
-export class RequestsPage implements OnInit {
-    requestTypes:Array<RequestType> = [new RequestType("", "test", 1), new RequestType("", "test", 3), new RequestType("", "test", 2)];
+export class DomainsPage implements OnInit {
+    domainsTypes:Array<RequestType> = [new RequestType("", "test", 1), new RequestType("", "test", 3), new RequestType("", "test", 2)];
     searchQuery:string = "";
     showAddRequestRow:boolean;
     newRequestType:string;
@@ -42,10 +39,10 @@ export class RequestsPage implements OnInit {
             })
             .subscribe(
                 response => {
-                    this.requestTypes = response;
+                    this.domainsTypes = response;
                 },
                 error => {
-                    this.requestTypes = [];
+                    this.domainsTypes = [];
                 });
 
     }
@@ -78,10 +75,10 @@ export class RequestsPage implements OnInit {
             })
             .subscribe(
                 response => {
-                    this.requestTypes = response;
+                    this.domainsTypes = response;
                 },
                 error => {
-                    this.requestTypes = [];
+                    this.domainsTypes = [];
                 });
 
     }
