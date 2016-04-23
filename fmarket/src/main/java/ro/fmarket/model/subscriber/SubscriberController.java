@@ -21,7 +21,7 @@ public class SubscriberController {
 		subscriberService.subscribeEmail(request.getEmail());
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/unsubscribe", method = RequestMethod.GET)
 	public void unsubscribeByToken(@RequestParam String token) {
 		subscriberService.unsubscribeByToken(token);
 	}

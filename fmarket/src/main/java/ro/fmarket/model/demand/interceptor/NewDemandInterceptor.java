@@ -1,4 +1,4 @@
-package ro.fmarket.mail;
+package ro.fmarket.model.demand.interceptor;
 
 import ro.fmarket.model.demand.Demand;
 

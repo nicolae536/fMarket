@@ -6,4 +6,6 @@ public class PaginationConstants {
 	
 	public static int SUBSCRIBERS_PAGE_SIZE = 30;
 	
+	public static int DEMANDS_PAGE_SIZE = 20;
+	
 }
