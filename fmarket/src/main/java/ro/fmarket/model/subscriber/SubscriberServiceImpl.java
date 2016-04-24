@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.fmarket.core.utils.DateUtils;
+import ro.fmarket.core.utils.TokenUtils;
 
 @Service
 @Transactional
@@ -12,18 +13,20 @@ public class SubscriberServiceImpl implements SubscriberService {
 
 	@Autowired
 	private SubscriberDao dao;
-	
+
 	@Override
 	public void subscribeEmail(String email) {
-		final Subscriber subscriber = dao.getByEmail(email);
-		if (subscriber == null) { // not exist yet
-			final Subscriber newSubscriber = createNewSubscriber(email);
-			dao.save(newSubscriber);
-		} else {
-			
+		Subscriber subscriber = dao.getByEmail(email);
+		if (subscriber == null) {
+			subscriber = createNewSubscriber(email);
+			dao.save(subscriber);
+		} else { // activate subscriber
+			subscriber.setUnsubscribeDate(null);
+			subscriber.setSubscribeDate(DateUtils.now());
+			dao.save(subscriber);
 		}
 	}
-	
+
 	@Override
 	public void unsubscribeByToken(String token) {
 		final Subscriber subscriber = dao.getSubscriberByToken(token);
@@ -32,11 +35,13 @@ public class SubscriberServiceImpl implements SubscriberService {
 			dao.save(subscriber);
 		}
 	}
-	
+
 	private Subscriber createNewSubscriber(String email) {
 		final Subscriber subscriber = new Subscriber();
-		
+		subscriber.setEmail(email);
+		subscriber.setUnsubscribeToken(TokenUtils.generateToken());
+		subscriber.setSubscribeDate(DateUtils.now());
 		return subscriber;
 	}
-	
+
 }

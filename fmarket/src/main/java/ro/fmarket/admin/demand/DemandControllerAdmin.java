@@ -46,7 +46,7 @@ public class DemandControllerAdmin {
 		service.declineDemand(request);
 	}
 
-	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public List<DemandAdminDTO> getInReviewDemands() {
 		return service.getInReviewDemands();
 	}

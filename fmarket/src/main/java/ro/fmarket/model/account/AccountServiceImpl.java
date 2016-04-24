@@ -52,6 +52,16 @@ public class AccountServiceImpl implements AccountService {
 			requestPasswordChangeForAccount(account, newPassword);
 		}
 	}
+	
+	@Override
+	public UserDetails getUserDetails(String email) {
+		Account account = accountDao.getByEmail(email);
+		if (account == null) {
+			throw new NotFoundException("Account");
+		}
+		UserDetails userDetails = new FMarketPrincipal(account.getEmail(), null, createAuthorities(account.getType().name()));
+		return userDetails;
+	}
 
 	@Override
 	public void requestPasswordChange(Account account, String newPassword) {
@@ -102,5 +112,7 @@ public class AccountServiceImpl implements AccountService {
 		result.setToken(token);
 		return result;
 	}
+
+	
 
 }
