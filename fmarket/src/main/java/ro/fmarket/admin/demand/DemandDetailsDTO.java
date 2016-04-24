@@ -23,8 +23,6 @@ public class DemandDetailsDTO {
 	
 	private boolean phoneContact;
 	
-	private boolean emailContact;
-	
 	private DateTime creationDate;
 	
 	private DateTime activationDate;

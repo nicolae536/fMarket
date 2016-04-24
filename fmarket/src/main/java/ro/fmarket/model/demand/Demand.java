@@ -34,7 +34,6 @@ public class Demand extends BaseEntity {
 	private String message;
 
 	private Boolean phoneContact;
-	private Boolean emailContact;
 	private Boolean allCities;
 	
 	
