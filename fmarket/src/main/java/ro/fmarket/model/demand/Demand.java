@@ -19,6 +19,7 @@ import lombok.EqualsAndHashCode;
 import ro.fmarket.core.base.BaseEntity;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.demand.consts.DemandStatus;
+import ro.fmarket.model.domain.demand.DemandDomain;
 import ro.fmarket.model.geographical.city.DemandCity;
 
 @Data
@@ -29,11 +30,16 @@ public class Demand extends BaseEntity {
 	@ManyToOne
 	private Account account;
 
+	private String title;
 	private String message;
 
 	private Boolean phoneContact;
 	private Boolean emailContact;
 	private Boolean allCities;
+	
+	
+	@ManyToOne(optional = false)
+	private DemandDomain domain;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20, nullable = false)

@@ -36,7 +36,7 @@ public class DemandControllerAdmin {
 		return service.getDemandDetails(id);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@RequestMapping(method = RequestMethod.PUT)
 	public void updateDemand(@Valid @RequestBody UpdateDemandRequest request) {
 		service.updateDemand(request);
 	}
