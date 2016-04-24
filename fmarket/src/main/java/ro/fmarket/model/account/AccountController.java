@@ -27,17 +27,14 @@ public class AccountController {
 		}
 		accountService.requestPasswordChange(request.getEmail(), request.getNewPassword(), isLoggedIn);
 	}
-	
-	public void closeAccount() {
-		
+
+	@RequestMapping(value = "/close", method = RequestMethod.DELETE)
+	public void closeAccount(@AuthenticationPrincipal FMarketPrincipal principal) {
+
 	}
-	
+
 	public void changeAccountDetails() {
-		
+
 	}
-	
-	public void changeMailAddress() {
-		
-	}
-	
+
 }
