@@ -81,14 +81,15 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                 SubscribersPage.prototype.showSubscriberDialog = function () {
                     this.createSubscriberDialog.show("", new subscriber_1.Subscriber());
                 };
-                SubscribersPage.prototype.createSubscriber = function () {
+                SubscribersPage.prototype.createSubscriber = function (subscriberValue) {
                     var me = this;
-                    this._subscribersService.subscribe(this.createSubscriberDialog.getValue().email)
+                    this._subscribersService.subscribe(subscriberValue.email)
                         .map(function (response) {
                         if (response.text().length > 0) {
                             return response.json();
                         }
-                    }).subscribe(function (response) {
+                    })
+                        .subscribe(function (response) {
                         me.getSubscribersWithFilters();
                     }, function (error) {
                     });
@@ -112,7 +113,8 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                         if (response.text().length > 0) {
                             return response.json();
                         }
-                    }).subscribe(function (response) {
+                    })
+                        .subscribe(function (response) {
                     }, function (error) {
                     });
                 };

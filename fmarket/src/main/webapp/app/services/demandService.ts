@@ -19,7 +19,6 @@ export class DemandService {
         this.api = new FMarketApi(http);
     }
 
-
     getCityList() {
         return new Observable((observer)=>{
             observer.next(CITYES);
@@ -31,19 +30,16 @@ export class DemandService {
         return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
     }
 
-    getDemands(demandsType:string){
-        return this.api.get(this._DemandController + demandsType);
+    getDemandsWithFilters(search:Object){
+        return this.api.post(this._DemandController + '/search', JSON.stringify(search));
     }
 
+    getNewDemands(){
+        return this.api.get(this._DemandController + '/new');
+    }
 
-    private convertDemand(demand:Demand) {
-        let newDemand = demand;
-        newDemand.cities = _.map(demand.cities, (city:Select2Item)=>{
-            return city.boundItem['id'];
-        })
-        newDemand.domain = demand.domain.boundItem['id'];
-
-        return newDemand;
+    getDemandStatuses(){
+        return this.api.get(this._DemandController + '/statuses');
     }
 
     getDemand(_demandId:number) {
@@ -54,11 +50,21 @@ export class DemandService {
         return this.api.post(this._DemandController + `/accept/${demand.id}`, JSON.stringify(''));
     }
 
-    rejectDemand(id:number) {
-        return this.api.post(this._DemandController + `/reject/${id}`, JSON.stringify(''));
+    declineDemand(id:number) {
+        return this.api.post(this._DemandController + `/decline/${id}`, JSON.stringify(''));
     }
 
     saveDemand(demand:Demand) {
-        return this.api.post(this._DemandController, JSON.stringify(demand))
+        return this.api.put(this._DemandController, JSON.stringify(demand))
+    }
+
+    private convertDemand(demand:Demand) {
+        let newDemand = demand;
+        newDemand.cities = _.map(demand.cities, (city:Select2Item)=>{
+            return city.boundItem['id'];
+        })
+        newDemand.domain = demand.domain.boundItem['id'];
+
+        return newDemand;
     }
 }

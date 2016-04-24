@@ -10,7 +10,7 @@
     </action-dialog>
     <create-subscriber-dialog
             (loaded)="referenceCreateSubscriberDialogInComponent($event)"
-            (action-confirmed)="createSubscriber($event)">
+            (create-subscriber)="createSubscriber($event)">
     </create-subscriber-dialog>
     <div class="subscribers-page">
         <!-- TODO catch close event -->

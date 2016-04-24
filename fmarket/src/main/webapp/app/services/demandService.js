@@ -44,8 +44,26 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-City",
                     var beckedDemand = this.convertDemand(demand);
                     return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
                 };
-                DemandService.prototype.getDemands = function (demandsType) {
-                    return this.api.get(this._DemandController + demandsType);
+                DemandService.prototype.getDemandsWithFilters = function (search) {
+                    return this.api.post(this._DemandController + '/search', JSON.stringify(search));
+                };
+                DemandService.prototype.getNewDemands = function () {
+                    return this.api.get(this._DemandController + '/new');
+                };
+                DemandService.prototype.getDemandStatuses = function () {
+                    return this.api.get(this._DemandController + '/statuses');
+                };
+                DemandService.prototype.getDemand = function (_demandId) {
+                    return this.api.get(this._DemandController + ("/" + _demandId));
+                };
+                DemandService.prototype.acceptDemand = function (demand) {
+                    return this.api.post(this._DemandController + ("/accept/" + demand.id), JSON.stringify(''));
+                };
+                DemandService.prototype.declineDemand = function (id) {
+                    return this.api.post(this._DemandController + ("/decline/" + id), JSON.stringify(''));
+                };
+                DemandService.prototype.saveDemand = function (demand) {
+                    return this.api.put(this._DemandController, JSON.stringify(demand));
                 };
                 DemandService.prototype.convertDemand = function (demand) {
                     var newDemand = demand;
@@ -54,18 +72,6 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-City",
                     });
                     newDemand.domain = demand.domain.boundItem['id'];
                     return newDemand;
-                };
-                DemandService.prototype.getDemand = function (_demandId) {
-                    return this.api.get(this._DemandController + ("/" + _demandId));
-                };
-                DemandService.prototype.acceptDemand = function (demand) {
-                    return this.api.post(this._DemandController + ("/accept/" + demand.id), JSON.stringify(''));
-                };
-                DemandService.prototype.rejectDemand = function (id) {
-                    return this.api.post(this._DemandController + ("/reject/" + id), JSON.stringify(''));
-                };
-                DemandService.prototype.saveDemand = function (demand) {
-                    return this.api.post(this._DemandController, JSON.stringify(demand));
                 };
                 DemandService = __decorate([
                     core_1.Injectable(), 

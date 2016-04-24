@@ -77,23 +77,22 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
         this.createSubscriberDialog.show("", new Subscriber());
     }
 
-    createSubscriber() {
+    createSubscriber(subscriberValue:Subscriber) {
         var me = this;
 
-
-        this._subscribersService.subscribe(this.createSubscriberDialog.getValue().email)
+        this._subscribersService.subscribe(subscriberValue.email)
             .map((response) => {
                 if (response.text().length > 0) {
                     return response.json();
                 }
-            })            .subscribe(
+            })
+            .subscribe(
                 response => {
                     me.getSubscribersWithFilters();
                 },
                 error => {
-
-                });
-
+                }
+            );
     }
 
     getSubscribersWithFilters() {
@@ -119,11 +118,12 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
                 if (response.text().length > 0) {
                     return response.json();
                 }
-            })            .subscribe(
+            })
+            .subscribe(
                 response => {
                 }, error=> {
 
-                })
+            })
     }
 
     unsubscribe(subscriber:Subscriber) {

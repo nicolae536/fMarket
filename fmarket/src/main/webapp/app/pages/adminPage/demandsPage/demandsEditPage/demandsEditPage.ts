@@ -128,7 +128,7 @@ export class DemandsEditPage implements OnInit {
     private rejectDemand(id:number){
         let me=this;
 
-        this._demandService.rejectDemand(id)
+        this._demandService.declineDemand(id)
             .map((response)=>{
                 if(response.text().length > 0){
                     return response.json();

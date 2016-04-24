@@ -16,7 +16,7 @@ System.register(["angular2/core", "../../../../components/demandComponent/demand
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, demandListBase_1, demandService_1, requestTypeService_1, demandsListPage_1;
-    var applicationPath, NewDemandsListPage;
+    var applicationPath, AllDemandsListPage;
     return {
         setters:[
             function (core_1_1) {
@@ -36,35 +36,34 @@ System.register(["angular2/core", "../../../../components/demandComponent/demand
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
-            NewDemandsListPage = (function (_super) {
-                __extends(NewDemandsListPage, _super);
-                function NewDemandsListPage(_demandService, _requestTypeService) {
+            AllDemandsListPage = (function (_super) {
+                __extends(AllDemandsListPage, _super);
+                function AllDemandsListPage(_demandService, _requestTypeService) {
                     _super.call(this, _demandService, _requestTypeService);
-                    this._demandsRoute = '/new';
                 }
-                NewDemandsListPage.prototype.ngOnInit = function () {
+                AllDemandsListPage.prototype.ngOnInit = function () {
                     this.getCities();
-                    this.getNewDemandsList();
+                    this.getAllDemandsList();
                 };
-                NewDemandsListPage.prototype.ngOnChanges = function (changes) {
+                AllDemandsListPage.prototype.ngOnChanges = function (changes) {
                     if (changes && changes['_demandsList']) {
                         this.getDomains();
                     }
                 };
-                NewDemandsListPage = __decorate([
+                AllDemandsListPage = __decorate([
                     core_1.Component({
-                        selector: 'new-demands-list-page',
+                        selector: 'demands-list-page',
                         templateUrl: applicationPath + '/demandsListPage.html',
                         styleUrls: [applicationPath + '/demandsListPage.css'],
                         directives: [demandListBase_1.DemandListBaseComponent],
                         providers: [demandService_1.DemandService, requestTypeService_1.RequestTypeService]
                     }), 
                     __metadata('design:paramtypes', [demandService_1.DemandService, requestTypeService_1.RequestTypeService])
-                ], NewDemandsListPage);
-                return NewDemandsListPage;
+                ], AllDemandsListPage);
+                return AllDemandsListPage;
             }(demandsListPage_1.DemandsListPage));
-            exports_1("NewDemandsListPage", NewDemandsListPage);
+            exports_1("AllDemandsListPage", AllDemandsListPage);
         }
     }
 });
-//# sourceMappingURL=newDemandsListPage.js.map
+//# sourceMappingURL=allDemandsListPage.js.map

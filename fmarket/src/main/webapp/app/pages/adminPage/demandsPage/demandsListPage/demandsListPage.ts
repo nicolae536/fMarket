@@ -1,23 +1,12 @@
 /**
  * Created by nick_ on 4/22/2016.
  */
-import {Component, OnInit, OnChanges} from "angular2/core";
-import {DemandListBaseComponent} from "../../../../components/demandComponent/demandListBase/demandListBase";
 import {Demand} from "../../../../components/demandComponent/demandComponent";
 import {DemandService} from "../../../../services/demandService";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";
 import {RequestTypeService} from "../../../../services/requestTypeService";
 
-let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
-
-@Component({
-    selector: 'demands-list-page',
-    templateUrl: applicationPath + '/demandsListPage.html',
-    styleUrls: [applicationPath + '/demandsListPage.css'],
-    directives: [DemandListBaseComponent],
-    providers: [DemandService, RequestTypeService]
-})
-export class DemandsListPage implements OnInit, OnChanges {
+export class DemandsListPage {
     public _demandService:DemandService;
     public _requestTypeService:RequestTypeService;
 
@@ -25,27 +14,35 @@ export class DemandsListPage implements OnInit, OnChanges {
     public _domainsList:Array<Select2Item>;
     public _cityesList:Array<Select2Item>;
     public _demandsRoute;
-    
+    public _searchObject:Object;
+
     constructor(_demandService:DemandService, _requestTypeService:RequestTypeService) {
         this._demandService = _demandService;
         this._requestTypeService = _requestTypeService;
         this._demandsRoute = "";
     }
 
-    public ngOnInit():any {
-        this.getCities();
-        this.getDemandsList(this._demandsRoute);
-    }
-
-    public ngOnChanges(changes:{}):any {
-        if(changes && changes['_demandsList']){
-            this.getDomains();
-        }
-    }
-
-    public getDemandsList(demandsType:string):void {
+    public getAllDemandsList():void {
         let me = this;
-        this._demandService.getDemands(demandsType)
+        this._demandService.getDemandsWithFilters(this._searchObject)
+            .map((response)=> {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })
+            .subscribe(
+                response => {
+                    me._demandsList = response;
+                },
+                error => {
+
+                }
+            )
+    }
+
+    public getNewDemandsList(){
+        let me = this;
+        this._demandService.getNewDemands()
             .map((response)=> {
                 if (response.text().length > 0) {
                     return response.json();

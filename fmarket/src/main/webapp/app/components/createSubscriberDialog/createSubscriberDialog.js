@@ -38,10 +38,14 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/su
                     this.cancelLabel = 'Cancel';
                     this.positiveLabel = 'Create User';
                     this.loadedEmitter = new core_1.EventEmitter();
+                    this.createEmitter = new core_1.EventEmitter();
                 }
                 CreateSubscriberDialog.prototype.ngOnInit = function () {
                     this.loadedEmitter.emit(this);
                     this.responseObject = new subscriber_1.Subscriber();
+                };
+                CreateSubscriberDialog.prototype.createSubscriber = function () {
+                    this.createEmitter.emit(this.responseObject);
                 };
                 CreateSubscriberDialog.prototype.clearData = function () {
                     this.responseObject = new subscriber_1.Subscriber();
@@ -68,6 +72,10 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/su
                     core_1.Output('loaded'), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], CreateSubscriberDialog.prototype, "loadedEmitter", void 0);
+                __decorate([
+                    core_1.Output('create-subscriber'), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], CreateSubscriberDialog.prototype, "createEmitter", void 0);
                 CreateSubscriberDialog = __decorate([
                     core_1.Component({
                         selector: 'create-subscriber-dialog',

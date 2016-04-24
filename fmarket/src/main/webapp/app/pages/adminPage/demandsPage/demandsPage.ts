@@ -5,9 +5,9 @@ import {Component} from 'angular2/core';
 import {RouteConfig, Route, ROUTER_DIRECTIVES, } from 'angular2/router';
 
 import {Tab, TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
-import {DemandsListPage} from "./demandsListPage/demandsListPage";
 import {DemandsEditPage} from "./demandsEditPage/demandsEditPage";
 import {NewDemandsListPage} from "./demandsListPage/newDemandsListPage";
+import {AllDemandsListPage} from "./demandsListPage/allDemandsListPage";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage';
 
@@ -20,15 +20,15 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage';
 
 @RouteConfig([
     new Route({
-        path: '/lista',
-        component: DemandsListPage,
-        name: 'DemandsList',
-        useAsDefault:true
-    }),
-    new Route({
         path: '/newDemands',
         component: NewDemandsListPage,
         name: 'NewDemandsList',
+        useAsDefault:true
+    }),
+    new Route({
+        path: '/lista',
+        component: AllDemandsListPage,
+        name: 'DemandsList',
     }),
     new Route({
         path: '/detalii/:id',
@@ -43,8 +43,8 @@ export class DemandsPage {
     tabPagesList:Array<Tab>;
 
     constructor() {
-        this.tabPagesList = [{name: 'Cereri', link: 'Demands/DemandsList', enableMarker:true, markerContent: ""},
-            {name: 'Cereri noi', link: 'Demands/NewDemandsList', enableMarker:false, markerContent: ""},
+        this.tabPagesList = [{name: 'Cereri noi', link: 'Demands/NewDemandsList', enableMarker:false, markerContent: ""},
+            {name: 'Cereri', link: 'Demands/DemandsList', enableMarker:true, markerContent: ""},
             // {name: 'Cereri', link: 'Categories/Requests', enableMarker:false, markerContent: ""}];
         ];
     }

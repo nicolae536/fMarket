@@ -13,6 +13,7 @@ export class CreateSubscriberDialog extends ModalDialog {
     @Input('cancel-label') cancelLabel:string = 'Cancel';
     @Input('positive-label') positiveLabel:string = 'Create User';
     @Output('loaded') loadedEmitter:EventEmitter<CreateSubscriberDialog> = new EventEmitter<CreateSubscriberDialog>();
+    @Output('create-subscriber') createEmitter:EventEmitter<Object> = new EventEmitter<Object>();
 
     cityList:Array<Object>;
     statusList:Array<Object>;
@@ -26,6 +27,10 @@ export class CreateSubscriberDialog extends ModalDialog {
         this.responseObject = new Subscriber();
     }
 
+    createSubscriber(){
+        this.createEmitter.emit(this.responseObject);
+    }
+
     clearData() {
         this.responseObject = new Subscriber();
     }
@@ -37,4 +42,5 @@ export class CreateSubscriberDialog extends ModalDialog {
     getValue():Subscriber {
         return this.responseObject as Subscriber;
     }
+
 }

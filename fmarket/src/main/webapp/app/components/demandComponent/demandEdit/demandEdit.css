@@ -1,0 +1,11 @@
+.demand-edit-component .button-group {
+    margin-top: 25px;
+}
+
+.demand-edit-component .button-group .button-container{
+    margin-bottom: 10px;
+}
+
+.demand-edit-component .button-group .button-container .btn{
+    width: 100%;
+}

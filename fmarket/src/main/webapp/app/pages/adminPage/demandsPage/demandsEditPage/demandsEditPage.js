@@ -103,7 +103,7 @@ System.register(["angular2/core", "../../../../services/demandService", "../../.
                 };
                 DemandsEditPage.prototype.rejectDemand = function (id) {
                     var me = this;
-                    this._demandService.rejectDemand(id)
+                    this._demandService.declineDemand(id)
                         .map(function (response) {
                         if (response.text().length > 0) {
                             return response.json();

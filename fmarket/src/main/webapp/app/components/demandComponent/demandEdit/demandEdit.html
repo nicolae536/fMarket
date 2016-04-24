@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/app/components/demandComponent/demandEdit/demandEdit.css" />
+
 <div class="demand-edit-component">
     <div class="row">
         <div class="col-md-9 col-xs-12">
@@ -28,20 +30,20 @@
                 <textarea class="form-control" [disabled]="_demand.isInEditMode" [ngModel]="_demand.cities"></textarea>
             </div>
         </div>
-        <div class="col-md-3 col-xs-12">
-            <div>
+        <div class="col-md-3 col-xs-12 button-group">
+            <div class="button-container">
                 <button class="btn btn-success"
                     (click)="acceptDemand()">
                     Accepta
                 </button>
             </div>
-            <div>
+            <div class="button-container">
                 <button class="btn btn-danger"
-                    (click)="rejectDemand()">
+                    (click)="declineDemand()">
                     Refuza
                 </button>
             </div>
-            <div>
+            <div class="button-container">
                 <button *ngIf="!_demand.isInEditMode" class="btn btn-info"
                     (click)="toggleEditMode()">
                     Editeaza
@@ -59,7 +61,7 @@
             id: {{demand.account.id}}
         </div>
         <div class="col-md-4">
-            email: {{demand.account.id}}
+            email: {{demand.account.email}}
         </div>
         <div class="col-md-3">
             status: {{demand.account.status}}

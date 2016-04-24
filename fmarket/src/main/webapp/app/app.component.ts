@@ -1,26 +1,47 @@
-import {Component} from 'angular2/core';
-import {RouteConfig, Router, Route, Location, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
+import {Component} from "angular2/core";
+import {RouteConfig, Router, Route, Location, ROUTER_DIRECTIVES} from "angular2/router";
+import {CORE_DIRECTIVES} from "angular2/common";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/observable/interval";
 
-import {HeaderComponent} from './components/headerComponent/headerComponent'
-import {AdminPage} from './pages/adminPage/adminPage';
+import {Alert} from "ng2-bootstrap/ng2-bootstrap";
+
+import {HeaderComponent} from "./components/headerComponent/headerComponent";
+import {AdminPage} from "./pages/adminPage/adminPage";
 import {HomePage} from "./pages/homePage/homePage";
 import {RegistrationPage} from "./pages/registrationPage/registrationPage";
 import {ForgetPasswordPage} from "./pages/registrationPage/forgetPasswordPage/forgetPasswordPage";
+import {NotificationService} from "./services/notificationService";
 
 @Component({
     selector: 'my-app',
     template: `
         <header-component></header-component>
         <div class="page-container">
+            <div *ngIf="_notifications.length > 0" class="notification-helper">
+                <alert [type]="_alert.type" dismissible="true" (close)="closeAlert()">
+                    {{_notifications}}
+                </alert>
+            </div>
             <router-outlet></router-outlet>
         </div>
     `,
-    styles:[`.page-container{
-        padding-top:5%;
-        padding-left: 5%;
-        padding-right: 5%;
-    }`],
-    directives: [ROUTER_DIRECTIVES, HeaderComponent],
+    styles: [`
+        .page-container{
+            padding-top:5%;
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+        
+        .page-container .notification-helper{
+            position: fixed;
+            max-width: 100%;
+            z-index: 10001;
+            right: 6.3%;
+        }
+    `],
+    directives: [ROUTER_DIRECTIVES, HeaderComponent, Alert, CORE_DIRECTIVES],
+    providers: [NotificationService]
 })
 
 @RouteConfig([
@@ -28,14 +49,14 @@ import {ForgetPasswordPage} from "./pages/registrationPage/forgetPasswordPage/fo
         path: '/',
         name: 'Home',
         component: HomePage,
-        useAsDefault:true
+        useAsDefault: true
     }),
     new Route({
         path: '/registration',
         name: 'Registration',
         component: RegistrationPage
     })
-    ,new Route({
+    , new Route({
         path: '/forget-password',
         name: 'ForgetPassword',
         component: ForgetPasswordPage
@@ -49,10 +70,51 @@ import {ForgetPasswordPage} from "./pages/registrationPage/forgetPasswordPage/fo
 export class AppComponent {
     router:Router;
     location:Location;
+    _alert:IAlert = {type: "success", dismisable: true};
+    private _notificationService:NotificationService;
+    _notifications:string = '';
 
-    constructor(router:Router, location:Location) {
+    constructor(router:Router, location:Location, notificationService:NotificationService) {
         this.router = router;
         this.location = location;
+        this._notificationService = notificationService;
+        //this.startChangeWatcher();
     }
 
+    private startChangeWatcher() {
+        let me = this;
+        let j = 0;
+
+        Observable.interval(500).subscribe(
+            success => {
+                me._notificationService.getStatus()
+                    .map((response)=> {
+                        if (response.text().length > 0) {
+                            return response.json();
+                        }
+                    })
+                    .subscribe(
+                        response => {
+
+                        },
+                        error => {
+                            j++;
+                            me._notifications = "sdjgdskj fjksdbnfjksd ngkbsdjkgndsbjkg ksdjbngjkdsngjksd fjksdnkjdsngjksd";
+                        }
+                    );
+            },
+            error =>{
+
+            }
+        );
+    }
+
+    closeAlert() {
+        this._notifications = '';
+    }
+}
+
+export interface IAlert {
+    type:string;
+    dismisable:boolean
 }
