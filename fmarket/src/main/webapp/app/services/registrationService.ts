@@ -17,10 +17,14 @@ export class RegistrationService {
     }
 
     createAccount(account:RegisterAccount){
-        return this.api.post(this.REGISTRATION_CONTROLLER + '/user', JSON.stringify(account));
+        return this.api.post(this.REGISTRATION_CONTROLLER + '/user', JSON.stringify({email:account.email, password:account.password, subscribe:account.subscribe}));
     }
 
     resetPassword(account:RegisterAccount) {
         return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({email:account.email, newPassword:account.password}));
+    }
+
+    login(account:RegisterAccount){
+        return this.api.post(this.ACCOUNT_CONTROLLER + '/login', JSON.stringify({email:account.email, password:account.password, rememberMe:account.rememberMe}));
     }
 }

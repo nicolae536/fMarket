@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/17/2016.
  */
-System.register(['angular2/core', "../../../components/registrationComponent/registrationComponent", "../../../services/registrationService"], function(exports_1, context_1) {
+System.register(["angular2/core", "../../../components/registrationComponent/registrationComponent", "../../../services/registrationService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -27,14 +27,22 @@ System.register(['angular2/core', "../../../components/registrationComponent/reg
                 registrationService_1 = registrationService_1_1;
             }],
         execute: function() {
-            folderPath = '/app/pages/registrationPage/forgetPasswordPage';
+            folderPath = '/app/pages/registrationPage';
             ForgetPasswordPage = (function () {
                 function ForgetPasswordPage(registrationService) {
                     this._registrationService = registrationService;
                 }
                 ForgetPasswordPage.prototype.ngOnInit = function () {
+                    this._showRememberMeLink = false;
+                    this._showRegisterLink = false;
+                    this._formTitle = 'Resetare parola';
+                    this._formButtonLabel = 'Reseteaza parola';
+                    this._showNewsletterField = false;
+                    this._passwordLabel = 'Parola noua';
+                    this._showForgetPasswordLink = false;
+                    this._forgetPasswordLabel = '';
                 };
-                ForgetPasswordPage.prototype.resetPassword = function (account) {
+                ForgetPasswordPage.prototype.requestHandler = function (account) {
                     this._registrationService.resetPassword(account)
                         .map(function (response) {
                         if (response.text()) {
@@ -48,7 +56,7 @@ System.register(['angular2/core', "../../../components/registrationComponent/reg
                 ForgetPasswordPage = __decorate([
                     core_1.Component({
                         selector: 'forget=password-page',
-                        templateUrl: folderPath + '/forgetPasswordPage.html',
+                        templateUrl: folderPath + '/registrationPage.html',
                         styles: ["\n    .forget-password-page{\n        padding-top: 14vh;\n    }\n    "],
                         directives: [registrationComponent_1.RegistrationComponent],
                         providers: [registrationService_1.RegistrationService]

@@ -1,4 +1,4 @@
-System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Observable", "rxjs/add/observable/interval", "ng2-bootstrap/ng2-bootstrap", "./components/headerComponent/headerComponent", "./pages/adminPage/adminPage", "./pages/homePage/homePage", "./pages/registrationPage/registrationPage", "./pages/registrationPage/forgetPasswordPage/forgetPasswordPage", "./services/notificationService"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Observable", "rxjs/add/observable/interval", "ng2-bootstrap/ng2-bootstrap", "./components/headerComponent/headerComponent", "./pages/adminPage/adminPage", "./pages/homePage/homePage", "./pages/registrationPage/registrationPage", "./pages/registrationPage/forgetPasswordPage/forgetPasswordPage", "./services/notificationService", "./pages/registrationPage/loginPage/loginPage"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, common_1, Observable_1, ng2_bootstrap_1, headerComponent_1, adminPage_1, homePage_1, registrationPage_1, forgetPasswordPage_1, notificationService_1;
+    var core_1, router_1, common_1, Observable_1, ng2_bootstrap_1, headerComponent_1, adminPage_1, homePage_1, registrationPage_1, forgetPasswordPage_1, notificationService_1, loginPage_1;
     var SECOND, MINUTE, HOUR, AppComponent;
     return {
         setters:[
@@ -47,6 +47,9 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
             },
             function (notificationService_1_1) {
                 notificationService_1 = notificationService_1_1;
+            },
+            function (loginPage_1_1) {
+                loginPage_1 = loginPage_1_1;
             }],
         execute: function() {
             SECOND = 60;
@@ -100,6 +103,11 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
                             path: '/registration',
                             name: 'Registration',
                             component: registrationPage_1.RegistrationPage
+                        }),
+                        new router_1.Route({
+                            path: '/login',
+                            name: 'Login',
+                            component: loginPage_1.LoginPage
                         }),
                         new router_1.Route({
                             path: '/forget-password',

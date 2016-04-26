@@ -35,6 +35,7 @@ System.register(["angular2/core", "angular2/common", "angular2/router"], functio
                     this._registrationForm.addControl('email', this._formBuilder.control('', common_1.Validators.required));
                     this._registrationForm.addControl('password', this._formBuilder.control('', common_1.Validators.required));
                     this._registrationForm.addControl('subscribe', this._formBuilder.control(''));
+                    this._registrationForm.addControl('rememberMe', this._formBuilder.control(''));
                 };
                 RegistrationComponent.prototype.registrationFormSubmit = function () {
                     if (this._registrationForm.valid) {
@@ -64,6 +65,18 @@ System.register(["angular2/core", "angular2/common", "angular2/router"], functio
                     __metadata('design:type', Boolean)
                 ], RegistrationComponent.prototype, "showForgetPasswordLink", void 0);
                 __decorate([
+                    core_1.Input('forget-password-label'), 
+                    __metadata('design:type', String)
+                ], RegistrationComponent.prototype, "_forgetPasswordLabel", void 0);
+                __decorate([
+                    core_1.Input('show-register-link'), 
+                    __metadata('design:type', Boolean)
+                ], RegistrationComponent.prototype, "_showRegisterLink", void 0);
+                __decorate([
+                    core_1.Input('show-remember-me-link'), 
+                    __metadata('design:type', Boolean)
+                ], RegistrationComponent.prototype, "showRememberMeField", void 0);
+                __decorate([
                     core_1.Output('registration-form'), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], RegistrationComponent.prototype, "$registrationForm", void 0);
@@ -83,6 +96,7 @@ System.register(["angular2/core", "angular2/common", "angular2/router"], functio
                     this.password = '';
                     this.email = '';
                     this.subscribe = false;
+                    this.rememberMe = false;
                 }
                 return RegisterAccount;
             }());

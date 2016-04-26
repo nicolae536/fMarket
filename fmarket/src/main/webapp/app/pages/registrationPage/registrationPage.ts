@@ -2,41 +2,57 @@
  * Created by nick_ on 4/17/2016.
  */
 
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit} from "angular2/core";
 import {RegistrationComponent, RegisterAccount} from "../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../services/registrationService";
 
 const folderPath = '/app/pages/registrationPage';
 
 @Component({
-    selector:'registration-page',
-    templateUrl:folderPath + '/registrationPage.html',
-    providers:[RegistrationService],
-    directives:[RegistrationComponent]
+    selector: 'registration-page',
+    templateUrl: folderPath + '/registrationPage.html',
+    providers: [RegistrationService],
+    directives: [RegistrationComponent]
 })
-export class RegistrationPage implements OnInit{
+export class RegistrationPage implements OnInit {
     private _registrationService:RegistrationService;
 
-    constructor(registrationService:RegistrationService){
+    private _formTitle:string;
+    private _formButtonLabel:string;
+    private _showNewsletterField:boolean;
+    private _passwordLabel:string;
+    private _showForgetPasswordLink:boolean;
+    private _forgetPasswordLabel:string;
+    private _showRegisterLink:boolean;
+    private _showRememberMeLink:boolean;
+
+    constructor(registrationService:RegistrationService) {
         this._registrationService = registrationService;
     }
 
     ngOnInit():any {
-        return undefined;
+        this._showRememberMeLink=false;
+        this._formTitle = 'Creeaza account';
+        this._formButtonLabel = 'Inregistreaza';
+        this._showNewsletterField = true;
+        this._passwordLabel = 'Parola';
+        this._forgetPasswordLabel = 'Mi-am uitat parola';
+        this._showForgetPasswordLink = true;
+        this._showRegisterLink = false;
     }
 
-    registerUser(account:RegisterAccount){
+    requestHandler(account:RegisterAccount) {
         this._registrationService.createAccount(account)
-            .map((response)=>{
-                if(response.text()){
+            .map((response)=> {
+                if (response.text()) {
                     return response.json();
                 }
             })
             .subscribe(
-                response =>{
+                response => {
 
                 },
-                error =>{
+                error => {
 
                 }
             )

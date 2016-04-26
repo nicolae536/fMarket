@@ -12,6 +12,7 @@ import {HomePage} from "./pages/homePage/homePage";
 import {RegistrationPage} from "./pages/registrationPage/registrationPage";
 import {ForgetPasswordPage} from "./pages/registrationPage/forgetPasswordPage/forgetPasswordPage";
 import {NotificationService} from "./services/notificationService";
+import {LoginPage} from "./pages/registrationPage/loginPage/loginPage";
 
 const SECOND:number = 60;
 const MINUTE:number = 3600;
@@ -59,6 +60,11 @@ const HOUR:number = 216000;
         path: '/registration',
         name: 'Registration',
         component: RegistrationPage
+    }),
+    new Route({
+        path: '/login',
+        name: 'Login',
+        component: LoginPage
     })
     , new Route({
         path: '/forget-password',

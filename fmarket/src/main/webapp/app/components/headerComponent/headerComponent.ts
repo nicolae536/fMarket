@@ -22,7 +22,8 @@ export class HeaderComponent implements OnInit{
     ngOnInit():any {
         this._usersApplicationPages = [
             {link:'Home', name: 'Home'},
-            {link:'Registration', name: 'Registration'}
+            {link:'Registration', name: 'Registration'},
+            {link:'Login', name: 'Login'}
         ];
 
         this._adminApplicationPages = [

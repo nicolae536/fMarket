@@ -31,7 +31,8 @@ System.register(['angular2/core', 'angular2/router', 'ng2-bootstrap/ng2-bootstra
                 HeaderComponent.prototype.ngOnInit = function () {
                     this._usersApplicationPages = [
                         { link: 'Home', name: 'Home' },
-                        { link: 'Registration', name: 'Registration' }
+                        { link: 'Registration', name: 'Registration' },
+                        { link: 'Login', name: 'Login' }
                     ];
                     this._adminApplicationPages = [
                         { link: 'Admin/Users', name: 'Useri' },

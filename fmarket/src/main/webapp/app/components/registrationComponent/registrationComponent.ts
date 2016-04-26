@@ -17,6 +17,10 @@ export class RegistrationComponent implements OnInit {
     @Input('show-newsletter') showNewsletter:boolean;
     @Input('password-label') passwordLabel:string;
     @Input('show-forget-password-link') showForgetPasswordLink:boolean;
+    @Input('forget-password-label') _forgetPasswordLabel:string;
+    @Input('show-register-link') _showRegisterLink:boolean;
+    @Input('show-remember-me-link')showRememberMeField:boolean;
+
     @Output('registration-form') $registrationForm:EventEmitter<RegisterAccount> = new EventEmitter<RegisterAccount>();
 
     private _formBuilder:FormBuilder;
@@ -32,6 +36,7 @@ export class RegistrationComponent implements OnInit {
         this._registrationForm.addControl('email', this._formBuilder.control('', Validators.required));
         this._registrationForm.addControl('password', this._formBuilder.control('', Validators.required));
         this._registrationForm.addControl('subscribe', this._formBuilder.control(''));
+        this._registrationForm.addControl('rememberMe', this._formBuilder.control(''));
     }
 
     registrationFormSubmit(){
@@ -49,4 +54,5 @@ export class RegisterAccount {
     password:string = '';
     email:string = '';
     subscribe:boolean = false;
+    rememberMe:boolean = false;
 }
