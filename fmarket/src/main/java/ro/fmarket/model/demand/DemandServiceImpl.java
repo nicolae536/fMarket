@@ -86,7 +86,6 @@ public class DemandServiceImpl implements DemandService {
 	private Demand createNewDemand(NewDemandRequest request, boolean isAccountLogged) {
 		final Demand demand = new Demand();
 		demand.setClosedDate(null);
-		demand.setEmailContact(request.isAgreeEmailContact());
 		demand.setPhoneContact(request.isAgreePhoneContact());
 		demand.setCreationDate(DateUtils.now());
 		demand.setMessage(request.getMessage());
