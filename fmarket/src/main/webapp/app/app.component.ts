@@ -13,6 +13,7 @@ import {RegistrationPage} from "./pages/registrationPage/registrationPage";
 import {ForgetPasswordPage} from "./pages/registrationPage/forgetPasswordPage/forgetPasswordPage";
 import {NotificationService} from "./services/notificationService";
 import {LoginPage} from "./pages/registrationPage/loginPage/loginPage";
+import {AccountSettingsPage} from "./pages/accountSettingsPage/accountSettingsPage";
 
 const SECOND:number = 60;
 const MINUTE:number = 3600;
