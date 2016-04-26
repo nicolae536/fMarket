@@ -118,6 +118,11 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
                             path: '/admin/...',
                             name: 'Admin',
                             component: adminPage_1.AdminPage
+                        }),
+                        new router_1.Route({
+                            path: '/account/...',
+                            name: 'Account',
+                            component: AccountSettingsPage
                         })]), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.Location, notificationService_1.NotificationService])
                 ], AppComponent);

@@ -75,6 +75,11 @@ const HOUR:number = 216000;
         path: '/admin/...',
         name: 'Admin',
         component: AdminPage
+    }),
+    new Route({
+        path: '/account/...',
+        name: 'Account',
+        component: AccountSettingsPage
     })])
 
 export class AppComponent {
