@@ -1,8 +1,5 @@
 import {Injectable} from 'angular2/core';
 import {Http} from 'angular2/http';
-import {RequestType} from "../models/requestType";
-import {AccountStatus} from "../models/user";
-//import {USERS} from "./mock-providers/mock-Users";
 import {FMarketApi} from "./fMarketApi";
 
 

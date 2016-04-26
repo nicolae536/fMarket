@@ -27,7 +27,7 @@
             </div>
             <div class="form-group">
                 <label>Mesaj</label>
-                <textarea class="form-control" [disabled]="_demand.isInEditMode" [ngModel]="_demand.cities"></textarea>
+                <textarea class="form-control" [disabled]="_demand.isInEditMode" [ngModel]="_demand.message"></textarea>
             </div>
         </div>
         <div class="col-md-3 col-xs-12 button-group">
@@ -58,16 +58,16 @@
     <hr/>
     <div class="row">
         <div class="col-md-2">
-            id: {{demand.account.id}}
+            id: {{demand.accountId}}
         </div>
         <div class="col-md-4">
-            email: {{demand.account.email}}
+            email: {{demand.accountEmail}}
         </div>
         <div class="col-md-3">
-            status: {{demand.account.status}}
+            status: {{demand.accountStatus}}
         </div>
         <div class="col-md-3">
-            numar cereri: {{demand.account.demandsNumber}}
+            numar cereri: {{demand.demandsCount}}
         </div>
     </div>
 </div>

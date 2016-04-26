@@ -1,18 +1,17 @@
 System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var DemandsListPage;
+    var DemandsListPageBase;
     return {
         setters:[],
         execute: function() {
-            DemandsListPage = (function () {
-                function DemandsListPage(_demandService, _requestTypeService) {
-                    this._demandsList = new Array();
+            DemandsListPageBase = (function () {
+                function DemandsListPageBase(_demandService, _requestTypeService) {
                     this._demandService = _demandService;
                     this._requestTypeService = _requestTypeService;
                     this._demandsRoute = "";
                 }
-                DemandsListPage.prototype.getAllDemandsList = function () {
+                DemandsListPageBase.prototype.getAllDemandsList = function () {
                     var me = this;
                     this._demandService.getDemandsWithFilters(this._searchObject)
                         .map(function (response) {
@@ -25,7 +24,7 @@ System.register([], function(exports_1, context_1) {
                     }, function (error) {
                     });
                 };
-                DemandsListPage.prototype.getNewDemandsList = function () {
+                DemandsListPageBase.prototype.getNewDemandsList = function () {
                     var me = this;
                     this._demandService.getNewDemands()
                         .map(function (response) {
@@ -38,7 +37,7 @@ System.register([], function(exports_1, context_1) {
                     }, function (error) {
                     });
                 };
-                DemandsListPage.prototype.getCities = function () {
+                DemandsListPageBase.prototype.getCities = function () {
                     var me = this;
                     this._demandService.getCityList()
                         .subscribe(function (response) {
@@ -51,7 +50,7 @@ System.register([], function(exports_1, context_1) {
                     }, function (error) {
                     });
                 };
-                DemandsListPage.prototype.getDomains = function () {
+                DemandsListPageBase.prototype.getDomains = function () {
                     var me = this;
                     this._requestTypeService.getRequestTypesWithFilters()
                         .map(function (response) {
@@ -69,10 +68,10 @@ System.register([], function(exports_1, context_1) {
                     }, function (error) {
                     });
                 };
-                return DemandsListPage;
+                return DemandsListPageBase;
             }());
-            exports_1("DemandsListPage", DemandsListPage);
+            exports_1("DemandsListPageBase", DemandsListPageBase);
         }
     }
 });
-//# sourceMappingURL=demandsListPage.js.map
+//# sourceMappingURL=demandsListPageBase.js.map

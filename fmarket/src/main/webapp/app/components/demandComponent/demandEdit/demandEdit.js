@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../../selectComponent/selectComponent", "../demandComponent"], function(exports_1, context_1) {
+System.register(["angular2/core", "../../selectComponent/selectComponent", "../../../models/demandDetailsDTO"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "../../selectComponent/selectComponent", "../d
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, selectComponent_1, demandComponent_1;
+    var core_1, selectComponent_1, demandDetailsDTO_1;
     var APPLICATION_PATH, DemandEditComponent;
     return {
         setters:[
@@ -20,8 +20,8 @@ System.register(["angular2/core", "../../selectComponent/selectComponent", "../d
             function (selectComponent_1_1) {
                 selectComponent_1 = selectComponent_1_1;
             },
-            function (demandComponent_1_1) {
-                demandComponent_1 = demandComponent_1_1;
+            function (demandDetailsDTO_1_1) {
+                demandDetailsDTO_1 = demandDetailsDTO_1_1;
             }],
         execute: function() {
             APPLICATION_PATH = '/app/components/demandComponent/demandEdit';
@@ -43,11 +43,12 @@ System.register(["angular2/core", "../../selectComponent/selectComponent", "../d
                     this._demand.isInEditMode = true;
                 };
                 DemandEditComponent.prototype.saveEditedDemand = function () {
+                    this._demand.isInEditMode = false;
                     this.saveDemandEvent.emit(this._demand);
                 };
                 __decorate([
                     core_1.Input('demand'), 
-                    __metadata('design:type', demandComponent_1.Demand)
+                    __metadata('design:type', demandDetailsDTO_1.DemandDetailsDTO)
                 ], DemandEditComponent.prototype, "_demand", void 0);
                 __decorate([
                     core_1.Input('domains-list'), 

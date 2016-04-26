@@ -1,5 +1,5 @@
-import {AccountStatus} from '../../models/user';
 
+import {AccountStatus} from "../../models/accountStatus";
 export var STATUS = [
     {status: null, displayName: "Chose..."},
     {status: AccountStatus.AUTO, displayName: "AUTO"},

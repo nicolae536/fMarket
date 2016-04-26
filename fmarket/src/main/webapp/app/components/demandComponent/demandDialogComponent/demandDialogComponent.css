@@ -1,0 +1,4 @@
+.demand-dialog-component.clearfix .modal.fade.bs-example-modal-lg.in .modal-dialog.modal-lg .modal-body{
+    max-height: 70vh;
+    overflow: auto;
+}

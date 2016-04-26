@@ -1,3 +1,4 @@
+import {AccountStatus} from "./accountStatus";
 export class User {
     public id:number;
     public email:string;
@@ -95,11 +96,4 @@ export class User {
 
         return true;
     }
-}
-
-export class AccountStatus {
-    static ACTIVE = "ACTIVE";
-    static PENDING = "PENDING";
-    static DISABLED = "DISABLED";
-    static AUTO = "AUTO"
 }

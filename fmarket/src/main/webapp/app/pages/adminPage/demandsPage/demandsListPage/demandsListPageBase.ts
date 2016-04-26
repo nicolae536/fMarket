@@ -1,16 +1,16 @@
 /**
  * Created by nick_ on 4/22/2016.
  */
-import {Demand} from "../../../../components/demandComponent/demandComponent";
 import {DemandService} from "../../../../services/demandService";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";
 import {RequestTypeService} from "../../../../services/requestTypeService";
+import {DemandAdminDto} from "../../../../models/demandAdminDto";
 
-export class DemandsListPage {
+export class DemandsListPageBase {
     public _demandService:DemandService;
     public _requestTypeService:RequestTypeService;
 
-    public _demandsList:Array<Demand> = new Array<Demand>();
+    public _demandsList:Array<DemandAdminDto>;
     public _domainsList:Array<Select2Item>;
     public _cityesList:Array<Select2Item>;
     public _demandsRoute;

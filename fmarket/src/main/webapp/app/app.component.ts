@@ -13,12 +13,16 @@ import {RegistrationPage} from "./pages/registrationPage/registrationPage";
 import {ForgetPasswordPage} from "./pages/registrationPage/forgetPasswordPage/forgetPasswordPage";
 import {NotificationService} from "./services/notificationService";
 
+const SECOND:number = 60;
+const MINUTE:number = 3600;
+const HOUR:number = 216000;
+
 @Component({
     selector: 'my-app',
     template: `
         <header-component></header-component>
         <div class="page-container">
-            <div *ngIf="_notifications.length > 0" class="notification-helper">
+            <div *ngIf="_notifications > 0" class="notification-helper">
                 <alert [type]="_alert.type" dismissible="true" (close)="closeAlert()">
                     {{_notifications}}
                 </alert>
@@ -72,7 +76,7 @@ export class AppComponent {
     location:Location;
     _alert:IAlert = {type: "success", dismisable: true};
     private _notificationService:NotificationService;
-    _notifications:string = '';
+    _notifications:number;
 
     constructor(router:Router, location:Location, notificationService:NotificationService) {
         this.router = router;
@@ -85,7 +89,7 @@ export class AppComponent {
         let me = this;
         let j = 0;
 
-        Observable.interval(500).subscribe(
+        Observable.interval(15 * SECOND).subscribe(
             success => {
                 me._notificationService.getStatus()
                     .map((response)=> {
@@ -95,11 +99,10 @@ export class AppComponent {
                     })
                     .subscribe(
                         response => {
-
+                            me._notifications = response;
                         },
                         error => {
-                            j++;
-                            me._notifications = "sdjgdskj fjksdbnfjksd ngkbsdjkgndsbjkg ksdjbngjkdsngjksd fjksdnkjdsngjksd";
+                           me.closeAlert();
                         }
                     );
             },
@@ -110,7 +113,7 @@ export class AppComponent {
     }
 
     closeAlert() {
-        this._notifications = '';
+        this._notifications = 0;
     }
 }
 

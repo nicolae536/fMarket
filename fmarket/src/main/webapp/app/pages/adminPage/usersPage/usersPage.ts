@@ -9,14 +9,13 @@ import 'rxjs/add/operator/map';//-map
 import {PageWithNavigation} from '../../../components/pageWithNavigation/pageWithNavigation';
 import {CreateUserDialog} from '../../../components/createUserDialog/createUserDialog';
 import {ActionDialog} from '../../../components/actionDialog/actionDialog';
-import {DialogActionResult} from  '../../../components/modalDialog/modalDialog';
 import {UserService} from '../../../services/usersService';
 import {User} from '../../../models/user';
-import {AccountStatus} from '../../../models/user';
 
 //import mocks
 import {CITYES} from '../../../services/mock-providers/mock-City';
 import {STATUS} from '../../../services/mock-providers/mock-Status';
+import {AccountStatus} from "../../../models/accountStatus";
 
 var applicationPath:string = '/app/pages/adminPage/usersPage';
 

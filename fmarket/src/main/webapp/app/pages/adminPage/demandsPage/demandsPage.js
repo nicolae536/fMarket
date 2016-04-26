@@ -33,7 +33,7 @@ System.register(['angular2/core', 'angular2/router', "../../../components/tabsCo
                 allDemandsListPage_1 = allDemandsListPage_1_1;
             }],
         execute: function() {
-            applicationPath = '/app/pages/adminPage/categoriesPage';
+            applicationPath = '/app/pages/adminPage/demandsPage';
             DemandsPage = (function () {
                 function DemandsPage() {
                     this.tabPagesList = [{ name: 'Cereri noi', link: 'Demands/NewDemandsList', enableMarker: false, markerContent: "" },
@@ -42,9 +42,9 @@ System.register(['angular2/core', 'angular2/router', "../../../components/tabsCo
                 }
                 DemandsPage = __decorate([
                     core_1.Component({
-                        selector: 'categoryes-page',
-                        templateUrl: applicationPath + '/categoriesPage.html',
-                        styleUrls: [applicationPath + '/categoriesPage.css'],
+                        selector: 'demands-page',
+                        templateUrl: applicationPath + '/demandsPage.html',
+                        styleUrls: [applicationPath + '/demandsPage.css'],
                         directives: [tabsRoutingComponent_1.TabsRoutingComponent, router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.RouteConfig([

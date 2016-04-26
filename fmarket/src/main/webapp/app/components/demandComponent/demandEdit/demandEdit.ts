@@ -4,6 +4,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from "angular2/core";
 import {Select2Item, SelectComponent} from "../../selectComponent/selectComponent";
 import {Demand} from "../demandComponent";
+import {DemandDetailsDTO} from "../../../models/demandDetailsDTO";
 
 const APPLICATION_PATH:string = '/app/components/demandComponent/demandEdit';
 
@@ -13,12 +14,12 @@ const APPLICATION_PATH:string = '/app/components/demandComponent/demandEdit';
     directives:[SelectComponent]
 })
 export class DemandEditComponent {
-    @Input('demand') _demand:Demand;
+    @Input('demand') _demand:DemandDetailsDTO;
     @Input('domains-list') domainList:Array<Select2Item> = new Array<Select2Item>();
     @Input('cities-list') citiesList:Array<Select2Item> = new Array<Select2Item>();
     @Output('reject-demand') rejectDemandEvent: EventEmitter<number> = new EventEmitter<number>();
-    @Output('accept-demand') acceptDemandEvent: EventEmitter<Demand> = new EventEmitter<Demand>();
-    @Output('save-demand') saveDemandEvent: EventEmitter<Demand> = new EventEmitter<Demand>();
+    @Output('accept-demand') acceptDemandEvent: EventEmitter<DemandDetailsDTO> = new EventEmitter<DemandDetailsDTO>();
+    @Output('save-demand') saveDemandEvent: EventEmitter<DemandDetailsDTO> = new EventEmitter<DemandDetailsDTO>();
 
     constructor() {}
 
@@ -35,6 +36,7 @@ export class DemandEditComponent {
     }
 
     saveEditedDemand(){
+        this._demand.isInEditMode = false;
         this.saveDemandEvent.emit(this._demand);
     }
 }

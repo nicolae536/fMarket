@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../../../../components/demandComponent/demandListBase/demandListBase", "../../../../services/demandService", "../../../../services/requestTypeService", "./demandsListPage"], function(exports_1, context_1) {
+System.register(["angular2/core", "../../../../components/demandComponent/demandListBase/demandListBase", "../../../../services/demandService", "../../../../services/requestTypeService", "./demandsListPageBase"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(["angular2/core", "../../../../components/demandComponent/demand
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, demandListBase_1, demandService_1, requestTypeService_1, demandsListPage_1;
+    var core_1, demandListBase_1, demandService_1, requestTypeService_1, demandsListPageBase_1;
     var applicationPath, AllDemandsListPage;
     return {
         setters:[
@@ -31,8 +31,8 @@ System.register(["angular2/core", "../../../../components/demandComponent/demand
             function (requestTypeService_1_1) {
                 requestTypeService_1 = requestTypeService_1_1;
             },
-            function (demandsListPage_1_1) {
-                demandsListPage_1 = demandsListPage_1_1;
+            function (demandsListPageBase_1_1) {
+                demandsListPageBase_1 = demandsListPageBase_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
@@ -42,26 +42,26 @@ System.register(["angular2/core", "../../../../components/demandComponent/demand
                     _super.call(this, _demandService, _requestTypeService);
                 }
                 AllDemandsListPage.prototype.ngOnInit = function () {
-                    this.getCities();
+                    // this.getCities();
                     this.getAllDemandsList();
                 };
                 AllDemandsListPage.prototype.ngOnChanges = function (changes) {
-                    if (changes && changes['_demandsList']) {
-                        this.getDomains();
-                    }
+                    // if(changes && changes['_demandsList']){
+                    //     this.getDomains();
+                    // }
                 };
                 AllDemandsListPage = __decorate([
                     core_1.Component({
                         selector: 'demands-list-page',
-                        templateUrl: applicationPath + '/demandsListPage.html',
-                        styleUrls: [applicationPath + '/demandsListPage.css'],
+                        templateUrl: applicationPath + '/demandsListPageBase.html',
+                        styleUrls: [applicationPath + '/demandsListPageBase.css'],
                         directives: [demandListBase_1.DemandListBaseComponent],
                         providers: [demandService_1.DemandService, requestTypeService_1.RequestTypeService]
                     }), 
                     __metadata('design:paramtypes', [demandService_1.DemandService, requestTypeService_1.RequestTypeService])
                 ], AllDemandsListPage);
                 return AllDemandsListPage;
-            }(demandsListPage_1.DemandsListPage));
+            }(demandsListPageBase_1.DemandsListPageBase));
             exports_1("AllDemandsListPage", AllDemandsListPage);
         }
     }

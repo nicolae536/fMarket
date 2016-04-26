@@ -11,7 +11,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1, common_1, Observable_1, ng2_bootstrap_1, headerComponent_1, adminPage_1, homePage_1, registrationPage_1, forgetPasswordPage_1, notificationService_1;
-    var AppComponent;
+    var SECOND, MINUTE, HOUR, AppComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -49,10 +49,12 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
                 notificationService_1 = notificationService_1_1;
             }],
         execute: function() {
+            SECOND = 60;
+            MINUTE = 3600;
+            HOUR = 216000;
             AppComponent = (function () {
                 function AppComponent(router, location, notificationService) {
                     this._alert = { type: "success", dismisable: true };
-                    this._notifications = '';
                     this.router = router;
                     this.location = location;
                     this._notificationService = notificationService;
@@ -61,7 +63,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
                 AppComponent.prototype.startChangeWatcher = function () {
                     var me = this;
                     var j = 0;
-                    Observable_1.Observable.interval(500).subscribe(function (success) {
+                    Observable_1.Observable.interval(15 * SECOND).subscribe(function (success) {
                         me._notificationService.getStatus()
                             .map(function (response) {
                             if (response.text().length > 0) {
@@ -69,20 +71,20 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
                             }
                         })
                             .subscribe(function (response) {
+                            me._notifications = response;
                         }, function (error) {
-                            j++;
-                            me._notifications = "sdjgdskj fjksdbnfjksd ngkbsdjkgndsbjkg ksdjbngjkdsngjksd fjksdnkjdsngjksd";
+                            me.closeAlert();
                         });
                     }, function (error) {
                     });
                 };
                 AppComponent.prototype.closeAlert = function () {
-                    this._notifications = '';
+                    this._notifications = 0;
                 };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n        <header-component></header-component>\n        <div class=\"page-container\">\n            <div *ngIf=\"_notifications.length > 0\" class=\"notification-helper\">\n                <alert [type]=\"_alert.type\" dismissible=\"true\" (close)=\"closeAlert()\">\n                    {{_notifications}}\n                </alert>\n            </div>\n            <router-outlet></router-outlet>\n        </div>\n    ",
+                        template: "\n        <header-component></header-component>\n        <div class=\"page-container\">\n            <div *ngIf=\"_notifications > 0\" class=\"notification-helper\">\n                <alert [type]=\"_alert.type\" dismissible=\"true\" (close)=\"closeAlert()\">\n                    {{_notifications}}\n                </alert>\n            </div>\n            <router-outlet></router-outlet>\n        </div>\n    ",
                         styles: ["\n        .page-container{\n            padding-top:5%;\n            padding-left: 5%;\n            padding-right: 5%;\n        }\n        \n        .page-container .notification-helper{\n            position: fixed;\n            max-width: 100%;\n            z-index: 10001;\n            right: 6.3%;\n        }\n    "],
                         directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.Alert, common_1.CORE_DIRECTIVES],
                         providers: [notificationService_1.NotificationService]

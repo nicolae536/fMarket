@@ -1,5 +1,5 @@
 import {User} from "../../models/user";
-import {AccountStatus} from "../../models/user";
+import {AccountStatus} from "../../models/accountStatus";
 
 export var USERS:User[] = [
     new User(1, "asd", "def@def.com", "user", AccountStatus.AUTO, new Date(), new Date(), new Date(), new Date(), new Date(), 12, "Cluj", 10, 10, "asd"),

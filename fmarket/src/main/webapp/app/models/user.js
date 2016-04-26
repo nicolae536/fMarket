@@ -1,7 +1,7 @@
 System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var User, AccountStatus;
+    var User;
     return {
         setters:[],
         execute: function() {
@@ -72,16 +72,6 @@ System.register([], function(exports_1, context_1) {
                 return User;
             }());
             exports_1("User", User);
-            AccountStatus = (function () {
-                function AccountStatus() {
-                }
-                AccountStatus.ACTIVE = "ACTIVE";
-                AccountStatus.PENDING = "PENDING";
-                AccountStatus.DISABLED = "DISABLED";
-                AccountStatus.AUTO = "AUTO";
-                return AccountStatus;
-            }());
-            exports_1("AccountStatus", AccountStatus);
         }
     }
 });

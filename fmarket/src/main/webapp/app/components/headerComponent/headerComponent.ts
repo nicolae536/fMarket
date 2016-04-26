@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit{
             {link: 'Admin/Categories/CategoriesMenu', name:'Meniu categorii'},
             {link: 'Admin/Categories/Companies', name:'Compani'},
             {link: 'Admin/Categories/Domains', name:'Domenii'},
+            {link: 'Admin/Demands/NewDemandsList', name: 'Cereri noi'},
             {link: 'Admin/Demands/DemandsList', name: 'Cereri'}
         ];
     }

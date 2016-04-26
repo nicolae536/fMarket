@@ -9,12 +9,12 @@ import {DemandsEditPage} from "./demandsEditPage/demandsEditPage";
 import {NewDemandsListPage} from "./demandsListPage/newDemandsListPage";
 import {AllDemandsListPage} from "./demandsListPage/allDemandsListPage";
 
-let applicationPath:string = '/app/pages/adminPage/categoriesPage';
+let applicationPath:string = '/app/pages/adminPage/demandsPage';
 
 @Component({
-    selector: 'categoryes-page',
-    templateUrl: applicationPath + '/categoriesPage.html',
-    styleUrls: [applicationPath + '/categoriesPage.css'],
+    selector: 'demands-page',
+    templateUrl: applicationPath + '/demandsPage.html',
+    styleUrls: [applicationPath + '/demandsPage.css'],
     directives: [TabsRoutingComponent, ROUTER_DIRECTIVES]
 })
 
