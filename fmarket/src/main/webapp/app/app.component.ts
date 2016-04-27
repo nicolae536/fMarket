@@ -15,9 +15,9 @@ import {NotificationService} from "./services/notificationService";
 import {LoginPage} from "./pages/registrationPage/loginPage/loginPage";
 import {AccountSettingsPage} from "./pages/accountSettingsPage/accountSettingsPage";
 
-const SECOND:number = 60;
-const MINUTE:number = 3600;
-const HOUR:number = 216000;
+const SECOND:number = 1000;
+const MINUTE:number = 60000;
+const HOUR:number = 3600000;
 
 @Component({
     selector: 'my-app',

@@ -55,9 +55,9 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
                 accountSettingsPage_1 = accountSettingsPage_1_1;
             }],
         execute: function() {
-            SECOND = 60;
-            MINUTE = 3600;
-            HOUR = 216000;
+            SECOND = 1000;
+            MINUTE = 60000;
+            HOUR = 3600000;
             AppComponent = (function () {
                 function AppComponent(router, location, notificationService) {
                     this._alert = { type: "success", dismisable: true };
