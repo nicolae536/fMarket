@@ -34,8 +34,8 @@ System.register(["angular2/core", "angular2/common", "angular2/router"], functio
                     this._registrationForm = this._formBuilder.group([]);
                     this._registrationForm.addControl('email', this._formBuilder.control('', common_1.Validators.required));
                     this._registrationForm.addControl('password', this._formBuilder.control('', common_1.Validators.required));
-                    this._registrationForm.addControl('subscribe', this._formBuilder.control(''));
-                    this._registrationForm.addControl('rememberMe', this._formBuilder.control(''));
+                    this._registrationForm.addControl('subscribe', this._formBuilder.control(false));
+                    this._registrationForm.addControl('rememberMe', this._formBuilder.control(false));
                 };
                 RegistrationComponent.prototype.registrationFormSubmit = function () {
                     if (this._registrationForm.valid) {

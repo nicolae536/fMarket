@@ -35,8 +35,8 @@ export class RegistrationComponent implements OnInit {
 
         this._registrationForm.addControl('email', this._formBuilder.control('', Validators.required));
         this._registrationForm.addControl('password', this._formBuilder.control('', Validators.required));
-        this._registrationForm.addControl('subscribe', this._formBuilder.control(''));
-        this._registrationForm.addControl('rememberMe', this._formBuilder.control(''));
+        this._registrationForm.addControl('subscribe', this._formBuilder.control(false));
+        this._registrationForm.addControl('rememberMe', this._formBuilder.control(false));
     }
 
     registrationFormSubmit(){
