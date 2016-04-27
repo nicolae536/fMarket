@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="/app/components/accountComponent/accountEditComponent/accountEditComponent.css"/>
+
+<div class="account-edit-component clearfix">
+    <form *ngIf="_accountFormModel" [ngFormModel]="_accountFormModel" (ngSubmit)="saveEditedAccount()" class="account-form">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                </div>
+                <input type="text" [ngFormControl]="_accountFormModel.controls['email']" placeholder="user@foobar.com"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-user"></span>
+                </div>
+                <input type="text" [ngFormControl]="_accountFormModel.controls['name']"/>
+            </div>
+        </div>
+        <div>
+            <label>Orase</label>
+            <select-component
+                    [select-items]="_cityList"
+                    [single-item-selected]="_accountFormModel.controls['cityItem'].value"
+                    [multi-select]="false"
+                    (loaded)="referenceDomainComponent($event)">
+            </select-component>
+        </div>
+        <div>
+            <span>Tip cont: </span>
+            <span *ngIf="_accountFormModel.controls['type']" class="label-info">{{_accountFormModel.controls['type']}}</span>
+        </div>
+        <div>
+            <span>Data in care a fost creeat: </span>
+            <span>{{_accountFormModel.controls['creationDate']}}</span>
+        </div>
+        <div>
+            <span>Data in care a fost activat: </span>
+            <span>{{_accountFormModel.controls['activationDate']}}</span>
+        </div>
+        <div>
+            <span>Parola a fost schimbata in: </span>
+            <span>{{_accountFormModel.controls['lastPasswordChangeDate']}}</span>
+        </div>
+
+        <div>
+            <div class="pull-right">
+                <button type="submit" class="btn btn-primary">{{submitLabel}}</button>
+            </div>
+        </div>
+    </form>
+</div>

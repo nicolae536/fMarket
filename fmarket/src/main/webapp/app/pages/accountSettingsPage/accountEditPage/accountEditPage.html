@@ -1,0 +1,11 @@
+<link rel="stylesheet" href="/app/pages/accountSettingsPage/accountEditPage/accountEditPage.css"/>
+
+<div class="account-edit-page">
+    <account-edit-component
+        [account-form-model]="_account"
+        [city-list]="_cityList"
+        [submit-label]="_submitLabel"
+        (save-edited-account)="saveEditedAccount($event)"
+        (account-edit-loaded)="accountEditLoaded($event)">
+    </account-edit-component>
+</div>

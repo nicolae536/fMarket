@@ -28,6 +28,7 @@ export class LoginPage implements OnInit {
     private _showRegisterLink:boolean;
     private _forgetPasswordLabel:string;
     private __showRememberMeLink:boolean;
+    private _showRememberMeLink:boolean;
     
     constructor(registrationService:RegistrationService) {
         this._registrationService = registrationService;
