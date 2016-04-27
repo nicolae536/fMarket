@@ -26,7 +26,7 @@ const HOUR:number = 216000;
         <div class="page-container">
             <div *ngIf="_notifications > 0" class="notification-helper">
                 <alert [type]="_alert.type" dismissible="true" (close)="closeAlert()">
-                    {{_notifications}}
+                    {{_notifications}} cereri noi!
                 </alert>
             </div>
             <router-outlet></router-outlet>
@@ -94,7 +94,7 @@ export class AppComponent {
         this.router = router;
         this.location = location;
         this._notificationService = notificationService;
-        //this.startChangeWatcher();
+        this.startChangeWatcher();
     }
 
     private startChangeWatcher() {

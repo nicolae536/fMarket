@@ -17,6 +17,6 @@ export class NotificationService {
     }
 
     getStatus(){
-        return this.api.get(this._NotificationController);
+        return this.api.get('/admin/demands/newcount');
     }
 }

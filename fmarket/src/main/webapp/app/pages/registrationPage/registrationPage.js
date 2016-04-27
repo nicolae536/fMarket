@@ -39,7 +39,7 @@ System.register(["angular2/core", "../../components/registrationComponent/regist
                     this._showNewsletterField = true;
                     this._passwordLabel = 'Parola';
                     this._forgetPasswordLabel = 'Mi-am uitat parola';
-                    this._showForgetPasswordLink = true;
+                    this._showForgetPasswordLink = false;
                     this._showRegisterLink = false;
                 };
                 RegistrationPage.prototype.requestHandler = function (account) {

@@ -64,7 +64,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
                     this.router = router;
                     this.location = location;
                     this._notificationService = notificationService;
-                    //this.startChangeWatcher();
+                    this.startChangeWatcher();
                 }
                 AppComponent.prototype.startChangeWatcher = function () {
                     var me = this;
@@ -90,7 +90,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n        <header-component></header-component>\n        <div class=\"page-container\">\n            <div *ngIf=\"_notifications > 0\" class=\"notification-helper\">\n                <alert [type]=\"_alert.type\" dismissible=\"true\" (close)=\"closeAlert()\">\n                    {{_notifications}}\n                </alert>\n            </div>\n            <router-outlet></router-outlet>\n        </div>\n    ",
+                        template: "\n        <header-component></header-component>\n        <div class=\"page-container\">\n            <div *ngIf=\"_notifications > 0\" class=\"notification-helper\">\n                <alert [type]=\"_alert.type\" dismissible=\"true\" (close)=\"closeAlert()\">\n                    {{_notifications}} cereri noi!\n                </alert>\n            </div>\n            <router-outlet></router-outlet>\n        </div>\n    ",
                         styles: ["\n        .page-container{\n            padding-top:5%;\n            padding-left: 5%;\n            padding-right: 5%;\n        }\n        \n        .page-container .notification-helper{\n            position: fixed;\n            max-width: 100%;\n            z-index: 10001;\n            right: 6.3%;\n        }\n    "],
                         directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.Alert, common_1.CORE_DIRECTIVES],
                         providers: [notificationService_1.NotificationService]

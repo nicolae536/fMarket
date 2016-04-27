@@ -37,7 +37,7 @@ export class RegistrationPage implements OnInit {
         this._showNewsletterField = true;
         this._passwordLabel = 'Parola';
         this._forgetPasswordLabel = 'Mi-am uitat parola';
-        this._showForgetPasswordLink = true;
+        this._showForgetPasswordLink = false;
         this._showRegisterLink = false;
     }
 
