@@ -56,7 +56,7 @@ public class DemandControllerAdmin {
 		return service.searchDemands(searchObject);
 	}
 
-	@RequestMapping(value = "/newcount", method = RequestMethod.POST)
+	@RequestMapping(value = "/newcount", method = RequestMethod.GET)
 	public int getNewDemandsCount() {
 		return service.getNewDemandsCount();
 	}
