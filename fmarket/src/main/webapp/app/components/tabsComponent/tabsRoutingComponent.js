@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1;
-    var applicationPath, TabsRoutingComponent, Tab;
+    var applicationPath, TabsRoutingComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -42,16 +42,6 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 return TabsRoutingComponent;
             }());
             exports_1("TabsRoutingComponent", TabsRoutingComponent);
-            Tab = (function () {
-                function Tab() {
-                    this.name = "";
-                    this.link = "";
-                    this.enableMarker = false;
-                    this.markerContent = "";
-                }
-                return Tab;
-            }());
-            exports_1("Tab", Tab);
         }
     }
 });

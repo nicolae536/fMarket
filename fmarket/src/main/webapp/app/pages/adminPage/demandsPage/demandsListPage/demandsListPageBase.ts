@@ -40,7 +40,7 @@ export class DemandsListPageBase {
             )
     }
 
-    public getNewDemandsList(){
+    public getNewDemandsList() {
         let me = this;
         this._demandService.getNewDemands()
             .map((response)=> {
@@ -63,7 +63,7 @@ export class DemandsListPageBase {
         this._demandService.getCityList()
             // .map((response)=> {
             //     if (response.text().length > 0) {
-            //         return response.json();
+        //         return response.json();
             //     }
             // })
             .subscribe(

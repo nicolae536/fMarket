@@ -209,7 +209,7 @@ export class SelectComponent implements OnInit, OnChanges {
     }
 
 }
-
+//This definition will remain here so the component may be exported with his types
 export class Select2Item {
     displayName:string;
     boundItem:Object;

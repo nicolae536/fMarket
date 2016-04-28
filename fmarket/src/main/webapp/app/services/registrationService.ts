@@ -4,7 +4,7 @@
 import {Injectable} from 'angular2/core';
 import {Http} from 'angular2/http';
 import {FMarketApi} from "./fMarketApi";
-import {RegisterAccount} from "../components/registrationComponent/registrationComponent";
+import {RegisterAccount} from "../models/registerAccount";
 
 @Injectable()
 export class RegistrationService {

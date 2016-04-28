@@ -3,9 +3,10 @@
  */
 import {Injectable} from 'angular2/core';
 import {Http} from 'angular2/http';
-import {NewDomainMenuItemRequest, UpdateDomainMenuItemRequest} from "../components/menuComponent/baseMenuComponent/baseMenuComponent"
 import {FMarketApi} from "./fMarketApi";
 import {Observable} from "rxjs/Observable";
+import {INewDomainMenuItemRequest} from "../models/interfaces/iNewDomainMenuItemRequest";
+import {IUpdateDomainMenuItemRequest} from "../models/interfaces/iUpdateDomainMenuItemRequest";
 
 @Injectable()
 export class CategoriesMenuService {
@@ -24,7 +25,7 @@ export class CategoriesMenuService {
         return this.api.get('/demand/domains');
     }
 
-    addMenuItem(newDomainMenuItem:NewDomainMenuItemRequest):Observable<Object> {
+    addMenuItem(newDomainMenuItem:INewDomainMenuItemRequest):Observable<Object> {
         return this.api.post(this._domainMenuController, JSON.stringify(newDomainMenuItem));
     }
 
@@ -32,7 +33,7 @@ export class CategoriesMenuService {
         return this.api.delete(this._domainMenuController + `/${id}`);
     }
 
-    updateMenuItem(menuItem:UpdateDomainMenuItemRequest):Observable<Object> {
+    updateMenuItem(menuItem:IUpdateDomainMenuItemRequest):Observable<Object> {
         return this.api.put(this._domainMenuController, JSON.stringify(menuItem));
     }
 

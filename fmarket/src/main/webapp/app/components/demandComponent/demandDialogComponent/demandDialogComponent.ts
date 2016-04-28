@@ -3,8 +3,9 @@
  */
 import {Component, Output, Input, EventEmitter} from 'angular2/core';
 import {ModalDialog} from '../../modalDialog/modalDialog';
-import {DemandComponent, Demand} from "../demandComponent";
+import {DemandComponent} from "../demandComponent";
 import {Select2Item} from "../../selectComponent/selectComponent";
+import {Demand} from "../../../models/demand";
 const APPLICATION_PATH:string = '/app/components/demandComponent/demandDialogComponent';
 
 @Component({

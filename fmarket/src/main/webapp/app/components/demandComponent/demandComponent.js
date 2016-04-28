@@ -1,4 +1,4 @@
-System.register(["angular2/core", "angular2/common", "../selectComponent/selectComponent"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/common", "../selectComponent/selectComponent", "../../models/demand"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,8 +10,8 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, selectComponent_1;
-    var EMAIL_REGEX, PHONE_REGEX, APPLICATION_PATH, DemandComponent, Demand;
+    var core_1, common_1, selectComponent_1, demand_1;
+    var EMAIL_REGEX, PHONE_REGEX, APPLICATION_PATH, DemandComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -22,6 +22,9 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
             },
             function (selectComponent_1_1) {
                 selectComponent_1 = selectComponent_1_1;
+            },
+            function (demand_1_1) {
+                demand_1 = demand_1_1;
             }],
         execute: function() {
             EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -101,7 +104,7 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                 ], DemandComponent.prototype, "_domainList", void 0);
                 __decorate([
                     core_1.Input('demand-data'), 
-                    __metadata('design:type', Demand)
+                    __metadata('design:type', demand_1.Demand)
                 ], DemandComponent.prototype, "_demandData", void 0);
                 __decorate([
                     core_1.Output('loaded'), 
@@ -123,22 +126,6 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                 return DemandComponent;
             }());
             exports_1("DemandComponent", DemandComponent);
-            Demand = (function () {
-                function Demand() {
-                    this.title = '';
-                    this.message = '';
-                    this.email = '';
-                    this.termsAgreed = false;
-                    this.phone = '';
-                    this.name = '';
-                    this.agreePhoneContact = false;
-                    this.agreeEmailContact = false;
-                    this.allCities = false;
-                    this.isInEditMode = false;
-                }
-                return Demand;
-            }());
-            exports_1("Demand", Demand);
         }
     }
 });

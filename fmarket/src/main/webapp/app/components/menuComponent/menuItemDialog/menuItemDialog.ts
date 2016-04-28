@@ -4,10 +4,11 @@
 import {Component, Input, Output, EventEmitter, OnInit, OnChanges} from 'angular2/core';
 
 import {SelectComponent} from '../../selectComponent/selectComponent';
-import {NewDomainMenuItemRequest} from '../baseMenuComponent/baseMenuComponent'
-import {UpdateDomainMenuItemRequest} from "../baseMenuComponent/baseMenuComponent";
 import {Select2Item} from "../../selectComponent/selectComponent";
-import {MenuItem} from "../baseMenuComponent/baseMenuComponent";
+import {IUpdateModal} from "../../../models/interfaces/iUpdateModal";
+import {IModal} from "../../../models/interfaces/iModal";
+import {INewDomainMenuItemRequest} from "../../../models/interfaces/iNewDomainMenuItemRequest";
+import {IUpdateDomainMenuItemRequest} from "../../../models/interfaces/iUpdateDomainMenuItemRequest";
 
 //used template to not download the same html multiple times
 @Component({
@@ -18,8 +19,8 @@ import {MenuItem} from "../baseMenuComponent/baseMenuComponent";
 
 export class MenuItemDialog implements OnInit, OnChanges {
     @Output('modal-loaded') modalLoaded:EventEmitter<MenuItemDialog> = new EventEmitter<MenuItemDialog>();
-    @Output('add-menu-item') newMenuItemEmitter:EventEmitter<NewDomainMenuItemRequest> = new EventEmitter<NewDomainMenuItemRequest>();
-    @Output('update-menu-item') updateMenuItemEmitter:EventEmitter<UpdateDomainMenuItemRequest> = new EventEmitter<UpdateDomainMenuItemRequest>();
+    @Output('add-menu-item') newMenuItemEmitter:EventEmitter<INewDomainMenuItemRequest> = new EventEmitter<INewDomainMenuItemRequest>();
+    @Output('update-menu-item') updateMenuItemEmitter:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
     @Input('domains-list') domainsList:Array<Select2Item>;
 
     private id:string;
@@ -140,18 +141,4 @@ export class MenuItemDialog implements OnInit, OnChanges {
             i++;
         }
     }
-}
-
-export interface IModal {
-    parentId;
-    positiveLabel;
-    operationType;
-    id;
-}
-
-export interface IUpdateModal {
-    positiveLabel;
-    operationType;
-    menuModel:Object;
-    id;
 }

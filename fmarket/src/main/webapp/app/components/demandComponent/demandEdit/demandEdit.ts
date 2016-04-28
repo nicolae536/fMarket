@@ -3,7 +3,6 @@
  */
 import {Component, OnInit, Input, Output, EventEmitter} from "angular2/core";
 import {Select2Item, SelectComponent} from "../../selectComponent/selectComponent";
-import {Demand} from "../demandComponent";
 import {DemandDetailsDTO} from "../../../models/demandDetailsDTO";
 
 const APPLICATION_PATH:string = '/app/components/demandComponent/demandEdit';

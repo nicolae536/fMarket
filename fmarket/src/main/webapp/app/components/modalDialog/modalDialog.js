@@ -11,7 +11,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var ModalDialog, DialogActionResult;
+    var ModalDialog;
     return {
         setters:[
             function (core_1_1) {
@@ -49,18 +49,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 return ModalDialog;
             }());
             exports_1("ModalDialog", ModalDialog);
-            /**
-             * The possible reasons a modal has been closed.
-             */
-            (function (DialogActionResult) {
-                DialogActionResult[DialogActionResult["POSITIVE"] = 0] = "POSITIVE";
-                DialogActionResult[DialogActionResult["CANCEL"] = 1] = "CANCEL";
-            })(DialogActionResult || (DialogActionResult = {}));
-            exports_1("DialogActionResult", DialogActionResult);
         }
     }
 });
-/**
- * Models the result of closing a modal dialog.
- */
 //# sourceMappingURL=modalDialog.js.map

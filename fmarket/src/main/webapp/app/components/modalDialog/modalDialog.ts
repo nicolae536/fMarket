@@ -32,13 +32,5 @@ export class ModalDialog {
     }
 }
 
-/**
- * The possible reasons a modal has been closed.
- */
-export enum DialogActionResult { POSITIVE, CANCEL }
-/**
- * Models the result of closing a modal dialog.
- */
-
 
  

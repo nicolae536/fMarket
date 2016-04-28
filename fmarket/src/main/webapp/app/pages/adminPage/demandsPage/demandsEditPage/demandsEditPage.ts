@@ -7,7 +7,7 @@ import {DemandService} from "../../../../services/demandService";
 import {RequestTypeService} from "../../../../services/requestTypeService";
 import {RouteParams, Router} from "angular2/router";
 import {DemandEditComponent} from "../../../../components/demandComponent/demandEdit/demandEdit";
-import {Demand} from "../../../../components/demandComponent/demandComponent";
+import {Demand} from "../../../../models/demand";
 
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
 

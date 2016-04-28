@@ -37,12 +37,12 @@ System.register(['angular2/http'], function(exports_1, context_1) {
                 FMarketApi.prototype.getRequestOptions = function (options) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
-                    var newOptions = options ? options : {
-                        headers: function () {
-                        }
-                    };
-                    newOptions.headers = headers;
-                    return newOptions;
+                    var fmarketClientOptions = options ? options : { headers: null };
+                    if (fmarketClientOptions && fmarketClientOptions.headers && (fmarketClientOptions.headers.get('Content-Type') || fmarketClientOptions.headers.get('content-type'))) {
+                        return fmarketClientOptions;
+                    }
+                    fmarketClientOptions.headers = headers;
+                    return fmarketClientOptions;
                 };
                 return FMarketApi;
             }());

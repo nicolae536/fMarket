@@ -37,14 +37,17 @@ export class FMarketApi {
     }
 
     getRequestOptions(options):RequestOptionsArgs {
-        var headers = new Headers();
+        let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        var newOptions = options ? options : {
-            headers: function () {
-            }
-        };
-        newOptions.headers = headers;
-        return newOptions;
+
+        let fmarketClientOptions:RequestOptionsArgs = options ? options : { headers:null };
+
+        if (fmarketClientOptions && fmarketClientOptions.headers && (fmarketClientOptions.headers.get('Content-Type') || fmarketClientOptions.headers.get('content-type'))){
+            return fmarketClientOptions;
+        }
+
+        fmarketClientOptions.headers = headers;
+        return fmarketClientOptions;
     }
 
 }

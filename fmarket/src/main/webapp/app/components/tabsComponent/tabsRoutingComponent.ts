@@ -3,6 +3,7 @@
  */
 import {Component, Input} from 'angular2/core';
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
+import {TabHeader} from "../../models/TabHeader";
 
 let applicationPath:string = '/app/components/tabsComponent';
 
@@ -14,17 +15,10 @@ let applicationPath:string = '/app/components/tabsComponent';
 })
 
 export class TabsRoutingComponent {
-    @Input('tabs-pages-list') tabPagesList:Array<Tab>;
+    @Input('tabs-pages-list') tabPagesList:Array<TabHeader>;
     private router:Router;
 
     constructor(router:Router) {
         this.router = router;
     }
-}
-
-export class Tab{
-    name:string = "";
-    link:string = "";
-    enableMarker:boolean = false;
-    markerContent:string = "";
 }

@@ -6,8 +6,8 @@ import {Http} from 'angular2/http';
 import {CITYES} from "./mock-providers/mock-City";
 import {FMarketApi} from "./fMarketApi";
 import {Observable} from "rxjs/Observable";
-import {Demand} from "../components/demandComponent/demandComponent";
 import {Select2Item} from "../components/selectComponent/selectComponent";
+import {Demand} from "../models/demand";
 
 
 @Injectable()

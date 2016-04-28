@@ -11,7 +11,7 @@ System.register(["angular2/core", "angular2/common", "angular2/router"], functio
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, common_1, router_1;
-    var APPLICATION_PATH, RegistrationComponent, RegisterAccount;
+    var APPLICATION_PATH, RegistrationComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -91,16 +91,6 @@ System.register(["angular2/core", "angular2/common", "angular2/router"], functio
                 return RegistrationComponent;
             }());
             exports_1("RegistrationComponent", RegistrationComponent);
-            RegisterAccount = (function () {
-                function RegisterAccount() {
-                    this.password = '';
-                    this.email = '';
-                    this.subscribe = false;
-                    this.rememberMe = false;
-                }
-                return RegisterAccount;
-            }());
-            exports_1("RegisterAccount", RegisterAccount);
         }
     }
 });

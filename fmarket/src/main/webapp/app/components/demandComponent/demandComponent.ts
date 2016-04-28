@@ -4,6 +4,8 @@
 import {Component, OnInit, Output, EventEmitter, Input} from "angular2/core";
 import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup} from "angular2/common";
 import {SelectComponent, Select2Item} from "../selectComponent/selectComponent";
+import {IDemand} from "../../models/interfaces/iDemand";
+import {Demand} from "../../models/demand";
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 const PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
 
@@ -96,32 +98,3 @@ export class DemandComponent implements OnInit {
     }
 }
 
-export class Demand implements IDemand {
-    id:string;
-    title:string='';
-    message:string='';
-    email:string='';
-    cities:Array<Select2Item>;
-    domain:Select2Item;
-    termsAgreed:boolean = false;
-    phone: string ='';
-    name:string = '';
-    agreePhoneContact:boolean = false;
-    agreeEmailContact:boolean = false;
-    allCities:boolean = false;
-    isInEditMode:boolean = false
-}
-
-export interface IDemand {
-    title;
-    message;
-    email;
-    cities;
-    domain;
-    termsAgreed;
-    phone;
-    name;
-    agreePhoneContact;
-    agreeEmailContact;
-    allCities;
-}

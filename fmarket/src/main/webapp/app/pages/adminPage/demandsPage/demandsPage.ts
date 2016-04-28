@@ -4,10 +4,11 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, Route, ROUTER_DIRECTIVES, } from 'angular2/router';
 
-import {Tab, TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
+import {TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
 import {DemandsEditPage} from "./demandsEditPage/demandsEditPage";
 import {NewDemandsListPage} from "./demandsListPage/newDemandsListPage";
 import {AllDemandsListPage} from "./demandsListPage/allDemandsListPage";
+import {TabHeader} from "../../../models/TabHeader";
 
 let applicationPath:string = '/app/pages/adminPage/demandsPage';
 
@@ -40,7 +41,7 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage';
 
 export class DemandsPage {
 
-    tabPagesList:Array<Tab>;
+    tabPagesList:Array<TabHeader>;
 
     constructor() {
         this.tabPagesList = [{name: 'Cereri noi', link: 'Demands/NewDemandsList', enableMarker:false, markerContent: ""},

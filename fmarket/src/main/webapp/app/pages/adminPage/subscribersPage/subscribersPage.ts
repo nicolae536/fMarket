@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';//-map
 import {Subscriber} from '../../../models/subscriber'
 import {ActionDialog} from '../../../components/actionDialog/actionDialog';
 import {SubscribersService} from '../../../services/subscribersService';
-import {DialogActionResult} from  '../../../components/modalDialog/modalDialog';
 import {PageWithNavigation} from  '../../../components/pageWithNavigation/pageWithNavigation';
 import {CreateSubscriberDialog} from '../../../components/createSubscriberDialog/createSubscriberDialog';
 

@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../modalDialog/modalDialog', "../demandComponent"], function(exports_1, context_1) {
+System.register(['angular2/core', '../../modalDialog/modalDialog', "../demandComponent", "../../../models/demand"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', '../../modalDialog/modalDialog', "../demandCom
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, modalDialog_1, demandComponent_1;
+    var core_1, modalDialog_1, demandComponent_1, demand_1;
     var APPLICATION_PATH, DemandDialogComponent;
     return {
         setters:[
@@ -27,6 +27,9 @@ System.register(['angular2/core', '../../modalDialog/modalDialog', "../demandCom
             },
             function (demandComponent_1_1) {
                 demandComponent_1 = demandComponent_1_1;
+            },
+            function (demand_1_1) {
+                demand_1 = demand_1_1;
             }],
         execute: function() {
             APPLICATION_PATH = '/app/components/demandComponent/demandDialogComponent';
@@ -40,14 +43,14 @@ System.register(['angular2/core', '../../modalDialog/modalDialog', "../demandCom
                     this.confirmAction = new core_1.EventEmitter();
                 }
                 DemandDialogComponent.prototype.ngOnInit = function () {
-                    this.responseObject = new demandComponent_1.Demand();
+                    this.responseObject = new demand_1.Demand();
                     this.loadedEmitter.emit(this);
                 };
                 DemandDialogComponent.prototype.referenceDemandComponent = function (_demandComponent) {
                     this._demandComponent = _demandComponent;
                 };
                 DemandDialogComponent.prototype.closeDemandDialog = function () {
-                    this.responseObject = new demandComponent_1.Demand();
+                    this.responseObject = new demand_1.Demand();
                     this.cancelAction();
                 };
                 DemandDialogComponent.prototype.isValidResponse = function () {

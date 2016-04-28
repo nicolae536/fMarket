@@ -1,13 +1,12 @@
 import {Component, OnInit} from "angular2/core";
 import {Response} from "angular2/http";
 import {MenuTreeComponent} from "../../../../components/menuComponent/menuTreeComponent";
-import {
-    UpdateDomainMenuItemRequest,
-    NewDomainMenuItemRequest
-} from "../../../../components/menuComponent/baseMenuComponent/baseMenuComponent";
 import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
-import {IModal, MenuItemDialog} from "../../../../components/menuComponent/menuItemDialog/menuItemDialog";
+import {MenuItemDialog} from "../../../../components/menuComponent/menuItemDialog/menuItemDialog";
 import {Select2Item, SelectComponent} from "../../../../components/selectComponent/selectComponent";
+import {IModal} from "../../../../models/interfaces/iModal";
+import {INewDomainMenuItemRequest} from "../../../../models/interfaces/iNewDomainMenuItemRequest";
+import {IUpdateDomainMenuItemRequest} from "../../../../models/interfaces/iUpdateDomainMenuItemRequest";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
 
@@ -64,7 +63,7 @@ export class CategoriesMenuPage implements OnInit {
             });
     }
 
-    selectMenuItem(menuItem:NewDomainMenuItemRequest) {
+    selectMenuItem(menuItem:INewDomainMenuItemRequest) {
         //
     }
 
@@ -73,7 +72,7 @@ export class CategoriesMenuPage implements OnInit {
         this._menuItemModal.show(this._modalInterface);
     }
 
-    addMenuItem(newDomainMenuItemRequest:NewDomainMenuItemRequest) {
+    addMenuItem(newDomainMenuItemRequest:INewDomainMenuItemRequest) {
         let me = this;
         me._categoriesMenuService.addMenuItem(newDomainMenuItemRequest)
             .map((response:Response) => {
@@ -91,7 +90,7 @@ export class CategoriesMenuPage implements OnInit {
         );
     }
 
-    showEditMenuModal(menuToUpdate:UpdateDomainMenuItemRequest) {
+    showEditMenuModal(menuToUpdate:IUpdateDomainMenuItemRequest) {
         this._menuItemModal.update({
             operationType: "update",
             positiveLabel: "Update",
@@ -100,7 +99,7 @@ export class CategoriesMenuPage implements OnInit {
         })
     }
 
-    editMenuItem(updateDomainMenuItemRequest:UpdateDomainMenuItemRequest) {
+    editMenuItem(updateDomainMenuItemRequest:IUpdateDomainMenuItemRequest) {
         let me = this;
 
 
@@ -153,9 +152,4 @@ export class CategoriesMenuPage implements OnInit {
             }
         )
     }
-}
-
-interface DomainName {
-    id;
-    name;
 }

@@ -2,12 +2,13 @@
  * Created by nick_ on 4/12/2016.
  */
 import {Component, OnInit} from 'angular2/core';
-import {Demand} from "../../components/demandComponent/demandComponent";
+
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
 import {Response} from "angular2/http";
 import {Select2Item} from "../../components/selectComponent/selectComponent";
 import {DemandService} from "../../services/demandService";
 import {DemandDialogComponent} from "../../components/demandComponent/demandDialogComponent/demandDialogComponent";
+import {Demand} from "../../models/demand";
 
 const folderPath = '/app/pages/homePage';
 

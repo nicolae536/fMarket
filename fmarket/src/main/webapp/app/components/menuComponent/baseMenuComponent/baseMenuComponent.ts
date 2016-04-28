@@ -1,5 +1,7 @@
 import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
 import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/interfaces";
+import {IUpdateDomainMenuItemRequest} from "../../../models/interfaces/iUpdateDomainMenuItemRequest";
+import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 
 //used template to not download the same html multiple times
 @Component({
@@ -67,15 +69,15 @@ import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/in
 })
 
 export class BaseMenuComponent implements OnChanges{
-    @Input('menu-items-list') menuItemsList:Array<MenuItem>;
+    @Input('menu-items-list') menuItemsList:Array<IMenuItem>;
     @Input('menu-layer') menuLayer:number;
-    @Input('active-in-tree') activeInTree:MenuItem;
-    @Output('select-menu-item') broadcastMenuItem:EventEmitter<UpdateDomainMenuItemRequest> = new EventEmitter<UpdateDomainMenuItemRequest>();
+    @Input('active-in-tree') activeInTree:IMenuItem;
+    @Output('select-menu-item') broadcastMenuItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
     @Output('add-new-item') broadcastNewItem:EventEmitter<number> = new EventEmitter<number>();
-    @Output('edit-submenu') broadcastUpdateItem:EventEmitter<UpdateDomainMenuItemRequest> = new EventEmitter<UpdateDomainMenuItemRequest>();
+    @Output('edit-submenu') broadcastUpdateItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
     @Output('delete-submenu') broadcastDeleteItem:EventEmitter<number> = new EventEmitter<number>();
 
-    selectedItem:MenuItem;
+    selectedItem:IMenuItem;
 
     constructor() {
     }
@@ -108,7 +110,7 @@ export class BaseMenuComponent implements OnChanges{
         this.broadcastNewItem.emit(id);
     }
 
-    editMenuItem($event, item:UpdateDomainMenuItemRequest) {
+    editMenuItem($event, item:IUpdateDomainMenuItemRequest) {
         $event.stopPropagation();
         this.broadcastUpdateItem.emit(item);
     }
@@ -124,26 +126,3 @@ export class BaseMenuComponent implements OnChanges{
     }
 }
 
-export interface MenuItem {
-    id;
-    level;
-    parentId;
-    name;
-    orderNr;
-    domainId
-    hasChildrens;
-}
-
-export interface NewDomainMenuItemRequest {
-    name;
-    parentId;
-    orderNr;
-    //Frunze
-    domainId;
-}
-
-export interface UpdateDomainMenuItemRequest {
-    id;
-    newName;
-    orderNr;
-}

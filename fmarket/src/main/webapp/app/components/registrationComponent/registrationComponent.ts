@@ -4,6 +4,7 @@
 import {Component, OnInit, EventEmitter, Input, Output} from "angular2/core";
 import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from "angular2/common";
 import {ROUTER_DIRECTIVES} from "angular2/router";
+import {RegisterAccount} from "../../models/registerAccount";
 
 const APPLICATION_PATH = '/app/components/registrationComponent';
 @Component({
@@ -48,11 +49,4 @@ export class RegistrationComponent implements OnInit {
         this.$registrationForm.emit(null);
     }
 
-}
-
-export class RegisterAccount {
-    password:string = '';
-    email:string = '';
-    subscribe:boolean = false;
-    rememberMe:boolean = false;
 }

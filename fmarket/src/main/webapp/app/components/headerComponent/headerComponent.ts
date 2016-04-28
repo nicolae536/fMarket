@@ -4,6 +4,7 @@
 import {Component, OnInit} from 'angular2/core';
 import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {DROPDOWN_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
+import {IPageReference} from "../../models/interfaces/iPageReference";
 
 let directoryPath = '/app/components/headerComponent';
 @Component({
@@ -13,8 +14,8 @@ let directoryPath = '/app/components/headerComponent';
 })
 
 export class HeaderComponent implements OnInit{
-    _usersApplicationPages:Array<IPage>;
-    _adminApplicationPages:Array<IPage>;
+    _usersApplicationPages:Array<IPageReference>;
+    _adminApplicationPages:Array<IPageReference>;
 
     constructor(
     ){}
@@ -36,9 +37,4 @@ export class HeaderComponent implements OnInit{
             {link: 'Admin/Demands/DemandsList', name: 'Cereri'}
         ];
     }
-}
-
-export interface IPage{
-    link:string;
-    name:string;
 }

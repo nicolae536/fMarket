@@ -134,6 +134,7 @@ System.register(["angular2/core", "ng2-bootstrap/ng2-bootstrap", "./filterPipe"]
                 return SelectComponent;
             }());
             exports_1("SelectComponent", SelectComponent);
+            //This definition will remain here so the component may be exported with his types
             Select2Item = (function () {
                 function Select2Item() {
                 }

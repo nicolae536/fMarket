@@ -1,5 +1,5 @@
-import {Component, Injectable, Input, Output, EventEmitter} from 'angular2/core';
-import {ModalDialog, DialogActionResult} from '../modalDialog/modalDialog';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
+import {ModalDialog} from '../modalDialog/modalDialog';
 import {User} from '../../models/user';
 import {OnInit} from "../../../node_modules/angular2/ts/src/core/linker/interfaces";
 

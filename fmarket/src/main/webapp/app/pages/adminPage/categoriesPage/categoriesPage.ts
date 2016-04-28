@@ -4,7 +4,8 @@ import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, Location } from 'angular2
 import {CompaniesPage} from "./companiesPage/companiesPage";
 import {DomainsPage} from "./domainsPage/domainsPage";
 import {CategoriesMenuPage} from "./categoriesMenuPage/categoriesMenuPage";
-import {Tab, TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
+import {TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
+import {TabHeader} from "../../../models/TabHeader";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage';
 
@@ -37,7 +38,7 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage';
 
 export class CategoriesPage {
 
-    tabPagesList:Array<Tab>;
+    tabPagesList:Array<TabHeader>;
 
     constructor() {
         this.tabPagesList = [{name: 'Meniu', link: 'Categories/CategoriesMenu', enableMarker:false, markerContent: ""},

@@ -1,8 +1,8 @@
 import {Component, Input, Output, EventEmitter, OnInit, OnChanges} from 'angular2/core';
 import {BaseMenuComponent} from './baseMenuComponent/baseMenuComponent';
-import {MenuItem} from './baseMenuComponent/baseMenuComponent';
-import {NewDomainMenuItemRequest} from './baseMenuComponent/baseMenuComponent';
-import {UpdateDomainMenuItemRequest} from "./baseMenuComponent/baseMenuComponent";
+import {INewDomainMenuItemRequest} from "../../models/interfaces/iNewDomainMenuItemRequest";
+import {IUpdateDomainMenuItemRequest} from "../../models/interfaces/iUpdateDomainMenuItemRequest";
+import {IMenuItem} from "../../models/interfaces/iMenuItem";
 
 @Component({
     selector: 'menu-component',
@@ -11,17 +11,17 @@ import {UpdateDomainMenuItemRequest} from "./baseMenuComponent/baseMenuComponent
 })
 
 export class MenuTreeComponent implements OnChanges {
-    @Input('menu-tree-data') menuDictionary:Array<MenuItem>;
+    @Input('menu-tree-data') menuDictionary:Array<IMenuItem>;
     //menuDictionary;
-    @Output('item-selected') selectItem:EventEmitter<NewDomainMenuItemRequest> = new EventEmitter<NewDomainMenuItemRequest>();
+    @Output('item-selected') selectItem:EventEmitter<INewDomainMenuItemRequest> = new EventEmitter<INewDomainMenuItemRequest>();
     @Output('add-menu-item') broadcastNewItem:EventEmitter<number> = new EventEmitter<number>();
-    @Output('edit-menu-item') broadcastEditItem:EventEmitter<UpdateDomainMenuItemRequest> = new EventEmitter<UpdateDomainMenuItemRequest>();
+    @Output('edit-menu-item') broadcastEditItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
     @Output('delete-menu-item') broadcastDeleteItem:EventEmitter<number> = new EventEmitter<number>();
     ROOT_PARENT_ID = null;
     ROOT_LAYER:number = 0;
     selectedMenuItem;
 
-    treeViewSelectedRoad:Array<MenuItem> = [];
+    treeViewSelectedRoad:Array<IMenuItem> = [];
     menuTreeView:Array<Object> = [];
     //TODO implement menuService
     constructor() {
@@ -96,7 +96,7 @@ export class MenuTreeComponent implements OnChanges {
         return firstLayer;
     }
 
-    selectMenuItem(menuItem:MenuItem) {
+    selectMenuItem(menuItem:IMenuItem) {
         if (!menuItem.hasChildrens) {
             this.selectItem.emit(menuItem.name);
             //return;
@@ -111,7 +111,7 @@ export class MenuTreeComponent implements OnChanges {
         this.broadcastNewItem.emit(parentId);
     }
 
-    editSubmenu(menuItem:UpdateDomainMenuItemRequest) {
+    editSubmenu(menuItem:IUpdateDomainMenuItemRequest) {
         this.broadcastEditItem.emit(menuItem);
     }
 
