@@ -30,7 +30,7 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                     this.api = new fMarketApi_1.FMarketApi(http);
                 }
                 NotificationService.prototype.getStatus = function () {
-                    return this.api.get(this._NotificationController);
+                    return this.api.get('/admin/demands/newcount');
                 };
                 NotificationService = __decorate([
                     core_1.Injectable(), 
