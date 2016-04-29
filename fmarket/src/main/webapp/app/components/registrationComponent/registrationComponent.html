@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/app/components/registrationComponent/registrationComponent.css"/>
-<div class="regisration-component col-md-3 col-md-push-4 col-xs-12 clearfix">
+<div class="regisration-component form-style clearfix">
     <h3 class="title">{{formTitle}}</h3>
     <form [ngFormModel]="_registrationForm" (ngSubmit)="registrationFormSubmit()" class="registration-form">
         <div class="form-group">
@@ -21,12 +21,15 @@
         <div>
             <button type="submit" class="btn btn-primary">{{buttonLabel}}</button>
         </div>
-        <div *ngIf="showForgetPasswordLink || showNewsletter"  class="links clearfix">
+        <div *ngIf="showForgetPasswordLink || _showRegisterLink || _showLoginLink"  class="links clearfix">
             <div *ngIf="showForgetPasswordLink" class="pull-right">
                 <a [routerLink]="['ForgetPassword']">{{_forgetPasswordLabel}}</a>
             </div>
             <div *ngIf="_showRegisterLink" class="pull-left">
                 <a [routerLink]="['Registration']">Inregistreaza-te</a>
+            </div>
+            <div *ngIf="_showLoginLink" class="pull-left">
+                <a [routerLink]="['Login']">A-ti uitat parola ?</a>
             </div>
         </div>
     </form>

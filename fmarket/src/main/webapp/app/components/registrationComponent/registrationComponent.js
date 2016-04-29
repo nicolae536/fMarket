@@ -77,6 +77,10 @@ System.register(["angular2/core", "angular2/common", "angular2/router"], functio
                     __metadata('design:type', Boolean)
                 ], RegistrationComponent.prototype, "showRememberMeField", void 0);
                 __decorate([
+                    core_1.Input('show-login-link'), 
+                    __metadata('design:type', Boolean)
+                ], RegistrationComponent.prototype, "_showLoginLink", void 0);
+                __decorate([
                     core_1.Output('registration-form'), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], RegistrationComponent.prototype, "$registrationForm", void 0);

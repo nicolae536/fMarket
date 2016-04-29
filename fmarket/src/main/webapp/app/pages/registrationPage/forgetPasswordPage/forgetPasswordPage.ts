@@ -6,6 +6,7 @@ import {Component, OnInit} from "angular2/core";
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../../services/registrationService";
 import {RegisterAccount} from "../../../models/registerAccount";
+import {Router} from "angular2/router";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -31,12 +32,16 @@ export class ForgetPasswordPage implements OnInit {
     private _showRegisterLink:boolean;
     private _forgetPasswordLabel;
     private _showRememberMeLink;
+    private _showLoginLink;
+    private _router:Router;
 
-    constructor(registrationService:RegistrationService) {
+    constructor(router:Router, registrationService:RegistrationService) {
+        this._router = router;
         this._registrationService = registrationService;
     }
 
     ngOnInit():any {
+        this._showLoginLink = false;
         this._showRememberMeLink = false;
         this._showRegisterLink = false;
         this._formTitle = 'Resetare parola';
@@ -48,6 +53,8 @@ export class ForgetPasswordPage implements OnInit {
     }
 
     requestHandler(account:RegisterAccount) {
+        let me=this;
+
         this._registrationService.resetPassword(account)
             .map((response)=> {
                 if (response.text()) {
@@ -56,7 +63,7 @@ export class ForgetPasswordPage implements OnInit {
             })
             .subscribe(
                 response => {
-
+                    me._router.navigate(['SuccessPasswordReset']);
                 },
                 error => {
 

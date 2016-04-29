@@ -21,6 +21,7 @@ export class RegistrationComponent implements OnInit {
     @Input('forget-password-label') _forgetPasswordLabel:string;
     @Input('show-register-link') _showRegisterLink:boolean;
     @Input('show-remember-me-link')showRememberMeField:boolean;
+    @Input('show-login-link') _showLoginLink:boolean;
 
     @Output('registration-form') $registrationForm:EventEmitter<RegisterAccount> = new EventEmitter<RegisterAccount>();
 

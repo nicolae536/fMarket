@@ -64,7 +64,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
                     this.router = router;
                     this.location = location;
                     this._notificationService = notificationService;
-                    this.startChangeWatcher();
+                    //this.startChangeWatcher();
                 }
                 AppComponent.prototype.startChangeWatcher = function () {
                     var me = this;

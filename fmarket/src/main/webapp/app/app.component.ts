@@ -94,7 +94,7 @@ export class AppComponent {
         this.router = router;
         this.location = location;
         this._notificationService = notificationService;
-        this.startChangeWatcher();
+        //this.startChangeWatcher();
     }
 
     private startChangeWatcher() {

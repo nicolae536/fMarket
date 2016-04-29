@@ -9,6 +9,7 @@ import {Component, OnInit} from "angular2/core";
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../../services/registrationService";
 import {RegisterAccount} from "../../../models/registerAccount";
+import {Router} from "angular2/router";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -28,14 +29,17 @@ export class LoginPage implements OnInit {
     private _showForgetPasswordLink:boolean;
     private _showRegisterLink:boolean;
     private _forgetPasswordLabel:string;
-    private __showRememberMeLink:boolean;
     private _showRememberMeLink:boolean;
-    
-    constructor(registrationService:RegistrationService) {
+    private _showLoginLink:boolean;
+    private _router:Router;
+
+    constructor(router:Router, registrationService:RegistrationService) {
+        this._router = router;
         this._registrationService = registrationService;
     }
 
     ngOnInit():any {
+        this._showLoginLink = false;
         this._showRememberMeLink = true;
         this._formTitle = 'Intra in cont';
         this._formButtonLabel = 'Intra in cont';
@@ -47,6 +51,7 @@ export class LoginPage implements OnInit {
     }
 
     requestHandler(account:RegisterAccount) {
+        let me=this;
         this._registrationService.login(account)
             .map((response)=> {
                 if (response.text()) {
@@ -55,7 +60,7 @@ export class LoginPage implements OnInit {
             })
             .subscribe(
                 response => {
-
+                    me._router.navigate(['Home'])
                 },
                 error => {
 

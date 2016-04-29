@@ -49,7 +49,7 @@ interface SearchObject {
 }
 
 interface FilterOptions {
-    id    :Object;
+    id    :number;
     email:Object;
     name:Object;
     status:AccountStatus;

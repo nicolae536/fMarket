@@ -1,19 +1,21 @@
 
 .regisration-component{
+    width: 27vw;
+    display: inline-block;
+    padding: 10px;
+    text-align: left;
+}
+
+.regisration-component.form-style{
     border: 1px solid #f0dfd5;
     box-shadow: 10px 10px 5px #888888;
 }
 
-.regisration-component.col-md-3.col-md-push-4{
-    left: 39.333333%;
-    width: 22%;
-}
-
-.regisration-component.col-md-3.col-md-push-4.col-xs-12.clearfix .title{
+.regisration-component.clearfix .title{
     padding-bottom: 20px;
 }
 
-.regisration-component.col-md-3.col-md-push-4.col-xs-12.clearfix .btn.btn-primary{
+.regisration-component.clearfix .btn.btn-primary{
     width: 100%;
 }
 

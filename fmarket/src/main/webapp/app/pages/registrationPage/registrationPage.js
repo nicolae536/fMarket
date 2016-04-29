@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/17/2016.
  */
-System.register(["angular2/core", "../../components/registrationComponent/registrationComponent", "../../services/registrationService"], function(exports_1, context_1) {
+System.register(["angular2/core", "../../components/registrationComponent/registrationComponent", "../../services/registrationService", "angular2/router"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -13,7 +13,7 @@ System.register(["angular2/core", "../../components/registrationComponent/regist
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, registrationComponent_1, registrationService_1;
+    var core_1, registrationComponent_1, registrationService_1, router_1;
     var folderPath, RegistrationPage;
     return {
         setters:[
@@ -25,14 +25,19 @@ System.register(["angular2/core", "../../components/registrationComponent/regist
             },
             function (registrationService_1_1) {
                 registrationService_1 = registrationService_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }],
         execute: function() {
             folderPath = '/app/pages/registrationPage';
             RegistrationPage = (function () {
-                function RegistrationPage(registrationService) {
+                function RegistrationPage(router, registrationService) {
+                    this._router = router;
                     this._registrationService = registrationService;
                 }
                 RegistrationPage.prototype.ngOnInit = function () {
+                    this._showLoginLink = true;
                     this._showRememberMeLink = false;
                     this._formTitle = 'Creeaza account';
                     this._formButtonLabel = 'Inregistreaza';
@@ -43,6 +48,7 @@ System.register(["angular2/core", "../../components/registrationComponent/regist
                     this._showRegisterLink = false;
                 };
                 RegistrationPage.prototype.requestHandler = function (account) {
+                    var me = this;
                     this._registrationService.createAccount(account)
                         .map(function (response) {
                         if (response.text()) {
@@ -50,6 +56,7 @@ System.register(["angular2/core", "../../components/registrationComponent/regist
                         }
                     })
                         .subscribe(function (response) {
+                        me._router.navigate(['SuccessRegistration']);
                     }, function (error) {
                     });
                 };
@@ -60,7 +67,7 @@ System.register(["angular2/core", "../../components/registrationComponent/regist
                         providers: [registrationService_1.RegistrationService],
                         directives: [registrationComponent_1.RegistrationComponent]
                     }), 
-                    __metadata('design:paramtypes', [registrationService_1.RegistrationService])
+                    __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService])
                 ], RegistrationPage);
                 return RegistrationPage;
             }());
