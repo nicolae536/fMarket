@@ -45,7 +45,8 @@ public class DemandDao extends BaseDao<Demand> {
 		String hql = "select count(d.id) from Demand d where d.status = :status";
 		Query query = getSession().createQuery(hql);
 		query.setParameter("status", DemandStatus.WAITING_FOR_REVIEW);
-		return (int) query.uniqueResult();
+		Long count = (Long) query.uniqueResult();
+		return count.intValue();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -55,18 +56,28 @@ public class DemandDao extends BaseDao<Demand> {
 		criteria.addOrder(Order.desc("creationDate"));
 		return criteria.list();
 	}
-	
+
 	public Criteria createCriteriaForDemands(DemandSearchObject searchObject) {
 		Criteria criteria = getCriteria();
-		
+		if (searchObject.getAccountId() != null) {
+			// criteria.createAlias("account", "acc");
+			criteria.add(Restrictions.eq("account.id", searchObject.getAccountId()));
+		}
+		if (searchObject.getDomainId() != null) {
+			// criteria.createAlias("demand", "dem");
+			criteria.add(Restrictions.eq("demand.id", searchObject.getDomainId()));
+		}
+		if (searchObject.getStatus() != null) {
+			criteria.add(Restrictions.eq("status", searchObject.getStatus()));
+		}
 		return criteria;
 	}
-	
+
 	public int getCriteriaTotalCount(Criteria criteria) {
 		criteria.setProjection(Projections.rowCount());
 		return (int) criteria.uniqueResult();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Demand> searchDemands(Criteria criteria, int page) {
 		criteria.setMaxResults(PaginationConstants.DEMANDS_PAGE_SIZE);
