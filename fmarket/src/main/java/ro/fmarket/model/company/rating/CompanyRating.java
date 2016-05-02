@@ -16,7 +16,7 @@ public class CompanyRating extends BaseEntity {
 
 	@OneToOne(mappedBy = "rating", fetch = FetchType.LAZY)
 	private Company company;
-	
+
 	/**
 	 * reviews nr
 	 */
@@ -30,7 +30,5 @@ public class CompanyRating extends BaseEntity {
 	@Min(0)
 	@Column(nullable = false)
 	private Integer score;
-	
-	
 
 }

@@ -1,4 +1,4 @@
-package ro.fmarket.model.company.rating;
+package ro.fmarket.model.company.review;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

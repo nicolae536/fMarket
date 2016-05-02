@@ -17,8 +17,8 @@ import lombok.Data;
 import ro.fmarket.core.base.BaseEntity;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.company.rating.CompanyContactInfo;
-import ro.fmarket.model.company.rating.CompanyMessageReview;
 import ro.fmarket.model.company.rating.CompanyRating;
+import ro.fmarket.model.company.review.CompanyMessageReview;
 import ro.fmarket.model.domain.company.CompanyDomain;
 import ro.fmarket.model.geographical.city.City;
 
