@@ -41,6 +41,7 @@ export class UsersPage extends PageWithNavigation implements OnInit {
     usersPerPage:number = 10;
     emailFilter:string = "";
     nameFilter:string = "";
+    idFilter:number;
     cityId = -1;
     selectedStatusFilter:AccountStatus = null;
 
@@ -64,7 +65,7 @@ export class UsersPage extends PageWithNavigation implements OnInit {
 
     getUsers() {
         var me = this;
-        this._userService.getUsersWithFilters("", this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
+        this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
             .map((response) => {
                 if (response.text().length > 0) {
                     return response.json();

@@ -1,5 +1,5 @@
-import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/http';
+import {Injectable} from "angular2/core";
+import {Http} from "angular2/http";
 import {User} from "../models/user";
 import {FMarketApi} from "./fMarketApi";
 import {AccountStatus} from "../models/accountStatus";
@@ -33,11 +33,11 @@ export class UserService {
 
     buildSearchObject(id:number, emailFilter:string, nameFilter:string, selectedStatusFilter:AccountStatus, cityId:number, pageIndex:number):FilterOptions {
         var requestOptions:FilterOptions = {
-            id: null,
+            id: id === undefined || id == null || id === -1 ? null : id,
             email: emailFilter.length > 0 ? emailFilter : null,
             name: nameFilter.length > 0 ? emailFilter : null,
             status: selectedStatusFilter ? selectedStatusFilter : null,
-            cityId: cityId === -1 ? null : cityId
+            cityId:  cityId === undefined || cityId == null || cityId === -1 ? null : cityId,
         };
         return requestOptions;
     }
@@ -49,7 +49,7 @@ interface SearchObject {
 }
 
 interface FilterOptions {
-    id    :number;
+    id:number;
     email:Object;
     name:Object;
     status:AccountStatus;

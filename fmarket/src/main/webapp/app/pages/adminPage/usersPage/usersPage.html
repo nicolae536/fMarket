@@ -29,6 +29,13 @@
                 <div class="clearfix filter-container">
                     <div class="col-md-2">
                         <div class="form-group">
+                            <span>Id:</span>
+                            <input type="text" [(ngModel)]="idFilter" placeholder="0"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
                             <span>Email:</span>
                             <input type="text" [(ngModel)]="emailFilter" placeholder="user@domain.com"
                                    class="form-control"/>

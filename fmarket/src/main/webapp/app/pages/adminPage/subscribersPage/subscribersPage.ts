@@ -101,7 +101,8 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
                 if (response.text().length > 0) {
                     return response.json();
                 }
-            })            .subscribe(
+            })
+            .subscribe(
                 response => {
                     me.subscribersList = response.data;
                     me.mapPageIndexes(response.totalPages, response.page);
@@ -196,9 +197,5 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
 
     saveEditedSubscriber(subscriber:Subscriber) {
         subscriber.isInEditMode = false;
-    }
-
-    applyFilters() {
-        this.getSubscribersWithFilters();
     }
 }

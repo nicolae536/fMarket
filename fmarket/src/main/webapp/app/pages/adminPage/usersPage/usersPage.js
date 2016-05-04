@@ -74,7 +74,7 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                 };
                 UsersPage.prototype.getUsers = function () {
                     var me = this;
-                    this._userService.getUsersWithFilters("", this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
+                    this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
                         .map(function (response) {
                         if (response.text().length > 0) {
                             return response.json();

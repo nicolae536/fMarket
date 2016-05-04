@@ -101,7 +101,8 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                         if (response.text().length > 0) {
                             return response.json();
                         }
-                    }).subscribe(function (response) {
+                    })
+                        .subscribe(function (response) {
                         me.subscribersList = response.data;
                         me.mapPageIndexes(response.totalPages, response.page);
                     }, function (error) {
@@ -176,9 +177,6 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                 };
                 SubscribersPage.prototype.saveEditedSubscriber = function (subscriber) {
                     subscriber.isInEditMode = false;
-                };
-                SubscribersPage.prototype.applyFilters = function () {
-                    this.getSubscribersWithFilters();
                 };
                 SubscribersPage = __decorate([
                     core_1.Component({

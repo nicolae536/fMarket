@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/http", "./fMarketApi"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -44,11 +44,11 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                 };
                 UserService.prototype.buildSearchObject = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
                     var requestOptions = {
-                        id: null,
+                        id: id === undefined || id == null || id === -1 ? null : id,
                         email: emailFilter.length > 0 ? emailFilter : null,
                         name: nameFilter.length > 0 ? emailFilter : null,
                         status: selectedStatusFilter ? selectedStatusFilter : null,
-                        cityId: cityId === -1 ? null : cityId
+                        cityId: cityId === undefined || cityId == null || cityId === -1 ? null : cityId,
                     };
                     return requestOptions;
                 };
