@@ -41,7 +41,7 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 		}
 
 		.base-menu-component .nav.nav-pills.nav-stacked li{
-            background-color:#ffffcc;
+            background-color:#54d3e3;
             border-radius: 5px
         }
 
@@ -51,7 +51,7 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 
         .base-menu-component .nav.nav-pills.nav-stacked .active a{
             color:black;
-            background-color:#f0dfd5;
+            background-color:#ff6b45;
         }
 
         .base-menu-component .nav.nav-pills.nav-stacked .operation{
