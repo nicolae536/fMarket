@@ -17,7 +17,7 @@ import ro.fmarket.model.account.AccountService;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -35,8 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-	     web.ignoring()
-	        .antMatchers("/resources");
 	}
 	
 	@Override
@@ -46,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/app/pages/adminPage/**", "/admin/**").hasRole("ADMIN")
 				.antMatchers("/app/pages/accountSettingsPage/**").hasRole("USER")
 				.antMatchers("/app/**", "/", "/login").permitAll()
-				.anyRequest().authenticated().and()
+//				.anyRequest().authenticated()
+				.and()
 		         .formLogin()
 		         	.successHandler(new RestAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
 		         	.failureHandler(new RestAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler()))
