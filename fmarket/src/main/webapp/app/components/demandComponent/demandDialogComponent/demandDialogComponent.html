@@ -26,7 +26,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-sm" (click)="closeDemandDialog()">{{cancelLabel}}</button>
-                    <button type="button" class="btn btn-primary btn-sm" (click)="createDemand()"> {{positiveLabel}}
+                    <button type="button" class="btn btn-primary btn-sm" [disabled]="_demandComponent && _demandComponent.demandForm && !_demandComponent.demandForm    .valid" (click)="createDemand()"> {{positiveLabel}}
                     </button>
                 </div>
             </div>

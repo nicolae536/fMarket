@@ -6,6 +6,7 @@ import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup} from "angular2/c
 import {SelectComponent, Select2Item} from "../selectComponent/selectComponent";
 import {IDemand} from "../../models/interfaces/iDemand";
 import {Demand} from "../../models/demand";
+import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 const PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
 
@@ -18,6 +19,7 @@ const APPLICATION_PATH:string = '/app/components/demandComponent';
     providers: [FormBuilder]
 })
 export class DemandComponent implements OnInit {
+
     @Input('city-list') _cityList:Array<Select2Item>;
     @Input('domain-List') _domainList:Array<Select2Item>;
     @Input('demand-data') _demandData:Demand;
@@ -53,11 +55,11 @@ export class DemandComponent implements OnInit {
     ngOnInit():any {
         this._demandForm.addControl('title', this._formBuilder.control(this._demandData.title, Validators.required));
         this._demandForm.addControl('message', this._formBuilder.control(this._demandData.message, Validators.required));
-        this._demandForm.addControl('email', this._formBuilder.control(this._demandData.email, Validators.compose([Validators.required])));
+        this._demandForm.addControl('email', this._formBuilder.control(this._demandData.email, Validators.compose([Validators.required, CustomValidators.validateEmail])));
         this._demandForm.addControl('cities', this._formBuilder.control(this._demandData.cities));
         this._demandForm.addControl('domain', this._formBuilder.control(this._demandData.domain));
         this._demandForm.addControl('termsAgreed', this._formBuilder.control(this._demandData.termsAgreed, Validators.required));
-        this._demandForm.addControl('phone', this._formBuilder.control(this._demandData.phone, Validators.compose([Validators.required , Validators.minLength(10)])));
+        this._demandForm.addControl('phone', this._formBuilder.control(this._demandData.phone, Validators.compose([Validators.required , Validators.minLength(10), CustomValidators.validatePhoneNumber])));
         this._demandForm.addControl('name', this._formBuilder.control(this._demandData.name, Validators.required));
         this._demandForm.addControl('agreePhoneContact', this._formBuilder.control(this._demandData.agreePhoneContact));
         this._demandForm.addControl('agreeEmailContact', this._formBuilder.control(this._demandData.agreeEmailContact));
@@ -95,6 +97,10 @@ export class DemandComponent implements OnInit {
             return formValue;
         }
         return null;
+    }
+
+    get demandForm():ControlGroup {
+        return this._demandForm;
     }
 }
 

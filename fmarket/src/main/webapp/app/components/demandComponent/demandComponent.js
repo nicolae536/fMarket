@@ -1,4 +1,4 @@
-System.register(["angular2/core", "angular2/common", "../selectComponent/selectComponent", "../../models/demand"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/common", "../selectComponent/selectComponent", "../../models/demand", "../../models/Angular2ExtensionValidators"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, selectComponent_1, demand_1;
+    var core_1, common_1, selectComponent_1, demand_1, Angular2ExtensionValidators_1;
     var EMAIL_REGEX, PHONE_REGEX, APPLICATION_PATH, DemandComponent;
     return {
         setters:[
@@ -25,6 +25,9 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
             },
             function (demand_1_1) {
                 demand_1 = demand_1_1;
+            },
+            function (Angular2ExtensionValidators_1_1) {
+                Angular2ExtensionValidators_1 = Angular2ExtensionValidators_1_1;
             }],
         execute: function() {
             EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -53,11 +56,11 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                 DemandComponent.prototype.ngOnInit = function () {
                     this._demandForm.addControl('title', this._formBuilder.control(this._demandData.title, common_1.Validators.required));
                     this._demandForm.addControl('message', this._formBuilder.control(this._demandData.message, common_1.Validators.required));
-                    this._demandForm.addControl('email', this._formBuilder.control(this._demandData.email, common_1.Validators.compose([common_1.Validators.required])));
+                    this._demandForm.addControl('email', this._formBuilder.control(this._demandData.email, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
                     this._demandForm.addControl('cities', this._formBuilder.control(this._demandData.cities));
                     this._demandForm.addControl('domain', this._formBuilder.control(this._demandData.domain));
                     this._demandForm.addControl('termsAgreed', this._formBuilder.control(this._demandData.termsAgreed, common_1.Validators.required));
-                    this._demandForm.addControl('phone', this._formBuilder.control(this._demandData.phone, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(10)])));
+                    this._demandForm.addControl('phone', this._formBuilder.control(this._demandData.phone, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(10), Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber])));
                     this._demandForm.addControl('name', this._formBuilder.control(this._demandData.name, common_1.Validators.required));
                     this._demandForm.addControl('agreePhoneContact', this._formBuilder.control(this._demandData.agreePhoneContact));
                     this._demandForm.addControl('agreeEmailContact', this._formBuilder.control(this._demandData.agreeEmailContact));
@@ -90,6 +93,13 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                             return formValue;
                         }
                         return null;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(DemandComponent.prototype, "demandForm", {
+                    get: function () {
+                        return this._demandForm;
                     },
                     enumerable: true,
                     configurable: true
