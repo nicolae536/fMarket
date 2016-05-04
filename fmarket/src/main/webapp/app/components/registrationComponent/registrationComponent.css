@@ -1,25 +1,35 @@
 
-.regisration-component{
+.regisration-component {
     width: 27vw;
     display: inline-block;
     padding: 10px;
     text-align: left;
 }
 
-.regisration-component.form-style{
+.regisration-component.form-style {
     border: 1px solid #f0dfd5;
     box-shadow: 10px 10px 5px #888888;
 }
 
-.regisration-component.clearfix .title{
+.regisration-component.clearfix .title {
     padding-bottom: 20px;
 }
 
-.regisration-component.clearfix .btn.btn-primary{
+.regisration-component.clearfix .btn.btn-primary {
     width: 100%;
 }
 
-.regisration-component .links{
+.regisration-component .links {
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+.regisration-component .form-group .ng-dirty.ng-invalid.ng-touched {
+    border-color: #ab2424;
+
+}
+
+.regisration-component .form-group .ng-dirty.ng-invalid.ng-touched:focus {
+    border-color: #ab2424;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #ab2424;
 }

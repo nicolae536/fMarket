@@ -19,7 +19,7 @@
             <label>Tine-ma minte</label>
         </div>
         <div>
-            <button type="submit" class="btn btn-primary">{{buttonLabel}}</button>
+            <button type="submit" [disabled]="!_registrationForm.valid" class="btn btn-primary">{{buttonLabel}}</button>
         </div>
         <div *ngIf="showForgetPasswordLink || _showRegisterLink || _showLoginLink"  class="links clearfix">
             <div *ngIf="showForgetPasswordLink" class="pull-right">

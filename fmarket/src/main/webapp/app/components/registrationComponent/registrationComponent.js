@@ -1,4 +1,4 @@
-System.register(["angular2/core", "angular2/common", "angular2/router"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/common", "angular2/router", "../../models/Angular2ExtensionValidators"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "angular2/common", "angular2/router"], functio
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, router_1;
+    var core_1, common_1, router_1, Angular2ExtensionValidators_1;
     var APPLICATION_PATH, RegistrationComponent;
     return {
         setters:[
@@ -22,6 +22,9 @@ System.register(["angular2/core", "angular2/common", "angular2/router"], functio
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (Angular2ExtensionValidators_1_1) {
+                Angular2ExtensionValidators_1 = Angular2ExtensionValidators_1_1;
             }],
         execute: function() {
             APPLICATION_PATH = '/app/components/registrationComponent';
@@ -32,8 +35,8 @@ System.register(["angular2/core", "angular2/common", "angular2/router"], functio
                 }
                 RegistrationComponent.prototype.ngOnInit = function () {
                     this._registrationForm = this._formBuilder.group([]);
-                    this._registrationForm.addControl('email', this._formBuilder.control('', common_1.Validators.required));
-                    this._registrationForm.addControl('password', this._formBuilder.control('', common_1.Validators.required));
+                    this._registrationForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
+                    this._registrationForm.addControl('password', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword])));
                     this._registrationForm.addControl('subscribe', this._formBuilder.control(false));
                     this._registrationForm.addControl('rememberMe', this._formBuilder.control(false));
                 };
