@@ -37,7 +37,10 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                     return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({ email: account.email, newPassword: account.password }));
                 };
                 RegistrationService.prototype.login = function (account) {
-                    return this.api.post(this.ACCOUNT_CONTROLLER + '/login', JSON.stringify({ email: account.email, password: account.password, rememberMe: account.rememberMe }));
+                    var credentials = "username=" + account.email + "&password=" + account.password;
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+                    return this.api.post(this.ACCOUNT_CONTROLLER + '/login', credentials, { headers: headers });
                 };
                 RegistrationService = __decorate([
                     core_1.Injectable(), 

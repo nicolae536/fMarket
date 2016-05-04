@@ -2,7 +2,7 @@
  * Created by nick_ on 4/17/2016.
  */
 import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/http';
+import {Http, Headers} from 'angular2/http';
 import {FMarketApi} from "./fMarketApi";
 import {RegisterAccount} from "../models/registerAccount";
 
@@ -25,6 +25,12 @@ export class RegistrationService {
     }
 
     login(account:RegisterAccount){
-        return this.api.post(this.ACCOUNT_CONTROLLER + '/login', JSON.stringify({email:account.email, password:account.password, rememberMe:account.rememberMe}));
+
+        let credentials = "username=" + account.email + "&password=" + account.password;
+
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        return this.api.post(this.ACCOUNT_CONTROLLER + '/login',credentials, {headers:headers});
     }
 }
