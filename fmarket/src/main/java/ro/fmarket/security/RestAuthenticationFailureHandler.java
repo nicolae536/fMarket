@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class RestAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
@@ -25,12 +25,11 @@ public class RestAuthenticationFailureHandler implements AuthenticationFailureHa
 			throws IOException, ServletException {
 
 		if ("true".equals(request.getHeader("X-Login-Ajax-call"))) {
-			Gson gson = new Gson();
+			ObjectMapper mapper = new ObjectMapper();
+			ObjectNode node = mapper.createObjectNode();
+			node.put("result", "failure");
 
-			JsonObject object = new JsonObject();
-			object.addProperty("result", "failure");
-
-			response.getWriter().write(gson.toJson(object));
+			response.getWriter().write(node.toString());
 			response.getWriter().flush();
 		} else {
 			defaultHandler.onAuthenticationFailure(request, response, exception);

@@ -12,8 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import ro.fmarket.core.rest.LoginResponse;
 
 /**
  * Authentication success handler for integration with SPA applications that need to login using Ajax instead of a form post. Detects if its a ajax login
@@ -36,23 +37,13 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
 		if ("true".equals(request.getHeader("X-Login-Ajax-call"))) {
 			FMarketPrincipal principal = (FMarketPrincipal) authentication.getPrincipal();
 			LOG.info("Successful login for user " + principal.getUsername());
-			Gson gson = new Gson();
-
-			JsonObject user = new JsonObject();
-			user.addProperty("username", principal.getUsername());
-
-			if (principal.getAuthorities().size() > 0) {
-				user.addProperty("authority", principal.getAuthorities().iterator().next().getAuthority());
-			}
-
-			JsonObject result = new JsonObject();
-			result.addProperty("result", "success");
-			result.add("user", user);
-
+			LoginResponse login = new LoginResponse();
+			login.setAccountType(principal.getAuthorities().iterator().next().toString());
+			login.setEmail(principal.getUsername());
 			response.setStatus(HttpStatus.OK.value());
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-
-			response.getWriter().write(gson.toJson(result));
+			ObjectMapper mapper = new ObjectMapper();
+			response.getWriter().write(mapper.writeValueAsString(login));
 			response.getWriter().flush();
 		} else {
 			defaultHandler.onAuthenticationSuccess(request, response, authentication);
