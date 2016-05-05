@@ -47,8 +47,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/app/pages/adminPage/**", "/admin/**").hasRole("ADMIN").antMatchers("/app/pages/accountSettingsPage/**")
-				.hasRole("USER").antMatchers("/app/**", "/", "/login").permitAll()
+		http.authorizeRequests()             //TODO -> change this to restrict everything for production since the script will be only one file
+		        .antMatchers("/app/pages/adminPage/*.*html$", "/admin/*.*html$").hasRole("ADMIN")
+		        .antMatchers("/app/pages/accountSettingsPage/*.*html$").hasRole("USER")
+		        .antMatchers("/app/pages/adminPage/*.*css$", "/admin/*.*css$").hasRole("ADMIN")
+		        .antMatchers("/app/pages/accountSettingsPage/*.*css$").hasRole("USER")
+		        .antMatchers("/app/**", "/", "/login").permitAll()		        
 				// .anyRequest().authenticated()
 				.and().formLogin().successHandler(new RestAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
 				.failureHandler(new RestAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler())).and().exceptionHandling()
