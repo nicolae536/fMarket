@@ -13,6 +13,7 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage'
 @Component({
     selector: 'account-demands-Page',
     templateUrl: applicationPath + '/accountDemandsPage.html',
+    providers:[DemandService, RequestTypeService]
 })
 @CanActivate(()=> {
     return AuthorizationService.isLoggedIn();

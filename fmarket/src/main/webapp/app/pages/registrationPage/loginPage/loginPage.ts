@@ -12,6 +12,7 @@ import {RegistrationService} from "../../../services/registrationService";
 import {RegisterAccount} from "../../../models/registerAccount";
 import {Router} from "angular2/router";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
+import {LocalStorageService} from "../../../services/localStorageService";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -34,10 +35,12 @@ export class LoginPage implements OnInit {
     private _showRememberMeLink:boolean;
     private _showLoginLink:boolean;
     private _router:Router;
+    private _localStorageService:LocalStorageService;
 
-    constructor(router:Router, registrationService:RegistrationService) {
+    constructor(router:Router, registrationService:RegistrationService,localStorageService:LocalStorageService) {
         this._router = router;
         this._registrationService = registrationService;
+        this._localStorageService = localStorageService;
     }
 
     ngOnInit():any {
@@ -63,7 +66,7 @@ export class LoginPage implements OnInit {
             .subscribe(
                 response => {
                     response.isLoggedIn = true;
-                    localStorage.setItem(ApplicationConstants.ACTIVE_USER_STATE, JSON.stringify(response));
+                    me._localStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
                     me._router.navigate(['Home'])
                 },
                 error => {

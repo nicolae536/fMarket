@@ -35,8 +35,7 @@ System.register(["angular2/core", "angular2/router", "./accountEditPage/accountE
         execute: function() {
             applicationPath = '/app/pages/accountSettingsPage';
             AccountSettingsPage = (function () {
-                function AccountSettingsPage(location, router) {
-                    this.location = location;
+                function AccountSettingsPage(router) {
                     this.router = router;
                 }
                 AccountSettingsPage = __decorate([
@@ -59,7 +58,7 @@ System.register(["angular2/core", "angular2/router", "./accountEditPage/accountE
                         })
                     ]),
                     router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn(); }), 
-                    __metadata('design:paramtypes', [Location, router_1.Router])
+                    __metadata('design:paramtypes', [router_1.Router])
                 ], AccountSettingsPage);
                 return AccountSettingsPage;
             }());

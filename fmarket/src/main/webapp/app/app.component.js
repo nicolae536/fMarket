@@ -1,4 +1,4 @@
-System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-bootstrap/ng2-bootstrap", "rxjs/Observable", "rxjs/add/observable/interval", "./services/authorizationService", "./components/headerComponent/headerComponent", "./services/notificationService", "./models/applicationConstansts"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-bootstrap/ng2-bootstrap", "rxjs/Observable", "rxjs/add/observable/interval", "./services/authorizationService", "./components/headerComponent/headerComponent", "./services/notificationService", "./models/applicationConstansts", "./services/localStorageService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, common_1, ng2_bootstrap_1, Observable_1, authorizationService_1, headerComponent_1, notificationService_1, applicationConstansts_1;
+    var core_1, router_1, common_1, ng2_bootstrap_1, Observable_1, authorizationService_1, headerComponent_1, notificationService_1, applicationConstansts_1, localStorageService_1;
     var AppComponent;
     return {
         setters:[
@@ -41,6 +41,9 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
             },
             function (applicationConstansts_1_1) {
                 applicationConstansts_1 = applicationConstansts_1_1;
+            },
+            function (localStorageService_1_1) {
+                localStorageService_1 = localStorageService_1_1;
             }],
         execute: function() {
             //= {type: "success", dismisable: true, message:""};
@@ -97,7 +100,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                         template: "\n        <header-component></header-component>\n        <div class=\"page-container\">\n            <div *ngFor=\"#notification of _notifications\" class=\"notification-helper\">\n                <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                    {{notification.message}}\n                </alert>\n            </div>\n            <router-outlet></router-outlet>\n        </div>\n    ",
                         styles: ["\n        .page-container{\n            padding-top:5%;\n            padding-left: 5%;\n            padding-right: 5%;\n        }\n        \n        .page-container .notification-helper{\n            position: fixed;\n            max-width: 100%;\n            z-index: 10001;\n            right: 6.3%;\n        }\n    "],
                         directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.Alert, common_1.CORE_DIRECTIVES],
-                        providers: [notificationService_1.NotificationService]
+                        providers: [notificationService_1.NotificationService, localStorageService_1.LocalStorageService]
                     }),
                     router_1.RouteConfig(authorizationService_1.AuthorizationService.getApplicationRootRoutes()), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.Location, notificationService_1.NotificationService])

@@ -8,6 +8,7 @@ import {AuthorizationService} from "./services/authorizationService";
 import {HeaderComponent} from "./components/headerComponent/headerComponent";
 import {NotificationService} from "./services/notificationService";
 import {ApplicationConstants} from "./models/applicationConstansts";
+import {LocalStorageService} from "./services/localStorageService";
 //= {type: "success", dismisable: true, message:""};
 @Component({
     selector: 'my-app',
@@ -37,7 +38,7 @@ import {ApplicationConstants} from "./models/applicationConstansts";
         }
     `],
     directives: [ROUTER_DIRECTIVES, HeaderComponent, Alert, CORE_DIRECTIVES],
-    providers: [NotificationService]
+    providers: [NotificationService, LocalStorageService]
 })
 
 @RouteConfig(AuthorizationService.getApplicationRootRoutes())

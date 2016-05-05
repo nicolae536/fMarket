@@ -31,12 +31,9 @@ var applicationPath:string = '/app/pages/accountSettingsPage';
 ])
 @CanActivate(()=>{return AuthorizationService.isLoggedIn();})
 export class AccountSettingsPage{
-
-    location:Location;
     router:Router;
 
-    constructor(location:Location, router:Router) {
-        this.location = location;
+    constructor(router:Router) {
         this.router = router;
     }
 }

@@ -44,7 +44,7 @@ System.register(["angular2/router", "../models/applicationConstansts", "../pages
                     if (!activeUserState) {
                         return 'USER';
                     }
-                    return activeUserState.role;
+                    return activeUserState.accountType;
                 };
                 AuthorizationService.hasRole = function (userRole) {
                     return this.getUserRole() === userRole;

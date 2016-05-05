@@ -22,7 +22,7 @@ export class AuthorizationService {
             return 'USER';
         }
 
-        return activeUserState.role;
+        return activeUserState.accountType;
     }
 
     public static hasRole(userRole:string){

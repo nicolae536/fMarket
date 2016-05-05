@@ -39,12 +39,12 @@ export class RegistrationPage implements OnInit {
     ngOnInit():any {
         this._showLoginLink=true;
         this._showRememberMeLink=false;
-        this._formTitle = 'Creeaza account';
+        this._formTitle = 'Creeaza cont';
         this._formButtonLabel = 'Inregistreaza';
         this._showNewsletterField = true;
         this._passwordLabel = 'Parola';
-        this._forgetPasswordLabel = 'Mi-am uitat parola';
-        this._showForgetPasswordLink = true;
+        this._forgetPasswordLabel = '';
+        this._showForgetPasswordLink = false;
         this._showRegisterLink = false;
     }
 
