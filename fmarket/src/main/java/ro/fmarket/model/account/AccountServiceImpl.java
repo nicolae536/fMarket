@@ -38,6 +38,16 @@ public class AccountServiceImpl implements AccountService {
 	private PasswordEncoder passwordEncoder;
 
 	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Account account = accountDao.getActiveByEmail(email);
+		if (account == null || !AccountStatus.ACTIVE.equals(account.getStatus())) {
+			throw new UsernameNotFoundException(email + " was not found");
+		} else {
+			return createPrincipal(account);
+		}
+	}
+
+	@Override
 	public void requestPasswordChange(String email, String newPassword, boolean isLoggedIn) {
 		final Account account = accountDao.getByEmail(email);
 		if (account == null) {
@@ -52,7 +62,7 @@ public class AccountServiceImpl implements AccountService {
 			requestPasswordChangeForAccount(account, newPassword);
 		}
 	}
-	
+
 	@Override
 	public UserDetails getUserDetails(String email) {
 		Account account = accountDao.getByEmail(email);
@@ -72,16 +82,6 @@ public class AccountServiceImpl implements AccountService {
 		final PasswordChangeToken token = createPasswordChangeToken(account, newPassword);
 		tokenDao.save(token);
 		mailService.sendPasswordChangeMail(account.getEmail(), token.getToken());
-	}
-
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Account account = accountDao.getByEmail(email);
-		if (account == null || !AccountStatus.ACTIVE.equals(account.getStatus())) {
-			throw new UsernameNotFoundException(email + " was not found");
-		} else {
-			return createPrincipal(account);
-		}
 	}
 
 	private FMarketPrincipal createPrincipal(Account account) {
@@ -112,7 +112,5 @@ public class AccountServiceImpl implements AccountService {
 		result.setToken(token);
 		return result;
 	}
-
-	
 
 }
