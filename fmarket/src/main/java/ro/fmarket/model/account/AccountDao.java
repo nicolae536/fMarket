@@ -35,7 +35,7 @@ public class AccountDao extends BaseDao<Account> {
 	}
 	
 	public Account getActiveByEmail(String email) {
-		final String hql = "select Account a where a.email = :email and a.status = 'ACTIVE'";
+		final String hql = "from Account a where a.email = :email and a.status = 'ACTIVE'";
 		final Query query = getSession().createQuery(hql);
 		query.setParameter("email", email);
 		List<Account> list = query.list();
