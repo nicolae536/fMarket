@@ -44,7 +44,7 @@ System.register(["angular2/core", "angular2/router", "../../components/registrat
                     this._showNewsletterField = true;
                     this._passwordLabel = 'Parola';
                     this._forgetPasswordLabel = 'Mi-am uitat parola';
-                    this._showForgetPasswordLink = false;
+                    this._showForgetPasswordLink = true;
                     this._showRegisterLink = false;
                 };
                 RegistrationPage.prototype.requestHandler = function (account) {
