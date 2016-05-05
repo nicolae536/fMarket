@@ -36,7 +36,7 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
 
 		if ("true".equals(request.getHeader("X-Login-Ajax-call"))) {
 			FMarketPrincipal principal = (FMarketPrincipal) authentication.getPrincipal();
-			LOG.info("Successful login for user " + principal.getUsername());
+			LOG.info("Successful login for user: " + principal.getUsername());
 			LoginResponse login = new LoginResponse();
 			login.setAccountType(principal.getAuthorities().iterator().next().toString());
 			login.setEmail(principal.getUsername());

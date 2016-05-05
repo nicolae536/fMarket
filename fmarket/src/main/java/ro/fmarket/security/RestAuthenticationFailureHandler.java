@@ -28,9 +28,10 @@ public class RestAuthenticationFailureHandler implements AuthenticationFailureHa
 			ObjectMapper mapper = new ObjectMapper();
 			ObjectNode node = mapper.createObjectNode();
 			node.put("result", "failure");
-
 			response.getWriter().write(node.toString());
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			response.getWriter().flush();
+			
 		} else {
 			defaultHandler.onAuthenticationFailure(request, response, exception);
 		}
