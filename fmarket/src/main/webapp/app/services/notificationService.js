@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', "./fMarketApi", "rxjs/Subject"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, fMarketApi_1;
+    var core_1, http_1, fMarketApi_1, Subject_1;
     var NotificationService;
     return {
         setters:[
@@ -22,15 +22,22 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
             },
             function (fMarketApi_1_1) {
                 fMarketApi_1 = fMarketApi_1_1;
+            },
+            function (Subject_1_1) {
+                Subject_1 = Subject_1_1;
             }],
         execute: function() {
             NotificationService = (function () {
                 function NotificationService(http) {
                     this._NotificationController = '/notify';
+                    this.notificationFlux = new Subject_1.Subject();
                     this.api = new fMarketApi_1.FMarketApi(http);
                 }
                 NotificationService.prototype.getStatus = function () {
                     return this.api.get('/admin/demands/newcount');
+                };
+                NotificationService.prototype.emitNotificationToRootComponent = function (notification) {
+                    this.notificationFlux.next(notification);
                 };
                 NotificationService = __decorate([
                     core_1.Injectable(), 

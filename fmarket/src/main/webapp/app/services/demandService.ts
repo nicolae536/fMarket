@@ -34,6 +34,10 @@ export class DemandService {
         return this.api.post(this._DemandController + '/search', JSON.stringify(search));
     }
 
+    getUserDemandsWithFilter(search:Object){
+        return this.api.post('/demands/search', JSON.stringify(search));
+    }
+
     getNewDemands(){
         return this.api.get(this._DemandController + '/new');
     }

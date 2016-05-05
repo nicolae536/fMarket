@@ -43,15 +43,20 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                 applicationConstansts_1 = applicationConstansts_1_1;
             }],
         execute: function() {
+            //= {type: "success", dismisable: true, message:""};
             AppComponent = (function () {
                 function AppComponent(router, location, notificationService) {
-                    this._alert = { type: "success", dismisable: true };
+                    var me = this;
                     this.router = router;
                     this.location = location;
+                    this._notifications = new Array();
                     this._notificationService = notificationService;
-                    //this.startChangeWatcher();
+                    this._notificationService.notificationFlux.subscribe(function (event) {
+                        me.showDissmisableNotification(event, 3);
+                    });
+                    //this.startDemadsWatcher();
                 }
-                AppComponent.prototype.startChangeWatcher = function () {
+                AppComponent.prototype.startDemadsWatcher = function () {
                     var me = this;
                     Observable_1.Observable.interval(15 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
                         me._notificationService.getStatus()
@@ -61,20 +66,35 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                             }
                         })
                             .subscribe(function (response) {
-                            me._notifications = response;
+                            if (response && response > 0) {
+                                me.showDissmisableNotification({
+                                    type: "success",
+                                    dismisable: true,
+                                    message: response + " cereri noi!"
+                                }, 3);
+                            }
                         }, function (error) {
-                            me.closeAlert();
                         });
                     }, function (error) {
                     });
                 };
-                AppComponent.prototype.closeAlert = function () {
-                    this._notifications = 0;
+                AppComponent.prototype.showDissmisableNotification = function (notification, seconds) {
+                    var me = this;
+                    this._notifications.push(notification);
+                    setTimeout(function () {
+                        me.closeAlert(notification);
+                    }, seconds * applicationConstansts_1.ApplicationConstants.SECOND);
+                };
+                AppComponent.prototype.closeAlert = function (notification) {
+                    var index = this._notifications.indexOf(notification);
+                    if (index !== -1) {
+                        this._notifications.splice(index, 1);
+                    }
                 };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n        <header-component></header-component>\n        <div class=\"page-container\">\n            <div *ngIf=\"_notifications > 0\" class=\"notification-helper\">\n                <alert [type]=\"_alert.type\" dismissible=\"true\" (close)=\"closeAlert()\">\n                    {{_notifications}} cereri noi!\n                </alert>\n            </div>\n            <router-outlet></router-outlet>\n        </div>\n    ",
+                        template: "\n        <header-component></header-component>\n        <div class=\"page-container\">\n            <div *ngFor=\"#notification of _notifications\" class=\"notification-helper\">\n                <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                    {{notification.message}}\n                </alert>\n            </div>\n            <router-outlet></router-outlet>\n        </div>\n    ",
                         styles: ["\n        .page-container{\n            padding-top:5%;\n            padding-left: 5%;\n            padding-right: 5%;\n        }\n        \n        .page-container .notification-helper{\n            position: fixed;\n            max-width: 100%;\n            z-index: 10001;\n            right: 6.3%;\n        }\n    "],
                         directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.Alert, common_1.CORE_DIRECTIVES],
                         providers: [notificationService_1.NotificationService]

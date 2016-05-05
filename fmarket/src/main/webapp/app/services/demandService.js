@@ -47,6 +47,9 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-City",
                 DemandService.prototype.getDemandsWithFilters = function (search) {
                     return this.api.post(this._DemandController + '/search', JSON.stringify(search));
                 };
+                DemandService.prototype.getUserDemandsWithFilter = function (search) {
+                    return this.api.post('/demands/search', JSON.stringify(search));
+                };
                 DemandService.prototype.getNewDemands = function () {
                     return this.api.get(this._DemandController + '/new');
                 };
