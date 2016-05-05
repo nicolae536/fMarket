@@ -1,0 +1,21 @@
+.success-page {
+    padding-left: 15vw;
+    padding-right: 15vw;
+}
+
+.success-page .success-page-wrapper {
+    border: 3px solid #10bc69;
+    background-color: #8af5c1;
+    padding: 15px;
+    color: #0c8d4f;
+}
+
+.success-page .success-page-wrapper a{
+    color: #0c8d4f;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.success-page .success-page-wrapper .glyphicon.glyphicon-ok{
+    font-size: 40px;
+}

@@ -1,7 +1,7 @@
-System.register(["angular2/router", "../models/applicationConstansts", "../pages/homePage/homePage", "../pages/registrationPage/registrationPage", "../pages/registrationPage/loginPage/loginPage", "../pages/registrationPage/forgetPasswordPage/forgetPasswordPage", "../pages/adminPage/adminPage", "../pages/accountSettingsPage/accountSettingsPage"], function(exports_1, context_1) {
+System.register(["angular2/router", "../models/applicationConstansts", "../pages/homePage/homePage", "../pages/registrationPage/registrationPage", "../pages/registrationPage/loginPage/loginPage", "../pages/registrationPage/forgetPasswordPage/forgetPasswordPage", "../pages/adminPage/adminPage", "../pages/accountSettingsPage/accountSettingsPage", "../pages/registrationPage/successPages/successRegisterPage", "../pages/registrationPage/successPages/successResetPasswordPage"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var router_1, applicationConstansts_1, homePage_1, registrationPage_1, loginPage_1, forgetPasswordPage_1, adminPage_1, accountSettingsPage_1;
+    var router_1, applicationConstansts_1, homePage_1, registrationPage_1, loginPage_1, forgetPasswordPage_1, adminPage_1, accountSettingsPage_1, successRegisterPage_1, successResetPasswordPage_1;
     var AuthorizationService;
     return {
         setters:[
@@ -28,6 +28,12 @@ System.register(["angular2/router", "../models/applicationConstansts", "../pages
             },
             function (accountSettingsPage_1_1) {
                 accountSettingsPage_1 = accountSettingsPage_1_1;
+            },
+            function (successRegisterPage_1_1) {
+                successRegisterPage_1 = successRegisterPage_1_1;
+            },
+            function (successResetPasswordPage_1_1) {
+                successResetPasswordPage_1 = successResetPasswordPage_1_1;
             }],
         execute: function() {
             AuthorizationService = (function () {
@@ -88,21 +94,44 @@ System.register(["angular2/router", "../models/applicationConstansts", "../pages
                             path: '/forget-password',
                             name: 'ForgetPassword',
                             component: forgetPasswordPage_1.ForgetPasswordPage
-                        })];
-                    if (AuthorizationService.getActiveUserState() === "ADMIN") {
-                        applicationRoutes.push(new router_1.Route({
+                        }),
+                        new router_1.Route({
+                            path: '/success-register',
+                            name: 'SuccessRegister',
+                            component: successRegisterPage_1.SuccessRegisterPage
+                        }),
+                        new router_1.Route({
+                            path: '/success-reset-password',
+                            name: 'SuccessResetPassword',
+                            component: successResetPasswordPage_1.SuccessResetPasswordPage
+                        }),
+                        new router_1.Route({
                             path: '/admin/...',
                             name: 'Admin',
                             component: adminPage_1.AdminPage
-                        }));
-                    }
-                    if (AuthorizationService.isLoggedIn()) {
-                        applicationRoutes.push(new router_1.Route({
+                        }),
+                        new router_1.Route({
                             path: '/account/...',
                             name: 'Account',
                             component: accountSettingsPage_1.AccountSettingsPage
-                        }));
-                    }
+                        })];
+                    //
+                    // if (AuthorizationService.isLoggedIn() && AuthorizationService.getActiveUserState() === "ADMIN") {
+                    //     applicationRoutes.push(new Route({
+                    //         path: '/admin/...',
+                    //         name: 'Admin',
+                    //         component: AdminPage
+                    //     }));
+                    // }
+                    //
+                    // if (AuthorizationService.isLoggedIn()) {
+                    //     applicationRoutes.push(
+                    //         new Route({
+                    //             path: '/account/...',
+                    //             name: 'Account',
+                    //             component: AccountSettingsPage
+                    //         }));
+                    // }
                     return applicationRoutes;
                 };
                 return AuthorizationService;

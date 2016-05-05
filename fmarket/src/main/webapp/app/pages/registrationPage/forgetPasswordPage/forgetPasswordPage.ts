@@ -64,7 +64,7 @@ export class ForgetPasswordPage implements OnInit {
             })
             .subscribe(
                 response => {
-                    me._router.navigate(['SuccessPasswordReset']);
+                    me._router.navigate(['SuccessResetPassword']);
                 },
                 error => {
 

@@ -56,7 +56,7 @@ System.register(["angular2/core", "angular2/router", "../../../components/regist
                         }
                     })
                         .subscribe(function (response) {
-                        me._router.navigate(['SuccessPasswordReset']);
+                        me._router.navigate(['SuccessResetPassword']);
                     }, function (error) {
                     });
                 };

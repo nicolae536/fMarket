@@ -1,3 +1,4 @@
+///<reference path="../pages/registrationPage/successPages/successResetPasswordPage.ts"/>
 /**
  * Created by nick_ on 5/5/2016.
  */
@@ -9,6 +10,8 @@ import {LoginPage} from "../pages/registrationPage/loginPage/loginPage";
 import {ForgetPasswordPage} from "../pages/registrationPage/forgetPasswordPage/forgetPasswordPage";
 import {AdminPage} from "../pages/adminPage/adminPage";
 import {AccountSettingsPage} from "../pages/accountSettingsPage/accountSettingsPage";
+import {SuccessRegisterPage} from "../pages/registrationPage/successPages/successRegisterPage";
+import {SuccessResetPasswordPage} from "../pages/registrationPage/successPages/successResetPasswordPage";
 
 
 export class AuthorizationService {
@@ -76,24 +79,44 @@ export class AuthorizationService {
                 path: '/forget-password',
                 name: 'ForgetPassword',
                 component: ForgetPasswordPage
-            })];
-
-        if (AuthorizationService.getActiveUserState() === "ADMIN") {
-            applicationRoutes.push(new Route({
+            }),
+            new Route({
+                path: '/success-register',
+                name: 'SuccessRegister',
+                component: SuccessRegisterPage
+            }),
+            new Route({
+                path: '/success-reset-password',
+                name: 'SuccessResetPassword',
+                component: SuccessResetPasswordPage
+            }),
+            new Route({
                 path: '/admin/...',
                 name: 'Admin',
                 component: AdminPage
-            }));
-        }
-
-        if (AuthorizationService.isLoggedIn()) {
-            applicationRoutes.push(
-                new Route({
-                    path: '/account/...',
-                    name: 'Account',
-                    component: AccountSettingsPage
-                }));
-        }
+            }),
+            new Route({
+                path: '/account/...',
+                name: 'Account',
+                component: AccountSettingsPage
+            })];
+        //
+        // if (AuthorizationService.isLoggedIn() && AuthorizationService.getActiveUserState() === "ADMIN") {
+        //     applicationRoutes.push(new Route({
+        //         path: '/admin/...',
+        //         name: 'Admin',
+        //         component: AdminPage
+        //     }));
+        // }
+        //
+        // if (AuthorizationService.isLoggedIn()) {
+        //     applicationRoutes.push(
+        //         new Route({
+        //             path: '/account/...',
+        //             name: 'Account',
+        //             component: AccountSettingsPage
+        //         }));
+        // }
 
         return applicationRoutes;
     }

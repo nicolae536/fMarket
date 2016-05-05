@@ -56,7 +56,7 @@ System.register(["angular2/core", "angular2/router", "../../components/registrat
                         }
                     })
                         .subscribe(function (response) {
-                        //me._router.navigate(['SuccessRegistration']);
+                        me._router.navigate(['SuccessRegister']);
                     }, function (error) {
                     });
                 };

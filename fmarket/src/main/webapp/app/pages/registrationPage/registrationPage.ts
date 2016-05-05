@@ -59,7 +59,7 @@ export class RegistrationPage implements OnInit {
             })
             .subscribe(
                 response => {
-                    //me._router.navigate(['SuccessRegistration']);
+                    me._router.navigate(['SuccessRegister']);
                 },
                 error => {
 
