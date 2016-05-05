@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../../../models/companieType', '../../../../services/companieTypesService'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../../../models/companieType', '../../../../services/companieTypesService', "angular2/router", "../../../../services/authorizationService", "../../../../models/Roles"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, companieType_1, companieTypesService_1;
+    var core_1, companieType_1, companieTypesService_1, router_1, authorizationService_1, Roles_1;
     var applicationPath, CompaniesPage;
     return {
         setters:[
@@ -22,6 +22,15 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
             },
             function (companieTypesService_1_1) {
                 companieTypesService_1 = companieTypesService_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (authorizationService_1_1) {
+                authorizationService_1 = authorizationService_1_1;
+            },
+            function (Roles_1_1) {
+                Roles_1 = Roles_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/categoriesPage/companiesPage';
@@ -108,7 +117,8 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
                         styleUrls: [applicationPath + '/companiesPage.css'],
                         //encapsulation: ViewEncapsulation.None,
                         providers: [companieTypesService_1.CompanieTypeService],
-                    }), 
+                    }),
+                    router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
                     __metadata('design:paramtypes', [companieTypesService_1.CompanieTypeService])
                 ], CompaniesPage);
                 return CompaniesPage;

@@ -1,23 +1,15 @@
 import {Component} from "angular2/core";
-import {RouteConfig, Router, Route, Location, ROUTER_DIRECTIVES} from "angular2/router";
+import {RouteConfig, Router, Location, ROUTER_DIRECTIVES, Route} from "angular2/router";
 import {CORE_DIRECTIVES} from "angular2/common";
+
+import {Alert} from "ng2-bootstrap/ng2-bootstrap";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/interval";
 
-import {Alert} from "ng2-bootstrap/ng2-bootstrap";
-
+import {AuthorizationService} from "./services/authorizationService";
 import {HeaderComponent} from "./components/headerComponent/headerComponent";
-import {AdminPage} from "./pages/adminPage/adminPage";
-import {HomePage} from "./pages/homePage/homePage";
-import {RegistrationPage} from "./pages/registrationPage/registrationPage";
-import {ForgetPasswordPage} from "./pages/registrationPage/forgetPasswordPage/forgetPasswordPage";
 import {NotificationService} from "./services/notificationService";
-import {LoginPage} from "./pages/registrationPage/loginPage/loginPage";
-import {AccountSettingsPage} from "./pages/accountSettingsPage/accountSettingsPage";
-
-const SECOND:number = 1000;
-const MINUTE:number = 60000;
-const HOUR:number = 3600000;
+import {ApplicationConstants} from "./models/applicationConstansts";
 
 @Component({
     selector: 'my-app',
@@ -50,38 +42,7 @@ const HOUR:number = 3600000;
     providers: [NotificationService]
 })
 
-@RouteConfig([
-    new Route({
-        path: '/',
-        name: 'Home',
-        component: HomePage,
-        useAsDefault: true
-    }),
-    new Route({
-        path: '/registration',
-        name: 'Registration',
-        component: RegistrationPage
-    }),
-    new Route({
-        path: '/login',
-        name: 'Login',
-        component: LoginPage
-    })
-    , new Route({
-        path: '/forget-password',
-        name: 'ForgetPassword',
-        component: ForgetPasswordPage
-    }),
-    new Route({
-        path: '/admin/...',
-        name: 'Admin',
-        component: AdminPage
-    }),
-    new Route({
-        path: '/account/...',
-        name: 'Account',
-        component: AccountSettingsPage
-    })])
+@RouteConfig(AuthorizationService.getApplicationRootRoutes())
 
 export class AppComponent {
     router:Router;
@@ -99,9 +60,8 @@ export class AppComponent {
 
     private startChangeWatcher() {
         let me = this;
-        let j = 0;
 
-        Observable.interval(15 * SECOND).subscribe(
+        Observable.interval(15 * ApplicationConstants.SECOND).subscribe(
             success => {
                 me._notificationService.getStatus()
                     .map((response)=> {
@@ -114,11 +74,11 @@ export class AppComponent {
                             me._notifications = response;
                         },
                         error => {
-                           me.closeAlert();
+                            me.closeAlert();
                         }
                     );
             },
-            error =>{
+            error => {
 
             }
         );

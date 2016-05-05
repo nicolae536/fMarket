@@ -30,7 +30,8 @@ export class RegistrationService {
 
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('X-Login-Ajax-call', "true");
 
-        return this.api.post(this.ACCOUNT_CONTROLLER + '/login',credentials, {headers:headers});
+        return this.api.post('/login', credentials, {headers:headers});
     }
 }

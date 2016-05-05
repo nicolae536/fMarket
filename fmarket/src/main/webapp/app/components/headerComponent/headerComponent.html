@@ -5,10 +5,10 @@
         <div class="navbar-header">
             <img class="fMarket-brand-icon" src="/staticResorces/demoIcon.jpg"/>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li *ngFor="#page of _usersApplicationPages"><a [routerLink]="[page.link]">{{page.name}}</a></li>
-                <li dropdown class="dropdown">
+                <li *ngIf="isLoggedIn()" dropdown class="dropdown">
                     <a href="#" class="dropdown-toggle" dropdownToggle role="button" aria-haspopup="true"
                        aria-expanded="false">Admin <span class="caret"></span></a>
                     <ul dropdownMenu class="dropdown-menu">

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './usersPage/usersPage', './subscribersPage/subscribersPage', './categoriesPage/categoriesPage', "./demandsPage/demandsPage"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "../../services/authorizationService", './usersPage/usersPage', './subscribersPage/subscribersPage', './categoriesPage/categoriesPage', "./demandsPage/demandsPage", "../../models/Roles"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './usersPage/usersPage', '.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, usersPage_1, subscribersPage_1, categoriesPage_1, demandsPage_1;
+    var core_1, router_1, authorizationService_1, usersPage_1, subscribersPage_1, categoriesPage_1, demandsPage_1, Roles_1;
     var applicationPath, AdminPage;
     return {
         setters:[
@@ -19,6 +19,9 @@ System.register(['angular2/core', 'angular2/router', './usersPage/usersPage', '.
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (authorizationService_1_1) {
+                authorizationService_1 = authorizationService_1_1;
             },
             function (usersPage_1_1) {
                 usersPage_1 = usersPage_1_1;
@@ -31,6 +34,9 @@ System.register(['angular2/core', 'angular2/router', './usersPage/usersPage', '.
             },
             function (demandsPage_1_1) {
                 demandsPage_1 = demandsPage_1_1;
+            },
+            function (Roles_1_1) {
+                Roles_1 = Roles_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage';
@@ -45,6 +51,7 @@ System.register(['angular2/core', 'angular2/router', './usersPage/usersPage', '.
                         templateUrl: applicationPath + '/adminPage.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
+                    router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }),
                     router_1.RouteConfig([
                         new router_1.Route({
                             path: '/users',

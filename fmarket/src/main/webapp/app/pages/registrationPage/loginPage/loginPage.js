@@ -4,7 +4,7 @@
 /**
  * Created by nick_ on 4/17/2016.
  */
-System.register(["angular2/core", "../../../components/registrationComponent/registrationComponent", "../../../services/registrationService", "angular2/router"], function(exports_1, context_1) {
+System.register(["angular2/core", "../../../components/registrationComponent/registrationComponent", "../../../services/registrationService", "angular2/router", "../../../models/applicationConstansts"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -16,7 +16,7 @@ System.register(["angular2/core", "../../../components/registrationComponent/reg
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, registrationComponent_1, registrationService_1, router_1;
+    var core_1, registrationComponent_1, registrationService_1, router_1, applicationConstansts_1;
     var folderPath, LoginPage;
     return {
         setters:[
@@ -31,6 +31,9 @@ System.register(["angular2/core", "../../../components/registrationComponent/reg
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (applicationConstansts_1_1) {
+                applicationConstansts_1 = applicationConstansts_1_1;
             }],
         execute: function() {
             folderPath = '/app/pages/registrationPage';
@@ -59,6 +62,8 @@ System.register(["angular2/core", "../../../components/registrationComponent/reg
                         }
                     })
                         .subscribe(function (response) {
+                        response.isLoggedIn = true;
+                        localStorage.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, JSON.stringify(response));
                         me._router.navigate(['Home']);
                     }, function (error) {
                     });

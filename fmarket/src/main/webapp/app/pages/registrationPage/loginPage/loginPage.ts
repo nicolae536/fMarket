@@ -6,10 +6,12 @@
  */
 
 import {Component, OnInit} from "angular2/core";
+
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../../services/registrationService";
 import {RegisterAccount} from "../../../models/registerAccount";
 import {Router} from "angular2/router";
+import {ApplicationConstants} from "../../../models/applicationConstansts";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -60,6 +62,8 @@ export class LoginPage implements OnInit {
             })
             .subscribe(
                 response => {
+                    response.isLoggedIn = true;
+                    localStorage.setItem(ApplicationConstants.ACTIVE_USER_STATE, JSON.stringify(response));
                     me._router.navigate(['Home'])
                 },
                 error => {

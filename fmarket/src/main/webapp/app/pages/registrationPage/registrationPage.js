@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/17/2016.
  */
-System.register(["angular2/core", "../../components/registrationComponent/registrationComponent", "../../services/registrationService", "angular2/router"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/router", "../../components/registrationComponent/registrationComponent", "../../services/registrationService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -13,21 +13,21 @@ System.register(["angular2/core", "../../components/registrationComponent/regist
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, registrationComponent_1, registrationService_1, router_1;
+    var core_1, router_1, registrationComponent_1, registrationService_1;
     var folderPath, RegistrationPage;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
             function (registrationComponent_1_1) {
                 registrationComponent_1 = registrationComponent_1_1;
             },
             function (registrationService_1_1) {
                 registrationService_1 = registrationService_1_1;
-            },
-            function (router_1_1) {
-                router_1 = router_1_1;
             }],
         execute: function() {
             folderPath = '/app/pages/registrationPage';
@@ -56,7 +56,7 @@ System.register(["angular2/core", "../../components/registrationComponent/regist
                         }
                     })
                         .subscribe(function (response) {
-                        me._router.navigate(['SuccessRegistration']);
+                        //me._router.navigate(['SuccessRegistration']);
                     }, function (error) {
                     });
                 };

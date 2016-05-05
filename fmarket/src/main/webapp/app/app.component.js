@@ -1,4 +1,4 @@
-System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Observable", "rxjs/add/observable/interval", "ng2-bootstrap/ng2-bootstrap", "./components/headerComponent/headerComponent", "./pages/adminPage/adminPage", "./pages/homePage/homePage", "./pages/registrationPage/registrationPage", "./pages/registrationPage/forgetPasswordPage/forgetPasswordPage", "./services/notificationService", "./pages/registrationPage/loginPage/loginPage", "./pages/accountSettingsPage/accountSettingsPage"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-bootstrap/ng2-bootstrap", "rxjs/Observable", "rxjs/add/observable/interval", "./services/authorizationService", "./components/headerComponent/headerComponent", "./services/notificationService", "./models/applicationConstansts"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,8 +10,8 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, common_1, Observable_1, ng2_bootstrap_1, headerComponent_1, adminPage_1, homePage_1, registrationPage_1, forgetPasswordPage_1, notificationService_1, loginPage_1, accountSettingsPage_1;
-    var SECOND, MINUTE, HOUR, AppComponent;
+    var core_1, router_1, common_1, ng2_bootstrap_1, Observable_1, authorizationService_1, headerComponent_1, notificationService_1, applicationConstansts_1;
+    var AppComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -23,41 +23,26 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
             function (common_1_1) {
                 common_1 = common_1_1;
             },
+            function (ng2_bootstrap_1_1) {
+                ng2_bootstrap_1 = ng2_bootstrap_1_1;
+            },
             function (Observable_1_1) {
                 Observable_1 = Observable_1_1;
             },
             function (_1) {},
-            function (ng2_bootstrap_1_1) {
-                ng2_bootstrap_1 = ng2_bootstrap_1_1;
+            function (authorizationService_1_1) {
+                authorizationService_1 = authorizationService_1_1;
             },
             function (headerComponent_1_1) {
                 headerComponent_1 = headerComponent_1_1;
             },
-            function (adminPage_1_1) {
-                adminPage_1 = adminPage_1_1;
-            },
-            function (homePage_1_1) {
-                homePage_1 = homePage_1_1;
-            },
-            function (registrationPage_1_1) {
-                registrationPage_1 = registrationPage_1_1;
-            },
-            function (forgetPasswordPage_1_1) {
-                forgetPasswordPage_1 = forgetPasswordPage_1_1;
-            },
             function (notificationService_1_1) {
                 notificationService_1 = notificationService_1_1;
             },
-            function (loginPage_1_1) {
-                loginPage_1 = loginPage_1_1;
-            },
-            function (accountSettingsPage_1_1) {
-                accountSettingsPage_1 = accountSettingsPage_1_1;
+            function (applicationConstansts_1_1) {
+                applicationConstansts_1 = applicationConstansts_1_1;
             }],
         execute: function() {
-            SECOND = 1000;
-            MINUTE = 60000;
-            HOUR = 3600000;
             AppComponent = (function () {
                 function AppComponent(router, location, notificationService) {
                     this._alert = { type: "success", dismisable: true };
@@ -68,8 +53,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
                 }
                 AppComponent.prototype.startChangeWatcher = function () {
                     var me = this;
-                    var j = 0;
-                    Observable_1.Observable.interval(15 * SECOND).subscribe(function (success) {
+                    Observable_1.Observable.interval(15 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
                         me._notificationService.getStatus()
                             .map(function (response) {
                             if (response.text().length > 0) {
@@ -95,38 +79,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "rxjs/Ob
                         directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.Alert, common_1.CORE_DIRECTIVES],
                         providers: [notificationService_1.NotificationService]
                     }),
-                    router_1.RouteConfig([
-                        new router_1.Route({
-                            path: '/',
-                            name: 'Home',
-                            component: homePage_1.HomePage,
-                            useAsDefault: true
-                        }),
-                        new router_1.Route({
-                            path: '/registration',
-                            name: 'Registration',
-                            component: registrationPage_1.RegistrationPage
-                        }),
-                        new router_1.Route({
-                            path: '/login',
-                            name: 'Login',
-                            component: loginPage_1.LoginPage
-                        }),
-                        new router_1.Route({
-                            path: '/forget-password',
-                            name: 'ForgetPassword',
-                            component: forgetPasswordPage_1.ForgetPasswordPage
-                        }),
-                        new router_1.Route({
-                            path: '/admin/...',
-                            name: 'Admin',
-                            component: adminPage_1.AdminPage
-                        }),
-                        new router_1.Route({
-                            path: '/account/...',
-                            name: 'Account',
-                            component: accountSettingsPage_1.AccountSettingsPage
-                        })]), 
+                    router_1.RouteConfig(authorizationService_1.AuthorizationService.getApplicationRootRoutes()), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.Location, notificationService_1.NotificationService])
                 ], AppComponent);
                 return AppComponent;

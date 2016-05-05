@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../../../../components/demandComponent/demandListBase/demandListBase", "../../../../services/demandService", "../../../../services/requestTypeService", "./demandsListPageBase"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/router", "../../../../components/demandComponent/demandListBase/demandListBase", "../../../../services/demandService", "../../../../services/requestTypeService", "./demandsListPageBase", "../../../../models/Roles", "../../../../services/authorizationService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,12 +15,15 @@ System.register(["angular2/core", "../../../../components/demandComponent/demand
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, demandListBase_1, demandService_1, requestTypeService_1, demandsListPageBase_1;
+    var core_1, router_1, demandListBase_1, demandService_1, requestTypeService_1, demandsListPageBase_1, Roles_1, authorizationService_1;
     var applicationPath, AllDemandsListPage;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             },
             function (demandListBase_1_1) {
                 demandListBase_1 = demandListBase_1_1;
@@ -33,6 +36,12 @@ System.register(["angular2/core", "../../../../components/demandComponent/demand
             },
             function (demandsListPageBase_1_1) {
                 demandsListPageBase_1 = demandsListPageBase_1_1;
+            },
+            function (Roles_1_1) {
+                Roles_1 = Roles_1_1;
+            },
+            function (authorizationService_1_1) {
+                authorizationService_1 = authorizationService_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
@@ -57,7 +66,8 @@ System.register(["angular2/core", "../../../../components/demandComponent/demand
                         styleUrls: [applicationPath + '/demandsListPageBase.css'],
                         directives: [demandListBase_1.DemandListBaseComponent],
                         providers: [demandService_1.DemandService, requestTypeService_1.RequestTypeService]
-                    }), 
+                    }),
+                    router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
                     __metadata('design:paramtypes', [demandService_1.DemandService, requestTypeService_1.RequestTypeService])
                 ], AllDemandsListPage);
                 return AllDemandsListPage;

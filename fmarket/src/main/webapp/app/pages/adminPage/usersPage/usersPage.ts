@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewEncapsulation, Injectable} from 'angular2/core';
 import {NgForm} from 'angular2/common';
-import {Http} from 'angular2/http';
-import {Observable} from 'rxjs/Observable';
+import {CanActivate} from "angular2/router";
+
 
 //import operators
 import 'rxjs/add/operator/map';//-map
@@ -16,6 +16,8 @@ import {User} from '../../../models/user';
 import {CITYES} from '../../../services/mock-providers/mock-City';
 import {STATUS} from '../../../services/mock-providers/mock-Status';
 import {AccountStatus} from "../../../models/accountStatus";
+import {Role} from "../../../models/Roles";
+import {AuthorizationService} from "../../../services/authorizationService";
 
 var applicationPath:string = '/app/pages/adminPage/usersPage';
 
@@ -28,7 +30,7 @@ var applicationPath:string = '/app/pages/adminPage/usersPage';
     providers: [UserService],
     directives: [ActionDialog, CreateUserDialog, NgForm]
 })
-
+@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 export class UsersPage extends PageWithNavigation implements OnInit {
     usersList:User[];
     userDialog:CreateUserDialog;

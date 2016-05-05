@@ -3,6 +3,10 @@ import {Component, OnInit, Injectable} from 'angular2/core';
 import {CompanieType} from '../../../../models/companieType';
 import {CompanieTypeService} from '../../../../services/companieTypesService';
 import {Response} from "angular2/http";
+import {CanActivate} from "angular2/router";
+
+import {AuthorizationService} from "../../../../services/authorizationService";
+import {Role} from "../../../../models/Roles";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage';
 
@@ -14,6 +18,7 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage'
 
     providers: [CompanieTypeService],
 })
+@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 
 export class CompaniesPage implements OnInit {
     companieTypes:Array<CompanieType> = [new CompanieType("", "test", 1), new CompanieType("", "test", 3), new CompanieType("", "test", 2)];

@@ -3,11 +3,14 @@
  */
 
 import {Component, OnInit, OnChanges} from "angular2/core";
+import {RouteParams, Router, CanActivate} from "angular2/router";
+
 import {DemandService} from "../../../../services/demandService";
 import {RequestTypeService} from "../../../../services/requestTypeService";
-import {RouteParams, Router} from "angular2/router";
 import {DemandEditComponent} from "../../../../components/demandComponent/demandEdit/demandEdit";
 import {Demand} from "../../../../models/demand";
+import {Role} from "../../../../models/Roles";
+import {AuthorizationService} from "../../../../services/authorizationService";
 
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
 
@@ -18,7 +21,7 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
     directives: [DemandEditComponent],
     providers: [DemandService, RequestTypeService]
 })
-
+@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 export class DemandsEditPage implements OnInit {
     private _router:Router;
     private _demandService:DemandService;

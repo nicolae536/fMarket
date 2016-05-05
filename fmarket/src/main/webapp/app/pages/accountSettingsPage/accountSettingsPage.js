@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/26/2016.
  */
-System.register(["angular2/core", "angular2/router", "./accountEditPage/accountEditPage", "./accountDemandsPage/accountDemandsPage"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/router", "./accountEditPage/accountEditPage", "./accountDemandsPage/accountDemandsPage", "../../services/authorizationService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -13,7 +13,7 @@ System.register(["angular2/core", "angular2/router", "./accountEditPage/accountE
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, accountEditPage_1, accountDemandsPage_1;
+    var core_1, router_1, accountEditPage_1, accountDemandsPage_1, authorizationService_1;
     var applicationPath, AccountSettingsPage;
     return {
         setters:[
@@ -28,6 +28,9 @@ System.register(["angular2/core", "angular2/router", "./accountEditPage/accountE
             },
             function (accountDemandsPage_1_1) {
                 accountDemandsPage_1 = accountDemandsPage_1_1;
+            },
+            function (authorizationService_1_1) {
+                authorizationService_1 = authorizationService_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/accountSettingsPage';
@@ -54,7 +57,8 @@ System.register(["angular2/core", "angular2/router", "./accountEditPage/accountE
                             component: accountDemandsPage_1.AccountDemandsPage,
                             name: 'Demands'
                         })
-                    ]), 
+                    ]),
+                    router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn(); }), 
                     __metadata('design:paramtypes', [Location, router_1.Router])
                 ], AccountSettingsPage);
                 return AccountSettingsPage;

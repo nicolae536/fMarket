@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '../../../models/subscriber', '../../../components/actionDialog/actionDialog', '../../../services/subscribersService', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createSubscriberDialog/createSubscriberDialog', '../../../services/mock-providers/mock-City'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', "angular2/router", 'rxjs/add/operator/map', '../../../models/subscriber', '../../../components/actionDialog/actionDialog', '../../../services/subscribersService', '../../../components/pageWithNavigation/pageWithNavigation', '../../../components/createSubscriberDialog/createSubscriberDialog', '../../../services/mock-providers/mock-City', "../../../models/Roles", "../../../services/authorizationService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, subscriber_1, actionDialog_1, subscribersService_1, pageWithNavigation_1, createSubscriberDialog_1, mock_City_1;
+    var core_1, common_1, router_1, subscriber_1, actionDialog_1, subscribersService_1, pageWithNavigation_1, createSubscriberDialog_1, mock_City_1, Roles_1, authorizationService_1;
     var applicationPath, SubscribersPage;
     return {
         setters:[
@@ -24,6 +24,9 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
             },
             function (common_1_1) {
                 common_1 = common_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             },
             function (_1) {},
             function (subscriber_1_1) {
@@ -43,6 +46,12 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
             },
             function (mock_City_1_1) {
                 mock_City_1 = mock_City_1_1;
+            },
+            function (Roles_1_1) {
+                Roles_1 = Roles_1_1;
+            },
+            function (authorizationService_1_1) {
+                authorizationService_1 = authorizationService_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/subscribersPage';
@@ -186,7 +195,8 @@ System.register(['angular2/core', 'angular2/common', 'rxjs/add/operator/map', '.
                         encapsulation: core_1.ViewEncapsulation.None,
                         providers: [subscribersService_1.SubscribersService],
                         directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm]
-                    }), 
+                    }),
+                    router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
                     __metadata('design:paramtypes', [subscribersService_1.SubscribersService])
                 ], SubscribersPage);
                 return SubscribersPage;

@@ -7,6 +7,8 @@ import {AccountDto} from "../../../models/accountDto";
 import {AccountService} from "../../../services/accountService";
 import {DemandService} from "../../../services/demandService";
 import {Select2Item} from "../../../components/selectComponent/selectComponent";
+import {AuthorizationService} from "../../../services/authorizationService";
+import {CanActivate} from "angular2/router";
 
 var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
 
@@ -14,7 +16,7 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
     selector: 'account-edit-Page',
     templateUrl: applicationPath + '/accountEditPage.html',
 })
-
+@CanActivate(()=>{return AuthorizationService.isLoggedIn();})
 export class AccountEditPage implements OnInit{
     private _accountEditComponent;
 

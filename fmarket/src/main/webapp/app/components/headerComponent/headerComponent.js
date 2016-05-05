@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'ng2-bootstrap/ng2-bootstrap'], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/router", "ng2-bootstrap/ng2-bootstrap", "../../services/authorizationService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'ng2-bootstrap/ng2-bootstra
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, ng2_bootstrap_1;
+    var core_1, router_1, ng2_bootstrap_1, authorizationService_1;
     var directoryPath, HeaderComponent;
     return {
         setters:[
@@ -22,6 +22,9 @@ System.register(['angular2/core', 'angular2/router', 'ng2-bootstrap/ng2-bootstra
             },
             function (ng2_bootstrap_1_1) {
                 ng2_bootstrap_1 = ng2_bootstrap_1_1;
+            },
+            function (authorizationService_1_1) {
+                authorizationService_1 = authorizationService_1_1;
             }],
         execute: function() {
             directoryPath = '/app/components/headerComponent';
@@ -34,21 +37,27 @@ System.register(['angular2/core', 'angular2/router', 'ng2-bootstrap/ng2-bootstra
                         { link: 'Registration', name: 'Registration' },
                         { link: 'Login', name: 'Login' }
                     ];
-                    this._adminApplicationPages = [
-                        { link: 'Admin/Users', name: 'Useri' },
-                        { link: 'Admin/Subscribers', name: 'Subscriberi' },
-                        { link: 'Admin/Categories/CategoriesMenu', name: 'Meniu categorii' },
-                        { link: 'Admin/Categories/Companies', name: 'Compani' },
-                        { link: 'Admin/Categories/Domains', name: 'Domenii' },
-                        { link: 'Admin/Demands/NewDemandsList', name: 'Cereri noi' },
-                        { link: 'Admin/Demands/DemandsList', name: 'Cereri' }
-                    ];
+                    if (authorizationService_1.AuthorizationService.isLoggedIn()) {
+                        this._adminApplicationPages = [
+                            { link: 'Admin/Users', name: 'Useri' },
+                            { link: 'Admin/Subscribers', name: 'Subscriberi' },
+                            { link: 'Admin/Categories/CategoriesMenu', name: 'Meniu categorii' },
+                            { link: 'Admin/Categories/Companies', name: 'Compani' },
+                            { link: 'Admin/Categories/Domains', name: 'Domenii' },
+                            { link: 'Admin/Demands/NewDemandsList', name: 'Cereri noi' },
+                            { link: 'Admin/Demands/DemandsList', name: 'Cereri' }
+                        ];
+                    }
+                };
+                HeaderComponent.prototype.isLoggedIn = function () {
+                    return authorizationService_1.AuthorizationService.isLoggedIn();
                 };
                 HeaderComponent = __decorate([
                     core_1.Component({
                         selector: 'header-component',
                         templateUrl: directoryPath + '/headerComponent.html',
-                        directives: [router_1.ROUTER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
+                        directives: [router_1.ROUTER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES],
+                        providers: [authorizationService_1.AuthorizationService]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], HeaderComponent);

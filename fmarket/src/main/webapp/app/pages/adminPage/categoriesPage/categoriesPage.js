@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesPage", "./domainsPage/domainsPage", "./categoriesMenuPage/categoriesMenuPage", "../../../components/tabsComponent/tabsRoutingComponent"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesPage", "./domainsPage/domainsPage", "./categoriesMenuPage/categoriesMenuPage", "../../../components/tabsComponent/tabsRoutingComponent", "../../../models/Roles", "../../../services/authorizationService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesP
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, companiesPage_1, domainsPage_1, categoriesMenuPage_1, tabsRoutingComponent_1;
+    var core_1, router_1, companiesPage_1, domainsPage_1, categoriesMenuPage_1, tabsRoutingComponent_1, Roles_1, authorizationService_1;
     var applicationPath, CategoriesPage;
     return {
         setters:[
@@ -31,6 +31,12 @@ System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesP
             },
             function (tabsRoutingComponent_1_1) {
                 tabsRoutingComponent_1 = tabsRoutingComponent_1_1;
+            },
+            function (Roles_1_1) {
+                Roles_1 = Roles_1_1;
+            },
+            function (authorizationService_1_1) {
+                authorizationService_1 = authorizationService_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/categoriesPage';
@@ -47,6 +53,7 @@ System.register(['angular2/core', 'angular2/router', "./companiesPage/companiesP
                         styleUrls: [applicationPath + '/categoriesPage.css'],
                         directives: [tabsRoutingComponent_1.TabsRoutingComponent, router_1.ROUTER_DIRECTIVES]
                     }),
+                    router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN) && authorizationService_1.AuthorizationService.isLoggedIn(); }),
                     router_1.RouteConfig([
                         new router_1.Route({
                             path: '/meniu',

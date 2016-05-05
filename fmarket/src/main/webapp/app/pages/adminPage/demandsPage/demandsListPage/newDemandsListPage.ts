@@ -5,10 +5,14 @@
  * Created by nick_ on 4/22/2016.
  */
 import {Component, OnChanges, OnInit} from "angular2/core";
+import {CanActivate} from "angular2/router";
+
 import {DemandListBaseComponent} from "../../../../components/demandComponent/demandListBase/demandListBase";
 import {DemandService} from "../../../../services/demandService";
 import {RequestTypeService} from "../../../../services/requestTypeService";
 import {DemandsListPageBase} from "./demandsListPageBase";
+import {Role} from "../../../../models/Roles";
+import {AuthorizationService} from "../../../../services/authorizationService";
 
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
 
@@ -19,6 +23,7 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
     directives: [DemandListBaseComponent],
     providers: [DemandService, RequestTypeService]
 })
+@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 export class NewDemandsListPage extends DemandsListPageBase implements OnInit, OnChanges{
 
     constructor(_demandService:DemandService, _requestTypeService:RequestTypeService){

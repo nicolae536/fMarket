@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../../../models/requestType', '../../../../services/requestTypeService'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../../../models/requestType', '../../../../services/requestTypeService', "angular2/router", "../../../../services/authorizationService", "../../../../models/Roles"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../../../models/requestType', '../../../..
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, requestType_1, requestTypeService_1;
+    var core_1, requestType_1, requestTypeService_1, router_1, authorizationService_1, Roles_1;
     var applicationPath, DomainsPage;
     return {
         setters:[
@@ -22,6 +22,15 @@ System.register(['angular2/core', '../../../../models/requestType', '../../../..
             },
             function (requestTypeService_1_1) {
                 requestTypeService_1 = requestTypeService_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (authorizationService_1_1) {
+                authorizationService_1 = authorizationService_1_1;
+            },
+            function (Roles_1_1) {
+                Roles_1 = Roles_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/categoriesPage/domainsPage';
@@ -105,7 +114,8 @@ System.register(['angular2/core', '../../../../models/requestType', '../../../..
                         templateUrl: applicationPath + '/domainsPage.html',
                         styleUrls: [applicationPath + '/domainsPage.css'],
                         providers: [requestTypeService_1.RequestTypeService],
-                    }), 
+                    }),
+                    router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
                     __metadata('design:paramtypes', [requestTypeService_1.RequestTypeService])
                 ], DomainsPage);
                 return DomainsPage;

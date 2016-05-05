@@ -1,11 +1,13 @@
-import {Component, OnInit, ViewEncapsulation, Injectable} from 'angular2/core';
-import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, Location } from 'angular2/router';
+import {Component} from 'angular2/core';
+import {RouteConfig, Route, ROUTER_DIRECTIVES, CanActivate} from 'angular2/router';
 
 import {CompaniesPage} from "./companiesPage/companiesPage";
 import {DomainsPage} from "./domainsPage/domainsPage";
 import {CategoriesMenuPage} from "./categoriesMenuPage/categoriesMenuPage";
 import {TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
 import {TabHeader} from "../../../models/TabHeader";
+import {Role} from "../../../models/Roles";
+import {AuthorizationService} from "../../../services/authorizationService";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage';
 
@@ -15,7 +17,7 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage';
     styleUrls: [applicationPath + '/categoriesPage.css'],
     directives: [TabsRoutingComponent, ROUTER_DIRECTIVES]
 })
-
+@CanActivate(()=>{    return AuthorizationService.hasRole(Role.ADMIN) && AuthorizationService.isLoggedIn();})
 @RouteConfig([
     new Route({
         path: '/meniu',

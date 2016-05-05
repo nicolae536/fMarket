@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewEncapsulation, Injectable} from 'angular2/core';
+import {Component, OnInit, ViewEncapsulation} from 'angular2/core';
 import {NgForm} from 'angular2/common';
-import {Http} from 'angular2/http';
+import {CanActivate} from "angular2/router";
 
 //import operators
 import 'rxjs/add/operator/map';//-map
@@ -13,6 +13,8 @@ import {CreateSubscriberDialog} from '../../../components/createSubscriberDialog
 
 //import mocks
 import {CITYES} from '../../../services/mock-providers/mock-City';
+import {Role} from "../../../models/Roles";
+import {AuthorizationService} from "../../../services/authorizationService";
 
 var applicationPath:string = '/app/pages/adminPage/subscribersPage';
 
@@ -25,6 +27,7 @@ var applicationPath:string = '/app/pages/adminPage/subscribersPage';
     providers: [SubscribersService],
     directives: [CreateSubscriberDialog, ActionDialog, NgForm]
 })
+@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 
 export class SubscribersPage extends PageWithNavigation implements OnInit {
     _subscribersService:SubscribersService;

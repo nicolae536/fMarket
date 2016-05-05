@@ -3,6 +3,10 @@ import {Component, OnInit, Injectable} from 'angular2/core';
 import {RequestType} from '../../../../models/requestType';
 import {RequestTypeService} from '../../../../services/requestTypeService';
 import {Response} from "angular2/http";
+import {CanActivate} from "angular2/router";
+
+import {AuthorizationService} from "../../../../services/authorizationService";
+import {Role} from "../../../../models/Roles";
 
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/domainsPage';
@@ -13,6 +17,7 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/domainsPage';
     styleUrls: [applicationPath + '/domainsPage.css'],
     providers: [RequestTypeService],
 })
+@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 
 export class DomainsPage implements OnInit {
     domainsTypes:Array<RequestType> = [new RequestType("", "test", 1), new RequestType("", "test", 3), new RequestType("", "test", 2)];

@@ -3,9 +3,10 @@
  */
 
 import {Component} from "angular2/core";
-import {ROUTER_DIRECTIVES, RouteConfig, Route, Router} from "angular2/router";
+import {ROUTER_DIRECTIVES, RouteConfig, Route, Router, CanActivate} from "angular2/router";
 import {AccountEditPage} from "./accountEditPage/accountEditPage";
 import {AccountDemandsPage} from "./accountDemandsPage/accountDemandsPage";
+import {AuthorizationService} from "../../services/authorizationService";
 
 var applicationPath:string = '/app/pages/accountSettingsPage';
 
@@ -28,6 +29,7 @@ var applicationPath:string = '/app/pages/accountSettingsPage';
         name: 'Demands'
     })
 ])
+@CanActivate(()=>{return AuthorizationService.isLoggedIn();})
 export class AccountSettingsPage{
 
     location:Location;

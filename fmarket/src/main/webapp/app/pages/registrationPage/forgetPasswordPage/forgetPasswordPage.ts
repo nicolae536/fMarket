@@ -3,10 +3,11 @@
  */
 
 import {Component, OnInit} from "angular2/core";
+import {Router} from "angular2/router";
+
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../../services/registrationService";
 import {RegisterAccount} from "../../../models/registerAccount";
-import {Router} from "angular2/router";
 
 const folderPath = '/app/pages/registrationPage';
 

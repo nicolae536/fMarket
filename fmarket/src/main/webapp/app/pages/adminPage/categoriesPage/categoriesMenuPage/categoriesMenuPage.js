@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../../../../components/menuComponent/menuTreeComponent", "../../../../services/categoriesMenuService", "../../../../components/menuComponent/menuItemDialog/menuItemDialog", "../../../../components/selectComponent/selectComponent"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/router", "../../../../components/menuComponent/menuTreeComponent", "../../../../services/categoriesMenuService", "../../../../components/menuComponent/menuItemDialog/menuItemDialog", "../../../../components/selectComponent/selectComponent", "../../../../services/authorizationService", "../../../../models/Roles"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,12 +10,15 @@ System.register(["angular2/core", "../../../../components/menuComponent/menuTree
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, menuTreeComponent_1, categoriesMenuService_1, menuItemDialog_1, selectComponent_1;
+    var core_1, router_1, menuTreeComponent_1, categoriesMenuService_1, menuItemDialog_1, selectComponent_1, authorizationService_1, Roles_1;
     var applicationPath, CategoriesMenuPage;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             },
             function (menuTreeComponent_1_1) {
                 menuTreeComponent_1 = menuTreeComponent_1_1;
@@ -28,6 +31,12 @@ System.register(["angular2/core", "../../../../components/menuComponent/menuTree
             },
             function (selectComponent_1_1) {
                 selectComponent_1 = selectComponent_1_1;
+            },
+            function (authorizationService_1_1) {
+                authorizationService_1 = authorizationService_1_1;
+            },
+            function (Roles_1_1) {
+                Roles_1 = Roles_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
@@ -136,7 +145,8 @@ System.register(["angular2/core", "../../../../components/menuComponent/menuTree
                         //encapsulation: ViewEncapsulation.None,
                         providers: [categoriesMenuService_1.CategoriesMenuService],
                         directives: [menuTreeComponent_1.MenuTreeComponent, menuItemDialog_1.MenuItemDialog, selectComponent_1.SelectComponent],
-                    }), 
+                    }),
+                    router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
                     __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])
                 ], CategoriesMenuPage);
                 return CategoriesMenuPage;

@@ -1,5 +1,7 @@
 import {Component, OnInit} from "angular2/core";
 import {Response} from "angular2/http";
+import {CanActivate} from "angular2/router";
+
 import {MenuTreeComponent} from "../../../../components/menuComponent/menuTreeComponent";
 import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
 import {MenuItemDialog} from "../../../../components/menuComponent/menuItemDialog/menuItemDialog";
@@ -7,6 +9,8 @@ import {Select2Item, SelectComponent} from "../../../../components/selectCompone
 import {IModal} from "../../../../models/interfaces/iModal";
 import {INewDomainMenuItemRequest} from "../../../../models/interfaces/iNewDomainMenuItemRequest";
 import {IUpdateDomainMenuItemRequest} from "../../../../models/interfaces/iUpdateDomainMenuItemRequest";
+import {AuthorizationService} from "../../../../services/authorizationService";
+import {Role} from "../../../../models/Roles";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
 
@@ -19,6 +23,7 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenu
     providers: [CategoriesMenuService],
     directives: [MenuTreeComponent, MenuItemDialog, SelectComponent],
 })
+@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 
 export class CategoriesMenuPage implements OnInit {
     menuDictionary:Array<Object> = [];

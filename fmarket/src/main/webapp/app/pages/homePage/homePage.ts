@@ -2,9 +2,9 @@
  * Created by nick_ on 4/12/2016.
  */
 import {Component, OnInit} from 'angular2/core';
+import {Response} from "angular2/http";
 
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
-import {Response} from "angular2/http";
 import {Select2Item} from "../../components/selectComponent/selectComponent";
 import {DemandService} from "../../services/demandService";
 import {DemandDialogComponent} from "../../components/demandComponent/demandDialogComponent/demandDialogComponent";
