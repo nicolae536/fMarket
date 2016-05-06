@@ -20,6 +20,7 @@ import ro.fmarket.model.token.TokenEntity;
 import ro.fmarket.model.token.dao.DemandTokenDao;
 import ro.fmarket.model.token.dao.PasswordChangeTokenDao;
 import ro.fmarket.model.token.dao.RegistrationTokenDao;
+import ro.fmarket.security.SecurityUtils;
 
 @Service
 @Transactional
@@ -39,6 +40,9 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 	
 	@Autowired
 	private DemandDao demandDao;
+	
+	@Autowired
+	private SecurityUtils securityUtils;
 
 	@Override
 	public void confirmRegistration(String token) throws InvalidTokenException {
@@ -54,6 +58,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		account.setStatus(AccountStatus.ACTIVE);
 		accountDao.save(account);
 		registrationTokenDao.deleteAllTokensForAccount(account.getId());
+		securityUtils.authenticateUser(account.getEmail(), account.getType().name());
 	}
 
 	@Override
@@ -72,7 +77,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		accountDao.save(account);
 
 		passwordChangeTokenDao.deleteAllTokensForAccount(account.getId());
-
+		securityUtils.authenticateUser(account.getEmail(), account.getType().name());
 	}
 
 	@Override
@@ -94,7 +99,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		demandDao.save(demand);
 		
 		demandTokenDao.deleteById(demandToken.getId());
-
+		securityUtils.authenticateUser(account.getEmail(), account.getType().name());
 	}
 
 	private void notNullValidation(TokenEntity token) throws InvalidTokenException {
