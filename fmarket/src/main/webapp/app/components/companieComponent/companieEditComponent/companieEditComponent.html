@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/app/components/companieComponent/companieEditComponent/companieEditComponent.css"/>
+
+<div class="companie-edit-component clearfix">
+    <form [ngFormModel]="_companieEditForm" (ngSubmit)="saveEditedCompanie()">
+        <div class="companie-edit">
+
+        </div>
+        <div class="actions">
+            <button type="submit" class="btn btn-primary">
+                Salveaza
+            </button>
+            <a [routerLink]="['Admin/Companies']">
+                Inapoi
+            </a>
+        </div>
+    </form>
+</div>

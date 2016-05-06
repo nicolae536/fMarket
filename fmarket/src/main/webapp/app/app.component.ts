@@ -18,6 +18,7 @@ import {DemandService} from "./services/demandService";
 import {RequestTypeService} from "./services/requestTypeService";
 import {SubscribersService} from "./services/subscribersService";
 import {UserService} from "./services/usersService";
+import {CompaniesService} from "./services/companiesService";
 
 //= {type: "success", dismisable: true, message:""};
 @Component({
@@ -77,7 +78,8 @@ import {UserService} from "./services/usersService";
         RegistrationService,
         RequestTypeService,
         SubscribersService,
-        UserService
+        UserService,
+        CompaniesService
     ]
 })
 

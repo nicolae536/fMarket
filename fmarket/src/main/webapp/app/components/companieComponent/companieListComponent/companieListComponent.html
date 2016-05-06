@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="/app/components/companieComponent/companieListComponent/companieListComponent.css"/>
+
+<div class="companie-list-component clearfix">
+    <div class="list-group">
+        <div *ngFor="#companie of _companieList" class="list-group-item" (click)="editCompanie(companie.id)">
+            <div class="col-md-3 col-xs-2">
+                <img class="image-fit-size" [src]="companie.icon" />
+            </div>
+            <div class="col-md-7 col-xs-9">
+                <div class="companie-name">
+                    <span class="h3">
+                        {{companie.title}}
+                    </span>
+                </div>
+                <div class="description">
+                    {{companie.description}}
+                </div>
+            </div>
+            <div class="col-md-1 col-xs-1">
+                <a (click)="removeCompanie(companie)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <pagination [totalItems]="_paginationWrapper.totalItems" [(ngModel)]="_paginationWrapper.currentPage" [maxSize]="_paginationWrapper.maxSize" class="pagination-sm"
+                [boundaryLinks]="_paginationWrapper.boundaryLinks" [rotate]="_paginationWrapper.rotate" (pageChanged)="pageChanged($event)"></pagination>
+</div>

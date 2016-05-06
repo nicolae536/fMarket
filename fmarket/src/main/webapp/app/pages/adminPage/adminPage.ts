@@ -1,14 +1,15 @@
 //import libraryes
 import {Component} from 'angular2/core';
-import {RouteConfig, Route, Router, ROUTER_DIRECTIVES, Location, CanActivate} from 'angular2/router';
+import {RouteConfig, Router, ROUTER_DIRECTIVES, Location, CanActivate, Route} from 'angular2/router';
 import {AuthorizationService} from "../../services/authorizationService";
 
-//import application modules
-import {UsersPage} from './usersPage/usersPage';
-import {SubscribersPage} from './subscribersPage/subscribersPage';
-import {CategoriesPage} from './categoriesPage/categoriesPage';
-import {DemandsPage} from "./demandsPage/demandsPage";
 import {Role} from "../../models/Roles";
+import {UsersPage} from "./usersPage/usersPage";
+import {SubscribersPage} from "./subscribersPage/subscribersPage";
+import {CategoriesPage} from "./categoriesPage/categoriesPage";
+import {DemandsPage} from "./demandsPage/demandsPage";
+import {CompaniesPage} from "./companiesPage/companiesPage";
+import {CompaniesEditPage} from "./companiesPage/companiesEditPage/companiesEditPage";
 
 var applicationPath:string = '/app/pages/adminPage';
 
@@ -39,6 +40,16 @@ var applicationPath:string = '/app/pages/adminPage';
         path: '/cereri/...',
         component: DemandsPage,
         name: 'Demands'
+    }),
+    new Route({
+        path: '/lista',
+        component: CompaniesPage,
+        name: 'Companies'
+    }),
+    new Route({
+        path: '/detalii/:id',
+        component: CompaniesEditPage,
+        name: 'CompanieDetails'
     }),
 ])
 

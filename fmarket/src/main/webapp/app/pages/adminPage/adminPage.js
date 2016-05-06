@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../services/authorizationService", './usersPage/usersPage', './subscribersPage/subscribersPage', './categoriesPage/categoriesPage', "./demandsPage/demandsPage", "../../models/Roles"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "../../services/authorizationService", "../../models/Roles", "./usersPage/usersPage", "./subscribersPage/subscribersPage", "./categoriesPage/categoriesPage", "./demandsPage/demandsPage", "./companiesPage/companiesPage", "./companiesPage/companiesEditPage/companiesEditPage"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "../../services/authorizati
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, authorizationService_1, usersPage_1, subscribersPage_1, categoriesPage_1, demandsPage_1, Roles_1;
+    var core_1, router_1, authorizationService_1, Roles_1, usersPage_1, subscribersPage_1, categoriesPage_1, demandsPage_1, companiesPage_1, companiesEditPage_1;
     var applicationPath, AdminPage;
     return {
         setters:[
@@ -22,6 +22,9 @@ System.register(['angular2/core', 'angular2/router', "../../services/authorizati
             },
             function (authorizationService_1_1) {
                 authorizationService_1 = authorizationService_1_1;
+            },
+            function (Roles_1_1) {
+                Roles_1 = Roles_1_1;
             },
             function (usersPage_1_1) {
                 usersPage_1 = usersPage_1_1;
@@ -35,8 +38,11 @@ System.register(['angular2/core', 'angular2/router', "../../services/authorizati
             function (demandsPage_1_1) {
                 demandsPage_1 = demandsPage_1_1;
             },
-            function (Roles_1_1) {
-                Roles_1 = Roles_1_1;
+            function (companiesPage_1_1) {
+                companiesPage_1 = companiesPage_1_1;
+            },
+            function (companiesEditPage_1_1) {
+                companiesEditPage_1 = companiesEditPage_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage';
@@ -73,6 +79,16 @@ System.register(['angular2/core', 'angular2/router', "../../services/authorizati
                             path: '/cereri/...',
                             component: demandsPage_1.DemandsPage,
                             name: 'Demands'
+                        }),
+                        new router_1.Route({
+                            path: '/lista',
+                            component: companiesPage_1.CompaniesPage,
+                            name: 'Companies'
+                        }),
+                        new router_1.Route({
+                            path: '/detalii/:id',
+                            component: companiesEditPage_1.CompaniesEditPage,
+                            name: 'CompanieDetails'
                         }),
                     ]), 
                     __metadata('design:paramtypes', [router_1.Location, router_1.Router])

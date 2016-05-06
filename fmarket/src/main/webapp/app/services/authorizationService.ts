@@ -14,7 +14,6 @@ import {SuccessRegisterPage} from "../pages/registrationPage/successPages/succes
 import {SuccessResetPasswordPage} from "../pages/registrationPage/successPages/successResetPasswordPage";
 import {TokenConfirmPage} from "../pages/registrationPage/successPages/tokenConfirmPage";
 
-
 export class AuthorizationService {
 
     public static getUserRole() {

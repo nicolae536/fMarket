@@ -14,6 +14,8 @@
                         <a [routerLink]="['Admin/Categories/CategoriesMenu']">Categories</a></li>
                     <li [ngClass]="router.isRouteActive(router.generate(['Admin/Demands'])) ? 'active':''">
                         <a [routerLink]="['Admin/Demands']">Demands</a></li>
+                    <li [ngClass]="router.isRouteActive(router.generate(['Admin/Companies'])) ? 'active':''">
+                        <a [routerLink]="['Admin/Companies']">Companii</a></li>
                 </ul>
             </div>
 

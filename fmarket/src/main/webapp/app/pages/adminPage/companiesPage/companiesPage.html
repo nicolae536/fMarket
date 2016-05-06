@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/app/pages/adminPage/companiesPage/companiesPage.css"/>
+
+<div class="companies-page clearfix">
+    <create-companie-dialog
+        (action-confirmed)="requestNewCompanie($event)"
+        (reference-component)="referenceCompaniesDialog($event)"
+    ></create-companie-dialog>
+    <companie-list-component
+        [companies-list]="_companiesList"
+        [pagination-wrapper]="_paginationWrapper"
+        (remove-companie)="removeCompanie($event)"
+        (page-changed)="getNewPage($event)"
+        (edit-companie)="editCompanie($event)"
+    ></companie-list-component>
+</div>
