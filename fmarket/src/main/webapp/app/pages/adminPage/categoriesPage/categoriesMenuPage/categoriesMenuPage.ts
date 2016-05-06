@@ -18,9 +18,6 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenu
     selector: 'companies-Page',
     templateUrl: applicationPath + '/categoriesMenuPage.html',
     styleUrls: [applicationPath + '/categoriesMenuPage.css'],
-    //encapsulation: ViewEncapsulation.None,
-
-    providers: [CategoriesMenuService],
     directives: [MenuTreeComponent, MenuItemDialog, SelectComponent],
 })
 @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})

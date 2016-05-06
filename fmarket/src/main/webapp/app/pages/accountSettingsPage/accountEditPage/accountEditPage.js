@@ -77,8 +77,7 @@ System.register(["angular2/core", "../../../models/accountDto", "../../../servic
                 AccountEditPage = __decorate([
                     core_1.Component({
                         selector: 'account-edit-Page',
-                        templateUrl: applicationPath + '/accountEditPage.html',
-                        providers: [accountService_1.AccountService, demandService_1.DemandService]
+                        templateUrl: applicationPath + '/accountEditPage.html'
                     }),
                     router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn(); }), 
                     __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService])

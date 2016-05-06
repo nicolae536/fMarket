@@ -138,8 +138,7 @@ System.register(["angular2/core", "angular2/router", "../../../../services/deman
                         selector: 'demands-edit-page',
                         templateUrl: applicationPath + '/demandsEditPage.html',
                         styleUrls: [applicationPath + '/demandsEditPage.css'],
-                        directives: [demandEdit_1.DemandEditComponent],
-                        providers: [demandService_1.DemandService, requestTypeService_1.RequestTypeService]
+                        directives: [demandEdit_1.DemandEditComponent]
                     }),
                     router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, demandService_1.DemandService, requestTypeService_1.RequestTypeService])

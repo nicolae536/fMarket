@@ -8,13 +8,13 @@ import {Router} from "angular2/router";
 import {RegistrationComponent} from "../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../services/registrationService";
 import {RegisterAccount} from "../../models/registerAccount";
+import {NotificationService} from "../../services/notificationService";
 
 const folderPath = '/app/pages/registrationPage';
 
 @Component({
     selector: 'registration-page',
     templateUrl: folderPath + '/registrationPage.html',
-    providers: [RegistrationService],
     directives: [RegistrationComponent]
 })
 export class RegistrationPage implements OnInit {
@@ -30,11 +30,13 @@ export class RegistrationPage implements OnInit {
     private _showRememberMeLink:boolean;
     private _showLoginLink:boolean;
     private _router:Router;
-    private _registrationComponent;
+    private _registrationComponent:RegistrationComponent;
+    private _notificationService:NotificationService;
 
-    constructor(router:Router,registrationService:RegistrationService) {
+    constructor(router:Router,registrationService:RegistrationService, notificationService:NotificationService) {
         this._router = router;
         this._registrationService = registrationService;
+        this._notificationService = notificationService;
     }
 
     ngOnInit():any {
@@ -67,7 +69,8 @@ export class RegistrationPage implements OnInit {
                     me._router.navigate(['SuccessRegister']);
                 },
                 error => {
-
+                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Inregistrare invalida!'});
+                    me._registrationComponent.markAllFieldsAsErrors();
                 }
             )
     }

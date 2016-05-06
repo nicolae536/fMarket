@@ -15,8 +15,7 @@ const APPLICATION_PATH:string = '/app/components/demandComponent';
 @Component({
     selector: 'demand-component',
     templateUrl: APPLICATION_PATH + '/demandComponent.html',
-    directives: [FORM_DIRECTIVES, SelectComponent],
-    providers: [FormBuilder]
+    directives: [FORM_DIRECTIVES, SelectComponent]
 })
 export class DemandComponent implements OnInit {
 

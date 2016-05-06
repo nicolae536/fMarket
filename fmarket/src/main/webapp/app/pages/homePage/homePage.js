@@ -99,8 +99,7 @@ System.register(['angular2/core', "../../services/categoriesMenuService", "../..
                     core_1.Component({
                         selector: 'home-page',
                         templateUrl: folderPath + '/homePage.html',
-                        directives: [demandDialogComponent_1.DemandDialogComponent],
-                        providers: [demandService_1.DemandService, categoriesMenuService_1.CategoriesMenuService]
+                        directives: [demandDialogComponent_1.DemandDialogComponent]
                     }), 
                     __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService])
                 ], HomePage);

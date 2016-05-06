@@ -18,8 +18,7 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
     selector: 'demands-edit-page',
     templateUrl: applicationPath + '/demandsEditPage.html',
     styleUrls: [applicationPath + '/demandsEditPage.css'],
-    directives: [DemandEditComponent],
-    providers: [DemandService, RequestTypeService]
+    directives: [DemandEditComponent]
 })
 @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 export class DemandsEditPage implements OnInit {

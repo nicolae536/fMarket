@@ -16,8 +16,7 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/domainsPage';
     selector: 'companies-Page',
     templateUrl: applicationPath + '/domainsPage.html',
     styleUrls: [applicationPath + '/domainsPage.css'],
-    directives:[FORM_DIRECTIVES],
-    providers: [RequestTypeService],
+    directives:[FORM_DIRECTIVES]
 })
 @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 

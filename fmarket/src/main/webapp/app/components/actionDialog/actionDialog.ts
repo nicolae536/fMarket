@@ -4,7 +4,6 @@ import {ModalDialog} from '../modalDialog/modalDialog';
 @Component({
     selector: 'action-dialog',
     templateUrl: 'app/components/actionDialog/actionDialog.html'
-
 })
 
 export class ActionDialog extends ModalDialog{

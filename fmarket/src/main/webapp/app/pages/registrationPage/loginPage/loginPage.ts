@@ -20,7 +20,6 @@ const folderPath = '/app/pages/registrationPage';
 @Component({
     selector: 'login-page',
     templateUrl: folderPath + '/registrationPage.html',
-    providers: [RegistrationService],
     directives: [RegistrationComponent]
 })
 export class LoginPage implements OnInit {

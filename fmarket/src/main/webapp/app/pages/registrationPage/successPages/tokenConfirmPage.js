@@ -53,8 +53,7 @@ System.register(["angular2/core", "../../../services/registrationService", "angu
                 TokenConfirmPage = __decorate([
                     core_1.Component({
                         selector: 'token-confirm',
-                        template: '',
-                        providers: [registrationService_1.RegistrationService]
+                        template: ''
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, registrationService_1.RegistrationService, notificationService_1.NotificationService])
                 ], TokenConfirmPage);

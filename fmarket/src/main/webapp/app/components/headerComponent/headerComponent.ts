@@ -16,8 +16,7 @@ let directoryPath = '/app/components/headerComponent';
 @Component({
     selector: 'header-component',
     templateUrl: directoryPath + '/headerComponent.html',
-    directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES],
-    providers: [AuthorizationService]
+    directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
 
 export class HeaderComponent implements OnInit {

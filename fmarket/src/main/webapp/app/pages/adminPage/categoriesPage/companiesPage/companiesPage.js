@@ -139,8 +139,6 @@ System.register(["angular2/core", "../../../../models/companieType", "../../../.
                         selector: 'companies-Page',
                         templateUrl: applicationPath + '/companiesPage.html',
                         styleUrls: [applicationPath + '/companiesPage.css'],
-                        //encapsulation: ViewEncapsulation.None,
-                        providers: [companieTypesService_1.CompanieTypeService],
                     }),
                     router_1.CanActivate(function () {
                         return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);

@@ -116,8 +116,7 @@ System.register(["angular2/core", "angular2/router", "ng2-bootstrap/ng2-bootstra
                     core_1.Component({
                         selector: 'header-component',
                         templateUrl: directoryPath + '/headerComponent.html',
-                        directives: [router_1.ROUTER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES],
-                        providers: [authorizationService_1.AuthorizationService]
+                        directives: [router_1.ROUTER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, localStorageService_1.LocalStorageService, registrationService_1.RegistrationService, notificationService_1.NotificationService])
                 ], HeaderComponent);

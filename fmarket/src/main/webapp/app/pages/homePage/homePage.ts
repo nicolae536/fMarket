@@ -15,8 +15,7 @@ const folderPath = '/app/pages/homePage';
 @Component({
     selector:'home-page',
     templateUrl:folderPath + '/homePage.html',
-    directives:[DemandDialogComponent],
-    providers:[DemandService, CategoriesMenuService]
+    directives:[DemandDialogComponent]
 })
 export class HomePage implements OnInit{
     //components

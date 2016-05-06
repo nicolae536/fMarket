@@ -165,7 +165,6 @@ System.register(['angular2/core', 'angular2/common', "angular2/router", 'rxjs/ad
                         templateUrl: applicationPath + '/usersPage.html',
                         styleUrls: [applicationPath + '/usersPage.css'],
                         encapsulation: core_1.ViewEncapsulation.None,
-                        providers: [usersService_1.UserService],
                         directives: [actionDialog_1.ActionDialog, createUserDialog_1.CreateUserDialog, common_1.NgForm]
                     }),
                     router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 

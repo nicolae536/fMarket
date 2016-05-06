@@ -142,8 +142,6 @@ System.register(["angular2/core", "angular2/router", "../../../../components/men
                         selector: 'companies-Page',
                         templateUrl: applicationPath + '/categoriesMenuPage.html',
                         styleUrls: [applicationPath + '/categoriesMenuPage.css'],
-                        //encapsulation: ViewEncapsulation.None,
-                        providers: [categoriesMenuService_1.CategoriesMenuService],
                         directives: [menuTreeComponent_1.MenuTreeComponent, menuItemDialog_1.MenuItemDialog, selectComponent_1.SelectComponent],
                     }),
                     router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 

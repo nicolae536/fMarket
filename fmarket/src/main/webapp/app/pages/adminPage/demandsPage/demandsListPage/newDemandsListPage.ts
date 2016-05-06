@@ -20,8 +20,7 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
     selector: 'new-demands-list-page',
     templateUrl: applicationPath + '/demandsListPageBase.html',
     styleUrls: [applicationPath + '/demandsListPageBase.css'],
-    directives: [DemandListBaseComponent],
-    providers: [DemandService, RequestTypeService]
+    directives: [DemandListBaseComponent]
 })
 @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 export class NewDemandsListPage extends DemandsListPageBase implements OnInit, OnChanges{

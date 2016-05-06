@@ -227,7 +227,6 @@ System.register(["angular2/core", "angular2/common", "angular2/router", "ng2-boo
                         templateUrl: applicationPath + '/subscribersPage.html',
                         styleUrls: [applicationPath + '/subscribersPage.css'],
                         encapsulation: core_1.ViewEncapsulation.None,
-                        providers: [subscribersService_1.SubscribersService],
                         directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
                     }),
                     router_1.CanActivate(function () {

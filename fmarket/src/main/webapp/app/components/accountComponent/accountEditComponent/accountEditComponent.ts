@@ -12,7 +12,6 @@ const APPLICATION_PATH:string = '/app/components/accountComponent/accountEditCom
     selector: 'account-edit-component',
     templateUrl: APPLICATION_PATH + '/accountEditComponent.html',
     directives: [FORM_DIRECTIVES, SelectComponent],
-    providers: [FormBuilder]
 })
 export class AccountEditComponent implements OnInit, OnChanges{
     @Input('account-form-model') _accountModel:AccountDto;

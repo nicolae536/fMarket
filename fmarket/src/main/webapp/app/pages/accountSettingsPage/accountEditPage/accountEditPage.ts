@@ -14,8 +14,7 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
 
 @Component({
     selector: 'account-edit-Page',
-    templateUrl: applicationPath + '/accountEditPage.html',
-    providers:[AccountService, DemandService]
+    templateUrl: applicationPath + '/accountEditPage.html'
 })
 @CanActivate(()=>{return AuthorizationService.isLoggedIn();})
 export class AccountEditPage implements OnInit{

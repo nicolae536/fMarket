@@ -13,9 +13,6 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage'
     selector: 'companies-Page',
     templateUrl: applicationPath + '/companiesPage.html',
     styleUrls: [applicationPath + '/companiesPage.css'],
-    //encapsulation: ViewEncapsulation.None,
-
-    providers: [CompanieTypeService],
 })
 @CanActivate(()=> {
     return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);

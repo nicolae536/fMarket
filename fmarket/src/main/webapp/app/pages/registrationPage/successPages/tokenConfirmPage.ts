@@ -8,8 +8,7 @@ import {NotificationService} from "../../../services/notificationService";
 
 @Component({
     selector: 'token-confirm',
-    template: '',
-    providers: [RegistrationService]
+    template: ''
 })
 
 export class TokenConfirmPage {

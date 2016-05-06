@@ -139,8 +139,7 @@ System.register(['angular2/core', "angular2/router", "angular2/common", '../../.
                         selector: 'companies-Page',
                         templateUrl: applicationPath + '/domainsPage.html',
                         styleUrls: [applicationPath + '/domainsPage.css'],
-                        directives: [common_1.FORM_DIRECTIVES],
-                        providers: [requestTypeService_1.RequestTypeService],
+                        directives: [common_1.FORM_DIRECTIVES]
                     }),
                     router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
                     __metadata('design:paramtypes', [requestTypeService_1.RequestTypeService, common_1.FormBuilder])

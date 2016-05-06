@@ -1,6 +1,6 @@
 import {Component} from "angular2/core";
 import {RouteConfig, Router, Location, ROUTER_DIRECTIVES} from "angular2/router";
-import {CORE_DIRECTIVES} from "angular2/common";
+import {CORE_DIRECTIVES, FormBuilder} from "angular2/common";
 import {Alert} from "ng2-bootstrap/ng2-bootstrap";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/interval";
@@ -11,6 +11,14 @@ import {ApplicationConstants} from "./models/applicationConstansts";
 import {LocalStorageService} from "./services/localStorageService";
 import {FooterComponent} from "./components/footerComponent/footerComponent";
 import {RegistrationService} from "./services/registrationService";
+import {AccountService} from "./services/accountService";
+import {CategoriesMenuService} from "./services/categoriesMenuService";
+import {CompanieTypeService} from "./services/companieTypesService";
+import {DemandService} from "./services/demandService";
+import {RequestTypeService} from "./services/requestTypeService";
+import {SubscribersService} from "./services/subscribersService";
+import {UserService} from "./services/usersService";
+
 //= {type: "success", dismisable: true, message:""};
 @Component({
     selector: 'my-app',
@@ -55,7 +63,22 @@ import {RegistrationService} from "./services/registrationService";
     }
     `],
     directives: [ROUTER_DIRECTIVES, HeaderComponent, Alert, CORE_DIRECTIVES, FooterComponent],
-    providers: [NotificationService, LocalStorageService, RegistrationService]
+    providers: [
+        FormBuilder,
+
+        NotificationService,
+        LocalStorageService,
+        RegistrationService,
+        AccountService,
+        AuthorizationService,
+        CategoriesMenuService,
+        CompanieTypeService,
+        DemandService,
+        RegistrationService,
+        RequestTypeService,
+        SubscribersService,
+        UserService
+    ]
 })
 
 @RouteConfig(AuthorizationService.getApplicationRootRoutes())

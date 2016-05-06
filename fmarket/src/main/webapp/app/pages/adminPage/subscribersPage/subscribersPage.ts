@@ -25,8 +25,6 @@ var applicationPath:string = '/app/pages/adminPage/subscribersPage';
     templateUrl: applicationPath + '/subscribersPage.html',
     styleUrls: [applicationPath + '/subscribersPage.css'],
     encapsulation: ViewEncapsulation.None,
-
-    providers: [SubscribersService],
     directives: [CreateSubscriberDialog, ActionDialog, NgForm, DATEPICKER_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
 @CanActivate(()=> {

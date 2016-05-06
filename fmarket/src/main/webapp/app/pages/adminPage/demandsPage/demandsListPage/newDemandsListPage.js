@@ -65,8 +65,7 @@ System.register(["angular2/core", "angular2/router", "../../../../components/dem
                         selector: 'new-demands-list-page',
                         templateUrl: applicationPath + '/demandsListPageBase.html',
                         styleUrls: [applicationPath + '/demandsListPageBase.css'],
-                        directives: [demandListBase_1.DemandListBaseComponent],
-                        providers: [demandService_1.DemandService, requestTypeService_1.RequestTypeService]
+                        directives: [demandListBase_1.DemandListBaseComponent]
                     }),
                     router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
                     __metadata('design:paramtypes', [demandService_1.DemandService, requestTypeService_1.RequestTypeService])

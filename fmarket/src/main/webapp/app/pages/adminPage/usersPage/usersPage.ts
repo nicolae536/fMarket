@@ -26,8 +26,6 @@ var applicationPath:string = '/app/pages/adminPage/usersPage';
     templateUrl: applicationPath + '/usersPage.html',
     styleUrls: [applicationPath + '/usersPage.css'],
     encapsulation: ViewEncapsulation.None,
-
-    providers: [UserService],
     directives: [ActionDialog, CreateUserDialog, NgForm]
 })
 @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})

@@ -128,8 +128,7 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                     core_1.Component({
                         selector: 'demand-component',
                         templateUrl: APPLICATION_PATH + '/demandComponent.html',
-                        directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent],
-                        providers: [common_1.FormBuilder]
+                        directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent]
                     }), 
                     __metadata('design:paramtypes', [common_1.FormBuilder])
                 ], DemandComponent);

@@ -67,8 +67,7 @@ System.register(["angular2/core", "angular2/router", "../../../services/authoriz
                 AccountDemandsPage = __decorate([
                     core_1.Component({
                         selector: 'account-demands-Page',
-                        templateUrl: applicationPath + '/accountDemandsPage.html',
-                        providers: [demandService_1.DemandService, requestTypeService_1.RequestTypeService]
+                        templateUrl: applicationPath + '/accountDemandsPage.html'
                     }),
                     router_1.CanActivate(function () {
                         return authorizationService_1.AuthorizationService.isLoggedIn();

@@ -85,7 +85,6 @@ System.register(["angular2/core", "../../../components/registrationComponent/reg
                     core_1.Component({
                         selector: 'login-page',
                         templateUrl: folderPath + '/registrationPage.html',
-                        providers: [registrationService_1.RegistrationService],
                         directives: [registrationComponent_1.RegistrationComponent]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService, notificationService_1.NotificationService])

@@ -95,7 +95,6 @@ System.register(["angular2/core", "angular2/common", "../../../models/accountDto
                         selector: 'account-edit-component',
                         templateUrl: APPLICATION_PATH + '/accountEditComponent.html',
                         directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent],
-                        providers: [common_1.FormBuilder]
                     }), 
                     __metadata('design:paramtypes', [common_1.FormBuilder])
                 ], AccountEditComponent);

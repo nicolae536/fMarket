@@ -8,6 +8,7 @@ import {Router} from "angular2/router";
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../../services/registrationService";
 import {RegisterAccount} from "../../../models/registerAccount";
+import {NotificationService} from "../../../services/notificationService";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -19,8 +20,7 @@ const folderPath = '/app/pages/registrationPage';
         padding-top: 14vh;
     }
     `],
-    directives: [RegistrationComponent],
-    providers: [RegistrationService]
+    directives: [RegistrationComponent]
 })
 export class ForgetPasswordPage implements OnInit {
     private _registrationService:RegistrationService;
@@ -35,11 +35,13 @@ export class ForgetPasswordPage implements OnInit {
     private _showRememberMeLink;
     private _showLoginLink;
     private _router:Router;
-    private _registrationComponent;
+    private _registrationComponent:RegistrationComponent;
+    private _notificationService:NotificationService;
 
-    constructor(router:Router, registrationService:RegistrationService) {
+    constructor(router:Router, registrationService:RegistrationService, notificationService:NotificationService) {
         this._router = router;
         this._registrationService = registrationService;
+        this._notificationService = notificationService;
     }
     
     referenceComponent($event){
@@ -72,7 +74,8 @@ export class ForgetPasswordPage implements OnInit {
                     me._router.navigate(['SuccessResetPassword']);
                 },
                 error => {
-
+                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Resetare parola invalida!'});
+                    me._registrationComponent.markAllFieldsAsErrors();
                 }
             )
     }
