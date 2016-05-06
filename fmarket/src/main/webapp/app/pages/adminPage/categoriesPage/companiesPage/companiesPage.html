@@ -19,20 +19,23 @@
     </div>
     <!-- *ngIf="showAddCompanieDomainRow" -->
     <div class="add-companie" *ngIf="showAddCompanieDomainRow">
-        <div class="input-group">
-            <input class="form-control" [(ngModel)]="newDomain"/>
+        <form [ngFormModel]="_newDomainForm" (ngSubmit)="addCompanieDomain()">
+            <div class="input-group">
+                <input [ngFormControl]="_newDomainForm.controls['newDomain']" class="form-control" [(ngModel)]="newDomain"/>
 
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-secondary btn-primary" (click)="addCompanieDomain()">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    Creeaza
-                </button>
-                <button type="button" class="btn btn-secondary btn-default" (click)="toggleAddCompanieDomain(false)">
-                    <span class="glyphicon glyphicon-remove"></span>
-                    Cancel
-                </button>
+                <div class="input-group-btn">
+                    <button [disabled]="!_newDomainForm.valid" type="submit" class="btn btn-secondary btn-primary">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        Creeaza
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-default"
+                            (click)="toggleAddCompanieDomain(false)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        Cancel
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="companie-type">
         <ul class="list-group">
@@ -50,9 +53,12 @@
                     <a *ngIf="!companieType.isInEditMode" class="secondary" (click)="toggleEditMode(companieType)">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    <a *ngIf="companieType.isInEditMode" class="secondary" (click)="editCompaniType(companieType)">
-                        <span class="glyphicon glyphicon-ok"></span>
+                    <a *ngIf="companieType.isInEditMode" class="secondary" (click)="revertEdit(companieType)">
+                        <span class="glyphicon glyphicon-remove"></span>
                     </a>
+                    <button *ngIf="companieType.isInEditMode" type="submit"  class="secondary btn btn-default" (click)="editCompaniType(companieType)">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
                     <span class="pull-right label label-info">- Companii - {{companieType.companies_no}}</span>
                 </div>
             </li>

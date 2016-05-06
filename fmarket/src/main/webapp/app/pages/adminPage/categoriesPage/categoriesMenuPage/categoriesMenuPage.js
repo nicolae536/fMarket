@@ -86,7 +86,7 @@ System.register(["angular2/core", "angular2/router", "../../../../components/men
                         me._menuItemModal.hide();
                         me.getMenuDictionary();
                     }, function (error) {
-                        me._menuItemModal.showErrors();
+                        // me._menuItemModal.showErrors();
                     });
                 };
                 CategoriesMenuPage.prototype.showEditMenuModal = function (menuToUpdate) {
@@ -108,7 +108,7 @@ System.register(["angular2/core", "angular2/router", "../../../../components/men
                         me._menuItemModal.hide();
                         me.getMenuDictionary();
                     }, function (error) {
-                        me._menuItemModal.showErrors();
+                        // me._menuItemModal.showErrors();
                     });
                 };
                 CategoriesMenuPage.prototype.deleteMenuItem = function (id) {

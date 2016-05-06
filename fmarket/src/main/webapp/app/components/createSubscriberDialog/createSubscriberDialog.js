@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/subscriber'], function(exports_1, context_1) {
+System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/subscriber', "angular2/common", "../../models/Angular2ExtensionValidators"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/su
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, modalDialog_1, subscriber_1;
+    var core_1, modalDialog_1, subscriber_1, common_1, Angular2ExtensionValidators_1;
     var CreateSubscriberDialog;
     return {
         setters:[
@@ -27,11 +27,17 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/su
             },
             function (subscriber_1_1) {
                 subscriber_1 = subscriber_1_1;
+            },
+            function (common_1_1) {
+                common_1 = common_1_1;
+            },
+            function (Angular2ExtensionValidators_1_1) {
+                Angular2ExtensionValidators_1 = Angular2ExtensionValidators_1_1;
             }],
         execute: function() {
             CreateSubscriberDialog = (function (_super) {
                 __extends(CreateSubscriberDialog, _super);
-                function CreateSubscriberDialog() {
+                function CreateSubscriberDialog(formBuilder) {
                     _super.call(this);
                     this.modaleMode = "newSubscriber";
                     this.title = "Add new user";
@@ -39,13 +45,13 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/su
                     this.positiveLabel = 'Create User';
                     this.loadedEmitter = new core_1.EventEmitter();
                     this.createEmitter = new core_1.EventEmitter();
+                    this._formBuilder = formBuilder;
                 }
                 CreateSubscriberDialog.prototype.ngOnInit = function () {
                     this.loadedEmitter.emit(this);
                     this.responseObject = new subscriber_1.Subscriber();
-                };
-                CreateSubscriberDialog.prototype.createSubscriber = function () {
-                    this.createEmitter.emit(this.responseObject);
+                    this._subscriberForm = this._formBuilder.group([]);
+                    this.buildForm();
                 };
                 CreateSubscriberDialog.prototype.clearData = function () {
                     this.responseObject = new subscriber_1.Subscriber();
@@ -55,6 +61,20 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/su
                 };
                 CreateSubscriberDialog.prototype.getValue = function () {
                     return this.responseObject;
+                };
+                CreateSubscriberDialog.prototype.cancelCreateSubscriber = function () {
+                    this._subscriberForm.removeControl('email');
+                    this.buildForm();
+                    this.cancelAction();
+                };
+                CreateSubscriberDialog.prototype.buildForm = function () {
+                    this._subscriberForm.addControl('email', this._formBuilder.control(this.responseObject['email'], common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
+                };
+                CreateSubscriberDialog.prototype.submitSubscriber = function () {
+                    if (!this._subscriberForm.valid) {
+                        return;
+                    }
+                    this.createEmitter.emit(this.responseObject);
                 };
                 __decorate([
                     core_1.Input('title'), 
@@ -79,9 +99,10 @@ System.register(['angular2/core', '../modalDialog/modalDialog', '../../models/su
                 CreateSubscriberDialog = __decorate([
                     core_1.Component({
                         selector: 'create-subscriber-dialog',
-                        templateUrl: 'app/components/createSubscriberDialog/createSubscriberDialog.html'
+                        templateUrl: 'app/components/createSubscriberDialog/createSubscriberDialog.html',
+                        directives: [common_1.FORM_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [common_1.FormBuilder])
                 ], CreateSubscriberDialog);
                 return CreateSubscriberDialog;
             }(modalDialog_1.ModalDialog));

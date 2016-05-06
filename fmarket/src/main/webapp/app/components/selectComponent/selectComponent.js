@@ -82,7 +82,7 @@ System.register(["angular2/core", "ng2-bootstrap/ng2-bootstrap", "./filterPipe"]
                     this.searchQuery = "";
                 };
                 SelectComponent.prototype.getCarretClass = function () {
-                    return this._dropdownStatus.isopen ? "glyphicon glyphicon-chevron-up pull-right ui-select2-dropdown-icon" : "glyphicon glyphicon-chevron-down pull-right ui-select2-dropdown-icon";
+                    return this._dropdownStatus.isopen ? "glyphicon glyphicon-chevron-up pull-right ui-select2-subscribeDatePicker-icon" : "glyphicon glyphicon-chevron-down pull-right ui-select2-subscribeDatePicker-icon";
                 };
                 SelectComponent.prototype.removeSelection = function ($event) {
                     $event.stopPropagation();

@@ -43,6 +43,9 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                     headers.append('X-Login-Ajax-call', "true");
                     return this.api.post('/login', credentials, { headers: headers });
                 };
+                RegistrationService.prototype.validateToken = function (token) {
+                    return this.api.get('/confirm' + this.REGISTRATION_CONTROLLER + ("?token=" + token));
+                };
                 RegistrationService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])

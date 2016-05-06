@@ -14,7 +14,7 @@ System.register(["../../models/accountStatus"], function(exports_1, context_1) {
                 { status: accountStatus_1.AccountStatus.AUTO, displayName: "AUTO" },
                 { status: accountStatus_1.AccountStatus.ACTIVE, displayName: "ACTIVE" },
                 { status: accountStatus_1.AccountStatus.DISABLED, displayName: "DISABLED" },
-                { status: accountStatus_1.AccountStatus.DISABLED, displayName: "PENDING" }]);
+                { status: accountStatus_1.AccountStatus.PENDING, displayName: "PENDING" }]);
         }
     }
 });

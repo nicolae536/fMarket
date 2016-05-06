@@ -182,7 +182,7 @@ export class SelectComponent implements OnInit, OnChanges {
     }
 
     private getCarretClass() {
-        return this._dropdownStatus.isopen ? "glyphicon glyphicon-chevron-up pull-right ui-select2-dropdown-icon" : "glyphicon glyphicon-chevron-down pull-right ui-select2-dropdown-icon";
+        return this._dropdownStatus.isopen ? "glyphicon glyphicon-chevron-up pull-right ui-select2-subscribeDatePicker-icon" : "glyphicon glyphicon-chevron-down pull-right ui-select2-subscribeDatePicker-icon";
     }
 
     private removeSelection($event) {

@@ -90,7 +90,7 @@ export class CategoriesMenuPage implements OnInit {
                 me.getMenuDictionary();
             },
             error=> {
-                me._menuItemModal.showErrors();
+               // me._menuItemModal.showErrors();
             }
         );
     }
@@ -119,7 +119,7 @@ export class CategoriesMenuPage implements OnInit {
                 me.getMenuDictionary();
             },
             error=> {
-                me._menuItemModal.showErrors();
+               // me._menuItemModal.showErrors();
             }
         );
     }
@@ -149,7 +149,6 @@ export class CategoriesMenuPage implements OnInit {
             }).subscribe(
             response => {
                 me._domains = response;
-
             },
             error => {
                 console.log(me._domains);

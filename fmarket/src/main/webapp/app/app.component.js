@@ -58,7 +58,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                     this._notifications = new Array();
                     this._notificationService = notificationService;
                     this._notificationService.notificationFlux.subscribe(function (event) {
-                        me.showDissmisableNotification(event, 3);
+                        me.showDissmisableNotification(event, 5);
                     });
                     //this.startDemadsWatcher();
                 }

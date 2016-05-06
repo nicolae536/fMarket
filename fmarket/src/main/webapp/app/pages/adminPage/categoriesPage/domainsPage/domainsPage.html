@@ -19,20 +19,22 @@
     </div>
     <!-- *ngIf="showAddRequestRow" -->
     <div class="add-request" *ngIf="showAddRequestRow">
-        <div class="input-group">
-            <input class="form-control" [(ngModel)]="newRequestType"/>
+        <form [ngFormModel]="_newDomainForm" (ngSubmit)="addRequestType()">
+            <div class="input-group">
+                <input [ngFormControl]="_newDomainForm.controls['newRequestType']" class="form-control" [(ngModel)]="newRequestType"/>
 
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-secondary btn-primary" (click)="addRequestType()">
-                    <span class="glyphicon glyphicon-ok"></span>
-                    Creeaza
-                </button>
-                <button type="button" class="btn btn-secondary btn-default" (click)="toggleAddRequestType(false)">
-                    <span class="glyphicon glyphicon-remove"></span>
-                    Cancel
-                </button>
+                <div class="input-group-btn">
+                    <button [disabled]="!_newDomainForm.valid" type="submit" class="btn btn-secondary btn-primary">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        Creeaza
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-default" (click)="toggleAddRequestType(false)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        Cancel
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="domain-type">
         <ul class="list-group">
@@ -50,9 +52,12 @@
                     <a *ngIf="!requestType.isInEditMode" class="secondary" (click)="toggleEditMode(requestType)">
                         <span class="glyphicon glyphicon-cog"></span>
                     </a>
-                    <a *ngIf="requestType.isInEditMode" class="secondary" (click)="editRequestType(requestType)">
-                        <span class="glyphicon glyphicon-ok"></span>
+                    <a *ngIf="requestType.isInEditMode" class="secondary" (click)="revertEdit(requestType)">
+                        <span class="glyphicon glyphicon-remove"></span>
                     </a>
+                    <button *ngIf="requestType.isInEditMode" type="submit"  class="secondary btn btn-default" (click)="editRequestType(requestType)">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
                     <span class="pull-right label label-info">- Companii - {{requestType.companies}}</span>
                 </div>
             </li>

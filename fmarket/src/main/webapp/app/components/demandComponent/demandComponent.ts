@@ -72,7 +72,7 @@ export class DemandComponent implements OnInit {
         //toDo take domain from select the two way binding does not work properly
         if (this._demandForm.valid) {
             let formValue = this._demandForm.value;
-            formValue.domain = this._selectDomainCompnent.selectedItem;
+            formValue.domain = this._selectDomainCompnent._selectedItem;
             this._componentSubmit.emit(formValue);
         }
     }
@@ -86,13 +86,13 @@ export class DemandComponent implements OnInit {
     }
 
     public IsValid():boolean {
-        return this._demandForm.valid || _.isEmpty(this._selectDomainCompnent.selectedItem) || (this._selectDomainCompnent.selectedItem && this._selectDomainCompnent.selectedItem === null) || this._selectDomainCompnent._selectedItems.length > 0;
+        return this._demandForm.valid || _.isEmpty(this._selectDomainCompnent._selectedItem) || (this._selectDomainCompnent._selectedItem && this._selectDomainCompnent._selectedItem === null) || this._selectDomainCompnent._selectedItems.length > 0;
     }
 
     public get getFormData():IDemand {
         if (this._demandForm.valid) {
             let formValue = this._demandForm.value;
-            formValue.domain = this._selectDomainCompnent.selectedItem;
+            formValue.domain = this._selectDomainCompnent._selectedItem;
             formValue.cities = this._selectCityCompnent._selectedItems;
             return formValue;
         }

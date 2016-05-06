@@ -2,9 +2,11 @@
  * Created by nick_ on 4/16/2016.
  */
 import {Control} from "angular2/common";
+import {AccountStatus} from "./accountStatus";
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+const INTEGER_REGEX = /^(0|[1-9][0-9]*)$/;
 
 export class CustomValidators {
     public static validateEmail(c:Control) {
@@ -15,9 +17,9 @@ export class CustomValidators {
         };
     }
 
-    public static validatePassword(c: Control){
+    public static validatePassword(c:Control) {
         return PASSWORD_REGEX.test(c.value) ? null : {
-            validateEmail: {
+            validatePassword: {
                 valid: false
             }
         };
@@ -26,7 +28,48 @@ export class CustomValidators {
     public static validatePhoneNumber(c:Control) {
 
         return PHONE_REGEX.test(c.value) ? null : {
-            validateEmail: {
+            validatePhoneNumber: {
+                valid: false
+            }
+        };
+    }
+
+
+    public static validateAccountStatus(c:Control) {
+
+        switch (c.value) {
+            case AccountStatus.ACTIVE:
+                return null;
+            case AccountStatus.AUTO:
+                return null;
+            case AccountStatus.DISABLED:
+                return null;
+            case AccountStatus.PENDING:
+                return null;
+        }
+
+        return {
+            validateAccountStatus: {
+                valid: false
+            }
+        };
+    }
+
+    public static validateCityId(c:Control) {
+        if (c.value == -1) {
+            return  {
+                validateCityId: {
+                    valid: false
+                }
+            };
+        }
+
+        return null;
+    }
+
+    public static validateInteger(c:Control){
+        return INTEGER_REGEX.test(c.value) ? null : {
+            validateInteger: {
                 valid: false
             }
         };

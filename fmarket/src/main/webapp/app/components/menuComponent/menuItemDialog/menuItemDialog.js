@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../selectComponent/selectComponent'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../selectComponent/selectComponent', "angular2/common", "../../../models/Angular2ExtensionValidators"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, selectComponent_1;
+    var core_1, selectComponent_1, common_1, Angular2ExtensionValidators_1;
     var MenuItemDialog;
     return {
         setters:[
@@ -19,18 +19,27 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
             },
             function (selectComponent_1_1) {
                 selectComponent_1 = selectComponent_1_1;
+            },
+            function (common_1_1) {
+                common_1 = common_1_1;
+            },
+            function (Angular2ExtensionValidators_1_1) {
+                Angular2ExtensionValidators_1 = Angular2ExtensionValidators_1_1;
             }],
         execute: function() {
             //used template to not download the same html multiple times
             MenuItemDialog = (function () {
-                function MenuItemDialog() {
+                function MenuItemDialog(formBuilder) {
                     this.modalLoaded = new core_1.EventEmitter();
                     this.newMenuItemEmitter = new core_1.EventEmitter();
                     this.updateMenuItemEmitter = new core_1.EventEmitter();
+                    this._formBuilder = formBuilder;
+                    this._menuItem = this._formBuilder.group([]);
                 }
                 MenuItemDialog.prototype.ngOnInit = function () {
                     this.modalLoaded.emit(this);
                     this._validForm = true;
+                    this.buildMenuItemForm();
                 };
                 MenuItemDialog.prototype.ngOnChanges = function (changes) {
                     if (changes.hasOwnProperty('domainsList') && this.domainsList) {
@@ -42,7 +51,11 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                         });
                     }
                 };
-                MenuItemDialog.prototype.checkIfIsNumber = function (event) {
+                MenuItemDialog.prototype.submitMenuItem = function () {
+                    if (!this._menuItem.valid) {
+                        return;
+                    }
+                    this.positiveAction();
                 };
                 MenuItemDialog.prototype.show = function (newModal) {
                     this.fatchModel(newModal);
@@ -50,6 +63,7 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                 };
                 MenuItemDialog.prototype.referenceSelectComponent = function (select) {
                     this._select = select;
+                    //build the form only when component is ready
                 };
                 MenuItemDialog.prototype.update = function (newModal) {
                     this.fatchUpdateModel(newModal);
@@ -66,7 +80,7 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                                 parentId: this.parentId,
                                 name: this.name,
                                 orderNr: this.orderNr,
-                                domainId: this._select.selectedItem.boundItem ? this._select.selectedItem.boundItem['id'] : null
+                                domainId: this._select._selectedItem.boundItem ? this._select._selectedItem.boundItem['id'] : null
                             });
                             break;
                         case 'update':
@@ -75,7 +89,6 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                     }
                 };
                 MenuItemDialog.prototype.cancelAction = function () {
-                    console.log('sending close event');
                     this.clearModal();
                     this.showModal = false;
                 };
@@ -88,14 +101,13 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                     this.name = "";
                     this.orderNr = "";
                     this._select.selectItem(this._select._chooseItemValue);
+                    this.rebuildFormControls();
                 };
                 MenuItemDialog.prototype.fatchModel = function (newModal) {
                     this.parentId = newModal.parentId;
                     this.positiveLabel = newModal.positiveLabel;
                     this.operationType = newModal.operationType;
                     this.id = newModal.id;
-                };
-                MenuItemDialog.prototype.showErrors = function () {
                 };
                 MenuItemDialog.prototype.fatchUpdateModel = function (newModal) {
                     this.id = newModal.menuModel['id'];
@@ -114,6 +126,15 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                         }
                         i++;
                     }
+                };
+                MenuItemDialog.prototype.buildMenuItemForm = function () {
+                    this._menuItem.addControl('orderNr', this._formBuilder.control(this.orderNr, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateInteger])));
+                    this._menuItem.addControl('name', this._formBuilder.control(this.orderNr, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
+                };
+                MenuItemDialog.prototype.rebuildFormControls = function () {
+                    this._menuItem.removeControl('orderNr');
+                    this._menuItem.removeControl('name');
+                    this.buildMenuItemForm();
                 };
                 __decorate([
                     core_1.Output('modal-loaded'), 
@@ -135,9 +156,10 @@ System.register(['angular2/core', '../../selectComponent/selectComponent'], func
                     core_1.Component({
                         selector: 'menu-item-dialog',
                         templateUrl: '/app/components/menuComponent/menuItemDialog/menuItemDialog.html',
-                        directives: [selectComponent_1.SelectComponent]
+                        styles: ["\n        .ng-dirty.ng-invalid.ng-touched {\n            border-color: #ab2424;\n        \n        }\n        \n        .ng-dirty.ng-invalid.ng-touched:focus {\n            border-color: #ab2424;\n            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #ab2424;\n        }\n    "],
+                        directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [common_1.FormBuilder])
                 ], MenuItemDialog);
                 return MenuItemDialog;
             }());

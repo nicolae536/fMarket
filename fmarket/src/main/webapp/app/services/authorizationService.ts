@@ -12,6 +12,7 @@ import {AdminPage} from "../pages/adminPage/adminPage";
 import {AccountSettingsPage} from "../pages/accountSettingsPage/accountSettingsPage";
 import {SuccessRegisterPage} from "../pages/registrationPage/successPages/successRegisterPage";
 import {SuccessResetPasswordPage} from "../pages/registrationPage/successPages/successResetPasswordPage";
+import {TokenConfirmPage} from "../pages/registrationPage/successPages/tokenConfirmPage";
 
 
 export class AuthorizationService {
@@ -99,6 +100,11 @@ export class AuthorizationService {
                 path: '/account/...',
                 name: 'Account',
                 component: AccountSettingsPage
+            }),
+            new Route({
+                path: '/registration/confirm',
+                name: 'TokenConfirmation',
+                component: TokenConfirmPage
             })];
         //
         // if (AuthorizationService.isLoggedIn() && AuthorizationService.getActiveUserState() === "ADMIN") {

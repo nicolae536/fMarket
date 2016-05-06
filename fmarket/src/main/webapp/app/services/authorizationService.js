@@ -1,7 +1,7 @@
-System.register(["angular2/router", "../models/applicationConstansts", "../pages/homePage/homePage", "../pages/registrationPage/registrationPage", "../pages/registrationPage/loginPage/loginPage", "../pages/registrationPage/forgetPasswordPage/forgetPasswordPage", "../pages/adminPage/adminPage", "../pages/accountSettingsPage/accountSettingsPage", "../pages/registrationPage/successPages/successRegisterPage", "../pages/registrationPage/successPages/successResetPasswordPage"], function(exports_1, context_1) {
+System.register(["angular2/router", "../models/applicationConstansts", "../pages/homePage/homePage", "../pages/registrationPage/registrationPage", "../pages/registrationPage/loginPage/loginPage", "../pages/registrationPage/forgetPasswordPage/forgetPasswordPage", "../pages/adminPage/adminPage", "../pages/accountSettingsPage/accountSettingsPage", "../pages/registrationPage/successPages/successRegisterPage", "../pages/registrationPage/successPages/successResetPasswordPage", "../pages/registrationPage/successPages/tokenConfirmPage"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var router_1, applicationConstansts_1, homePage_1, registrationPage_1, loginPage_1, forgetPasswordPage_1, adminPage_1, accountSettingsPage_1, successRegisterPage_1, successResetPasswordPage_1;
+    var router_1, applicationConstansts_1, homePage_1, registrationPage_1, loginPage_1, forgetPasswordPage_1, adminPage_1, accountSettingsPage_1, successRegisterPage_1, successResetPasswordPage_1, tokenConfirmPage_1;
     var AuthorizationService;
     return {
         setters:[
@@ -34,6 +34,9 @@ System.register(["angular2/router", "../models/applicationConstansts", "../pages
             },
             function (successResetPasswordPage_1_1) {
                 successResetPasswordPage_1 = successResetPasswordPage_1_1;
+            },
+            function (tokenConfirmPage_1_1) {
+                tokenConfirmPage_1 = tokenConfirmPage_1_1;
             }],
         execute: function() {
             AuthorizationService = (function () {
@@ -114,6 +117,11 @@ System.register(["angular2/router", "../models/applicationConstansts", "../pages
                             path: '/account/...',
                             name: 'Account',
                             component: accountSettingsPage_1.AccountSettingsPage
+                        }),
+                        new router_1.Route({
+                            path: '/registration/confirm',
+                            name: 'TokenConfirmation',
+                            component: tokenConfirmPage_1.TokenConfirmPage
                         })];
                     //
                     // if (AuthorizationService.isLoggedIn() && AuthorizationService.getActiveUserState() === "ADMIN") {

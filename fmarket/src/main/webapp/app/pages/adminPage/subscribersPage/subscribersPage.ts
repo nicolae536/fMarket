@@ -1,20 +1,22 @@
-import {Component, OnInit, ViewEncapsulation} from 'angular2/core';
-import {NgForm} from 'angular2/common';
+import {Component, OnInit, ViewEncapsulation} from "angular2/core";
+import {NgForm} from "angular2/common";
 import {CanActivate} from "angular2/router";
-
-//import operators
-import 'rxjs/add/operator/map';//-map
-
-import {Subscriber} from '../../../models/subscriber'
-import {ActionDialog} from '../../../components/actionDialog/actionDialog';
-import {SubscribersService} from '../../../services/subscribersService';
-import {PageWithNavigation} from  '../../../components/pageWithNavigation/pageWithNavigation';
-import {CreateSubscriberDialog} from '../../../components/createSubscriberDialog/createSubscriberDialog';
-
-//import mocks
-import {CITYES} from '../../../services/mock-providers/mock-City';
+import {DROPDOWN_DIRECTIVES, DATEPICKER_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
+import "rxjs/add/operator/map";
+import {Subscriber} from "../../../models/subscriber";
+import {ActionDialog} from "../../../components/actionDialog/actionDialog";
+import {SubscribersService} from "../../../services/subscribersService";
+import {PageWithNavigation} from "../../../components/pageWithNavigation/pageWithNavigation";
+import {CreateSubscriberDialog} from "../../../components/createSubscriberDialog/createSubscriberDialog";
+import {CITYES} from "../../../services/mock-providers/mock-City";
 import {Role} from "../../../models/Roles";
 import {AuthorizationService} from "../../../services/authorizationService";
+import {ApplicationConstants} from "../../../models/applicationConstansts";
+
+//import operators
+//-map
+
+//import mocks
 
 var applicationPath:string = '/app/pages/adminPage/subscribersPage';
 
@@ -25,13 +27,17 @@ var applicationPath:string = '/app/pages/adminPage/subscribersPage';
     encapsulation: ViewEncapsulation.None,
 
     providers: [SubscribersService],
-    directives: [CreateSubscriberDialog, ActionDialog, NgForm]
+    directives: [CreateSubscriberDialog, ActionDialog, NgForm, DATEPICKER_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
+@CanActivate(()=> {
+    return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);
+})
 
 export class SubscribersPage extends PageWithNavigation implements OnInit {
     _subscribersService:SubscribersService;
     actionDialog:ActionDialog;
+    subscribeDatePicker = {state: false};
+    unSubscribeDatePicker = {state: false};
 
     orderList:Array<Object> = [{value: -1, text: "Chose..."},
         {value: 1, text: "Ascending"},
@@ -46,9 +52,13 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
     sortkeyAndFilter = [];
 
     emailFilter = "";
-    subscribeDateFilter = "";
-    unsubscribeDateFilter = "";
-    subscriberBackup:Subscriber;
+    subscribeDateFilter = new Date();
+    unsubscribeDateFilter = new Date();
+
+    dateTimePlaceHolder:string = ApplicationConstants.getLocaleDateString();
+    subscriberFormatedDate:string;
+    unsubscriberFormatedDate:string;
+
     createSubscriberDialog:CreateSubscriberDialog;
     subscribersList:Array<Subscriber> = [];
     private deleteMessage = "Are you sure that you want to delete this subscriber ?";
@@ -126,7 +136,7 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
                 response => {
                 }, error=> {
 
-            })
+                })
     }
 
     unsubscribe(subscriber:Subscriber) {
@@ -136,18 +146,11 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
                     return response.json();
                 }
             })            .subscribe(
-                response => {
-                }, error=> {
+            response => {
+            }, error=> {
 
-                })
+            })
     }
-
-    //
-    //delete(subscriber:Subscriber) {
-    //    var me = this;
-    //
-    //    this.actionDialog.show("", subscriber);
-    //}
 
     actionDialogConfirmDelete(subscriber:Subscriber) {
         var me = this;
@@ -201,4 +204,42 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
     saveEditedSubscriber(subscriber:Subscriber) {
         subscriber.isInEditMode = false;
     }
+
+    openSubscribeDatePicke($event) {
+        $event.stopPropagation();
+        $event.preventDefault();
+        this.subscribeDatePicker.state = true;
+        this.subscriberFormatedDate = this.subscribeDateFilter.toLocaleDateString();
+    }
+
+    openUnSubscribeDatePicke($event) {
+        $event.stopPropagation();
+        $event.preventDefault();
+        this.unSubscribeDatePicker.state = true;
+        this.unsubscriberFormatedDate = this.unsubscribeDateFilter.toLocaleDateString();
+    }
+    
+    updateSubscribeDatePicker(){
+        let dateString = ApplicationConstants.getLocaleDateString();
+
+        if(! ApplicationConstants.getLocaleDateRegex().test(this.subscriberFormatedDate)){
+            this.subscriberFormatedDate = '';
+            return;
+        }
+
+        this.subscribeDateFilter = new Date(this.subscriberFormatedDate);
+    }
+
+    updateunSubscribeDatePicker(){
+        let dateString = ApplicationConstants.getLocaleDateString();
+
+        if(! ApplicationConstants.getLocaleDateRegex().test(this.unsubscriberFormatedDate)){
+            this.unsubscriberFormatedDate = '';
+            return;
+        }
+
+        this.unsubscribeDateFilter = new Date(this.unsubscriberFormatedDate);
+    }
+
+    
 }

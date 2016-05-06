@@ -74,7 +74,7 @@ export class AppComponent {
 
         this._notificationService = notificationService;
         this._notificationService.notificationFlux.subscribe(event=> {
-            me.showDissmisableNotification(event, 3);
+            me.showDissmisableNotification(event, 5);
         });
 
         //this.startDemadsWatcher();

@@ -9,12 +9,25 @@ import {IUpdateModal} from "../../../models/interfaces/iUpdateModal";
 import {IModal} from "../../../models/interfaces/iModal";
 import {INewDomainMenuItemRequest} from "../../../models/interfaces/iNewDomainMenuItemRequest";
 import {IUpdateDomainMenuItemRequest} from "../../../models/interfaces/iUpdateDomainMenuItemRequest";
+import {FormBuilder, Validator, Validators, FORM_DIRECTIVES} from "angular2/common";
+import {CustomValidators} from "../../../models/Angular2ExtensionValidators";
 
 //used template to not download the same html multiple times
 @Component({
     selector: 'menu-item-dialog',
     templateUrl: '/app/components/menuComponent/menuItemDialog/menuItemDialog.html',
-    directives: [SelectComponent]
+    styles:[`
+        .ng-dirty.ng-invalid.ng-touched {
+            border-color: #ab2424;
+        
+        }
+        
+        .ng-dirty.ng-invalid.ng-touched:focus {
+            border-color: #ab2424;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #ab2424;
+        }
+    `],
+    directives: [FORM_DIRECTIVES, SelectComponent]
 })
 
 export class MenuItemDialog implements OnInit, OnChanges {
@@ -33,12 +46,20 @@ export class MenuItemDialog implements OnInit, OnChanges {
     private positiveLabel:string;
     private _select:SelectComponent;
     private _validForm:boolean;
+    _menuItem;
 
     items:Select2Item[];
+    private _formBuilder:FormBuilder;
+
+    constructor(formBuilder:FormBuilder){
+        this._formBuilder = formBuilder;
+        this._menuItem = this._formBuilder.group([]);
+    }
 
     ngOnInit() {
         this.modalLoaded.emit(this);
         this._validForm=true;
+        this.buildMenuItemForm();
     }
 
     ngOnChanges(changes:{}):any {
@@ -52,8 +73,12 @@ export class MenuItemDialog implements OnInit, OnChanges {
         }
     }
 
-    checkIfIsNumber(event){
+    submitMenuItem(){
+        if(!this._menuItem.valid){
+            return;
+        }
 
+        this.positiveAction();
     }
 
     show(newModal:IModal) {
@@ -63,6 +88,8 @@ export class MenuItemDialog implements OnInit, OnChanges {
 
     referenceSelectComponent(select:SelectComponent) {
         this._select = select;
+
+        //build the form only when component is ready
     }
 
     update(newModal:IUpdateModal) {
@@ -83,7 +110,7 @@ export class MenuItemDialog implements OnInit, OnChanges {
                     parentId: this.parentId,
                     name: this.name,
                     orderNr: this.orderNr,
-                    domainId: this._select.selectedItem.boundItem ? this._select.selectedItem.boundItem['id'] : null
+                    domainId: this._select._selectedItem.boundItem ? this._select._selectedItem.boundItem['id'] : null
                 });
                 break;
             case 'update':
@@ -93,7 +120,6 @@ export class MenuItemDialog implements OnInit, OnChanges {
     }
 
     private cancelAction() {
-        console.log('sending close event');
         this.clearModal();
         this.showModal = false;
     }
@@ -108,6 +134,8 @@ export class MenuItemDialog implements OnInit, OnChanges {
         this.name = "";
         this.orderNr = "";
         this._select.selectItem(this._select._chooseItemValue);
+
+        this.rebuildFormControls();
     }
 
     private fatchModel(newModal:IModal):void {
@@ -115,10 +143,6 @@ export class MenuItemDialog implements OnInit, OnChanges {
         this.positiveLabel = newModal.positiveLabel;
         this.operationType = newModal.operationType;
         this.id = newModal.id;
-    }
-
-    showErrors() {
-
     }
 
     private fatchUpdateModel(newModal:IUpdateModal):void {
@@ -140,5 +164,16 @@ export class MenuItemDialog implements OnInit, OnChanges {
             }
             i++;
         }
+    }
+
+    private buildMenuItemForm() {
+        this._menuItem.addControl('orderNr',this._formBuilder.control(this.orderNr,Validators.compose([Validators.required, CustomValidators.validateInteger])));
+        this._menuItem.addControl('name',this._formBuilder.control(this.orderNr,Validators.compose([Validators.required, Validators.minLength(3)])));
+    }
+
+    private rebuildFormControls() {
+        this._menuItem.removeControl('orderNr');
+        this._menuItem.removeControl('name');
+        this.buildMenuItemForm();
     }
 }

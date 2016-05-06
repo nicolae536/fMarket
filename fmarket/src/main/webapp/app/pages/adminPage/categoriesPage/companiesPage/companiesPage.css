@@ -15,12 +15,13 @@
 }
 
 .companies-page .companie-type .list-group .list-group-item {
-    padding-top: 12px;
+    padding-top: 14px;
     height: 42px;
+    padding-right: 0px;
 }
 
 .companies-page .companie-type .list-group .list-group-item .col-md-9 .form-control {
-    margin-top: -13px;
+    margin-top: -15px;
     height: 42px;
     margin-left: -31px;
     text-indent: 18px;
@@ -33,12 +34,45 @@
 
 .companies-page .companie-type .list-group .list-group-item .secondary {
     float: right;
-    padding-left: 13px;
+    padding-left: 15px;
+    padding-right: 15px;
     border-left: 1px solid rgb(221, 221, 221);
     line-height: 20px;
     height: 42px;
     margin-top: -15px;
     padding-top: 15px;
-    margin-left: 15px;
     cursor: pointer;
-} 
+}
+
+.companies-page .companie-type .list-group .list-group-item .secondary.btn{
+    border-right: none;
+    color: #00ccae;
+}
+
+.companies-page .companie-type .list-group .list-group-item .secondary.btn:hover{
+    background-color: #fff;
+    border-color: rgb(221, 221, 221);
+}
+
+.companies-page .companie-type .list-group .list-group-item .secondary.btn:hover span{
+    color: #00806d;
+}
+
+.companies-page .companie-type .list-group .list-group-item .secondary.btn span{
+    margin-top: -12px;
+
+}
+
+.companies-page .companie-type .list-group .list-group-item .pull-right.label.label-info{
+    margin-right: 5px;
+}
+
+.ng-dirty.ng-invalid.ng-touched {
+    border-color: #ab2424;
+
+}
+
+.ng-dirty.ng-invalid.ng-touched:focus {
+    border-color: #ab2424;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #ab2424;
+}

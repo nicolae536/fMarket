@@ -3,6 +3,7 @@ export class CompanieType {
     name:string;
     companies_no:number;
     isInEditMode:boolean = false;
+    companieTypeBackup: CompanieType;
 
     constructor(id?:string, name?:string, companies?:number) {
         this.id = id;

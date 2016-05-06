@@ -39,21 +39,51 @@
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <span>Subscribe date:</span>
-                                <input type="text" placeholder="dd-mm-yyyy" [(ngModel)]="subscribeDateFilter"
-                                       class="form-control"/>
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <div dropdown [(isOpen)]="subscribeDatePicker.state">
+                                            <button class="btn btn-primary" dropdownToggle>
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </button>
+                                            <div dropdownMenu class="dropdown-menu">
+                                                <datepicker (click)="openSubscribeDatePicke($event)"
+                                                            [(ngModel)]="subscribeDateFilter"
+                                                            [showWeeks]="true"
+                                                            ></datepicker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="text" [placeholder]="dateTimePlaceHolder" class="form-control" [(ngModel)]="subscriberFormatedDate" (ngModelChange)="updateSubscribeDatePicker()"
+                                           />
+                                </div>
                             </div>
                         </div>
 
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <span>Unsubscribe date:</span>
-                                <input type="text" [(ngModel)]="unsubscribeDateFilter" placeholder="dd-mm-yyyy"
-                                       class="form-control"/>
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <div dropdown [(isOpen)]="unSubscribeDatePicker.state">
+                                            <button class="btn btn-primary" dropdownToggle>
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </button>
+                                            <div dropdownMenu class="dropdown-menu">
+                                                <datepicker (click)="openUnSubscribeDatePicke($event)"
+                                                            [(ngModel)]="unsubscribeDateFilter"
+                                                            [showWeeks]="true"></datepicker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="text" [(ngModel)]="unsubscriberFormatedDate" class="form-control" [placeholder]="dateTimePlaceHolder" (ngModelChange)="updateunSubscribeDatePicker()"
+                                           />
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-3 no-right-p">
                             <div class="secondary">
-                                <input type="button" class="btn btn-success" (click)="getSubscribersWithFilters()" value="Aplica Filtre"/>
+                                <input type="button" class="btn btn-success" (click)="getSubscribersWithFilters()"
+                                       value="Aplica Filtre"/>
                             </div>
                         </div>
 
@@ -110,7 +140,8 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="javascript:void(0)" title="Delete" (click)="actionDialog.show(deleteMessage,subscriber)">
+                                    <a href="javascript:void(0)" title="Delete"
+                                       (click)="actionDialog.show(deleteMessage,subscriber)">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </a>
                                 </td>

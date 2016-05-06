@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../../../models/companieType', '../../../../services/companieTypesService', "angular2/router", "../../../../services/authorizationService", "../../../../models/Roles"], function(exports_1, context_1) {
+System.register(["angular2/core", "../../../../models/companieType", "../../../../services/companieTypesService", "angular2/router", "../../../../services/authorizationService", "../../../../models/Roles", "angular2/common"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, companieType_1, companieTypesService_1, router_1, authorizationService_1, Roles_1;
+    var core_1, companieType_1, companieTypesService_1, router_1, authorizationService_1, Roles_1, common_1;
     var applicationPath, CompaniesPage;
     return {
         setters:[
@@ -31,21 +31,23 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
             },
             function (Roles_1_1) {
                 Roles_1 = Roles_1_1;
+            },
+            function (common_1_1) {
+                common_1 = common_1_1;
             }],
         execute: function() {
             applicationPath = '/app/pages/adminPage/categoriesPage/companiesPage';
             CompaniesPage = (function () {
-                function CompaniesPage(companieTypeService) {
+                function CompaniesPage(companieTypeService, formBuilder) {
                     this.companieTypes = [new companieType_1.CompanieType("", "test", 1), new companieType_1.CompanieType("", "test", 3), new companieType_1.CompanieType("", "test", 2)];
                     this.searchQuery = "";
                     this._companieTypeService = companieTypeService;
+                    this._formBuilder = formBuilder;
                 }
                 CompaniesPage.prototype.ngOnInit = function () {
                     this.getCompanyTypesWithFilters();
-                };
-                CompaniesPage.prototype.selectMenuItem = function (data) {
-                };
-                CompaniesPage.prototype.addMenuItem = function (data) {
+                    this._newDomainForm = this._formBuilder.group([]);
+                    this.buildDomainForm();
                 };
                 CompaniesPage.prototype.getCompanyTypesWithFilters = function () {
                     var me = this;
@@ -63,6 +65,9 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
                 };
                 CompaniesPage.prototype.addCompanieDomain = function () {
                     var me = this;
+                    if (!this._newDomainForm.valid) {
+                        return;
+                    }
                     this._companieTypeService.addCompanyType(this.newDomain)
                         .map(function (response) {
                         if (response.text().length) {
@@ -72,6 +77,7 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
                         me.getCompanyTypesWithFilters();
                         me.newDomain = "";
                         me.toggleAddCompanieDomain(false);
+                        me.rebuildForm();
                     }, function (error) {
                         //make the field red
                         //this.companieTypes = [];
@@ -106,9 +112,27 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
                 };
                 CompaniesPage.prototype.toggleEditMode = function (companyType) {
                     companyType.isInEditMode = true;
+                    companyType.companieTypeBackup = JSON.parse(JSON.stringify(companyType));
+                };
+                CompaniesPage.prototype.revertEdit = function (companieType) {
+                    companieType.isInEditMode = false;
+                    companieType.id = companieType.companieTypeBackup.id;
+                    companieType.companies_no = companieType.companieTypeBackup.companies_no;
+                    companieType.name = companieType.companieTypeBackup.name;
                 };
                 CompaniesPage.prototype.toggleAddCompanieDomain = function (value) {
                     this.showAddCompanieDomainRow = value;
+                    if (!value) {
+                        this.newDomain = '';
+                        this.rebuildForm();
+                    }
+                };
+                CompaniesPage.prototype.buildDomainForm = function () {
+                    this._newDomainForm.addControl('newDomain', this._formBuilder.control(this.newDomain, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
+                };
+                CompaniesPage.prototype.rebuildForm = function () {
+                    this._newDomainForm.removeControl('newDomain');
+                    this.buildDomainForm();
                 };
                 CompaniesPage = __decorate([
                     core_1.Component({
@@ -118,8 +142,10 @@ System.register(['angular2/core', '../../../../models/companieType', '../../../.
                         //encapsulation: ViewEncapsulation.None,
                         providers: [companieTypesService_1.CompanieTypeService],
                     }),
-                    router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-                    __metadata('design:paramtypes', [companieTypesService_1.CompanieTypeService])
+                    router_1.CanActivate(function () {
+                        return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
+                    }), 
+                    __metadata('design:paramtypes', [companieTypesService_1.CompanieTypeService, common_1.FormBuilder])
                 ], CompaniesPage);
                 return CompaniesPage;
             }());
