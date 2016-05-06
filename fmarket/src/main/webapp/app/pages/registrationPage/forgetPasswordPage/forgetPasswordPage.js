@@ -36,6 +36,9 @@ System.register(["angular2/core", "angular2/router", "../../../components/regist
                     this._router = router;
                     this._registrationService = registrationService;
                 }
+                ForgetPasswordPage.prototype.referenceComponent = function ($event) {
+                    this._registrationComponent = $event;
+                };
                 ForgetPasswordPage.prototype.ngOnInit = function () {
                     this._showLoginLink = false;
                     this._showRememberMeLink = false;

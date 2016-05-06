@@ -47,6 +47,9 @@ System.register(["angular2/core", "angular2/router", "../../components/registrat
                     this._showForgetPasswordLink = false;
                     this._showRegisterLink = false;
                 };
+                RegistrationPage.prototype.referenceComponent = function ($event) {
+                    this._registrationComponent = $event;
+                };
                 RegistrationPage.prototype.requestHandler = function (account) {
                     var me = this;
                     this._registrationService.createAccount(account)

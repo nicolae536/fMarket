@@ -10,6 +10,7 @@
         [show-register-link]="_showRegisterLink"
         [show-remember-me-link]="_showRememberMeLink"
         [show-login-link]="_showLoginLink"
-        (registration-form)="requestHandler($event)">
+        (registration-form)="requestHandler($event)"
+        (reference-component)="referenceComponent($event)">
     </registration-component>
 </div>

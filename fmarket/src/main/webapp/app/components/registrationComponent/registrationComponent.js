@@ -31,6 +31,7 @@ System.register(["angular2/core", "angular2/common", "angular2/router", "../../m
             RegistrationComponent = (function () {
                 function RegistrationComponent(formBuilder) {
                     this.$registrationForm = new core_1.EventEmitter();
+                    this.loaded = new core_1.EventEmitter();
                     this._formBuilder = formBuilder;
                 }
                 RegistrationComponent.prototype.ngOnInit = function () {
@@ -39,6 +40,12 @@ System.register(["angular2/core", "angular2/common", "angular2/router", "../../m
                     this._registrationForm.addControl('password', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword])));
                     this._registrationForm.addControl('subscribe', this._formBuilder.control(false));
                     this._registrationForm.addControl('rememberMe', this._formBuilder.control(false));
+                    this.loaded.emit(this);
+                };
+                RegistrationComponent.prototype.markAllFieldsAsErrors = function () {
+                    _.each(this._registrationForm.controls, function (control, name) {
+                        control.setErrors({ key: 'invalid' });
+                    });
                 };
                 RegistrationComponent.prototype.registrationFormSubmit = function () {
                     if (this._registrationForm.valid) {
@@ -87,6 +94,10 @@ System.register(["angular2/core", "angular2/common", "angular2/router", "../../m
                     core_1.Output('registration-form'), 
                     __metadata('design:type', core_1.EventEmitter)
                 ], RegistrationComponent.prototype, "$registrationForm", void 0);
+                __decorate([
+                    core_1.Output('reference-component'), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], RegistrationComponent.prototype, "loaded", void 0);
                 RegistrationComponent = __decorate([
                     core_1.Component({
                         selector: 'registration-component',

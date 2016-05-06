@@ -35,6 +35,10 @@ export class RegistrationService {
         return this.api.post('/login', credentials, {headers:headers});
     }
 
+    logout(){
+        return this.api.post('/logout','');
+    }
+
     validateToken(token){
         return this.api.get('/confirm' + this.REGISTRATION_CONTROLLER + `?token=${token}`);
     }

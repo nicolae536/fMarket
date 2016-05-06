@@ -35,12 +35,17 @@ export class ForgetPasswordPage implements OnInit {
     private _showRememberMeLink;
     private _showLoginLink;
     private _router:Router;
+    private _registrationComponent;
 
     constructor(router:Router, registrationService:RegistrationService) {
         this._router = router;
         this._registrationService = registrationService;
     }
-
+    
+    referenceComponent($event){
+        this._registrationComponent = $event;
+    }
+    
     ngOnInit():any {
         this._showLoginLink = false;
         this._showRememberMeLink = false;

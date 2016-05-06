@@ -4,7 +4,7 @@
 /**
  * Created by nick_ on 4/17/2016.
  */
-System.register(["angular2/core", "../../../components/registrationComponent/registrationComponent", "../../../services/registrationService", "angular2/router", "../../../models/applicationConstansts", "../../../services/localStorageService"], function(exports_1, context_1) {
+System.register(["angular2/core", "../../../components/registrationComponent/registrationComponent", "../../../services/registrationService", "angular2/router", "../../../models/applicationConstansts", "../../../services/localStorageService", "../../../services/notificationService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -16,7 +16,7 @@ System.register(["angular2/core", "../../../components/registrationComponent/reg
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, registrationComponent_1, registrationService_1, router_1, applicationConstansts_1, localStorageService_1;
+    var core_1, registrationComponent_1, registrationService_1, router_1, applicationConstansts_1, localStorageService_1, notificationService_1;
     var folderPath, LoginPage;
     return {
         setters:[
@@ -37,15 +37,22 @@ System.register(["angular2/core", "../../../components/registrationComponent/reg
             },
             function (localStorageService_1_1) {
                 localStorageService_1 = localStorageService_1_1;
+            },
+            function (notificationService_1_1) {
+                notificationService_1 = notificationService_1_1;
             }],
         execute: function() {
             folderPath = '/app/pages/registrationPage';
             LoginPage = (function () {
-                function LoginPage(router, registrationService, localStorageService) {
+                function LoginPage(router, registrationService, localStorageService, ntificationService) {
                     this._router = router;
                     this._registrationService = registrationService;
                     this._localStorageService = localStorageService;
+                    this._notificationService = ntificationService;
                 }
+                LoginPage.prototype.referenceComponent = function ($event) {
+                    this._registrationComponent = $event;
+                };
                 LoginPage.prototype.ngOnInit = function () {
                     this._showLoginLink = false;
                     this._showRememberMeLink = true;
@@ -70,6 +77,8 @@ System.register(["angular2/core", "../../../components/registrationComponent/reg
                         me._localStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
                         me._router.navigate(['Home']);
                     }, function (error) {
+                        me._notificationService.emitNotificationToRootComponent({ type: "danger", dismisable: true, message: "Date de autentificare incorecte!" });
+                        me._registrationComponent.markAllFieldsAsErrors();
                     });
                 };
                 LoginPage = __decorate([
@@ -79,7 +88,7 @@ System.register(["angular2/core", "../../../components/registrationComponent/reg
                         providers: [registrationService_1.RegistrationService],
                         directives: [registrationComponent_1.RegistrationComponent]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService])
+                    __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService, notificationService_1.NotificationService])
                 ], LoginPage);
                 return LoginPage;
             }());

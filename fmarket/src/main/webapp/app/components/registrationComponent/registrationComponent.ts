@@ -2,7 +2,7 @@
  * Created by nick_ on 4/16/2016.
  */
 import {Component, OnInit, EventEmitter, Input, Output} from "angular2/core";
-import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from "angular2/common";
+import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, Control} from "angular2/common";
 import {ROUTER_DIRECTIVES} from "angular2/router";
 import {RegisterAccount} from "../../models/registerAccount";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
@@ -25,6 +25,7 @@ export class RegistrationComponent implements OnInit {
     @Input('show-login-link') _showLoginLink:boolean;
 
     @Output('registration-form') $registrationForm:EventEmitter<RegisterAccount> = new EventEmitter<RegisterAccount>();
+    @Output('reference-component') loaded:EventEmitter<RegistrationComponent> = new EventEmitter<RegistrationComponent>();
 
     private _formBuilder:FormBuilder;
     private _registrationForm:ControlGroup;
@@ -40,6 +41,14 @@ export class RegistrationComponent implements OnInit {
         this._registrationForm.addControl('password', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validatePassword])));
         this._registrationForm.addControl('subscribe', this._formBuilder.control(false));
         this._registrationForm.addControl('rememberMe', this._formBuilder.control(false));
+
+        this.loaded.emit(this);
+    }
+
+    markAllFieldsAsErrors(){
+        _.each(this._registrationForm.controls, (control:Control,name)=>{
+            control.setErrors({key:'invalid'});
+        })
     }
 
     registrationFormSubmit(){

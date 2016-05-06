@@ -9,6 +9,8 @@ import {AuthorizationService} from "../../services/authorizationService";
 import {Role} from "../../models/Roles";
 import {LocalStorageService} from "../../services/localStorageService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
+import {RegistrationService} from "../../services/registrationService";
+import {NotificationService} from "../../services/notificationService";
 
 let directoryPath = '/app/components/headerComponent';
 @Component({
@@ -26,13 +28,17 @@ export class HeaderComponent implements OnInit {
     _myAccountDropdownPages:Array<IPageReference>;
     private _localStorageService:LocalStorageService;
     private _router:Router;
+    private _registrationService:RegistrationService;
+    private _notificationService:NotificationService;
 
-    constructor(router:Router,localStorageService:LocalStorageService) {
+    constructor(router:Router, localStorageService:LocalStorageService, registrationService:RegistrationService, notificationService:NotificationService) {
         this._router = router;
-        let me=this;
+        this._registrationService = registrationService;
+        this._notificationService = notificationService;
+        let me = this;
 
         this._localStorageService = localStorageService;
-        this._localStorageService.storageStateChange.subscribe(event=>{
+        this._localStorageService.storageStateChange.subscribe(event=> {
             me.resolveChanges(event);
         })
         this._myAccountLabel = 'Contul meu';
@@ -47,12 +53,12 @@ export class HeaderComponent implements OnInit {
         this.setAdminRoutes();
     }
 
-    resolveChanges(event){
+    resolveChanges(event) {
         this.setUserRoutes();
         this.setAdminRoutes();
     }
 
-    setAdminRoutes(){
+    setAdminRoutes() {
         if (!this.isAdminUser()) {
             return;
         }
@@ -68,10 +74,10 @@ export class HeaderComponent implements OnInit {
         ];
     }
 
-    setUserRoutes(){
+    setUserRoutes() {
         let userState = AuthorizationService.getActiveUserState();
 
-        if(!this.isLoggedIn() || !userState){
+        if (!this.isLoggedIn() || !userState) {
             return;
         }
 
@@ -90,8 +96,22 @@ export class HeaderComponent implements OnInit {
         return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);
     }
 
-    logout(){
-        this._localStorageService.removeItem(ApplicationConstants.ACTIVE_USER_STATE);
-        this._router.navigate(['Home']);
+    logout() {
+        let me=this;
+        this._registrationService.logout()
+            .map(response=> {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })
+            .subscribe(
+                response=> {
+                    me._localStorageService.removeItem(ApplicationConstants.ACTIVE_USER_STATE);
+                    me._router.navigate(['Home']);
+                }, error=> {
+                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Erroare la logout!'})
+                }
+            )
+
     }
 }

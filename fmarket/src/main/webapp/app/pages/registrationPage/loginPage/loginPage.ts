@@ -13,6 +13,7 @@ import {RegisterAccount} from "../../../models/registerAccount";
 import {Router} from "angular2/router";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
 import {LocalStorageService} from "../../../services/localStorageService";
+import {NotificationService} from "../../../services/notificationService";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -36,11 +37,18 @@ export class LoginPage implements OnInit {
     private _showLoginLink:boolean;
     private _router:Router;
     private _localStorageService:LocalStorageService;
+    private _notificationService:NotificationService;
+    private _registrationComponent:RegistrationComponent;
 
-    constructor(router:Router, registrationService:RegistrationService,localStorageService:LocalStorageService) {
+    constructor(router:Router, registrationService:RegistrationService,localStorageService:LocalStorageService, ntificationService:NotificationService) {
         this._router = router;
         this._registrationService = registrationService;
         this._localStorageService = localStorageService;
+        this._notificationService = ntificationService;
+    }
+
+    referenceComponent($event){
+        this._registrationComponent = $event;
     }
 
     ngOnInit():any {
@@ -70,7 +78,8 @@ export class LoginPage implements OnInit {
                     me._router.navigate(['Home'])
                 },
                 error => {
-
+                    me._notificationService.emitNotificationToRootComponent({type:"danger", dismisable:true, message:"Date de autentificare incorecte!"});
+                    me._registrationComponent.markAllFieldsAsErrors();
                 }
             )
     }

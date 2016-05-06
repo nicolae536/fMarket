@@ -30,6 +30,7 @@ export class RegistrationPage implements OnInit {
     private _showRememberMeLink:boolean;
     private _showLoginLink:boolean;
     private _router:Router;
+    private _registrationComponent;
 
     constructor(router:Router,registrationService:RegistrationService) {
         this._router = router;
@@ -46,6 +47,10 @@ export class RegistrationPage implements OnInit {
         this._forgetPasswordLabel = '';
         this._showForgetPasswordLink = false;
         this._showRegisterLink = false;
+    }
+
+    referenceComponent($event){
+        this._registrationComponent = $event;
     }
 
     requestHandler(account:RegisterAccount) {

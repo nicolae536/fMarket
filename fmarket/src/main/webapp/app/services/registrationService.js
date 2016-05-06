@@ -43,6 +43,9 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                     headers.append('X-Login-Ajax-call', "true");
                     return this.api.post('/login', credentials, { headers: headers });
                 };
+                RegistrationService.prototype.logout = function () {
+                    return this.api.post('/logout', '');
+                };
                 RegistrationService.prototype.validateToken = function (token) {
                     return this.api.get('/confirm' + this.REGISTRATION_CONTROLLER + ("?token=" + token));
                 };

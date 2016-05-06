@@ -10,6 +10,7 @@ import {NotificationService} from "./services/notificationService";
 import {ApplicationConstants} from "./models/applicationConstansts";
 import {LocalStorageService} from "./services/localStorageService";
 import {FooterComponent} from "./components/footerComponent/footerComponent";
+import {RegistrationService} from "./services/registrationService";
 //= {type: "success", dismisable: true, message:""};
 @Component({
     selector: 'my-app',
@@ -54,7 +55,7 @@ import {FooterComponent} from "./components/footerComponent/footerComponent";
     }
     `],
     directives: [ROUTER_DIRECTIVES, HeaderComponent, Alert, CORE_DIRECTIVES, FooterComponent],
-    providers: [NotificationService, LocalStorageService]
+    providers: [NotificationService, LocalStorageService, RegistrationService]
 })
 
 @RouteConfig(AuthorizationService.getApplicationRootRoutes())
