@@ -3,9 +3,9 @@
  */
 
 export class PaginationWrapper{
-    totalItems:number;
-    currentPage:number;
-    maxSize:number;
-    boundaryLinks:boolean;
-    rotate:boolean;
+    totalItems:number = 1;
+    currentPage:number = 1;
+    maxSize:number = 1;
+    boundaryLinks:boolean = true;
+    rotate:boolean = false;
 }

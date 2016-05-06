@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../components/tabsComponent/tabsRoutingComponent", "./demandsEditPage/demandsEditPage", "./demandsListPage/newDemandsListPage", "./demandsListPage/allDemandsListPage", "../../../models/Roles", "../../../services/authorizationService"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "../../../components/tabsComponent/tabsRoutingComponent", "./demandsListPage/newDemandsListPage", "./demandsListPage/allDemandsListPage", "../../../models/Roles", "../../../services/authorizationService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "../../../components/tabsCo
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, tabsRoutingComponent_1, demandsEditPage_1, newDemandsListPage_1, allDemandsListPage_1, Roles_1, authorizationService_1;
+    var core_1, router_1, tabsRoutingComponent_1, newDemandsListPage_1, allDemandsListPage_1, Roles_1, authorizationService_1;
     var applicationPath, DemandsPage;
     return {
         setters:[
@@ -22,9 +22,6 @@ System.register(['angular2/core', 'angular2/router', "../../../components/tabsCo
             },
             function (tabsRoutingComponent_1_1) {
                 tabsRoutingComponent_1 = tabsRoutingComponent_1_1;
-            },
-            function (demandsEditPage_1_1) {
-                demandsEditPage_1 = demandsEditPage_1_1;
             },
             function (newDemandsListPage_1_1) {
                 newDemandsListPage_1 = newDemandsListPage_1_1;
@@ -65,12 +62,7 @@ System.register(['angular2/core', 'angular2/router', "../../../components/tabsCo
                             path: '/lista',
                             component: allDemandsListPage_1.AllDemandsListPage,
                             name: 'DemandsList',
-                        }),
-                        new router_1.Route({
-                            path: '/detalii/:id',
-                            component: demandsEditPage_1.DemandsEditPage,
-                            name: 'EditDemand',
-                        }),
+                        })
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], DemandsPage);

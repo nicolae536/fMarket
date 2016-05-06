@@ -10,6 +10,7 @@ import {CategoriesPage} from "./categoriesPage/categoriesPage";
 import {DemandsPage} from "./demandsPage/demandsPage";
 import {CompaniesPage} from "./companiesPage/companiesPage";
 import {CompaniesEditPage} from "./companiesPage/companiesEditPage/companiesEditPage";
+import {DemandsEditPage} from "./demandsPage/demandsEditPage/demandsEditPage";
 
 var applicationPath:string = '/app/pages/adminPage';
 
@@ -40,6 +41,11 @@ var applicationPath:string = '/app/pages/adminPage';
         path: '/cereri/...',
         component: DemandsPage,
         name: 'Demands'
+    }),
+    new Route({
+        path: '/cerere-detalii/:id',
+        component: DemandsEditPage,
+        name: 'EditDemand',
     }),
     new Route({
         path: '/lista',

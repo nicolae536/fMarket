@@ -119,7 +119,7 @@ System.register(["angular2/router", "../models/applicationConstansts", "../pages
                             component: accountSettingsPage_1.AccountSettingsPage
                         }),
                         new router_1.Route({
-                            path: '/registration/confirm',
+                            path: '/confirm/registration',
                             name: 'TokenConfirmation',
                             component: tokenConfirmPage_1.TokenConfirmPage
                         })];

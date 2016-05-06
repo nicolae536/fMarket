@@ -101,7 +101,7 @@ export class AuthorizationService {
                 component: AccountSettingsPage
             }),
             new Route({
-                path: '/registration/confirm',
+                path: '/confirm/registration',
                 name: 'TokenConfirmation',
                 component: TokenConfirmPage
             })];

@@ -5,7 +5,6 @@ import {Component} from 'angular2/core';
 import {RouteConfig, Route, ROUTER_DIRECTIVES, CanActivate,} from 'angular2/router';
 
 import {TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
-import {DemandsEditPage} from "./demandsEditPage/demandsEditPage";
 import {NewDemandsListPage} from "./demandsListPage/newDemandsListPage";
 import {AllDemandsListPage} from "./demandsListPage/allDemandsListPage";
 import {TabHeader} from "../../../models/TabHeader";
@@ -32,12 +31,7 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage';
         path: '/lista',
         component: AllDemandsListPage,
         name: 'DemandsList',
-    }),
-    new Route({
-        path: '/detalii/:id',
-        component: DemandsEditPage,
-        name: 'EditDemand',
-    }),
+    })
 ])
 
 
