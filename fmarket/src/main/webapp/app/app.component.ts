@@ -9,25 +9,34 @@ import {HeaderComponent} from "./components/headerComponent/headerComponent";
 import {NotificationService} from "./services/notificationService";
 import {ApplicationConstants} from "./models/applicationConstansts";
 import {LocalStorageService} from "./services/localStorageService";
+import {FooterComponent} from "./components/footerComponent/footerComponent";
 //= {type: "success", dismisable: true, message:""};
 @Component({
     selector: 'my-app',
     template: `
-        <header-component></header-component>
-        <div class="page-container">
-            <div *ngFor="#notification of _notifications" class="notification-helper">
-                <alert [type]="notification.type" dismissible="true" (close)="closeAlert(notification)">
-                    {{notification.message}}
-                </alert>
+        <div class="application-wrapper">
+            <header-component></header-component>
+            <div class="page-container">
+                <div *ngFor="#notification of _notifications" class="notification-helper">
+                    <alert [type]="notification.type" dismissible="true" (close)="closeAlert(notification)">
+                        {{notification.message}}
+                    </alert>
+                </div>
+                <router-outlet></router-outlet>
             </div>
-            <router-outlet></router-outlet>
+            <footer-component></footer-component>
         </div>
     `,
     styles: [`
+        .application-wrapper{
+            padding-bottom: 186px;
+            position: relative;
+            min-height: 100vh;
+        }
+        
         .page-container{
-            padding-top:5%;
-            padding-left: 5%;
-            padding-right: 5%;
+            margin-top: 50px;
+            padding: 3% 5% 3% 5%;      
         }
         
         .page-container .notification-helper{
@@ -36,8 +45,15 @@ import {LocalStorageService} from "./services/localStorageService";
             z-index: 10001;
             right: 6.3%;
         }
+        
+        
+        @media (max-width: 768px){
+            .application-wrapper{
+                padding-bottom: 286px !important;
+            }
+    }
     `],
-    directives: [ROUTER_DIRECTIVES, HeaderComponent, Alert, CORE_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, HeaderComponent, Alert, CORE_DIRECTIVES, FooterComponent],
     providers: [NotificationService, LocalStorageService]
 })
 

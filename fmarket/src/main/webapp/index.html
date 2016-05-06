@@ -1,4 +1,4 @@
-<html>
+<html style="overflow-y: scroll; min-height: 100%; position: relative;">
 <head>
     <base href="/"/>
     <title>fMarket</title>
@@ -44,9 +44,14 @@
     .then(null, console.error.bind(console));
     </script>
 </head>
-
+<style>
+    .app-layout{
+        display: flex;
+        flex-direction: column;
+    }
+</style>
 <!-- 3. Display the application -->
 <body>
-    <my-app>Loading...</my-app>	
+    <my-app class="app-layout">Loading...</my-app>
 </body>
 </html>

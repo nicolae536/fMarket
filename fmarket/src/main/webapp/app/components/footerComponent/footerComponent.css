@@ -1,0 +1,32 @@
+.footer{
+    background-color: #f8f8f8;
+    position: absolute;
+    /*left: 0;*/
+    bottom: 0;
+    /*height: 185px;*/
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    border-top:1px solid #e7e7e7;
+}
+
+.footer .footer-wrapper{
+    position: relative;
+    padding-left: 7%;
+    padding-right: 7%;
+}
+
+.footer .footer-wrapper .footer-row{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.footer .footer-wrapper .footer-row a{
+    cursor: pointer;
+}
+
+.footer .rights-reserved{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: #e7e7e7;
+}
