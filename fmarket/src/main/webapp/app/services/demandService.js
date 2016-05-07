@@ -70,10 +70,13 @@ System.register(['angular2/core', 'angular2/http', "./mock-providers/mock-City",
                 };
                 DemandService.prototype.convertDemand = function (demand) {
                     var newDemand = demand;
+                    if (!demand) {
+                        return null;
+                    }
                     newDemand.cities = _.map(demand.cities, function (city) {
                         return city.boundItem['id'];
                     });
-                    newDemand.domain = demand.domain.boundItem['id'];
+                    newDemand.domain = demand.domain && demand.domain.boundItem ? demand.domain.boundItem['id'] : null;
                     return newDemand;
                 };
                 DemandService = __decorate([

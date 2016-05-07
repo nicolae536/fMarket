@@ -1,15 +1,17 @@
 <link rel="stylesheet" href="/app/components/demandComponent/demandComponent.css"/>
 <form [ngFormModel]="_demandForm" (ngSubmit)="demandFormSubmit()" class="demand-component-container clearfix">
-    <div class="col-md-6 col-xs-12">
+    <div class="demand-component">
         <div class="demand-control-groups">
-            <h4>Cerere</h4>
+            <h3>Cerere</h3>
+            <hr class="horizontal-marker"/>
             <div class="form-group">
                 <label>Titlu</label>
                 <input type="text" class="form-control" [ngFormControl]="_demandForm.controls['title']"/>
             </div>
             <div class="form-group">
                 <label>Mesaj</label>
-                <textarea type="text" rows="4" class="form-control no-resize" [ngFormControl]="_demandForm.controls['message']"></textarea>
+                <textarea type="text" rows="4" class="form-control no-resize"
+                          [ngFormControl]="_demandForm.controls['message']"></textarea>
             </div>
             <div class="form-group">
                 <label>Orase</label>
@@ -30,21 +32,9 @@
                 </select-component>
             </div>
         </div>
-    </div>
-    <div class="col-md-6 col-xs-12">
-        <div class="account-control-groups">
-            <h4>Cont</h4>
-            <div class="form-group">
-                <label>E-mail</label>
-                <input type="text" class="form-control" [ngFormControl]="_demandForm.controls['email']"/>
-            </div>
-            <div class="form-group">
-                <label>Sunt de accord cu termeni de utilizare ai siteului f-market.ro</label>
-                <input type="checkbox" [ngFormControl]="_demandForm.controls['termsAgreed']"/>
-            </div>
-        </div>
         <div class="contact-control-groups">
-            <h4>Contact</h4>
+            <h3>Contact</h3>
+            <hr class="horizontal-marker"/>
             <div class="form-group">
                 <label>Telefon</label>
                 <input type="tel" class="form-control" [ngFormControl]="_demandForm.controls['phone']"/>
@@ -64,6 +54,18 @@
             <div class="form-group">
                 <label>Doresc sa fiu contactat din orice oras</label>
                 <input type="checkbox" [ngFormControl]="_demandForm.controls['allCities']"/>
+            </div>
+        </div>
+        <div class="account-control-groups">
+            <h3>Cont</h3>
+            <hr class="horizontal-marker"/>
+            <div class="form-group">
+                <label>E-mail</label>
+                <input type="text" [disabled]="isUserLoggedIn" class="form-control" [ngFormControl]="_demandForm.controls['email']"/>
+            </div>
+            <div class="form-group">
+                <label>Sunt de accord cu termeni de utilizare ai siteului f-market.ro</label>
+                <input type="checkbox" [ngFormControl]="_demandForm.controls['termsAgreed']"/>
             </div>
         </div>
     </div>

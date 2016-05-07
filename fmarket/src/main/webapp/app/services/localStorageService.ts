@@ -12,7 +12,6 @@ export class LocalStorageService {
     }
 
     setItem(key:string, value:Object){
-        debugger;
         localStorage.setItem(key, JSON.stringify(value));
         this.notifyObservers(key);
     }
@@ -22,12 +21,10 @@ export class LocalStorageService {
         if(!item){
             return null;
         }
-        debugger;
         return JSON.parse(item);
     }
 
     removeItem(key){
-        debugger;
         localStorage.removeItem(key);
         this.notifyObservers(key);
     }

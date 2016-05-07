@@ -1,8 +1,27 @@
-.home-page{
+.home-page .home-page-first{
     text-align: center;
+    padding: 3% 5% 3% 5%;
+    background-image: url("/staticResorces/homeBackground.jpg");
 }
 
-.home-page .vertical-align-center{
-    display: flex;
-    align-items: center;
+.home-page .home-page-first .vertical-demand-align{
+    padding-top: 13%;
+    color: white;
+    padding-bottom: 8%;
+}
+
+.home-page .how-we-work{
+    padding: 3% 5% 3% 5%;
+}
+
+.home-page .home-page-first .vertical-demand-align .presentation-text{
+
+}
+
+.home-page .home-page-first .vertical-demand-align .demand-action{
+    padding-top: 3vh;
+}
+
+.home-page .home-page-first .vertical-demand-align .demand-action .action-button{
+    padding: 3px 0 3px 0;
 }

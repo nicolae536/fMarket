@@ -1,8 +1,13 @@
-.demand-dialog-component.clearfix .modal.fade.bs-example-modal-lg.in .modal-dialog.modal-lg .modal-body{
-    max-height: 70vh;
-    overflow: auto;
+.demand-dialog-component{
+    padding-top: 3%;
+    padding-bottom: 3%;
 }
 
+
+.demand-dialog-component .create-demand-action .btn.btn-primary.btn-sm{
+    width: 100%;
+    height: 42px;
+}
 
 .demand-dialog-component .form-group .ng-dirty.ng-invalid.ng-touched {
     border-color: #ab2424;

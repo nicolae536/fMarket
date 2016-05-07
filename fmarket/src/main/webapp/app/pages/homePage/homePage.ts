@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/12/2016.
  */
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, ElementRef, ViewChild} from 'angular2/core';
 import {Response} from "angular2/http";
 
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
@@ -19,6 +19,9 @@ const folderPath = '/app/pages/homePage';
 })
 export class HomePage implements OnInit{
     //components
+    @ViewChild('createDemandComponent') private createDemamdViewRef: ElementRef;
+    @ViewChild('howWeWork') private howWeWorkRef: ElementRef;
+
     private _demandDialog:DemandDialogComponent;
     
     //services
@@ -43,10 +46,20 @@ export class HomePage implements OnInit{
         this._demandDialog = demandDialog;
     }
 
-    showDemandDialog(){
-        this._demandDialog.show('', new Demand());
+    goToCreateDemand(){
+        try{
+            this.createDemamdViewRef.nativeElement.scrollIntoView();
+        }
+        catch (error){}
     }
-    
+
+    goToHowWeWork(){
+        try{
+            this.howWeWorkRef.nativeElement.scrollIntoView();
+        }
+        catch (error){}
+    }
+
     createDemand(demand:Demand){
         var me= this;
         

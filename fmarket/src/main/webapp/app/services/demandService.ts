@@ -64,10 +64,14 @@ export class DemandService {
 
     private convertDemand(demand:Demand) {
         let newDemand = demand;
+        if(!demand){
+            return null;
+        }
+
         newDemand.cities = _.map(demand.cities, (city:Select2Item)=>{
             return city.boundItem['id'];
         })
-        newDemand.domain = demand.domain.boundItem['id'];
+        newDemand.domain =  demand.domain && demand.domain.boundItem ? demand.domain.boundItem['id'] :null;
 
         return newDemand;
     }

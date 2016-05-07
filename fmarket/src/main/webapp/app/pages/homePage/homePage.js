@@ -1,4 +1,4 @@
-System.register(['angular2/core', "../../services/categoriesMenuService", "../../services/demandService", "../../components/demandComponent/demandDialogComponent/demandDialogComponent", "../../models/demand"], function(exports_1, context_1) {
+System.register(['angular2/core', "../../services/categoriesMenuService", "../../services/demandService", "../../components/demandComponent/demandDialogComponent/demandDialogComponent"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', "../../services/categoriesMenuService", "../..
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, categoriesMenuService_1, demandService_1, demandDialogComponent_1, demand_1;
+    var core_1, categoriesMenuService_1, demandService_1, demandDialogComponent_1;
     var folderPath, HomePage;
     return {
         setters:[
@@ -25,9 +25,6 @@ System.register(['angular2/core', "../../services/categoriesMenuService", "../..
             },
             function (demandDialogComponent_1_1) {
                 demandDialogComponent_1 = demandDialogComponent_1_1;
-            },
-            function (demand_1_1) {
-                demand_1 = demand_1_1;
             }],
         execute: function() {
             folderPath = '/app/pages/homePage';
@@ -43,8 +40,17 @@ System.register(['angular2/core', "../../services/categoriesMenuService", "../..
                 HomePage.prototype.referenceDemandDialog = function (demandDialog) {
                     this._demandDialog = demandDialog;
                 };
-                HomePage.prototype.showDemandDialog = function () {
-                    this._demandDialog.show('', new demand_1.Demand());
+                HomePage.prototype.goToCreateDemand = function () {
+                    try {
+                        this.createDemamdViewRef.nativeElement.scrollIntoView();
+                    }
+                    catch (error) { }
+                };
+                HomePage.prototype.goToHowWeWork = function () {
+                    try {
+                        this.howWeWorkRef.nativeElement.scrollIntoView();
+                    }
+                    catch (error) { }
                 };
                 HomePage.prototype.createDemand = function (demand) {
                     var me = this;
@@ -95,6 +101,14 @@ System.register(['angular2/core', "../../services/categoriesMenuService", "../..
                         me._domains = [];
                     });
                 };
+                __decorate([
+                    core_1.ViewChild('createDemandComponent'), 
+                    __metadata('design:type', core_1.ElementRef)
+                ], HomePage.prototype, "createDemamdViewRef", void 0);
+                __decorate([
+                    core_1.ViewChild('howWeWork'), 
+                    __metadata('design:type', core_1.ElementRef)
+                ], HomePage.prototype, "howWeWorkRef", void 0);
                 HomePage = __decorate([
                     core_1.Component({
                         selector: 'home-page',

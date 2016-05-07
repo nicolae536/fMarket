@@ -1,4 +1,4 @@
-System.register(["angular2/core", "angular2/common", "../selectComponent/selectComponent", "../../models/demand", "../../models/Angular2ExtensionValidators"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/common", "../selectComponent/selectComponent", "../../models/demand", "../../models/Angular2ExtensionValidators", "../../services/authorizationService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, selectComponent_1, demand_1, Angular2ExtensionValidators_1;
+    var core_1, common_1, selectComponent_1, demand_1, Angular2ExtensionValidators_1, authorizationService_1;
     var EMAIL_REGEX, PHONE_REGEX, APPLICATION_PATH, DemandComponent;
     return {
         setters:[
@@ -28,6 +28,9 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
             },
             function (Angular2ExtensionValidators_1_1) {
                 Angular2ExtensionValidators_1 = Angular2ExtensionValidators_1_1;
+            },
+            function (authorizationService_1_1) {
+                authorizationService_1 = authorizationService_1_1;
             }],
         execute: function() {
             EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -54,6 +57,7 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                         }];
                 }
                 DemandComponent.prototype.ngOnInit = function () {
+                    this.fetchUserEmail();
                     this._demandForm.addControl('title', this._formBuilder.control(this._demandData.title, common_1.Validators.required));
                     this._demandForm.addControl('message', this._formBuilder.control(this._demandData.message, common_1.Validators.required));
                     this._demandForm.addControl('email', this._formBuilder.control(this._demandData.email, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
@@ -66,6 +70,19 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                     this._demandForm.addControl('agreeEmailContact', this._formBuilder.control(this._demandData.agreeEmailContact));
                     this._demandForm.addControl('allCities', this._formBuilder.control(this._demandData.allCities));
                     this._componentLoaded.emit(this);
+                };
+                DemandComponent.prototype.ngOnChanges = function (changes) {
+                    if (authorizationService_1.AuthorizationService.isLoggedIn() && changes['_demandData']) {
+                        this.fetchUserEmail();
+                    }
+                };
+                DemandComponent.prototype.fetchUserEmail = function () {
+                    var user = authorizationService_1.AuthorizationService.getActiveUserState();
+                    this.isUserLoggedIn = false;
+                    if (user) {
+                        this.isUserLoggedIn = user.loggedIn;
+                        this._demandData.email = user.email;
+                    }
                 };
                 DemandComponent.prototype.demandFormSubmit = function () {
                     //toDo take domain from select the two way binding does not work properly
@@ -104,6 +121,8 @@ System.register(["angular2/core", "angular2/common", "../selectComponent/selectC
                     enumerable: true,
                     configurable: true
                 });
+                DemandComponent.prototype.checkIfUserIsLoggedId = function () {
+                };
                 __decorate([
                     core_1.Input('city-list'), 
                     __metadata('design:type', Array)

@@ -1,12 +1,13 @@
 /**
  * Created by nick_ on 4/16/2016.
  */
-import {Component, OnInit, Output, EventEmitter, Input} from "angular2/core";
+import {Component, OnInit, Output, EventEmitter, Input, OnChanges} from "angular2/core";
 import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup} from "angular2/common";
 import {SelectComponent, Select2Item} from "../selectComponent/selectComponent";
 import {IDemand} from "../../models/interfaces/iDemand";
 import {Demand} from "../../models/demand";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
+import {AuthorizationService} from "../../services/authorizationService";
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 const PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
 
@@ -17,7 +18,7 @@ const APPLICATION_PATH:string = '/app/components/demandComponent';
     templateUrl: APPLICATION_PATH + '/demandComponent.html',
     directives: [FORM_DIRECTIVES, SelectComponent]
 })
-export class DemandComponent implements OnInit {
+export class DemandComponent implements OnInit, OnChanges {
 
     @Input('city-list') _cityList:Array<Select2Item>;
     @Input('domain-List') _domainList:Array<Select2Item>;
@@ -31,6 +32,7 @@ export class DemandComponent implements OnInit {
     private _selectDomainCompnent:SelectComponent;
 
     foobarItems;
+    private isUserLoggedIn;
 
     constructor(_formBuilder:FormBuilder) {
         this._formBuilder = _formBuilder;
@@ -52,19 +54,36 @@ export class DemandComponent implements OnInit {
     }
 
     ngOnInit():any {
+        this.fetchUserEmail();
         this._demandForm.addControl('title', this._formBuilder.control(this._demandData.title, Validators.required));
         this._demandForm.addControl('message', this._formBuilder.control(this._demandData.message, Validators.required));
         this._demandForm.addControl('email', this._formBuilder.control(this._demandData.email, Validators.compose([Validators.required, CustomValidators.validateEmail])));
         this._demandForm.addControl('cities', this._formBuilder.control(this._demandData.cities));
         this._demandForm.addControl('domain', this._formBuilder.control(this._demandData.domain));
         this._demandForm.addControl('termsAgreed', this._formBuilder.control(this._demandData.termsAgreed, Validators.required));
-        this._demandForm.addControl('phone', this._formBuilder.control(this._demandData.phone, Validators.compose([Validators.required , Validators.minLength(10), CustomValidators.validatePhoneNumber])));
+        this._demandForm.addControl('phone', this._formBuilder.control(this._demandData.phone, Validators.compose([Validators.required, Validators.minLength(10), CustomValidators.validatePhoneNumber])));
         this._demandForm.addControl('name', this._formBuilder.control(this._demandData.name, Validators.required));
         this._demandForm.addControl('agreePhoneContact', this._formBuilder.control(this._demandData.agreePhoneContact));
         this._demandForm.addControl('agreeEmailContact', this._formBuilder.control(this._demandData.agreeEmailContact));
         this._demandForm.addControl('allCities', this._formBuilder.control(this._demandData.allCities));
 
         this._componentLoaded.emit(this);
+    }
+
+    ngOnChanges(changes:{}):any {
+        if (AuthorizationService.isLoggedIn() && changes['_demandData']) {
+            this.fetchUserEmail();
+        }
+    }
+
+    fetchUserEmail() {
+        let user = AuthorizationService.getActiveUserState();
+        this.isUserLoggedIn = false;
+
+        if(user){
+            this.isUserLoggedIn = user.loggedIn;
+            this._demandData.email = user.email;
+        }
     }
 
     demandFormSubmit() {
@@ -100,6 +119,10 @@ export class DemandComponent implements OnInit {
 
     get demandForm():ControlGroup {
         return this._demandForm;
+    }
+
+    checkIfUserIsLoggedId() {
+
     }
 }
 

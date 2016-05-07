@@ -45,9 +45,6 @@ System.register(["angular2/core", "../../../services/registrationService", "angu
                     var me = this;
                     this._registrationService.validateToken(token)
                         .map(function (response) {
-                        console.log("Response before parse");
-                        console.log(response);
-                        debugger;
                         if (response.text().length > 0) {
                             return response.json();
                         }
@@ -56,14 +53,19 @@ System.register(["angular2/core", "../../../services/registrationService", "angu
                         if (!response) {
                             return;
                         }
-                        console.log('token activation response');
-                        console.log(response);
-                        debugger;
                         me._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
-                        me._notificationService.emitNotificationToRootComponent({ type: 'success', dismisable: true, message: 'Cont activat cu succes.' });
+                        me._notificationService.emitNotificationToRootComponent({
+                            type: 'success',
+                            dismisable: true,
+                            message: 'Cont activat cu succes.'
+                        });
                         me._router.navigate(['Home']);
                     }, function (error) {
-                        me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Tokenul este invalid' });
+                        me._notificationService.emitNotificationToRootComponent({
+                            type: 'danger',
+                            dismisable: true,
+                            message: 'Tokenul este invalid'
+                        });
                         me._router.navigate(['Registration']);
                     });
                 };

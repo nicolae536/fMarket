@@ -1,3 +1,7 @@
+.demand-component-container .demand-component .horizontal-marker{
+    border-top: 3px solid #00ccae;
+}
+
 .no-resize{
     resize: none;
 }

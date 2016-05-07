@@ -47,7 +47,6 @@ import {Role} from "./models/Roles";
         
         .page-container{
             margin-top: 50px;
-            padding: 3% 5% 3% 5%;      
         }
         
         .page-container .notification-helper{
