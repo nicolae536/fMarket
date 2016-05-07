@@ -124,7 +124,7 @@ export class AppComponent {
                                     type: "success",
                                     dismisable: true,
                                     message: response + " cereri noi!"
-                                }, 3);
+                                }, 5);
 
                             }
                         },

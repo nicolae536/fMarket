@@ -73,7 +73,6 @@ System.register(["angular2/core", "../../../components/registrationComponent/reg
                         }
                     })
                         .subscribe(function (response) {
-                        response.isLoggedIn = true;
                         me._localStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
                         me._router.navigate(['Home']);
                     }, function (error) {

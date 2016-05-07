@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../../../services/registrationService", "angular2/router", "../../../services/notificationService"], function(exports_1, context_1) {
+System.register(["angular2/core", "../../../services/registrationService", "angular2/router", "../../../services/notificationService", "../../../services/localStorageService", "../../../models/applicationConstansts"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "../../../services/registrationService", "angu
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, registrationService_1, router_1, notificationService_1;
+    var core_1, registrationService_1, router_1, notificationService_1, localStorageService_1, applicationConstansts_1;
     var TokenConfirmPage;
     return {
         setters:[
@@ -25,13 +25,20 @@ System.register(["angular2/core", "../../../services/registrationService", "angu
             },
             function (notificationService_1_1) {
                 notificationService_1 = notificationService_1_1;
+            },
+            function (localStorageService_1_1) {
+                localStorageService_1 = localStorageService_1_1;
+            },
+            function (applicationConstansts_1_1) {
+                applicationConstansts_1 = applicationConstansts_1_1;
             }],
         execute: function() {
             TokenConfirmPage = (function () {
-                function TokenConfirmPage(router, params, registrationService, notificationService) {
+                function TokenConfirmPage(router, params, registrationService, notificationService, localeStorageService) {
                     this._router = router;
                     this._registrationService = registrationService;
                     this._notificationService = notificationService;
+                    this._localeStorageService = localeStorageService;
                     this.validateToken(params.get('token'));
                 }
                 TokenConfirmPage.prototype.validateToken = function (token) {
@@ -43,6 +50,7 @@ System.register(["angular2/core", "../../../services/registrationService", "angu
                         }
                     })
                         .subscribe(function (response) {
+                        me._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
                         me._notificationService.emitNotificationToRootComponent({ type: 'success', dismisable: true, message: 'Cont activat cu succes.' });
                         me._router.navigate(['Home']);
                     }, function (error) {
@@ -55,7 +63,7 @@ System.register(["angular2/core", "../../../services/registrationService", "angu
                         selector: 'token-confirm',
                         template: ''
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, registrationService_1.RegistrationService, notificationService_1.NotificationService])
+                    __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, registrationService_1.RegistrationService, notificationService_1.NotificationService, localStorageService_1.LocalStorageService])
                 ], TokenConfirmPage);
                 return TokenConfirmPage;
             }());

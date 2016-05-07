@@ -104,7 +104,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                                     type: "success",
                                     dismisable: true,
                                     message: response + " cereri noi!"
-                                }, 3);
+                                }, 5);
                             }
                         }, function (error) {
                         });

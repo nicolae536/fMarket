@@ -5,6 +5,8 @@ import {Component} from "angular2/core";
 import {RegistrationService} from "../../../services/registrationService";
 import {RouteParams, Router} from "angular2/router";
 import {NotificationService} from "../../../services/notificationService";
+import {LocalStorageService} from "../../../services/localStorageService";
+import {ApplicationConstants} from "../../../models/applicationConstansts";
 
 @Component({
     selector: 'token-confirm',
@@ -15,11 +17,13 @@ export class TokenConfirmPage {
     private _registrationService:RegistrationService;
     private _router:Router;
     private _notificationService:NotificationService;
+    private _localeStorageService:LocalStorageService;
 
-    constructor(router:Router, params:RouteParams, registrationService:RegistrationService, notificationService:NotificationService) {
+    constructor(router:Router, params:RouteParams, registrationService:RegistrationService, notificationService:NotificationService, localeStorageService:LocalStorageService) {
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
+        this._localeStorageService = localeStorageService;
         this.validateToken(params.get('token'));
     }
 
@@ -33,6 +37,7 @@ export class TokenConfirmPage {
             })
             .subscribe(
                 response=> {
+                    me._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
                     me._notificationService.emitNotificationToRootComponent({type:'success', dismisable:true, message:'Cont activat cu succes.'});
                     me._router.navigate(['Home']);
                 },

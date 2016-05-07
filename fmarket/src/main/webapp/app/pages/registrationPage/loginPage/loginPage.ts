@@ -72,7 +72,6 @@ export class LoginPage implements OnInit {
             })
             .subscribe(
                 response => {
-                    response.isLoggedIn = true;
                     me._localStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
                     me._router.navigate(['Home'])
                 },
