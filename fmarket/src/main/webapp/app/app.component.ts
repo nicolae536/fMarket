@@ -19,6 +19,7 @@ import {RequestTypeService} from "./services/requestTypeService";
 import {SubscribersService} from "./services/subscribersService";
 import {UserService} from "./services/usersService";
 import {CompaniesService} from "./services/companiesService";
+import {Role} from "./models/Roles";
 
 //= {type: "success", dismisable: true, message:""};
 @Component({
@@ -107,7 +108,7 @@ export class AppComponent {
             me.showDissmisableNotification(event, 5);
         });
 
-        _.defer(this.checkApplicationStatus,this);
+        _.defer(this.checkApplicationStatus, this);
         //this.startDemadsWatcher();
     }
 
@@ -160,19 +161,23 @@ export class AppComponent {
     }
 
     private checkApplicationStatus(context) {
-        let me=context;
+        let me = context;
         context._registrationService.checkIfLoggedIn()
             .map(response => {
-                if(response.text().length>0){
+                if (response.text().length > 0) {
                     return response.json();
                 }
             })
             .subscribe(
-                response=>{
+                response=> {
                     context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
                 },
-                error=>{
-                    context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, null);
+                error=> {
+                    context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, {
+                        email: null,
+                        accountType: Role.USER,
+                        loggedIn: false
+                    });
                 }
             );
     }

@@ -1,4 +1,4 @@
-System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-bootstrap/ng2-bootstrap", "rxjs/Observable", "rxjs/add/observable/interval", "./services/authorizationService", "./components/headerComponent/headerComponent", "./services/notificationService", "./models/applicationConstansts", "./services/localStorageService", "./components/footerComponent/footerComponent", "./services/registrationService", "./services/accountService", "./services/categoriesMenuService", "./services/companieTypesService", "./services/demandService", "./services/requestTypeService", "./services/subscribersService", "./services/usersService", "./services/companiesService"], function(exports_1, context_1) {
+System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-bootstrap/ng2-bootstrap", "rxjs/Observable", "rxjs/add/observable/interval", "./services/authorizationService", "./components/headerComponent/headerComponent", "./services/notificationService", "./models/applicationConstansts", "./services/localStorageService", "./components/footerComponent/footerComponent", "./services/registrationService", "./services/accountService", "./services/categoriesMenuService", "./services/companieTypesService", "./services/demandService", "./services/requestTypeService", "./services/subscribersService", "./services/usersService", "./services/companiesService", "./models/Roles"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, common_1, ng2_bootstrap_1, Observable_1, authorizationService_1, headerComponent_1, notificationService_1, applicationConstansts_1, localStorageService_1, footerComponent_1, registrationService_1, accountService_1, categoriesMenuService_1, companieTypesService_1, demandService_1, requestTypeService_1, subscribersService_1, usersService_1, companiesService_1;
+    var core_1, router_1, common_1, ng2_bootstrap_1, Observable_1, authorizationService_1, headerComponent_1, notificationService_1, applicationConstansts_1, localStorageService_1, footerComponent_1, registrationService_1, accountService_1, categoriesMenuService_1, companieTypesService_1, demandService_1, requestTypeService_1, subscribersService_1, usersService_1, companiesService_1, Roles_1;
     var AppComponent;
     return {
         setters:[
@@ -74,6 +74,9 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
             },
             function (companiesService_1_1) {
                 companiesService_1 = companiesService_1_1;
+            },
+            function (Roles_1_1) {
+                Roles_1 = Roles_1_1;
             }],
         execute: function() {
             //= {type: "success", dismisable: true, message:""};
@@ -138,7 +141,11 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                         .subscribe(function (response) {
                         context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
                     }, function (error) {
-                        context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, null);
+                        context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, {
+                            email: null,
+                            accountType: Roles_1.Role.USER,
+                            loggedIn: false
+                        });
                     });
                 };
                 AppComponent = __decorate([

@@ -20,13 +20,20 @@ System.register(["rxjs/Subject"], function(exports_1, context_1) {
                     this.storageStateChange.next({ keyChanged: key, newValue: this.getItem(key) });
                 };
                 LocalStorageService.prototype.setItem = function (key, value) {
+                    debugger;
                     localStorage.setItem(key, JSON.stringify(value));
                     this.notifyObservers(key);
                 };
                 LocalStorageService.prototype.getItem = function (key) {
-                    return JSON.parse(localStorage.getItem(key));
+                    var item = localStorage.getItem(key);
+                    if (!item) {
+                        return null;
+                    }
+                    debugger;
+                    return JSON.parse(item);
                 };
                 LocalStorageService.prototype.removeItem = function (key) {
+                    debugger;
                     localStorage.removeItem(key);
                     this.notifyObservers(key);
                 };
