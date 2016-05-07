@@ -44,7 +44,7 @@ export class AuthorizationService {
             return false;
         }
 
-        return activeUserState.isLoggedIn;
+        return activeUserState.loggedIn;
     }
 
     public static getActiveUserState() {

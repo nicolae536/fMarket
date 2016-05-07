@@ -49,6 +49,9 @@ System.register(['angular2/core', 'angular2/http', "./fMarketApi"], function(exp
                 RegistrationService.prototype.validateToken = function (token) {
                     return this.api.get('/confirm' + this.REGISTRATION_CONTROLLER + ("?token=" + token));
                 };
+                RegistrationService.prototype.checkIfLoggedIn = function () {
+                    return this.api.get('/accounts/user');
+                };
                 RegistrationService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])

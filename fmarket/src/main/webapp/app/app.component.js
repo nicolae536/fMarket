@@ -78,7 +78,9 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
         execute: function() {
             //= {type: "success", dismisable: true, message:""};
             AppComponent = (function () {
-                function AppComponent(router, location, notificationService) {
+                function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
+                    this._registrationService = registrationService;
+                    this._localeStorageService = localeStorageService;
                     var me = this;
                     this.router = router;
                     this.location = location;
@@ -87,6 +89,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                     this._notificationService.notificationFlux.subscribe(function (event) {
                         me.showDissmisableNotification(event, 5);
                     });
+                    _.defer(this.checkApplicationStatus, this);
                     //this.startDemadsWatcher();
                 }
                 AppComponent.prototype.startDemadsWatcher = function () {
@@ -124,6 +127,20 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                         this._notifications.splice(index, 1);
                     }
                 };
+                AppComponent.prototype.checkApplicationStatus = function (context) {
+                    var me = context;
+                    context._registrationService.checkIfLoggedIn()
+                        .map(function (response) {
+                        if (response.text().length > 0) {
+                            return response.json();
+                        }
+                    })
+                        .subscribe(function (response) {
+                        context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
+                    }, function (error) {
+                        context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, null);
+                    });
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
@@ -148,7 +165,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                         ]
                     }),
                     router_1.RouteConfig(authorizationService_1.AuthorizationService.getApplicationRootRoutes()), 
-                    __metadata('design:paramtypes', [router_1.Router, router_1.Location, notificationService_1.NotificationService])
+                    __metadata('design:paramtypes', [router_1.Router, router_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService])
                 ], AppComponent);
                 return AppComponent;
             }());

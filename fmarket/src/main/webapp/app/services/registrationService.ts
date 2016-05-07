@@ -42,4 +42,8 @@ export class RegistrationService {
     validateToken(token){
         return this.api.get('/confirm' + this.REGISTRATION_CONTROLLER + `?token=${token}`);
     }
+
+    checkIfLoggedIn() {
+        return this.api.get('/accounts/user');
+    }
 }

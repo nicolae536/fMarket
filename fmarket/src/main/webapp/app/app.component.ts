@@ -90,8 +90,12 @@ export class AppComponent {
     location:Location;
     _notifications:IAlert []
     private _notificationService:NotificationService;
+    private _registrationService:RegistrationService;
+    private _localeStorageService:LocalStorageService;
 
-    constructor(router:Router, location:Location, notificationService:NotificationService) {
+    constructor(router:Router, location:Location, notificationService:NotificationService, registrationService:RegistrationService, localeStorageService:LocalStorageService) {
+        this._registrationService = registrationService;
+        this._localeStorageService = localeStorageService;
         let me = this;
 
         this.router = router;
@@ -103,6 +107,7 @@ export class AppComponent {
             me.showDissmisableNotification(event, 5);
         });
 
+        _.defer(this.checkApplicationStatus,this);
         //this.startDemadsWatcher();
     }
 
@@ -152,6 +157,24 @@ export class AppComponent {
         if (index !== -1) {
             this._notifications.splice(index, 1);
         }
+    }
+
+    private checkApplicationStatus(context) {
+        let me=context;
+        context._registrationService.checkIfLoggedIn()
+            .map(response => {
+                if(response.text().length>0){
+                    return response.json();
+                }
+            })
+            .subscribe(
+                response=>{
+                    context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
+                },
+                error=>{
+                    context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, null);
+                }
+            );
     }
 }
 

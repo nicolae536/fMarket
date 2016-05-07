@@ -1,0 +1,8 @@
+.home-page{
+    text-align: center;
+}
+
+.home-page .vertical-align-center{
+    display: flex;
+    align-items: center;
+}

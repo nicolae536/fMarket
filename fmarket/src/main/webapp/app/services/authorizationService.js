@@ -64,7 +64,7 @@ System.register(["angular2/router", "../models/applicationConstansts", "../pages
                     if (!activeUserState) {
                         return false;
                     }
-                    return activeUserState.isLoggedIn;
+                    return activeUserState.loggedIn;
                 };
                 AuthorizationService.getActiveUserState = function () {
                     try {
