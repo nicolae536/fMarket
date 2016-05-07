@@ -76,7 +76,7 @@ System.register(["angular2/core", "../../../components/registrationComponent/reg
                         me._localStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
                         me._router.navigate(['Home']);
                     }, function (error) {
-                        me._notificationService.emitNotificationToRootComponent({ type: "danger", dismisable: true, message: "Date de autentificare incorecte!" });
+                        me._notificationService.emitNotificationToRootComponent({ type: "danger", dismisable: true, message: "Date de autentificare incorecte!", timeout: 5 });
                         me._registrationComponent.markAllFieldsAsErrors();
                     });
                 };

@@ -76,7 +76,7 @@ export class CompaniesPage implements OnInit {
                     me._companiesList = response;
                 },
                 error=>{
-                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Eroare companiile nu pot fi afisate!'});
+                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Eroare companiile nu pot fi afisate!', timeout:5});
                 }
             )
     }

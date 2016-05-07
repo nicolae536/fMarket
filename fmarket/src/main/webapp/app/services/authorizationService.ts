@@ -12,7 +12,7 @@ import {AdminPage} from "../pages/adminPage/adminPage";
 import {AccountSettingsPage} from "../pages/accountSettingsPage/accountSettingsPage";
 import {SuccessRegisterPage} from "../pages/registrationPage/successPages/successRegisterPage";
 import {SuccessResetPasswordPage} from "../pages/registrationPage/successPages/successResetPasswordPage";
-import {TokenConfirmPage} from "../pages/registrationPage/successPages/tokenConfirmPage";
+import {TokenConfirmPage} from "../pages/registrationPage/tokenConfirmPage/tokenConfirmPage";
 
 export class AuthorizationService {
 

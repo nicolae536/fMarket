@@ -54,6 +54,7 @@ import {Role} from "./models/Roles";
             max-width: 100%;
             z-index: 10001;
             right: 6.3%;
+            top:8%;
         }
         
         
@@ -104,7 +105,12 @@ export class AppComponent {
 
         this._notificationService = notificationService;
         this._notificationService.notificationFlux.subscribe(event=> {
-            me.showDissmisableNotification(event, 5);
+            if(event.timeout) {
+                me.showDissmisableNotification(event, event.timeout);
+            }
+            else {
+                me._notifications.push(event);
+            }
         });
 
         _.defer(this.checkApplicationStatus, this);
@@ -128,7 +134,8 @@ export class AppComponent {
                                 me.showDissmisableNotification({
                                     type: "success",
                                     dismisable: true,
-                                    message: response + " cereri noi!"
+                                    message: response + " cereri noi!",
+                                    timeout: 5
                                 }, 5);
 
                             }
@@ -186,4 +193,5 @@ export interface IAlert {
     type:string;
     dismisable:boolean;
     message:string;
+    timeout:number;
 }

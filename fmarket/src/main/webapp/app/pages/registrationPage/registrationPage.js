@@ -65,7 +65,7 @@ System.register(["angular2/core", "angular2/router", "../../components/registrat
                         .subscribe(function (response) {
                         me._router.navigate(['SuccessRegister']);
                     }, function (error) {
-                        me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Inregistrare invalida!' });
+                        me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Inregistrare invalida!', timeout: 5 });
                         me._registrationComponent.markAllFieldsAsErrors();
                     });
                 };

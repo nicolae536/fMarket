@@ -60,7 +60,7 @@ System.register(["angular2/core", "../../../../services/companiesService", "angu
                         .subscribe(function (response) {
                         me._companie = response;
                     }, function (error) {
-                        me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Erroare la incarcarea companiei!' });
+                        me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Erroare la incarcarea companiei!', timeout: 5 });
                         me._router.navigate(['Admin/Companies']);
                     });
                 };

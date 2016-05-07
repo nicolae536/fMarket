@@ -53,7 +53,7 @@ export class CompaniesEditPage implements OnInit {
                     me._companie = response;
                 },
                 error=>{
-                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Erroare la incarcarea companiei!'});
+                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Erroare la incarcarea companiei!', timeout:5});
                     me._router.navigate(['Admin/Companies']);
                 }
             )

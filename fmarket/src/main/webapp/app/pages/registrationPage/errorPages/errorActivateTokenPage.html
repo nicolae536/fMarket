@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="/app/pages/registrationPage/errorPages/errorActivateTokenPage.css"/>
+<div class="error-page-padding">
+    <div *ngIf="showTokenError" class="error-page clearfix">
+        <div class="error-page-wrapper clearfix">
+            <span class="glyphicon glyphicon-remove"></span> <span class="h1">Inregistrare invalida</span>
+            <div>
+                Tokenul nu a fost activat.
+            </div>
+            <div class="pull-right">
+                <a type="button" [routerLink]="['Home']">Continuati</a>
+            </div>
+        </div>
+    </div>
+</div>

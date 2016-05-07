@@ -74,7 +74,7 @@ System.register(["angular2/core", "angular2/router", "../../../models/Roles", ".
                         .subscribe(function (response) {
                         me._companiesList = response;
                     }, function (error) {
-                        me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Eroare companiile nu pot fi afisate!' });
+                        me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Eroare companiile nu pot fi afisate!', timeout: 5 });
                     });
                 };
                 CompaniesPage.prototype.editCompanie = function (id) {

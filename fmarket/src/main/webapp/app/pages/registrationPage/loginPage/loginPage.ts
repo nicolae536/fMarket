@@ -76,7 +76,7 @@ export class LoginPage implements OnInit {
                     me._router.navigate(['Home'])
                 },
                 error => {
-                    me._notificationService.emitNotificationToRootComponent({type:"danger", dismisable:true, message:"Date de autentificare incorecte!"});
+                    me._notificationService.emitNotificationToRootComponent({type:"danger", dismisable:true, message:"Date de autentificare incorecte!", timeout:5});
                     me._registrationComponent.markAllFieldsAsErrors();
                 }
             )

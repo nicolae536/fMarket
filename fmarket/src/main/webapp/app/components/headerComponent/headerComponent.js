@@ -109,7 +109,7 @@ System.register(["angular2/core", "angular2/router", "ng2-bootstrap/ng2-bootstra
                         me._localStorageService.removeItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE);
                         me._router.navigate(['Home']);
                     }, function (error) {
-                        me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Erroare la logout!' });
+                        me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Erroare la logout!', timeout: 5 });
                     });
                 };
                 HeaderComponent = __decorate([

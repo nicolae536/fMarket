@@ -90,7 +90,12 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                     this._notifications = new Array();
                     this._notificationService = notificationService;
                     this._notificationService.notificationFlux.subscribe(function (event) {
-                        me.showDissmisableNotification(event, 5);
+                        if (event.timeout) {
+                            me.showDissmisableNotification(event, event.timeout);
+                        }
+                        else {
+                            me._notifications.push(event);
+                        }
                     });
                     _.defer(this.checkApplicationStatus, this);
                     //this.startDemadsWatcher();
@@ -109,7 +114,8 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                                 me.showDissmisableNotification({
                                     type: "success",
                                     dismisable: true,
-                                    message: response + " cereri noi!"
+                                    message: response + " cereri noi!",
+                                    timeout: 5
                                 }, 5);
                             }
                         }, function (error) {
@@ -152,7 +158,7 @@ System.register(["angular2/core", "angular2/router", "angular2/common", "ng2-boo
                     core_1.Component({
                         selector: 'my-app',
                         template: "\n        <div class=\"application-wrapper\">\n            <header-component></header-component>\n            <div class=\"page-container\">\n                <div *ngFor=\"#notification of _notifications\" class=\"notification-helper\">\n                    <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                        {{notification.message}}\n                    </alert>\n                </div>\n                <router-outlet></router-outlet>\n            </div>\n            <footer-component></footer-component>\n        </div>\n    ",
-                        styles: ["\n        .application-wrapper{\n            padding-bottom: 186px;\n            position: relative;\n            min-height: 100vh;\n        }\n        \n        .page-container{\n            margin-top: 50px;\n        }\n        \n        .page-container .notification-helper{\n            position: fixed;\n            max-width: 100%;\n            z-index: 10001;\n            right: 6.3%;\n        }\n        \n        \n        @media (max-width: 768px){\n            .application-wrapper{\n                padding-bottom: 286px !important;\n            }\n    }\n    "],
+                        styles: ["\n        .application-wrapper{\n            padding-bottom: 186px;\n            position: relative;\n            min-height: 100vh;\n        }\n        \n        .page-container{\n            margin-top: 50px;\n        }\n        \n        .page-container .notification-helper{\n            position: fixed;\n            max-width: 100%;\n            z-index: 10001;\n            right: 6.3%;\n            top:8%;\n        }\n        \n        \n        @media (max-width: 768px){\n            .application-wrapper{\n                padding-bottom: 286px !important;\n            }\n    }\n    "],
                         directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.Alert, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent],
                         providers: [
                             common_1.FormBuilder,

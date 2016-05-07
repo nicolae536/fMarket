@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../../../services/registrationService", "angular2/router", "../../../services/notificationService", "../../../services/localStorageService", "../../../models/applicationConstansts"], function(exports_1, context_1) {
+System.register(["angular2/core", "../../../services/registrationService", "angular2/router", "../../../services/notificationService", "../../../services/localStorageService", "../../../models/applicationConstansts", "../../../models/Roles"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "../../../services/registrationService", "angu
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, registrationService_1, router_1, notificationService_1, localStorageService_1, applicationConstansts_1;
+    var core_1, registrationService_1, router_1, notificationService_1, localStorageService_1, applicationConstansts_1, Roles_1;
     var TokenConfirmPage;
     return {
         setters:[
@@ -31,10 +31,14 @@ System.register(["angular2/core", "../../../services/registrationService", "angu
             },
             function (applicationConstansts_1_1) {
                 applicationConstansts_1 = applicationConstansts_1_1;
+            },
+            function (Roles_1_1) {
+                Roles_1 = Roles_1_1;
             }],
         execute: function() {
             TokenConfirmPage = (function () {
                 function TokenConfirmPage(router, params, registrationService, notificationService, localeStorageService) {
+                    this.showTokenError = false;
                     this._router = router;
                     this._registrationService = registrationService;
                     this._notificationService = notificationService;
@@ -51,28 +55,32 @@ System.register(["angular2/core", "../../../services/registrationService", "angu
                     })
                         .subscribe(function (response) {
                         if (!response) {
+                            me._notificationService.emitNotificationToRootComponent({
+                                type: 'danger',
+                                dismisable: true,
+                                message: 'Serverul nu a returnat userul autentificat!',
+                                timeout: 5
+                            });
+                            me._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, { email: null, accountType: Roles_1.Role.USER, loggedIn: false });
                             return;
                         }
                         me._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
                         me._notificationService.emitNotificationToRootComponent({
                             type: 'success',
                             dismisable: true,
-                            message: 'Cont activat cu succes.'
+                            message: 'Cont activat cu succes.',
+                            timeout: 5
                         });
                         me._router.navigate(['Home']);
                     }, function (error) {
-                        me._notificationService.emitNotificationToRootComponent({
-                            type: 'danger',
-                            dismisable: true,
-                            message: 'Tokenul este invalid'
-                        });
-                        me._router.navigate(['Registration']);
+                        me.showTokenError = true;
                     });
                 };
                 TokenConfirmPage = __decorate([
                     core_1.Component({
                         selector: 'token-confirm',
-                        template: ''
+                        templateUrl: '/app/pages/registrationPage/errorPages/errorActivateTokenPage.html',
+                        directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, registrationService_1.RegistrationService, notificationService_1.NotificationService, localStorageService_1.LocalStorageService])
                 ], TokenConfirmPage);

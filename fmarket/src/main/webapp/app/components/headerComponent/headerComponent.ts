@@ -108,7 +108,7 @@ export class HeaderComponent implements OnInit {
                     me._localStorageService.removeItem(ApplicationConstants.ACTIVE_USER_STATE);
                     me._router.navigate(['Home']);
                 }, error=> {
-                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Erroare la logout!'})
+                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Erroare la logout!', timeout:5})
                 }
             )
 

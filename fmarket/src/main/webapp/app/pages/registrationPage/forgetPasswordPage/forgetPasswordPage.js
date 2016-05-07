@@ -65,7 +65,7 @@ System.register(["angular2/core", "angular2/router", "../../../components/regist
                         .subscribe(function (response) {
                         me._router.navigate(['SuccessResetPassword']);
                     }, function (error) {
-                        me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Resetare parola invalida!' });
+                        me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Resetare parola invalida!', timeout: 5 });
                         me._registrationComponent.markAllFieldsAsErrors();
                     });
                 };

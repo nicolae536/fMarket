@@ -3,14 +3,16 @@
  */
 import {Component} from "angular2/core";
 import {RegistrationService} from "../../../services/registrationService";
-import {RouteParams, Router} from "angular2/router";
+import {RouteParams, Router, ROUTER_DIRECTIVES} from "angular2/router";
 import {NotificationService} from "../../../services/notificationService";
 import {LocalStorageService} from "../../../services/localStorageService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
+import {Role} from "../../../models/Roles";
 
 @Component({
     selector: 'token-confirm',
-    template: ''
+    templateUrl: '/app/pages/registrationPage/errorPages/errorActivateTokenPage.html',
+    directives:[ROUTER_DIRECTIVES]
 })
 
 export class TokenConfirmPage {
@@ -18,6 +20,8 @@ export class TokenConfirmPage {
     private _router:Router;
     private _notificationService:NotificationService;
     private _localeStorageService:LocalStorageService;
+
+    private showTokenError:boolean = false;
 
     constructor(router:Router, params:RouteParams, registrationService:RegistrationService, notificationService:NotificationService, localeStorageService:LocalStorageService) {
         this._router = router;
@@ -38,23 +42,26 @@ export class TokenConfirmPage {
             .subscribe(
                 response=> {
                     if (!response) {
+                        me._notificationService.emitNotificationToRootComponent({
+                            type: 'danger',
+                            dismisable: true,
+                            message: 'Serverul nu a returnat userul autentificat!',
+                            timeout:5
+                        });
+                        me._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, {email:null, accountType:Role.USER, loggedIn:false});
                         return;
                     }
                     me._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
                     me._notificationService.emitNotificationToRootComponent({
                         type: 'success',
                         dismisable: true,
-                        message: 'Cont activat cu succes.'
+                        message: 'Cont activat cu succes.',
+                        timeout:5
                     });
                     me._router.navigate(['Home']);
                 },
                 error=> {
-                    me._notificationService.emitNotificationToRootComponent({
-                        type: 'danger',
-                        dismisable: true,
-                        message: 'Tokenul este invalid'
-                    });
-                    me._router.navigate(['Registration']);
+                   me.showTokenError = true;
                 }
             )
     }

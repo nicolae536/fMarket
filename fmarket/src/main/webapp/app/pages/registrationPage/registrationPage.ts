@@ -69,7 +69,7 @@ export class RegistrationPage implements OnInit {
                     me._router.navigate(['SuccessRegister']);
                 },
                 error => {
-                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Inregistrare invalida!'});
+                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Inregistrare invalida!', timeout:5});
                     me._registrationComponent.markAllFieldsAsErrors();
                 }
             )
