@@ -27,6 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
 	@Bean
 	@Override
@@ -47,17 +50,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()             //TODO -> change this to restrict everything for production since the script will be only one file
-		        .antMatchers("/app/pages/adminPage/*.*html$", "/admin/*.*html$").hasRole("ADMIN")
-		        .antMatchers("/app/pages/accountSettingsPage/*.*html$").hasRole("USER")
-		        .antMatchers("/app/pages/adminPage/*.*css$", "/admin/*.*css$").hasRole("ADMIN")
-		        .antMatchers("/app/pages/accountSettingsPage/*.*css$").hasRole("USER")
+		http
+			.authorizeRequests()             //TODO -> change this to restrict everything for production since the script will be only one file
+		        .antMatchers("/**/*.js").permitAll()
+				.antMatchers("/admin/**").hasAuthority("ADMIN")
+		        .antMatchers("/app/pages/accountSettingsPage/**").hasAuthority("USER")
 		        .antMatchers("/app/**", "/", "/login", "/accounts/user").permitAll()		        
-				// .anyRequest().authenticated()
-				.and().formLogin().successHandler(new RestAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
+				.anyRequest().permitAll()
+			.and()
+			.formLogin()
+				.successHandler(new RestAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
 				.failureHandler(new RestAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler())).and().exceptionHandling()
-				// .authenticationEntryPoint(restAuthenticationEntryPoint)
-				.and().logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()).and().csrf().disable();
+				.authenticationEntryPoint(restAuthenticationEntryPoint)
+				.and()
+			.logout()
+				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+			.and()
+				.csrf().disable();
 	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ro.fmarket.core.exception.InvalidTokenException;
+import ro.fmarket.core.rest.LoginResponse;
 
 @RestController
 @RequestMapping("/confirm")
@@ -16,18 +17,18 @@ public class ConfirmationController {
 	private ConfirmationService service;
 	
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
-	public void confirmRegistration(@RequestParam("token") String token) throws InvalidTokenException {
-		service.confirmRegistration(token);
+	public LoginResponse confirmRegistration(@RequestParam("token") String token) throws InvalidTokenException {
+		return service.confirmRegistration(token);
 	}
 	
 	@RequestMapping(value = "/passwordchange", method = RequestMethod.GET)
-	public void confirmPasswordChange(@RequestParam("token") String token) throws InvalidTokenException {
-		service.confirmPasswordChange(token);
+	public LoginResponse confirmPasswordChange(@RequestParam("token") String token) throws InvalidTokenException {
+		return service.confirmPasswordChange(token);
 	}
 	
 	@RequestMapping(value = "/demand", method = RequestMethod.GET)
-	public void confirmDemandCreation(@RequestParam("token") String token) throws InvalidTokenException {
-		service.confirmDemandCreation(token);
+	public LoginResponse confirmDemandCreation(@RequestParam("token") String token) throws InvalidTokenException {
+		return service.confirmDemandCreation(token);
 	}
 	
 }

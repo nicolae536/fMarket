@@ -35,6 +35,7 @@ public class SecurityUtils {
 			LoginResponse response = new LoginResponse();
 			response.setEmail(userDetails.getUsername());
 			response.setAccountType(userDetails.getAuthorities().iterator().next().getAuthority());
+			response.setLoggedIn(true);
 			LOG.info("Manually authenticated user with email: " + email);
 			return response;
 		}
@@ -50,6 +51,7 @@ public class SecurityUtils {
 			LoginResponse response = new LoginResponse();
 			response.setEmail(userDetails.getUsername());
 			response.setAccountType(userDetails.getAuthorities().iterator().next().getAuthority());
+			response.setLoggedIn(true);
 			LOG.info("Manually authenticated user with email: " + email);
 			return response;
 		}

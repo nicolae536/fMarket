@@ -13,7 +13,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @ConfigurationProperties(prefix = "hikari")
 public class DatabaseConfig extends HikariConfig {
 
-//	@Bean
+	@Bean
 	public DataSource getDataSourceBean() {
 		return new HikariDataSource(this);
 	}
