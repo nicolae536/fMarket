@@ -46,9 +46,8 @@ export class RegistrationComponent implements OnInit {
     }
 
     markAllFieldsAsErrors(){
-        _.each(this._registrationForm.controls, (control:Control,name)=>{
-            control.setErrors({key:'invalid'});
-        })
+        this._registrationForm.controls['email'].setErrors({key:'validateEmail'});
+        this._registrationForm.controls['password'].setErrors({key:'validatePassword'});
     }
 
     registrationFormSubmit(){

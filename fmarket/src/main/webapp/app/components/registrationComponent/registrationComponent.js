@@ -43,9 +43,8 @@ System.register(["angular2/core", "angular2/common", "angular2/router", "../../m
                     this.loaded.emit(this);
                 };
                 RegistrationComponent.prototype.markAllFieldsAsErrors = function () {
-                    _.each(this._registrationForm.controls, function (control, name) {
-                        control.setErrors({ key: 'invalid' });
-                    });
+                    this._registrationForm.controls['email'].setErrors({ key: 'validateEmail' });
+                    this._registrationForm.controls['password'].setErrors({ key: 'validatePassword' });
                 };
                 RegistrationComponent.prototype.registrationFormSubmit = function () {
                     if (this._registrationForm.valid) {
