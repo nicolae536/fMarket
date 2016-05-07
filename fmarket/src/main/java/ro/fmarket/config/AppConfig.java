@@ -1,5 +1,6 @@
 package ro.fmarket.config;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan("ro.fmarket")
 @EnableTransactionManagement
 @EnableAsync
+@EnableConfigurationProperties
 public class AppConfig {
 
 	@Bean
