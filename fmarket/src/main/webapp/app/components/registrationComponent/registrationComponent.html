@@ -8,7 +8,7 @@
         </div>
         <div class="form-group">
             <label>{{passwordLabel}}</label>
-            <input type="password" class="form-control" [ngFormControl]="_registrationForm.controls['password']"/>
+            <input type="password" class="form-control"[ngFormControl]="_registrationForm.controls['password']"/>
         </div>
         <div *ngIf="showNewsletter" class="pull-left" >
             <input type="checkbox" [ngFormControl]="_registrationForm.controls['subscribe']"/>

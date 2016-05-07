@@ -17,16 +17,20 @@ export class RegistrationService {
     }
 
     createAccount(account:RegisterAccount){
-        return this.api.post(this.REGISTRATION_CONTROLLER + '/user', JSON.stringify({email:account.email, password:account.password, subscribe:account.subscribe}));
+        let newAccount = account ? {email:account.email, password:account.password, subscribe:account.subscribe} : {email:null, password:null, subscribe:null};
+        return this.api.post(this.REGISTRATION_CONTROLLER + '/user', JSON.stringify(newAccount));
     }
 
     resetPassword(account:RegisterAccount) {
+        let newAccount = account ? {email:account.email, newPassword:account.password} : {email:null, newPassword:null};
+
         return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({email:account.email, newPassword:account.password}));
     }
 
     login(account:RegisterAccount){
+        let newAccount = account ? account : {email:null, password:null};
 
-        let credentials = "username=" + account.email + "&password=" + account.password;
+        let credentials = "username=" + newAccount.email + "&password=" + newAccount.password;
 
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');

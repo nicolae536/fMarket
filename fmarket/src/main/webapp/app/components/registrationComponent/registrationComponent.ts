@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/16/2016.
  */
-import {Component, OnInit, EventEmitter, Input, Output} from "angular2/core";
+import {Component, OnInit, EventEmitter, Input, Output, OnChanges} from "angular2/core";
 import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, Control} from "angular2/common";
 import {ROUTER_DIRECTIVES} from "angular2/router";
 import {RegisterAccount} from "../../models/registerAccount";
@@ -25,11 +25,11 @@ export class RegistrationComponent implements OnInit {
     @Input('show-login-link') _showLoginLink:boolean;
 
     @Output('registration-form') $registrationForm:EventEmitter<RegisterAccount> = new EventEmitter<RegisterAccount>();
+
     @Output('reference-component') loaded:EventEmitter<RegistrationComponent> = new EventEmitter<RegistrationComponent>();
-
     private _formBuilder:FormBuilder;
-    private _registrationForm:ControlGroup;
 
+    private _registrationForm:ControlGroup;
     constructor(formBuilder:FormBuilder) {
         this._formBuilder = formBuilder;
     }
