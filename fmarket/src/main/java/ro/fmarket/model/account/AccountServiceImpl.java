@@ -70,7 +70,7 @@ public class AccountServiceImpl implements AccountService {
 		if (account == null) {
 			throw new NotFoundException("Account");
 		}
-		UserDetails userDetails = new FMarketPrincipal(account.getEmail(), null, createAuthorities(account.getType().name()));
+		UserDetails userDetails = new FMarketPrincipal(account.getEmail(), "", createAuthorities(account.getType().name()));
 		return userDetails;
 	}
 

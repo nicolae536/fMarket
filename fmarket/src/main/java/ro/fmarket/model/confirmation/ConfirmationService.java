@@ -1,12 +1,13 @@
 package ro.fmarket.model.confirmation;
 
 import ro.fmarket.core.exception.InvalidTokenException;
+import ro.fmarket.core.rest.LoginResponse;
 
 public interface ConfirmationService {
 
-	void confirmRegistration(String token) throws InvalidTokenException;
+	LoginResponse confirmRegistration(String token) throws InvalidTokenException;
 
-	void confirmPasswordChange(String token) throws InvalidTokenException;
+	LoginResponse confirmPasswordChange(String token) throws InvalidTokenException;
 
-	void confirmDemandCreation(String token) throws InvalidTokenException;
+	LoginResponse confirmDemandCreation(String token) throws InvalidTokenException;
 }

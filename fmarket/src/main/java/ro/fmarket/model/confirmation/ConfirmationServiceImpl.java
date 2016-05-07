@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.fmarket.core.exception.InvalidTokenException;
+import ro.fmarket.core.rest.LoginResponse;
 import ro.fmarket.core.utils.AccountUtils;
 import ro.fmarket.core.utils.DateUtils;
 import ro.fmarket.model.account.Account;
@@ -45,7 +46,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 	private SecurityUtils securityUtils;
 
 	@Override
-	public void confirmRegistration(String token) throws InvalidTokenException {
+	public LoginResponse confirmRegistration(String token) throws InvalidTokenException {
 		RegistrationToken registrationToken = registrationTokenDao.getByToken(token);
 		notNullValidation(registrationToken);
 		Account account = registrationToken.getAccount();
@@ -58,11 +59,11 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		account.setStatus(AccountStatus.ACTIVE);
 		accountDao.save(account);
 		registrationTokenDao.deleteAllTokensForAccount(account.getId());
-		securityUtils.authenticateUser(account.getEmail(), account.getType().name());
+		return securityUtils.authenticateUser(account.getEmail(), account.getType().name());
 	}
 
 	@Override
-	public void confirmPasswordChange(String token) throws InvalidTokenException {
+	public LoginResponse confirmPasswordChange(String token) throws InvalidTokenException {
 		PasswordChangeToken passwordChangeToken = passwordChangeTokenDao.getByToken(token);
 		notNullValidation(passwordChangeToken);
 		final Account account = passwordChangeToken.getAccount();
@@ -77,11 +78,11 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		accountDao.save(account);
 
 		passwordChangeTokenDao.deleteAllTokensForAccount(account.getId());
-		securityUtils.authenticateUser(account.getEmail(), account.getType().name());
+		return securityUtils.authenticateUser(account.getEmail(), account.getType().name());
 	}
 
 	@Override
-	public void confirmDemandCreation(String token) throws InvalidTokenException {
+	public LoginResponse confirmDemandCreation(String token) throws InvalidTokenException {
 		DemandToken demandToken = demandTokenDao.getByToken(token);
 		notNullValidation(demandToken);
 		if (demandToken.isExpired()) {
@@ -99,7 +100,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		demandDao.save(demand);
 		
 		demandTokenDao.deleteById(demandToken.getId());
-		securityUtils.authenticateUser(account.getEmail(), account.getType().name());
+		return securityUtils.authenticateUser(account.getEmail(), account.getType().name());
 	}
 
 	private void notNullValidation(TokenEntity token) throws InvalidTokenException {

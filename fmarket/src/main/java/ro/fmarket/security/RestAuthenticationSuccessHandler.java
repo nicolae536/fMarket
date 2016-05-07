@@ -40,6 +40,7 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
 			LoginResponse login = new LoginResponse();
 			login.setAccountType(principal.getAuthorities().iterator().next().toString());
 			login.setEmail(principal.getUsername());
+			login.setLoggedIn(true);
 			response.setStatus(HttpStatus.OK.value());
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 			ObjectMapper mapper = new ObjectMapper();

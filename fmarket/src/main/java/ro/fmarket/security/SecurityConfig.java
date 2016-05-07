@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		        .antMatchers("/app/pages/accountSettingsPage/*.*html$").hasRole("USER")
 		        .antMatchers("/app/pages/adminPage/*.*css$", "/admin/*.*css$").hasRole("ADMIN")
 		        .antMatchers("/app/pages/accountSettingsPage/*.*css$").hasRole("USER")
-		        .antMatchers("/app/**", "/", "/login").permitAll()		        
+		        .antMatchers("/app/**", "/", "/login", "/accounts/user").permitAll()		        
 				// .anyRequest().authenticated()
 				.and().formLogin().successHandler(new RestAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
 				.failureHandler(new RestAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler())).and().exceptionHandling()
