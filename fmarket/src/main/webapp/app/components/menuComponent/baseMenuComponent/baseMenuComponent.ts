@@ -1,5 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/interfaces";
+import {Component, Input, Output, OnChanges, EventEmitter} from '@angular/core';
 import {IUpdateDomainMenuItemRequest} from "../../../models/interfaces/iUpdateDomainMenuItemRequest";
 import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 
