@@ -7,7 +7,6 @@ import org.joda.time.DateTime;
 
 import lombok.Data;
 import ro.fmarket.model.company.review.CompanyMessageReviewDTO;
-import ro.fmarket.model.domain.demand.DemandDomain;
 import ro.fmarket.model.domain.demand.DemandDomainDTO;
 
 @Data
@@ -26,10 +25,9 @@ public class CompanyDetailsDTO {
 
 	private List<CompanyMessageReviewDTO> reviews = new ArrayList<>();
 	private List<DemandDomainDTO> demandDomains = new ArrayList<>();
-	
+
 	private DateTime creationDate;
 	private int loginTimes;
 	private int autoLoginTimes;
-	
-	
+
 }
