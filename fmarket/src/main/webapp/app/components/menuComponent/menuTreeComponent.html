@@ -1,6 +1,6 @@
 <div class="menu-tree" *ngIf="menuTreeView.length>0">
 
-    <div class="col-md-4" *ngFor="#menu of menuTreeView; #i = index">
+    <div class="col-md-4" *ngFor="let menu of menuTreeView; let i = index">
         <base-menu
                 [menu-items-list]="menu"
                 [menu-layer]="i"

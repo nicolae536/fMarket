@@ -31,7 +31,7 @@ import {Role} from "./models/Roles";
         <div class="application-wrapper">
             <header-component></header-component>
             <div class="page-container">
-                <div *ngFor="#notification of _notifications" class="notification-helper">
+                <div *ngFor="let notification of _notifications" class="notification-helper">
                     <alert [type]="notification.type" dismissible="true" (close)="closeAlert(notification)">
                         {{notification.message}}
                     </alert>

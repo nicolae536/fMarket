@@ -105,6 +105,7 @@ export class AuthorizationService {
                 name: 'TokenConfirmation',
                 component: TokenConfirmPage
             })];
+
         //
         // if (AuthorizationService.isLoggedIn() && AuthorizationService.getActiveUserState() === "ADMIN") {
         //     applicationRoutes.push(new Route({

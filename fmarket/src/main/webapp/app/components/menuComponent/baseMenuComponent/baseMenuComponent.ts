@@ -9,7 +9,7 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
     template: `
 	<div class="base-menu-component">
 		<ul class="nav nav-pills nav-stacked clearfix">
-			<li *ngFor="#item of menuItemsList" [class]="getItemClass(item)" (click)="selectItem(item)">
+			<li *ngFor="let item of menuItemsList" [class]="getItemClass(item)" (click)="selectItem(item)">
 				<a>
 				    <div class="pull-right">
 				        <span class="glyphicon glyphicon-plus operation" (click)="createSubMenu($event, item.id)" title="Adauga submeniu"></span>

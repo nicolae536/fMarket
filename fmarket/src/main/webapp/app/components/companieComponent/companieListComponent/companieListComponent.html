@@ -2,7 +2,7 @@
 
 <div class="companie-list-component clearfix">
     <div class="list-group">
-        <div *ngFor="#companie of _companieList" class="list-group-item" (click)="editCompanie(companie.id)">
+        <div *ngFor="let companie of _companieList" class="list-group-item" (click)="editCompanie(companie.id)">
             <div class="col-md-3 col-xs-2">
                 <img class="image-fit-size" [src]="companie.icon" />
             </div>

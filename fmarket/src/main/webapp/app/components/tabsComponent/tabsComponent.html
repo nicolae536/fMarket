@@ -1,6 +1,6 @@
 <div class="clearfix">
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" *ngFor="#tab of tabPagesList"
+        <li role="presentation" *ngFor="let tab of tabPagesList"
             [ngClass]="router.isRouteActive(router.generate([tab.link])) ? 'active':''">
                 <a [routerLink]="[tab.link]">
                     {{tab.name}}
