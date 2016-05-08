@@ -6,7 +6,6 @@
     <!--<script src="node_modules/jquery/dist/jquery.js"></script>-->
 
     <link rel="stylesheet" href="/app/main.css">
-
     <!-- 1. Load libraries -->
     <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/es6-shim/es6-shim.min.js"></script>
@@ -14,10 +13,10 @@
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
 
-
-
     <script src="/node_modules/underscore/underscore.js"></script>
 
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" ></script>
+    <script src="/node_modules/jQueryLibs/animatescroll.min.js"></script>
     <!-- bootstrap -->
 
     <script src="/node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
@@ -26,12 +25,13 @@
     <!-- 2. Configure SystemJS -->
     <script src="systemjs.config.js"></script>
     <script>
-    System.import('app').catch(function(err){ console.error(err);  });
+        System.import('app').catch(function (err) {
+            console.error(err);
+        });
     </script>
-
     <!--<script src="/node_modules/angular2/src/animate/animation_builder.js"/>-->
     <style>
-        .app-layout{
+        .app-layout {
             display: flex;
             flex-direction: column;
         }
@@ -39,11 +39,11 @@
 </head>
 
 <body>
-    <my-app class="app-layout">
-        <div class="spinner-absolute-center">
-            <span class="centerer"></span>
-            <img class="spinner-img" src="/staticResorces/Loading_icon.gif"/>
-        </div>
-    </my-app>
+<my-app class="app-layout">
+    <div class="spinner-absolute-center">
+        <span class="centerer"></span>
+        <img class="spinner-img" src="/staticResorces/Loading_icon.gif"/>
+    </div>
+</my-app>
 </body>
 </html>

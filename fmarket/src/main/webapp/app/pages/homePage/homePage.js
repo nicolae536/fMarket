@@ -11,13 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by nick_ on 4/12/2016.
  */
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var categoriesMenuService_1 = require("../../services/categoriesMenuService");
 var demandService_1 = require("../../services/demandService");
 var demandDialogComponent_1 = require("../../components/demandComponent/demandDialogComponent/demandDialogComponent");
+var jqueryService_1 = require("../../services/jqueryService");
 var folderPath = '/app/pages/homePage';
 var HomePage = (function () {
     function HomePage(_categoriesMenuService, _demandService) {
+        this.scrollProperty = 'scrollY';
         this._categoriesMenuService = _categoriesMenuService;
         this._demandService = _demandService;
     }
@@ -29,16 +31,33 @@ var HomePage = (function () {
         this._demandDialog = demandDialog;
     };
     HomePage.prototype.goToCreateDemand = function () {
-        try {
-            this.createDemamdViewRef.nativeElement.scrollIntoView();
-        }
-        catch (error) { }
+        jqueryService_1.JqueryService.animateScroll(this.createDemamdViewRef, 'easeInQuad', 1500);
     };
     HomePage.prototype.goToHowWeWork = function () {
-        try {
-            this.howWeWorkRef.nativeElement.scrollIntoView();
-        }
-        catch (error) { }
+        jqueryService_1.JqueryService.animateScroll(this.howWeWorkRef, 'easeInQuad', 1500);
+    };
+    HomePage.prototype.scrollToElement = function (element, duration) {
+        var _this = this;
+        this.scrollProperty = this.scrollProperty == 'scrollY' ? 'pageYOffset' : 'scrollY';
+        _.defer(function () {
+            console.log(window[_this.scrollProperty]);
+            var scrollDown = element.nativeElement.offsetTop > window[_this.scrollProperty];
+            var positionToScroll = element.nativeElement.offsetTop - window[_this.scrollProperty];
+            var speedPerDuration = positionToScroll / duration;
+            var intervalRef = setInterval(function () {
+                var previousScroll = window[_this.scrollProperty];
+                window.scroll(0, window[_this.scrollProperty] += speedPerDuration);
+                console.log((Math.abs(element.nativeElement.offsetTop - window[_this.scrollProperty]) <= Math.abs(speedPerDuration) + Math.sqrt(speedPerDuration))
+                    || (Math.abs(previousScroll - window[_this.scrollProperty]) < 1)
+                    || (window.scrollY < 0));
+                if ((Math.abs(element.nativeElement.offsetTop - window[_this.scrollProperty]) <= Math.abs(speedPerDuration) + Math.sqrt(speedPerDuration))
+                    || (Math.abs(previousScroll - window[_this.scrollProperty]) < 1)
+                    || (window.scrollY < 0)) {
+                    console.log("clear");
+                    clearInterval(intervalRef);
+                }
+            }, Math.round(duration / positionToScroll));
+        });
     };
     HomePage.prototype.createDemand = function (demand) {
         var me = this;
