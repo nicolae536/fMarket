@@ -1,7 +1,5 @@
 package ro.fmarket.model.company;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ro.fmarket.core.rest.PaginatedResponse;
 import ro.fmarket.model.company.review.NewCompanyMessageReview;
 import ro.fmarket.model.company.review.NewCompanyStarsReview;
 import ro.fmarket.security.FMarketPrincipal;
@@ -28,12 +25,7 @@ public class CompanyController {
 	public void createCompany(@Valid @RequestBody NewCompanyRequest request) {
 	}
 
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public PaginatedResponse<CompanyDTO> searchCompanies(@Valid @RequestBody CompanySearchObject searchObject) {
-		return null;
-	}
-
-	@RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public CompanyDetailsDTO getCompanyDetails(@PathVariable("id") Integer id) {
 		return null;
 	}
@@ -47,5 +39,5 @@ public class CompanyController {
 	public void addMessageReview(@Valid @RequestBody NewCompanyMessageReview request, @AuthenticationPrincipal FMarketPrincipal principal) {
 
 	}
-	
+
 }

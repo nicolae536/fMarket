@@ -13,6 +13,6 @@ public interface CompanyServiceAdmin {
 	
 	void deleteCompany(int id);
 	
-	CompanyDetailsDTO getCompanyDetails(int id);
+	CompanyAdminDTO getCompanyDetails(int id);
 	
 }

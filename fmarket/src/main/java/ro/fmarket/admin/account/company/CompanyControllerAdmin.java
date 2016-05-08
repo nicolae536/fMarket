@@ -30,7 +30,7 @@ public class CompanyControllerAdmin {
 	}
 	
 	@RequestMapping(value ="/{id}", method = RequestMethod.GET)
-	public CompanyDetailsDTO getCompanyDetails(@PathVariable("id") Integer id) {
+	public CompanyAdminDTO getCompanyDetails(@PathVariable("id") Integer id) {
 		return service.getCompanyDetails(id);
 	}
 

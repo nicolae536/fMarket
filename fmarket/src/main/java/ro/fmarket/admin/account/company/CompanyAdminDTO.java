@@ -10,7 +10,7 @@ import ro.fmarket.model.company.review.CompanyMessageReviewDTO;
 import ro.fmarket.model.domain.demand.DemandDomainDTO;
 
 @Data
-public class CompanyDetailsDTO {
+public class CompanyAdminDTO {
 
 	private int id;
 	private String name;

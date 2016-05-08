@@ -20,7 +20,6 @@ import ro.fmarket.model.company.rating.CompanyContactInfo;
 import ro.fmarket.model.company.rating.CompanyRating;
 import ro.fmarket.model.company.review.CompanyMessageReview;
 import ro.fmarket.model.domain.company.CompanyDomain;
-import ro.fmarket.model.geographical.city.City;
 
 @Data
 @Entity

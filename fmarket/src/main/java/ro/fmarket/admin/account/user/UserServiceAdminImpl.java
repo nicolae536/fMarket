@@ -39,7 +39,7 @@ public class UserServiceAdminImpl implements UserServiceAdmin {
 	public PaginatedResponse<UserDTO> searchUsers(UserSearchObject searchObject, Integer page) {
 		final Criteria criteria1 = accountDao.createUserCriteria(searchObject);
 		final Criteria criteria2 = accountDao.createUserCriteria(searchObject);
-		List<Account> users = accountDao.getUsers(criteria1, page);
+		List<Account> users = accountDao.searchUsers(criteria1, page);
 		int totalCount = accountDao.getCriteriaTotalCount(criteria2).intValue();
 		List<UserDTO> dtoUserList = AccountConverter.toDTOList(users);
 		final PaginatedResponse<UserDTO> collectionResponse = new PaginatedResponse<>(dtoUserList);

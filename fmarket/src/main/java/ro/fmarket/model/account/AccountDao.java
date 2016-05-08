@@ -47,7 +47,7 @@ public class AccountDao extends BaseDao<Account> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Account> getUsers(Criteria criteria, int page) {
+	public List<Account> searchUsers(Criteria criteria, int page) {
 		criteria.setMaxResults(PaginationConstants.ACCOUNTS_PAGE_SIZE);
 		criteria.setFirstResult((page - 1) * PaginationConstants.ACCOUNTS_PAGE_SIZE);
 		return criteria.list();
@@ -86,14 +86,4 @@ public class AccountDao extends BaseDao<Account> {
 		return (Long) criteria.uniqueResult();
 	}
 	
-//	public void updateAccountPassword(String email, String newPassword) {
-//		String hql = "update Account a set a.password = :password where a.email = :email";
-//		Query query = getSession().createQuery(hql);
-//		query.setParameter("email", email);
-//		query.setParameter("password", newPassword);
-//		int affectedRows = query.executeUpdate();
-//		if (affectedRows == 0) {
-//			throw new NotFoundException("Account with email " + email);
-//		}
-//	}
 }

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import ro.fmarket.core.rest.PaginatedResponse;
 import ro.fmarket.model.company.review.NewCompanyMessageReview;
 import ro.fmarket.model.company.review.NewCompanyStarsReview;
 
@@ -17,11 +16,6 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public void createCompany(NewCompanyRequest request) {
 
-	}
-
-	@Override
-	public PaginatedResponse<CompanyDTO> searchCompanies(CompanySearchObject searchObject) {
-		return null;
 	}
 
 	@Override

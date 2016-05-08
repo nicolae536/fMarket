@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ro.fmarket.core.converter.CompanyAdminConverter;
 import ro.fmarket.core.exception.NotFoundException;
 import ro.fmarket.core.rest.PaginatedResponse;
 import ro.fmarket.model.company.Company;
@@ -48,10 +49,9 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 	}
 
 	@Override
-	public CompanyDetailsDTO getCompanyDetails(int id) {
-		Company company = companyDao.get(id);
-		
-		return null;
+	public CompanyAdminDTO getCompanyDetails(int id) {
+		final Company company = companyDao.get(id);
+		return CompanyAdminConverter.toDTO(company);
 	}
 	
 	private Company createNewCompany(NewCompanyRequest request) {
