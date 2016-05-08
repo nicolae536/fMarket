@@ -1,9 +1,9 @@
 /**
  * Created by nick_ on 4/20/2016.
  */
-import {Component, Input } from "angular2/core";
+import {Component, Input } from "@angular/core";
 import {Select2Item} from "../../selectComponent/selectComponent";
-import {ROUTER_DIRECTIVES, Router} from "angular2/router";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
 import {DemandAdminDto} from "../../../models/demandAdminDto";
 
 const APPLICATION_PATH:string = '/app/components/demandComponent/demandListBase';

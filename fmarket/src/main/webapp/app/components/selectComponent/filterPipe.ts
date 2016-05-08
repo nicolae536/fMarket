@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/9/2016.
  */
-import {Pipe, PipeTransform} from 'angular2/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {Select2Item} from "./selectComponent";
 
 @Pipe({

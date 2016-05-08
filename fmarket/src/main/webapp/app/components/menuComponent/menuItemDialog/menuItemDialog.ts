@@ -1,7 +1,8 @@
 /**
  * Created by nick_ on 4/9/2016.
  */
-import {Component, Input, Output, EventEmitter, OnInit, OnChanges} from 'angular2/core';
+import {Component, Input, Output, EventEmitter, OnInit, OnChanges} from '@angular/core';
+import {FormBuilder, Validators, FORM_DIRECTIVES} from "@angular/common";
 
 import {SelectComponent} from '../../selectComponent/selectComponent';
 import {Select2Item} from "../../selectComponent/selectComponent";
@@ -9,7 +10,6 @@ import {IUpdateModal} from "../../../models/interfaces/iUpdateModal";
 import {IModal} from "../../../models/interfaces/iModal";
 import {INewDomainMenuItemRequest} from "../../../models/interfaces/iNewDomainMenuItemRequest";
 import {IUpdateDomainMenuItemRequest} from "../../../models/interfaces/iUpdateDomainMenuItemRequest";
-import {FormBuilder, Validator, Validators, FORM_DIRECTIVES} from "angular2/common";
 import {CustomValidators} from "../../../models/Angular2ExtensionValidators";
 
 //used template to not download the same html multiple times

@@ -1,5 +1,5 @@
-import {Component} from 'angular2/core';
-import {RouteConfig, Route, ROUTER_DIRECTIVES, CanActivate} from 'angular2/router';
+import {Component} from '@angular/core';
+import {RouteConfig, Route, ROUTER_DIRECTIVES, CanActivate} from '@angular/router-deprecated';
 
 import {CompaniesPage} from "./companiesPage/companiesPage";
 import {DomainsPage} from "./domainsPage/domainsPage";

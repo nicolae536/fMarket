@@ -1,8 +1,9 @@
 /**
  * Created by nick_ on 4/26/2016.
  */
-import {Component, OnInit, OnChanges} from "angular2/core";
-import {CanActivate} from "angular2/router";
+import {Component, OnInit, OnChanges} from "@angular/core";
+import {CanActivate} from "@angular/router-deprecated";
+
 import {AuthorizationService} from "../../../services/authorizationService";
 import {DemandService} from "../../../services/demandService";
 import {RequestTypeService} from "../../../services/requestTypeService";

@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/16/2016.
  */
-import {Component, Output, Input, EventEmitter} from 'angular2/core';
+import {Component, Output, Input, EventEmitter} from '@angular/core';
 import {ModalDialog} from '../../modalDialog/modalDialog';
 import {DemandComponent} from "../demandComponent";
 import {Select2Item} from "../../selectComponent/selectComponent";

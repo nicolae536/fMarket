@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/9/2016.
  */
-import {Component, OnInit, Input, Output, EventEmitter, OnChanges} from "angular2/core";
+import {Component, OnInit, Input, Output, EventEmitter, OnChanges} from "@angular/core";
 import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import {FilterPipe} from "./filterPipe";
 

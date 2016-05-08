@@ -2,10 +2,11 @@
  * Created by nick_ on 5/6/2016.
  */
 
-import {Component, Input, Output, EventEmitter, OnInit} from "angular2/core";
-import {ROUTER_DIRECTIVES} from "angular2/router";
+import {Component, Input, Output, EventEmitter, OnInit} from "@angular/core";
+import {ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {FormBuilder, Control} from "@angular/common";
+
 import {CompanieDto} from "../../../models/companieDto";
-import {FormBuilder, Control} from "angular2/common";
 @Component({
     selector:'companies-edit-componet',
     templateUrl:'/app/components/companieComponent/companieEditComponent/companieEditComponent.html',

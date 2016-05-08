@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewEncapsulation} from "angular2/core";
-import {NgForm} from "angular2/common";
-import {CanActivate} from "angular2/router";
+import {Component, OnInit, ViewEncapsulation} from "@angular/core";
+import {NgForm} from "@angular/common";
+import {CanActivate} from "@angular/router-deprecated";
 import {DROPDOWN_DIRECTIVES, DATEPICKER_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import "rxjs/add/operator/map";
 import {Subscriber} from "../../../models/subscriber";

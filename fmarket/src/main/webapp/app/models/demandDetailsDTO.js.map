@@ -1,1 +1,1 @@
-{"version":3,"file":"demandDetailsDTO.js","sourceRoot":"","sources":["demandDetailsDTO.ts"],"names":[],"mappings":";;;;;;;YACA;;eAEG;YACH;gBAAA;oBAOW,WAAM,GAAiB,IAAI,KAAK,EAAU,CAAC;oBAoB3C,iBAAY,GAAS,KAAK,CAAC;gBACtC,CAAC;gBAAD,uBAAC;YAAD,CAAC,AA5BD,IA4BC;YA5BD,+CA4BC,CAAA"}
+{"version":3,"file":"demandDetailsDTO.js","sourceRoot":"","sources":["demandDetailsDTO.ts"],"names":[],"mappings":";AACA;;GAEG;AACH;IAAA;QAOW,WAAM,GAAiB,IAAI,KAAK,EAAU,CAAC;QAoB3C,iBAAY,GAAS,KAAK,CAAC;IACtC,CAAC;IAAD,uBAAC;AAAD,CAAC,AA5BD,IA4BC;AA5BY,wBAAgB,mBA4B5B,CAAA"}

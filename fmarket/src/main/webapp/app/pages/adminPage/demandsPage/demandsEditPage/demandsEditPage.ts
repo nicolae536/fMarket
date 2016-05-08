@@ -2,8 +2,8 @@
  * Created by nick_ on 4/22/2016.
  */
 
-import {Component, OnInit, OnChanges} from "angular2/core";
-import {RouteParams, Router, CanActivate} from "angular2/router";
+import {Component, OnInit} from "@angular/core";
+import {RouteParams, Router, CanActivate} from "@angular/router-deprecated";
 
 import {DemandService} from "../../../../services/demandService";
 import {RequestTypeService} from "../../../../services/requestTypeService";

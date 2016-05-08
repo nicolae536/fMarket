@@ -1,8 +1,8 @@
 /**
  * Created by nick_ on 5/6/2016.
  */
-import {Component, OnInit} from "angular2/core";
-import {CanActivate, Router} from "angular2/router";
+import {Component, OnInit} from "@angular/core";
+import {CanActivate, Router} from "@angular/router-deprecated";
 import {Role} from "../../../models/Roles";
 import {AuthorizationService} from "../../../services/authorizationService";
 import {CreateCompanieDialog} from "../../../components/companieComponent/createCompanieDialog/createCompanieDialog";

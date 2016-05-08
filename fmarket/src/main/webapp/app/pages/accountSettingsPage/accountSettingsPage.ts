@@ -2,8 +2,8 @@
  * Created by nick_ on 4/26/2016.
  */
 
-import {Component} from "angular2/core";
-import {ROUTER_DIRECTIVES, RouteConfig, Route, Router, CanActivate} from "angular2/router";
+import {Component} from "@angular/core";
+import {ROUTER_DIRECTIVES, RouteConfig, Route, Router, CanActivate} from "@angular/router-deprecated";
 import {AccountEditPage} from "./accountEditPage/accountEditPage";
 import {AccountDemandsPage} from "./accountDemandsPage/accountDemandsPage";
 import {AuthorizationService} from "../../services/authorizationService";

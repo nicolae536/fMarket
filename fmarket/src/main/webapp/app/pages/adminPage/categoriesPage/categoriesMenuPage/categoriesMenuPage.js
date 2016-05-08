@@ -1,156 +1,130 @@
-System.register(["angular2/core", "angular2/router", "../../../../components/menuComponent/menuTreeComponent", "../../../../services/categoriesMenuService", "../../../../components/menuComponent/menuItemDialog/menuItemDialog", "../../../../components/selectComponent/selectComponent", "../../../../services/authorizationService", "../../../../models/Roles"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
-    var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-    var __metadata = (this && this.__metadata) || function (k, v) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-    };
-    var core_1, router_1, menuTreeComponent_1, categoriesMenuService_1, menuItemDialog_1, selectComponent_1, authorizationService_1, Roles_1;
-    var applicationPath, CategoriesMenuPage;
-    return {
-        setters:[
-            function (core_1_1) {
-                core_1 = core_1_1;
-            },
-            function (router_1_1) {
-                router_1 = router_1_1;
-            },
-            function (menuTreeComponent_1_1) {
-                menuTreeComponent_1 = menuTreeComponent_1_1;
-            },
-            function (categoriesMenuService_1_1) {
-                categoriesMenuService_1 = categoriesMenuService_1_1;
-            },
-            function (menuItemDialog_1_1) {
-                menuItemDialog_1 = menuItemDialog_1_1;
-            },
-            function (selectComponent_1_1) {
-                selectComponent_1 = selectComponent_1_1;
-            },
-            function (authorizationService_1_1) {
-                authorizationService_1 = authorizationService_1_1;
-            },
-            function (Roles_1_1) {
-                Roles_1 = Roles_1_1;
-            }],
-        execute: function() {
-            applicationPath = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
-            CategoriesMenuPage = (function () {
-                function CategoriesMenuPage(_categoriesMenuService) {
-                    this.menuDictionary = [];
-                    this._categoriesMenuService = _categoriesMenuService;
-                    // code...
-                }
-                CategoriesMenuPage.prototype.ngOnInit = function () {
-                    this.getMenuDictionary();
-                    this.getDomains();
-                };
-                CategoriesMenuPage.prototype.referenceSelectComponent = function (select) {
-                };
-                CategoriesMenuPage.prototype.referenceModal = function (modal) {
-                    this._menuItemModal = modal;
-                };
-                CategoriesMenuPage.prototype.getMenuDictionary = function () {
-                    var me = this;
-                    this._categoriesMenuService.getMenuDictionary()
-                        .map(function (response) {
-                        if (response.text().length > 0) {
-                            return response.json();
-                        }
-                    }).subscribe(function (response) {
-                        me.menuDictionary = response;
-                    }, function (error) {
-                        me.menuDictionary = [];
-                    });
-                };
-                CategoriesMenuPage.prototype.selectMenuItem = function (menuItem) {
-                    //
-                };
-                CategoriesMenuPage.prototype.showAddMenuModal = function (parentId) {
-                    this._modalInterface = { parentId: parentId, operationType: "new", positiveLabel: "Create", id: null };
-                    this._menuItemModal.show(this._modalInterface);
-                };
-                CategoriesMenuPage.prototype.addMenuItem = function (newDomainMenuItemRequest) {
-                    var me = this;
-                    me._categoriesMenuService.addMenuItem(newDomainMenuItemRequest)
-                        .map(function (response) {
-                        if (response.text().length > 0) {
-                            return response.json();
-                        }
-                    }).subscribe(function (response) {
-                        me._menuItemModal.hide();
-                        me.getMenuDictionary();
-                    }, function (error) {
-                        // me._menuItemModal.showErrors();
-                    });
-                };
-                CategoriesMenuPage.prototype.showEditMenuModal = function (menuToUpdate) {
-                    this._menuItemModal.update({
-                        operationType: "update",
-                        positiveLabel: "Update",
-                        menuModel: menuToUpdate,
-                        id: null
-                    });
-                };
-                CategoriesMenuPage.prototype.editMenuItem = function (updateDomainMenuItemRequest) {
-                    var me = this;
-                    me._categoriesMenuService.updateMenuItem(updateDomainMenuItemRequest)
-                        .map(function (response) {
-                        if (response.text().length > 0) {
-                            return response.json();
-                        }
-                    }).subscribe(function (response) {
-                        me._menuItemModal.hide();
-                        me.getMenuDictionary();
-                    }, function (error) {
-                        // me._menuItemModal.showErrors();
-                    });
-                };
-                CategoriesMenuPage.prototype.deleteMenuItem = function (id) {
-                    var _this = this;
-                    this._categoriesMenuService.deleteMenuItem(id)
-                        .map(function (response) {
-                        if (response.text().length > 0) {
-                            return response.json();
-                        }
-                    }).subscribe(function (response) {
-                        _this.getMenuDictionary();
-                    }, function (errod) {
-                    });
-                };
-                CategoriesMenuPage.prototype.getDomains = function () {
-                    var me = this;
-                    this._categoriesMenuService.getDomains()
-                        .map(function (response) {
-                        if (response.text().length > 0) {
-                            return response.json();
-                        }
-                    }).subscribe(function (response) {
-                        me._domains = response;
-                    }, function (error) {
-                        console.log(me._domains);
-                        me._domains = [];
-                    });
-                };
-                CategoriesMenuPage = __decorate([
-                    core_1.Component({
-                        selector: 'companies-Page',
-                        templateUrl: applicationPath + '/categoriesMenuPage.html',
-                        styleUrls: [applicationPath + '/categoriesMenuPage.css'],
-                        directives: [menuTreeComponent_1.MenuTreeComponent, menuItemDialog_1.MenuItemDialog, selectComponent_1.SelectComponent],
-                    }),
-                    router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-                    __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])
-                ], CategoriesMenuPage);
-                return CategoriesMenuPage;
-            }());
-            exports_1("CategoriesMenuPage", CategoriesMenuPage);
-        }
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var router_deprecated_1 = require("@angular/router-deprecated");
+var menuTreeComponent_1 = require("../../../../components/menuComponent/menuTreeComponent");
+var categoriesMenuService_1 = require("../../../../services/categoriesMenuService");
+var menuItemDialog_1 = require("../../../../components/menuComponent/menuItemDialog/menuItemDialog");
+var selectComponent_1 = require("../../../../components/selectComponent/selectComponent");
+var authorizationService_1 = require("../../../../services/authorizationService");
+var Roles_1 = require("../../../../models/Roles");
+var applicationPath = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
+var CategoriesMenuPage = (function () {
+    function CategoriesMenuPage(_categoriesMenuService) {
+        this.menuDictionary = [];
+        this._categoriesMenuService = _categoriesMenuService;
+        // code...
     }
-});
+    CategoriesMenuPage.prototype.ngOnInit = function () {
+        this.getMenuDictionary();
+        this.getDomains();
+    };
+    CategoriesMenuPage.prototype.referenceSelectComponent = function (select) {
+    };
+    CategoriesMenuPage.prototype.referenceModal = function (modal) {
+        this._menuItemModal = modal;
+    };
+    CategoriesMenuPage.prototype.getMenuDictionary = function () {
+        var me = this;
+        this._categoriesMenuService.getMenuDictionary()
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        }).subscribe(function (response) {
+            me.menuDictionary = response;
+        }, function (error) {
+            me.menuDictionary = [];
+        });
+    };
+    CategoriesMenuPage.prototype.selectMenuItem = function (menuItem) {
+        //
+    };
+    CategoriesMenuPage.prototype.showAddMenuModal = function (parentId) {
+        this._modalInterface = { parentId: parentId, operationType: "new", positiveLabel: "Create", id: null };
+        this._menuItemModal.show(this._modalInterface);
+    };
+    CategoriesMenuPage.prototype.addMenuItem = function (newDomainMenuItemRequest) {
+        var me = this;
+        me._categoriesMenuService.addMenuItem(newDomainMenuItemRequest)
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        }).subscribe(function (response) {
+            me._menuItemModal.hide();
+            me.getMenuDictionary();
+        }, function (error) {
+            // me._menuItemModal.showErrors();
+        });
+    };
+    CategoriesMenuPage.prototype.showEditMenuModal = function (menuToUpdate) {
+        this._menuItemModal.update({
+            operationType: "update",
+            positiveLabel: "Update",
+            menuModel: menuToUpdate,
+            id: null
+        });
+    };
+    CategoriesMenuPage.prototype.editMenuItem = function (updateDomainMenuItemRequest) {
+        var me = this;
+        me._categoriesMenuService.updateMenuItem(updateDomainMenuItemRequest)
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        }).subscribe(function (response) {
+            me._menuItemModal.hide();
+            me.getMenuDictionary();
+        }, function (error) {
+            // me._menuItemModal.showErrors();
+        });
+    };
+    CategoriesMenuPage.prototype.deleteMenuItem = function (id) {
+        var _this = this;
+        this._categoriesMenuService.deleteMenuItem(id)
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        }).subscribe(function (response) {
+            _this.getMenuDictionary();
+        }, function (errod) {
+        });
+    };
+    CategoriesMenuPage.prototype.getDomains = function () {
+        var me = this;
+        this._categoriesMenuService.getDomains()
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        }).subscribe(function (response) {
+            me._domains = response;
+        }, function (error) {
+            console.log(me._domains);
+            me._domains = [];
+        });
+    };
+    CategoriesMenuPage = __decorate([
+        core_1.Component({
+            selector: 'companies-Page',
+            templateUrl: applicationPath + '/categoriesMenuPage.html',
+            styleUrls: [applicationPath + '/categoriesMenuPage.css'],
+            directives: [menuTreeComponent_1.MenuTreeComponent, menuItemDialog_1.MenuItemDialog, selectComponent_1.SelectComponent],
+        }),
+        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
+        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])
+    ], CategoriesMenuPage);
+    return CategoriesMenuPage;
+}());
+exports.CategoriesMenuPage = CategoriesMenuPage;
 //# sourceMappingURL=categoriesMenuPage.js.map

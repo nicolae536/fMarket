@@ -1,7 +1,8 @@
-import {Component, Injectable, Input, Output, EventEmitter} from 'angular2/core';
+import {Component, Injectable, Input, Output, EventEmitter} from '@angular/core';
+import {FORM_DIRECTIVES, FormBuilder, Validators} from "@angular/common";
+
 import {ModalDialog} from '../modalDialog/modalDialog';
 import {Subscriber} from '../../models/subscriber';
-import {FORM_DIRECTIVES, FormBuilder, Validators} from "angular2/common";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 
 @Component({

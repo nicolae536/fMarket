@@ -1,6 +1,6 @@
-import {Component, OnInit} from "angular2/core";
-import {Response} from "angular2/http";
-import {CanActivate} from "angular2/router";
+import {Component, OnInit} from "@angular/core";
+import {Response} from "@angular/http";
+import {CanActivate} from "@angular/router-deprecated";
 
 import {MenuTreeComponent} from "../../../../components/menuComponent/menuTreeComponent";
 import {CategoriesMenuService} from "../../../../services/categoriesMenuService";

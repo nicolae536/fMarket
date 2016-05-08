@@ -1,8 +1,9 @@
-import {Component, Input, Output, EventEmitter} from "angular2/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
+import {FormBuilder, Validators, FORM_DIRECTIVES} from "@angular/common";
+
 import {ModalDialog} from "../modalDialog/modalDialog";
 import {User} from "../../models/user";
 import {OnInit} from "../../../node_modules/angular2/ts/src/core/linker/interfaces";
-import {FormBuilder, Validators, FORM_DIRECTIVES} from "angular2/common";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 
 @Component({

@@ -1,7 +1,7 @@
-import {Component, OnInit, Injectable} from 'angular2/core';
-import {Response} from "angular2/http";
-import {CanActivate} from "angular2/router";
-import {FORM_DIRECTIVES, FormBuilder, Validators} from "angular2/common";
+import {Component, OnInit, Injectable} from '@angular/core';
+import {Response} from "@angular/http";
+import {CanActivate} from "@angular/router-deprecated";
+import {FORM_DIRECTIVES, FormBuilder, Validators} from "@angular/common";
 
 import {RequestType} from '../../../../models/requestType';
 import {RequestTypeService} from '../../../../services/requestTypeService';

@@ -6,17 +6,11 @@
     <!--<script src="node_modules/jquery/dist/jquery.js"></script>-->
 
     <!-- 1. Load libraries -->
-    <!-- IE required polyfills, in this exact order -->
-    <script src="/node_modules/es6-shim/es6-shim.min.js"></script>
-    <script src="/node_modules/systemjs/dist/system-polyfills.js"></script>
-    <script src="/node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
-
-    <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="/node_modules/systemjs/dist/system.src.js"></script>
-    <script src="/node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="/node_modules/angular2/bundles/angular2.dev.js"></script>
-    <script src="/node_modules/angular2/bundles/router.dev.js"></script>
-    <script src="/node_modules/angular2/bundles/http.dev.js"></script>
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
 
     <script src="/node_modules/underscore/underscore.js"></script>
 
@@ -25,24 +19,11 @@
     <link href="/node_modules/ng2-bootstrapCss/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
     <script>
-    System.config({
-        packages: {
-            app: {
-                format: 'register',
-                defaultExtension: 'js'
-            },
-        },
-        map: {
-            moment: 'node_modules/moment/moment.js',
-        },
-        paths: {
-            underscore: './node_modules/underscore/underscore.js'
-        }
-    });
-    System.import('app/main')
-    .then(null, console.error.bind(console));
+        System.import('app').catch(function(err){ console.error(err);  });
     </script>
+
 </head>
 <style>
     .app-layout{

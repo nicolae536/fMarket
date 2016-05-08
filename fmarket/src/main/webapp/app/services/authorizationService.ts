@@ -2,7 +2,7 @@
 /**
  * Created by nick_ on 5/5/2016.
  */
-import {Route} from "angular2/router";
+import {Route} from "@angular/router-deprecated";
 import {ApplicationConstants} from "../models/applicationConstansts";
 import {HomePage} from "../pages/homePage/homePage";
 import {RegistrationPage} from "../pages/registrationPage/registrationPage";

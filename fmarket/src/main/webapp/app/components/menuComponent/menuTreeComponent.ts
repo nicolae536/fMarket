@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnInit, OnChanges} from 'angular2/core';
+import {Component, Input, Output, EventEmitter, OnInit, OnChanges} from '@angular/core';
 import {BaseMenuComponent} from './baseMenuComponent/baseMenuComponent';
 import {INewDomainMenuItemRequest} from "../../models/interfaces/iNewDomainMenuItemRequest";
 import {IUpdateDomainMenuItemRequest} from "../../models/interfaces/iUpdateDomainMenuItemRequest";
