@@ -1,6 +1,6 @@
 .home-page .home-page-first{
     text-align: center;
-    padding: 3% 5% 3% 5%;
+    padding: 70px 0 0 0;
     background-image: url("/staticResorces/homeBackground.jpg");
 }
 
@@ -8,6 +8,15 @@
     padding-top: 13%;
     color: white;
     padding-bottom: 8%;
+}
+
+.home-page .home-page-first .about-website{
+    padding: 10px 5% 10px 5%;
+}
+
+.home-page .home-page-first .about-website a{
+    color: white;
+    cursor: pointer;
 }
 
 .home-page .how-we-work{

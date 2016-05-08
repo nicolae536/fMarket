@@ -1,12 +1,10 @@
-<link rel="stylesheet" href="/app/pages/homePage/homePage.css"/>
-
 <div #widnowElementRef class="home-page clearfix">
     <div class="home-page-first">
         <div class="vertical-demand-align">
             <div class="presentation-text">
                 <h1>Ai nevoie de un produs/serviciu si nu ai timp sa cauti cea mai buna oferta?</h1>
                 <div>
-                   Adauga o cerere si vei fi contactat in cel mai scurt timp de catre partenerii
+                    Adauga o cerere si vei fi contactat in cel mai scurt timp de catre partenerii
                 </div>
                 <div>
                     fmarket.ro, care se ocupa cu domeniul cautat de tine.
@@ -14,11 +12,18 @@
             </div>
             <div class="demand-action">
                 <div class="action-button covered-button">
-                    <a class="btn btn-primary btn-lg" (click)="goToCreateDemand()">Creeaza cerere</a>
+                    <a class="btn btn-success btn-lg" (click)="goToCreateDemand()">Creeaza cerere</a>
                 </div>
-                <div class="action-button">
-                    <a class="btn btn-success" (click)="goToHowWeWork()">Despre fmarket.ro</a>
-                </div>
+
+            </div>
+        </div>
+        <div class="about-website clearfix">
+            <div class="pull-right">
+                <a (click)="goToHowWeWork()">
+                    <span class="h4">
+                    Despre fmarket.ro
+                </span>
+                </a>
             </div>
         </div>
     </div>
@@ -29,6 +34,9 @@
                 [domain-List]="_domains"
                 (loaded)="referenceDemandDialog($event)"
                 (action-confirmed)="createDemand($event)">
+            <div class="spinner">
+                <img class="spinner-img" src="/staticResorces/Loading_icon.gif"/>
+            </div>
         </demand-dialog>
     </div>
 

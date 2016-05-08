@@ -1,4 +1,3 @@
-<link href="/app/pages/registrationPage/registrationPage.css" rel="stylesheet" />
 <div class="registration-page clearfix">
     <registration-component
         [form-title]="_formTitle"
@@ -12,5 +11,8 @@
         [show-login-link]="_showLoginLink"
         (registration-form)="requestHandler($event)"
         (reference-component)="referenceComponent($event)">
+        <div class="spinner">
+            <img class="spinner-img" src="/staticResorces/Loading_icon.gif"/>
+        </div>
     </registration-component>
 </div>

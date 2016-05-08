@@ -1,6 +1,9 @@
 <div>
     <tabs-component
             [tabs-pages-list]="tabPagesList">
+        <div class="spinner">
+            <img class="spinner-img" src="/staticResorces/Loading_icon.gif"/>
+        </div>
     </tabs-component>
     <div>
         <router-outlet></router-outlet>
