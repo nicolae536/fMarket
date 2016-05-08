@@ -30,16 +30,20 @@
     </script>
 
     <!--<script src="/node_modules/angular2/src/animate/animation_builder.js"/>-->
-
+    <style>
+        .app-layout{
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
-<style>
-    .app-layout{
-        display: flex;
-        flex-direction: column;
-    }
-</style>
-<!-- 3. Display the application -->
+
 <body>
-    <my-app class="app-layout">Loading...</my-app>
+    <my-app class="app-layout">
+        <div class="spinner-absolute-center">
+            <span class="centerer"></span>
+            <img class="spinner-img" src="/staticResorces/Loading_icon.gif"/>
+        </div>
+    </my-app>
 </body>
 </html>

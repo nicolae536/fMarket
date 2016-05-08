@@ -1,8 +1,25 @@
-.spinner{
-
+.spinner-relative-wrapper{
+    position: relative;
 }
 
-.spinner .spinner-img{
+.spinner-absolute-center{
+    position:absolute;
+    width:100%;
+    height:100%;
+    text-align: center;
+    z-index: 2000;
+}
+
+/*used to center the image */
+.spinner-absolute-center .centerer{
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.spinner-absolute-center .spinner-img{
     width: 20%;
     height: auto;
+    display: inline-block;
+    vertical-align: middle;
 }

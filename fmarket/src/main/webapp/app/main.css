@@ -8,6 +8,7 @@
 @import "/app/components/footerComponent/footerComponent.css";
 @import "/app/components/headerComponent/headerComponent.css";
 @import "/app/components/registrationComponent/registrationComponent.css";
+@import "/app/components/loadingComponent/loadingComponentStyle.css";
 
 /*pages styles*/
 @import "/app/pages/accountSettingsPage/accountSettingsPage.css";
