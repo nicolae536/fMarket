@@ -1,8 +1,8 @@
 /**
  * Created by nick_ on 4/16/2016.
  */
-import {Component, OnInit, Output, EventEmitter, Input, OnChanges} from "angular2/core";
-import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup} from "angular2/common";
+import {Component, OnInit, Output, EventEmitter, Input, OnChanges} from "@angular/core";
+import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup} from "@angular/common";
 import {SelectComponent, Select2Item} from "../selectComponent/selectComponent";
 import {IDemand} from "../../models/interfaces/iDemand";
 import {Demand} from "../../models/demand";

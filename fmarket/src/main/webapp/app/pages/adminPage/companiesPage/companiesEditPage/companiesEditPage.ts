@@ -2,10 +2,11 @@
  * Created by nick_ on 5/6/2016.
  */
 
-import {OnInit, Component} from "angular2/core";
+import {OnInit, Component} from "@angular/core";
+import {RouteParams, Router, CanActivate} from "@angular/router-deprecated";
+
 import {CompanieDto} from "../../../../models/companieDto";
 import {CompaniesService} from "../../../../services/companiesService";
-import {RouteParams, Router, CanActivate} from "angular2/router";
 import {NotificationService} from "../../../../services/notificationService";
 import {CompaniesEditComponent} from "../../../../components/companieComponent/companieEditComponent/companiesEditComponent";
 import {AuthorizationService} from "../../../../services/authorizationService";

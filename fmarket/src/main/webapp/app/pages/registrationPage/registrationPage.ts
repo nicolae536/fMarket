@@ -2,8 +2,8 @@
  * Created by nick_ on 4/17/2016.
  */
 
-import {Component, OnInit} from "angular2/core";
-import {Router} from "angular2/router";
+import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router-deprecated";
 
 import {RegistrationComponent} from "../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../services/registrationService";

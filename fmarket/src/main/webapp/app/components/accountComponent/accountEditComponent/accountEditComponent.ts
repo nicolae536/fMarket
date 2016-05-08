@@ -1,8 +1,8 @@
 /**
  * Created by NicolaeB on 4/27/2016.
  */
-import {Component, OnInit, Output, EventEmitter, Input, OnChanges} from "angular2/core";
-import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup} from "angular2/common";
+import {Component, OnInit, Output, EventEmitter, Input, OnChanges} from "@angular/core";
+import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup} from "@angular/common";
 import {AccountDto} from "../../../models/accountDto";
 import {SelectComponent} from "../../selectComponent/selectComponent";
 

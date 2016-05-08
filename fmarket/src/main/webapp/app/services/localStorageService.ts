@@ -1,4 +1,3 @@
-import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
 /**
  * Created by nick_ on 5/5/2016.

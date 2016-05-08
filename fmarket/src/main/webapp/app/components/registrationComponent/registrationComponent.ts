@@ -1,9 +1,10 @@
 /**
  * Created by nick_ on 4/16/2016.
  */
-import {Component, OnInit, EventEmitter, Input, Output, OnChanges} from "angular2/core";
-import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, Control} from "angular2/common";
-import {ROUTER_DIRECTIVES} from "angular2/router";
+import {Component, OnInit, EventEmitter, Input, Output, OnChanges} from "@angular/core";
+import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators, Control} from "@angular/common";
+import {ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+
 import {RegisterAccount} from "../../models/registerAccount";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 

@@ -1,14 +1,15 @@
 /**
  * Created by nick_ on 4/26/2016.
  */
-import {Component, OnInit} from "angular2/core";
+import {Component, OnInit} from "@angular/core";
+import {CanActivate} from "@angular/router-deprecated";
+
 import {AccountEditComponent} from "../../../components/accountComponent/accountEditComponent/accountEditComponent";
 import {AccountDto} from "../../../models/accountDto";
 import {AccountService} from "../../../services/accountService";
 import {DemandService} from "../../../services/demandService";
 import {Select2Item} from "../../../components/selectComponent/selectComponent";
 import {AuthorizationService} from "../../../services/authorizationService";
-import {CanActivate} from "angular2/router";
 
 var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
 

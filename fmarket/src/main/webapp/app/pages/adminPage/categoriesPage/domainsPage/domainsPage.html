@@ -38,7 +38,7 @@
     </div>
     <div class="domain-type">
         <ul class="list-group">
-            <li *ngFor="#requestType of domainsTypes" class="list-group-item clearfix">
+            <li *ngFor="let requestType of domainsTypes" class="list-group-item clearfix">
                 <div class="col-md-9">
   					<span *ngIf="!requestType.isInEditMode">
   						{{requestType.name}}

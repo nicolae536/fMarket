@@ -1,7 +1,10 @@
-import {Component} from "angular2/core";
-import {RouteConfig, Router, Location, ROUTER_DIRECTIVES} from "angular2/router";
-import {CORE_DIRECTIVES, FormBuilder} from "angular2/common";
+import {Component} from "@angular/core";
+import {RouteConfig, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {Location} from "@angular/common";
+import {CORE_DIRECTIVES, FormBuilder} from "@angular/common";
+
 import {Alert} from "ng2-bootstrap/ng2-bootstrap";
+
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/interval";
 import {AuthorizationService} from "./services/authorizationService";
@@ -28,7 +31,7 @@ import {Role} from "./models/Roles";
         <div class="application-wrapper">
             <header-component></header-component>
             <div class="page-container">
-                <div *ngFor="#notification of _notifications" class="notification-helper">
+                <div *ngFor="let notification of _notifications" class="notification-helper">
                     <alert [type]="notification.type" dismissible="true" (close)="closeAlert(notification)">
                         {{notification.message}}
                     </alert>

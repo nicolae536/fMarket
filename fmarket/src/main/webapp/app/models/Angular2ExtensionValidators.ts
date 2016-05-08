@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/16/2016.
  */
-import {Control} from "angular2/common";
+import {Control, AbstractControl} from "@angular/common";
 import {AccountStatus} from "./accountStatus";
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
@@ -9,7 +9,7 @@ const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
 const INTEGER_REGEX = /^(0|[1-9][0-9]*)$/;
 
 export class CustomValidators {
-    public static validateEmail(c:Control) {
+    public static validateEmail(c:AbstractControl) {
         return EMAIL_REGEX.test(c.value) ? null : {
             validateEmail: {
                 valid: false
@@ -17,7 +17,7 @@ export class CustomValidators {
         };
     }
 
-    public static validatePassword(c:Control) {
+    public static validatePassword(c:AbstractControl) {
         return PASSWORD_REGEX.test(c.value) ? null : {
             validatePassword: {
                 valid: false
@@ -25,7 +25,7 @@ export class CustomValidators {
         };
     }
 
-    public static validatePhoneNumber(c:Control) {
+    public static validatePhoneNumber(c:AbstractControl) {
 
         return PHONE_REGEX.test(c.value) ? null : {
             validatePhoneNumber: {
@@ -35,7 +35,7 @@ export class CustomValidators {
     }
 
 
-    public static validateAccountStatus(c:Control) {
+    public static validateAccountStatus(c:AbstractControl) {
 
         switch (c.value) {
             case AccountStatus.ACTIVE:
@@ -55,7 +55,7 @@ export class CustomValidators {
         };
     }
 
-    public static validateCityId(c:Control) {
+    public static validateCityId(c:AbstractControl) {
         if (c.value == -1) {
             return  {
                 validateCityId: {

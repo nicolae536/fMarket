@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/20/2016.
  */
-import {Component, OnInit, Input, Output, EventEmitter} from "angular2/core";
+import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {Select2Item, SelectComponent} from "../../selectComponent/selectComponent";
 import {DemandDetailsDTO} from "../../../models/demandDetailsDTO";
 

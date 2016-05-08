@@ -1,8 +1,8 @@
 /**
  * Created by nick_ on 4/12/2016.
  */
-import {Component, OnInit, ElementRef, ViewChild} from 'angular2/core';
-import {Response} from "angular2/http";
+import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import {Response} from "@angular/http";
 
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
 import {Select2Item} from "../../components/selectComponent/selectComponent";

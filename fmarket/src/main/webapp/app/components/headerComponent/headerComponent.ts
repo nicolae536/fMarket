@@ -1,9 +1,10 @@
 /**
  * Created by nick_ on 4/12/2016.
  */
-import {Component, OnInit} from "angular2/core";
-import {ROUTER_DIRECTIVES, Router} from "angular2/router";
+import {Component, OnInit} from "@angular/core";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
 import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
+
 import {IPageReference} from "../../models/interfaces/iPageReference";
 import {AuthorizationService} from "../../services/authorizationService";
 import {Role} from "../../models/Roles";

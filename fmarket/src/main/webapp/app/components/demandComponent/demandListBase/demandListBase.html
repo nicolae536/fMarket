@@ -2,7 +2,7 @@
 
 <div class="demand-list-base clearfix">
     <div class="list-group">
-        <div *ngFor="#demand of demandList" class="list-group-item" (click)="navigateToDetails(demand)">
+        <div *ngFor="let demand of demandList" class="list-group-item" (click)="navigateToDetails(demand)">
             <a [routerLink]="['Admin/Demands/'+demand.id]">
                 <div class="pull-right">
                     <span>{{domain.accountId}}</span>

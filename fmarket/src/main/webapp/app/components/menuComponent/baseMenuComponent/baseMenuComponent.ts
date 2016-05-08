@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnInit} from 'angular2/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {OnChanges} from "../../../../node_modules/angular2/ts/src/core/linker/interfaces";
 import {IUpdateDomainMenuItemRequest} from "../../../models/interfaces/iUpdateDomainMenuItemRequest";
 import {IMenuItem} from "../../../models/interfaces/iMenuItem";
@@ -9,7 +9,7 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
     template: `
 	<div class="base-menu-component">
 		<ul class="nav nav-pills nav-stacked clearfix">
-			<li *ngFor="#item of menuItemsList" [class]="getItemClass(item)" (click)="selectItem(item)">
+			<li *ngFor="let item of menuItemsList" [class]="getItemClass(item)" (click)="selectItem(item)">
 				<a>
 				    <div class="pull-right">
 				        <span class="glyphicon glyphicon-plus operation" (click)="createSubMenu($event, item.id)" title="Adauga submeniu"></span>

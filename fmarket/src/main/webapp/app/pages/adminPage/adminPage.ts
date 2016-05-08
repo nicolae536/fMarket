@@ -1,6 +1,8 @@
 //import libraryes
-import {Component} from 'angular2/core';
-import {RouteConfig, Router, ROUTER_DIRECTIVES, Location, CanActivate, Route} from 'angular2/router';
+import {Component} from '@angular/core';
+import {RouteConfig, CanActivate, Router, ROUTER_DIRECTIVES, Route} from '@angular/router-deprecated';
+import {Location} from '@angular/common';
+
 import {AuthorizationService} from "../../services/authorizationService";
 
 import {Role} from "../../models/Roles";

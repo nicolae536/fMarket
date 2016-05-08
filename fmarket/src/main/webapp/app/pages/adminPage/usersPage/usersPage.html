@@ -52,7 +52,7 @@
 
                         <div>
                             <select class="user-status-select" [(ngModel)]="selectedStatusFilter">
-                                <option *ngFor="#option of statusList" [value]="option.status">{{option.displayName}}
+                                <option *ngFor="let option of statusList" [value]="option.status">{{option.displayName}}
                                 </option>
                             </select>
                         </div>
@@ -62,7 +62,7 @@
 
                         <div>
                             <select class="user-status-select" [(ngModel)]="cityId">
-                                <option *ngFor="#option of cityList" [value]="option.id">{{option.name}}</option>
+                                <option *ngFor="let option of cityList" [value]="option.id">{{option.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                 </tr>
                 </thead>
                 <tbody class="table-body">
-                <tr *ngFor="#user of usersList" [ngClass]="user.isInEditMode ? 'success':''">
+                <tr *ngFor="let user of usersList" [ngClass]="user.isInEditMode ? 'success':''">
                     <td>
                         <span>{{user.id}}</span>
                     </td>
@@ -98,14 +98,14 @@
                     <td class="fit-select-to-td">
                         <span *ngIf="!user.isInEditMode">{{user.status}}</span>
                         <select *ngIf="user.isInEditMode" class="user-status-select" [(ngModel)]="user.status">
-                            <option *ngFor="#option of statusList" [value]="option.status">{{option.displayName}}
+                            <option *ngFor="let option of statusList" [value]="option.status">{{option.displayName}}
                             </option>
                         </select>
                     </td>
                     <td class="fit-select-to-td">
                         <span *ngIf="!user.isInEditMode">{{user.city}}</span>
                         <select *ngIf="user.isInEditMode" class="user-status-select" [(ngModel)]="user.cityId">
-                            <option *ngFor="#option of cityList" [value]="option.id">{{option.name}}</option>
+                            <option *ngFor="let option of cityList" [value]="option.id">{{option.name}}</option>
                         </select>
                     </td>
                     <td>
@@ -131,7 +131,7 @@
                         </div>
                         <div class="col-xs-9">
                             <div class="btn-group" role="group" *ngIf="pageNumbsersSubset.length > 1">
-                                <button *ngFor="#page of pageNumbsersSubset" [class]="isPageActive(page)" type="button"
+                                <button *ngFor="let page of pageNumbsersSubset" [class]="isPageActive(page)" type="button"
                                         (click)="goToPageUsingIndex(page)">{{page}}
                                 </button>
                             </div>

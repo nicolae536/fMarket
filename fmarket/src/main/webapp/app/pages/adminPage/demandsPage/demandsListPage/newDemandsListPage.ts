@@ -4,8 +4,8 @@
 /**
  * Created by nick_ on 4/22/2016.
  */
-import {Component, OnChanges, OnInit} from "angular2/core";
-import {CanActivate} from "angular2/router";
+import {Component, OnChanges, OnInit} from "@angular/core";
+import {CanActivate} from "@angular/router-deprecated";
 
 import {DemandListBaseComponent} from "../../../../components/demandComponent/demandListBase/demandListBase";
 import {DemandService} from "../../../../services/demandService";

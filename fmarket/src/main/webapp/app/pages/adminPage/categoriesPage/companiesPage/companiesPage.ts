@@ -1,11 +1,12 @@
-import {Component, OnInit} from "angular2/core";
+import {Component, OnInit} from "@angular/core";
+import {CanActivate} from "@angular/router-deprecated";
+import {Response} from "@angular/http";
+import {FormBuilder, Validators} from "@angular/common";
+
 import {CompanieType} from "../../../../models/companieType";
 import {CompanieTypeService} from "../../../../services/companieTypesService";
-import {Response} from "angular2/http";
-import {CanActivate} from "angular2/router";
 import {AuthorizationService} from "../../../../services/authorizationService";
 import {Role} from "../../../../models/Roles";
-import {FormBuilder, Validators} from "angular2/common";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage';
 

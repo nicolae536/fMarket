@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewEncapsulation, Injectable} from 'angular2/core';
-import {NgForm} from 'angular2/common';
-import {CanActivate} from "angular2/router";
+import {Component, OnInit, ViewEncapsulation, Injectable} from '@angular/core';
+import {NgForm} from '@angular/common';
+import {CanActivate} from "@angular/router-deprecated";
 
 
 //import operators

@@ -112,7 +112,7 @@
                             </tr>
                             </thead>
                             <tbody class="table-body">
-                            <tr *ngFor="#subscriber of subscribersList"
+                            <tr *ngFor="let subscriber of subscribersList"
                                 [ngClass]="subscriber.isInEditMode ? 'success':''">
                                 <td>
                                     <span>{{subscriber.id}}</span>
@@ -155,7 +155,7 @@
                                     </div>
                                     <div class="col-xs-9">
                                         <div class="btn-group" role="group" *ngIf="pageNumbsersSubset.length > 1">
-                                            <button *ngFor="#page of pageNumbsersSubset" [class]="isPageActive(page)"
+                                            <button *ngFor="let page of pageNumbsersSubset" [class]="isPageActive(page)"
                                                     type="button" (click)="goToPageUsingIndex(page)">{{page}}
                                             </button>
                                         </div>

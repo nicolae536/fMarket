@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/9/2016.
  */
-import {Component, OnInit, Input, Output, EventEmitter, OnChanges} from "angular2/core";
+import {Component, OnInit, Input, Output, EventEmitter, OnChanges} from "@angular/core";
 import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import {FilterPipe} from "./filterPipe";
 
@@ -21,7 +21,7 @@ import {FilterPipe} from "./filterPipe";
                     class="btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
                     <div class="col-xs-10 col-md-10 clearfix">
                         <span *ngIf="_selectedItems.length < 1">Choose...</span>
-                        <span class="label label-info pull-left" *ngFor="#item of _selectedItems">{{item.displayName}} <span (click)="removeItemFromSelection($event,item)">&times;</span></span>
+                        <span class="label label-info pull-left" *ngFor="let item of _selectedItems">{{item.displayName}} <span (click)="removeItemFromSelection($event,item)">&times;</span></span>
                     </div>
                     <div class="col-xs-2 col-md-2">
                         <span [class]="getCarretClass()"></span>
@@ -37,7 +37,7 @@ import {FilterPipe} from "./filterPipe";
                         </div>
                         <div class="ui-select2-list">
                             <div *ngIf="!muliSelect" class="ui-select2-list-item" (click)="selectItem(_chooseItemValue)">{{_chooseItemValue.displayName}}</div>
-                            <div class="ui-select2-list-item" *ngFor="#i of items|filterItems:searchQuery" (click)="selectItem(i)">{{i.displayName}}</div>
+                            <div class="ui-select2-list-item" *ngFor="let i of items|filterItems:searchQuery" (click)="selectItem(i)">{{i.displayName}}</div>
                         </div>
                 </div>
             </div>

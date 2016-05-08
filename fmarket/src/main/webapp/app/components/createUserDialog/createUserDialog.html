@@ -57,7 +57,7 @@
                           <span class="glyphicon glyphicon-stats"></span>
                         </span>
                             <select class="user-status-select" [ngFormControl]="_userForm.controls['status']" [(ngModel)]="responseObject.status">
-                                <option *ngFor="#option of statusList" [value]="option.status">{{option.displayName}}
+                                <option *ngFor="let option of statusList" [value]="option.status">{{option.displayName}}
                                 </option>
                             </select>
                         </div>
@@ -68,7 +68,7 @@
                           <span class="glyphicon glyphicon-globe"></span>
                         </span>
                             <select class="user-status-select" [ngFormControl]="_userForm.controls['cityId']" [(ngModel)]="responseObject.cityId">
-                                <option *ngFor="#option of cityList" [value]="option.id">{{option.name}}</option>
+                                <option *ngFor="let option of cityList" [value]="option.id">{{option.name}}</option>
                             </select>
                         </div>
                     </div>

@@ -1,9 +1,9 @@
 /**
  * Created by nick_ on 5/6/2016.
  */
-import {Component} from "angular2/core";
+import {Component} from "@angular/core";
+import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {RegistrationService} from "../../../services/registrationService";
-import {RouteParams, Router, ROUTER_DIRECTIVES} from "angular2/router";
 import {NotificationService} from "../../../services/notificationService";
 import {LocalStorageService} from "../../../services/localStorageService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";

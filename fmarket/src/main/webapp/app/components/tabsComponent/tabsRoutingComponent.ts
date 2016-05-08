@@ -1,8 +1,8 @@
 /**
  * Created by nick_ on 4/21/2016.
  */
-import {Component, Input} from 'angular2/core';
-import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
+import {Component, Input} from '@angular/core';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated';
 import {TabHeader} from "../../models/TabHeader";
 
 let applicationPath:string = '/app/components/tabsComponent';

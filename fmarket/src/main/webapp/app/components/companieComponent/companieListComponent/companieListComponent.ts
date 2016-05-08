@@ -1,9 +1,8 @@
 /**
  * Created by nick_ on 5/6/2016.
  */
-import {Input, Component, Output, EventEmitter} from "angular2/core";
+import {Input, Component, Output, EventEmitter} from "@angular/core";
 import {CompanieDto} from "../../../models/companieDto";
-import {ROUTER_DIRECTIVES} from "angular2/router";
 import {PaginationWrapper} from "../../../models/paginationWrapper";
 
 @Component({

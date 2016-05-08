@@ -1,5 +1,5 @@
-import {Injectable} from "angular2/core";
-import {Http} from "angular2/http";
+import {Injectable} from "@angular/core";
+import {Http} from "@angular/http";
 import {User} from "../models/user";
 import {FMarketApi} from "./fMarketApi";
 import {AccountStatus} from "../models/accountStatus";
