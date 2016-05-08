@@ -1,9 +1,10 @@
 import {Component} from "@angular/core";
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {Location} from "@angular/common";
-
 import {CORE_DIRECTIVES, FormBuilder} from "@angular/common";
+
 import {Alert} from "ng2-bootstrap/ng2-bootstrap";
+
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/interval";
 import {AuthorizationService} from "./services/authorizationService";
