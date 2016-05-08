@@ -1,33 +1,42 @@
 <footer class="footer">
     <div class="footer-wrapper">
         <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <div class="footer-row">
-                    <!--[routerLink]="['TermsAndConditions']"-->
-                    <a >Termeni si conditii de utilizare</a>
+            <div class="col-sm-12 col-md-5">
+                <div class="logo-image-container">
+                    <img class="image" src="/staticResorces/demoIcon.jpg"/>
                 </div>
-                <div  class="footer-row">
-                    <!--[routerLink]="['Contact']"-->
-                    <a >Contact</a>
+                <div class="footer-row under-image">
+                    <span>© 2016 fMarket. Toate drepturile rezervate</span>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-2">
+                <div class="footer-row first">
+                    <a [routerLink]="['Login']">Login</a>
                 </div>
                 <div class="footer-row">
                     <a [routerLink]="['Registration']">Inregistrare</a>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-6">
-                <div class="footer-row">
+            <div class="col-sm-12 col-md-2">
+                <div class="footer-row first">
                     <!--[routerLink]="['About']"-->
-                    <a>Despre fmarket.ro</a>
+                    <a>Contact</a>
                 </div>
                 <div class="footer-row">
-                    <a [routerLink]="['Login']">Login</a>
-                </div>
-                 <div class="footer-row">
                     <!--[routerLink]="['About']"-->
                     <a>Firme ofertante</a>
                 </div>
             </div>
+            <div class="col-sm-12 col-md-2">
+                <div class="footer-row first">
+                    <!--[routerLink]="['TermsAndConditions']"-->
+                    <a >Termeni si conditii de utilizare</a>
+                </div>
+                <div class="footer-row">
+                    <!--[routerLink]="['About']"-->
+                    <a>Despre fmarket.ro</a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="rights-reserved"><span>© 2016 fMarket. Toate drepturile rezervate</span></div>
 </footer>
