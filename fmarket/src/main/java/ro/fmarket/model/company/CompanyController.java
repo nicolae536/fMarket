@@ -47,5 +47,5 @@ public class CompanyController {
 	public void addMessageReview(@Valid @RequestBody NewCompanyMessageReview request, @AuthenticationPrincipal FMarketPrincipal principal) {
 
 	}
-
+	
 }
