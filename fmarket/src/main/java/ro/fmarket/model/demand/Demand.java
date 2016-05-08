@@ -10,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -30,10 +31,16 @@ public class Demand extends BaseEntity {
 	@ManyToOne
 	private Account account;
 
+	@Column(nullable = false)
 	private String title;
+	
+	@Column(nullable = false)
 	private String message;
 
+	@NotNull
 	private Boolean phoneContact;
+	
+	@NotNull
 	private Boolean allCities;
 	
 	

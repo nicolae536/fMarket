@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import ro.fmarket.admin.account.company.CompanySearchObject;
@@ -18,8 +19,11 @@ public class CompanyDao extends BaseDao<Company>{
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	public List<Company> getByDomain(int demandDomainId) {
-		return null;
+		Criteria criteria = getCriteria();
+		criteria.add(Restrictions.eq("", demandDomainId));
+		return criteria.list();
 	}
 	
 	public Criteria createUserCriteria(CompanySearchObject searchObject) {

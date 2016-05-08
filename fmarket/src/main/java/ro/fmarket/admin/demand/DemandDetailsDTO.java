@@ -12,29 +12,19 @@ import ro.fmarket.model.account.consts.AccountStatus;
 public class DemandDetailsDTO {
 
 	private int id;
-	
 	private String title;
-	
 	private String message;
-	
 	private List<String> cities = new ArrayList<>();
-	
 	private boolean allCities;
-	
 	private boolean phoneContact;
-	
 	private DateTime creationDate;
-	
 	private DateTime activationDate;
 	
 	/* Account */
 	
 	private int accountId;
-	
 	private String accountEmail;
-	
 	private AccountStatus accountStatus;
-	
 	private int demandsCount;
 	
 	
