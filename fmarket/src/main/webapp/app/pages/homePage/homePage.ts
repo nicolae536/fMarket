@@ -47,11 +47,11 @@ export class HomePage implements OnInit {
     }
 
     goToCreateDemand() {
-       JqueryService.animateScroll(this.createDemamdViewRef, 'easeInQuad', 1500);
+       JqueryService.animateScroll(this.createDemamdViewRef, 'easeInQuad', 1000);
     }
 
     goToHowWeWork() {
-        JqueryService.animateScroll(this.howWeWorkRef, 'easeInQuad', 1500);
+        JqueryService.animateScroll(this.howWeWorkRef, 'easeInQuad', 1000);
     }
 
     scrollToElement(element:ElementRef, duration:number) {

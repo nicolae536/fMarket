@@ -63,7 +63,7 @@ import {Role} from "./models/Roles";
         
         @media (max-width: 768px){
             .application-wrapper{
-                padding-bottom: 286px !important;
+                    padding-bottom: 400px !important;
             }
     }
     `],
