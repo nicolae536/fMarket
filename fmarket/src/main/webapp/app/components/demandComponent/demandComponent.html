@@ -3,44 +3,69 @@
         <div class="demand-control-groups">
             <h3>Cerere</h3>
             <hr class="horizontal-marker"/>
-            <div class="form-group">
-                <label>Titlu</label>
-                <input type="text" class="form-control" [ngFormControl]="_demandForm.controls['title']"/>
+            <div class="form-group clearfix">
+                <div class="col-md-2 col-xs-3">
+                    <label>Titlu</label>
+                </div>
+                <div class="col-md-10 col-xs-9">
+                    <input type="text" class="form-control" [ngFormControl]="_demandForm.controls['title']"/>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Mesaj</label>
-                <textarea type="text" rows="4" class="form-control no-resize"
-                          [ngFormControl]="_demandForm.controls['message']"></textarea>
+            <div class="form-group clearfix">
+                <div class="col-md-2 col-xs-3">
+                    <label>Mesaj</label>
+                </div>
+                <div class="col-md-10 col-xs-9">
+                    <textarea type="text" rows="4" class="form-control no-resize"
+                              [ngFormControl]="_demandForm.controls['message']"></textarea>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Orase</label>
-                <select-component
-                        [select-items]="_cityList"
-                        [selected-items]="_demandForm.controls['cities'].value"
-                        [multi-select]="true"
-                        (loaded)="referenceCitiesComponent($event)">
-                </select-component>
+            <div class="form-group clearfix">
+                <div class="col-md-2 col-xs-3">
+                    <label>Orase</label>
+                </div>
+                <div class="col-md-10 col-xs-9">
+                    <select-component
+                            [select-items]="_cityList"
+                            [selected-items]="_demandForm.controls['cities'].value"
+                            [multi-select]="true"
+                            (loaded)="referenceCitiesComponent($event)">
+                    </select-component>
+                </div>
             </div>
-            <div>
-                <label>Domeniu</label>
-                <select-component
-                        [select-items]="_domainList"
-                        [single-item-selected]="_demandForm.controls['domain'].value"
-                        [multi-select]="false"
-                        (loaded)="referenceDomainComponent($event)">
-                </select-component>
+            <div class=" clearfix">
+                <div class="col-md-2 col-xs-3">
+                    <label>Domeniu</label>
+                </div>
+                <div class="col-md-10 col-xs-9">
+
+                    <select-component
+                            [select-items]="_domainList"
+                            [single-item-selected]="_demandForm.controls['domain'].value"
+                            [multi-select]="false"
+                            (loaded)="referenceDomainComponent($event)">
+                    </select-component>
+                </div>
             </div>
         </div>
         <div class="contact-control-groups">
             <h3>Contact</h3>
             <hr class="horizontal-marker"/>
-            <div class="form-group">
-                <label>Telefon</label>
-                <input type="tel" class="form-control" [ngFormControl]="_demandForm.controls['phone']"/>
+            <div class="form-group clearfix">
+                <div class="col-md-2 col-xs-3">
+                    <label>Telefon</label>
+                </div>
+                <div class="col-md-10 col-xs-9">
+                    <input type="tel" class="form-control" [ngFormControl]="_demandForm.controls['phone']"/>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Nume</label>
-                <input type="text" class="form-control" [ngFormControl]="_demandForm.controls['name']"/>
+            <div class="form-group clearfix">
+                <div class="col-md-2 col-xs-3">
+                    <label>Nume</label>
+                </div>
+                <div class="col-md-10 col-xs-9">
+                    <input type="text" class="form-control" [ngFormControl]="_demandForm.controls['name']"/>
+                </div>
             </div>
             <div class="form-group">
                 <label>Doresc sa fiu contactat prin telefon</label>
@@ -58,9 +83,14 @@
         <div class="account-control-groups">
             <h3>Cont</h3>
             <hr class="horizontal-marker"/>
-            <div class="form-group">
-                <label>E-mail</label>
-                <input type="text" [disabled]="isUserLoggedIn" class="form-control" [ngFormControl]="_demandForm.controls['email']"/>
+            <div class="form-group clearfix">
+                <div class="col-md-2 col-xs-3">
+                    <label>E-mail</label>
+                </div>
+                <div class="col-md-10 col-xs-9">
+                    <input type="text" [disabled]="isUserLoggedIn" class="form-control"
+                           [ngFormControl]="_demandForm.controls['email']"/>
+                </div>
             </div>
             <div class="form-group">
                 <label>Sunt de accord cu termeni de utilizare ai siteului f-market.ro</label>

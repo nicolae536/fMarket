@@ -4,4 +4,5 @@
 
 export class CompanieDto{
     public id:number;
+    public logoSrc:string;
 }

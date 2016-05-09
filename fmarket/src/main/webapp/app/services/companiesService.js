@@ -19,8 +19,8 @@ var CompaniesService = (function () {
         this.COMPANIE_CONTROLLER = '/companies';
         this.api = new fMarketApi_1.FMarketApi(http);
     }
-    CompaniesService.prototype.getCompanies = function (search) {
-        return this.api.post(this.COMPANIE_CONTROLLER + '/search', JSON.stringify(search));
+    CompaniesService.prototype.getCompanies = function (searchQuery) {
+        return this.api.get(this.COMPANIE_CONTROLLER + ("/all?p=" + searchQuery));
     };
     CompaniesService.prototype.getCompanieDetails = function (id) {
         return this.api.get(this.COMPANIE_CONTROLLER + ("/details/" + id));

@@ -1,13 +1,28 @@
 <div class="companies-page clearfix">
     <create-companie-dialog
-        (action-confirmed)="requestNewCompanie($event)"
-        (reference-component)="referenceCompaniesDialog($event)"
+            (action-confirmed)="requestNewCompanie($event)"
+            (reference-component)="referenceCompaniesDialog($event)"
     ></create-companie-dialog>
+
+    <div class="clearfix search-field-wrapper ">
+        <div class="col-md-4 col-xs-12">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-search"></span>
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="searchFilter" (ngModelChange)="chengeSearch($event)"/>
+            </div>
+        </div>
+        <div class="pull-right">
+            <button type="button" class="btn btn-success" (click)="submitSearch()">
+                <span class="glyphicon glyphicon-search"></span>
+                Cauta
+            </button>
+        </div>
+    </div>
+
     <companie-list-component
-        [companies-list]="_companiesList"
-        [pagination-wrapper]="_paginationWrapper"
-        (remove-companie)="removeCompanie($event)"
-        (page-changed)="getNewPage($event)"
-        (edit-companie)="editCompanie($event)"
+            [companies-list]="_companiesList"
+            (companie-selected)="selectCompanie($event)"
     ></companie-list-component>
 </div>

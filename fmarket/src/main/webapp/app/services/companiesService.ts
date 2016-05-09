@@ -18,8 +18,8 @@ export class CompaniesService{
         this.api = new FMarketApi(http);
     }
 
-    getCompanies(search:ISearchCompanie){
-        return this.api.post(this.COMPANIE_CONTROLLER + '/search', JSON.stringify(search));
+    getCompanies(searchQuery:string){
+        return this.api.get(this.COMPANIE_CONTROLLER + `/all?p=${searchQuery}`);
     }
 
     getCompanieDetails(id:number){

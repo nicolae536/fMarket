@@ -4,27 +4,22 @@
 import {Input, Component, Output, EventEmitter} from "@angular/core";
 import {CompanieDto} from "../../../models/companieDto";
 import {PaginationWrapper} from "../../../models/paginationWrapper";
+import {DomainCompanieDto} from "../../../models/domainCompanieDto";
+import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
 @Component({
     selector:'companie-list-component',
     templateUrl:'/app/components/companieComponent/companieListComponent/companieListComponent.html',
 })
 export class CompanieListComponent {
-    @Input('companies-list') _companieList:Array<CompanieDto>;
-    @Input('pagination-wrapper') _paginationWrapper:PaginationWrapper;
-    @Output('remove-companie') _removeCompanieEmitter:EventEmitter<CompanieDto> = new EventEmitter<CompanieDto>();
-    @Output('page-changed') _pageChangedEmitter:EventEmitter<any> = new EventEmitter<any>();
-    @Output('edit-companie') _companieEditEmitter:EventEmitter<any> = new EventEmitter<any>();
+    @Input('companies-list') _companieList:Array<DomainCompanieDto>;
+    @Output('companie-selected') _companieSelectedEmitter:EventEmitter<CompanieDto> = new EventEmitter<CompanieDto>();
 
-    removeCompanie(companie){
-        this._removeCompanieEmitter.emit(companie);
+    selectCompanie(companie){
+        this._companieSelectedEmitter.emit(companie);
     }
 
-    pageChanged($event){
-        this._pageChangedEmitter.emit($event);
-    }
-
-    editCompanie(id){
-        this._companieEditEmitter.emit(id);
+    getImageTitle(companie){
+        return `<img src="${companie.logoSrc}" class="companie-logo" />`;
     }
 }
