@@ -31,10 +31,10 @@ var HomePage = (function () {
         this._demandDialog = demandDialog;
     };
     HomePage.prototype.goToCreateDemand = function () {
-        jqueryService_1.JqueryService.animateScroll(this.createDemamdViewRef, 'easeInQuad', 1000);
+        jqueryService_1.JqueryService.animateScroll(this.createDemamdViewRef, 'easeInQuad', 500);
     };
     HomePage.prototype.goToHowWeWork = function () {
-        jqueryService_1.JqueryService.animateScroll(this.howWeWorkRef, 'easeInQuad', 1000);
+        jqueryService_1.JqueryService.animateScroll(this.howWeWorkRef, 'easeInQuad', 500);
     };
     HomePage.prototype.scrollToElement = function (element, duration) {
         var _this = this;

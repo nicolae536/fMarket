@@ -46,6 +46,7 @@ import {Role} from "./models/Roles";
             padding-bottom: 186px;
             position: relative;
             min-height: 100vh;
+            background-color: white;
         }
         
         .page-container{
