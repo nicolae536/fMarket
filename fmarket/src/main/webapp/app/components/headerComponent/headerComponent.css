@@ -1,5 +1,7 @@
 .navbar.navbar-default.navbar-fixed-top {
     max-height: 50px;
+    border: 0.5px solid transparent;
+    border-top: none;
 }
 
 .navbar.navbar-default.navbar-fixed-top .container-fluid .navbar-header {
