@@ -23,8 +23,16 @@
     background-color: white;
 }
 
+.home-page .home-page-subscriber{
+    padding: 3% 20% 3% 20%;
+}
+
+.home-page .home-page-subscriber button{
+    padding-right: 10px;
+}
+
 .home-page .how-we-work{
-    padding: 3% 5% 3% 5%;
+    padding: 0 5% 3% 5%;
     background-color: white;
 }
 
@@ -62,4 +70,13 @@
     left: 0;
     width: 100%;
     height: 100%;
+}
+.ng-dirty.ng-invalid.ng-touched {
+    border-color: #ab2424;
+
+}
+
+.ng-dirty.ng-invalid.ng-touched:focus {
+    border-color: #ab2424;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #ab2424;
 }

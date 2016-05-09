@@ -3,12 +3,16 @@
  */
 import {Component, OnInit, ElementRef, ViewChild} from "@angular/core";
 import {Response} from "@angular/http";
+import {FormBuilder, Validators} from "@angular/common";
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
 import {Select2Item} from "../../components/selectComponent/selectComponent";
 import {DemandService} from "../../services/demandService";
 import {DemandDialogComponent} from "../../components/demandComponent/demandDialogComponent/demandDialogComponent";
 import {Demand} from "../../models/demand";
 import {JqueryService} from "../../services/jqueryService";
+import {CustomValidators} from "../../models/Angular2ExtensionValidators";
+import {SubscribersService} from "../../services/subscribersService";
+import {NotificationService} from "../../services/notificationService";
 
 const folderPath = '/app/pages/homePage';
 
@@ -31,55 +35,68 @@ export class HomePage implements OnInit {
     //data
     private _domains:Array<Select2Item>;
     private _cityes;
+    private _formBuilder:FormBuilder;
+    private _subscribeForm;
+    private _subscribersService:SubscribersService;
+    private _notificationService:NotificationService;
 
-    constructor(_categoriesMenuService:CategoriesMenuService, _demandService:DemandService) {
+    constructor(_categoriesMenuService:CategoriesMenuService, _demandService:DemandService, subscribersService:SubscribersService, formBuilder:FormBuilder, notificationService:NotificationService) {
         this._categoriesMenuService = _categoriesMenuService;
         this._demandService = _demandService;
+        this._subscribersService = subscribersService;
+        this._formBuilder = formBuilder;
+        this._notificationService = notificationService;
     }
 
     ngOnInit():any {
         this.getCityes();
         this.getDomains();
+        this._subscribeForm = this._formBuilder.group([]);
+        this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])))
     }
 
     referenceDemandDialog(demandDialog:DemandDialogComponent) {
         this._demandDialog = demandDialog;
     }
 
+    submitSubscriber() {
+        if (!this._subscribeForm.valid) {
+            return;
+        }
+
+        let me = this;
+        this._subscribersService.subscribe(this._subscribeForm.value)
+            .map(response=> {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })
+            .subscribe(
+                success=> {
+                    me._notificationService.emitNotificationToRootComponent({
+                        type: 'success',
+                        dismisable: true,
+                        message: 'Te-ai inscris cu success!',
+                        timeout: 5
+                    });
+                },
+                error=> {
+                    me._notificationService.emitNotificationToRootComponent({
+                        type: 'danger',
+                        dismisable: true,
+                        message: 'Erroare',
+                        timeout: null
+                    });
+                }
+            )
+    }
+
     goToCreateDemand() {
-       JqueryService.animateScroll(this.createDemamdViewRef, 'easeInQuad', 500);
+        JqueryService.animateScroll(this.createDemamdViewRef, 'easeInQuad', 500);
     }
 
     goToHowWeWork() {
         JqueryService.animateScroll(this.howWeWorkRef, 'easeInQuad', 500);
-    }
-
-    scrollToElement(element:ElementRef, duration:number) {
-        this.scrollProperty = this.scrollProperty  == 'scrollY' ? 'pageYOffset' : 'scrollY' ;
-        _.defer(()=> {
-            console.log(window[this.scrollProperty]);
-            let scrollDown = element.nativeElement.offsetTop > window[this.scrollProperty];
-
-            let positionToScroll = element.nativeElement.offsetTop - window[this.scrollProperty];
-            let speedPerDuration = positionToScroll / duration;
-
-
-            let intervalRef = setInterval(()=> {
-                let previousScroll = window[this.scrollProperty];
-                window.scroll(0, window[this.scrollProperty] += speedPerDuration);
-
-                console.log((Math.abs(element.nativeElement.offsetTop - window[this.scrollProperty]) <= Math.abs(speedPerDuration) + Math.sqrt(speedPerDuration))
-                    || (Math.abs(previousScroll - window[this.scrollProperty]) < 1)
-                    || (window.scrollY < 0));
-                if (
-                    (Math.abs(element.nativeElement.offsetTop - window[this.scrollProperty]) <= Math.abs(speedPerDuration) + Math.sqrt(speedPerDuration))
-                    || (Math.abs(previousScroll - window[this.scrollProperty]) < 1)
-                    || (window.scrollY < 0)) {
-                    console.log("clear")
-                    clearInterval(intervalRef);
-                }
-            }, Math.round(duration / positionToScroll))
-        });
     }
 
     createDemand(demand:Demand) {
