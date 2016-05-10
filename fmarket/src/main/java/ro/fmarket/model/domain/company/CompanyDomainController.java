@@ -17,25 +17,25 @@ public class CompanyDomainController {
 
 	@Autowired
 	private CompanyDomainService service;
-	
+
 	@RequestMapping(method = RequestMethod.POST)
 	public void addCompanyDomain(@Valid @RequestBody NewCompanyDomainRequest request) {
 		service.addDomain(request.getName());
 	}
-	
-	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void deleteCompanyDomain(@PathVariable("id") Integer id) {
 		service.deleteDomain(id);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.PUT)
 	public void editDomain(@Valid @RequestBody CompanyDomainUpdateRequest request) {
 		service.updateDomain(request.getId(), request.getNewName());
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public List<CompanyDomainDTO> getDomains() {
 		return service.getAll();
 	}
-	
+
 }

@@ -36,6 +36,9 @@ public class Company extends BaseEntity {
 
 	@Column(nullable = false)
 	private String name;
+	
+	@Column(length = 50, unique = true)
+	private String logoSrc;
 
 	@ManyToOne(optional = false)
 	private CompanyDomain domain;
