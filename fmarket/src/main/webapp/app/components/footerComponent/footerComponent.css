@@ -1,4 +1,4 @@
-.footer{
+.footer {
     background-color: #2A2A2A;
     position: absolute;
     /*left: 0;*/
@@ -7,49 +7,60 @@
     width: 100%;
     overflow: hidden;
     text-align: center;
-    border-top:1px solid #e7e7e7;
+    border-top: 1px solid #e7e7e7;
 }
 
-.footer .footer-wrapper{
+.footer .footer-wrapper {
     position: relative;
     padding-left: 7%;
     padding-right: 7%;
 }
 
-.footer .footer-wrapper .footer-row{
-    padding-bottom: 15px;
+.footer .footer-wrapper .footer-row {
+    padding-bottom: 10px;
     color: #a6a6a6;
 }
 
-.footer .footer-wrapper .footer-row a{
+.footer .footer-wrapper .footer-row a {
     color: #a6a6a6;
 }
 
-.footer .footer-wrapper .footer-row.under-image{
+.footer .footer-wrapper .footer-row.under-image {
     padding-top: 15px;
 }
 
-.footer .footer-wrapper .footer-row.first{
-    padding-top: 25px;
+.footer .footer-wrapper .footer-row.first {
+    padding-top: 15px;
 }
 
-.footer .footer-wrapper .footer-row a{
+.footer .footer-wrapper .footer-row a {
     cursor: pointer;
 }
 
-.footer .rights-reserved{
+.footer .rights-reserved {
     background-color: #e7e7e7;
     color: #8c8c8c;
 }
 
+.footer .footer-wrapper .col-sm-12.col-md-push-4.col-md-2 {
+    text-align: left;
+}
+
 .footer .logo-image-container {
-    margin-top:15px;
+    margin-top: 15px;
     max-height: 50px;
     width: auto;
 }
 
-.footer .logo-image-container .image{
+.footer .logo-image-container .image {
     width: auto;
     height: 100%;
     max-width: 100%;
+}
+
+@media (max-width: 990px) {
+
+    .footer .footer-wrapper .col-sm-12.col-md-push-4.col-md-2 {
+        text-align: center;
+    }
 }
