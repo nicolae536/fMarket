@@ -14,6 +14,7 @@ var fMarketApi_1 = require("./fMarketApi");
 var SubscribersService = (function () {
     function SubscribersService(http) {
         this.apiSubscribersControllerUrl = "/admin/subscribers";
+        this.apiUserSubscribeController = "/subscribers";
         this.api = new fMarketApi_1.FMarketApi(http);
     }
     SubscribersService.prototype.getSubscribersWithFilters = function (id, email, currentPageIndex, sortKey, ascendingOrder) {
@@ -33,6 +34,9 @@ var SubscribersService = (function () {
     };
     SubscribersService.prototype.delete = function (id) {
         return this.api.delete(this.apiSubscribersControllerUrl + ("/" + id));
+    };
+    SubscribersService.prototype.subscribeTowebsite = function (email) {
+        return this.api.post(this.apiUserSubscribeController, JSON.stringify(email));
     };
     SubscribersService = __decorate([
         core_1.Injectable(), 

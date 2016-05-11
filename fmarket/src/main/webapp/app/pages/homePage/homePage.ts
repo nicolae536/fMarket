@@ -65,7 +65,7 @@ export class HomePage implements OnInit {
         }
 
         let me = this;
-        this._subscribersService.subscribe(this._subscribeForm.value)
+        this._subscribersService.subscribeTowebsite(this._subscribeForm.value)
             .map(response=> {
                 if (response.text().length > 0) {
                     return response.json();
@@ -73,6 +73,8 @@ export class HomePage implements OnInit {
             })
             .subscribe(
                 success=> {
+                    me._subscribeForm.removeControl('email');
+                    this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
                     me._notificationService.emitNotificationToRootComponent({
                         type: 'success',
                         dismisable: true,
@@ -84,8 +86,8 @@ export class HomePage implements OnInit {
                     me._notificationService.emitNotificationToRootComponent({
                         type: 'danger',
                         dismisable: true,
-                        message: 'Erroare',
-                        timeout: null
+                        message: error.message,
+                        timeout: 5
                     });
                 }
             )

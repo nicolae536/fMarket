@@ -6,6 +6,7 @@ import {FMarketApi} from "./fMarketApi";
 export class SubscribersService {
     api:FMarketApi;
     apiSubscribersControllerUrl:string = "/admin/subscribers";
+    apiUserSubscribeController:string = "/subscribers";
 
     constructor(http:Http) {
         this.api = new FMarketApi(http);
@@ -31,6 +32,10 @@ export class SubscribersService {
 
     delete(id) {
         return this.api.delete(this.apiSubscribersControllerUrl + `/${id}`);
+    }
+
+    subscribeTowebsite(email:any) {
+        return this.api.post(this.apiUserSubscribeController, JSON.stringify(email));
     }
 }
 

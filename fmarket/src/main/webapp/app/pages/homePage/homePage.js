@@ -40,17 +40,20 @@ var HomePage = (function () {
         this._demandDialog = demandDialog;
     };
     HomePage.prototype.submitSubscriber = function () {
+        var _this = this;
         if (!this._subscribeForm.valid) {
             return;
         }
         var me = this;
-        this._subscribersService.subscribe(this._subscribeForm.value)
+        this._subscribersService.subscribeTowebsite(this._subscribeForm.value)
             .map(function (response) {
             if (response.text().length > 0) {
                 return response.json();
             }
         })
             .subscribe(function (success) {
+            me._subscribeForm.removeControl('email');
+            _this._subscribeForm.addControl('email', _this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
             me._notificationService.emitNotificationToRootComponent({
                 type: 'success',
                 dismisable: true,
@@ -61,8 +64,8 @@ var HomePage = (function () {
             me._notificationService.emitNotificationToRootComponent({
                 type: 'danger',
                 dismisable: true,
-                message: 'Erroare',
-                timeout: null
+                message: error.message,
+                timeout: 5
             });
         });
     };
