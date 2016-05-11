@@ -66,15 +66,17 @@
 
     <div class="home-page-subscriber clearfix">
         <form [ngFormModel]="_subscribeForm" (ngSubmit)="submitSubscriber()">
-            <div class="col-md-8 col-xs-8">
-                Loren ipsum loren ipsum loren ipsum
+            <div class="col-md-7 col-xs-12 align-input">
+                <span>
+                    Loren ipsum loren ipsum loren ipsum
+                </span>
             </div>
-            <div class="col-md-4 col-xs-4">
-                <div class="col-md-8 col-xs-8">
+            <div class="col-md-5 col-xs-12">
+                <div class="col-md-8 col-xs-12">
                     <input type="email" [ngFormControl]="_subscribeForm.controls['email']" class="form-control"
                            placeholder="E-mail"/>
                 </div>
-                <div class="col-md-4 col-xs-4">
+                <div class="col-md-4 col-xs-12">
                     <button type="submit" class="btn btn-primary">
                         Subscribe
                     </button>

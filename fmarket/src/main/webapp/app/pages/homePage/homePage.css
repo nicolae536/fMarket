@@ -45,8 +45,20 @@
     padding: 3% 20% 3% 20%;
 }
 
+.home-page .home-page-subscriber .align-input{
+    padding-top: 14px;
+}
+
 .home-page .home-page-subscriber button {
     padding-right: 10px;
+}
+
+.home-page .home-page-subscriber .col-xs-12 .col-xs-12 {
+    padding: 0 0 0 15px;
+}
+
+.home-page .home-page-subscriber .col-xs-12 .col-xs-12 input{
+    width: 100%;
 }
 
 .home-page .how-we-work {
@@ -124,3 +136,19 @@
 
 }
 
+
+@media (max-width: 990px) {
+    .home-page .home-page-subscriber {
+        padding: 3% 5% 9% 5%;
+    }
+
+    .home-page .home-page-subscriber .col-xs-12 .col-xs-12 {
+        padding-top: 10px;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .home-page .home-page-subscriber .col-xs-12 .col-xs-12 button{
+        width: 100%;
+    }
+}

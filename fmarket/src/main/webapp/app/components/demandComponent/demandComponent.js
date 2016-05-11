@@ -50,8 +50,8 @@ var DemandComponent = (function () {
         this._demandForm.addControl('termsAgreed', this._formBuilder.control(this._demandData.termsAgreed, common_1.Validators.required));
         this._demandForm.addControl('phone', this._formBuilder.control(this._demandData.phone, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(10), Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber])));
         this._demandForm.addControl('name', this._formBuilder.control(this._demandData.name, common_1.Validators.required));
-        this._demandForm.addControl('agreePhoneContact', this._formBuilder.control(this._demandData.agreePhoneContact));
-        this._demandForm.addControl('agreeEmailContact', this._formBuilder.control(this._demandData.agreeEmailContact));
+        // this._demandForm.addControl('agreePhoneContact', this._formBuilder.control(this._demandData.agreePhoneContact));
+        // this._demandForm.addControl('agreeEmailContact', this._formBuilder.control(this._demandData.agreeEmailContact));
         this._demandForm.addControl('allCities', this._formBuilder.control(this._demandData.allCities));
         this._componentLoaded.emit(this);
     };
