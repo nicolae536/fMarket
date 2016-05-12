@@ -36,6 +36,9 @@ var HomePage = (function () {
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
     };
+    HomePage.prototype.ngAfterViewChecked = function () {
+        this.rematchElementsOnView();
+    };
     HomePage.prototype.referenceDemandDialog = function (demandDialog) {
         this._demandDialog = demandDialog;
     };
@@ -124,6 +127,10 @@ var HomePage = (function () {
             me._domains = [];
         });
     };
+    HomePage.prototype.rematchElementsOnView = function ($event) {
+        jqueryService_1.JqueryService.makeElementsOfSameHeight(this.videoContainer.nativeElement, [this.videoRightContainer.nativeElement]);
+        jqueryService_1.JqueryService.fitChildItemsInContainer(this.videoRightContainer.nativeElement);
+    };
     __decorate([
         core_1.ViewChild('createDemandComponent'), 
         __metadata('design:type', core_1.ElementRef)
@@ -132,6 +139,14 @@ var HomePage = (function () {
         core_1.ViewChild('howWeWork'), 
         __metadata('design:type', core_1.ElementRef)
     ], HomePage.prototype, "howWeWorkRef", void 0);
+    __decorate([
+        core_1.ViewChild('videoContainer'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], HomePage.prototype, "videoContainer", void 0);
+    __decorate([
+        core_1.ViewChild('videoRightContainer'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], HomePage.prototype, "videoRightContainer", void 0);
     HomePage = __decorate([
         core_1.Component({
             selector: 'home-page',

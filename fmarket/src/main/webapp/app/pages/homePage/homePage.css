@@ -62,7 +62,7 @@
 }
 
 .home-page .how-we-work {
-    padding: 3% 5% 3% 5%;
+    padding: 3% 5% 3% 10%;
     background-color: #f2f2f2;
 }
 
@@ -150,5 +150,11 @@
 
     .home-page .home-page-subscriber .col-xs-12 .col-xs-12 button{
         width: 100%;
+    }
+
+    .home-page .how-we-work .col-md-push-1.col-md-3.col-xs-12{
+        margin-top: 3.33%;
+        height: 66.9%;
+        max-height: 66.9%;
     }
 }

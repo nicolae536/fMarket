@@ -43,7 +43,7 @@ import {Role} from "./models/Roles";
     `,
     styles: [`
         .application-wrapper{
-            padding-bottom: 101px;
+            padding-bottom: 109px;
             position: relative;
             min-height: 100vh;
             background-color: white;
@@ -64,7 +64,7 @@ import {Role} from "./models/Roles";
         
         @media (max-width: 990px){
             .application-wrapper{
-                    padding-bottom: 400px !important;
+                    padding-bottom: 320px !important
             }
     }
     `],

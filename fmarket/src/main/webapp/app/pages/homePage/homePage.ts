@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/12/2016.
  */
-import {Component, OnInit, ElementRef, ViewChild} from "@angular/core";
+import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked} from "@angular/core";
 import {Response} from "@angular/http";
 import {FormBuilder, Validators} from "@angular/common";
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
@@ -21,14 +21,16 @@ const folderPath = '/app/pages/homePage';
     templateUrl: folderPath + '/homePage.html',
     directives: [DemandDialogComponent]
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, AfterViewChecked {
     //components
     @ViewChild('createDemandComponent') private createDemamdViewRef:ElementRef;
     @ViewChild('howWeWork') private howWeWorkRef:ElementRef;
-
+    @ViewChild('videoContainer') private videoContainer:ElementRef;
+    @ViewChild('videoRightContainer') private videoRightContainer:ElementRef;
     private _demandDialog:DemandDialogComponent;
 
     scrollProperty:string = 'scrollY';
+
     //services
     private _categoriesMenuService:CategoriesMenuService;
     private _demandService:DemandService;
@@ -39,7 +41,6 @@ export class HomePage implements OnInit {
     private _subscribeForm;
     private _subscribersService:SubscribersService;
     private _notificationService:NotificationService;
-
     constructor(_categoriesMenuService:CategoriesMenuService, _demandService:DemandService, subscribersService:SubscribersService, formBuilder:FormBuilder, notificationService:NotificationService) {
         this._categoriesMenuService = _categoriesMenuService;
         this._demandService = _demandService;
@@ -52,7 +53,11 @@ export class HomePage implements OnInit {
         this.getCityes();
         this.getDomains();
         this._subscribeForm = this._formBuilder.group([]);
-        this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])))
+        this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
+    }
+
+    ngAfterViewChecked():any {
+        this.rematchElementsOnView();
     }
 
     referenceDemandDialog(demandDialog:DemandDialogComponent) {
@@ -162,5 +167,10 @@ export class HomePage implements OnInit {
                 me._domains = [];
             }
         )
+    }
+
+    rematchElementsOnView($event){
+        JqueryService.makeElementsOfSameHeight(this.videoContainer.nativeElement,[this.videoRightContainer.nativeElement]);
+        JqueryService.fitChildItemsInContainer(this.videoRightContainer.nativeElement)
     }
 }
