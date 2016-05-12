@@ -17,8 +17,9 @@
 }
 
 .footer .footer-wrapper .footer-row {
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     color: #a6a6a6;
+    font-size: 12px;
 }
 
 .footer .footer-wrapper .footer-row a {
@@ -26,11 +27,16 @@
 }
 
 .footer .footer-wrapper .footer-row.under-image {
-    padding-top: 15px;
+    font-size: 12px;
+    padding-top: 10px;
 }
 
 .footer .footer-wrapper .footer-row.first {
-    padding-top: 15px;
+    padding-top: 20px;
+}
+
+.footer .footer-wrapper .footer-row.last {
+    padding-bottom: 20px !important;
 }
 
 .footer .footer-wrapper .footer-row a {
