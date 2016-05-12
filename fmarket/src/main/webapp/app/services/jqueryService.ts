@@ -5,7 +5,8 @@ import {ElementRef} from "@angular/core";
 
 export class JqueryService {
     public static animateScroll(element:ElementRef, animation:string, scrollSpeed:number) {
-        $(element.nativeElement).animatescroll({scrollSpeed: scrollSpeed, easing: animation})
+        let aditionalHeight = this.isMobile() ? 50 : 0;
+        $(element.nativeElement).animatescroll({scrollSpeed: scrollSpeed, easing: animation, aditionalHeight:aditionalHeight})
     }
 
     static makeElementsOfSameHeight(nativeElement:any, param2:any[]) {
@@ -36,5 +37,19 @@ export class JqueryService {
             }
             $(child).height(childrenHeight).css('marginBottom', childrenMarginBottom);
         })
+    }
+
+    static isMobile(){
+        if (sessionStorage.desktop) // desktop storage
+            return false;
+        else if (localStorage.mobile) // mobile storage
+            return true;
+
+        // alternative
+        var mobile = ['iphone','ipad','android','blackberry','nokia','opera mini','windows mobile','windows phone','iemobile'];
+        for (var i in mobile) if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0) return true;
+
+        // nothing found.. assume desktop
+        return false;
     }
 }

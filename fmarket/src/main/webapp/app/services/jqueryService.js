@@ -3,7 +3,8 @@ var JqueryService = (function () {
     function JqueryService() {
     }
     JqueryService.animateScroll = function (element, animation, scrollSpeed) {
-        $(element.nativeElement).animatescroll({ scrollSpeed: scrollSpeed, easing: animation });
+        var aditionalHeight = this.isMobile() ? 50 : 0;
+        $(element.nativeElement).animatescroll({ scrollSpeed: scrollSpeed, easing: animation, aditionalHeight: aditionalHeight });
     };
     JqueryService.makeElementsOfSameHeight = function (nativeElement, param2) {
         var height = $(nativeElement).height();
@@ -28,6 +29,19 @@ var JqueryService = (function () {
             }
             $(child).height(childrenHeight).css('marginBottom', childrenMarginBottom);
         });
+    };
+    JqueryService.isMobile = function () {
+        if (sessionStorage.desktop)
+            return false;
+        else if (localStorage.mobile)
+            return true;
+        // alternative
+        var mobile = ['iphone', 'ipad', 'android', 'blackberry', 'nokia', 'opera mini', 'windows mobile', 'windows phone', 'iemobile'];
+        for (var i in mobile)
+            if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0)
+                return true;
+        // nothing found.. assume desktop
+        return false;
     };
     return JqueryService;
 }());
