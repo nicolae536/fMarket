@@ -21,12 +21,12 @@
                     Cele doua parole nu sunt la fel!
                 </div>
                 <div class="clearfix">
+                    <div class="pull-right button-container">
+                        <button type="submit" class="btn btn-primary">{{buttonLabel}}</button>
+                    </div>
                     <div *ngIf="showNewsletter">
                         <input type="checkbox" [ngFormControl]="_registrationForm.controls['subscribe']"/>
                         <label>Inscriema la newsletter</label>
-                    </div>
-                    <div class="pull-right button-container">
-                        <button type="submit" class="btn btn-primary">{{buttonLabel}}</button>
                     </div>
                     <div *ngIf="showRememberMeField">
                         <input type="checkbox" [ngFormControl]="_registrationForm.controls['rememberMe']"/>

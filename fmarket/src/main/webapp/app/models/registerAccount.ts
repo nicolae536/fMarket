@@ -3,8 +3,13 @@
  */
 
 export class RegisterAccount {
-    password:string = '';
+    passwords:PasswordField;
     email:string = '';
     subscribe:boolean = false;
     rememberMe:boolean = false;
+}
+
+export interface PasswordField{
+    password:string;
+    repeat:string;
 }

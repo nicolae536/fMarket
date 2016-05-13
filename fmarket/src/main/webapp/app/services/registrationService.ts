@@ -17,20 +17,20 @@ export class RegistrationService {
     }
 
     createAccount(account:RegisterAccount){
-        let newAccount = account ? {email:account.email, password:account.password, subscribe:account.subscribe} : {email:null, password:null, subscribe:null};
+        let newAccount = account ? {email:account.email, password:account.passwords.password, subscribe:account.subscribe} : {email:null, password:null, subscribe:null};
         return this.api.post(this.REGISTRATION_CONTROLLER + '/user', JSON.stringify(newAccount));
     }
 
     resetPassword(account:RegisterAccount) {
-        let newAccount = account ? {email:account.email, newPassword:account.password} : {email:null, newPassword:null};
+        let newAccount = account ? {email:account.email, newPassword:account.passwords.password} : {email:null, newPassword:null};
 
-        return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({email:account.email, newPassword:account.password}));
+        return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({email:account.email, newPassword:account.passwords.password}));
     }
 
     login(account:RegisterAccount){
         let newAccount = account ? account : {email:null, password:null};
 
-        let credentials = "username=" + newAccount.email + "&password=" + newAccount.password;
+        let credentials = "username=" + newAccount.email + "&password=" + newAccount.passwords.password;
 
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');

@@ -4,7 +4,6 @@
 "use strict";
 var RegisterAccount = (function () {
     function RegisterAccount() {
-        this.password = '';
         this.email = '';
         this.subscribe = false;
         this.rememberMe = false;

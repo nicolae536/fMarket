@@ -21,16 +21,16 @@ var RegistrationService = (function () {
         this.api = new fMarketApi_1.FMarketApi(http);
     }
     RegistrationService.prototype.createAccount = function (account) {
-        var newAccount = account ? { email: account.email, password: account.password, subscribe: account.subscribe } : { email: null, password: null, subscribe: null };
+        var newAccount = account ? { email: account.email, password: account.passwords.password, subscribe: account.subscribe } : { email: null, password: null, subscribe: null };
         return this.api.post(this.REGISTRATION_CONTROLLER + '/user', JSON.stringify(newAccount));
     };
     RegistrationService.prototype.resetPassword = function (account) {
-        var newAccount = account ? { email: account.email, newPassword: account.password } : { email: null, newPassword: null };
-        return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({ email: account.email, newPassword: account.password }));
+        var newAccount = account ? { email: account.email, newPassword: account.passwords.password } : { email: null, newPassword: null };
+        return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({ email: account.email, newPassword: account.passwords.password }));
     };
     RegistrationService.prototype.login = function (account) {
         var newAccount = account ? account : { email: null, password: null };
-        var credentials = "username=" + newAccount.email + "&password=" + newAccount.password;
+        var credentials = "username=" + newAccount.email + "&password=" + newAccount.passwords.password;
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('X-Login-Ajax-call', "true");

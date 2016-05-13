@@ -57,7 +57,7 @@ import {Role} from "./models/Roles";
             position: fixed;
             max-width: 100%;
             z-index: 10001;
-            left: 45%;
+            left: 25%;
             top:8%;
         }
         
