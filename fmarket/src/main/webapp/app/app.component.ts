@@ -46,7 +46,7 @@ import {Role} from "./models/Roles";
         }
         
         .login-background{
-            background: url('http://heelanhammer.com/wp-content/uploads/2015/12/Grey-Background.jpg.png');
+            background: url('/staticResorces/registration-background.png');
         }
         
         .page-container{
