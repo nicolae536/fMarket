@@ -1,4 +1,12 @@
 .registration-page{
-    padding-top: 25vh;
-    text-align: center;
- }
+	height: 84%;
+	display: table;
+	width: 100%;
+	text-align: center;
+}
+
+.registration-page .component-wrapper{
+	display: table-cell;
+	vertical-align: middle;
+	padding: 25px 0 25px 0;
+}
