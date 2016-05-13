@@ -20,6 +20,7 @@ var jqueryService_1 = require("../../services/jqueryService");
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
 var subscribersService_1 = require("../../services/subscribersService");
 var notificationService_1 = require("../../services/notificationService");
+var applicationConstansts_1 = require("../../models/applicationConstansts");
 var folderPath = '/app/pages/homePage';
 var HomePage = (function () {
     function HomePage(_categoriesMenuService, _demandService, subscribersService, formBuilder, notificationService) {
@@ -35,6 +36,7 @@ var HomePage = (function () {
         this.getDomains();
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
+        this._notificationService.updateBackground(applicationConstansts_1.ApplicationConstants.homePage);
     };
     HomePage.prototype.ngAfterViewChecked = function () {
         this.rematchElementsOnView();

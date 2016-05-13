@@ -22,10 +22,6 @@
     font-size: 12px;
 }
 
-.footer .footer-wrapper .footer-row a {
-    color: #a6a6a6;
-}
-
 .footer .footer-wrapper .footer-row.under-image {
     font-size: 12px;
     padding-top: 10px;
@@ -41,6 +37,7 @@
 
 .footer .footer-wrapper .footer-row a {
     cursor: pointer;
+    color: #DEE9EB;
 }
 
 .footer .rights-reserved {

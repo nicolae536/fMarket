@@ -42,6 +42,7 @@ var LoginPage = (function () {
         this._showRegisterLink = true;
         this._forgetPasswordLabel = 'Click aici pentru a o reseta';
         this._showForgetPasswordLink = true;
+        this._loginPage = true;
         this._notificationService.updateBackground(applicationConstansts_1.ApplicationConstants.loginPage);
     };
     LoginPage.prototype.requestHandler = function (account) {

@@ -8,6 +8,7 @@ export class ApplicationConstants{
     public static HOUR:number = 3600000;
 
     public static loginPage = 'login-page';
+    public static homePage = 'home-page';
 
     public static  getLocaleDateString(){
 

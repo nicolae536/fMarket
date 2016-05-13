@@ -38,6 +38,7 @@ export class ForgetPasswordPage implements OnInit {
     private _router:Router;
     private _registrationComponent:RegistrationComponent;
     private _notificationService:NotificationService;
+    private _loginPage;
 
     constructor(router:Router, registrationService:RegistrationService, notificationService:NotificationService) {
         this._router = router;
@@ -59,6 +60,8 @@ export class ForgetPasswordPage implements OnInit {
         this._passwordLabel = 'Parola noua';
         this._showForgetPasswordLink = false;
         this._forgetPasswordLabel = '';
+        this._loginPage = false;
+
         this._notificationService.updateBackground(ApplicationConstants.loginPage);
     }
 

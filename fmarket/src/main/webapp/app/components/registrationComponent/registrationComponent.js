@@ -20,15 +20,25 @@ var RegistrationComponent = (function () {
     function RegistrationComponent(formBuilder) {
         this.$registrationForm = new core_1.EventEmitter();
         this.loaded = new core_1.EventEmitter();
+        this.reapeatPasswordControl = true;
         this._formBuilder = formBuilder;
     }
     RegistrationComponent.prototype.ngOnInit = function () {
         this._registrationForm = this._formBuilder.group([]);
         this._registrationForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
-        this._registrationForm.addControl('password', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword])));
+        this._registrationForm.addControl('passwords', this._formBuilder.group({}, { validator: Angular2ExtensionValidators_1.CustomValidators.checkPasswords }));
+        this._registrationForm.controls['passwords'].addControl('password', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(6)])));
+        if (this.reapeatPasswordControl) {
+            this._registrationForm.controls['passwords'].addControl('repeat', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(6)])));
+        }
         this._registrationForm.addControl('subscribe', this._formBuilder.control(false));
         this._registrationForm.addControl('rememberMe', this._formBuilder.control(false));
         this.loaded.emit(this);
+    };
+    RegistrationComponent.prototype.ngOnChanges = function (changes) {
+        if (changes.hasOwnProperty('_loginPage') && changes['_loginPage'].currentValue) {
+            this.reapeatPasswordControl = false;
+        }
     };
     RegistrationComponent.prototype.markAllFieldsAsErrors = function () {
         this._registrationForm.controls['email'].setErrors({ key: 'validateEmail' });
@@ -77,6 +87,10 @@ var RegistrationComponent = (function () {
         core_1.Input('show-login-link'), 
         __metadata('design:type', Boolean)
     ], RegistrationComponent.prototype, "_showLoginLink", void 0);
+    __decorate([
+        core_1.Input('login-page'), 
+        __metadata('design:type', Boolean)
+    ], RegistrationComponent.prototype, "_loginPage", void 0);
     __decorate([
         core_1.Output('registration-form'), 
         __metadata('design:type', core_1.EventEmitter)

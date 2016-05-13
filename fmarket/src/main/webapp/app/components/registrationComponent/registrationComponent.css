@@ -48,6 +48,11 @@
     color:#DEE9EB;
 }
 
+.regisration-component .password-error{
+    color: #ab2424;
+    padding: 5px 0 5px 0;
+}
+
 .regisration-component .form-group .ng-dirty.ng-invalid.ng-touched {
     border-color: #ab2424;
 

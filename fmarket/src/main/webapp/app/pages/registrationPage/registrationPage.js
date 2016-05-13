@@ -34,6 +34,7 @@ var RegistrationPage = (function () {
         this._forgetPasswordLabel = '';
         this._showForgetPasswordLink = false;
         this._showRegisterLink = false;
+        this._loginPage = false;
         this._notificationService.updateBackground(applicationConstansts_1.ApplicationConstants.loginPage);
     };
     RegistrationPage.prototype.referenceComponent = function ($event) {

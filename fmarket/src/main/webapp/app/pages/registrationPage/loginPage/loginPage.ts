@@ -38,6 +38,7 @@ export class LoginPage implements OnInit {
     private _localStorageService:LocalStorageService;
     private _notificationService:NotificationService;
     private _registrationComponent:RegistrationComponent;
+    private _loginPage;
 
     constructor(router:Router, registrationService:RegistrationService,localStorageService:LocalStorageService, ntificationService:NotificationService) {
         this._router = router;
@@ -60,6 +61,7 @@ export class LoginPage implements OnInit {
         this._showRegisterLink = true;
         this._forgetPasswordLabel = 'Click aici pentru a o reseta'
         this._showForgetPasswordLink = true;
+        this._loginPage = true;
         this._notificationService.updateBackground(ApplicationConstants.loginPage);
     }
 

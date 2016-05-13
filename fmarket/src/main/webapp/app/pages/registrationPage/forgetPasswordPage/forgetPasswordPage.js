@@ -37,6 +37,7 @@ var ForgetPasswordPage = (function () {
         this._passwordLabel = 'Parola noua';
         this._showForgetPasswordLink = false;
         this._forgetPasswordLabel = '';
+        this._loginPage = false;
         this._notificationService.updateBackground(applicationConstansts_1.ApplicationConstants.loginPage);
     };
     ForgetPasswordPage.prototype.requestHandler = function (account) {

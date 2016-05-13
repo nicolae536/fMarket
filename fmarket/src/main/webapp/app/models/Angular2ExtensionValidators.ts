@@ -1,14 +1,45 @@
 /**
  * Created by nick_ on 4/16/2016.
  */
-import {Control, AbstractControl} from "@angular/common";
+import {Control, AbstractControl, ControlGroup} from "@angular/common";
 import {AccountStatus} from "./accountStatus";
+
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
 const INTEGER_REGEX = /^(0|[1-9][0-9]*)$/;
 
 export class CustomValidators {
+
+
+    public static checkPasswords(group:ControlGroup){
+        let password;
+        let reapeatPassword;
+
+        if(group.controls['password']){
+            password = group.controls['password'].value;
+        }
+
+        if(group.controls['repeat']){
+            reapeatPassword = group.controls['repeat'].value;
+        }
+
+        if(reapeatPassword!="" && !reapeatPassword){
+            return null;
+        }
+
+            if(password.length == reapeatPassword.length){
+                return null
+            }
+
+            return {
+                checkPasswords: {
+                    valid: false
+                }
+            };
+
+    }
+
     public static validateEmail(c:AbstractControl) {
         return EMAIL_REGEX.test(c.value) ? null : {
             validateEmail: {

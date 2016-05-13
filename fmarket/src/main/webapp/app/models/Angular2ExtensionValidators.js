@@ -7,6 +7,27 @@ var INTEGER_REGEX = /^(0|[1-9][0-9]*)$/;
 var CustomValidators = (function () {
     function CustomValidators() {
     }
+    CustomValidators.checkPasswords = function (group) {
+        var password;
+        var reapeatPassword;
+        if (group.controls['password']) {
+            password = group.controls['password'].value;
+        }
+        if (group.controls['repeat']) {
+            reapeatPassword = group.controls['repeat'].value;
+        }
+        if (reapeatPassword != "" && !reapeatPassword) {
+            return null;
+        }
+        if (password.length == reapeatPassword.length) {
+            return null;
+        }
+        return {
+            checkPasswords: {
+                valid: false
+            }
+        };
+    };
     CustomValidators.validateEmail = function (c) {
         return EMAIL_REGEX.test(c.value) ? null : {
             validateEmail: {

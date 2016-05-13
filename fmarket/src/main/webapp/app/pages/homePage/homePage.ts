@@ -13,6 +13,7 @@ import {JqueryService} from "../../services/jqueryService";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 import {SubscribersService} from "../../services/subscribersService";
 import {NotificationService} from "../../services/notificationService";
+import {ApplicationConstants} from "../../models/applicationConstansts";
 
 const folderPath = '/app/pages/homePage';
 
@@ -54,6 +55,7 @@ export class HomePage implements OnInit, AfterViewChecked {
         this.getDomains();
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
+        this._notificationService.updateBackground(ApplicationConstants.homePage);
     }
 
     ngAfterViewChecked():any {
