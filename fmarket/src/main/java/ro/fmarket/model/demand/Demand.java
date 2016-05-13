@@ -33,17 +33,13 @@ public class Demand extends BaseEntity {
 
 	@Column(nullable = false)
 	private String title;
-	
+
 	@Column(nullable = false)
 	private String message;
 
 	@NotNull
-	private Boolean phoneContact;
-	
-	@NotNull
 	private Boolean allCities;
-	
-	
+
 	@ManyToOne(optional = false)
 	private DemandDomain domain;
 

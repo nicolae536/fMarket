@@ -24,7 +24,6 @@ public class NewDemandInterceptorImpl implements NewDemandInterceptor {
 	@Override
 	public void intercept(Demand demand) {
 		System.out.println("INTERCEPTING NEW DEMAND");
-		Boolean phoneContact = demand.getPhoneContact();
 		List<Company> companies = companyDao.getByDomain(demand.getDomain().getId());
 		//TODO send mail to user
 	}

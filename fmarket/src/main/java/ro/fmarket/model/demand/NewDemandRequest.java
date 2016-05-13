@@ -39,8 +39,6 @@ public class NewDemandRequest {
 	 */
 	private String phone;
 	private String name;
-	private boolean agreePhoneContact;
-	private boolean agreeEmailContact;
 	private boolean allCities;
 
 }

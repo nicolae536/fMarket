@@ -39,14 +39,15 @@
     <div class="links-container text-center">
         <div *ngIf="showForgetPasswordLink || _showRegisterLink || _showLoginLink" class="links clearfix">
             <div *ngIf="showForgetPasswordLink">
-                <label>Ai uitat parola ?</label>
+                <label>Ai uitat parola?</label>
                 <a [routerLink]="['ForgetPassword']">{{_forgetPasswordLabel}}</a>
             </div>
             <div *ngIf="_showRegisterLink">
+            	<label>Nu ai cont?</label>
                 <a [routerLink]="['Registration']">Inregistreaza-te</a>
             </div>
             <div *ngIf="_showLoginLink">
-                <a [routerLink]="['Login']">Ai deja un cont ?</a>
+                <a [routerLink]="['Login']">Ai deja un cont?</a>
             </div>
         </div>
     </div>

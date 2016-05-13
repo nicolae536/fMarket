@@ -51,6 +51,8 @@
 .regisration-component .password-error{
     color: #ab2424;
     padding: 5px 0 5px 0;
+    font-size: 12px;
+    margin-top: -15px;
 }
 
 .regisration-component .form-group .ng-dirty.ng-invalid.ng-touched {

@@ -35,7 +35,6 @@ public class DemandAdminConverter {
 		result.setId(demand.getId());
 		result.setTitle(demand.getTitle());
 		result.setAllCities(demand.getAllCities());
-		result.setPhoneContact(demand.getPhoneContact());
 		result.setActivationDate(demand.getActivationDate());
 		result.setCreationDate(demand.getCreationDate());
 		result.setMessage(demand.getMessage());
