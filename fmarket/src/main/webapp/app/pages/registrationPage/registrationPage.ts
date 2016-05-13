@@ -9,6 +9,7 @@ import {RegistrationComponent} from "../../components/registrationComponent/regi
 import {RegistrationService} from "../../services/registrationService";
 import {RegisterAccount} from "../../models/registerAccount";
 import {NotificationService} from "../../services/notificationService";
+import {ApplicationConstants} from "../../models/applicationConstansts";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -49,6 +50,7 @@ export class RegistrationPage implements OnInit {
         this._forgetPasswordLabel = '';
         this._showForgetPasswordLink = false;
         this._showRegisterLink = false;
+        this._notificationService.updateBackground(ApplicationConstants.loginPage);
     }
 
     referenceComponent($event){

@@ -1,10 +1,7 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
-import {Location} from "@angular/common";
-import {CORE_DIRECTIVES, FormBuilder} from "@angular/common";
-
+import {Location, CORE_DIRECTIVES, FormBuilder} from "@angular/common";
 import {Alert} from "ng2-bootstrap/ng2-bootstrap";
-
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/interval";
 import {AuthorizationService} from "./services/authorizationService";
@@ -28,7 +25,7 @@ import {Role} from "./models/Roles";
 @Component({
     selector: 'my-app',
     template: `
-        <div class="application-wrapper">
+        <div class="application-wrapper" [class.login-background]="backgroundSettings=='login-page'">
             <header-component></header-component>
             <div class="page-container">
                 <div *ngFor="let notification of _notifications" class="notification-helper">
@@ -43,10 +40,13 @@ import {Role} from "./models/Roles";
     `,
     styles: [`
         .application-wrapper{
-            padding-bottom: 109px;
+            padding-bottom: 101px;
             position: relative;
             min-height: 100vh;
-            background-color: white;
+        }
+        
+        .login-background{
+            background: url('http://heelanhammer.com/wp-content/uploads/2015/12/Grey-Background.jpg.png');
         }
         
         .page-container{
@@ -90,13 +90,15 @@ import {Role} from "./models/Roles";
 
 @RouteConfig(AuthorizationService.getApplicationRootRoutes())
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+
     router:Router;
     location:Location;
     _notifications:IAlert []
     private _notificationService:NotificationService;
     private _registrationService:RegistrationService;
     private _localeStorageService:LocalStorageService;
+    backgroundSettings:string = 'home-page';
 
     constructor(router:Router, location:Location, notificationService:NotificationService, registrationService:RegistrationService, localeStorageService:LocalStorageService) {
         this._registrationService = registrationService;
@@ -109,7 +111,7 @@ export class AppComponent {
 
         this._notificationService = notificationService;
         this._notificationService.notificationFlux.subscribe(event=> {
-            if(event.timeout) {
+            if (event.timeout) {
                 me.showDissmisableNotification(event, event.timeout);
             }
             else {
@@ -119,6 +121,13 @@ export class AppComponent {
 
         _.defer(this.checkApplicationStatus, this);
         //this.startDemadsWatcher();
+    }
+
+    ngOnInit():any {
+        let me = this;
+        this._notificationService.backgroundUpdate.subscribe(event=> {
+            me.backgroundSettings = event;
+        });
     }
 
     private startDemadsWatcher() {

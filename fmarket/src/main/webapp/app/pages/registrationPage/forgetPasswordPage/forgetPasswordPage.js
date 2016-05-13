@@ -16,6 +16,7 @@ var router_deprecated_1 = require("@angular/router-deprecated");
 var registrationComponent_1 = require("../../../components/registrationComponent/registrationComponent");
 var registrationService_1 = require("../../../services/registrationService");
 var notificationService_1 = require("../../../services/notificationService");
+var applicationConstansts_1 = require("../../../models/applicationConstansts");
 var folderPath = '/app/pages/registrationPage';
 var ForgetPasswordPage = (function () {
     function ForgetPasswordPage(router, registrationService, notificationService) {
@@ -36,6 +37,7 @@ var ForgetPasswordPage = (function () {
         this._passwordLabel = 'Parola noua';
         this._showForgetPasswordLink = false;
         this._forgetPasswordLabel = '';
+        this._notificationService.updateBackground(applicationConstansts_1.ApplicationConstants.loginPage);
     };
     ForgetPasswordPage.prototype.requestHandler = function (account) {
         var me = this;

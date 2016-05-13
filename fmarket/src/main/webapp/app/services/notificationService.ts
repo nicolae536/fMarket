@@ -13,6 +13,7 @@ export class NotificationService {
     private _NotificationController:string = '/notify';
     private api:FMarketApi;
     public notificationFlux:Subject<any> = new Subject();
+    public backgroundUpdate:Subject<string> = new Subject();
 
     constructor(http:Http) {
         this.api = new FMarketApi(http);
@@ -24,5 +25,9 @@ export class NotificationService {
 
     emitNotificationToRootComponent(notification:IAlert){
         this.notificationFlux.next(notification);
+    }
+
+    updateBackground(background:string){
+        this.backgroundUpdate.next(background);
     }
 }

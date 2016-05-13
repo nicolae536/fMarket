@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_deprecated_1 = require("@angular/router-deprecated");
 var common_1 = require("@angular/common");
-var common_2 = require("@angular/common");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/interval");
@@ -34,6 +33,7 @@ var Roles_1 = require("./models/Roles");
 //= {type: "success", dismisable: true, message:""};
 var AppComponent = (function () {
     function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
+        this.backgroundSettings = 'home-page';
         this._registrationService = registrationService;
         this._localeStorageService = localeStorageService;
         var me = this;
@@ -52,6 +52,12 @@ var AppComponent = (function () {
         _.defer(this.checkApplicationStatus, this);
         //this.startDemadsWatcher();
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var me = this;
+        this._notificationService.backgroundUpdate.subscribe(function (event) {
+            me.backgroundSettings = event;
+        });
+    };
     AppComponent.prototype.startDemadsWatcher = function () {
         var me = this;
         Observable_1.Observable.interval(15 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
@@ -109,11 +115,11 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n        <div class=\"application-wrapper\">\n            <header-component></header-component>\n            <div class=\"page-container\">\n                <div *ngFor=\"let notification of _notifications\" class=\"notification-helper\">\n                    <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                        {{notification.message}}\n                    </alert>\n                </div>\n                <router-outlet></router-outlet>\n            </div>\n            <footer-component></footer-component>\n        </div>\n    ",
-            styles: ["\n        .application-wrapper{\n            padding-bottom: 109px;\n            position: relative;\n            min-height: 100vh;\n            background-color: white;\n        }\n        \n        .page-container{\n            margin-top: 50px;\n        }\n        \n        .page-container .notification-helper{\n            position: fixed;\n            max-width: 100%;\n            z-index: 10001;\n            left: 45%;\n            top:8%;\n        }\n        \n        \n        @media (max-width: 990px){\n            .application-wrapper{\n                    padding-bottom: 320px !important\n            }\n    }\n    "],
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.Alert, common_2.CORE_DIRECTIVES, footerComponent_1.FooterComponent],
+            template: "\n        <div class=\"application-wrapper\" [class.login-background]=\"backgroundSettings=='login-page'\">\n            <header-component></header-component>\n            <div class=\"page-container\">\n                <div *ngFor=\"let notification of _notifications\" class=\"notification-helper\">\n                    <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                        {{notification.message}}\n                    </alert>\n                </div>\n                <router-outlet></router-outlet>\n            </div>\n            <footer-component></footer-component>\n        </div>\n    ",
+            styles: ["\n        .application-wrapper{\n            padding-bottom: 101px;\n            position: relative;\n            min-height: 100vh;\n        }\n        \n        .login-background{\n            background: url('http://heelanhammer.com/wp-content/uploads/2015/12/Grey-Background.jpg.png');\n        }\n        \n        .page-container{\n            margin-top: 50px;\n        }\n        \n        .page-container .notification-helper{\n            position: fixed;\n            max-width: 100%;\n            z-index: 10001;\n            left: 45%;\n            top:8%;\n        }\n        \n        \n        @media (max-width: 990px){\n            .application-wrapper{\n                    padding-bottom: 320px !important\n            }\n    }\n    "],
+            directives: [router_deprecated_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.Alert, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent],
             providers: [
-                common_2.FormBuilder,
+                common_1.FormBuilder,
                 notificationService_1.NotificationService,
                 localStorageService_1.LocalStorageService,
                 registrationService_1.RegistrationService,

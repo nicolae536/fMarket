@@ -9,6 +9,7 @@ import {RegistrationComponent} from "../../../components/registrationComponent/r
 import {RegistrationService} from "../../../services/registrationService";
 import {RegisterAccount} from "../../../models/registerAccount";
 import {NotificationService} from "../../../services/notificationService";
+import {ApplicationConstants} from "../../../models/applicationConstansts";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -58,6 +59,7 @@ export class ForgetPasswordPage implements OnInit {
         this._passwordLabel = 'Parola noua';
         this._showForgetPasswordLink = false;
         this._forgetPasswordLabel = '';
+        this._notificationService.updateBackground(ApplicationConstants.loginPage);
     }
 
     requestHandler(account:RegisterAccount) {

@@ -1,35 +1,46 @@
-<div class="regisration-component form-style clearfix">
-    <h3 class="title">{{formTitle}}</h3>
-    <form [ngFormModel]="_registrationForm" (ngSubmit)="registrationFormSubmit()" class="registration-form">
-        <div class="form-group">
-            <label>E-mail</label>
-            <input type="text" class="form-control" [ngFormControl]="_registrationForm.controls['email']"/>
+<div class="regisration-component clearfix">
+    <div class="form-wrapper">
+        <div class="form-style">
+            <div class="title-container">
+                <span class="h3">{{formTitle}}</span>
+            </div>
+            <form [ngFormModel]="_registrationForm" (ngSubmit)="registrationFormSubmit()" class="registration-form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="E-mail"
+                           [ngFormControl]="_registrationForm.controls['email']"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" [placeholder]="passwordLabel"
+                           [ngFormControl]="_registrationForm.controls['password']"/>
+                </div>
+                <div class="clearfix">
+                    <div *ngIf="showNewsletter">
+                        <input type="checkbox" [ngFormControl]="_registrationForm.controls['subscribe']"/>
+                        <label>Inscriema la newsletter</label>
+                    </div>
+                    <div class="pull-right button-container">
+                        <button type="submit" class="btn btn-primary">{{buttonLabel}}</button>
+                    </div>
+                    <div *ngIf="showRememberMeField">
+                        <input type="checkbox" [ngFormControl]="_registrationForm.controls['rememberMe']"/>
+                        <label>Tine-ma minte</label>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label>{{passwordLabel}}</label>
-            <input type="password" class="form-control"[ngFormControl]="_registrationForm.controls['password']"/>
-        </div>
-        <div *ngIf="showNewsletter" class="pull-left" >
-            <input type="checkbox" [ngFormControl]="_registrationForm.controls['subscribe']"/>
-            <label>Inscriema la newsletter</label>
-        </div>
-        <div *ngIf="showRememberMeField" class="form-group">
-            <input  type="checkbox" [ngFormControl]="_registrationForm.controls['rememberMe']"/>
-            <label>Tine-ma minte</label>
-        </div>
-        <div>
-            <button type="submit" class="btn btn-primary">{{buttonLabel}}</button>
-        </div>
-        <div *ngIf="showForgetPasswordLink || _showRegisterLink || _showLoginLink"  class="links clearfix">
-            <div *ngIf="showForgetPasswordLink" class="pull-right">
+    </div>
+    <div class="links-container text-center">
+        <div *ngIf="showForgetPasswordLink || _showRegisterLink || _showLoginLink" class="links clearfix">
+            <div *ngIf="showForgetPasswordLink">
+                <label>Ai uitat parola ?</label>
                 <a [routerLink]="['ForgetPassword']">{{_forgetPasswordLabel}}</a>
             </div>
-            <div *ngIf="_showRegisterLink" class="pull-left">
+            <div *ngIf="_showRegisterLink">
                 <a [routerLink]="['Registration']">Inregistreaza-te</a>
             </div>
-            <div *ngIf="_showLoginLink" class="pull-left">
+            <div *ngIf="_showLoginLink">
                 <a [routerLink]="['Login']">Ai deja un cont ?</a>
             </div>
         </div>
-    </form>
+    </div>
 </div>

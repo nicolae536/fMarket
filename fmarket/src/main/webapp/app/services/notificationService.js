@@ -19,6 +19,7 @@ var NotificationService = (function () {
     function NotificationService(http) {
         this._NotificationController = '/notify';
         this.notificationFlux = new Subject_1.Subject();
+        this.backgroundUpdate = new Subject_1.Subject();
         this.api = new fMarketApi_1.FMarketApi(http);
     }
     NotificationService.prototype.getStatus = function () {
@@ -26,6 +27,9 @@ var NotificationService = (function () {
     };
     NotificationService.prototype.emitNotificationToRootComponent = function (notification) {
         this.notificationFlux.next(notification);
+    };
+    NotificationService.prototype.updateBackground = function (background) {
+        this.backgroundUpdate.next(background);
     };
     NotificationService = __decorate([
         core_1.Injectable(), 

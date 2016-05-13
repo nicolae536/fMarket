@@ -58,8 +58,9 @@ export class LoginPage implements OnInit {
         this._showNewsletterField = false;
         this._passwordLabel = 'Parola';
         this._showRegisterLink = true;
-        this._forgetPasswordLabel = 'Ai uitat parola ?'
+        this._forgetPasswordLabel = 'Click aici pentru a o reseta'
         this._showForgetPasswordLink = true;
+        this._notificationService.updateBackground(ApplicationConstants.loginPage);
     }
 
     requestHandler(account:RegisterAccount) {

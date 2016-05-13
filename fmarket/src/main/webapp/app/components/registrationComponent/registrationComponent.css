@@ -2,26 +2,50 @@
 .regisration-component {
     width: 25vw;
     display: inline-block;
-    padding: 10px;
+    text-align: left;
     text-align: left;
 }
 
-.regisration-component.form-style {
+.regisration-component .form-wrapper{
+    padding: 10px;
+    border-radius: 7px;
+    background-color: rgba(255,255,255,0.5);
+}
+
+.regisration-component .title-container{
+    padding: 20px 0 20px 20px;
+    background-color: #F4F4F4;
+    border-bottom: 1px solid #CFCFCF;
+    margin-bottom: 5px;
+    border-radius: 7px 7px 0 0;
+}
+
+.regisration-component .title-container .h3{
+    font-weight: bold;
+}
+
+.regisration-component .form-style {
     border: 1px solid #f0dfd5;
-    box-shadow: 10px 10px 5px #888888;
+    border-radius: 7px;
+    box-shadow: 0 0 6px;
+    background-color: white;
+}
+
+.regisration-component .form-style .registration-form{
+    padding: 16px;
 }
 
 .regisration-component.clearfix .title {
     padding-bottom: 20px;
 }
 
-.regisration-component.clearfix .btn.btn-primary {
-    width: 100%;
+.regisration-component .links-container {
+    padding-top: 15px;
+    color: #FAFAFA;
 }
 
-.regisration-component .links {
-    padding-top: 20px;
-    padding-bottom: 20px;
+.regisration-component .links-container a{
+    color:#DEE9EB;
 }
 
 .regisration-component .form-group .ng-dirty.ng-invalid.ng-touched {
@@ -33,8 +57,18 @@
     border-color: #ab2424;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1176px) {
     .regisration-component {
         width: 80vw;
+    }
+
+    .regisration-component.clearfix .btn.btn-primary {
+        width: 100%;
+    }
+}
+
+@media (max-width: 340px) {
+    .regisration-component.clearfix .button-container{
+        width: 100%;
     }
 }

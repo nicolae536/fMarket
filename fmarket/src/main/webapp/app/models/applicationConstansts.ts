@@ -7,6 +7,8 @@ export class ApplicationConstants{
     public static MINUTE:number = 60000;
     public static HOUR:number = 3600000;
 
+    public static loginPage = 'login-page';
+
     public static  getLocaleDateString(){
 
         let formats = {
