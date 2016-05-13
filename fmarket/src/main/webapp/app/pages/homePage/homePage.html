@@ -63,23 +63,23 @@
     <div class="home-page-subscriber clearfix">
         <form [ngFormModel]="_subscribeForm" (ngSubmit)="submitSubscriber()">
 
-            <div class="col-md-8 col-xs-12">
-                <div class="col-md-6 col-xs-12 align-input">
-                    <div class="text-align">
+            <div class="col-md-11 col-xs-12">
+                <div class="col-md-8 col-xs-12 align-input">
+                    <div class="text-align subscribe-text">
                     <span>
-                        Loren ipsum loren ipsum loren ipsum
+                        Inscrie-te si fii la curent cu toate noutatile fmarket
                     </span>
                     </div>
                 </div>
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-4 col-xs-12">
                     <input type="email" [ngFormControl]="_subscribeForm.controls['email']" class="form-control"
                            placeholder="E-mail"/>
                 </div>
 
             </div>
-            <div class="col-md-2 col-xs-12">
+            <div class="col-md-1 col-xs-12">
                 <button type="submit" class="btn btn-primary">
-                    Subscribe
+                    Inscrie-te
                 </button>
             </div>
         </form>

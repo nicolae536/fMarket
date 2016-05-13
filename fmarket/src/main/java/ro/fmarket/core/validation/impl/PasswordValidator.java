@@ -7,7 +7,7 @@ import ro.fmarket.core.constants.ValidationConstants;
 import ro.fmarket.core.validation.api.ValidPassword;
 
 public class PasswordValidator implements ConstraintValidator<ValidPassword, String> {
-	
+
 	@Override
 	public void initialize(ValidPassword validPassword) {
 	}
@@ -24,6 +24,9 @@ public class PasswordValidator implements ConstraintValidator<ValidPassword, Str
 			return false;
 		}
 		if (password.length() > ValidationConstants.PASSWORD_MAX_LENGTH) {
+			return false;
+		}
+		if (!password.matches("^[a-zA-Z0-9]*$")) {
 			return false;
 		}
 		// contains digits

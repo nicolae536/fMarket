@@ -42,19 +42,28 @@
 }
 
 .home-page .home-page-subscriber {
-    padding: 3% 8% 3% 13%;
+    padding: 2% 15% 2% 0;
 }
 
 .home-page .home-page-subscriber .align-input{
     text-align: right;
 }
 
+.home-page .home-page-subscriber .subscribe-text {
+    font-size: 22px;
+}
+
 .home-page .home-page-subscriber .align-input div{
-    margin-top: 14px;
+    margin-top: 7px;
+}
+
+.home-page .home-page-subscriber .col-mad-11.col-xs-12 .col-md-4.col-xs-12{
+    width:40%;
 }
 
 .home-page .home-page-subscriber button {
-    padding-right: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .home-page .home-page-subscriber .col-xs-12 input{
@@ -62,7 +71,7 @@
 }
 
 .home-page .how-we-work {
-    padding: 3% 5% 3% 10%;
+    padding: 3% 5% 3% 11%;
     background-color: #f2f2f2;
 }
 
