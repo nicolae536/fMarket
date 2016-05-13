@@ -17,6 +17,7 @@ var registrationComponent_1 = require("../../components/registrationComponent/re
 var registrationService_1 = require("../../services/registrationService");
 var notificationService_1 = require("../../services/notificationService");
 var applicationConstansts_1 = require("../../models/applicationConstansts");
+var jqueryService_1 = require("../../services/jqueryService");
 var folderPath = '/app/pages/registrationPage';
 var RegistrationPage = (function () {
     function RegistrationPage(router, registrationService, notificationService) {
@@ -37,6 +38,9 @@ var RegistrationPage = (function () {
         this._loginPage = false;
         this._notificationService.updateBackground(applicationConstansts_1.ApplicationConstants.loginPage);
     };
+    RegistrationPage.prototype.ngAfterViewChecked = function () {
+        jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
+    };
     RegistrationPage.prototype.referenceComponent = function ($event) {
         this._registrationComponent = $event;
     };
@@ -55,6 +59,10 @@ var RegistrationPage = (function () {
             me._registrationComponent.markAllFieldsAsErrors();
         });
     };
+    __decorate([
+        core_1.ViewChild('registrationPageRef'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], RegistrationPage.prototype, "_registrationPageRef", void 0);
     RegistrationPage = __decorate([
         core_1.Component({
             selector: 'registration-page',

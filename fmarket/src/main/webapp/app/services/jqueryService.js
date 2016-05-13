@@ -15,6 +15,14 @@ var JqueryService = (function () {
     JqueryService.getElementHeight = function (nativeElement) {
         return $(nativeElement).height();
     };
+    JqueryService.setPageHeight = function (nativeElement) {
+        var height = $(window).height();
+        if (this.isMobile()) {
+            return;
+        }
+        var pageHeight = height - 50 - 101;
+        $(nativeElement).height(pageHeight);
+    };
     JqueryService.fitChildItemsInContainer = function (nativeElement) {
         var height = $(nativeElement).height();
         var childrens = $(nativeElement).children();

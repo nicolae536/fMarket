@@ -5,7 +5,7 @@
  * Created by nick_ on 4/17/2016.
  */
 
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild, AfterViewChecked, ElementRef} from "@angular/core";
 import {Router} from "@angular/router-deprecated";
 
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
@@ -14,6 +14,7 @@ import {RegisterAccount} from "../../../models/registerAccount";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
 import {LocalStorageService} from "../../../services/localStorageService";
 import {NotificationService} from "../../../services/notificationService";
+import {JqueryService} from "../../../services/jqueryService";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -22,10 +23,11 @@ const folderPath = '/app/pages/registrationPage';
     templateUrl: folderPath + '/registrationPage.html',
     directives: [RegistrationComponent]
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, AfterViewChecked {
     private _registrationService:RegistrationService;
-
+    @ViewChild('registrationPageRef') _registrationPageRef:ElementRef;
     private _formTitle:string;
+
     private _formButtonLabel:string;
     private _showNewsletterField:boolean;
     private _passwordLabel:string;
@@ -39,12 +41,15 @@ export class LoginPage implements OnInit {
     private _notificationService:NotificationService;
     private _registrationComponent:RegistrationComponent;
     private _loginPage;
-
     constructor(router:Router, registrationService:RegistrationService,localStorageService:LocalStorageService, ntificationService:NotificationService) {
         this._router = router;
         this._registrationService = registrationService;
         this._localStorageService = localStorageService;
         this._notificationService = ntificationService;
+    }
+
+    ngAfterViewChecked():any {
+        JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
     }
 
     referenceComponent($event){

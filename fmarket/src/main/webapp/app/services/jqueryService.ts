@@ -21,6 +21,18 @@ export class JqueryService {
         return $(nativeElement).height();
     }
 
+    static setPageHeight(nativeElement){
+        let height = $(window).height();
+
+        if(this.isMobile()){
+            return;
+        }
+
+        let pageHeight = height-50-101;
+
+        $(nativeElement).height(pageHeight);
+    }
+
     static fitChildItemsInContainer(nativeElement:any) {
         let height = $(nativeElement).height();
         let childrens = $(nativeElement).children();

@@ -17,6 +17,7 @@ var registrationComponent_1 = require("../../../components/registrationComponent
 var registrationService_1 = require("../../../services/registrationService");
 var notificationService_1 = require("../../../services/notificationService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
+var jqueryService_1 = require("../../../services/jqueryService");
 var folderPath = '/app/pages/registrationPage';
 var ForgetPasswordPage = (function () {
     function ForgetPasswordPage(router, registrationService, notificationService) {
@@ -24,6 +25,9 @@ var ForgetPasswordPage = (function () {
         this._registrationService = registrationService;
         this._notificationService = notificationService;
     }
+    ForgetPasswordPage.prototype.ngAfterViewChecked = function () {
+        jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
+    };
     ForgetPasswordPage.prototype.referenceComponent = function ($event) {
         this._registrationComponent = $event;
     };
@@ -55,6 +59,10 @@ var ForgetPasswordPage = (function () {
             me._registrationComponent.markAllFieldsAsErrors();
         });
     };
+    __decorate([
+        core_1.ViewChild('registrationPageRef'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], ForgetPasswordPage.prototype, "_registrationPageRef", void 0);
     ForgetPasswordPage = __decorate([
         core_1.Component({
             selector: 'forget=password-page',

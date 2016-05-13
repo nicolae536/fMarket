@@ -2,7 +2,7 @@
  * Created by nick_ on 4/17/2016.
  */
 
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked} from "@angular/core";
 import {Router} from "@angular/router-deprecated";
 
 import {RegistrationComponent} from "../../components/registrationComponent/registrationComponent";
@@ -10,6 +10,7 @@ import {RegistrationService} from "../../services/registrationService";
 import {RegisterAccount} from "../../models/registerAccount";
 import {NotificationService} from "../../services/notificationService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
+import {JqueryService} from "../../services/jqueryService";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -18,10 +19,12 @@ const folderPath = '/app/pages/registrationPage';
     templateUrl: folderPath + '/registrationPage.html',
     directives: [RegistrationComponent]
 })
-export class RegistrationPage implements OnInit {
+export class RegistrationPage implements OnInit, AfterViewChecked {
     private _registrationService:RegistrationService;
-
+    @ViewChild('registrationPageRef') _registrationPageRef:ElementRef;
     private _formTitle:string;
+
+
     private _formButtonLabel:string;
     private _showNewsletterField:boolean;
     private _passwordLabel:string;
@@ -34,7 +37,6 @@ export class RegistrationPage implements OnInit {
     private _registrationComponent:RegistrationComponent;
     private _notificationService:NotificationService;
     private _loginPage;
-
     constructor(router:Router,registrationService:RegistrationService, notificationService:NotificationService) {
         this._router = router;
         this._registrationService = registrationService;
@@ -53,6 +55,10 @@ export class RegistrationPage implements OnInit {
         this._showRegisterLink = false;
         this._loginPage = false;
         this._notificationService.updateBackground(ApplicationConstants.loginPage);
+    }
+
+    ngAfterViewChecked():any {
+        JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
     }
 
     referenceComponent($event){

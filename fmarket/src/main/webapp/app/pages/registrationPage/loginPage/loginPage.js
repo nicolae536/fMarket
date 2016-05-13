@@ -21,6 +21,7 @@ var registrationService_1 = require("../../../services/registrationService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
 var localStorageService_1 = require("../../../services/localStorageService");
 var notificationService_1 = require("../../../services/notificationService");
+var jqueryService_1 = require("../../../services/jqueryService");
 var folderPath = '/app/pages/registrationPage';
 var LoginPage = (function () {
     function LoginPage(router, registrationService, localStorageService, ntificationService) {
@@ -29,6 +30,9 @@ var LoginPage = (function () {
         this._localStorageService = localStorageService;
         this._notificationService = ntificationService;
     }
+    LoginPage.prototype.ngAfterViewChecked = function () {
+        jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
+    };
     LoginPage.prototype.referenceComponent = function ($event) {
         this._registrationComponent = $event;
     };
@@ -61,6 +65,10 @@ var LoginPage = (function () {
             me._registrationComponent.markAllFieldsAsErrors();
         });
     };
+    __decorate([
+        core_1.ViewChild('registrationPageRef'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], LoginPage.prototype, "_registrationPageRef", void 0);
     LoginPage = __decorate([
         core_1.Component({
             selector: 'login-page',
