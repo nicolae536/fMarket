@@ -1,5 +1,4 @@
 .registration-page{
-	height: 84%;
 	display: table;
 	width: 100%;
 	text-align: center;
@@ -9,4 +8,10 @@
 	display: table-cell;
 	vertical-align: middle;
 	padding: 25px 0 25px 0;
+}
+
+@media (max-width: 1024px) {
+	.registration-page{
+		height: 84%;
+	}
 }
