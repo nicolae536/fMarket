@@ -68,6 +68,12 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     requestHandler(account:RegisterAccount) {
         let me=this;
 
+        if(!account){
+            me
+            me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Va rugam complecatati correct toate fieldurile pentru a va inregistra', timeout:5});
+            return;
+        }
+
         this._registrationService.createAccount(account)
             .map((response)=> {
                 if (response.text()) {
@@ -80,7 +86,6 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
                 },
                 error => {
                     me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Inregistrare invalida!', timeout:5});
-                    me._registrationComponent.markAllFieldsAsErrors();
                 }
             )
     }

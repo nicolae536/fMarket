@@ -60,11 +60,17 @@ export class RegistrationComponent implements OnInit, OnChanges {
         }
     }
 
-    markAllFieldsAsErrors() {
-        this._registrationForm.controls['email'].setErrors({key: 'validateEmail'});
-        this._registrationForm.controls['passwords'].controls['password'].setErrors({key: 'validatePassword'});
-        if(this._registrationForm.controls['passwords'].controls['repeat']){
-            this._registrationForm.controls['passwords'].controls['repeat'].setErrors({key: 'validatePassword'});
+    markAllFieldsAsErrors(configuration) {
+
+        if(configuration['email']) {
+            this._registrationForm.controls['email'].setErrors({key: 'validateEmail'});
+        }
+
+        if(configuration['password']){
+            this._registrationForm.controls['passwords'].controls['password'].setErrors({key: 'validatePassword'});
+            if(this._registrationForm.controls['passwords'].controls['repeat']){
+                this._registrationForm.controls['passwords'].controls['repeat'].setErrors({key: 'validatePassword'});
+            }
         }
     }
 

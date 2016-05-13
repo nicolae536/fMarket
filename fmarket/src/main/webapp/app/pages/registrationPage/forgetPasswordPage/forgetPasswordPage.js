@@ -46,6 +46,10 @@ var ForgetPasswordPage = (function () {
     };
     ForgetPasswordPage.prototype.requestHandler = function (account) {
         var me = this;
+        if (!account) {
+            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Va rugam complecatati correct toate fieldurile pentru a va inregistra', timeout: 5 });
+            return;
+        }
         this._registrationService.resetPassword(account)
             .map(function (response) {
             if (response.text()) {
@@ -56,7 +60,7 @@ var ForgetPasswordPage = (function () {
             me._router.navigate(['SuccessResetPassword']);
         }, function (error) {
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Resetare parola invalida!', timeout: 5 });
-            me._registrationComponent.markAllFieldsAsErrors();
+            me._registrationComponent.markAllFieldsAsErrors({ email: true });
         });
     };
     __decorate([

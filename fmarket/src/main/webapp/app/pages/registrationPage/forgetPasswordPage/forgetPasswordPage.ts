@@ -73,6 +73,11 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
     requestHandler(account:RegisterAccount) {
         let me=this;
 
+        if(!account){
+            me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Va rugam complecatati correct toate fieldurile pentru a va inregistra', timeout:5});
+            return;
+        }
+
         this._registrationService.resetPassword(account)
             .map((response)=> {
                 if (response.text()) {
@@ -85,7 +90,7 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
                 },
                 error => {
                     me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Resetare parola invalida!', timeout:5});
-                    me._registrationComponent.markAllFieldsAsErrors();
+                    me._registrationComponent.markAllFieldsAsErrors({email:true});
                 }
             )
     }

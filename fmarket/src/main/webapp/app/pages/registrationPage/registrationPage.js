@@ -46,6 +46,11 @@ var RegistrationPage = (function () {
     };
     RegistrationPage.prototype.requestHandler = function (account) {
         var me = this;
+        if (!account) {
+            me;
+            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Va rugam complecatati correct toate fieldurile pentru a va inregistra', timeout: 5 });
+            return;
+        }
         this._registrationService.createAccount(account)
             .map(function (response) {
             if (response.text()) {
@@ -56,7 +61,6 @@ var RegistrationPage = (function () {
             me._router.navigate(['SuccessRegister']);
         }, function (error) {
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Inregistrare invalida!', timeout: 5 });
-            me._registrationComponent.markAllFieldsAsErrors();
         });
     };
     __decorate([

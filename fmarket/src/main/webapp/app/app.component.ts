@@ -28,10 +28,14 @@ import {Role} from "./models/Roles";
         <div class="application-wrapper" [class.login-background]="backgroundSettings=='login-page'">
             <header-component></header-component>
             <div class="page-container">
-                <div *ngFor="let notification of _notifications" class="notification-helper">
-                    <alert [type]="notification.type" dismissible="true" (close)="closeAlert(notification)">
-                        {{notification.message}}
-                    </alert>
+                <div class="notification-wrapper">
+                    <div *ngFor="let notification of _notifications"  class="wrapper-inner">
+                        <div [class.ng-for-item]="notification.new"  class="notification-helper">
+                                <alert [type]="notification.type" dismissible="true" (close)="closeAlert(notification)">
+                                    {{notification.message}}
+                                </alert>
+                        </div>
+                    </div>
                 </div>
                 <router-outlet></router-outlet>
             </div>
@@ -53,14 +57,36 @@ import {Role} from "./models/Roles";
             margin-top: 50px;
         }
         
-        .page-container .notification-helper{
+        .page-container .notification-wrapper{
             position: fixed;
-            max-width: 100%;
+            min-width: 100%;
             z-index: 10001;
-            left: 25%;
-            top:8%;
+            top: 8%;           
         }
         
+        .page-container .notification-wrapper .wrapper-inner{
+            display:block;
+        }
+        
+        .page-container .notification-helper{
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+        
+        @keyframes item-animation {
+            0% {
+                padding-left: 100px;
+            }
+            100% {
+                padding-left: 0px;
+            } 
+        }
+
+        .ng-for-item {
+            animation: item-animation 0.5s;
+        }
         
         @media (max-width: 990px){
             .application-wrapper{
@@ -94,11 +120,12 @@ export class AppComponent implements OnInit {
 
     router:Router;
     location:Location;
-    _notifications:IAlert []
+    _notifications:IAlert [];
     private _notificationService:NotificationService;
     private _registrationService:RegistrationService;
     private _localeStorageService:LocalStorageService;
     backgroundSettings:string = 'home-page';
+    addItem:boolean=true;
 
     constructor(router:Router, location:Location, notificationService:NotificationService, registrationService:RegistrationService, localeStorageService:LocalStorageService) {
         this._registrationService = registrationService;
@@ -111,12 +138,16 @@ export class AppComponent implements OnInit {
 
         this._notificationService = notificationService;
         this._notificationService.notificationFlux.subscribe(event=> {
+            event.new = true;
+
             if (event.timeout) {
                 me.showDissmisableNotification(event, event.timeout);
             }
             else {
+                console.log(event);
                 me._notifications.push(event);
             }
+            setTimeout(()=>{me._notifications[me._notifications.length-1]['new']=false;}, 500);
         });
 
         _.defer(this.checkApplicationStatus, this);
