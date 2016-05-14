@@ -1,5 +1,5 @@
 .footer {
-    background-color: #2A2A2A;
+    background-color: #f8f8f8;
     position: absolute;
     /*left: 0;*/
     bottom: 0;
@@ -7,7 +7,6 @@
     width: 100%;
     overflow: hidden;
     text-align: center;
-    border-top: 1px solid #2A2A2A;;
 }
 
 .footer .footer-wrapper {

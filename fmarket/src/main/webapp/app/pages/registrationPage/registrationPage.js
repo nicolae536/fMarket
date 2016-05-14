@@ -48,7 +48,7 @@ var RegistrationPage = (function () {
         var me = this;
         if (!account) {
             me;
-            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Va rugam complecatati correct toate fieldurile pentru a va inregistra', timeout: 5 });
+            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Va rugam completati toate campurile!', timeout: 5 });
             return;
         }
         this._registrationService.createAccount(account)

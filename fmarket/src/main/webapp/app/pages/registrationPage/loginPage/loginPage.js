@@ -52,7 +52,7 @@ var LoginPage = (function () {
     LoginPage.prototype.requestHandler = function (account) {
         var me = this;
         if (!account) {
-            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Va rugam complecatati correct toate fieldurile pentru a va inregistra', timeout: 5 });
+            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Va rugam sa completati toate campurile!', timeout: 5 });
             return;
         }
         this._registrationService.login(account)

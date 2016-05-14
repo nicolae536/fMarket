@@ -47,7 +47,7 @@ var ForgetPasswordPage = (function () {
     ForgetPasswordPage.prototype.requestHandler = function (account) {
         var me = this;
         if (!account) {
-            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Va rugam complecatati correct toate fieldurile pentru a va inregistra', timeout: 5 });
+            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Va rugam sa completati toate campurile!', timeout: 5 });
             return;
         }
         this._registrationService.resetPassword(account)
@@ -59,7 +59,7 @@ var ForgetPasswordPage = (function () {
             .subscribe(function (response) {
             me._router.navigate(['SuccessResetPassword']);
         }, function (error) {
-            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Resetare parola invalida!', timeout: 5 });
+            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Email-ul nu e inregistrat in baza de date!', timeout: 5 });
             me._registrationComponent.markAllFieldsAsErrors({ email: true });
         });
     };
