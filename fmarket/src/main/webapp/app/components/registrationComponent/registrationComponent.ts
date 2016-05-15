@@ -43,9 +43,9 @@ export class RegistrationComponent implements OnInit, OnChanges {
         this._registrationForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
 
         this._registrationForm.addControl('passwords', this._formBuilder.group({}, {validator: CustomValidators.checkPasswords}));
-        this._registrationForm.controls['passwords'].addControl('password', this._formBuilder.control('', Validators.compose([Validators.required, Validators.minLength(6)])));
+        this._registrationForm.controls['passwords']['addControl']('password', this._formBuilder.control('', Validators.compose([Validators.required, Validators.minLength(6)])));
         if (this.reapeatPasswordControl) {
-            this._registrationForm.controls['passwords'].addControl('repeat', this._formBuilder.control('', Validators.compose([Validators.required, Validators.minLength(6)])));
+            this._registrationForm.controls['passwords']['addControl']('repeat', this._formBuilder.control('', Validators.compose([Validators.required, Validators.minLength(6)])));
         }
 
         this._registrationForm.addControl('subscribe', this._formBuilder.control(false));
@@ -67,9 +67,9 @@ export class RegistrationComponent implements OnInit, OnChanges {
         }
 
         if(configuration['password']){
-            this._registrationForm.controls['passwords'].controls['password'].setErrors({key: 'validatePassword'});
-            if(this._registrationForm.controls['passwords'].controls['repeat']){
-                this._registrationForm.controls['passwords'].controls['repeat'].setErrors({key: 'validatePassword'});
+            this._registrationForm.controls['passwords']['controls']['password'].setErrors({key: 'validatePassword'});
+            if(this._registrationForm.controls['passwords']['controls']['repeat']){
+                this._registrationForm.controls['passwords']['controls']['repeat'].setErrors({key: 'validatePassword'});
             }
         }
     }

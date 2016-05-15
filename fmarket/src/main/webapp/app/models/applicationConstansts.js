@@ -223,7 +223,7 @@ var ApplicationConstants = (function () {
     ApplicationConstants.getLocaleDateSeparator = function () {
         var dateFormat = (new Date()).toLocaleDateString();
         for (var i = 0; i < dateFormat.length; i++) {
-            if (isNaN(dateFormat[i])) {
+            if (isNaN(parseInt(dateFormat[i]))) {
                 return dateFormat[i];
             }
         }

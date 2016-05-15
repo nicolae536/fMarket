@@ -1,10 +1,13 @@
 "use strict";
+var $ = require('jquery');
+var animateScroll = require('animateScroll');
+_.extend($, { animateScroll: animateScroll });
 var JqueryService = (function () {
     function JqueryService() {
     }
     JqueryService.animateScroll = function (element, animation, scrollSpeed) {
         var aditionalHeight = this.isMobile() ? 50 : 0;
-        $(element.nativeElement).animatescroll({ scrollSpeed: scrollSpeed, easing: animation, aditionalHeight: aditionalHeight });
+        $(element.nativeElement)['animatescroll']({ scrollSpeed: scrollSpeed, easing: animation, aditionalHeight: aditionalHeight });
     };
     JqueryService.makeElementsOfSameHeight = function (nativeElement, param2) {
         var height = $(nativeElement).height();
@@ -39,9 +42,9 @@ var JqueryService = (function () {
         });
     };
     JqueryService.isMobile = function () {
-        if (sessionStorage.desktop)
+        if (sessionStorage['desktop'])
             return false;
-        else if (localStorage.mobile)
+        else if (localStorage['mobile'])
             return true;
         // alternative
         var mobile = ['iphone', 'ipad', 'android', 'blackberry', 'nokia', 'opera mini', 'windows mobile', 'windows phone', 'iemobile'];

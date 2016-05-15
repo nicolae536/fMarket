@@ -233,7 +233,7 @@ export class ApplicationConstants{
         let dateFormat = (new Date()).toLocaleDateString();
 
         for (let i=0;i<dateFormat.length; i++){
-            if(isNaN(dateFormat[i])){
+            if(isNaN(parseInt(dateFormat[i]))){
                 return dateFormat[i];
             }
         }

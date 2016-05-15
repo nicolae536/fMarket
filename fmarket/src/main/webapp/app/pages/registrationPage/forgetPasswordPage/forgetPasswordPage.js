@@ -59,7 +59,7 @@ var ForgetPasswordPage = (function () {
             .subscribe(function (response) {
             me._router.navigate(['SuccessResetPassword']);
         }, function (error) {
-            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Email-ul nu e inregistrat in baza de date!', timeout: 5 });
+            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Resetare parola invalida!', timeout: 5 });
             me._registrationComponent.markAllFieldsAsErrors({ email: true });
         });
     };

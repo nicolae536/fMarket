@@ -29,7 +29,7 @@ var RegistrationService = (function () {
         return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({ email: account.email, newPassword: account.passwords.password }));
     };
     RegistrationService.prototype.login = function (account) {
-        var newAccount = account ? account : { email: null, password: null };
+        var newAccount = account ? account : { email: null, passwords: { password: null } };
         var credentials = "username=" + newAccount.email + "&password=" + newAccount.passwords.password;
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');

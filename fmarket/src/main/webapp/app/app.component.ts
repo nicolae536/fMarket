@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {Location, CORE_DIRECTIVES, FormBuilder} from "@angular/common";
-import {Alert} from "ng2-bootstrap/ng2-bootstrap";
+import {AlertComponent} from "ng2-bootstrap/ng2-bootstrap";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/interval";
 import {AuthorizationService} from "./services/authorizationService";
@@ -94,7 +94,7 @@ import {Role} from "./models/Roles";
             }
     }
     `],
-    directives: [ROUTER_DIRECTIVES, HeaderComponent, Alert, CORE_DIRECTIVES, FooterComponent],
+    directives: [ROUTER_DIRECTIVES, HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent],
     providers: [
         FormBuilder,
 

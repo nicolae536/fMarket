@@ -27,9 +27,9 @@ var RegistrationComponent = (function () {
         this._registrationForm = this._formBuilder.group([]);
         this._registrationForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
         this._registrationForm.addControl('passwords', this._formBuilder.group({}, { validator: Angular2ExtensionValidators_1.CustomValidators.checkPasswords }));
-        this._registrationForm.controls['passwords'].addControl('password', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(6)])));
+        this._registrationForm.controls['passwords']['addControl']('password', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(6)])));
         if (this.reapeatPasswordControl) {
-            this._registrationForm.controls['passwords'].addControl('repeat', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(6)])));
+            this._registrationForm.controls['passwords']['addControl']('repeat', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(6)])));
         }
         this._registrationForm.addControl('subscribe', this._formBuilder.control(false));
         this._registrationForm.addControl('rememberMe', this._formBuilder.control(false));
@@ -45,9 +45,9 @@ var RegistrationComponent = (function () {
             this._registrationForm.controls['email'].setErrors({ key: 'validateEmail' });
         }
         if (configuration['password']) {
-            this._registrationForm.controls['passwords'].controls['password'].setErrors({ key: 'validatePassword' });
-            if (this._registrationForm.controls['passwords'].controls['repeat']) {
-                this._registrationForm.controls['passwords'].controls['repeat'].setErrors({ key: 'validatePassword' });
+            this._registrationForm.controls['passwords']['controls']['password'].setErrors({ key: 'validatePassword' });
+            if (this._registrationForm.controls['passwords']['controls']['repeat']) {
+                this._registrationForm.controls['passwords']['controls']['repeat'].setErrors({ key: 'validatePassword' });
             }
         }
     };

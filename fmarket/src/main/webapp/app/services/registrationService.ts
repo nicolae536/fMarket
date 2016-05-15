@@ -28,7 +28,7 @@ export class RegistrationService {
     }
 
     login(account:RegisterAccount){
-        let newAccount = account ? account : {email:null, password:null};
+        let newAccount = account ? account : {email:null, passwords:{password:null}};
 
         let credentials = "username=" + newAccount.email + "&password=" + newAccount.passwords.password;
 

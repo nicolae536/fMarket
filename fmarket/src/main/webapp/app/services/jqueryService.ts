@@ -2,11 +2,15 @@
  * Created by nick_ on 5/9/2016.
  */
 import {ElementRef} from "@angular/core";
+import * as $ from 'jquery';
+import * as animateScroll from 'animateScroll';
+
+_.extend($, {animateScroll: animateScroll});
 
 export class JqueryService {
     public static animateScroll(element:ElementRef, animation:string, scrollSpeed:number) {
         let aditionalHeight = this.isMobile() ? 50 : 0;
-        $(element.nativeElement).animatescroll({scrollSpeed: scrollSpeed, easing: animation, aditionalHeight:aditionalHeight})
+        $(element.nativeElement)['animatescroll']({scrollSpeed: scrollSpeed, easing: animation, aditionalHeight:aditionalHeight})
     }
 
     static makeElementsOfSameHeight(nativeElement:any, param2:any[]) {
@@ -52,9 +56,9 @@ export class JqueryService {
     }
 
     static isMobile(){
-        if (sessionStorage.desktop) // desktop storage
+        if (sessionStorage['desktop']) // desktop storage
             return false;
-        else if (localStorage.mobile) // mobile storage
+        else if (localStorage['mobile']) // mobile storage
             return true;
 
         // alternative

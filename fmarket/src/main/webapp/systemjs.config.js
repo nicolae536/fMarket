@@ -41,7 +41,9 @@
         map: map,
         packages: packages,
         paths: {
-            underscore: './node_modules/underscore/underscore.js'
+            underscore: './node_modules/underscore/underscore.js',
+            jquery: './node_modules/jQueryLibs/jquery.js',
+            animateScroll: './node_modules/jQueryLibs/animatescroll.min.js'
         }
     }
 
