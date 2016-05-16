@@ -77,6 +77,6 @@ export class JqueryService {
     }
 
     static setAppBackground() {
-        $('my-app').css('background-color','white');
+        $('my-app').css('background','white');
     }
 }

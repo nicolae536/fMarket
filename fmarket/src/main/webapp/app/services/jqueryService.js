@@ -60,7 +60,7 @@ var JqueryService = (function () {
         });
     };
     JqueryService.setAppBackground = function () {
-        $('my-app').css('background-color', 'white');
+        $('my-app').css('background', 'white');
     };
     return JqueryService;
 }());
