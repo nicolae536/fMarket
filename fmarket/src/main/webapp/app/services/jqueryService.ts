@@ -75,4 +75,8 @@ export class JqueryService {
             $(element).remove();
         });
     }
+
+    static setAppBackground() {
+        $('my-app').css('background-color','white');
+    }
 }

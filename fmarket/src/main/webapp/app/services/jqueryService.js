@@ -59,6 +59,9 @@ var JqueryService = (function () {
             $(element).remove();
         });
     };
+    JqueryService.setAppBackground = function () {
+        $('my-app').css('background-color', 'white');
+    };
     return JqueryService;
 }());
 exports.JqueryService = JqueryService;

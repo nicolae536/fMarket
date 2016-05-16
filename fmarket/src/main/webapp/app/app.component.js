@@ -69,6 +69,7 @@ var AppComponent = (function () {
                     return;
                 }
                 jqueryService_1.JqueryService.removeElementWithAnimation(element);
+                jqueryService_1.JqueryService.setAppBackground();
             }
         });
     };

@@ -12,14 +12,16 @@
         .app-layout {
             display: flex;
             flex-direction: column;
-
+            min-width: 100%;
+            min-height: 100%;
+            background: url("/staticResorces/homeBackground.jpg");
         }
     </style>
 </head>
 
 <body>
 <!--hidden div to dowload the backgroun-->
-    <div style="background: url('/staticResorces/homeBackground.jpg'); width:0px; height:0px;"></div>
+    <div style="background: url('/staticResorces/registration-background.png'); width:0px; height:0px;"></div>
     <div id="loadingSpinnerComponent" class="spinner-absolute-center">
         <div class="sk-circle">
             <div class="sk-circle1 sk-child"></div>

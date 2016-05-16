@@ -168,6 +168,7 @@ export class AppComponent implements OnInit {
                 }
 
                 JqueryService.removeElementWithAnimation(element);
+                JqueryService.setAppBackground();
             }
         });
     }
