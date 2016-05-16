@@ -34,7 +34,6 @@ var jqueryService_1 = require("./services/jqueryService");
 //= {type: "success", dismisable: true, message:""};
 var AppComponent = (function () {
     function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
-        this.backgroundSettings = 'home-page';
         this.addItem = true;
         this._registrationService = registrationService;
         this._localeStorageService = localeStorageService;
@@ -59,9 +58,6 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         var me = this;
-        this._notificationService.backgroundUpdate.subscribe(function (event) {
-            me.backgroundSettings = event;
-        });
         this._notificationService.firstLoad.subscribe(function (event) {
             if (applicationConstansts_1.ApplicationConstants.FIRST_LOAD) {
                 var element = document.getElementById('loadingSpinnerComponent');
@@ -130,7 +126,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n        <div class=\"application-wrapper\" [class.login-background]=\"backgroundSettings=='login-page'\">\n            <header-component></header-component>\n            <div class=\"page-container\">\n                <div class=\"notification-wrapper\">\n                    <div *ngFor=\"let notification of _notifications\"  class=\"wrapper-inner\">\n                        <div [class.ng-for-item]=\"notification.new\"  class=\"notification-helper\">\n                                <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                                    {{notification.message}}\n                                </alert>\n                        </div>\n                    </div>\n                </div>\n                <router-outlet></router-outlet>\n            </div>\n            <footer-component></footer-component>\n        </div>\n    ",
+            template: "\n        <div class=\"application-wrapper\">\n            <header-component></header-component>\n            <div class=\"page-container\">\n                <div class=\"notification-wrapper\">\n                    <div *ngFor=\"let notification of _notifications\"  class=\"wrapper-inner\">\n                        <div [class.ng-for-item]=\"notification.new\"  class=\"notification-helper\">\n                                <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                                    {{notification.message}}\n                                </alert>\n                        </div>\n                    </div>\n                </div>\n                <router-outlet></router-outlet>\n            </div>\n            <footer-component></footer-component>\n        </div>\n    ",
             styles: ["\n        .application-wrapper{\n            padding-bottom: 101px;\n            position: relative;\n            min-height: 100vh;\n        }\n        \n        .login-background{\n            background: url('/staticResorces/registration-background.png');\n        }\n        \n        .page-container{\n            margin-top: 50px;\n        }\n        \n        .page-container .notification-wrapper{\n            position: fixed;\n            min-width: 100%;\n            z-index: 10001;\n            top: 8%;           \n        }\n        \n        .page-container .notification-wrapper .wrapper-inner{\n            display:block;\n        }\n        \n        .page-container .notification-helper{\n            position: relative;\n            display: inline-block;\n            left: 50%;\n            transform: translate(-50%, 0);\n        }\n        \n        @keyframes item-animation {\n            0% {\n                padding-left: 100px;\n            }\n            100% {\n                padding-left: 0px;\n            } \n        }\n\n        .ng-for-item {\n            animation: item-animation 0.5s;\n        }\n        \n        @media (max-width: 990px){\n            .application-wrapper{\n                    padding-bottom: 320px !important\n            }\n    }\n    "],
             directives: [router_deprecated_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.AlertComponent, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent],
             providers: [

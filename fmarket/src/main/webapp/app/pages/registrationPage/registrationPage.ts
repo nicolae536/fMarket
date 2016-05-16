@@ -54,7 +54,6 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
         this._showForgetPasswordLink = false;
         this._showRegisterLink = false;
         this._loginPage = false;
-        this._notificationService.updateBackground(ApplicationConstants.loginPage);
     }
 
     ngAfterViewChecked():any {
@@ -71,7 +70,6 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
         let me=this;
 
         if(!account){
-            me
             me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Va rugam sa completati toate campurile!', timeout:5});
             return;
         }

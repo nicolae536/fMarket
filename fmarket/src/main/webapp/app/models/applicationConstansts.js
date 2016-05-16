@@ -280,8 +280,6 @@ var ApplicationConstants = (function () {
     ApplicationConstants.SECOND = 1000;
     ApplicationConstants.MINUTE = 60000;
     ApplicationConstants.HOUR = 3600000;
-    ApplicationConstants.loginPage = 'login-page';
-    ApplicationConstants.homePage = 'home-page';
     ApplicationConstants.FIRST_LOAD = 'first-load';
     return ApplicationConstants;
 }());

@@ -16,7 +16,6 @@ var router_deprecated_1 = require("@angular/router-deprecated");
 var registrationComponent_1 = require("../../components/registrationComponent/registrationComponent");
 var registrationService_1 = require("../../services/registrationService");
 var notificationService_1 = require("../../services/notificationService");
-var applicationConstansts_1 = require("../../models/applicationConstansts");
 var jqueryService_1 = require("../../services/jqueryService");
 var folderPath = '/app/pages/registrationPage';
 var RegistrationPage = (function () {
@@ -36,7 +35,6 @@ var RegistrationPage = (function () {
         this._showForgetPasswordLink = false;
         this._showRegisterLink = false;
         this._loginPage = false;
-        this._notificationService.updateBackground(applicationConstansts_1.ApplicationConstants.loginPage);
     };
     RegistrationPage.prototype.ngAfterViewChecked = function () {
         jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
@@ -48,7 +46,6 @@ var RegistrationPage = (function () {
     RegistrationPage.prototype.requestHandler = function (account) {
         var me = this;
         if (!account) {
-            me;
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Va rugam sa completati toate campurile!', timeout: 5 });
             return;
         }

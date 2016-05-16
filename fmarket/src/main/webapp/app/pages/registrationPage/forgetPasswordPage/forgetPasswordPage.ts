@@ -67,9 +67,7 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
         this._forgetPasswordLabel = '';
         this._loginPage = false;
 
-        this._notificationService.updateBackground(ApplicationConstants.loginPage);
         this._notificationService.removeLoading();
-
     }
 
     requestHandler(account:RegisterAccount) {

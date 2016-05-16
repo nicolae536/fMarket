@@ -26,7 +26,7 @@ import {JqueryService} from "./services/jqueryService";
 @Component({
     selector: 'my-app',
     template: `
-        <div class="application-wrapper" [class.login-background]="backgroundSettings=='login-page'">
+        <div class="application-wrapper">
             <header-component></header-component>
             <div class="page-container">
                 <div class="notification-wrapper">
@@ -124,7 +124,6 @@ export class AppComponent implements OnInit {
     private _notificationService:NotificationService;
     private _registrationService:RegistrationService;
     private _localeStorageService:LocalStorageService;
-    backgroundSettings:string = 'home-page';
     addItem:boolean=true;
 
     constructor(router:Router, location:Location, notificationService:NotificationService, registrationService:RegistrationService, localeStorageService:LocalStorageService) {
@@ -156,9 +155,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit():any {
         let me = this;
-        this._notificationService.backgroundUpdate.subscribe(event=> {
-            me.backgroundSettings = event;
-        });
 
         this._notificationService.firstLoad.subscribe(event=> {
             if(ApplicationConstants.FIRST_LOAD){

@@ -2,6 +2,7 @@
 	display: table;
 	width: 100%;
 	text-align: center;
+	background: url('/staticResorces/homeBackground.jpg');
 }
 
 .registration-page .component-wrapper{
