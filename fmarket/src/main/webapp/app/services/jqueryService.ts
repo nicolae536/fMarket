@@ -2,10 +2,6 @@
  * Created by nick_ on 5/9/2016.
  */
 import {ElementRef} from "@angular/core";
-import * as $ from 'jquery';
-import * as animateScroll from 'animateScroll';
-
-_.extend($, {animateScroll: animateScroll});
 
 export class JqueryService {
     public static animateScroll(element:ElementRef, animation:string, scrollSpeed:number) {
@@ -72,5 +68,11 @@ export class JqueryService {
 
         // nothing found.. assume desktop
         return false;
+    }
+
+    static removeElementWithAnimation(element:HTMLElement) {
+        $(element).fadeOut(400,()=>{
+            $(element).remove();
+        });
     }
 }

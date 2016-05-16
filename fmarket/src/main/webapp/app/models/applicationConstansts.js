@@ -282,6 +282,7 @@ var ApplicationConstants = (function () {
     ApplicationConstants.HOUR = 3600000;
     ApplicationConstants.loginPage = 'login-page';
     ApplicationConstants.homePage = 'home-page';
+    ApplicationConstants.FIRST_LOAD = 'first-load';
     return ApplicationConstants;
 }());
 exports.ApplicationConstants = ApplicationConstants;

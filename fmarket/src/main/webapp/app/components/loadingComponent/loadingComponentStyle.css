@@ -13,11 +13,17 @@
     z-index: 2000;
     background-image: url("/staticResorces/homeBackground.jpg");
     background-size: cover;
+    animation: loagind-screen-transition;
 }
 
-my-app:empty + .spinner-absolute-center {
-    opacity: 1;
-    z-index: 100;
+
+@keyframes loagind-screen-transition {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
 }
 
 /*used to center the image */

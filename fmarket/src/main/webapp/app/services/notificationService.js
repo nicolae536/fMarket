@@ -15,10 +15,12 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var fMarketApi_1 = require("./fMarketApi");
 var Subject_1 = require("rxjs/Subject");
+var applicationConstansts_1 = require("../models/applicationConstansts");
 var NotificationService = (function () {
     function NotificationService(http) {
         this._NotificationController = '/notify';
         this.notificationFlux = new Subject_1.Subject();
+        this.firstLoad = new Subject_1.Subject();
         this.backgroundUpdate = new Subject_1.Subject();
         this.api = new fMarketApi_1.FMarketApi(http);
     }
@@ -30,6 +32,9 @@ var NotificationService = (function () {
     };
     NotificationService.prototype.updateBackground = function (background) {
         this.backgroundUpdate.next(background);
+    };
+    NotificationService.prototype.removeLoading = function () {
+        this.firstLoad.next(applicationConstansts_1.ApplicationConstants.FIRST_LOAD);
     };
     NotificationService = __decorate([
         core_1.Injectable(), 

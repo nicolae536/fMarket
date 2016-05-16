@@ -9,6 +9,7 @@ export class ApplicationConstants{
 
     public static loginPage = 'login-page';
     public static homePage = 'home-page';
+    static FIRST_LOAD ='first-load';
 
     public static  getLocaleDateString(){
 

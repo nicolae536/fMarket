@@ -20,9 +20,7 @@
 <body>
 <!--hidden div to dowload the backgroun-->
     <div style="background: url('/staticResorces/homeBackground.jpg'); width:0px; height:0px;"></div>
-
-    <my-app class="app-layout">
-    <div class="spinner-absolute-center">
+    <div id="loadingSpinnerComponent" class="spinner-absolute-center">
         <div class="sk-circle">
             <div class="sk-circle1 sk-child"></div>
             <div class="sk-circle2 sk-child"></div>
@@ -38,6 +36,8 @@
             <div class="sk-circle12 sk-child"></div>
         </div>
     </div>
+    <my-app class="app-layout">
+
     </my-app>
     <!-- 1. Load libraries -->
     <!-- Polyfill(s) for older browsers -->

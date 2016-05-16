@@ -1,7 +1,4 @@
 "use strict";
-var $ = require('jquery');
-var animateScroll = require('animateScroll');
-_.extend($, { animateScroll: animateScroll });
 var JqueryService = (function () {
     function JqueryService() {
     }
@@ -56,6 +53,11 @@ var JqueryService = (function () {
                 return true;
         // nothing found.. assume desktop
         return false;
+    };
+    JqueryService.removeElementWithAnimation = function (element) {
+        $(element).fadeOut(400, function () {
+            $(element).remove();
+        });
     };
     return JqueryService;
 }());

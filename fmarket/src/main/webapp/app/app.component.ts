@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, AfterViewInit} from "@angular/core";
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {Location, CORE_DIRECTIVES, FormBuilder} from "@angular/common";
 import {AlertComponent} from "ng2-bootstrap/ng2-bootstrap";
@@ -20,6 +20,7 @@ import {SubscribersService} from "./services/subscribersService";
 import {UserService} from "./services/usersService";
 import {CompaniesService} from "./services/companiesService";
 import {Role} from "./models/Roles";
+import {JqueryService} from "./services/jqueryService";
 
 //= {type: "success", dismisable: true, message:""};
 @Component({
@@ -117,7 +118,6 @@ import {Role} from "./models/Roles";
 @RouteConfig(AuthorizationService.getApplicationRootRoutes())
 
 export class AppComponent implements OnInit {
-
     router:Router;
     location:Location;
     _notifications:IAlert [];
@@ -158,6 +158,17 @@ export class AppComponent implements OnInit {
         let me = this;
         this._notificationService.backgroundUpdate.subscribe(event=> {
             me.backgroundSettings = event;
+        });
+
+        this._notificationService.firstLoad.subscribe(event=> {
+            if(ApplicationConstants.FIRST_LOAD){
+                let element = document.getElementById('loadingSpinnerComponent');
+                if(!element){
+                    return;
+                }
+
+                JqueryService.removeElementWithAnimation(element);
+            }
         });
     }
 

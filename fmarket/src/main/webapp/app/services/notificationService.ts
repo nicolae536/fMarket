@@ -6,6 +6,7 @@ import {Http} from '@angular/http';
 import {FMarketApi} from "./fMarketApi";
 import {Subject} from "rxjs/Subject";
 import {IAlert} from "../app.component";
+import {ApplicationConstants} from "../models/applicationConstansts";
 
 
 @Injectable()
@@ -13,6 +14,7 @@ export class NotificationService {
     private _NotificationController:string = '/notify';
     private api:FMarketApi;
     public notificationFlux:Subject<any> = new Subject();
+    public firstLoad:Subject<any> = new Subject();
     public backgroundUpdate:Subject<string> = new Subject();
 
     constructor(http:Http) {
@@ -29,5 +31,9 @@ export class NotificationService {
 
     updateBackground(background:string){
         this.backgroundUpdate.next(background);
+    }
+
+    removeLoading() {
+        this.firstLoad.next(ApplicationConstants.FIRST_LOAD);
     }
 }

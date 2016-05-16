@@ -30,6 +30,7 @@ var subscribersService_1 = require("./services/subscribersService");
 var usersService_1 = require("./services/usersService");
 var companiesService_1 = require("./services/companiesService");
 var Roles_1 = require("./models/Roles");
+var jqueryService_1 = require("./services/jqueryService");
 //= {type: "success", dismisable: true, message:""};
 var AppComponent = (function () {
     function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
@@ -60,6 +61,15 @@ var AppComponent = (function () {
         var me = this;
         this._notificationService.backgroundUpdate.subscribe(function (event) {
             me.backgroundSettings = event;
+        });
+        this._notificationService.firstLoad.subscribe(function (event) {
+            if (applicationConstansts_1.ApplicationConstants.FIRST_LOAD) {
+                var element = document.getElementById('loadingSpinnerComponent');
+                if (!element) {
+                    return;
+                }
+                jqueryService_1.JqueryService.removeElementWithAnimation(element);
+            }
         });
     };
     AppComponent.prototype.startDemadsWatcher = function () {

@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/12/2016.
  */
-import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked} from "@angular/core";
+import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit} from "@angular/core";
 import {Response} from "@angular/http";
 import {FormBuilder, Validators} from "@angular/common";
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
@@ -22,18 +22,18 @@ const folderPath = '/app/pages/homePage';
     templateUrl: folderPath + '/homePage.html',
     directives: [DemandDialogComponent]
 })
-export class HomePage implements OnInit, AfterViewChecked {
+export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     //components
     @ViewChild('createDemandComponent') private createDemamdViewRef:ElementRef;
     @ViewChild('howWeWork') private howWeWorkRef:ElementRef;
     @ViewChild('videoContainer') private videoContainer:ElementRef;
     @ViewChild('videoRightContainer') private videoRightContainer:ElementRef;
     private _demandDialog:DemandDialogComponent;
-
     scrollProperty:string = 'scrollY';
 
     //services
     private _categoriesMenuService:CategoriesMenuService;
+
     private _demandService:DemandService;
     //data
     private _domains:Array<Select2Item>;
@@ -42,6 +42,7 @@ export class HomePage implements OnInit, AfterViewChecked {
     private _subscribeForm;
     private _subscribersService:SubscribersService;
     private _notificationService:NotificationService;
+
     constructor(_categoriesMenuService:CategoriesMenuService, _demandService:DemandService, subscribersService:SubscribersService, formBuilder:FormBuilder, notificationService:NotificationService) {
         this._categoriesMenuService = _categoriesMenuService;
         this._demandService = _demandService;
@@ -49,7 +50,6 @@ export class HomePage implements OnInit, AfterViewChecked {
         this._formBuilder = formBuilder;
         this._notificationService = notificationService;
     }
-
     ngOnInit():any {
         this.getCityes();
         this.getDomains();
@@ -58,8 +58,12 @@ export class HomePage implements OnInit, AfterViewChecked {
         this._notificationService.updateBackground(ApplicationConstants.homePage);
     }
 
+    ngAfterViewInit():any {
+        this._notificationService.removeLoading();
+    }
+
     ngAfterViewChecked():any {
-        this.rematchElementsOnView();
+        this.rematchElementsOnView(null);
     }
 
     referenceDemandDialog(demandDialog:DemandDialogComponent) {

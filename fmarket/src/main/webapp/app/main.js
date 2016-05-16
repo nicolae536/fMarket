@@ -5,6 +5,11 @@ var app_component_1 = require('./app.component');
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var http_1 = require('@angular/http');
+var _ = require('underscore');
+var $ = require('jquery');
+var animateScroll = require('animateScroll');
+_.extend($, { animateScroll: animateScroll });
+core_1.enableProdMode();
 //console.log(HTTP_PROVIDERS);
 platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
     http_1.HTTP_PROVIDERS,
