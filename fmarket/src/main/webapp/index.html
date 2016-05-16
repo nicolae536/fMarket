@@ -6,6 +6,39 @@
     <!--<script src="node_modules/jquery/dist/jquery.js"></script>-->
 
     <link rel="stylesheet" href="/app/main.css">
+
+    <!--<script src="/node_modules/angular2/src/animate/animation_builder.js"/>-->
+    <style>
+        .app-layout {
+            display: flex;
+            flex-direction: column;
+
+        }
+    </style>
+</head>
+
+<body>
+<!--hidden div to dowload the backgroun-->
+    <div style="background: url('/staticResorces/homeBackground.jpg'); width:0px; height:0px;"></div>
+
+    <my-app class="app-layout">
+    <div class="spinner-absolute-center">
+        <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+        </div>
+    </div>
+    </my-app>
     <!-- 1. Load libraries -->
     <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/es6-shim/es6-shim.min.js"></script>
@@ -29,37 +62,5 @@
             console.error(err);
         });
     </script>
-    <!--<script src="/node_modules/angular2/src/animate/animation_builder.js"/>-->
-    <style>
-        .app-layout {
-            display: flex;
-            flex-direction: column;
-
-        }
-    </style>
-</head>
-
-<body>
-<!--hidden div to dowload the backgroun-->
-<div style="background: url('/staticResorces/homeBackground.jpg'); width:0px; height:0px;"></div>
-
-<my-app class="app-layout">
-    <div class="spinner-absolute-center">
-        <div class="sk-circle">
-            <div class="sk-circle1 sk-child"></div>
-            <div class="sk-circle2 sk-child"></div>
-            <div class="sk-circle3 sk-child"></div>
-            <div class="sk-circle4 sk-child"></div>
-            <div class="sk-circle5 sk-child"></div>
-            <div class="sk-circle6 sk-child"></div>
-            <div class="sk-circle7 sk-child"></div>
-            <div class="sk-circle8 sk-child"></div>
-            <div class="sk-circle9 sk-child"></div>
-            <div class="sk-circle10 sk-child"></div>
-            <div class="sk-circle11 sk-child"></div>
-            <div class="sk-circle12 sk-child"></div>
-        </div>
-    </div>
-</my-app>
 </body>
 </html>

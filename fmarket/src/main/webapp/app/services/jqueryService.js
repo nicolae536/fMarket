@@ -11,6 +11,9 @@ var JqueryService = (function () {
     };
     JqueryService.makeElementsOfSameHeight = function (nativeElement, param2) {
         var height = $(nativeElement).height();
+        if (this.isMobile()) {
+            height += height;
+        }
         _.each(param2, function (param) {
             $(param).height(height);
         });
@@ -38,7 +41,7 @@ var JqueryService = (function () {
                 childrenHeight = height - childrenHeight * (childrens.length - 1) - childrenMarginBottom * (childrens.length - 1);
                 childrenMarginBottom = 0;
             }
-            $(child).height(childrenHeight).css('marginBottom', childrenMarginBottom);
+            $(child).height(childrenHeight).css('marginBottom', childrenMarginBottom).css('maxHeight', childrenHeight);
         });
     };
     JqueryService.isMobile = function () {

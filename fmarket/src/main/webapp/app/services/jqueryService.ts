@@ -16,6 +16,9 @@ export class JqueryService {
     static makeElementsOfSameHeight(nativeElement:any, param2:any[]) {
         let height = $(nativeElement).height();
 
+        if(this.isMobile()){
+            height +=height;
+        }
         _.each(param2, (param)=> {
             $(param).height(height);
         })
@@ -39,6 +42,8 @@ export class JqueryService {
 
     static fitChildItemsInContainer(nativeElement:any) {
         let height = $(nativeElement).height();
+
+
         let childrens = $(nativeElement).children();
 
         let childrenHeight = height / childrens.length;
@@ -51,7 +56,7 @@ export class JqueryService {
                 childrenHeight=height-childrenHeight*(childrens.length-1)-childrenMarginBottom*(childrens.length-1);
                 childrenMarginBottom = 0;
             }
-            $(child).height(childrenHeight).css('marginBottom', childrenMarginBottom);
+            $(child).height(childrenHeight).css('marginBottom', childrenMarginBottom).css('maxHeight', childrenHeight);
         })
     }
 
