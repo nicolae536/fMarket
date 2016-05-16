@@ -37,6 +37,7 @@ var HomePage = (function () {
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
         this._notificationService.updateBackground(applicationConstansts_1.ApplicationConstants.homePage);
+        this._notificationService.removeLoading();
     };
     HomePage.prototype.ngAfterViewInit = function () {
         this._notificationService.removeLoading();

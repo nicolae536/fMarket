@@ -43,6 +43,7 @@ var ForgetPasswordPage = (function () {
         this._forgetPasswordLabel = '';
         this._loginPage = false;
         this._notificationService.updateBackground(applicationConstansts_1.ApplicationConstants.loginPage);
+        this._notificationService.removeLoading();
     };
     ForgetPasswordPage.prototype.requestHandler = function (account) {
         var me = this;

@@ -48,6 +48,7 @@ var LoginPage = (function () {
         this._showForgetPasswordLink = true;
         this._loginPage = true;
         this._notificationService.updateBackground(applicationConstansts_1.ApplicationConstants.loginPage);
+        this._notificationService.removeLoading();
     };
     LoginPage.prototype.requestHandler = function (account) {
         var me = this;

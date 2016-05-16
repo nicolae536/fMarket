@@ -40,6 +40,7 @@ var RegistrationPage = (function () {
     };
     RegistrationPage.prototype.ngAfterViewChecked = function () {
         jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
+        this._notificationService.removeLoading();
     };
     RegistrationPage.prototype.referenceComponent = function ($event) {
         this._registrationComponent = $event;

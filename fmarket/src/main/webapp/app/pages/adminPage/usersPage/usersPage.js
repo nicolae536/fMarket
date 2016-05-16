@@ -28,10 +28,11 @@ var mock_City_1 = require('../../../services/mock-providers/mock-City');
 var mock_Status_1 = require('../../../services/mock-providers/mock-Status');
 var Roles_1 = require("../../../models/Roles");
 var authorizationService_1 = require("../../../services/authorizationService");
+var notificationService_1 = require("../../../services/notificationService");
 var applicationPath = '/app/pages/adminPage/usersPage';
 var UsersPage = (function (_super) {
     __extends(UsersPage, _super);
-    function UsersPage(_userService) {
+    function UsersPage(_userService, notificationService) {
         _super.call(this);
         this._userService = _userService;
         this.cityList = mock_City_1.CITYES;
@@ -41,10 +42,12 @@ var UsersPage = (function (_super) {
         this.nameFilter = "";
         this.cityId = -1;
         this.selectedStatusFilter = null;
+        this._notificationService = _notificationService;
     }
     UsersPage.prototype.ngOnInit = function () {
         var me = this;
         this.getUsers();
+        this._notificationService.removeLoading();
     };
     UsersPage.prototype.referenceActionDialogInComponent = function (modal) {
         this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
@@ -139,7 +142,7 @@ var UsersPage = (function (_super) {
             directives: [actionDialog_1.ActionDialog, createUserDialog_1.CreateUserDialog, common_1.NgForm]
         }),
         router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [usersService_1.UserService])
+        __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService])
     ], UsersPage);
     return UsersPage;
 }(pageWithNavigation_1.PageWithNavigation));

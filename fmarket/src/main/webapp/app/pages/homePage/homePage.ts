@@ -56,6 +56,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
         this._notificationService.updateBackground(ApplicationConstants.homePage);
+        this._notificationService.removeLoading();
     }
 
     ngAfterViewInit():any {

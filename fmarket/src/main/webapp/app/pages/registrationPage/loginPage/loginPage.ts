@@ -68,6 +68,8 @@ export class LoginPage implements OnInit, AfterViewChecked {
         this._showForgetPasswordLink = true;
         this._loginPage = true;
         this._notificationService.updateBackground(ApplicationConstants.loginPage);
+        this._notificationService.removeLoading();
+
     }
 
     requestHandler(account:RegisterAccount) {

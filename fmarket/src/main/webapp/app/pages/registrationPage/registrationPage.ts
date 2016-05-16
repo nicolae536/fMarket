@@ -59,6 +59,8 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
 
     ngAfterViewChecked():any {
         JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
+        this._notificationService.removeLoading();
+
     }
 
     referenceComponent($event){

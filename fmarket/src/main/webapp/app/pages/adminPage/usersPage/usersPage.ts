@@ -18,6 +18,7 @@ import {STATUS} from '../../../services/mock-providers/mock-Status';
 import {AccountStatus} from "../../../models/accountStatus";
 import {Role} from "../../../models/Roles";
 import {AuthorizationService} from "../../../services/authorizationService";
+import {NotificationService} from "../../../services/notificationService";
 
 var applicationPath:string = '/app/pages/adminPage/usersPage';
 
@@ -44,15 +45,18 @@ export class UsersPage extends PageWithNavigation implements OnInit {
     idFilter:number;
     cityId = -1;
     selectedStatusFilter:AccountStatus = null;
+    private _notificationService:NotificationService;
 
 
-    constructor(private _userService:UserService) {
+    constructor(private _userService:UserService, notificationService:NotificationService) {
         super();
+        this._notificationService = _notificationService;
     }
 
     ngOnInit() {
         var me = this;
         this.getUsers();
+        this._notificationService.removeLoading();
     }
 
     referenceActionDialogInComponent(modal:ActionDialog) {
