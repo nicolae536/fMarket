@@ -281,6 +281,7 @@ var ApplicationConstants = (function () {
     ApplicationConstants.MINUTE = 60000;
     ApplicationConstants.HOUR = 3600000;
     ApplicationConstants.FIRST_LOAD = 'first-load';
+    ApplicationConstants.LOADING_SPINNER = 'loadingSpinnerComponent';
     return ApplicationConstants;
 }());
 exports.ApplicationConstants = ApplicationConstants;

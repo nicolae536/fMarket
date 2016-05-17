@@ -32,6 +32,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     private _formBuilder:FormBuilder;
     private _registrationForm:ControlGroup;
     private reapeatPasswordControl:boolean = true;
+    private showNotMatchPasswordField:boolean;
 
     constructor(formBuilder:FormBuilder) {
         this._formBuilder = formBuilder;
@@ -58,6 +59,12 @@ export class RegistrationComponent implements OnInit, OnChanges {
         if (changes.hasOwnProperty('_loginPage') && changes['_loginPage'].currentValue) {
             this.reapeatPasswordControl = false;
         }
+
+    }
+
+    updateErrorFied(){
+        this.showNotMatchPasswordField = this._registrationForm && this._registrationForm.controls.passwords &&
+            this._registrationForm.controls.passwords.errors && this._registrationForm.controls.passwords.errors.checkPasswords && !this._registrationForm.controls.passwords.errors.checkPasswords.valid;
     }
 
     markAllFieldsAsErrors(configuration) {

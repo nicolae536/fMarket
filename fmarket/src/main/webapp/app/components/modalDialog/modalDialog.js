@@ -20,7 +20,50 @@ var ModalDialog = (function () {
         this.responseObject = responseObject;
     };
     ModalDialog.prototype.hide = function () {
+        var _this = this;
+        var me = this;
+        this.remove = true;
+        setTimeout(function () {
+            _this.showModal = false;
+            me.remove = false;
+        }, 300);
+        this.message = "";
+        this.responseObject = this.responseObject['getNewInstance'] && typeof this.responseObject['getNewInstance'] == "function" ? this.responseObject['getNewInstance']() : null;
+    };
+    ModalDialog.prototype.positiveAction = function () {
+        this.confirmAction.emit(this.responseObject);
+    };
+    ModalDialog.prototype.cancelAction = function () {
+        this.hide();
+    };
+    ModalDialog.prototype.stopPropagation = function ($event) {
+        $event.stopPropagation();
+    };
+    __decorate([
+        core_1.Output('action-confirmed'), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], ModalDialog.prototype, "confirmAction", void 0);
+    return ModalDialog;
+}());
+exports.ModalDialog = ModalDialog;
+var ModalDialog = (function () {
+    function ModalDialog() {
         this.showModal = false;
+        this.confirmAction = new core_1.EventEmitter();
+    }
+    ModalDialog.prototype.show = function (message, responseObject) {
+        this.showModal = true;
+        this.message = message ? message : "";
+        this.responseObject = responseObject;
+    };
+    ModalDialog.prototype.hide = function () {
+        var _this = this;
+        var me = this;
+        this.remove = true;
+        setTimeout(function () {
+            _this.showModal = false;
+            me.remove = false;
+        }, 300);
         this.message = "";
         this.responseObject = this.responseObject['getNewInstance'] && typeof this.responseObject['getNewInstance'] == "function" ? this.responseObject['getNewInstance']() : null;
     };

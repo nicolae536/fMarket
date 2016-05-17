@@ -16,16 +16,22 @@ var router_deprecated_1 = require("@angular/router-deprecated");
 var accountEditPage_1 = require("./accountEditPage/accountEditPage");
 var accountDemandsPage_1 = require("./accountDemandsPage/accountDemandsPage");
 var authorizationService_1 = require("../../services/authorizationService");
+var jqueryService_1 = require("../../services/jqueryService");
+var applicationConstansts_1 = require("../../models/applicationConstansts");
+var tabsRoutingComponent_1 = require("../../components/tabsComponent/tabsRoutingComponent");
 var applicationPath = '/app/pages/accountSettingsPage';
 var AccountSettingsPage = (function () {
     function AccountSettingsPage(router) {
         this.router = router;
+        this.tabPagesList = [{ name: 'Contul meu', link: 'Account/Details', enableMarker: false, markerContent: "" },
+            { name: 'Cererile mele', link: 'Account/Demands', enableMarker: false, markerContent: "" }];
+        jqueryService_1.JqueryService.removeElementWithAnimation(document.getElementById(applicationConstansts_1.ApplicationConstants.LOADING_SPINNER));
     }
     AccountSettingsPage = __decorate([
         core_1.Component({
             selector: 'account-settings-Page',
             templateUrl: applicationPath + '/accountSettingsPage.html',
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES]
+            directives: [router_deprecated_1.ROUTER_DIRECTIVES, tabsRoutingComponent_1.TabsRoutingComponent]
         }),
         router_deprecated_1.RouteConfig([
             new router_deprecated_1.Route({

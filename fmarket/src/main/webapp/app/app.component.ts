@@ -48,6 +48,7 @@ import {JqueryService} from "./services/jqueryService";
             padding-bottom: 101px;
             position: relative;
             min-height: 100vh;
+            background-color: white;
         }
         
         .login-background{

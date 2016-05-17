@@ -1,3 +1,18 @@
 .account-settings-page{
-    padding: 3% 5% 3% 5%;
+    padding: 2% 5% 2% 5%;
+}
+
+.account-settings-page .sub-container{
+    padding: 10px;
+    background-color: rgba(255,255,255,0.5);
+}
+
+.account-settings-page .sub-container .account-settings-page-container{
+    padding: 1% 1% 1% 1%;
+    background-color: white;
+}
+
+.account-settings-page .sub-container .account-settings-page-container .sub-pabge-container{
+    background-color: white;
+    margin: 10px 1px 0 1px ;
 }

@@ -1,3 +1,78 @@
 .admin-page-container {
-    padding: 3% 5% 3% 5%;
+    color: black;
+}
+
+.admin-page-container .col-sm-2.sidenav{
+    background-color: #f8f8f8;
+    border-right: 1px solid cornflowerblue;
+    padding: 0;
+}
+
+.admin-page-container .admin-menu-title{
+    padding: 20px 13px 20px;
+    border-bottom: 1px solid cornflowerblue;
+}
+
+.admin-page-container .menu-container a{
+    color: black;
+}
+
+.admin-page-container .menu-container .nav.nav-pills.nav-stacked .arrow_box_right:before{
+    border-color: rgba(89, 139, 228, 0);
+    border-left-color: #598BE4;
+    border-width: 29px;
+    margin-top: -29px;
+}
+
+.admin-page-container .menu-container .nav.nav-pills.nav-stacked .arrow_box_right:after{
+    border-color: rgba(100, 149, 237, 0);
+    border-left-color: #6495ED;
+    border-width: 21px;
+    margin-top: -21px;
+}
+
+.admin-page-container .menu-container .nav.nav-pills.nav-stacked li{
+    margin-top: 0px;
+}
+
+.admin-page-container .menu-container .nav.nav-pills.nav-stacked li a{
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.admin-page-container .menu-container .nav.nav-pills.nav-stacked li a:hover{
+    background-color: cornflowerblue;
+}
+
+.admin-page-container .menu-container .nav.nav-pills.nav-stacked li:hover {
+    background-color: rgb(136, 176, 245);
+}
+
+.admin-page-container .menu-container .nav.nav-pills.nav-stacked li.active:hover {
+    background-color: cornflowerblue;
+}
+
+.admin-page-container .menu-container .nav.nav-pills.nav-stacked .active:hover a{
+    background-color: cornflowerblue;
+}
+
+.admin-page-container .menu-container .nav.nav-pills.nav-stacked .pull-left{
+    margin-right: 15px;
+}
+
+.admin-page-container .menu-container .nav.nav-pills.nav-stacked .active{
+    background-color: cornflowerblue;
+}
+
+.admin-page-container .menu-container .nav.nav-pills.nav-stacked .active a{
+    background-color: cornflowerblue;
+}
+
+.admin-page-container .admin-menu-title .glyphicon.glyphicon-th-list {
+    font-size: 25px;
+}
+
+.admin-page-container .col-sm-10{
+    padding: 3% 45px 3% 45px;
 }

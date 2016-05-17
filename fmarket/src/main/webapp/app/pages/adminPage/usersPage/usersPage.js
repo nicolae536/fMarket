@@ -42,7 +42,7 @@ var UsersPage = (function (_super) {
         this.nameFilter = "";
         this.cityId = -1;
         this.selectedStatusFilter = null;
-        this._notificationService = _notificationService;
+        this._notificationService = notificationService;
     }
     UsersPage.prototype.ngOnInit = function () {
         var me = this;

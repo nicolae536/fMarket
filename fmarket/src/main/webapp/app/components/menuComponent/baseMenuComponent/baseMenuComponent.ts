@@ -7,6 +7,9 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
     selector: 'base-menu',
     template: `
 	<div class="base-menu-component">
+	    <div class="menu-title arrow_box">
+	        <span class="h1">{{menuTitle}}</span>
+	    </div>
 		<ul class="nav nav-pills nav-stacked clearfix">
 			<li *ngFor="let item of menuItemsList" [class]="getItemClass(item)" (click)="selectItem(item)">
 				<a>
@@ -26,6 +29,11 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 	</div>
 	`,
     styles: [`
+        .base-menu-component .menu-title{
+            padding: 9px 0 16px 25px;
+            color:white;
+        }
+    
         .base-menu-component .nav.nav-pills.nav-stacked .operations-label{
             padding-top:10px;
         }
@@ -64,6 +72,35 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 		.base-menu-component .nav.nav-pills.nav-stacked .input-group{
 			padding-bottom:5px;
 		}
+		
+		.arrow_box {
+        	position: relative;
+        	background: #88b7d5;
+        	border: 4px solid #c2e1f5;
+        }
+        .arrow_box:after, .arrow_box:before {
+        	left: 100.8%;
+        	top: 50%;
+        	border: solid transparent;
+        	content: " ";
+        	height: 0;
+        	width: 0;
+        	position: absolute;
+        	pointer-events: none;
+        }
+        
+        .arrow_box:after {
+        	border-color: rgba(136, 183, 213, 0);
+        	border-left-color: #88b7d5;
+        	border-width: 30px;
+        	margin-top: -30px;
+        }
+        .arrow_box:before {
+        	border-color: rgba(194, 225, 245, 0);
+        	border-left-color: #c2e1f5;
+        	border-width: 36px;
+        	margin-top: -36px;
+        }
 	`]
 })
 
@@ -71,6 +108,8 @@ export class BaseMenuComponent implements OnChanges{
     @Input('menu-items-list') menuItemsList:Array<IMenuItem>;
     @Input('menu-layer') menuLayer:number;
     @Input('active-in-tree') activeInTree:IMenuItem;
+    @Input('menu-tree-title') menuTitle:string;
+
     @Output('select-menu-item') broadcastMenuItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
     @Output('add-new-item') broadcastNewItem:EventEmitter<number> = new EventEmitter<number>();
     @Output('edit-submenu') broadcastUpdateItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
@@ -79,6 +118,7 @@ export class BaseMenuComponent implements OnChanges{
     selectedItem:IMenuItem;
 
     constructor() {
+        this.menuTitle = "test";
     }
 
     ngOnChanges(changes:{}) {

@@ -25,7 +25,6 @@ export class MenuTreeComponent implements OnChanges {
     menuTreeView:Array<Object> = [];
     //TODO implement menuService
     constructor() {
-
     }
 
     ngOnChanges(changes:{}):any {

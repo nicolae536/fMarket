@@ -19,7 +19,7 @@ var CustomValidators = (function () {
         if (reapeatPassword != "" && !reapeatPassword) {
             return null;
         }
-        if (password.length == reapeatPassword.length) {
+        if (password.length == reapeatPassword.length && password == reapeatPassword) {
             return null;
         }
         return {

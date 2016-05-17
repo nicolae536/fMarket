@@ -50,7 +50,7 @@ export class UsersPage extends PageWithNavigation implements OnInit {
 
     constructor(private _userService:UserService, notificationService:NotificationService) {
         super();
-        this._notificationService = _notificationService;
+        this._notificationService = notificationService;
     }
 
     ngOnInit() {

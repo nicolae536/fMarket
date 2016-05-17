@@ -1,22 +1,60 @@
 <div class="admin-page-container">
     <div class="container-fluid">
         <div class="row content">
-            <div class="col-sm-2 sidenav">
-                <h4>Admin</h4>
-                <ul class="nav nav-pills nav-stacked">
-                    <li [ngClass]="router.isRouteActive(router.generate(['Admin/Users'])) ? 'active':''"><a
-                            [routerLink]="['Admin/Users']">Users</a></li>
-                    <li [ngClass]="router.isRouteActive(router.generate(['Admin/Subscribers'])) ? 'active':''"><a
-                            [routerLink]="['Admin/Subscribers']">Subscribers</a></li>
-                    <li [ngClass]="router.isRouteActive(router.generate(['Admin/Categories/CategoriesMenu'])) ? 'active':''">
-                        <a [routerLink]="['Admin/Categories/CategoriesMenu']">Categories</a></li>
-                    <li [ngClass]="router.isRouteActive(router.generate(['Admin/Demands'])) ? 'active':''">
-                        <a [routerLink]="['Admin/Demands']">Demands</a></li>
-                    <li [ngClass]="router.isRouteActive(router.generate(['Admin/Companies'])) ? 'active':''">
-                        <a [routerLink]="['Admin/Companies']">Companii</a></li>
-                </ul>
+            <div #leftMenu class="col-sm-2 sidenav">
+                <div class="menu-container">
+                    <div class="admin-menu-title text-left clearfix">
+                        <div class="pull-left">
+                            <span class="glyphicon glyphicon-th-list"></span>
+                        </div>
+                        <div class="text-center">
+                            <span class="h3">Mangement websit</span>
+                        </div>
+                    </div>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li [ngClass]="router.isRouteActive(router.generate(['Admin/Users'])) ? 'active':''">
+                            <a [routerLink]="['Admin/Users']" class="clearfix">
+                                <div class="pull-left">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </div>
+                                Useri
+                            </a>
+                        </li>
+                        <li [ngClass]="router.isRouteActive(router.generate(['Admin/Subscribers'])) ? 'active':''">
+                            <a [routerLink]="['Admin/Subscribers']">
+                                <div class="pull-left">
+                                    <span class="glyphicon glyphicon-globe"></span>
+                                </div>
+                                Subscriberi
+                            </a>
+                        </li>
+                        <li [ngClass]="router.isRouteActive(router.generate(['Admin/Categories/CategoriesMenu'])) ? 'active':''">
+                            <a [routerLink]="['Admin/Categories/CategoriesMenu']">
+                                <div class="pull-left">
+                                    <span class="glyphicon glyphicon-tasks"></span>
+                                </div>
+                                Categorii
+                            </a>
+                        </li>
+                        <li [ngClass]="router.isRouteActive(router.generate(['Admin/Demands'])) ? 'active':''">
+                            <a [routerLink]="['Admin/Demands']">
+                                <div class="pull-left">
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                </div>
+                                Anunturi
+                            </a>
+                        </li>
+                        <li [ngClass]="router.isRouteActive(router.generate(['Admin/Companies'])) ? 'active':''">
+                            <a [routerLink]="['Admin/Companies']">
+                                <div class="pull-left">
+                                    <span class="glyphicon glyphicon-transfer"></span>
+                                </div>
+                                Companii
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
             <div class="col-sm-10">
                 <router-outlet></router-outlet>
             </div>

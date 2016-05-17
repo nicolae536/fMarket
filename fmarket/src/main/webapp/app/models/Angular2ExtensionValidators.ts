@@ -28,7 +28,7 @@ export class CustomValidators {
             return null;
         }
 
-            if(password.length == reapeatPassword.length){
+            if(password.length == reapeatPassword.length && password == reapeatPassword){
                 return null
             }
 

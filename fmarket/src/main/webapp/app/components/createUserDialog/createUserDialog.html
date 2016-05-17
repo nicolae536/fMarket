@@ -1,6 +1,6 @@
-<div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>
+<div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 0.5 : 0"  [ngClass]="{'remove':remove}"></div>
 <div class="modal fade bs-example-modal-lg in" tabindex="-1" (click)="cancelFormAction()" role="dialog"
-     [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0">
+     [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0" [ngClass]="{'remove':remove}">
     <div class="modal-dialog modal-lg" (click)="stopPropagation($event)">
         <div class="modal-content">
             <form [ngFormModel]="_userForm" (ngSubmit)="submitNewUser()">

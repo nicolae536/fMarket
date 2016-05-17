@@ -1,8 +1,4 @@
-.modal {
-    transition-duration: .15s;
-    -webkit-animation: linear 1s;
-    animation: linear 1s;
-}
+
 
 .modal .modal-content .modal-body .form-group select {
     width: 100%;

@@ -10,15 +10,17 @@
                            [ngFormControl]="_registrationForm.controls['email']"/>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" [placeholder]="passwordLabel"
+                    <input type="password" class="form-control" [placeholder]="passwordLabel" (ngModelChange)="updateErrorFied()"
                            [ngFormControl]="_registrationForm.controls.passwords.controls.password"/>
                 </div>
                 <div *ngIf="!showRememberMeField" class="form-group">
-                    <input type="password" class="form-control" placeholder="Repeta parola"
+                    <input type="password" class="form-control" placeholder="Repeta parola" (ngModelChange)="updateErrorFied()"
                            [ngFormControl]="_registrationForm.controls.passwords.controls.repeat"/>
                 </div>
-                <div class="password-error" *ngIf="_registrationForm.controls.passwords && _registrationForm.controls.passwords.errors && _registrationForm.controls.passwords.errors.checkPasswords && !_registrationForm.controls.passwords.errors.checkPasswords.valid">
-                    Cele doua parole nu sunt la fel!
+                <div class="position-relative" *ngIf="showNotMatchPasswordField">
+                    <div class="password-error right-to-middle-effect">
+                        Cele doua parole nu sunt la fel!
+                    </div>
                 </div>
                 <div class="clearfix">
                     <div class="pull-right button-container">

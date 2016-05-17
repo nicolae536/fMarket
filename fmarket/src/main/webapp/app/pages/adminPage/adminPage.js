@@ -21,12 +21,22 @@ var demandsPage_1 = require("./demandsPage/demandsPage");
 var companiesPage_1 = require("./companiesPage/companiesPage");
 var companiesEditPage_1 = require("./companiesPage/companiesEditPage/companiesEditPage");
 var demandsEditPage_1 = require("./demandsPage/demandsEditPage/demandsEditPage");
+var jqueryService_1 = require("../../services/jqueryService");
+var applicationConstansts_1 = require("../../models/applicationConstansts");
 var applicationPath = '/app/pages/adminPage';
 var AdminPage = (function () {
     function AdminPage(location, router) {
         this.location = location;
         this.router = router;
+        jqueryService_1.JqueryService.removeElementWithAnimation(document.getElementById(applicationConstansts_1.ApplicationConstants.LOADING_SPINNER));
     }
+    AdminPage.prototype.ngAfterViewChecked = function () {
+        jqueryService_1.JqueryService.setPageHeight(this.leftMenu.nativeElement);
+    };
+    __decorate([
+        core_1.ViewChild('leftMenu'), 
+        __metadata('design:type', Object)
+    ], AdminPage.prototype, "leftMenu", void 0);
     AdminPage = __decorate([
         core_1.Component({
             selector: 'admin-Page',

@@ -8,6 +8,7 @@ export class ApplicationConstants{
     public static HOUR:number = 3600000;
 
     static FIRST_LOAD ='first-load';
+    static LOADING_SPINNER ='loadingSpinnerComponent';
 
     public static  getLocaleDateString(){
 

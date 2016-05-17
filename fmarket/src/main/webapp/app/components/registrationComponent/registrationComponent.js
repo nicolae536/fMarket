@@ -40,6 +40,10 @@ var RegistrationComponent = (function () {
             this.reapeatPasswordControl = false;
         }
     };
+    RegistrationComponent.prototype.updateErrorFied = function () {
+        this.showNotMatchPasswordField = this._registrationForm && this._registrationForm.controls.passwords &&
+            this._registrationForm.controls.passwords.errors && this._registrationForm.controls.passwords.errors.checkPasswords && !this._registrationForm.controls.passwords.errors.checkPasswords.valid;
+    };
     RegistrationComponent.prototype.markAllFieldsAsErrors = function (configuration) {
         if (configuration['email']) {
             this._registrationForm.controls['email'].setErrors({ key: 'validateEmail' });

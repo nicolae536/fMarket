@@ -1,5 +1,5 @@
 //import libraryes
-import {Component} from '@angular/core';
+import {Component, AfterViewChecked, ViewChild} from '@angular/core';
 import {RouteConfig, CanActivate, Router, ROUTER_DIRECTIVES, Route} from '@angular/router-deprecated';
 import {Location} from '@angular/common';
 
@@ -13,6 +13,8 @@ import {DemandsPage} from "./demandsPage/demandsPage";
 import {CompaniesPage} from "./companiesPage/companiesPage";
 import {CompaniesEditPage} from "./companiesPage/companiesEditPage/companiesEditPage";
 import {DemandsEditPage} from "./demandsPage/demandsEditPage/demandsEditPage";
+import {JqueryService} from "../../services/jqueryService";
+import {ApplicationConstants} from "../../models/applicationConstansts";
 
 var applicationPath:string = '/app/pages/adminPage';
 
@@ -61,13 +63,18 @@ var applicationPath:string = '/app/pages/adminPage';
     }),
 ])
 
-export class AdminPage {
-
+export class AdminPage implements AfterViewChecked{
+    @ViewChild('leftMenu') leftMenu;
     location:Location;
-    router:Router;
 
+    router:Router;
     constructor(location:Location, router:Router) {
         this.location = location;
         this.router = router;
+        JqueryService.removeElementWithAnimation(document.getElementById(ApplicationConstants.LOADING_SPINNER));
     }
-} 
+
+    ngAfterViewChecked():any {
+        JqueryService.setPageHeight(this.leftMenu.nativeElement);
+    }
+}

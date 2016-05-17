@@ -6,6 +6,10 @@
     text-align: left;
 }
 
+.position-relative{
+    animation: slide-down 0.3s;
+}
+
 .regisration-component .form-wrapper{
     padding: 10px;
     background-color: rgba(255,255,255,0.5);
