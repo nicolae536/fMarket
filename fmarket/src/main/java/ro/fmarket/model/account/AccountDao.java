@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import ro.fmarket.admin.account.user.UserSearchObject;
 import ro.fmarket.core.base.BaseDao;
 import ro.fmarket.core.constants.PaginationConstants;
-import ro.fmarket.core.exception.NotFoundException;
 import ro.fmarket.model.account.consts.AccountType;
 
 @Repository

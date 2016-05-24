@@ -2,6 +2,8 @@ package ro.fmarket.mail;
 
 import java.util.List;
 
+import ro.fmarket.model.demand.Demand;
+
 public interface MailService {
 
 	void sendDemandConfirmMail(String emailTo, String token);
@@ -10,8 +12,10 @@ public interface MailService {
 
 	void sendRegistrationMail(String emailTo, String token);
 	
-//	void sendMailToCompanies(List<String> emailAddresses);
+	void sendMailToCompanies(Demand demand, List<String> emailAddresses);
 	
-//	void sendMailForRejectedDemand(String emailTo, String message);
+	void sendAcceptedDemandMail(String emailTo, Demand demand);
+	
+	void sendMailForRejectedDemand(String emailTo, Demand demand, String rejectedCause);
 
 }

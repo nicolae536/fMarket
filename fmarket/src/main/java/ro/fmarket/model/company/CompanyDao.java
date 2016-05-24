@@ -21,7 +21,14 @@ public class CompanyDao extends BaseDao<Company> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Company> getByDomain(int demandDomainId) {
+	public List<String> getByDomainFromAllCities(int demandDomainId) {
+		Criteria criteria = getCriteria();
+		criteria.add(Restrictions.eq("", demandDomainId));
+		return criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<String> getEmailsByDomainAndCities(int demandDomainId, List<Integer> cityIds) {
 		Criteria criteria = getCriteria();
 		criteria.add(Restrictions.eq("", demandDomainId));
 		return criteria.list();

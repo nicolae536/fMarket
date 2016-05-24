@@ -60,7 +60,7 @@ public class DemandDao extends BaseDao<Demand> {
 	public Criteria createCriteriaForDemands(DemandSearchObject searchObject) {
 		Criteria criteria = getCriteria();
 		if (searchObject.getAccountId() != null) {
-			// criteria.createAlias("account", "acc");
+			// criteria.createAlias("account", "acc"); // TODO check if works
 			criteria.add(Restrictions.eq("account.id", searchObject.getAccountId()));
 		}
 		if (searchObject.getDomainId() != null) {

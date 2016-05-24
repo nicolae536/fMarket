@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.fmarket.core.converter.SelfDemandConverter;
-import ro.fmarket.core.exception.NotFoundException;
+import ro.fmarket.core.exception.NotAuthorizedException;
 import ro.fmarket.core.utils.AccountUtils;
 import ro.fmarket.core.utils.DateUtils;
 import ro.fmarket.core.utils.TokenUtils;
@@ -27,7 +27,7 @@ public class DemandServiceImpl implements DemandService {
 
 	@Autowired
 	private DemandDao demandDao;
-	
+
 	@Autowired
 	private DemandTokenDao demandTokenDao;
 
@@ -39,7 +39,7 @@ public class DemandServiceImpl implements DemandService {
 
 	@Autowired
 	private RegistrationService registrationService;
-	
+
 	@Autowired
 	private MailService mailService;
 
@@ -74,7 +74,7 @@ public class DemandServiceImpl implements DemandService {
 			demand.setStatus(DemandStatus.CLOSED);
 			demandDao.save(demand);
 		} else {
-			throw new NotFoundException("Demand");
+			throw new NotAuthorizedException();
 		}
 	}
 
@@ -95,8 +95,8 @@ public class DemandServiceImpl implements DemandService {
 	}
 
 	private void setDemandCities(NewDemandRequest request, final Demand demand) {
-		demand.setAllCities(request.isAllCities());
-		if (!request.isAllCities()) {
+		demand.setAllCities(request.getAllCities());
+		if (!request.getAllCities()) {
 			for (Integer cityId : request.getCities()) {
 				final DemandCity demandCity = new DemandCity();
 				demandCity.setDemand(demand);
@@ -106,18 +106,24 @@ public class DemandServiceImpl implements DemandService {
 		}
 	}
 
+	/**
+	 * Create a new account if user doesn't have one already.
+	 * @param request
+	 * @param isAccountLogged
+	 * @param demand
+	 */
 	private void setAccountForDemand(NewDemandRequest request, boolean isAccountLogged, Demand demand) {
 		Account account;
 		if (isAccountLogged) {
-			account = accountDao.getByEmail(request.getEmail());
 			demand.setStatus(DemandStatus.WAITING_FOR_REVIEW);
+			account = accountDao.getByEmail(request.getEmail());
 		} else {
+			demand.setStatus(DemandStatus.PENDING);
 			account = accountDao.getByEmail(request.getEmail());
 			if (account == null) {
 				account = registrationService.registerAutoAccount(request.getEmail());
 			} else {
-				AccountUtils.validateAccountIsNotClosed(account); //throw exception if account is closed
-				demand.setStatus(DemandStatus.PENDING);
+				AccountUtils.validateAccountIsNotClosed(account); // throw exception if account is closed
 			}
 		}
 		demand.setAccount(account);

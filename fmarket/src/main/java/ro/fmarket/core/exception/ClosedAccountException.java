@@ -1,10 +1,10 @@
 package ro.fmarket.core.exception;
 
-public class SuspendedAccountException extends RuntimeException {
+public class ClosedAccountException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1211299L;
 
-	public SuspendedAccountException(String message) {
+	public ClosedAccountException(String message) {
 		super(message);
 	}
 }

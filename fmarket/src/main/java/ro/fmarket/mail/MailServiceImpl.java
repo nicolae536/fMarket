@@ -1,6 +1,7 @@
 package ro.fmarket.mail;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
+import ro.fmarket.model.demand.Demand;
+
 @Service
 public class MailServiceImpl implements MailService {
 
@@ -23,6 +26,9 @@ public class MailServiceImpl implements MailService {
 	private static final String DEMAND_CONFIRM_HTML = "demandConfirm";
 	private static final String PASSWORD_CHANGE_CONFIRM_HTML = "passwordChangeConfirm";
 	private static final String REGISTRATION_CONFIRM_HTML = "registrationConfirm";
+	private static final String ACCEPTED_DEMAND_HTML = "";
+	private static final String REJECTED_DEMAND_HTML = "";
+	private static final String COMPANY_DEMAND_HTML = "";
 
 	@Value("${base.url}")
 	private String baseUrl;
@@ -90,6 +96,27 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 
+	@Async
+	@Override
+	public void sendMailToCompanies(Demand demand, List<String> emailAddresses) {
+		LOG.info("Sending new demaind mails to " + emailAddresses.size() + " companies...");
+		
+	}
+
+	@Async
+	@Override
+	public void sendAcceptedDemandMail(String emailTo, Demand demand) {
+		LOG.info("Sending accepted demand email to " + emailTo);
+		
+	}
+
+	@Async
+	@Override
+	public void sendMailForRejectedDemand(String emailTo, Demand demand, String rejectedCause) {
+		LOG.info("Sending rejected demand email to " + emailTo);
+		
+	}
+	
 	/**
 	 * Configure mime message.
 	 * @throws MessagingException
