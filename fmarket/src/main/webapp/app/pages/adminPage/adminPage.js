@@ -23,15 +23,18 @@ var companiesEditPage_1 = require("./companiesPage/companiesEditPage/companiesEd
 var demandsEditPage_1 = require("./demandsPage/demandsEditPage/demandsEditPage");
 var jqueryService_1 = require("../../services/jqueryService");
 var applicationConstansts_1 = require("../../models/applicationConstansts");
+var notificationService_1 = require("../../services/notificationService");
 var applicationPath = '/app/pages/adminPage';
 var AdminPage = (function () {
-    function AdminPage(location, router) {
+    function AdminPage(location, router, notificationService) {
         this.location = location;
         this.router = router;
+        this._notificationService = notificationService;
         jqueryService_1.JqueryService.removeElementWithAnimation(document.getElementById(applicationConstansts_1.ApplicationConstants.LOADING_SPINNER));
     }
     AdminPage.prototype.ngAfterViewChecked = function () {
         jqueryService_1.JqueryService.setPageHeight(this.leftMenu.nativeElement);
+        this._notificationService.removeLoading();
     };
     __decorate([
         core_1.ViewChild('leftMenu'), 
@@ -82,7 +85,7 @@ var AdminPage = (function () {
                 name: 'CompanieDetails'
             }),
         ]), 
-        __metadata('design:paramtypes', [common_1.Location, router_deprecated_1.Router])
+        __metadata('design:paramtypes', [common_1.Location, router_deprecated_1.Router, notificationService_1.NotificationService])
     ], AdminPage);
     return AdminPage;
 }());

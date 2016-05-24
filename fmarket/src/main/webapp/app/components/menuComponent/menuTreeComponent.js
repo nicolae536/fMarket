@@ -26,7 +26,7 @@ var MenuTreeComponent = (function () {
     MenuTreeComponent.prototype.ngOnChanges = function (changes) {
         if (changes.hasOwnProperty('menuDictionary') && this.menuDictionary) {
             this.menuDictionary = this.mapManuTree(this.menuDictionary);
-            this.menuTreeView[0] = this.getRootLayer();
+            this.menuTreeView[0] = { title: 'Categorii', treeView: this.getRootLayer(), enableOperations: this.enableOperations };
             this.activateTree();
         }
     };
@@ -47,13 +47,13 @@ var MenuTreeComponent = (function () {
     MenuTreeComponent.prototype.getTreeViewForMenuItem = function (menuItem) {
         var nextLayer = !menuItem.level ? 1 : menuItem.level + 1;
         var menuView = this.getActiveTreeView(menuItem.level);
-        menuView[nextLayer] = [];
+        menuView[nextLayer] = { title: this.selectedMenuItem.name, treeView: [], enableOperations: this.enableOperations };
         for (var i = 0; i < this.menuDictionary.length; i++) {
             if (this.menuDictionary[i].parentId === menuItem.id) {
-                menuView[nextLayer].push(this.menuDictionary[i]);
+                menuView[nextLayer].treeView.push(this.menuDictionary[i]);
             }
         }
-        if (menuView[nextLayer].length < 1) {
+        if (menuView[nextLayer].treeView.length < 1) {
             menuView.splice(nextLayer, 1);
         }
         return menuView;
@@ -121,6 +121,10 @@ var MenuTreeComponent = (function () {
         __metadata('design:type', Array)
     ], MenuTreeComponent.prototype, "menuDictionary", void 0);
     __decorate([
+        core_1.Input('enable-operations'), 
+        __metadata('design:type', Boolean)
+    ], MenuTreeComponent.prototype, "enableOperations", void 0);
+    __decorate([
         core_1.Output('item-selected'), 
         __metadata('design:type', core_1.EventEmitter)
     ], MenuTreeComponent.prototype, "selectItem", void 0);
@@ -140,7 +144,8 @@ var MenuTreeComponent = (function () {
         core_1.Component({
             selector: 'menu-component',
             templateUrl: '/app/components/menuComponent/menuTreeComponent.html',
-            directives: [baseMenuComponent_1.BaseMenuComponent]
+            directives: [baseMenuComponent_1.BaseMenuComponent],
+            styles: ["\n        .menu-tree .col-md-4{\n            padding:0px;\n        }\n    "]
         }), 
         __metadata('design:paramtypes', [])
     ], MenuTreeComponent);

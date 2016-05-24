@@ -33,6 +33,11 @@
 
 @import "pages/homePage/homePage.css";
 
+.modal-dialog.modal {
+    height: 100% !important;
+    max-height: 100% !important;
+}
+
 .page-animation{
     animation-timing-function: ease-in;
     animation: page-show-animation 0.5s;

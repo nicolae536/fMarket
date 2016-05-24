@@ -1,4 +1,4 @@
-import {Component, Input, Output, OnChanges, EventEmitter} from '@angular/core';
+import {Component, Input, Output, OnChanges, OnInit, EventEmitter} from "@angular/core";
 import {IUpdateDomainMenuItemRequest} from "../../../models/interfaces/iUpdateDomainMenuItemRequest";
 import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 
@@ -7,69 +7,107 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
     selector: 'base-menu',
     template: `
 	<div class="base-menu-component">
-	    <div class="menu-title arrow_box">
-	        <span class="h1">{{menuTitle}}</span>
-	    </div>
-		<ul class="nav nav-pills nav-stacked clearfix">
-			<li *ngFor="let item of menuItemsList" [class]="getItemClass(item)" (click)="selectItem(item)">
-				<a>
-				    <div class="pull-right">
-				        <span class="glyphicon glyphicon-plus operation" (click)="createSubMenu($event, item.id)" title="Adauga submeniu"></span>
-				        <span class="glyphicon glyphicon-pencil operation" (click)="editMenuItem($event,item)" title="Editeaza optiune"></span>
-				        <span class="glyphicon glyphicon-remove operation" (click)="removeMenuItem($event,item.id)" title="Sterge optiune"></span>
-				    </div>
-				    <span *ngIf="item.hasChildrens" class="glyphicon glyphicon-arrow-right"></span>
-				    {{item.orderNr}}.{{item.name}}
-				</a>
-			</li>
-			<div class="operations-label">
-			     <span class="glyphicon glyphicon-plus" (click)="addNewMenuItem()"></span>
-			</div>
-		</ul>
+	    <div class="base-menu-container" [ngClass]="{'active-menu':!!selectedItem}">
+	        <div class="menu-title">
+	            <span class="h1">{{menuTitle}}</span>
+	            <span *ngIf="!selectedItem" class="glyphicon glyphicon-triangle-right"></span>
+	        </div>
+		    <ul class="nav nav-pills nav-stacked clearfix">
+		    	<li *ngFor="let item of menuItemsList" [class]="getItemClass(item)" (click)="selectItem(item)">
+		    		<a>
+		    		    <div *ngIf="enableOperations" class="pull-right">
+		    		        <span class="glyphicon glyphicon-plus operation" (click)="createSubMenu($event, item.id)" title="Adauga submeniu"></span>
+		    		        <span class="glyphicon glyphicon-pencil operation" (click)="editMenuItem($event,item)" title="Editeaza optiune"></span>
+		    		        <span class="glyphicon glyphicon-remove operation" (click)="removeMenuItem($event,item.id)" title="Sterge optiune"></span>
+		    		    </div>
+		    		    <span *ngIf="item.hasChildrens" class="glyphicon glyphicon-arrow-right"></span>
+		    		    {{item.orderNr}}.{{item.name}}
+		    		</a>
+		    	</li>
+		    	
+		    </ul>
+		</div>
+		<div *ngIf="enableOperations" class="operations-label">
+		    <span class="glyphicon glyphicon-plus" (click)="addNewMenuItem()"></span>
+		</div>
 	</div>
 	`,
     styles: [`
-        .base-menu-component .menu-title{
-            padding: 9px 0 16px 25px;
-            color:white;
+        .base-menu-component {
+            background-color: white;
+            animation: modal-show 0.3s;
+        }
+        
+        .base-menu-component .base-menu-container.active-menu{
+            background-color:#f1f1f1;
         }
     
-        .base-menu-component .nav.nav-pills.nav-stacked .operations-label{
+        .base-menu-component .base-menu-container .menu-title{
+            padding: 9px 0 16px 48px;
+            color: black;
+            position: relative;
+            background-color:#f1f1f1;
+            border-right:1px solid lightgrey;
+        }
+        
+        .base-menu-component .base-menu-container .menu-title .glyphicon.glyphicon-triangle-right{
+            position: absolute;          
+            font-size: 70px;
+            top: -2px;
+            right: -52px;
+            z-index: 10;
+            color: #f1f1f1;
+        }      
+    
+        .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked{
+            border-top: 1px solid lightgrey;
+            border-right: 1px solid lightgrey;  
+        }
+    
+        .base-menu-component .operations-label{
             padding-top:10px;
         }
 
-        .base-menu-component .nav.nav-pills.nav-stacked .operations-label span{
+        .base-menu-component .operations-label span{
             cursor:pointer;
         }
 
-		.base-menu-component .nav.nav-pills.nav-stacked .btn.btn-primary{
+		.base-menu-component .base-menu-container .nav.nav-pills.nav-stacked .btn.btn-primary{
 			height:34px;
 			width:100%;
 		}
 
-		.base-menu-component .nav.nav-pills.nav-stacked li{
-            background-color:#54d3e3;
-            border-radius: 5px
+        .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked li{
+            margin-top:0px;
         }
 
-        .base-menu-component .nav.nav-pills.nav-stacked li a{
+        .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked li a{
             color:black;
         }
 
-        .base-menu-component .nav.nav-pills.nav-stacked .active a{
-            color:black;
-            background-color:#ff6b45;
+        .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked li:hover a{
+            cursor:pointer;
+            background-color:#74C2DA;
         }
 
-        .base-menu-component .nav.nav-pills.nav-stacked .operation{
+        .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked .active a{
+            color:white;
+            background-color:#00a6da;
+        }
+
+        .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked li a .operation{
             cursor:pointer;
         }
 
-        .base-menu-component .nav.nav-pills.nav-stacked .domain-marker{
-            background-color:#e8fff5;
+        .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked .domain-marker{
+            border-top-left-radius: 100px;
+        }
+        
+        .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked .domain-marker a{
+            border-top-left-radius: 100px;
         }
 
-		.base-menu-component .nav.nav-pills.nav-stacked .input-group{
+		.base-menu-component .base-menu-container .nav.nav-pills.nav-stacked .input-group{
 			padding-bottom:5px;
 		}
 		
@@ -104,25 +142,29 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 	`]
 })
 
-export class BaseMenuComponent implements OnChanges{
+export class BaseMenuComponent implements OnChanges, OnInit {
     @Input('menu-items-list') menuItemsList:Array<IMenuItem>;
     @Input('menu-layer') menuLayer:number;
     @Input('active-in-tree') activeInTree:IMenuItem;
     @Input('menu-tree-title') menuTitle:string;
-
+    @Input('enable-operations') enableOperations:boolean;
     @Output('select-menu-item') broadcastMenuItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
+
     @Output('add-new-item') broadcastNewItem:EventEmitter<number> = new EventEmitter<number>();
     @Output('edit-submenu') broadcastUpdateItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
     @Output('delete-submenu') broadcastDeleteItem:EventEmitter<number> = new EventEmitter<number>();
-
     selectedItem:IMenuItem;
 
     constructor() {
         this.menuTitle = "test";
     }
 
+    ngOnInit():any {
+        this.selectedItem = null;
+    }
+
     ngOnChanges(changes:{}) {
-        if(changes.hasOwnProperty('activeInTree') && this.activeInTree){
+        if (changes.hasOwnProperty('activeInTree') && this.activeInTree) {
             this.selectedItem = this.activeInTree;
         }
     }

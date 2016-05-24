@@ -7,11 +7,17 @@ import {IMenuItem} from "../../models/interfaces/iMenuItem";
 @Component({
     selector: 'menu-component',
     templateUrl: '/app/components/menuComponent/menuTreeComponent.html',
-    directives: [BaseMenuComponent]
+    directives: [BaseMenuComponent],
+    styles:[`
+        .menu-tree .col-md-4{
+            padding:0px;
+        }
+    `]
 })
 
 export class MenuTreeComponent implements OnChanges {
     @Input('menu-tree-data') menuDictionary:Array<IMenuItem>;
+    @Input('enable-operations') enableOperations:boolean;
     //menuDictionary;
     @Output('item-selected') selectItem:EventEmitter<INewDomainMenuItemRequest> = new EventEmitter<INewDomainMenuItemRequest>();
     @Output('add-menu-item') broadcastNewItem:EventEmitter<number> = new EventEmitter<number>();
@@ -30,7 +36,7 @@ export class MenuTreeComponent implements OnChanges {
     ngOnChanges(changes:{}):any {
         if (changes.hasOwnProperty('menuDictionary') && this.menuDictionary) {
             this.menuDictionary = this.mapManuTree(this.menuDictionary);
-            this.menuTreeView[0] = this.getRootLayer();
+            this.menuTreeView[0] = {title:'Categorii', treeView: this.getRootLayer(), enableOperations:this.enableOperations};
             this.activateTree();
         }
     }
@@ -57,15 +63,15 @@ export class MenuTreeComponent implements OnChanges {
         let menuView = this.getActiveTreeView(menuItem.level);
 
 
-        menuView[nextLayer] = [];
+        menuView[nextLayer] = {title: this.selectedMenuItem.name, treeView:[], enableOperations:this.enableOperations};
 
         for (var i = 0; i < this.menuDictionary.length; i++) {
             if (this.menuDictionary[i].parentId === menuItem.id) {
-                menuView[nextLayer].push(this.menuDictionary[i]);
+                menuView[nextLayer].treeView.push(this.menuDictionary[i]);
             }
         }
 
-        if (menuView[nextLayer].length < 1) {
+        if (menuView[nextLayer].treeView.length < 1) {
             menuView.splice(nextLayer, 1);
         }
 

@@ -28,7 +28,7 @@ export class CategoriesMenuPage implements OnInit {
     private _menuItemModal:MenuItemDialog;
     private _modalInterface:IModal;
     _domains:Array<Select2Item>;
-
+    isAdminUser = AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);
     foobarItems:Array<Select2Item>;
 
     constructor(_categoriesMenuService:CategoriesMenuService) {

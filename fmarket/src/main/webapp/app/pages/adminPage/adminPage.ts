@@ -15,6 +15,7 @@ import {CompaniesEditPage} from "./companiesPage/companiesEditPage/companiesEdit
 import {DemandsEditPage} from "./demandsPage/demandsEditPage/demandsEditPage";
 import {JqueryService} from "../../services/jqueryService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
+import {NotificationService} from "../../services/notificationService";
 
 var applicationPath:string = '/app/pages/adminPage';
 
@@ -68,13 +69,17 @@ export class AdminPage implements AfterViewChecked{
     location:Location;
 
     router:Router;
-    constructor(location:Location, router:Router) {
+    private _notificationService:NotificationService;
+
+    constructor(location:Location, router:Router, notificationService:NotificationService) {
         this.location = location;
         this.router = router;
+        this._notificationService = notificationService;
         JqueryService.removeElementWithAnimation(document.getElementById(ApplicationConstants.LOADING_SPINNER));
     }
 
     ngAfterViewChecked():any {
         JqueryService.setPageHeight(this.leftMenu.nativeElement);
+        this._notificationService.removeLoading();
     }
 }

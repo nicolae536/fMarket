@@ -2,8 +2,10 @@
 
     <div class="col-md-4" *ngFor="let menu of menuTreeView; let i = index">
         <base-menu
-                [menu-items-list]="menu"
+                [menu-items-list]="menu.treeView"
+                [menu-tree-title]="menu.title"
                 [menu-layer]="i"
+                [enable-operations]="menu.enableOperations"
                 [active-in-tree]="getActiveItemInTree(i)"
                 (select-menu-item)="selectMenuItem($event)"
                 (add-new-item)="requestNewMenuItem($event)"

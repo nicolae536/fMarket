@@ -20,6 +20,7 @@ var applicationPath = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
 var CategoriesMenuPage = (function () {
     function CategoriesMenuPage(_categoriesMenuService) {
         this.menuDictionary = [];
+        this.isAdminUser = authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
         this._categoriesMenuService = _categoriesMenuService;
         // code...
     }

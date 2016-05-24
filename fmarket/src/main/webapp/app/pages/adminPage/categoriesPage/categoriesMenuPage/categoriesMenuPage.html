@@ -8,6 +8,7 @@
         ></menu-item-dialog>
         <menu-component
                 [menu-tree-data]="menuDictionary"
+                [enable-operations]="isAdminUser"
                 (item-selected)="selectMenuItem($event)"
                 (add-menu-item)="showAddMenuModal($event)"
                 (edit-menu-item)="showEditMenuModal($event)"
