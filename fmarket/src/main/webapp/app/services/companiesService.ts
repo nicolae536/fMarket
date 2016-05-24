@@ -14,8 +14,8 @@ export class CompaniesService{
     private api:FMarketApi;
     private COMPANIE_CONTROLLER = '/companies'
 
-    constructor(http:Http){
-        this.api = new FMarketApi(http);
+    constructor(api:FMarketApi){
+        this.api = api;
     }
 
     getCompanies(searchQuery:string){

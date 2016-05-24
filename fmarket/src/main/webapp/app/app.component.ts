@@ -21,6 +21,7 @@ import {UserService} from "./services/usersService";
 import {CompaniesService} from "./services/companiesService";
 import {Role} from "./models/Roles";
 import {JqueryService} from "./services/jqueryService";
+import {FMarketApi} from "./services/fMarketApi";
 
 //= {type: "success", dismisable: true, message:""};
 @Component({
@@ -100,6 +101,7 @@ import {JqueryService} from "./services/jqueryService";
     providers: [
         FormBuilder,
 
+        FMarketApi,
         NotificationService,
         LocalStorageService,
         RegistrationService,

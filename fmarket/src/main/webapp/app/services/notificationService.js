@@ -17,11 +17,11 @@ var fMarketApi_1 = require("./fMarketApi");
 var Subject_1 = require("rxjs/Subject");
 var applicationConstansts_1 = require("../models/applicationConstansts");
 var NotificationService = (function () {
+    // public backgroundUpdate:Subject<string> = new Subject();
     function NotificationService(http) {
         this._NotificationController = '/notify';
         this.notificationFlux = new Subject_1.Subject();
         this.firstLoad = new Subject_1.Subject();
-        this.backgroundUpdate = new Subject_1.Subject();
         this.api = new fMarketApi_1.FMarketApi(http);
     }
     NotificationService.prototype.getStatus = function () {
@@ -30,9 +30,10 @@ var NotificationService = (function () {
     NotificationService.prototype.emitNotificationToRootComponent = function (notification) {
         this.notificationFlux.next(notification);
     };
-    NotificationService.prototype.updateBackground = function (background) {
-        this.backgroundUpdate.next(background);
-    };
+    //
+    // updateBackground(background:string){
+    //     this.backgroundUpdate.next(background);
+    // }
     NotificationService.prototype.removeLoading = function () {
         this.firstLoad.next(applicationConstansts_1.ApplicationConstants.FIRST_LOAD);
     };

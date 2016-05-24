@@ -12,12 +12,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/24/2016.
  */
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
 var fMarketApi_1 = require("./fMarketApi");
 var AccountService = (function () {
-    function AccountService(http) {
+    function AccountService(api) {
         this._AccountController = '/account';
-        this.api = new fMarketApi_1.FMarketApi(http);
+        this.api = api;
     }
     AccountService.prototype.getAccount = function () {
     };
@@ -26,7 +25,7 @@ var AccountService = (function () {
     };
     AccountService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], AccountService);
     return AccountService;
 }());

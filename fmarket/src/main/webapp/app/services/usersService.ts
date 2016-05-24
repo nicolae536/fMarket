@@ -10,8 +10,8 @@ export class UserService {
     adminUsersControllerRoute:string = '/admin/users';
     api:FMarketApi;
 
-    constructor(http:Http) {
-        this.api = new FMarketApi(http);
+    constructor(api:FMarketApi) {
+        this.api = api;
     }
 
     updateUser(user:User) {

@@ -13,8 +13,8 @@ export class CategoriesMenuService {
     private _domainMenuController:string = '/menu/domain';
     private api:FMarketApi;
 
-    constructor(http:Http) {
-        this.api = new FMarketApi(http);
+    constructor(api:FMarketApi) {
+        this.api = api;
     }
 
     getMenuDictionary():Observable<Object> {

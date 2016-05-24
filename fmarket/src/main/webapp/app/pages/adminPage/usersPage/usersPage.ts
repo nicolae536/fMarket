@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, Injectable} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {NgForm} from '@angular/common';
 import {CanActivate} from "@angular/router-deprecated";
 
@@ -148,9 +148,11 @@ export class UsersPage extends PageWithNavigation implements OnInit {
     }
 
     confirmCreateUser(){
+        let me = this;
         //post to backend
         this._userService.createUser(this.userDialog.getValue()).subscribe(resp => {
-            //todo do something with the response
+            me.userDialog.hide();
+            me.getUsers();
         }, error => {
             //display message
         });

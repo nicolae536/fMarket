@@ -10,11 +10,11 @@ const APPLICATION_PATH:string = '/app/components/demandComponent/demandDialogCom
 
 @Component({
     selector: 'demand-dialog',
-    templateUrl: APPLICATION_PATH + '/demandDialogComponent.html',
+    templateUrl: APPLICATION_PATH + '/demandBaseComponent.html',
     directives:[DemandComponent]
 })
 
-export class DemandDialogComponent extends ModalDialog{
+export class DemandBaseComponent extends ModalDialog{
     @Input('city-list')_cityList:Array<Select2Item>;
     @Input('domain-List')_domainList:Array<Select2Item>;
     @Input('title') title:string;
@@ -22,7 +22,7 @@ export class DemandDialogComponent extends ModalDialog{
     @Input('cancel-label') cancelLabel:string = 'Cancel';
 
 
-    @Output('loaded') loadedEmitter:EventEmitter<DemandDialogComponent> = new EventEmitter<DemandDialogComponent>();
+    @Output('loaded') loadedEmitter:EventEmitter<DemandBaseComponent> = new EventEmitter<DemandBaseComponent>();
     @Output('action-confirmed') confirmAction:EventEmitter<Object> = new EventEmitter<Object>();
 
     private _demandComponent:DemandComponent;

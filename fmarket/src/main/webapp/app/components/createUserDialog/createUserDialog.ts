@@ -19,7 +19,7 @@ export class CreateUserDialog extends ModalDialog implements OnInit {
     @Input('status-list') statusList:Array<Object>;
     @Input('city-list') cityList:Array<Object>;
     @Output('loaded') loadedEmitter:EventEmitter<CreateUserDialog> = new EventEmitter<CreateUserDialog>();
-
+    @Output('create-user') createUser:EventEmitter<User> = new EventEmitter<User>();
     _userForm;
     private _formBuilder:FormBuilder;
 
@@ -61,7 +61,7 @@ export class CreateUserDialog extends ModalDialog implements OnInit {
             return
         }
 
-        this.positiveAction()
+        this.createUser.emit(this.getValue());
     }
 
     cancelFormAction(){

@@ -12,12 +12,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 5/6/2016.
  */
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
 var fMarketApi_1 = require("./fMarketApi");
 var CompaniesService = (function () {
-    function CompaniesService(http) {
+    function CompaniesService(api) {
         this.COMPANIE_CONTROLLER = '/companies';
-        this.api = new fMarketApi_1.FMarketApi(http);
+        this.api = api;
     }
     CompaniesService.prototype.getCompanies = function (searchQuery) {
         return this.api.get(this.COMPANIE_CONTROLLER + ("/all?p=" + searchQuery));
@@ -33,7 +32,7 @@ var CompaniesService = (function () {
     };
     CompaniesService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], CompaniesService);
     return CompaniesService;
 }());

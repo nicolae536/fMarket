@@ -13,8 +13,8 @@ export class AccountService {
     private _AccountController:string = '/account';
     private api:FMarketApi;
 
-    constructor(http:Http) {
-        this.api = new FMarketApi(http);
+    constructor(api:FMarketApi) {
+        this.api = api;
     }
 
     getAccount(){

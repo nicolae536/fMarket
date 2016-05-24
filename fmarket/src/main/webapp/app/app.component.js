@@ -31,6 +31,7 @@ var usersService_1 = require("./services/usersService");
 var companiesService_1 = require("./services/companiesService");
 var Roles_1 = require("./models/Roles");
 var jqueryService_1 = require("./services/jqueryService");
+var fMarketApi_1 = require("./services/fMarketApi");
 //= {type: "success", dismisable: true, message:""};
 var AppComponent = (function () {
     function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
@@ -131,6 +132,7 @@ var AppComponent = (function () {
             directives: [router_deprecated_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.AlertComponent, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent],
             providers: [
                 common_1.FormBuilder,
+                fMarketApi_1.FMarketApi,
                 notificationService_1.NotificationService,
                 localStorageService_1.LocalStorageService,
                 registrationService_1.RegistrationService,

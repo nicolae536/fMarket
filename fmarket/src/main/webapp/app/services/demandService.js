@@ -12,14 +12,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/16/2016.
  */
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
 var mock_City_1 = require("./mock-providers/mock-City");
 var fMarketApi_1 = require("./fMarketApi");
 var Observable_1 = require("rxjs/Observable");
 var DemandService = (function () {
-    function DemandService(http) {
+    function DemandService(api) {
         this._DemandController = '/admin/demands';
-        this.api = new fMarketApi_1.FMarketApi(http);
+        this.api = api;
     }
     DemandService.prototype.getCityList = function () {
         return new Observable_1.Observable(function (observer) {
@@ -67,7 +66,7 @@ var DemandService = (function () {
     };
     DemandService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], DemandService);
     return DemandService;
 }());

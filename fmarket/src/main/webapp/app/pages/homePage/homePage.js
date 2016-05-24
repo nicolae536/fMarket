@@ -15,12 +15,11 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var categoriesMenuService_1 = require("../../services/categoriesMenuService");
 var demandService_1 = require("../../services/demandService");
-var demandDialogComponent_1 = require("../../components/demandComponent/demandDialogComponent/demandDialogComponent");
+var demandBaseComponent_1 = require("../../components/demandComponent/demandDialogComponent/demandBaseComponent");
 var jqueryService_1 = require("../../services/jqueryService");
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
 var subscribersService_1 = require("../../services/subscribersService");
 var notificationService_1 = require("../../services/notificationService");
-var applicationConstansts_1 = require("../../models/applicationConstansts");
 var folderPath = '/app/pages/homePage';
 var HomePage = (function () {
     function HomePage(_categoriesMenuService, _demandService, subscribersService, formBuilder, notificationService) {
@@ -32,11 +31,11 @@ var HomePage = (function () {
         this._notificationService = notificationService;
     }
     HomePage.prototype.ngOnInit = function () {
-        this.getCityes();
+        this.getCities();
         this.getDomains();
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
-        this._notificationService.updateBackground(applicationConstansts_1.ApplicationConstants.homePage);
+        // this._notificationService.updateBackground(ApplicationConstants.homePage);
         this._notificationService.removeLoading();
     };
     HomePage.prototype.ngAfterViewInit = function () {
@@ -99,7 +98,7 @@ var HomePage = (function () {
             console.log(error.message);
         });
     };
-    HomePage.prototype.getCityes = function () {
+    HomePage.prototype.getCities = function () {
         var me = this;
         this._demandService.getCityList()
             .subscribe(function (response) {
@@ -157,7 +156,7 @@ var HomePage = (function () {
         core_1.Component({
             selector: 'home-page',
             templateUrl: folderPath + '/homePage.html',
-            directives: [demandDialogComponent_1.DemandDialogComponent]
+            directives: [demandBaseComponent_1.DemandBaseComponent]
         }), 
         __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService])
     ], HomePage);

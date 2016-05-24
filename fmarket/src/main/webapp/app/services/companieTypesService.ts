@@ -8,8 +8,8 @@ export class CompanieTypeService {
     private _CompanyDomainController:string = '/company/domains';
     private api:FMarketApi;
 
-    constructor(http:Http) {
-        this.api = new FMarketApi(http);
+    constructor(api:FMarketApi) {
+        this.api = api;
     }
 
     getCompanyTypesWithFilters(searchQuery:string) {

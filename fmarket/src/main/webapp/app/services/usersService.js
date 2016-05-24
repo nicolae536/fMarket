@@ -9,12 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
 var fMarketApi_1 = require("./fMarketApi");
 var UserService = (function () {
-    function UserService(http) {
+    function UserService(api) {
         this.adminUsersControllerRoute = '/admin/users';
-        this.api = new fMarketApi_1.FMarketApi(http);
+        this.api = api;
     }
     UserService.prototype.updateUser = function (user) {
         return this.api.put(this.adminUsersControllerRoute + ("/" + user.id), JSON.stringify(user));
@@ -41,7 +40,7 @@ var UserService = (function () {
     };
     UserService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], UserService);
     return UserService;
 }());

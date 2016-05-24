@@ -9,13 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
 var fMarketApi_1 = require("./fMarketApi");
 var SubscribersService = (function () {
-    function SubscribersService(http) {
+    function SubscribersService(api) {
         this.apiSubscribersControllerUrl = "/admin/subscribers";
         this.apiUserSubscribeController = "/subscribers";
-        this.api = new fMarketApi_1.FMarketApi(http);
+        this.api = api;
     }
     SubscribersService.prototype.getSubscribersWithFilters = function (id, email, currentPageIndex, sortKey, ascendingOrder) {
         var filterObject = {
@@ -40,7 +39,7 @@ var SubscribersService = (function () {
     };
     SubscribersService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], SubscribersService);
     return SubscribersService;
 }());

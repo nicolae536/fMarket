@@ -42,19 +42,19 @@
 }
 
 .admin-page-container .menu-container .nav.nav-pills.nav-stacked li a:hover{
-    background-color: cornflowerblue;
+    background-color: #74C2DA;
 }
 
 .admin-page-container .menu-container .nav.nav-pills.nav-stacked li:hover {
-    background-color: rgb(136, 176, 245);
+    background-color: #74C2DA;
 }
 
 .admin-page-container .menu-container .nav.nav-pills.nav-stacked li.active:hover {
-    background-color: cornflowerblue;
+    background-color: #00a6da;
 }
 
 .admin-page-container .menu-container .nav.nav-pills.nav-stacked .active:hover a{
-    background-color: cornflowerblue;
+    background-color: #00a6da;
 }
 
 .admin-page-container .menu-container .nav.nav-pills.nav-stacked .pull-left{
@@ -62,11 +62,11 @@
 }
 
 .admin-page-container .menu-container .nav.nav-pills.nav-stacked .active{
-    background-color: cornflowerblue;
+    background-color: #00a6da;
 }
 
 .admin-page-container .menu-container .nav.nav-pills.nav-stacked .active a{
-    background-color: cornflowerblue;
+    background-color: #00a6da;
 }
 
 .admin-page-container .admin-menu-title .glyphicon.glyphicon-th-list {

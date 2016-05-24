@@ -8,8 +8,8 @@ export class RequestTypeService {
     _requestDomains:string = '/demand/domains';
     api:FMarketApi;
 
-    constructor(http:Http) {
-        this.api = new FMarketApi(http);
+    constructor(api:FMarketApi) {
+        this.api = api;
     }
 
     getRequestTypesWithFilters(searchQuery?:string) {

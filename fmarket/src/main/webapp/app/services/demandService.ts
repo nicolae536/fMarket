@@ -15,8 +15,8 @@ export class DemandService {
     private _DemandController:string = '/admin/demands';
     private api:FMarketApi;
 
-    constructor(http:Http) {
-        this.api = new FMarketApi(http);
+    constructor(api:FMarketApi) {
+        this.api = api;
     }
 
     getCityList() {

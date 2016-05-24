@@ -15,10 +15,10 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var fMarketApi_1 = require("./fMarketApi");
 var RegistrationService = (function () {
-    function RegistrationService(http) {
+    function RegistrationService(api) {
         this.REGISTRATION_CONTROLLER = '/registration';
         this.ACCOUNT_CONTROLLER = '/account';
-        this.api = new fMarketApi_1.FMarketApi(http);
+        this.api = api;
     }
     RegistrationService.prototype.createAccount = function (account) {
         var newAccount = account ? { email: account.email, password: account.passwords.password, subscribe: account.subscribe } : { email: null, password: null, subscribe: null };
@@ -47,7 +47,7 @@ var RegistrationService = (function () {
     };
     RegistrationService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], RegistrationService);
     return RegistrationService;
 }());

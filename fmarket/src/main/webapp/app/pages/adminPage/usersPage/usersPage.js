@@ -123,9 +123,11 @@ var UsersPage = (function (_super) {
         this.userDialog.show("", new user_1.User());
     };
     UsersPage.prototype.confirmCreateUser = function () {
+        var me = this;
         //post to backend
         this._userService.createUser(this.userDialog.getValue()).subscribe(function (resp) {
-            //todo do something with the response
+            me.userDialog.hide();
+            me.getUsers();
         }, function (error) {
             //display message
         });

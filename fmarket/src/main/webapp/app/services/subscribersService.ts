@@ -8,8 +8,8 @@ export class SubscribersService {
     apiSubscribersControllerUrl:string = "/admin/subscribers";
     apiUserSubscribeController:string = "/subscribers";
 
-    constructor(http:Http) {
-        this.api = new FMarketApi(http);
+    constructor(api:FMarketApi) {
+        this.api = api;
     }
 
     getSubscribersWithFilters(id, email, currentPageIndex, sortKey, ascendingOrder) {

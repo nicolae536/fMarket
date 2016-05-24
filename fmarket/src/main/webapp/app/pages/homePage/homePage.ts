@@ -7,7 +7,7 @@ import {FormBuilder, Validators} from "@angular/common";
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
 import {Select2Item} from "../../components/selectComponent/selectComponent";
 import {DemandService} from "../../services/demandService";
-import {DemandDialogComponent} from "../../components/demandComponent/demandDialogComponent/demandDialogComponent";
+import {DemandBaseComponent} from "../../components/demandComponent/demandDialogComponent/demandBaseComponent";
 import {Demand} from "../../models/demand";
 import {JqueryService} from "../../services/jqueryService";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
@@ -20,7 +20,7 @@ const folderPath = '/app/pages/homePage';
 @Component({
     selector: 'home-page',
     templateUrl: folderPath + '/homePage.html',
-    directives: [DemandDialogComponent]
+    directives: [DemandBaseComponent]
 })
 export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     //components
@@ -28,7 +28,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     @ViewChild('howWeWork') private howWeWorkRef:ElementRef;
     @ViewChild('videoContainer') private videoContainer:ElementRef;
     @ViewChild('videoRightContainer') private videoRightContainer:ElementRef;
-    private _demandDialog:DemandDialogComponent;
+    private _demandDialog:DemandBaseComponent;
     scrollProperty:string = 'scrollY';
 
     //services
@@ -51,11 +51,11 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
         this._notificationService = notificationService;
     }
     ngOnInit():any {
-        this.getCityes();
+        this.getCities();
         this.getDomains();
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
-        this._notificationService.updateBackground(ApplicationConstants.homePage);
+        // this._notificationService.updateBackground(ApplicationConstants.homePage);
         this._notificationService.removeLoading();
     }
 
@@ -67,7 +67,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
         this.rematchElementsOnView(null);
     }
 
-    referenceDemandDialog(demandDialog:DemandDialogComponent) {
+    referenceDemandDialog(demandDialog:DemandBaseComponent) {
         this._demandDialog = demandDialog;
     }
 
@@ -134,7 +134,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
         )
     }
 
-    getCityes():void {
+    getCities():void {
         var me = this;
         this._demandService.getCityList()
             .subscribe(

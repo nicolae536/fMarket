@@ -15,14 +15,6 @@ var JqueryService = (function () {
             $(param).height(height);
         });
     };
-    JqueryService.setPageHeight = function (nativeElement) {
-        var height = $(window).height();
-        if (this.isMobile()) {
-            return;
-        }
-        var pageHeight = height - 50 - 101;
-        $(nativeElement).height(pageHeight);
-    };
     JqueryService.getElementHeight = function (nativeElement) {
         return $(nativeElement).height();
     };

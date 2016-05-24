@@ -15,7 +15,7 @@ export class NotificationService {
     private api:FMarketApi;
     public notificationFlux:Subject<any> = new Subject();
     public firstLoad:Subject<any> = new Subject();
-    public backgroundUpdate:Subject<string> = new Subject();
+    // public backgroundUpdate:Subject<string> = new Subject();
 
     constructor(http:Http) {
         this.api = new FMarketApi(http);
@@ -28,10 +28,10 @@ export class NotificationService {
     emitNotificationToRootComponent(notification:IAlert){
         this.notificationFlux.next(notification);
     }
-
-    updateBackground(background:string){
-        this.backgroundUpdate.next(background);
-    }
+    //
+    // updateBackground(background:string){
+    //     this.backgroundUpdate.next(background);
+    // }
 
     removeLoading() {
         this.firstLoad.next(ApplicationConstants.FIRST_LOAD);

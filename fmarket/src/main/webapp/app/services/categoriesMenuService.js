@@ -12,12 +12,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/8/2016.
  */
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
 var fMarketApi_1 = require("./fMarketApi");
 var CategoriesMenuService = (function () {
-    function CategoriesMenuService(http) {
+    function CategoriesMenuService(api) {
         this._domainMenuController = '/menu/domain';
-        this.api = new fMarketApi_1.FMarketApi(http);
+        this.api = api;
     }
     CategoriesMenuService.prototype.getMenuDictionary = function () {
         return this.api.get(this._domainMenuController);
@@ -36,7 +35,7 @@ var CategoriesMenuService = (function () {
     };
     CategoriesMenuService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], CategoriesMenuService);
     return CategoriesMenuService;
 }());

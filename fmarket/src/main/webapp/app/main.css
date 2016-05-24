@@ -2,7 +2,7 @@
 @import "/app/components/companieComponent/createCompanieDialog/createCompanieDialog.css";
 @import "/app/components/createUserDialog/createUserDialog.css";
 @import "/app/components/demandComponent/demandComponent.css";
-@import "/app/components/demandComponent/demandDialogComponent/demandDialogComponent.css";
+@import "/app/components/demandComponent/demandDialogComponent/demandBaseComponent.css";
 @import "/app/components/demandComponent/demandEdit/demandEdit.css";
 @import "/app/components/demandComponent/demandListBase/demandListBase.css";
 @import "/app/components/footerComponent/footerComponent.css";

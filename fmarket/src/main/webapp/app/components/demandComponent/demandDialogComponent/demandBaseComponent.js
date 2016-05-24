@@ -21,30 +21,30 @@ var modalDialog_1 = require('../../modalDialog/modalDialog');
 var demandComponent_1 = require("../demandComponent");
 var demand_1 = require("../../../models/demand");
 var APPLICATION_PATH = '/app/components/demandComponent/demandDialogComponent';
-var DemandDialogComponent = (function (_super) {
-    __extends(DemandDialogComponent, _super);
-    function DemandDialogComponent() {
+var DemandBaseComponent = (function (_super) {
+    __extends(DemandBaseComponent, _super);
+    function DemandBaseComponent() {
         _super.call(this);
         this.positiveLabel = 'Creaza cerere';
         this.cancelLabel = 'Cancel';
         this.loadedEmitter = new core_1.EventEmitter();
         this.confirmAction = new core_1.EventEmitter();
     }
-    DemandDialogComponent.prototype.ngOnInit = function () {
+    DemandBaseComponent.prototype.ngOnInit = function () {
         this.responseObject = new demand_1.Demand();
         this.loadedEmitter.emit(this);
     };
-    DemandDialogComponent.prototype.referenceDemandComponent = function (_demandComponent) {
+    DemandBaseComponent.prototype.referenceDemandComponent = function (_demandComponent) {
         this._demandComponent = _demandComponent;
     };
-    DemandDialogComponent.prototype.closeDemandDialog = function () {
+    DemandBaseComponent.prototype.closeDemandDialog = function () {
         this.responseObject = new demand_1.Demand();
         this.cancelAction();
     };
-    DemandDialogComponent.prototype.isValidResponse = function () {
+    DemandBaseComponent.prototype.isValidResponse = function () {
         return this._demandComponent.IsValid();
     };
-    DemandDialogComponent.prototype.createDemand = function () {
+    DemandBaseComponent.prototype.createDemand = function () {
         if (this._demandComponent.IsValid()) {
             this.responseObject = this._demandComponent.getFormData;
         }
@@ -53,40 +53,40 @@ var DemandDialogComponent = (function (_super) {
     __decorate([
         core_1.Input('city-list'), 
         __metadata('design:type', Array)
-    ], DemandDialogComponent.prototype, "_cityList", void 0);
+    ], DemandBaseComponent.prototype, "_cityList", void 0);
     __decorate([
         core_1.Input('domain-List'), 
         __metadata('design:type', Array)
-    ], DemandDialogComponent.prototype, "_domainList", void 0);
+    ], DemandBaseComponent.prototype, "_domainList", void 0);
     __decorate([
         core_1.Input('title'), 
         __metadata('design:type', String)
-    ], DemandDialogComponent.prototype, "title", void 0);
+    ], DemandBaseComponent.prototype, "title", void 0);
     __decorate([
         core_1.Input('positive-label'), 
         __metadata('design:type', String)
-    ], DemandDialogComponent.prototype, "positiveLabel", void 0);
+    ], DemandBaseComponent.prototype, "positiveLabel", void 0);
     __decorate([
         core_1.Input('cancel-label'), 
         __metadata('design:type', String)
-    ], DemandDialogComponent.prototype, "cancelLabel", void 0);
+    ], DemandBaseComponent.prototype, "cancelLabel", void 0);
     __decorate([
         core_1.Output('loaded'), 
         __metadata('design:type', core_1.EventEmitter)
-    ], DemandDialogComponent.prototype, "loadedEmitter", void 0);
+    ], DemandBaseComponent.prototype, "loadedEmitter", void 0);
     __decorate([
         core_1.Output('action-confirmed'), 
         __metadata('design:type', core_1.EventEmitter)
-    ], DemandDialogComponent.prototype, "confirmAction", void 0);
-    DemandDialogComponent = __decorate([
+    ], DemandBaseComponent.prototype, "confirmAction", void 0);
+    DemandBaseComponent = __decorate([
         core_1.Component({
             selector: 'demand-dialog',
-            templateUrl: APPLICATION_PATH + '/demandDialogComponent.html',
+            templateUrl: APPLICATION_PATH + '/demandBaseComponent.html',
             directives: [demandComponent_1.DemandComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], DemandDialogComponent);
-    return DemandDialogComponent;
+    ], DemandBaseComponent);
+    return DemandBaseComponent;
 }(modalDialog_1.ModalDialog));
-exports.DemandDialogComponent = DemandDialogComponent;
-//# sourceMappingURL=demandDialogComponent.js.map
+exports.DemandBaseComponent = DemandBaseComponent;
+//# sourceMappingURL=demandBaseComponent.js.map

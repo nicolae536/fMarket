@@ -27,6 +27,7 @@ var CreateUserDialog = (function (_super) {
         this.cancelLabel = 'Cancel';
         this.positiveLabel = 'Create User';
         this.loadedEmitter = new core_1.EventEmitter();
+        this.createUser = new core_1.EventEmitter();
         this._formBuilder = formBuilder;
         this.responseObject = new user_1.User();
     }
@@ -54,7 +55,7 @@ var CreateUserDialog = (function (_super) {
         if (!this._userForm.valid) {
             return;
         }
-        this.positiveAction();
+        this.createUser.emit(this.getValue());
     };
     CreateUserDialog.prototype.cancelFormAction = function () {
         this.rebuildForm();
@@ -105,6 +106,10 @@ var CreateUserDialog = (function (_super) {
         core_1.Output('loaded'), 
         __metadata('design:type', core_1.EventEmitter)
     ], CreateUserDialog.prototype, "loadedEmitter", void 0);
+    __decorate([
+        core_1.Output('create-user'), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], CreateUserDialog.prototype, "createUser", void 0);
     CreateUserDialog = __decorate([
         core_1.Component({
             selector: 'create-user-dialog',

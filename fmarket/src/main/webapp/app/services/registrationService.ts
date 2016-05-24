@@ -12,8 +12,8 @@ export class RegistrationService {
     private REGISTRATION_CONTROLLER:string = '/registration'
     private ACCOUNT_CONTROLLER:string = '/account'
 
-    constructor(http:Http){
-        this.api = new FMarketApi(http);
+    constructor(api:FMarketApi){
+        this.api = api;
     }
 
     createAccount(account:RegisterAccount){
