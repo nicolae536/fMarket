@@ -66,6 +66,7 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
     
         .base-menu-component .operations-label{
             padding-top:10px;
+            padding-left: 10px;
         }
 
         .base-menu-component .operations-label span{

@@ -33,6 +33,7 @@ var HomePage = (function () {
     HomePage.prototype.ngOnInit = function () {
         this.getCities();
         this.getDomains();
+        this.getMenuDictionary();
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
         // this._notificationService.updateBackground(ApplicationConstants.homePage);
@@ -96,6 +97,19 @@ var HomePage = (function () {
             me._demandDialog.closeDemandDialog();
         }, function (error) {
             console.log(error.message);
+        });
+    };
+    HomePage.prototype.getMenuDictionary = function () {
+        var me = this;
+        this._categoriesMenuService.getMenuDictionary()
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        }).subscribe(function (response) {
+            me.menuDictionary = response;
+        }, function (error) {
+            me.menuDictionary = [];
         });
     };
     HomePage.prototype.getCities = function () {

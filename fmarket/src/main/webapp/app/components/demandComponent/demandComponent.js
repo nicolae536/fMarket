@@ -17,11 +17,13 @@ var selectComponent_1 = require("../selectComponent/selectComponent");
 var demand_1 = require("../../models/demand");
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
 var authorizationService_1 = require("../../services/authorizationService");
+var menuTreeDialog_1 = require("../menuComponent/menuTreeDialog/menuTreeDialog");
 var EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 var PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
 var APPLICATION_PATH = '/app/components/demandComponent';
 var DemandComponent = (function () {
     function DemandComponent(_formBuilder) {
+        this.selectedDomain = { name: '' };
         this._componentLoaded = new core_1.EventEmitter();
         this._componentSubmit = new core_1.EventEmitter();
         this._formBuilder = _formBuilder;
@@ -54,6 +56,9 @@ var DemandComponent = (function () {
         // this._demandForm.addControl('agreeEmailContact', this._formBuilder.control(this._demandData.agreeEmailContact));
         this._demandForm.addControl('allCities', this._formBuilder.control(this._demandData.allCities));
         this._componentLoaded.emit(this);
+    };
+    DemandComponent.prototype.showDomainsDialog = function () {
+        this._menuItemsModal.show();
     };
     DemandComponent.prototype.ngOnChanges = function (changes) {
         if (authorizationService_1.AuthorizationService.isLoggedIn() && changes['_demandData']) {
@@ -107,10 +112,19 @@ var DemandComponent = (function () {
     });
     DemandComponent.prototype.checkIfUserIsLoggedId = function () {
     };
+    DemandComponent.prototype.referenceDialogInDemandComponent = function (menuItemsModal) {
+        this._menuItemsModal = menuItemsModal;
+    };
+    DemandComponent.prototype.selectItemUsingMenu = function (item) {
+    };
     __decorate([
         core_1.Input('city-list'), 
         __metadata('design:type', Array)
     ], DemandComponent.prototype, "_cityList", void 0);
+    __decorate([
+        core_1.Input('domain-configuration'), 
+        __metadata('design:type', Object)
+    ], DemandComponent.prototype, "domainConfiguration", void 0);
     __decorate([
         core_1.Input('domain-List'), 
         __metadata('design:type', Array)
@@ -119,6 +133,10 @@ var DemandComponent = (function () {
         core_1.Input('demand-data'), 
         __metadata('design:type', demand_1.Demand)
     ], DemandComponent.prototype, "_demandData", void 0);
+    __decorate([
+        core_1.Input('menu-tree-data'), 
+        __metadata('design:type', Object)
+    ], DemandComponent.prototype, "menuDictionary", void 0);
     __decorate([
         core_1.Output('loaded'), 
         __metadata('design:type', core_1.EventEmitter)
@@ -131,7 +149,7 @@ var DemandComponent = (function () {
         core_1.Component({
             selector: 'demand-component',
             templateUrl: APPLICATION_PATH + '/demandComponent.html',
-            directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent]
+            directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent, menuTreeDialog_1.MenuTreeDialog]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], DemandComponent);

@@ -1,0 +1,25 @@
+<div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>
+<div class="modal fade bs-example-modal-lg in" tabindex="-1" (click)="cancelAction()" role="dialog"
+     [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0">
+    <div class="modal-dialog modal-lg" (click)="stopPropagation($event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                Selecteaza domeniu
+            </div>
+            <div class="modal-body">
+                <div class="menu-dialog-container">
+                    <menu-component
+                            [menu-tree-data]="menuDictionary"
+                            [enable-operations]="false"
+                            (item-selected)="selectMenuItem($event)">
+                    </menu-component>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" (click)="cancelAction()">{{cancelLabel}}</button>
+                <button type="button" class="btn btn-danger btn-sm" (click)="positiveAction()"> {{positiveLabel}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

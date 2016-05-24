@@ -8,6 +8,7 @@ import {IDemand} from "../../models/interfaces/iDemand";
 import {Demand} from "../../models/demand";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 import {AuthorizationService} from "../../services/authorizationService";
+import {MenuTreeDialog} from "../menuComponent/menuTreeDialog/menuTreeDialog";
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 const PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
 
@@ -16,13 +17,19 @@ const APPLICATION_PATH:string = '/app/components/demandComponent';
 @Component({
     selector: 'demand-component',
     templateUrl: APPLICATION_PATH + '/demandComponent.html',
-    directives: [FORM_DIRECTIVES, SelectComponent]
+    directives: [FORM_DIRECTIVES, SelectComponent, MenuTreeDialog]
 })
 export class DemandComponent implements OnInit, OnChanges {
 
     @Input('city-list') _cityList:Array<Select2Item>;
+    @Input('domain-configuration') domainConfiguration;
+    selectedDomain = {name:''};
+
     @Input('domain-List') _domainList:Array<Select2Item>;
     @Input('demand-data') _demandData:Demand;
+
+    @Input('menu-tree-data') menuDictionary;
+
     @Output('loaded') _componentLoaded:EventEmitter<DemandComponent> = new EventEmitter<DemandComponent>();
     @Output('submit') _componentSubmit:EventEmitter<DemandComponent> = new EventEmitter<DemandComponent>();
 
@@ -33,6 +40,7 @@ export class DemandComponent implements OnInit, OnChanges {
 
     foobarItems;
     private isUserLoggedIn;
+    private _menuItemsModal:MenuTreeDialog;
 
     constructor(_formBuilder:FormBuilder) {
         this._formBuilder = _formBuilder;
@@ -68,6 +76,10 @@ export class DemandComponent implements OnInit, OnChanges {
         this._demandForm.addControl('allCities', this._formBuilder.control(this._demandData.allCities));
 
         this._componentLoaded.emit(this);
+    }
+
+    showDomainsDialog(){
+        this._menuItemsModal.show();
     }
 
     ngOnChanges(changes:{}):any {
@@ -122,6 +134,14 @@ export class DemandComponent implements OnInit, OnChanges {
     }
 
     checkIfUserIsLoggedId() {
+
+    }
+
+    referenceDialogInDemandComponent(menuItemsModal){
+        this._menuItemsModal=menuItemsModal;
+    }
+
+    selectItemUsingMenu(item){
 
     }
 }

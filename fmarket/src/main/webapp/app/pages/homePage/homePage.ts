@@ -42,6 +42,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     private _subscribeForm;
     private _subscribersService:SubscribersService;
     private _notificationService:NotificationService;
+    menuDictionary;
 
     constructor(_categoriesMenuService:CategoriesMenuService, _demandService:DemandService, subscribersService:SubscribersService, formBuilder:FormBuilder, notificationService:NotificationService) {
         this._categoriesMenuService = _categoriesMenuService;
@@ -53,6 +54,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     ngOnInit():any {
         this.getCities();
         this.getDomains();
+        this.getMenuDictionary();
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
         // this._notificationService.updateBackground(ApplicationConstants.homePage);
@@ -132,6 +134,22 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
                 console.log(error.message);
             }
         )
+    }
+
+    private getMenuDictionary():void {
+        var me = this;
+        this._categoriesMenuService.getMenuDictionary()
+            .map((response:Response) => {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            }).subscribe(
+            response => {
+                me.menuDictionary = response;
+            },
+            error => {
+                me.menuDictionary = [];
+            });
     }
 
     getCities():void {

@@ -28,7 +28,7 @@ var ModalDialog = (function () {
             me.remove = false;
         }, 300);
         this.message = "";
-        this.responseObject = this.responseObject['getNewInstance'] && typeof this.responseObject['getNewInstance'] == "function" ? this.responseObject['getNewInstance']() : null;
+        this.responseObject = this.responseObject && this.responseObject['getNewInstance'] && typeof this.responseObject['getNewInstance'] == "function" ? this.responseObject['getNewInstance']() : null;
     };
     ModalDialog.prototype.positiveAction = function () {
         this.confirmAction.emit(this.responseObject);

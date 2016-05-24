@@ -21,7 +21,8 @@ export class DemandBaseComponent extends ModalDialog{
     @Input('positive-label') positiveLabel:string = 'Creaza cerere';
     @Input('cancel-label') cancelLabel:string = 'Cancel';
 
-
+    @Input('menu-tree-data') menuDictionary;
+    
     @Output('loaded') loadedEmitter:EventEmitter<DemandBaseComponent> = new EventEmitter<DemandBaseComponent>();
     @Output('action-confirmed') confirmAction:EventEmitter<Object> = new EventEmitter<Object>();
 

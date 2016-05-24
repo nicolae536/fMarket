@@ -1,3 +1,8 @@
+<menu-tree-dialog
+    [menu-tree-data]="menuDictionary"
+    (loaded)="referenceDialogInDemandComponent($event)"
+    (action-confirmed)="selectItemUsingMenu($event)"
+></menu-tree-dialog>
 <form [ngFormModel]="_demandForm" (ngSubmit)="demandFormSubmit()" class="demand-component-container clearfix">
     <div class="demand-component">
         <div class="demand-control-groups">
@@ -26,13 +31,7 @@
                         <label>Domeniu</label>
                     </div>
                     <div class="col-md-10 col-xs-9">
-
-                        <select-component
-                                [select-items]="_domainList"
-                                [single-item-selected]="_demandForm.controls['domain'].value"
-                                [multi-select]="false"
-                                (loaded)="referenceDomainComponent($event)">
-                        </select-component>
+                        <span class="form-control" (click)="showDomainsDialog()">{{selectedDomain.name}}</span>
                     </div>
                 </div>
             </div>

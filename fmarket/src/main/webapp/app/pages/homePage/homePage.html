@@ -27,6 +27,7 @@
     </div>
     <div #createDemandComponent class="home-page-second clearfix">
         <demand-dialog
+                [menu-tree-data]="menuDictionary"
                 [title]="'Creeaza cerere.'"
                 [city-list]="_cityes"
                 [domain-List]="_domains"

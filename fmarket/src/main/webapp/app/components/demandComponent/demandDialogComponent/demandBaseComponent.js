@@ -71,6 +71,10 @@ var DemandBaseComponent = (function (_super) {
         __metadata('design:type', String)
     ], DemandBaseComponent.prototype, "cancelLabel", void 0);
     __decorate([
+        core_1.Input('menu-tree-data'), 
+        __metadata('design:type', Object)
+    ], DemandBaseComponent.prototype, "menuDictionary", void 0);
+    __decorate([
         core_1.Output('loaded'), 
         __metadata('design:type', core_1.EventEmitter)
     ], DemandBaseComponent.prototype, "loadedEmitter", void 0);
