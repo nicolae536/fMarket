@@ -129,4 +129,10 @@ public class MailServiceImpl implements MailService {
 		message.setSubject(subject);
 		message.setText(content, true /* is html */);
 	}
+
+	@Override
+	public void sendNewDemandMailForLoggedInUser(Demand demand) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -7,6 +7,8 @@ import ro.fmarket.model.demand.Demand;
 public interface MailService {
 
 	void sendDemandConfirmMail(String emailTo, String token);
+	
+	void sendNewDemandMailForLoggedInUser(Demand demand);
 
 	void sendPasswordChangeMail(String emailTo, String token);
 
