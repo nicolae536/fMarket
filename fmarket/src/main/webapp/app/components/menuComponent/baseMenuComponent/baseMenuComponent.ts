@@ -14,15 +14,15 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 	        </div>
 		    <ul class="nav nav-pills nav-stacked clearfix">
 		    	<li *ngFor="let item of menuItemsList" [class]="getItemClass(item)" (click)="selectItem(item)">
-		    		<a>
-		    		    <div *ngIf="enableOperations" class="pull-right">
-		    		        <span class="glyphicon glyphicon-plus operation" (click)="createSubMenu($event, item.id)" title="Adauga submeniu"></span>
-		    		        <span class="glyphicon glyphicon-pencil operation" (click)="editMenuItem($event,item)" title="Editeaza optiune"></span>
-		    		        <span class="glyphicon glyphicon-remove operation" (click)="removeMenuItem($event,item.id)" title="Sterge optiune"></span>
-		    		    </div>
-		    		    <span *ngIf="item.hasChildrens" class="glyphicon glyphicon-arrow-right"></span>
-		    		    {{item.orderNr}}.{{item.name}}
-		    		</a>
+		            <a>
+		                <div *ngIf="enableOperations" class="pull-right">
+		                    <span class="glyphicon glyphicon-plus operation" (click)="createSubMenu($event, item.id)" title="Adauga submeniu"></span>
+		                    <span class="glyphicon glyphicon-pencil operation" (click)="editMenuItem($event,item)" title="Editeaza optiune"></span>
+		                    <span class="glyphicon glyphicon-remove operation" (click)="removeMenuItem($event,item.id)" title="Sterge optiune"></span>
+		                </div>
+		                <span *ngIf="item.hasChildrens" class="glyphicon glyphicon-arrow-right"></span>
+		                {{item.orderNr}}.{{item.name}}
+		            </a>
 		    	</li>
 		    	
 		    </ul>
@@ -99,9 +99,9 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
         .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked li a .operation{
             cursor:pointer;
         }
-
-        .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked .domain-marker{
-            border-top-left-radius: 100px;
+        
+        .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked .domain-marker {
+             background-color:#e8fff5;
         }
         
         .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked .domain-marker a{
@@ -149,19 +149,21 @@ export class BaseMenuComponent implements OnChanges, OnInit {
     @Input('active-in-tree') activeInTree:IMenuItem;
     @Input('menu-tree-title') menuTitle:string;
     @Input('enable-operations') enableOperations:boolean;
-    @Output('select-menu-item') broadcastMenuItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
+    @Input('selected-item') selectedItem:IMenuItem;
+    @Input('use-domain-marker') useDomainMarker:boolean;
 
+    @Output('select-menu-item') broadcastMenuItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
     @Output('add-new-item') broadcastNewItem:EventEmitter<number> = new EventEmitter<number>();
     @Output('edit-submenu') broadcastUpdateItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
     @Output('delete-submenu') broadcastDeleteItem:EventEmitter<number> = new EventEmitter<number>();
-    selectedItem:IMenuItem;
 
     constructor() {
         this.menuTitle = "test";
     }
 
     ngOnInit():any {
-        this.selectedItem = null;
+        // /if()
+        // this.selectedItem = null;
     }
 
     ngOnChanges(changes:{}) {
@@ -176,7 +178,7 @@ export class BaseMenuComponent implements OnChanges, OnInit {
             cssClass += 'active '
         }
 
-        if (menuItem.domainId) {
+        if (menuItem.domainId && this.useDomainMarker) {
             cssClass += 'domain-marker'
         }
 

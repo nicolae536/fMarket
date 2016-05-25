@@ -9,8 +9,7 @@ import {Demand} from "../../models/demand";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 import {AuthorizationService} from "../../services/authorizationService";
 import {MenuTreeDialog} from "../menuComponent/menuTreeDialog/menuTreeDialog";
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-const PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
+import {IMenuItem} from "../../models/interfaces/iMenuItem";
 
 const APPLICATION_PATH:string = '/app/components/demandComponent';
 
@@ -22,25 +21,24 @@ const APPLICATION_PATH:string = '/app/components/demandComponent';
 export class DemandComponent implements OnInit, OnChanges {
 
     @Input('city-list') _cityList:Array<Select2Item>;
-    @Input('domain-configuration') domainConfiguration;
-    selectedDomain = {name:''};
+    @Input('demand-data') _demandData:Demand = new Demand();
 
-    @Input('domain-List') _domainList:Array<Select2Item>;
-    @Input('demand-data') _demandData:Demand;
-
+    @Input('positive-label') positiveLabel:string = 'Creaza cerere';
     @Input('menu-tree-data') menuDictionary;
 
-    @Output('loaded') _componentLoaded:EventEmitter<DemandComponent> = new EventEmitter<DemandComponent>();
-    @Output('submit') _componentSubmit:EventEmitter<DemandComponent> = new EventEmitter<DemandComponent>();
+    @Output('demand-component-loaded') _componentLoaded:EventEmitter<DemandComponent> = new EventEmitter<DemandComponent>();
 
+    @Output('submit-new-demand') _demandFormSubmit:EventEmitter<DemandComponent> = new EventEmitter<DemandComponent>();
     private _formBuilder:FormBuilder;
+
     private _demandForm:ControlGroup;
+    private _treeDictionary;
     private _selectCityCompnent:SelectComponent;
-    private _selectDomainCompnent:SelectComponent;
+    private _selectedDomain:IMenuItem = {id:-1, name:'Alege domeniu...', level:-1, parentId:-1, orderNr:-1, domainId:-1, hasChildrens:false};
 
     foobarItems;
     private isUserLoggedIn;
-    private _menuItemsModal:MenuTreeDialog;
+    private _menuTreeDialog:MenuTreeDialog;
 
     constructor(_formBuilder:FormBuilder) {
         this._formBuilder = _formBuilder;
@@ -63,6 +61,35 @@ export class DemandComponent implements OnInit, OnChanges {
 
     ngOnInit():any {
         this.fetchUserEmail();
+        this.buildDemandForm();
+        this._componentLoaded.emit(this);
+    }
+
+    ngOnChanges(changes:{}):any {
+        if (AuthorizationService.isLoggedIn() && changes['_demandData']) {
+            this.fetchUserEmail();
+        }
+
+        if(changes.hasOwnProperty('menuDictionary')){
+            this._treeDictionary = this.menuDictionary;
+        }
+    }
+
+    public showDomainsDialog(){
+        this._menuTreeDialog.showMenuTreeDialog();
+    }
+
+    private fetchUserEmail() {
+        let user = AuthorizationService.getActiveUserState();
+        this.isUserLoggedIn = false;
+
+        if(user){
+            this.isUserLoggedIn = user.loggedIn;
+            this._demandData.email = user.email;
+        }
+    }
+
+    private buildDemandForm() {
         this._demandForm.addControl('title', this._formBuilder.control(this._demandData.title, Validators.required));
         this._demandForm.addControl('message', this._formBuilder.control(this._demandData.message, Validators.required));
         this._demandForm.addControl('email', this._formBuilder.control(this._demandData.email, Validators.compose([Validators.required, CustomValidators.validateEmail])));
@@ -74,63 +101,54 @@ export class DemandComponent implements OnInit, OnChanges {
         // this._demandForm.addControl('agreePhoneContact', this._formBuilder.control(this._demandData.agreePhoneContact));
         // this._demandForm.addControl('agreeEmailContact', this._formBuilder.control(this._demandData.agreeEmailContact));
         this._demandForm.addControl('allCities', this._formBuilder.control(this._demandData.allCities));
-
-        this._componentLoaded.emit(this);
     }
 
-    showDomainsDialog(){
-        this._menuItemsModal.show();
+    private removeDemandControls(){
+        this._demandForm.removeControl('title');
+        this._demandForm.removeControl('message');
+        this._demandForm.removeControl('email');
+        this._demandForm.removeControl('cities');
+        this._demandForm.removeControl('domain');
+        this._demandForm.removeControl('termsAgreed');
+        this._demandForm.removeControl('phone');
+        // this._demandForm.removeControl('agreePhoneContact');
+        // this._demandForm.removeControl('agreeEmailContact');
+        this._demandForm.removeControl('name');
+        this._demandForm.removeControl('allCities');
     }
 
-    ngOnChanges(changes:{}):any {
-        if (AuthorizationService.isLoggedIn() && changes['_demandData']) {
-            this.fetchUserEmail();
-        }
+    public restData() {
+        this.removeDemandControls();
+        this.buildDemandForm();
     }
 
-    fetchUserEmail() {
-        let user = AuthorizationService.getActiveUserState();
-        this.isUserLoggedIn = false;
-
-        if(user){
-            this.isUserLoggedIn = user.loggedIn;
-            this._demandData.email = user.email;
-        }
-    }
-
-    demandFormSubmit() {
+    private demandFormSubmit() {
         //toDo take domain from select the two way binding does not work properly
-        if (this._demandForm.valid) {
+        if (this._demandForm.valid && this._selectedDomain.id !== -1) {
             let formValue = this._demandForm.value;
-            formValue.domain = this._selectDomainCompnent._selectedItem;
-            this._componentSubmit.emit(formValue);
+            formValue.domain = this._selectedDomain;
+            this._demandFormSubmit.emit(formValue);
         }
     }
 
-    referenceCitiesComponent(_selectCityCompnent) {
+    private referenceCitiesComponent(_selectCityCompnent) {
         this._selectCityCompnent = _selectCityCompnent;
     }
 
-    referenceDomainComponent(_selectDomainCompnent) {
-        this._selectDomainCompnent = _selectDomainCompnent;
-    }
-
     public IsValid():boolean {
-        return this._demandForm.valid || _.isEmpty(this._selectDomainCompnent._selectedItem) || (this._selectDomainCompnent._selectedItem && this._selectDomainCompnent._selectedItem === null) || this._selectDomainCompnent._selectedItems.length > 0;
+        return this._demandForm.valid
+            || this._selectedDomain.id !== -1
+            || (this._selectCityCompnent._selectedItems.length > 0 || this._demandForm.value['allCities'])
     }
 
-    public get getFormData():IDemand {
-        if (this._demandForm.valid) {
+    public get getDemandFormData():IDemand {
+        if (this.IsValid()) {
             let formValue = this._demandForm.value;
-            formValue.domain = this._selectDomainCompnent._selectedItem;
+            formValue.domain = this._selectedDomain;
             formValue.cities = this._selectCityCompnent._selectedItems;
             return formValue;
         }
         return null;
-    }
-
-    get demandForm():ControlGroup {
-        return this._demandForm;
     }
 
     checkIfUserIsLoggedId() {
@@ -138,11 +156,11 @@ export class DemandComponent implements OnInit, OnChanges {
     }
 
     referenceDialogInDemandComponent(menuItemsModal){
-        this._menuItemsModal=menuItemsModal;
+        this._menuTreeDialog = menuItemsModal;
     }
 
-    selectItemUsingMenu(item){
-
+    selectItemUsingMenu(item:IMenuItem){
+        this._selectedDomain = item;
     }
 }
 

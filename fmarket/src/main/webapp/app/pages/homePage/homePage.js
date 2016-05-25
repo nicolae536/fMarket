@@ -15,11 +15,11 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var categoriesMenuService_1 = require("../../services/categoriesMenuService");
 var demandService_1 = require("../../services/demandService");
-var demandBaseComponent_1 = require("../../components/demandComponent/demandDialogComponent/demandBaseComponent");
 var jqueryService_1 = require("../../services/jqueryService");
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
 var subscribersService_1 = require("../../services/subscribersService");
 var notificationService_1 = require("../../services/notificationService");
+var demandComponent_1 = require("../../components/demandComponent/demandComponent");
 var folderPath = '/app/pages/homePage';
 var HomePage = (function () {
     function HomePage(_categoriesMenuService, _demandService, subscribersService, formBuilder, notificationService) {
@@ -32,7 +32,6 @@ var HomePage = (function () {
     }
     HomePage.prototype.ngOnInit = function () {
         this.getCities();
-        this.getDomains();
         this.getMenuDictionary();
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
@@ -85,18 +84,24 @@ var HomePage = (function () {
         jqueryService_1.JqueryService.animateScroll(this.howWeWorkRef, 'easeInQuad', 500);
     };
     HomePage.prototype.createDemand = function (demand) {
+        var _this = this;
         var me = this;
-        if (!this._demandDialog.isValidResponse()) {
+        if (!this._demandDialog.IsValid()) {
             return;
         }
-        this._demandService.createDemand(demand).map(function (response) {
+        this._demandService.createUserDemand(demand).map(function (response) {
             if (response.text().length > 0) {
                 return response.json();
             }
         }).subscribe(function (respose) {
-            me._demandDialog.closeDemandDialog();
+            me._demandDialog.restData();
         }, function (error) {
-            console.log(error.message);
+            _this._notificationService.emitNotificationToRootComponent({
+                type: 'danger',
+                dismisable: true,
+                message: 'Cererea nu a putut fi creata',
+                timeout: undefined
+            });
         });
     };
     HomePage.prototype.getMenuDictionary = function () {
@@ -107,6 +112,7 @@ var HomePage = (function () {
                 return response.json();
             }
         }).subscribe(function (response) {
+            debugger;
             me.menuDictionary = response;
         }, function (error) {
             me.menuDictionary = [];
@@ -125,25 +131,6 @@ var HomePage = (function () {
         }, function (error) {
             console.log(error.message);
             me._cityes = [];
-        });
-    };
-    HomePage.prototype.getDomains = function () {
-        var me = this;
-        this._categoriesMenuService.getDomains()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
-            me._domains = response.map(function (domain) {
-                return {
-                    displayName: domain['name'],
-                    boundItem: domain
-                };
-            });
-        }, function (error) {
-            console.log(error.message);
-            me._domains = [];
         });
     };
     HomePage.prototype.rematchElementsOnView = function ($event) {
@@ -170,7 +157,7 @@ var HomePage = (function () {
         core_1.Component({
             selector: 'home-page',
             templateUrl: folderPath + '/homePage.html',
-            directives: [demandBaseComponent_1.DemandBaseComponent]
+            directives: [demandComponent_1.DemandComponent]
         }), 
         __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService])
     ], HomePage);

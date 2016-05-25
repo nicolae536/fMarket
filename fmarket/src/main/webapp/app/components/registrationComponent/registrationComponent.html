@@ -6,15 +6,15 @@
             </div>
             <form [ngFormModel]="_registrationForm" (ngSubmit)="registrationFormSubmit()" class="registration-form">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="E-mail"
+                    <input type="text" class="form-control" [class.backend-error]="checkIfEmailIsMarked()" placeholder="E-mail"
                            [ngFormControl]="_registrationForm.controls['email']"/>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" [placeholder]="passwordLabel" (ngModelChange)="updateErrorFied()"
+                    <input type="password" class="form-control" [class.backend-error]="checkIfPasswordIsMarked('password')" [placeholder]="passwordLabel" (ngModelChange)="updateErrorFied()"
                            [ngFormControl]="_registrationForm.controls.passwords.controls.password"/>
                 </div>
                 <div *ngIf="!showRememberMeField" class="form-group">
-                    <input type="password" class="form-control" placeholder="Repeta parola" (ngModelChange)="updateErrorFied()"
+                    <input type="password" class="form-control" [class.backend-error]="checkIfPasswordIsMarked('repeat')" placeholder="Repeta parola" (ngModelChange)="updateErrorFied()"
                            [ngFormControl]="_registrationForm.controls.passwords.controls.repeat"/>
                 </div>
                 <div class="position-relative" *ngIf="showNotMatchPasswordField">

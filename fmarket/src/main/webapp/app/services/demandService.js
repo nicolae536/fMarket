@@ -29,6 +29,10 @@ var DemandService = (function () {
         var beckedDemand = this.convertDemand(demand);
         return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
     };
+    DemandService.prototype.createUserDemand = function (demand) {
+        var beckedDemand = this.convertToUserDemand(demand);
+        return this.api.post('/demands', JSON.stringify(beckedDemand));
+    };
     DemandService.prototype.getDemandsWithFilters = function (search) {
         return this.api.post(this._DemandController + '/search', JSON.stringify(search));
     };
@@ -62,6 +66,17 @@ var DemandService = (function () {
             return city.boundItem['id'];
         });
         newDemand.domain = demand.domain && demand.domain.boundItem ? demand.domain.boundItem['id'] : null;
+        return newDemand;
+    };
+    DemandService.prototype.convertToUserDemand = function (demand) {
+        var newDemand = demand;
+        if (!demand) {
+            return null;
+        }
+        newDemand.cities = _.map(demand.cities, function (city) {
+            return city.boundItem['id'];
+        });
+        newDemand.domain = demand.domain && demand.domain.id ? demand.domain.id : null;
         return newDemand;
     };
     DemandService = __decorate([

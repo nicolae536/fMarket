@@ -56,15 +56,6 @@
     margin-top: -15px;
 }
 
-.regisration-component .form-group .ng-dirty.ng-invalid.ng-touched {
-    border-color: #ab2424;
-
-}
-
-.regisration-component .form-group .ng-dirty.ng-invalid.ng-touched:focus {
-    border-color: #ab2424;
-}
-
 @media (max-width: 1176px) {
     .regisration-component {
         width: 80vw;

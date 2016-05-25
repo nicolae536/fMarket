@@ -14,6 +14,8 @@ var MenuTreeComponent = (function () {
     //TODO implement menuService
     function MenuTreeComponent() {
         //menuDictionary;
+        this.menuTreeCompoenentLoaded = new core_1.EventEmitter();
+        this.selectNewItem = new core_1.EventEmitter();
         this.selectItem = new core_1.EventEmitter();
         this.broadcastNewItem = new core_1.EventEmitter();
         this.broadcastEditItem = new core_1.EventEmitter();
@@ -23,12 +25,20 @@ var MenuTreeComponent = (function () {
         this.treeViewSelectedRoad = [];
         this.menuTreeView = [];
     }
+    MenuTreeComponent.prototype.ngOnInit = function () {
+        this.menuTreeCompoenentLoaded.emit(this);
+    };
     MenuTreeComponent.prototype.ngOnChanges = function (changes) {
         if (changes.hasOwnProperty('menuDictionary') && this.menuDictionary) {
             this.menuDictionary = this.mapManuTree(this.menuDictionary);
             this.menuTreeView[0] = { title: 'Categorii', treeView: this.getRootLayer(), enableOperations: this.enableOperations };
-            this.activateTree();
+            this.fatchMenuTreeFromSelectionRoad();
         }
+    };
+    MenuTreeComponent.prototype.reinitMenuSelection = function () {
+        this.menuTreeView = [{ title: 'Categorii', treeView: this.getRootLayer(), enableOperations: this.enableOperations }];
+        this.treeViewSelectedRoad = [];
+        this.fatchMenuTreeFromSelectionRoad();
     };
     MenuTreeComponent.prototype.mapManuTree = function (menuTree) {
         for (var i = 0; i < menuTree.length; i++) {
@@ -79,10 +89,15 @@ var MenuTreeComponent = (function () {
     MenuTreeComponent.prototype.selectMenuItem = function (menuItem) {
         if (!menuItem.hasChildrens) {
             this.selectItem.emit(menuItem.name);
+            this.selectNewItem.emit(menuItem);
         }
-        this.treeViewSelectedRoad[menuItem.level] = menuItem;
         this.selectedMenuItem = menuItem;
         this.menuTreeView = this.getTreeViewForMenuItem(menuItem);
+        this.treeViewSelectedRoad[menuItem.level] = menuItem;
+        if (this.treeViewSelectedRoad.length > this.menuTreeView.length) {
+            var deleteCount = this.treeViewSelectedRoad.length - this.menuTreeView.length;
+            this.treeViewSelectedRoad.splice(this.menuTreeView.length, deleteCount);
+        }
     };
     MenuTreeComponent.prototype.requestNewMenuItem = function (parentId) {
         this.broadcastNewItem.emit(parentId);
@@ -93,7 +108,7 @@ var MenuTreeComponent = (function () {
     MenuTreeComponent.prototype.deleteSubmenu = function (menuId) {
         this.broadcastDeleteItem.emit(menuId);
     };
-    MenuTreeComponent.prototype.activateTree = function () {
+    MenuTreeComponent.prototype.fatchMenuTreeFromSelectionRoad = function () {
         var me = this;
         for (var j = 0; j < me.treeViewSelectedRoad.length; j++) {
             var menuItem = me.treeViewSelectedRoad[j];
@@ -124,6 +139,18 @@ var MenuTreeComponent = (function () {
         core_1.Input('enable-operations'), 
         __metadata('design:type', Boolean)
     ], MenuTreeComponent.prototype, "enableOperations", void 0);
+    __decorate([
+        core_1.Input('use-domain-marker'), 
+        __metadata('design:type', Boolean)
+    ], MenuTreeComponent.prototype, "useDomainMarker", void 0);
+    __decorate([
+        core_1.Output('menu-tree-component-loaded'), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], MenuTreeComponent.prototype, "menuTreeCompoenentLoaded", void 0);
+    __decorate([
+        core_1.Output('select-menu-item'), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], MenuTreeComponent.prototype, "selectNewItem", void 0);
     __decorate([
         core_1.Output('item-selected'), 
         __metadata('design:type', core_1.EventEmitter)

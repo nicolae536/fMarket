@@ -5,22 +5,20 @@ import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewIni
 import {Response} from "@angular/http";
 import {FormBuilder, Validators} from "@angular/common";
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
-import {Select2Item} from "../../components/selectComponent/selectComponent";
 import {DemandService} from "../../services/demandService";
-import {DemandBaseComponent} from "../../components/demandComponent/demandDialogComponent/demandBaseComponent";
 import {Demand} from "../../models/demand";
 import {JqueryService} from "../../services/jqueryService";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 import {SubscribersService} from "../../services/subscribersService";
 import {NotificationService} from "../../services/notificationService";
-import {ApplicationConstants} from "../../models/applicationConstansts";
+import {DemandComponent} from "../../components/demandComponent/demandComponent";
 
 const folderPath = '/app/pages/homePage';
 
 @Component({
     selector: 'home-page',
     templateUrl: folderPath + '/homePage.html',
-    directives: [DemandBaseComponent]
+    directives: [DemandComponent]
 })
 export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     //components
@@ -28,7 +26,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     @ViewChild('howWeWork') private howWeWorkRef:ElementRef;
     @ViewChild('videoContainer') private videoContainer:ElementRef;
     @ViewChild('videoRightContainer') private videoRightContainer:ElementRef;
-    private _demandDialog:DemandBaseComponent;
+    private _demandDialog:DemandComponent;
     scrollProperty:string = 'scrollY';
 
     //services
@@ -36,7 +34,6 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
 
     private _demandService:DemandService;
     //data
-    private _domains:Array<Select2Item>;
     private _cityes;
     private _formBuilder:FormBuilder;
     private _subscribeForm;
@@ -53,7 +50,6 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     }
     ngOnInit():any {
         this.getCities();
-        this.getDomains();
         this.getMenuDictionary();
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
@@ -69,7 +65,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
         this.rematchElementsOnView(null);
     }
 
-    referenceDemandDialog(demandDialog:DemandBaseComponent) {
+    referenceDemandDialog(demandDialog:DemandComponent) {
         this._demandDialog = demandDialog;
     }
 
@@ -118,20 +114,25 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     createDemand(demand:Demand) {
         var me = this;
 
-        if (!this._demandDialog.isValidResponse()) {
+        if (!this._demandDialog.IsValid()) {
             return;
         }
 
-        this._demandService.createDemand(demand).map((response)=> {
+        this._demandService.createUserDemand(demand).map((response)=> {
             if (response.text().length > 0) {
                 return response.json();
             }
         }).subscribe(
             respose=> {
-                me._demandDialog.closeDemandDialog();
+                me._demandDialog.restData();
             },
             error=> {
-                console.log(error.message);
+                this._notificationService.emitNotificationToRootComponent({
+                    type:'danger',
+                    dismisable:true,
+                    message:'Cererea nu a putut fi creata',
+                    timeout:undefined
+                })
             }
         )
     }
@@ -145,6 +146,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
                 }
             }).subscribe(
             response => {
+                debugger;
                 me.menuDictionary = response;
             },
             error => {
@@ -169,29 +171,6 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
                     me._cityes = [];
                 }
             )
-    }
-
-    getDomains():void {
-        var me = this;
-        this._categoriesMenuService.getDomains()
-            .map((response:Response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            }).subscribe(
-            response => {
-                me._domains = response.map((domain)=> {
-                    return {
-                        displayName: domain['name'],
-                        boundItem: domain
-                    };
-                })
-            },
-            error => {
-                console.log(error.message);
-                me._domains = [];
-            }
-        )
     }
 
     rematchElementsOnView($event){

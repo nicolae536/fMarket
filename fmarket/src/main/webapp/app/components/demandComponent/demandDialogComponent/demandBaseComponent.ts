@@ -52,7 +52,7 @@ export class DemandBaseComponent extends ModalDialog{
 
     createDemand(){
         if(this._demandComponent.IsValid()){
-            this.responseObject = this._demandComponent.getFormData;
+            this.responseObject = this._demandComponent.getDemandFormData;
         }
         this.positiveAction();
     }

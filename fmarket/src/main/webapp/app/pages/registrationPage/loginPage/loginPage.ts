@@ -73,11 +73,6 @@ export class LoginPage implements OnInit, AfterViewChecked {
 
     requestHandler(account:RegisterAccount) {
         let me=this;
-        
-        if(!account){
-            me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Va rugam sa completati toate campurile!', timeout:5});
-            return;
-        }
 
         this._registrationService.login(account)
             .map((response)=> {
@@ -92,7 +87,7 @@ export class LoginPage implements OnInit, AfterViewChecked {
                 },
                 error => {
                     me._notificationService.emitNotificationToRootComponent({type:"danger", dismisable:true, message:"Date de autentificare incorecte!", timeout:5});
-                    me._registrationComponent.markAllFieldsAsErrors({password:true});
+                    me._registrationComponent.markAllFieldsAsErrors({email:true, password:true});
                 }
             )
     }

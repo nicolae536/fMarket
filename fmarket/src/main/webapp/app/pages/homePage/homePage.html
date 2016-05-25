@@ -26,17 +26,16 @@
         </div>
     </div>
     <div #createDemandComponent class="home-page-second clearfix">
-        <demand-dialog
+        <demand-component
                 [menu-tree-data]="menuDictionary"
                 [title]="'Creeaza cerere.'"
                 [city-list]="_cityes"
-                [domain-List]="_domains"
-                (loaded)="referenceDemandDialog($event)"
-                (action-confirmed)="createDemand($event)">
+                (demand-component-loaded)="referenceDemandDialog($event)"
+                (submit-new-demand)="createDemand($event)">
             <div class="spinner">
                 <img class="spinner-img" src="/staticResorces/Loading_icon.gif"/>
             </div>
-        </demand-dialog>
+        </demand-component>
     </div>
 
 

@@ -29,7 +29,18 @@ var MenuTreeDialog = (function (_super) {
         this.loadedEmitter.emit(this);
     };
     MenuTreeDialog.prototype.selectMenuItem = function (menuItem) {
-        //
+        if (!menuItem.hasChildrens) {
+            this.responseObject = menuItem;
+            this.positiveAction();
+            this.hide();
+        }
+    };
+    MenuTreeDialog.prototype.referenceMenuTreeCompoent = function ($event) {
+        this.menuTreeComponent = $event;
+    };
+    MenuTreeDialog.prototype.showMenuTreeDialog = function () {
+        this.menuTreeComponent.reinitMenuSelection();
+        this.show();
     };
     __decorate([
         core_1.Input('title'), 
@@ -44,9 +55,13 @@ var MenuTreeDialog = (function (_super) {
         __metadata('design:type', String)
     ], MenuTreeDialog.prototype, "cancelLabel", void 0);
     __decorate([
-        core_1.Input('menu-data'), 
+        core_1.Input('menu-tree-data'), 
         __metadata('design:type', Object)
     ], MenuTreeDialog.prototype, "menuDictionary", void 0);
+    __decorate([
+        core_1.Input('enable-operations'), 
+        __metadata('design:type', Boolean)
+    ], MenuTreeDialog.prototype, "enableOperations", void 0);
     __decorate([
         core_1.Output('loaded'), 
         __metadata('design:type', core_1.EventEmitter)
@@ -59,7 +74,8 @@ var MenuTreeDialog = (function (_super) {
         core_1.Component({
             selector: 'menu-tree-dialog',
             templateUrl: '/app/components/menuComponent/menuTreeDialog/menuTreeDialog.html',
-            directives: [menuTreeComponent_1.MenuTreeComponent]
+            directives: [menuTreeComponent_1.MenuTreeComponent],
+            styles: ["\n        .modal-dialog .modal-body .menu-dialog-container{\n            padding-right: 40px;\n        }\n    "]
         }), 
         __metadata('design:paramtypes', [])
     ], MenuTreeDialog);

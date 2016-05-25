@@ -15,10 +15,13 @@ import {IMenuItem} from "../../models/interfaces/iMenuItem";
     `]
 })
 
-export class MenuTreeComponent implements OnChanges {
+export class MenuTreeComponent implements OnChanges, OnInit {
     @Input('menu-tree-data') menuDictionary:Array<IMenuItem>;
     @Input('enable-operations') enableOperations:boolean;
+    @Input('use-domain-marker') useDomainMarker:boolean;
     //menuDictionary;
+    @Output('menu-tree-component-loaded') menuTreeCompoenentLoaded:EventEmitter<MenuTreeComponent>=new EventEmitter<MenuTreeComponent>();
+    @Output('select-menu-item') selectNewItem:EventEmitter<IMenuItem> = new EventEmitter<IMenuItem>();
     @Output('item-selected') selectItem:EventEmitter<INewDomainMenuItemRequest> = new EventEmitter<INewDomainMenuItemRequest>();
     @Output('add-menu-item') broadcastNewItem:EventEmitter<number> = new EventEmitter<number>();
     @Output('edit-menu-item') broadcastEditItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
@@ -26,19 +29,29 @@ export class MenuTreeComponent implements OnChanges {
     ROOT_PARENT_ID = null;
     ROOT_LAYER:number = 0;
     selectedMenuItem;
-
     treeViewSelectedRoad:Array<IMenuItem> = [];
+
     menuTreeView:Array<Object> = [];
     //TODO implement menuService
     constructor() {
+    }
+
+    ngOnInit():any {
+        this.menuTreeCompoenentLoaded.emit(this);
     }
 
     ngOnChanges(changes:{}):any {
         if (changes.hasOwnProperty('menuDictionary') && this.menuDictionary) {
             this.menuDictionary = this.mapManuTree(this.menuDictionary);
             this.menuTreeView[0] = {title:'Categorii', treeView: this.getRootLayer(), enableOperations:this.enableOperations};
-            this.activateTree();
+            this.fatchMenuTreeFromSelectionRoad();
         }
+    }
+
+    public reinitMenuSelection(){
+        this.menuTreeView = [{title:'Categorii', treeView: this.getRootLayer(), enableOperations:this.enableOperations}];
+        this.treeViewSelectedRoad = [];
+        this.fatchMenuTreeFromSelectionRoad();
     }
 
     mapManuTree(menuTree) {
@@ -104,12 +117,18 @@ export class MenuTreeComponent implements OnChanges {
     selectMenuItem(menuItem:IMenuItem) {
         if (!menuItem.hasChildrens) {
             this.selectItem.emit(menuItem.name);
+            this.selectNewItem.emit(menuItem);
             //return;
         }
 
-        this.treeViewSelectedRoad[menuItem.level] = menuItem;
         this.selectedMenuItem = menuItem;
         this.menuTreeView = this.getTreeViewForMenuItem(menuItem);
+        this.treeViewSelectedRoad[menuItem.level] = menuItem;
+
+        if(this.treeViewSelectedRoad.length > this.menuTreeView.length){
+            let deleteCount = this.treeViewSelectedRoad.length - this.menuTreeView.length;
+            this.treeViewSelectedRoad.splice(this.menuTreeView.length, deleteCount);
+        }
     }
 
     requestNewMenuItem(parentId:number) {
@@ -124,7 +143,7 @@ export class MenuTreeComponent implements OnChanges {
         this.broadcastDeleteItem.emit(menuId);
     }
 
-    private activateTree():void {
+    private fatchMenuTreeFromSelectionRoad():void {
         var me = this;
         for (var j = 0; j < me.treeViewSelectedRoad.length; j++) {
             let menuItem = me.treeViewSelectedRoad[j];

@@ -5,6 +5,8 @@
                 [menu-items-list]="menu.treeView"
                 [menu-tree-title]="menu.title"
                 [menu-layer]="i"
+                [use-domain-marker]="useDomainMarker"
+                [selected-item]="treeViewSelectedRoad[i]"
                 [enable-operations]="menu.enableOperations"
                 [active-in-tree]="getActiveItemInTree(i)"
                 (select-menu-item)="selectMenuItem($event)"

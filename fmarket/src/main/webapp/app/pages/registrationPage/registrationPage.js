@@ -45,10 +45,6 @@ var RegistrationPage = (function () {
     };
     RegistrationPage.prototype.requestHandler = function (account) {
         var me = this;
-        if (!account) {
-            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Va rugam sa completati toate campurile!', timeout: 5 });
-            return;
-        }
         this._registrationService.createAccount(account)
             .map(function (response) {
             if (response.text()) {
@@ -58,6 +54,7 @@ var RegistrationPage = (function () {
             .subscribe(function (response) {
             me._router.navigate(['SuccessRegister']);
         }, function (error) {
+            me._registrationComponent.markAllFieldsAsErrors({ email: true, password: true });
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Inregistrare invalida!', timeout: 5 });
         });
     };

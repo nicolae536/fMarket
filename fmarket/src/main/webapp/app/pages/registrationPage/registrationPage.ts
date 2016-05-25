@@ -69,11 +69,6 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     requestHandler(account:RegisterAccount) {
         let me=this;
 
-        if(!account){
-            me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Va rugam sa completati toate campurile!', timeout:5});
-            return;
-        }
-
         this._registrationService.createAccount(account)
             .map((response)=> {
                 if (response.text()) {
@@ -85,6 +80,7 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
                     me._router.navigate(['SuccessRegister']);
                 },
                 error => {
+                    me._registrationComponent.markAllFieldsAsErrors({email:true, password:true});
                     me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Inregistrare invalida!', timeout:5});
                 }
             )

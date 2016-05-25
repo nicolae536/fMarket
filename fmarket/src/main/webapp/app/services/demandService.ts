@@ -30,6 +30,11 @@ export class DemandService {
         return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
     }
 
+    createUserDemand(demand:Demand) {
+        var beckedDemand = this.convertToUserDemand(demand);
+        return this.api.post('/demands', JSON.stringify(beckedDemand));
+    }
+
     getDemandsWithFilters(search:Object){
         return this.api.post(this._DemandController + '/search', JSON.stringify(search));
     }
@@ -72,6 +77,20 @@ export class DemandService {
             return city.boundItem['id'];
         })
         newDemand.domain =  demand.domain && demand.domain.boundItem ? demand.domain.boundItem['id'] :null;
+
+        return newDemand;
+    }
+
+    private convertToUserDemand(demand:Demand) {
+        let newDemand = demand;
+        if(!demand){
+            return null;
+        }
+
+        newDemand.cities = _.map(demand.cities, (city:Select2Item)=>{
+            return city.boundItem['id'];
+        });
+        newDemand.domain =  demand.domain && demand.domain.id ? demand.domain.id :null;
 
         return newDemand;
     }

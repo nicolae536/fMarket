@@ -4,21 +4,21 @@
     <div class="modal-dialog modal-lg" (click)="stopPropagation($event)">
         <div class="modal-content">
             <div class="modal-header">
-                Selecteaza domeniu
+                <button type="button" class="close" aria-label="Close" (click)="cancelAction()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span class="h1">Selecteaza domeniu</span>
             </div>
             <div class="modal-body">
-                <div class="menu-dialog-container">
+                <div class="menu-dialog-container clearfix">
                     <menu-component
+                            [use-domain-marker]="false"
                             [menu-tree-data]="menuDictionary"
-                            [enable-operations]="false"
-                            (item-selected)="selectMenuItem($event)">
+                            [enable-operations]="enableOperations"
+                            (menu-tree-component-loaded)="referenceMenuTreeCompoent($event)"
+                            (select-menu-item)="selectMenuItem($event)">
                     </menu-component>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-sm" (click)="cancelAction()">{{cancelLabel}}</button>
-                <button type="button" class="btn btn-danger btn-sm" (click)="positiveAction()"> {{positiveLabel}}
-                </button>
             </div>
         </div>
     </div>

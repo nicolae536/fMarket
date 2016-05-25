@@ -46,7 +46,7 @@ var DemandBaseComponent = (function (_super) {
     };
     DemandBaseComponent.prototype.createDemand = function () {
         if (this._demandComponent.IsValid()) {
-            this.responseObject = this._demandComponent.getFormData;
+            this.responseObject = this._demandComponent.getDemandFormData;
         }
         this.positiveAction();
     };

@@ -81,13 +81,36 @@ export class RegistrationComponent implements OnInit, OnChanges {
         }
     }
 
+    checkIfEmailIsMarked(){
+        return this._registrationForm.controls.email && this._registrationForm.controls.email.errors && this._registrationForm.controls.email.errors.key == 'validateEmail';
+    }
+
+    checkIfPasswordIsMarked(controll){
+        switch (controll) {
+            case 'password':
+                return this._registrationForm.controls.passwords
+                    && this._registrationForm.controls.passwords.controls
+                    && this._registrationForm.controls.passwords.controls.password
+                    && this._registrationForm.controls.passwords.controls.password.errors
+                    && this._registrationForm.controls.passwords.controls.password.errors.key == 'validatePassword';
+            case 'repeat':
+                return this._registrationForm.controls.passwords
+                    && this._registrationForm.controls.passwords.controls
+                    && this._registrationForm.controls.passwords.controls.repeat
+                    && this._registrationForm.controls.passwords.controls.repeat.errors
+                    && this._registrationForm.controls.passwords.controls.repeat.errors.key == 'validatePassword';
+        }
+    }
+
     registrationFormSubmit() {
         if (this._registrationForm.valid) {
             this.$registrationForm.emit(this._registrationForm.value);
             return;
         }
 
-        this.$registrationForm.emit(null);
+        let invalidAccount = new RegisterAccount();
+        invalidAccount.passwords = { password: null, repeat:null};
+        this.$registrationForm.emit(invalidAccount);
     }
 
 }
