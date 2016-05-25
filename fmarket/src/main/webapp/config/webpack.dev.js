@@ -2,7 +2,7 @@ module.exports = {
     entry: "./app/main",
     output: {
         path: __dirname,
-        filename: "./dist/fmarket.min.js"
+        filename: "../dist/fmarket.min.js"
     },
     resolve: {
         extensions: ['', '.js', '.ts'],

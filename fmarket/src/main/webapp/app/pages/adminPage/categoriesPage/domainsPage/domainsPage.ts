@@ -42,6 +42,8 @@ export class DomainsPage implements OnInit {
     }
 
     getRequestTypesWithFilters() {
+        let me = this;
+
         this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
             .map((response:Response) => {
                 if(response.text().length){
@@ -50,10 +52,10 @@ export class DomainsPage implements OnInit {
             })
             .subscribe(
                 response => {
-                    this.domainsTypes = response;
+                    me.domainsTypes = response;
                 },
                 error => {
-                    this.domainsTypes = [];
+                    me.domainsTypes = [];
                 });
 
     }
@@ -62,6 +64,7 @@ export class DomainsPage implements OnInit {
         if(!this._newDomainForm.valid){
             return;
         }
+        let me = this;
 
         this._requestTypeService.addRequestType(this.newRequestType)
             .map((response:Response) => {
@@ -71,9 +74,9 @@ export class DomainsPage implements OnInit {
             })
             .subscribe(
                 response => {
-                    this.getRequestTypesWithFilters();
-                    this.newRequestType = "";
-                    this.toggleAddRequestType(false);
+                    me.getRequestTypesWithFilters();
+                    me.newRequestType = "";
+                    me.toggleAddRequestType(false);
                 },
                 error => {
                     //make the field red
@@ -82,6 +85,8 @@ export class DomainsPage implements OnInit {
     }
 
     deleteRequestType(requestType:RequestType) {
+        let me = this;
+
         this._requestTypeService.deleteRequestType(requestType.id)
             .map((response:Response) => {
                 if(response.text().length){
@@ -90,15 +95,16 @@ export class DomainsPage implements OnInit {
             })
             .subscribe(
                 response => {
-                    this.domainsTypes = response;
+                    me.domainsTypes = response;
                 },
                 error => {
-                    this.domainsTypes = [];
+                    me.domainsTypes = [];
                 });
 
     }
 
     editRequestType(requestType:RequestType) {
+        let me = this;
         this._requestTypeService.editRequestType(requestType)
             .map((response:Response) => {
                 if(response.text().length){

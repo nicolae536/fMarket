@@ -29,7 +29,7 @@ var DomainsPage = (function () {
         this.buildForm();
     };
     DomainsPage.prototype.getRequestTypesWithFilters = function () {
-        var _this = this;
+        var me = this;
         this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
             .map(function (response) {
             if (response.text().length) {
@@ -37,16 +37,16 @@ var DomainsPage = (function () {
             }
         })
             .subscribe(function (response) {
-            _this.domainsTypes = response;
+            me.domainsTypes = response;
         }, function (error) {
-            _this.domainsTypes = [];
+            me.domainsTypes = [];
         });
     };
     DomainsPage.prototype.addRequestType = function () {
-        var _this = this;
         if (!this._newDomainForm.valid) {
             return;
         }
+        var me = this;
         this._requestTypeService.addRequestType(this.newRequestType)
             .map(function (response) {
             if (response.text().length) {
@@ -54,16 +54,16 @@ var DomainsPage = (function () {
             }
         })
             .subscribe(function (response) {
-            _this.getRequestTypesWithFilters();
-            _this.newRequestType = "";
-            _this.toggleAddRequestType(false);
+            me.getRequestTypesWithFilters();
+            me.newRequestType = "";
+            me.toggleAddRequestType(false);
         }, function (error) {
             //make the field red
             //this.companieTypes = [];
         });
     };
     DomainsPage.prototype.deleteRequestType = function (requestType) {
-        var _this = this;
+        var me = this;
         this._requestTypeService.deleteRequestType(requestType.id)
             .map(function (response) {
             if (response.text().length) {
@@ -71,12 +71,13 @@ var DomainsPage = (function () {
             }
         })
             .subscribe(function (response) {
-            _this.domainsTypes = response;
+            me.domainsTypes = response;
         }, function (error) {
-            _this.domainsTypes = [];
+            me.domainsTypes = [];
         });
     };
     DomainsPage.prototype.editRequestType = function (requestType) {
+        var me = this;
         this._requestTypeService.editRequestType(requestType)
             .map(function (response) {
             if (response.text().length) {
