@@ -25,6 +25,14 @@ export class ModalDialog {
         this.responseObject = this.responseObject && this.responseObject['getNewInstance'] && typeof this.responseObject['getNewInstance'] == "function" ? this.responseObject['getNewInstance']():null;
     }
 
+    hideWithoutAnimation() {
+        let me=this;
+        this.showModal = false;
+        me.remove = false;
+        this.message = "";
+        this.responseObject = this.responseObject && this.responseObject['getNewInstance'] && typeof this.responseObject['getNewInstance'] == "function" ? this.responseObject['getNewInstance']():null;
+    }
+
     positiveAction() {
         this.confirmAction.emit(this.responseObject);
     }

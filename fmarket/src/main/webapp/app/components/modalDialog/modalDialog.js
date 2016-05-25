@@ -30,6 +30,13 @@ var ModalDialog = (function () {
         this.message = "";
         this.responseObject = this.responseObject && this.responseObject['getNewInstance'] && typeof this.responseObject['getNewInstance'] == "function" ? this.responseObject['getNewInstance']() : null;
     };
+    ModalDialog.prototype.hideWithoutAnimation = function () {
+        var me = this;
+        this.showModal = false;
+        me.remove = false;
+        this.message = "";
+        this.responseObject = this.responseObject && this.responseObject['getNewInstance'] && typeof this.responseObject['getNewInstance'] == "function" ? this.responseObject['getNewInstance']() : null;
+    };
     ModalDialog.prototype.positiveAction = function () {
         this.confirmAction.emit(this.responseObject);
     };
