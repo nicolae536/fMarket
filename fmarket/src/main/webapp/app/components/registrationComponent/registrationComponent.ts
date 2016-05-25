@@ -64,10 +64,10 @@ export class RegistrationComponent implements OnInit, OnChanges {
 
     updateErrorFied(){
         this.showNotMatchPasswordField = this._registrationForm
-            && this._registrationForm.controls.passwords
-            && this._registrationForm.controls.passwords.errors
-            && this._registrationForm.controls.passwords.errors.checkPasswords
-            && !this._registrationForm.controls.passwords.errors.checkPasswords.valid;
+            && this._registrationForm.controls['passwords']
+            && this._registrationForm.controls['passwords']['errors']
+            && this._registrationForm.controls['passwords']['errors']['checkPasswords']
+            && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
     }
 
     markAllFieldsAsErrors(configuration) {
@@ -85,23 +85,23 @@ export class RegistrationComponent implements OnInit, OnChanges {
     }
 
     checkIfEmailIsMarked(){
-        return this._registrationForm.controls.email && this._registrationForm.controls.email.errors && this._registrationForm.controls.email.errors.key == 'validateEmail';
+        return this._registrationForm.controls.email && this._registrationForm.controls['email']['errors'] && this._registrationForm.controls['email']['errors']['key'] == 'validateEmail';
     }
 
     checkIfPasswordIsMarked(controll){
         switch (controll) {
             case 'password':
-                return this._registrationForm.controls.passwords
-                    && this._registrationForm.controls.passwords.controls
-                    && this._registrationForm.controls.passwords.controls.password
-                    && this._registrationForm.controls.passwords.controls.password.errors
-                    && this._registrationForm.controls.passwords.controls.password.errors.key == 'validatePassword';
+                return this._registrationForm.controls['passwords']
+                    && this._registrationForm.controls['passwords']['controls']
+                    && this._registrationForm.controls['passwords']['controls']['password']
+                    && this._registrationForm.controls['passwords']['controls']['password']['errors']
+                    && this._registrationForm.controls['passwords']['controls']['password']['errors']['key'] == 'validatePassword';
             case 'repeat':
-                return this._registrationForm.controls.passwords
-                    && this._registrationForm.controls.passwords.controls
-                    && this._registrationForm.controls.passwords.controls.repeat
-                    && this._registrationForm.controls.passwords.controls.repeat.errors
-                    && this._registrationForm.controls.passwords.controls.repeat.errors.key == 'validatePassword';
+                return this._registrationForm.controls['passwords']
+                    && this._registrationForm.controls['passwords']['controls']
+                    && this._registrationForm.controls['passwords']['controls']['repeat']
+                    && this._registrationForm.controls['passwords']['controls']['repeat']['errors']
+                    && this._registrationForm.controls['passwords']['controls']['repeat']['errors']['key'] == 'validatePassword';
         }
     }
 

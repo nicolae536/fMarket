@@ -18,5 +18,6 @@ export class Demand implements IDemand {
     agreePhoneContact:boolean = false;
     agreeEmailContact:boolean = false;
     allCities:boolean = false;
-    isInEditMode:boolean = false
+    isInEditMode:boolean = false;
+    domainId:number = -1;
 }

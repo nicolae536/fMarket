@@ -43,10 +43,10 @@ var RegistrationComponent = (function () {
     };
     RegistrationComponent.prototype.updateErrorFied = function () {
         this.showNotMatchPasswordField = this._registrationForm
-            && this._registrationForm.controls.passwords
-            && this._registrationForm.controls.passwords.errors
-            && this._registrationForm.controls.passwords.errors.checkPasswords
-            && !this._registrationForm.controls.passwords.errors.checkPasswords.valid;
+            && this._registrationForm.controls['passwords']
+            && this._registrationForm.controls['passwords']['errors']
+            && this._registrationForm.controls['passwords']['errors']['checkPasswords']
+            && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
     };
     RegistrationComponent.prototype.markAllFieldsAsErrors = function (configuration) {
         if (configuration['email']) {
@@ -60,22 +60,22 @@ var RegistrationComponent = (function () {
         }
     };
     RegistrationComponent.prototype.checkIfEmailIsMarked = function () {
-        return this._registrationForm.controls.email && this._registrationForm.controls.email.errors && this._registrationForm.controls.email.errors.key == 'validateEmail';
+        return this._registrationForm.controls.email && this._registrationForm.controls['email']['errors'] && this._registrationForm.controls['email']['errors']['key'] == 'validateEmail';
     };
     RegistrationComponent.prototype.checkIfPasswordIsMarked = function (controll) {
         switch (controll) {
             case 'password':
-                return this._registrationForm.controls.passwords
-                    && this._registrationForm.controls.passwords.controls
-                    && this._registrationForm.controls.passwords.controls.password
-                    && this._registrationForm.controls.passwords.controls.password.errors
-                    && this._registrationForm.controls.passwords.controls.password.errors.key == 'validatePassword';
+                return this._registrationForm.controls['passwords']
+                    && this._registrationForm.controls['passwords']['controls']
+                    && this._registrationForm.controls['passwords']['controls']['password']
+                    && this._registrationForm.controls['passwords']['controls']['password']['errors']
+                    && this._registrationForm.controls['passwords']['controls']['password']['errors']['key'] == 'validatePassword';
             case 'repeat':
-                return this._registrationForm.controls.passwords
-                    && this._registrationForm.controls.passwords.controls
-                    && this._registrationForm.controls.passwords.controls.repeat
-                    && this._registrationForm.controls.passwords.controls.repeat.errors
-                    && this._registrationForm.controls.passwords.controls.repeat.errors.key == 'validatePassword';
+                return this._registrationForm.controls['passwords']
+                    && this._registrationForm.controls['passwords']['controls']
+                    && this._registrationForm.controls['passwords']['controls']['repeat']
+                    && this._registrationForm.controls['passwords']['controls']['repeat']['errors']
+                    && this._registrationForm.controls['passwords']['controls']['repeat']['errors']['key'] == 'validatePassword';
         }
     };
     RegistrationComponent.prototype.registrationFormSubmit = function () {

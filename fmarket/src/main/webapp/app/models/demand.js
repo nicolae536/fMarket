@@ -11,6 +11,7 @@ var Demand = (function () {
         this.agreeEmailContact = false;
         this.allCities = false;
         this.isInEditMode = false;
+        this.domainId = -1;
     }
     return Demand;
 }());
