@@ -15,6 +15,7 @@ import ro.fmarket.mail.MailService;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.account.AccountDao;
 import ro.fmarket.model.demand.consts.DemandStatus;
+import ro.fmarket.model.domain.demand.DemandDomainDao;
 import ro.fmarket.model.geographical.city.CityDao;
 import ro.fmarket.model.geographical.city.DemandCity;
 import ro.fmarket.model.registration.RegistrationService;
@@ -22,12 +23,14 @@ import ro.fmarket.model.token.DemandToken;
 import ro.fmarket.model.token.dao.DemandTokenDao;
 
 @Service
-@Transactional
 public class DemandServiceImpl implements DemandService {
 
 	@Autowired
 	private DemandDao demandDao;
 
+	@Autowired
+	private DemandDomainDao demandDomainDao;
+	
 	@Autowired
 	private DemandTokenDao demandTokenDao;
 
@@ -44,10 +47,13 @@ public class DemandServiceImpl implements DemandService {
 	private MailService mailService;
 
 	@Override
+	@Transactional
 	public void addDemand(NewDemandRequest request, boolean isAccountLogged) {
 		final Demand demand = createNewDemand(request, isAccountLogged);
 		demandDao.save(demand);
-		if (!isAccountLogged) {
+		if (isAccountLogged) {
+			mailService.sendNewDemandMailForLoggedInUser(demand);
+		} else {
 			String token = createAndSaveDemandToken(request, demand);
 			mailService.sendDemandConfirmMail(request.getEmail(), token);
 		}
@@ -67,6 +73,7 @@ public class DemandServiceImpl implements DemandService {
 	}
 
 	@Override
+	@Transactional
 	public void closeDemand(Integer accountId, CancelDemandRequest request) {
 		final Demand demand = demandDao.get(request.getDemandId());
 		if (demand != null && demand.getAccount().getId().equals(accountId)) {
@@ -79,6 +86,7 @@ public class DemandServiceImpl implements DemandService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<SelfDemandDTO> getAccountDemands(Integer accountId) {
 		return SelfDemandConverter.toDTOList(demandDao.getDemandsForAccount(accountId));
 	}
@@ -87,6 +95,7 @@ public class DemandServiceImpl implements DemandService {
 		final Demand demand = new Demand();
 		demand.setClosedDate(null);
 		demand.setCreationDate(DateUtils.now());
+		demand.setDomain(demandDomainDao.load(request.getDomainId()));
 		demand.setMessage(request.getMessage());
 		setAccountForDemand(request, isAccountLogged, demand);
 		setDemandCities(request, demand);
