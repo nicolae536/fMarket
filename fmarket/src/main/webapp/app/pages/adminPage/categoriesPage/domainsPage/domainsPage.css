@@ -5,6 +5,11 @@
 .domains-page .add-request {
     padding-top: 1%;
     animation: slide-down-49 0.4s;
+    width: 600px;
+}
+
+.domains-page .domain-type-filter{
+    width: 600px;
 }
 
 .domains-page .domain-type-filter .search-field {

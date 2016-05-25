@@ -39,10 +39,12 @@ export class DemandComponent implements OnInit, OnChanges {
     foobarItems;
     private isUserLoggedIn;
     private _menuTreeDialog:MenuTreeDialog;
+    private title:string;
 
     constructor(_formBuilder:FormBuilder) {
         this._formBuilder = _formBuilder;
         this._demandForm = this._formBuilder.group([]);
+        this.title = 'Adauga cerere';
 
         this.foobarItems = [
             {

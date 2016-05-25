@@ -96,6 +96,7 @@ export class DomainsPage implements OnInit {
             .subscribe(
                 response => {
                     me.domainsTypes = response;
+                    me.getRequestTypesWithFilters();
                 },
                 error => {
                     me.domainsTypes = [];

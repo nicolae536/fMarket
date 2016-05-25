@@ -4,7 +4,12 @@
 
 .companies-page .add-companie {
     padding-top: 1%;
+    width: 600px;
     animation: slide-down-49 0.4s;
+}
+
+.companies-page .companie-type-filter{
+    width: 600px;
 }
 
 .companies-page .companie-type-filter .search-field {

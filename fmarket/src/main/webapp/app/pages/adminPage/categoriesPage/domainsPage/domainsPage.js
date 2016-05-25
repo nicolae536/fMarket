@@ -72,6 +72,7 @@ var DomainsPage = (function () {
         })
             .subscribe(function (response) {
             me.domainsTypes = response;
+            me.getRequestTypesWithFilters();
         }, function (error) {
             me.domainsTypes = [];
         });

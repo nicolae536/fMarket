@@ -28,6 +28,7 @@ var DemandComponent = (function () {
         this._selectedDomain = { id: -1, name: 'Alege domeniu...', level: -1, parentId: -1, orderNr: -1, domainId: -1, hasChildrens: false };
         this._formBuilder = _formBuilder;
         this._demandForm = this._formBuilder.group([]);
+        this.title = 'Adauga cerere';
         this.foobarItems = [
             {
                 displayName: 'name',
