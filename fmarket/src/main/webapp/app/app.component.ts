@@ -46,10 +46,9 @@ import * as _ from 'underscore';
     `,
     styles: [`
         .application-wrapper{
-            padding-bottom: 101px;
+            padding-bottom: 98px;
             position: relative;
-            min-height: 100vh;
-            background-color: white;
+            min-height: 100vh;           
         }
         
         .login-background{
@@ -167,7 +166,7 @@ export class AppComponent implements OnInit {
                 }
 
                 JqueryService.removeElementWithAnimation(element);
-                JqueryService.setAppBackground();
+                // JqueryService.setAppBackground();
             }
         });
     }

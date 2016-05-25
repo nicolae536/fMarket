@@ -36,7 +36,7 @@ export class JqueryService {
             return;
         }
 
-        let pageHeight = height-50-101;
+        let pageHeight = height-50-98;
 
         $(nativeElement).height(pageHeight);
     }

@@ -19,6 +19,5 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             compress: { warnings: false }
         }),
-        new HtmlWebpackPlugin(),
     ]
 }

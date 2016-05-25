@@ -28,7 +28,7 @@ var JqueryService = (function () {
         if (this.isMobile()) {
             return;
         }
-        var pageHeight = height - 50 - 101;
+        var pageHeight = height - 50 - 98;
         $(nativeElement).height(pageHeight);
     };
     JqueryService.fitChildItemsInContainer = function (nativeElement) {
