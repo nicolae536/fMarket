@@ -66,6 +66,7 @@ var applicationPath:string = '/app/pages/adminPage';
 
 export class AdminPage implements AfterViewChecked{
     @ViewChild('leftMenu') leftMenu;
+    @ViewChild('rightMenu') rightMenu;
     location:Location;
 
     router:Router;
@@ -79,7 +80,7 @@ export class AdminPage implements AfterViewChecked{
     }
 
     ngAfterViewChecked():any {
-        JqueryService.setPageHeight(this.leftMenu.nativeElement);
+        // JqueryService.setAdminPageHeight(this.leftMenu.nativeElement, this.rightMenu.nativeElement);
         this._notificationService.removeLoading();
     }
 }

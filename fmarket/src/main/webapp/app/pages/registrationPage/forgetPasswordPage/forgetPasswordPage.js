@@ -52,7 +52,7 @@ var ForgetPasswordPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._router.navigate(['SuccessResetPassword']);
+            me._router.navigate(['Success', { succesOption: 'success-rest-password' }]);
         }, function (error) {
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Resetare parola invalida!', timeout: 5 });
             me._registrationComponent.markAllFieldsAsErrors({ email: true, password: true });

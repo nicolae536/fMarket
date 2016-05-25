@@ -10,7 +10,7 @@ import {LoginPage} from "../pages/registrationPage/loginPage/loginPage";
 import {ForgetPasswordPage} from "../pages/registrationPage/forgetPasswordPage/forgetPasswordPage";
 import {AdminPage} from "../pages/adminPage/adminPage";
 import {AccountSettingsPage} from "../pages/accountSettingsPage/accountSettingsPage";
-import {SuccessRegisterPage} from "../pages/registrationPage/successPages/successRegisterPage";
+import {SuccessPage} from "../pages/registrationPage/successPages/successPage";
 import {SuccessResetPasswordPage} from "../pages/registrationPage/successPages/successResetPasswordPage";
 import {TokenConfirmPage} from "../pages/registrationPage/tokenConfirmPage/tokenConfirmPage";
 
@@ -81,14 +81,9 @@ export class AuthorizationService {
                 component: ForgetPasswordPage
             }),
             new Route({
-                path: '/success-register',
-                name: 'SuccessRegister',
-                component: SuccessRegisterPage
-            }),
-            new Route({
-                path: '/success-reset-password',
-                name: 'SuccessResetPassword',
-                component: SuccessResetPasswordPage
+                path: '/success/:succesOption',
+                name: 'Success',
+                component: SuccessPage
             }),
             new Route({
                 path: '/admin/...',

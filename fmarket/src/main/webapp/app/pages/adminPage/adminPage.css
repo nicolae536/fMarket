@@ -15,7 +15,9 @@
 
 .admin-page-container .menu-container{
     position: fixed;
+    height: 100%;
     width: 16.66666667%;
+    background-color: #f8f8f8;
 }
 
 .admin-page-container .menu-container a{

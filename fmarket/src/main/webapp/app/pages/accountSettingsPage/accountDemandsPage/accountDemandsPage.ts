@@ -8,6 +8,7 @@ import {AuthorizationService} from "../../../services/authorizationService";
 import {DemandService} from "../../../services/demandService";
 import {RequestTypeService} from "../../../services/requestTypeService";
 import {DemandsListPageBase} from "../../adminPage/demandsPage/demandsListPage/demandsListPageBase";
+import {CategoriesMenuService} from "../../../services/categoriesMenuService";
 
 var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage';
 
@@ -20,8 +21,8 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage'
 })
 
 export class AccountDemandsPage extends DemandsListPageBase implements OnInit, OnChanges {
-    constructor(demandService:DemandService, requestTypeService:RequestTypeService) {
-        super(demandService, requestTypeService);
+    constructor(_categoriesMenuService:CategoriesMenuService, demandService:DemandService, requestTypeService:RequestTypeService) {
+        super(_categoriesMenuService, demandService, requestTypeService);
     }
 
     ngOnInit():any {

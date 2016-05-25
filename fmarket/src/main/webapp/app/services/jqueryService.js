@@ -67,6 +67,15 @@ var JqueryService = (function () {
     JqueryService.setAppBackground = function () {
         $('my-app').css('background', 'white');
     };
+    JqueryService.setAdminPageHeight = function (nativeElement, nativeElement2) {
+        var rightMenuHeight = $(nativeElement2).height();
+        var screenHeight = screen && screen.height ? screen.height - 50 - 98 : null;
+        var pageHeight = screenHeight > rightMenuHeight ? screenHeight - 219 : $(window).height() - 50 - 98;
+        if (this.isMobile()) {
+            return;
+        }
+        $(nativeElement).height(pageHeight);
+    };
     return JqueryService;
 }());
 exports.JqueryService = JqueryService;

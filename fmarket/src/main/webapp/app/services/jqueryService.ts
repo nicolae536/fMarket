@@ -84,4 +84,16 @@ export class JqueryService {
     static setAppBackground() {
         $('my-app').css('background','white');
     }
+
+    static setAdminPageHeight(nativeElement:any, nativeElement2:any) {
+        let rightMenuHeight = $(nativeElement2).height();
+        let screenHeight = screen && screen.height ? screen.height-50-98 : null;
+        let pageHeight = screenHeight > rightMenuHeight ? screenHeight - 219 : $(window).height()-50-98;
+
+        if(this.isMobile()){
+            return;
+        }
+
+        $(nativeElement).height(pageHeight);
+    }
 }

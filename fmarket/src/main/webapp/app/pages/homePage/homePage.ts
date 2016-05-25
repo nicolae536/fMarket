@@ -3,6 +3,7 @@
  */
 import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit} from "@angular/core";
 import {Response} from "@angular/http";
+import {Router} from "@angular/router-deprecated"
 import {FormBuilder, Validators} from "@angular/common";
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
 import {DemandService} from "../../services/demandService";
@@ -40,9 +41,16 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     private _subscribersService:SubscribersService;
     private _notificationService:NotificationService;
     menuDictionary;
+    private _router:Router;
 
-    constructor(_categoriesMenuService:CategoriesMenuService, _demandService:DemandService, subscribersService:SubscribersService, formBuilder:FormBuilder, notificationService:NotificationService) {
+    constructor(_categoriesMenuService:CategoriesMenuService,
+                router:Router,
+                _demandService:DemandService,
+                subscribersService:SubscribersService,
+                formBuilder:FormBuilder,
+                notificationService:NotificationService) {
         this._categoriesMenuService = _categoriesMenuService;
+        this._router = router;
         this._demandService = _demandService;
         this._subscribersService = subscribersService;
         this._formBuilder = formBuilder;
@@ -125,13 +133,14 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
         }).subscribe(
             respose=> {
                 me._demandDialog.restData();
+                me._router.navigate(['Success', {succesOption:'create-demand'}])
             },
             error=> {
                 this._notificationService.emitNotificationToRootComponent({
                     type:'danger',
                     dismisable:true,
                     message:'Cererea nu a putut fi creata',
-                    timeout:undefined
+                    timeout:5
                 })
             }
         )

@@ -33,13 +33,17 @@ var AdminPage = (function () {
         jqueryService_1.JqueryService.removeElementWithAnimation(document.getElementById(applicationConstansts_1.ApplicationConstants.LOADING_SPINNER));
     }
     AdminPage.prototype.ngAfterViewChecked = function () {
-        jqueryService_1.JqueryService.setPageHeight(this.leftMenu.nativeElement);
+        // JqueryService.setAdminPageHeight(this.leftMenu.nativeElement, this.rightMenu.nativeElement);
         this._notificationService.removeLoading();
     };
     __decorate([
         core_1.ViewChild('leftMenu'), 
         __metadata('design:type', Object)
     ], AdminPage.prototype, "leftMenu", void 0);
+    __decorate([
+        core_1.ViewChild('rightMenu'), 
+        __metadata('design:type', Object)
+    ], AdminPage.prototype, "rightMenu", void 0);
     AdminPage = __decorate([
         core_1.Component({
             selector: 'admin-Page',

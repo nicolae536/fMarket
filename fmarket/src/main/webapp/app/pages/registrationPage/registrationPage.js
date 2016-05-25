@@ -52,7 +52,7 @@ var RegistrationPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._router.navigate(['SuccessRegister']);
+            me._router.navigate(['Success', { succesOption: 'success-registration' }]);
         }, function (error) {
             me._registrationComponent.markAllFieldsAsErrors({ email: true, password: true });
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Inregistrare invalida!', timeout: 5 });

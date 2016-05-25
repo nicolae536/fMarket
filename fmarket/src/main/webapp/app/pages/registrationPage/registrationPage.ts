@@ -77,7 +77,7 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
             })
             .subscribe(
                 response => {
-                    me._router.navigate(['SuccessRegister']);
+                    me._router.navigate(['Success', {succesOption:'success-registration'}]);
                 },
                 error => {
                     me._registrationComponent.markAllFieldsAsErrors({email:true, password:true});

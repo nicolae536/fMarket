@@ -1,0 +1,11 @@
+.demands-list-page{
+    padding-top: 15px;
+}
+
+.demands-list-page .filters .domain-select{
+    height:32px;
+}
+
+.demands-list-page .filters .col-md-6.col-xs-12{
+    padding-top: 25px;
+}

@@ -1,14 +1,14 @@
 /**
  * Created by nick_ on 4/16/2016.
  */
-import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Injectable} from "@angular/core";
 import {CITYES} from "./mock-providers/mock-City";
 import {FMarketApi} from "./fMarketApi";
 import {Observable} from "rxjs/Observable";
 import {Select2Item} from "../components/selectComponent/selectComponent";
 import {Demand} from "../models/demand";
-import * as _ from 'underscore';
+import * as _ from "underscore";
+import {DemandStatus} from "../models/DemandStatus";
 
 @Injectable()
 export class DemandService {
@@ -20,7 +20,7 @@ export class DemandService {
     }
 
     getCityList() {
-        return new Observable((observer)=>{
+        return new Observable((observer)=> {
             observer.next(CITYES);
         });
     }
@@ -35,19 +35,20 @@ export class DemandService {
         return this.api.post('/demands', JSON.stringify(beckedDemand));
     }
 
-    getDemandsWithFilters(search:Object){
+    getDemandsWithFilters(search:Object) {
+        let searchObj = this.getSearchObj(search);
         return this.api.post(this._DemandController + '/search', JSON.stringify(search));
     }
 
-    getUserDemandsWithFilter(search:Object){
+    getUserDemandsWithFilter(search:Object) {
         return this.api.post('/demands/search', JSON.stringify(search));
     }
 
-    getNewDemands(){
+    getNewDemands() {
         return this.api.get(this._DemandController + '/new');
     }
 
-    getDemandStatuses(){
+    getDemandStatuses() {
         return this.api.get(this._DemandController + '/statuses');
     }
 
@@ -69,29 +70,39 @@ export class DemandService {
 
     private convertDemand(demand:Demand) {
         let newDemand = demand;
-        if(!demand){
+        if (!demand) {
             return null;
         }
 
-        newDemand.cities = _.map(demand.cities, (city:Select2Item)=>{
+        newDemand.cities = _.map(demand.cities, (city:Select2Item)=> {
             return city.boundItem['id'];
         })
-        newDemand.domain =  demand.domain && demand.domain.boundItem ? demand.domain.boundItem['id'] :null;
+        newDemand.domain = demand.domain && demand.domain.boundItem ? demand.domain.boundItem['id'] : null;
 
         return newDemand;
     }
 
     private convertToUserDemand(demand:Demand) {
         let newDemand = demand;
-        if(!demand){
+        if (!demand) {
             return null;
         }
 
-        newDemand.cities = _.map(demand.cities, (city:Select2Item)=>{
+        newDemand.cities = _.map(demand.cities, (city:Select2Item)=> {
             return city.boundItem['id'];
         });
-        newDemand.domainId =  demand.domain && demand['domain']['id'] ? demand['domain']['id'] :null;
+        newDemand.domainId = demand.domain && demand['domain']['id'] ? demand['domain']['id'] : null;
 
         return newDemand;
+    }
+
+    private getSearchObj(search:Object) {
+        return {
+            accountId: search.accountId && search.accountId.length > 0 ? search.accountId : null,
+            page: search.page ? search.page : 1,
+            status:search.status ? search.status : DemandStatus.ACTIVE,
+            domainId:search.domainId ? search.domainId : null
+
+        }
     }
 }

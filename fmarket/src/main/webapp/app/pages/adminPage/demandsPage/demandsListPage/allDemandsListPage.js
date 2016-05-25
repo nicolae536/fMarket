@@ -24,15 +24,19 @@ var requestTypeService_1 = require("../../../../services/requestTypeService");
 var demandsListPageBase_1 = require("./demandsListPageBase");
 var Roles_1 = require("../../../../models/Roles");
 var authorizationService_1 = require("../../../../services/authorizationService");
+var menuTreeDialog_1 = require("../../../../components/menuComponent/menuTreeDialog/menuTreeDialog");
+var categoriesMenuService_1 = require("../../../../services/categoriesMenuService");
 var applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
 var AllDemandsListPage = (function (_super) {
     __extends(AllDemandsListPage, _super);
-    function AllDemandsListPage(_demandService, _requestTypeService) {
-        _super.call(this, _demandService, _requestTypeService);
+    function AllDemandsListPage(_categoriesMenuService, _demandService, _requestTypeService) {
+        _super.call(this, _categoriesMenuService, _demandService, _requestTypeService);
+        this.pageName = 'demands';
     }
     AllDemandsListPage.prototype.ngOnInit = function () {
         // this.getCities();
         this.getAllDemandsList();
+        this.getMenuDictionary();
     };
     AllDemandsListPage.prototype.ngOnChanges = function (changes) {
         // if(changes && changes['_demandsList']){
@@ -44,10 +48,10 @@ var AllDemandsListPage = (function (_super) {
             selector: 'demands-list-page',
             templateUrl: applicationPath + '/demandsListPageBase.html',
             styleUrls: [applicationPath + '/demandsListPageBase.css'],
-            directives: [demandListBase_1.DemandListBaseComponent]
+            directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
         }),
         router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
     ], AllDemandsListPage);
     return AllDemandsListPage;
 }(demandsListPageBase_1.DemandsListPageBase));

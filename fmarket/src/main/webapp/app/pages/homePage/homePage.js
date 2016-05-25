@@ -12,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/12/2016.
  */
 var core_1 = require("@angular/core");
+var router_deprecated_1 = require("@angular/router-deprecated");
 var common_1 = require("@angular/common");
 var categoriesMenuService_1 = require("../../services/categoriesMenuService");
 var demandService_1 = require("../../services/demandService");
@@ -22,9 +23,10 @@ var notificationService_1 = require("../../services/notificationService");
 var demandComponent_1 = require("../../components/demandComponent/demandComponent");
 var folderPath = '/app/pages/homePage';
 var HomePage = (function () {
-    function HomePage(_categoriesMenuService, _demandService, subscribersService, formBuilder, notificationService) {
+    function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService) {
         this.scrollProperty = 'scrollY';
         this._categoriesMenuService = _categoriesMenuService;
+        this._router = router;
         this._demandService = _demandService;
         this._subscribersService = subscribersService;
         this._formBuilder = formBuilder;
@@ -95,12 +97,13 @@ var HomePage = (function () {
             }
         }).subscribe(function (respose) {
             me._demandDialog.restData();
+            me._router.navigate(['Success', { succesOption: 'create-demand' }]);
         }, function (error) {
             _this._notificationService.emitNotificationToRootComponent({
                 type: 'danger',
                 dismisable: true,
                 message: 'Cererea nu a putut fi creata',
-                timeout: undefined
+                timeout: 5
             });
         });
     };
@@ -158,7 +161,7 @@ var HomePage = (function () {
             templateUrl: folderPath + '/homePage.html',
             directives: [demandComponent_1.DemandComponent]
         }), 
-        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService])
+        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_deprecated_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService])
     ], HomePage);
     return HomePage;
 }());

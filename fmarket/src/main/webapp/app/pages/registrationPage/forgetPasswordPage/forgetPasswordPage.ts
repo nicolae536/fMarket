@@ -81,7 +81,7 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
             })
             .subscribe(
                 response => {
-                    me._router.navigate(['SuccessResetPassword']);
+                    me._router.navigate(['Success', {succesOption:'success-rest-password'}]);
                 },
                 error => {
                     me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Resetare parola invalida!', timeout:5});

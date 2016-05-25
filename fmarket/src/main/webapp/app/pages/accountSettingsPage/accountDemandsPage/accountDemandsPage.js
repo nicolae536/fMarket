@@ -22,11 +22,12 @@ var authorizationService_1 = require("../../../services/authorizationService");
 var demandService_1 = require("../../../services/demandService");
 var requestTypeService_1 = require("../../../services/requestTypeService");
 var demandsListPageBase_1 = require("../../adminPage/demandsPage/demandsListPage/demandsListPageBase");
+var categoriesMenuService_1 = require("../../../services/categoriesMenuService");
 var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
 var AccountDemandsPage = (function (_super) {
     __extends(AccountDemandsPage, _super);
-    function AccountDemandsPage(demandService, requestTypeService) {
-        _super.call(this, demandService, requestTypeService);
+    function AccountDemandsPage(_categoriesMenuService, demandService, requestTypeService) {
+        _super.call(this, _categoriesMenuService, demandService, requestTypeService);
     }
     AccountDemandsPage.prototype.ngOnInit = function () {
         this.getUserDemandsWithFilter();
@@ -56,7 +57,7 @@ var AccountDemandsPage = (function (_super) {
         router_deprecated_1.CanActivate(function () {
             return authorizationService_1.AuthorizationService.isLoggedIn();
         }), 
-        __metadata('design:paramtypes', [demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
     ], AccountDemandsPage);
     return AccountDemandsPage;
 }(demandsListPageBase_1.DemandsListPageBase));

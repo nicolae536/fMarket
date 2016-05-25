@@ -10,6 +10,8 @@ import {RequestTypeService} from "../../../../services/requestTypeService";
 import {DemandsListPageBase} from "./demandsListPageBase";
 import {Role} from "../../../../models/Roles";
 import {AuthorizationService} from "../../../../services/authorizationService";
+import {MenuTreeDialog} from "../../../../components/menuComponent/menuTreeDialog/menuTreeDialog";
+import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
 
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
 
@@ -17,18 +19,19 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
     selector: 'demands-list-page',
     templateUrl: applicationPath + '/demandsListPageBase.html',
     styleUrls: [applicationPath + '/demandsListPageBase.css'],
-    directives: [DemandListBaseComponent]
+    directives: [DemandListBaseComponent, MenuTreeDialog]
 })
 @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 export class AllDemandsListPage extends DemandsListPageBase implements OnInit, OnChanges {
-
-    constructor(_demandService:DemandService, _requestTypeService:RequestTypeService) {
-        super(_demandService, _requestTypeService);
+    pageName='demands';
+    constructor(_categoriesMenuService:CategoriesMenuService,_demandService:DemandService, _requestTypeService:RequestTypeService) {
+        super(_categoriesMenuService, _demandService, _requestTypeService);
     }
 
     public ngOnInit():any {
         // this.getCities();
         this.getAllDemandsList();
+        this.getMenuDictionary();
     }
 
     public ngOnChanges(changes:{}):any {

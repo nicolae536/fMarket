@@ -11,8 +11,7 @@ var loginPage_1 = require("../pages/registrationPage/loginPage/loginPage");
 var forgetPasswordPage_1 = require("../pages/registrationPage/forgetPasswordPage/forgetPasswordPage");
 var adminPage_1 = require("../pages/adminPage/adminPage");
 var accountSettingsPage_1 = require("../pages/accountSettingsPage/accountSettingsPage");
-var successRegisterPage_1 = require("../pages/registrationPage/successPages/successRegisterPage");
-var successResetPasswordPage_1 = require("../pages/registrationPage/successPages/successResetPasswordPage");
+var successPage_1 = require("../pages/registrationPage/successPages/successPage");
 var tokenConfirmPage_1 = require("../pages/registrationPage/tokenConfirmPage/tokenConfirmPage");
 var AuthorizationService = (function () {
     function AuthorizationService() {
@@ -74,14 +73,9 @@ var AuthorizationService = (function () {
                 component: forgetPasswordPage_1.ForgetPasswordPage
             }),
             new router_deprecated_1.Route({
-                path: '/success-register',
-                name: 'SuccessRegister',
-                component: successRegisterPage_1.SuccessRegisterPage
-            }),
-            new router_deprecated_1.Route({
-                path: '/success-reset-password',
-                name: 'SuccessResetPassword',
-                component: successResetPasswordPage_1.SuccessResetPasswordPage
+                path: '/success/:succesOption',
+                name: 'Success',
+                component: successPage_1.SuccessPage
             }),
             new router_deprecated_1.Route({
                 path: '/admin/...',

@@ -1,10 +1,37 @@
 <div class="demands-list-page">
-    <demand-list-component
-        [demand-list]="_demandsList"
-        [domains-list]="_domainsList"
-        [cities-list]="_cityesList">
-        <div class="spinner">
-            <img class="spinner-img" src="/staticResorces/Loading_icon.gif"/>
+    <div *ngIf="pageName==='demands'" class="filters">
+        <menu-tree-dialog
+                [menu-tree-data]="menuDictionary"
+                [enable-operations]="false"
+                (loaded)="referenceDialogInDemandComponent($event)"
+                (action-confirmed)="selectItemUsingMenu($event)"
+        ></menu-tree-dialog>
+        <div class="col-md-2 col-xs-12">
+            <label>Domeniu</label>
+            <input type="text" class="form-control" [(ngModel)]="_searchObject.accountId"/>
         </div>
-    </demand-list-component>
+        <div class="col-md-2 col-xs-12">
+            <label>Domeniu</label>
+            <span class="form-control select-domain" (click)="showDomainsDialog()">{{_searchObject.domainName}}</span>
+        </div>
+        <div class="col-md-2 col-xs-12">
+            <label>Domeniu</label>
+            <select class="domain-select" [(ngModel)]="_searchObject.status">
+                <option *ngFor="let option of statusList" [value]="option.status">{{option.displayName}}
+                </option>
+            </select>
+        </div>
+        <div class="col-md-6 col-xs-12 clearfix">
+            <div class="pull-right">
+                <input type="button" class="btn btn-success" value="Aplica filtre" (click)="getAllDemandsList()" />
+            </div>
+        </div>
+    </div>
+    <div class="demand-list-container clearfix">
+        <demand-list-component
+                [demand-list]="_demandsList"
+                [domains-list]="_domainsList"
+                [cities-list]="_cityesList">
+        </demand-list-component>
+    </div>
 </div>

@@ -11,11 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by nick_ on 4/16/2016.
  */
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var mock_City_1 = require("./mock-providers/mock-City");
 var fMarketApi_1 = require("./fMarketApi");
 var Observable_1 = require("rxjs/Observable");
-var _ = require('underscore');
+var _ = require("underscore");
+var DemandStatus_1 = require("../models/DemandStatus");
 var DemandService = (function () {
     function DemandService(api) {
         this._DemandController = '/admin/demands';
@@ -35,6 +36,7 @@ var DemandService = (function () {
         return this.api.post('/demands', JSON.stringify(beckedDemand));
     };
     DemandService.prototype.getDemandsWithFilters = function (search) {
+        var searchObj = this.getSearchObj(search);
         return this.api.post(this._DemandController + '/search', JSON.stringify(search));
     };
     DemandService.prototype.getUserDemandsWithFilter = function (search) {
@@ -79,6 +81,14 @@ var DemandService = (function () {
         });
         newDemand.domainId = demand.domain && demand['domain']['id'] ? demand['domain']['id'] : null;
         return newDemand;
+    };
+    DemandService.prototype.getSearchObj = function (search) {
+        return {
+            accountId: search.accountId && search.accountId.length > 0 ? search.accountId : null,
+            page: search.page ? search.page : 1,
+            status: search.status ? search.status : DemandStatus_1.DemandStatus.ACTIVE,
+            domainId: search.domainId ? search.domainId : null
+        };
     };
     DemandService = __decorate([
         core_1.Injectable(), 
