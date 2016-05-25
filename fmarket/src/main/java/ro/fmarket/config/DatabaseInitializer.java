@@ -18,7 +18,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run(String... arg0) throws Exception {
-		cities();
+//		cities();
 		System.out.println("HELLO!!!");
 	}
 
