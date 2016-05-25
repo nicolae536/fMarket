@@ -90,7 +90,7 @@ export class DemandService {
         newDemand.cities = _.map(demand.cities, (city:Select2Item)=>{
             return city.boundItem['id'];
         });
-        newDemand.domain =  demand.domain && demand.domain.id ? demand.domain.id :null;
+        newDemand.domainId =  demand.domain && demand.domain.id ? demand.domain.id :null;
 
         return newDemand;
     }

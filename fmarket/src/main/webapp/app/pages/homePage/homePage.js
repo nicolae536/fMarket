@@ -112,7 +112,6 @@ var HomePage = (function () {
                 return response.json();
             }
         }).subscribe(function (response) {
-            debugger;
             me.menuDictionary = response;
         }, function (error) {
             me.menuDictionary = [];

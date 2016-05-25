@@ -76,7 +76,7 @@ var DemandService = (function () {
         newDemand.cities = _.map(demand.cities, function (city) {
             return city.boundItem['id'];
         });
-        newDemand.domain = demand.domain && demand.domain.id ? demand.domain.id : null;
+        newDemand.domainId = demand.domain && demand.domain.id ? demand.domain.id : null;
         return newDemand;
     };
     DemandService = __decorate([

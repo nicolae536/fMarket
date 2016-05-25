@@ -127,6 +127,7 @@ export class DemandComponent implements OnInit, OnChanges {
         if (this._demandForm.valid && this._selectedDomain.id !== -1) {
             let formValue = this._demandForm.value;
             formValue.domain = this._selectedDomain;
+            formValue.cities = this._selectCityCompnent._selectedItems;
             this._demandFormSubmit.emit(formValue);
         }
     }

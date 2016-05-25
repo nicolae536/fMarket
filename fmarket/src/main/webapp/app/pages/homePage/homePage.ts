@@ -146,7 +146,6 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
                 }
             }).subscribe(
             response => {
-                debugger;
                 me.menuDictionary = response;
             },
             error => {

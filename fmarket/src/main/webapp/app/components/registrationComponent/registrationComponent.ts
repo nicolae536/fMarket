@@ -63,8 +63,11 @@ export class RegistrationComponent implements OnInit, OnChanges {
     }
 
     updateErrorFied(){
-        this.showNotMatchPasswordField = this._registrationForm && this._registrationForm.controls.passwords &&
-            this._registrationForm.controls.passwords.errors && this._registrationForm.controls.passwords.errors.checkPasswords && !this._registrationForm.controls.passwords.errors.checkPasswords.valid;
+        this.showNotMatchPasswordField = this._registrationForm
+            && this._registrationForm.controls.passwords
+            && this._registrationForm.controls.passwords.errors
+            && this._registrationForm.controls.passwords.errors.checkPasswords
+            && !this._registrationForm.controls.passwords.errors.checkPasswords.valid;
     }
 
     markAllFieldsAsErrors(configuration) {
