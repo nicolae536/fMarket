@@ -1,13 +1,9 @@
-var env = 'dev';
+var env = 'prod';
 
 switch (env) {
     case 'prod':
     case 'production':
         module.exports = require('./config/webpack.prod');
-        break;
-    case 'test':
-    case 'testing':
-        module.exports = require('./config/webpack.test');
         break;
     case 'dev':
     case 'development':
