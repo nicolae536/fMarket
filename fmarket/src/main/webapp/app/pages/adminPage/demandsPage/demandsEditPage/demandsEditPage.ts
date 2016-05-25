@@ -11,7 +11,7 @@ import {DemandEditComponent} from "../../../../components/demandComponent/demand
 import {Demand} from "../../../../models/demand";
 import {Role} from "../../../../models/Roles";
 import {AuthorizationService} from "../../../../services/authorizationService";
-
+import * as _ from 'underscore';
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
 
 @Component({

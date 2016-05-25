@@ -18,6 +18,7 @@ var common_1 = require("@angular/common");
 var modalDialog_1 = require("../modalDialog/modalDialog");
 var user_1 = require("../../models/user");
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
+var _ = require('underscore');
 var CreateUserDialog = (function (_super) {
     __extends(CreateUserDialog, _super);
     function CreateUserDialog(formBuilder) {

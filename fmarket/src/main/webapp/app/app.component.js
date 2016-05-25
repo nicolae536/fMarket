@@ -32,6 +32,7 @@ var companiesService_1 = require("./services/companiesService");
 var Roles_1 = require("./models/Roles");
 var jqueryService_1 = require("./services/jqueryService");
 var fMarketApi_1 = require("./services/fMarketApi");
+var _ = require('underscore');
 //= {type: "success", dismisable: true, message:""};
 var AppComponent = (function () {
     function AppComponent(router, location, notificationService, registrationService, localeStorageService) {

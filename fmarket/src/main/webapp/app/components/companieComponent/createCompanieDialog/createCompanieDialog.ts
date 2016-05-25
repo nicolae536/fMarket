@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 5/6/2016.
  */
-
+import * as _ from 'underscore';
 import {FORM_DIRECTIVES, FormBuilder, Control} from "@angular/common";
 import {Component, OnInit, EventEmitter, Output, Input} from "@angular/core";
 import {ModalDialog} from "../../modalDialog/modalDialog";

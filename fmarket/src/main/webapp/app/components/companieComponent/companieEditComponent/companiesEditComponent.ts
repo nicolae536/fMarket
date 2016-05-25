@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 5/6/2016.
  */
-
+import * as _ from 'underscore';
 import {Component, Input, Output, EventEmitter, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {FormBuilder, Control} from "@angular/common";

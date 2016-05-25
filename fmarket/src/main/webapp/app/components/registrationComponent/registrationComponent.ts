@@ -85,7 +85,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     }
 
     checkIfEmailIsMarked(){
-        return this._registrationForm.controls.email && this._registrationForm.controls['email']['errors'] && this._registrationForm.controls['email']['errors']['key'] == 'validateEmail';
+        return this._registrationForm.controls['email'] && this._registrationForm.controls['email']['errors'] && this._registrationForm.controls['email']['errors']['key'] == 'validateEmail';
     }
 
     checkIfPasswordIsMarked(controll){

@@ -5,7 +5,7 @@ import {DemandService} from "../../../../services/demandService";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";
 import {RequestTypeService} from "../../../../services/requestTypeService";
 import {DemandAdminDto} from "../../../../models/demandAdminDto";
-
+import * as _ from 'underscore';
 export class DemandsListPageBase {
     public _demandService:DemandService;
     public _requestTypeService:RequestTypeService;

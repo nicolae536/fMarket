@@ -8,7 +8,7 @@ import {FMarketApi} from "./fMarketApi";
 import {Observable} from "rxjs/Observable";
 import {Select2Item} from "../components/selectComponent/selectComponent";
 import {Demand} from "../models/demand";
-
+import * as _ from 'underscore';
 
 @Injectable()
 export class DemandService {
@@ -90,7 +90,7 @@ export class DemandService {
         newDemand.cities = _.map(demand.cities, (city:Select2Item)=>{
             return city.boundItem['id'];
         });
-        newDemand.domainId =  demand.domain && demand.domain.id ? demand.domain.id :null;
+        newDemand.domainId =  demand.domain && demand['domain']['id'] ? demand['domain']['id'] :null;
 
         return newDemand;
     }

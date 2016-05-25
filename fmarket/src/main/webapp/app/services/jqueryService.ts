@@ -2,6 +2,11 @@
  * Created by nick_ on 5/9/2016.
  */
 import {ElementRef} from "@angular/core";
+import * as _ from 'underscore';
+// import * as $ from 'jquery';
+// import * as animateScroll from 'animateScroll';
+// console.log(animateScroll);
+// _.extend($, {animateScroll: animateScroll});
 
 export class JqueryService {
     public static animateScroll(element:ElementRef, animation:string, scrollSpeed:number) {

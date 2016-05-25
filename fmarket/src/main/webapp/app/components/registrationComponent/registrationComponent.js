@@ -60,7 +60,7 @@ var RegistrationComponent = (function () {
         }
     };
     RegistrationComponent.prototype.checkIfEmailIsMarked = function () {
-        return this._registrationForm.controls.email && this._registrationForm.controls['email']['errors'] && this._registrationForm.controls['email']['errors']['key'] == 'validateEmail';
+        return this._registrationForm.controls['email'] && this._registrationForm.controls['email']['errors'] && this._registrationForm.controls['email']['errors']['key'] == 'validateEmail';
     };
     RegistrationComponent.prototype.checkIfPasswordIsMarked = function (controll) {
         switch (controll) {

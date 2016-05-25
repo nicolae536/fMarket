@@ -17,6 +17,7 @@ var accountDto_1 = require("../../../models/accountDto");
 var accountService_1 = require("../../../services/accountService");
 var demandService_1 = require("../../../services/demandService");
 var authorizationService_1 = require("../../../services/authorizationService");
+var _ = require('underscore');
 var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
 var AccountEditPage = (function () {
     function AccountEditPage(accountService, demandService) {

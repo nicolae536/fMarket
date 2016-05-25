@@ -15,6 +15,7 @@ var core_1 = require('@angular/core');
 var mock_City_1 = require("./mock-providers/mock-City");
 var fMarketApi_1 = require("./fMarketApi");
 var Observable_1 = require("rxjs/Observable");
+var _ = require('underscore');
 var DemandService = (function () {
     function DemandService(api) {
         this._DemandController = '/admin/demands';
@@ -76,7 +77,7 @@ var DemandService = (function () {
         newDemand.cities = _.map(demand.cities, function (city) {
             return city.boundItem['id'];
         });
-        newDemand.domainId = demand.domain && demand.domain.id ? demand.domain.id : null;
+        newDemand.domainId = demand.domain && demand['domain']['id'] ? demand['domain']['id'] : null;
         return newDemand;
     };
     DemandService = __decorate([

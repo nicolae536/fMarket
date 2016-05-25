@@ -1,6 +1,3 @@
-/**
- * Created by nick_ on 5/6/2016.
- */
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -16,6 +13,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+/**
+ * Created by nick_ on 5/6/2016.
+ */
+var _ = require('underscore');
 var common_1 = require("@angular/common");
 var core_1 = require("@angular/core");
 var modalDialog_1 = require("../../modalDialog/modalDialog");

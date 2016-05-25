@@ -10,7 +10,7 @@ import {AccountService} from "../../../services/accountService";
 import {DemandService} from "../../../services/demandService";
 import {Select2Item} from "../../../components/selectComponent/selectComponent";
 import {AuthorizationService} from "../../../services/authorizationService";
-
+import * as _ from 'underscore';
 var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
 
 @Component({

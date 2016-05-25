@@ -19,6 +19,7 @@ var createCompanieDialog_1 = require("../../../components/companieComponent/crea
 var companiesService_1 = require("../../../services/companiesService");
 var notificationService_1 = require("../../../services/notificationService");
 var companieListComponent_1 = require("../../../components/companieComponent/companieListComponent/companieListComponent");
+var _ = require('underscore');
 var applicationPath = '/app/pages/adminPage/companiesPage';
 var CompaniesPage = (function () {
     function CompaniesPage(router, companiesService, notificationService) {

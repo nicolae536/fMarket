@@ -18,6 +18,7 @@ var requestTypeService_1 = require("../../../../services/requestTypeService");
 var demandEdit_1 = require("../../../../components/demandComponent/demandEdit/demandEdit");
 var Roles_1 = require("../../../../models/Roles");
 var authorizationService_1 = require("../../../../services/authorizationService");
+var _ = require('underscore');
 var applicationPath = '/app/pages/adminPage/demandsPage/demandsEditPage';
 var DemandsEditPage = (function () {
     function DemandsEditPage(router, params, demandService, requestTypeService) {

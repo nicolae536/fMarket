@@ -1,4 +1,5 @@
 "use strict";
+var _ = require('underscore');
 var DemandsListPageBase = (function () {
     function DemandsListPageBase(_demandService, _requestTypeService) {
         this._demandService = _demandService;

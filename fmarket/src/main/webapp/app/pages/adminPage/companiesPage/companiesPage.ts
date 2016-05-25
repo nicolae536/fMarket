@@ -12,7 +12,7 @@ import {PaginationWrapper} from "../../../models/paginationWrapper";
 import {NotificationService} from "../../../services/notificationService";
 import {DomainCompanieDto} from "../../../models/domainCompanieDto";
 import {CompanieListComponent} from "../../../components/companieComponent/companieListComponent/companieListComponent";
-
+import * as _ from 'underscore';
 
 let applicationPath='/app/pages/adminPage/companiesPage'
 @Component({

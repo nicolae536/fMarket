@@ -4,7 +4,7 @@ import {FormBuilder, Validators, FORM_DIRECTIVES} from "@angular/common";
 import {ModalDialog} from "../modalDialog/modalDialog";
 import {User} from "../../models/user";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
-
+import * as _ from 'underscore';
 @Component({
     selector: 'create-user-dialog',
     templateUrl: 'app/components/createUserDialog/createUserDialog.html',

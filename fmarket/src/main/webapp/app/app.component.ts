@@ -22,7 +22,7 @@ import {CompaniesService} from "./services/companiesService";
 import {Role} from "./models/Roles";
 import {JqueryService} from "./services/jqueryService";
 import {FMarketApi} from "./services/fMarketApi";
-
+import * as _ from 'underscore';
 //= {type: "success", dismisable: true, message:""};
 @Component({
     selector: 'my-app',
