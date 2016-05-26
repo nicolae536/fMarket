@@ -97,6 +97,7 @@ public class DemandServiceImpl implements DemandService {
 		demand.setCreationDate(DateUtils.now());
 		demand.setDomain(demandDomainDao.load(request.getDomainId()));
 		demand.setMessage(request.getMessage());
+		demand.setTitle(request.getTitle());
 		setAccountForDemand(request, isAccountLogged, demand);
 		setDemandCities(request, demand);
 

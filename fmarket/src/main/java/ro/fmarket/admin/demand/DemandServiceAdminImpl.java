@@ -91,7 +91,7 @@ public class DemandServiceAdminImpl implements DemandServiceAdmin {
 		final List<DemandAdminDTO> dtoList = DemandAdminConverter.toDTOList(demands);
 		final PaginatedResponse<DemandAdminDTO> response = new PaginatedResponse<>(dtoList);
 		response.setTotalPages(PaginationUtils.calculateTotalPages(DEMANDS_PAGE_SIZE, totalCount));
-		response.setPage(searchObject.getPage());
+		response.setPage(searchObject.getPage() != null ? searchObject.getPage() : 1);
 		return response;
 	}
 
