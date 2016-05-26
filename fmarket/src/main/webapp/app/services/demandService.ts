@@ -41,7 +41,7 @@ export class DemandService {
     }
 
     getUserDemandsWithFilter(search:Object) {
-        return this.api.post('/demands/search', JSON.stringify(search));
+        return this.api.get('/demands');
     }
 
     getNewDemands() {

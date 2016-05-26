@@ -39,7 +39,7 @@ var DemandService = (function () {
         return this.api.post(this._DemandController + '/search', JSON.stringify(searchObj));
     };
     DemandService.prototype.getUserDemandsWithFilter = function (search) {
-        return this.api.post('/demands/search', JSON.stringify(search));
+        return this.api.get('/demands');
     };
     DemandService.prototype.getNewDemands = function () {
         return this.api.get(this._DemandController + '/new');

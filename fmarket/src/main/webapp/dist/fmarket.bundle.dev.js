@@ -73384,7 +73384,7 @@
 	        return this.api.post(this._DemandController + '/search', JSON.stringify(searchObj));
 	    };
 	    DemandService.prototype.getUserDemandsWithFilter = function (search) {
-	        return this.api.post('/demands/search', JSON.stringify(search));
+	        return this.api.get('/demands');
 	    };
 	    DemandService.prototype.getNewDemands = function () {
 	        return this.api.get(this._DemandController + '/new');
@@ -80212,6 +80212,7 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var router_deprecated_1 = __webpack_require__(305);
+	var router_deprecated_2 = __webpack_require__(305);
 	var authorizationService_1 = __webpack_require__(504);
 	var demandService_1 = __webpack_require__(530);
 	var requestTypeService_1 = __webpack_require__(573);
@@ -80220,8 +80221,8 @@
 	var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
 	var AccountDemandsPage = (function (_super) {
 	    __extends(AccountDemandsPage, _super);
-	    function AccountDemandsPage(_categoriesMenuService, demandService, requestTypeService) {
-	        _super.call(this, _categoriesMenuService, demandService, requestTypeService);
+	    function AccountDemandsPage(router, _categoriesMenuService, _demandService, _requestTypeService) {
+	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService);
 	    }
 	    AccountDemandsPage.prototype.ngOnInit = function () {
 	        this.getUserDemandsWithFilter();
@@ -80251,7 +80252,7 @@
 	        router_deprecated_1.CanActivate(function () {
 	            return authorizationService_1.AuthorizationService.isLoggedIn();
 	        }), 
-	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+	        __metadata('design:paramtypes', [router_deprecated_2.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
 	    ], AccountDemandsPage);
 	    return AccountDemandsPage;
 	}(demandsListPageBase_1.DemandsListPageBase));

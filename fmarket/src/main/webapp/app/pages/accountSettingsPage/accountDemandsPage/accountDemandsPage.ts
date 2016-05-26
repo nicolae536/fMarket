@@ -3,7 +3,7 @@
  */
 import {Component, OnInit, OnChanges} from "@angular/core";
 import {CanActivate} from "@angular/router-deprecated";
-
+import {Router} from "@angular/router-deprecated";
 import {AuthorizationService} from "../../../services/authorizationService";
 import {DemandService} from "../../../services/demandService";
 import {RequestTypeService} from "../../../services/requestTypeService";
@@ -21,8 +21,8 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage'
 })
 
 export class AccountDemandsPage extends DemandsListPageBase implements OnInit, OnChanges {
-    constructor(_categoriesMenuService:CategoriesMenuService, demandService:DemandService, requestTypeService:RequestTypeService) {
-        super(_categoriesMenuService, demandService, requestTypeService);
+    constructor(router:Router,_categoriesMenuService:CategoriesMenuService,_demandService:DemandService, _requestTypeService:RequestTypeService) {
+        super(router, _categoriesMenuService, _demandService, _requestTypeService);
     }
 
     ngOnInit():any {

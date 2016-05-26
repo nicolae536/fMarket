@@ -18,6 +18,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require("@angular/core");
 var router_deprecated_1 = require("@angular/router-deprecated");
+var router_deprecated_2 = require("@angular/router-deprecated");
 var authorizationService_1 = require("../../../services/authorizationService");
 var demandService_1 = require("../../../services/demandService");
 var requestTypeService_1 = require("../../../services/requestTypeService");
@@ -26,8 +27,8 @@ var categoriesMenuService_1 = require("../../../services/categoriesMenuService")
 var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
 var AccountDemandsPage = (function (_super) {
     __extends(AccountDemandsPage, _super);
-    function AccountDemandsPage(_categoriesMenuService, demandService, requestTypeService) {
-        _super.call(this, _categoriesMenuService, demandService, requestTypeService);
+    function AccountDemandsPage(router, _categoriesMenuService, _demandService, _requestTypeService) {
+        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService);
     }
     AccountDemandsPage.prototype.ngOnInit = function () {
         this.getUserDemandsWithFilter();
@@ -57,7 +58,7 @@ var AccountDemandsPage = (function (_super) {
         router_deprecated_1.CanActivate(function () {
             return authorizationService_1.AuthorizationService.isLoggedIn();
         }), 
-        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+        __metadata('design:paramtypes', [router_deprecated_2.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
     ], AccountDemandsPage);
     return AccountDemandsPage;
 }(demandsListPageBase_1.DemandsListPageBase));
