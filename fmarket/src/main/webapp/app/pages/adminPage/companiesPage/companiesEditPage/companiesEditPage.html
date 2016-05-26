@@ -1,7 +1,9 @@
 <div class="companies-edit-page clearfix">
     <companies-edit-componet
-        [companie]="_companie"
+        [companie-model]="_companie"
         (save-edited-companie)="saveCompanie($event)"
+        (create-companie)="createCompanie($event)"
+        (navigate-back)="goToPreviousLocation()"
         (reference-companie-edit-component)="referenceComponent($event)"
     ></companies-edit-componet>
 </div>

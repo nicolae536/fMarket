@@ -79065,7 +79065,7 @@
 	    };
 	    CompaniesPage.prototype.getCompaniesWithFilters = function () {
 	        var me = this;
-	        this._companiesService.getCompanies(this.searchFilter)
+	        this._companiesService.getCompaniesForUsers(this.searchFilter)
 	            .map(function (response) {
 	            if (response.text().length > 0) {
 	                return response.json();
@@ -79577,16 +79577,16 @@
 	        this.COMPANIE_CONTROLLER = '/companies';
 	        this.api = api;
 	    }
-	    CompaniesService.prototype.getCompanies = function (searchQuery) {
+	    CompaniesService.prototype.getCompaniesForUsers = function (searchQuery) {
 	        return this.api.get(this.COMPANIE_CONTROLLER + ("/all?p=" + searchQuery));
 	    };
-	    CompaniesService.prototype.getCompanieDetails = function (id) {
+	    CompaniesService.prototype.getCompanieDetailsForUsers = function (id) {
 	        return this.api.get(this.COMPANIE_CONTROLLER + ("/details/" + id));
 	    };
-	    CompaniesService.prototype.addStarsReview = function (review) {
+	    CompaniesService.prototype.addStarsReviewForUsers = function (review) {
 	        return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
 	    };
-	    CompaniesService.prototype.addMessageReview = function (review) {
+	    CompaniesService.prototype.addMessageReviewForUsers = function (review) {
 	        return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
 	    };
 	    CompaniesService = __decorate([
@@ -79682,7 +79682,7 @@
 	    };
 	    CompaniesEditPage.prototype.ngOnInit = function () {
 	        var me = this;
-	        this._companiesService.getCompanieDetails(parseInt(this._routeParametres.get('id')))
+	        this._companiesService.getCompanieDetailsForUsers(parseInt(this._routeParametres.get('id')))
 	            .map(function (response) {
 	            if (response.text().length > 0) {
 	                return response.json();
@@ -79768,7 +79768,7 @@
 	    __decorate([
 	        core_1.Input('companie'), 
 	        __metadata('design:type', companieDto_1.CompanieDto)
-	    ], CompaniesEditComponent.prototype, "_companie", void 0);
+	    ], CompaniesEditComponent.prototype, "_companieEditFormModel", void 0);
 	    __decorate([
 	        core_1.Output('save-edited-companie'), 
 	        __metadata('design:type', core_1.EventEmitter)

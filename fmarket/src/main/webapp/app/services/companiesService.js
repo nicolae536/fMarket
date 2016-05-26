@@ -16,19 +16,35 @@ var fMarketApi_1 = require("./fMarketApi");
 var CompaniesService = (function () {
     function CompaniesService(api) {
         this.COMPANIE_CONTROLLER = '/companies';
+        this.ADMIN_COMPANIE_CONTROLLER = '/admin' + this.COMPANIE_CONTROLLER;
         this.api = api;
     }
-    CompaniesService.prototype.getCompanies = function (searchQuery) {
+    CompaniesService.prototype.getCompaniesForUsers = function (searchQuery) {
         return this.api.get(this.COMPANIE_CONTROLLER + ("/all?p=" + searchQuery));
     };
-    CompaniesService.prototype.getCompanieDetails = function (id) {
+    CompaniesService.prototype.getCompanieDetailsForUsers = function (id) {
         return this.api.get(this.COMPANIE_CONTROLLER + ("/details/" + id));
     };
-    CompaniesService.prototype.addStarsReview = function (review) {
+    CompaniesService.prototype.addStarsReviewForUsers = function (review) {
         return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
     };
-    CompaniesService.prototype.addMessageReview = function (review) {
+    CompaniesService.prototype.addMessageReviewForUsers = function (review) {
         return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
+    };
+    CompaniesService.prototype.createCompany = function (newCompanyRequest) {
+        return this.api.post(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(newCompanyRequest));
+    };
+    CompaniesService.prototype.getCompanyWithFilters = function (searchObject) {
+        return this.api.post(this.ADMIN_COMPANIE_CONTROLLER + '/search', JSON.stringify(searchObject));
+    };
+    CompaniesService.prototype.getCompanyDetails = function (companyId) {
+        return this.api.get(this.ADMIN_COMPANIE_CONTROLLER + ("" + companyId));
+    };
+    CompaniesService.prototype.editCompany = function (updatedCompany) {
+        return this.api.put(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(updatedCompany));
+    };
+    CompaniesService.prototype.deleteCompany = function (id) {
+        return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER + ("" + id));
     };
     CompaniesService = __decorate([
         core_1.Injectable(), 

@@ -53,14 +53,19 @@ var applicationPath:string = '/app/pages/adminPage';
         name: 'EditDemand',
     }),
     new Route({
-        path: '/lista',
+        path: '/companie/lista',
         component: CompaniesPage,
         name: 'Companies'
     }),
     new Route({
-        path: '/detalii/:id',
+        path: '/companie/detalii/:id',
         component: CompaniesEditPage,
         name: 'CompanieDetails'
+    }),
+    new Route({
+        path: '/companie/ceeaza',
+        component: CompaniesEditPage,
+        name: 'CompanieCreate'
     }),
 ])
 

@@ -27,8 +27,6 @@ export class AccountDemandsPage extends DemandsListPageBase implements OnInit, O
 
     ngOnInit():any {
         this.getUserDemandsWithFilter();
-        this.getCities();
-        this.getDomains();
     }
 
     ngOnChanges(changes:{}):any {

@@ -36,7 +36,7 @@ var CompaniesPage = (function () {
     };
     CompaniesPage.prototype.getCompaniesWithFilters = function () {
         var me = this;
-        this._companiesService.getCompanies(this.searchFilter)
+        this._companiesService.getCompaniesForUsers(this.searchFilter)
             .map(function (response) {
             if (response.text().length > 0) {
                 return response.json();
@@ -49,8 +49,11 @@ var CompaniesPage = (function () {
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Eroare companiile nu pot fi afisate!', timeout: 5 });
         });
     };
+    CompaniesPage.prototype.goToNewCompanyPage = function () {
+        this._router.navigate(['/Admin/CompanieCreate']);
+    };
     CompaniesPage.prototype.selectCompanie = function (id) {
-        this._router.navigate(['Admin/CompanieDetails', { id: id }]);
+        this._router.navigate(['/Admin/CompanieDetails', { id: id }]);
     };
     CompaniesPage.prototype.submitSearch = function () {
         this.getCompaniesWithFilters();

@@ -53,7 +53,7 @@ export class CompaniesPage implements OnInit {
     private getCompaniesWithFilters() {
         let me=this;
 
-        this._companiesService.getCompanies(this.searchFilter)
+        this._companiesService.getCompaniesForUsers(this.searchFilter)
             .map(response =>{
                 if(response.text().length>0){
                     return response.json();
@@ -70,8 +70,12 @@ export class CompaniesPage implements OnInit {
             )
     }
 
+    goToNewCompanyPage(){
+        this._router.navigate(['/Admin/CompanieCreate'])
+    }
+
     selectCompanie(id){
-        this._router.navigate(['Admin/CompanieDetails', {id:id}]);
+        this._router.navigate(['/Admin/CompanieDetails', {id:id}]);
     }
 
     submitSearch(){

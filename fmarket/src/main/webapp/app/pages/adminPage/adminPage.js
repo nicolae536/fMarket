@@ -79,14 +79,19 @@ var AdminPage = (function () {
                 name: 'EditDemand',
             }),
             new router_deprecated_1.Route({
-                path: '/lista',
+                path: '/companie/lista',
                 component: companiesPage_1.CompaniesPage,
                 name: 'Companies'
             }),
             new router_deprecated_1.Route({
-                path: '/detalii/:id',
+                path: '/companie/detalii/:id',
                 component: companiesEditPage_1.CompaniesEditPage,
                 name: 'CompanieDetails'
+            }),
+            new router_deprecated_1.Route({
+                path: '/companie/ceeaza',
+                component: companiesEditPage_1.CompaniesEditPage,
+                name: 'CompanieCreate'
             }),
         ]), 
         __metadata('design:paramtypes', [common_1.Location, router_deprecated_1.Router, notificationService_1.NotificationService])

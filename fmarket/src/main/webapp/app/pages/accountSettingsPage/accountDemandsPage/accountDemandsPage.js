@@ -32,8 +32,6 @@ var AccountDemandsPage = (function (_super) {
     }
     AccountDemandsPage.prototype.ngOnInit = function () {
         this.getUserDemandsWithFilter();
-        this.getCities();
-        this.getDomains();
     };
     AccountDemandsPage.prototype.ngOnChanges = function (changes) {
     };
