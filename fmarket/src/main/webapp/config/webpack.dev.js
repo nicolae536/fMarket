@@ -1,8 +1,12 @@
+var webpack = require('webpack');
+
 module.exports = {
-    entry: "./app/main",
+    entry: {
+        'main':"./app/main",
+    },
     output: {
         path: __dirname,
-        filename: "../dist/fmarket.min.js"
+        filename: "../dist/fmarket.bundle.dev.js"
     },
     resolve: {
         extensions: ['', '.js', '.ts'],

@@ -2,7 +2,7 @@
  * Created by nick_ on 4/21/2016.
  */
 import {Component} from '@angular/core';
-import {RouteConfig, Route, ROUTER_DIRECTIVES, CanActivate,} from '@angular/router-deprecated';
+import {RouteConfig, Route, ROUTER_DIRECTIVES, CanActivate} from '@angular/router-deprecated';
 
 import {TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
 import {NewDemandsListPage} from "./demandsListPage/newDemandsListPage";

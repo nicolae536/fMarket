@@ -1,3 +1,6 @@
-.demand-list-base{
-
+.demand-list-base .list-group .list-group-item:hover{
+    cursor: pointer;
+}
+.demand-list-base .list-group .list-group-item .label.label-success{
+    margin-left: 25px;
 }

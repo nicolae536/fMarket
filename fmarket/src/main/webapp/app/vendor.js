@@ -16,8 +16,4 @@ require('@angular/router-deprecated');
 // RxJS
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/mergeMap');
-if ('production' === ENV) {
-}
-else {
-}
 //# sourceMappingURL=vendor.js.map

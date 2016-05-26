@@ -8,7 +8,7 @@ import {Observable} from "rxjs/Observable";
 import {Select2Item} from "../components/selectComponent/selectComponent";
 import {Demand} from "../models/demand";
 import * as _ from "underscore";
-import {DemandStatus} from "../models/DemandStatus";
+import {DemandSearchObject} from "../models/DemandSearchObject";
 
 @Injectable()
 export class DemandService {
@@ -35,9 +35,9 @@ export class DemandService {
         return this.api.post('/demands', JSON.stringify(beckedDemand));
     }
 
-    getDemandsWithFilters(search:Object) {
+    getDemandsWithFilters(search:DemandSearchObject) {
         let searchObj = this.getSearchObj(search);
-        return this.api.post(this._DemandController + '/search', JSON.stringify(search));
+        return this.api.post(this._DemandController + '/search', JSON.stringify(searchObj));
     }
 
     getUserDemandsWithFilter(search:Object) {
@@ -91,18 +91,25 @@ export class DemandService {
         newDemand.cities = _.map(demand.cities, (city:Select2Item)=> {
             return city.boundItem['id'];
         });
-        newDemand.domainId = demand.domain && demand['domain']['id'] ? demand['domain']['id'] : null;
+        newDemand.domainId = demand.domain && demand['domain']['domainId'] ? demand['domain']['domainId'] : null;
 
         return newDemand;
     }
 
-    private getSearchObj(search:Object) {
-        return {
-            accountId: search.accountId && search.accountId.length > 0 ? search.accountId : null,
-            page: search.page ? search.page : 1,
-            status:search.status ? search.status : DemandStatus.ACTIVE,
-            domainId:search.domainId ? search.domainId : null
-
+    private getSearchObj(search:DemandSearchObject) {
+        let response = {}
+        if(search.accountId && !isNaN(parseInt(+search.accountId))){
+            response['accountId'] = search.accountId;
         }
+        if(search.page && search.page > 0){
+            response['page'] = search.page;
+        }
+        if(search.status && search.status.length > 0){
+            response['status'] = search.status;
+        }
+        if(search.domainId > 0){
+            response['domainId'] = search.domainId;
+        }
+        return response;
     }
 }

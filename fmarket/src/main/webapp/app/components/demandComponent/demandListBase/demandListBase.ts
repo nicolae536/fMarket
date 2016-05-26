@@ -1,9 +1,8 @@
 /**
  * Created by nick_ on 4/20/2016.
  */
-import {Component, Input } from "@angular/core";
+import {Component, Input, EventEmitter, Output } from "@angular/core";
 import {Select2Item} from "../../selectComponent/selectComponent";
-import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
 import {DemandAdminDto} from "../../../models/demandAdminDto";
 
 const APPLICATION_PATH:string = '/app/components/demandComponent/demandListBase';
@@ -11,20 +10,17 @@ const APPLICATION_PATH:string = '/app/components/demandComponent/demandListBase'
 @Component({
     selector: 'demand-list-component',
     templateUrl: APPLICATION_PATH + '/demandListBase.html',
-    directives:[ROUTER_DIRECTIVES]
 })
 export class DemandListBaseComponent {
     @Input('demand-list') demandList:Array<DemandAdminDto> = new Array<DemandAdminDto>();
     @Input('domains-list') domainList:Array<Select2Item> = new Array<Select2Item>();
     @Input('cities-list') citiesList:Array<Select2Item> = new Array<Select2Item>();
-    private _router;
 
-    constructor(router:Router){
-        this._router = router;
+    @Output('demand-selected') selectDemandEmitter:EventEmitter<DemandAdminDto> = new EventEmitter<DemandAdminDto>();
 
-    }
+    constructor(){}
 
-    navigateToDetails(demand){
-        this._router.navigate(['Admin/Demands/EditDemand', {id: demand.id}]);
+    selectDemand(demand){
+        this.selectDemandEmitter.emit(demand);
     }
 }

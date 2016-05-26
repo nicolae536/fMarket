@@ -32,8 +32,8 @@ var menuTreeDialog_1 = require("../../../../components/menuComponent/menuTreeDia
 var applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
 var NewDemandsListPage = (function (_super) {
     __extends(NewDemandsListPage, _super);
-    function NewDemandsListPage(_categoriesMenuService, _demandService, _requestTypeService) {
-        _super.call(this, _categoriesMenuService, _demandService, _requestTypeService);
+    function NewDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService) {
+        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService);
         this.pageName = 'new-demands';
         this._demandsRoute = '/new';
     }
@@ -54,7 +54,7 @@ var NewDemandsListPage = (function (_super) {
             directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
         }),
         router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+        __metadata('design:paramtypes', [router_deprecated_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
     ], NewDemandsListPage);
     return NewDemandsListPage;
 }(demandsListPageBase_1.DemandsListPageBase));

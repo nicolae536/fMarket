@@ -16,7 +16,6 @@ var mock_City_1 = require("./mock-providers/mock-City");
 var fMarketApi_1 = require("./fMarketApi");
 var Observable_1 = require("rxjs/Observable");
 var _ = require("underscore");
-var DemandStatus_1 = require("../models/DemandStatus");
 var DemandService = (function () {
     function DemandService(api) {
         this._DemandController = '/admin/demands';
@@ -37,7 +36,7 @@ var DemandService = (function () {
     };
     DemandService.prototype.getDemandsWithFilters = function (search) {
         var searchObj = this.getSearchObj(search);
-        return this.api.post(this._DemandController + '/search', JSON.stringify(search));
+        return this.api.post(this._DemandController + '/search', JSON.stringify(searchObj));
     };
     DemandService.prototype.getUserDemandsWithFilter = function (search) {
         return this.api.post('/demands/search', JSON.stringify(search));
@@ -79,16 +78,24 @@ var DemandService = (function () {
         newDemand.cities = _.map(demand.cities, function (city) {
             return city.boundItem['id'];
         });
-        newDemand.domainId = demand.domain && demand['domain']['id'] ? demand['domain']['id'] : null;
+        newDemand.domainId = demand.domain && demand['domain']['domainId'] ? demand['domain']['domainId'] : null;
         return newDemand;
     };
     DemandService.prototype.getSearchObj = function (search) {
-        return {
-            accountId: search.accountId && search.accountId.length > 0 ? search.accountId : null,
-            page: search.page ? search.page : 1,
-            status: search.status ? search.status : DemandStatus_1.DemandStatus.ACTIVE,
-            domainId: search.domainId ? search.domainId : null
-        };
+        var response = {};
+        if (search.accountId && !isNaN(parseInt(+search.accountId))) {
+            response['accountId'] = search.accountId;
+        }
+        if (search.page && search.page > 0) {
+            response['page'] = search.page;
+        }
+        if (search.status && search.status.length > 0) {
+            response['status'] = search.status;
+        }
+        if (search.domainId > 0) {
+            response['domainId'] = search.domainId;
+        }
+        return response;
     };
     DemandService = __decorate([
         core_1.Injectable(), 

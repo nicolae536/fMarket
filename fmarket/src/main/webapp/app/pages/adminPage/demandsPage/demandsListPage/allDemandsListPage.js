@@ -29,8 +29,8 @@ var categoriesMenuService_1 = require("../../../../services/categoriesMenuServic
 var applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
 var AllDemandsListPage = (function (_super) {
     __extends(AllDemandsListPage, _super);
-    function AllDemandsListPage(_categoriesMenuService, _demandService, _requestTypeService) {
-        _super.call(this, _categoriesMenuService, _demandService, _requestTypeService);
+    function AllDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService) {
+        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService);
         this.pageName = 'demands';
     }
     AllDemandsListPage.prototype.ngOnInit = function () {
@@ -51,7 +51,7 @@ var AllDemandsListPage = (function (_super) {
             directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
         }),
         router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+        __metadata('design:paramtypes', [router_deprecated_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
     ], AllDemandsListPage);
     return AllDemandsListPage;
 }(demandsListPageBase_1.DemandsListPageBase));

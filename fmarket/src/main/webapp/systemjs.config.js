@@ -1,6 +1,8 @@
 /**
  * Created by nick_ on 5/7/2016.
  */
+
+//@DEPRECATED
 (function(global) {
 
     // map tells the System loader where to look for things

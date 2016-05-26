@@ -9,3 +9,7 @@
 .demands-list-page .filters .col-md-6.col-xs-12{
     padding-top: 25px;
 }
+
+.demands-list-page .demand-list-container{
+    padding: 15px;
+}

@@ -1,5 +1,5 @@
 <div class="demands-list-page">
-    <div *ngIf="pageName==='demands'" class="filters">
+    <div *ngIf="pageName==='demands'" class="filters clearfix">
         <menu-tree-dialog
                 [menu-tree-data]="menuDictionary"
                 [enable-operations]="false"
@@ -7,7 +7,7 @@
                 (action-confirmed)="selectItemUsingMenu($event)"
         ></menu-tree-dialog>
         <div class="col-md-2 col-xs-12">
-            <label>Domeniu</label>
+            <label>Id cont</label>
             <input type="text" class="form-control" [(ngModel)]="_searchObject.accountId"/>
         </div>
         <div class="col-md-2 col-xs-12">
@@ -31,7 +31,8 @@
         <demand-list-component
                 [demand-list]="_demandsList"
                 [domains-list]="_domainsList"
-                [cities-list]="_cityesList">
+                [cities-list]="_citiesList"
+                (demand-selected)="navigateToDemand($event)">
         </demand-list-component>
     </div>
 </div>

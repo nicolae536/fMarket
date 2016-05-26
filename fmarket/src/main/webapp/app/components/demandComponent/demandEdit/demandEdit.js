@@ -12,16 +12,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/20/2016.
  */
 var core_1 = require("@angular/core");
-var selectComponent_1 = require("../../selectComponent/selectComponent");
 var demandDetailsDTO_1 = require("../../../models/demandDetailsDTO");
 var APPLICATION_PATH = '/app/components/demandComponent/demandEdit';
 var DemandEditComponent = (function () {
     function DemandEditComponent() {
-        this.domainList = new Array();
-        this.citiesList = new Array();
         this.rejectDemandEvent = new core_1.EventEmitter();
         this.acceptDemandEvent = new core_1.EventEmitter();
         this.saveDemandEvent = new core_1.EventEmitter();
+        this.goToListEmitter = new core_1.EventEmitter();
     }
     DemandEditComponent.prototype.acceptDemand = function () {
         this.acceptDemandEvent.emit(this._demand);
@@ -36,18 +34,13 @@ var DemandEditComponent = (function () {
         this._demand.isInEditMode = false;
         this.saveDemandEvent.emit(this._demand);
     };
+    DemandEditComponent.prototype.goBackToPreviousPage = function () {
+        this.goToListEmitter.emit({});
+    };
     __decorate([
         core_1.Input('demand'), 
         __metadata('design:type', demandDetailsDTO_1.DemandDetailsDTO)
     ], DemandEditComponent.prototype, "_demand", void 0);
-    __decorate([
-        core_1.Input('domains-list'), 
-        __metadata('design:type', Array)
-    ], DemandEditComponent.prototype, "domainList", void 0);
-    __decorate([
-        core_1.Input('cities-list'), 
-        __metadata('design:type', Array)
-    ], DemandEditComponent.prototype, "citiesList", void 0);
     __decorate([
         core_1.Output('reject-demand'), 
         __metadata('design:type', core_1.EventEmitter)
@@ -60,11 +53,14 @@ var DemandEditComponent = (function () {
         core_1.Output('save-demand'), 
         __metadata('design:type', core_1.EventEmitter)
     ], DemandEditComponent.prototype, "saveDemandEvent", void 0);
+    __decorate([
+        core_1.Output('go-to-List'), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], DemandEditComponent.prototype, "goToListEmitter", void 0);
     DemandEditComponent = __decorate([
         core_1.Component({
             selector: 'demand-edit-component',
             templateUrl: APPLICATION_PATH + '/demandEdit.html',
-            directives: [selectComponent_1.SelectComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], DemandEditComponent);

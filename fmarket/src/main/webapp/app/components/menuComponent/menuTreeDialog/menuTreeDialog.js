@@ -29,7 +29,7 @@ var MenuTreeDialog = (function (_super) {
         this.loadedEmitter.emit(this);
     };
     MenuTreeDialog.prototype.selectMenuItem = function (menuItem) {
-        if (!menuItem.hasChildrens) {
+        if (!menuItem.hasChildrens && menuItem.domainId) {
             this.responseObject = menuItem;
             this.positiveAction();
             this.hide();

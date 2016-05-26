@@ -1,0 +1,6 @@
+npm install clean-css
+
+build command
+	npm run build
+build css
+	cleancss -o dist/main.min.css app/main.css

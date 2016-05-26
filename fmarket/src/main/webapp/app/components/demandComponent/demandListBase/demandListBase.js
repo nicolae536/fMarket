@@ -12,17 +12,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/20/2016.
  */
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
 var APPLICATION_PATH = '/app/components/demandComponent/demandListBase';
 var DemandListBaseComponent = (function () {
-    function DemandListBaseComponent(router) {
+    function DemandListBaseComponent() {
         this.demandList = new Array();
         this.domainList = new Array();
         this.citiesList = new Array();
-        this._router = router;
+        this.selectDemandEmitter = new core_1.EventEmitter();
     }
-    DemandListBaseComponent.prototype.navigateToDetails = function (demand) {
-        this._router.navigate(['Admin/Demands/EditDemand', { id: demand.id }]);
+    DemandListBaseComponent.prototype.selectDemand = function (demand) {
+        this.selectDemandEmitter.emit(demand);
     };
     __decorate([
         core_1.Input('demand-list'), 
@@ -36,13 +35,16 @@ var DemandListBaseComponent = (function () {
         core_1.Input('cities-list'), 
         __metadata('design:type', Array)
     ], DemandListBaseComponent.prototype, "citiesList", void 0);
+    __decorate([
+        core_1.Output('demand-selected'), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], DemandListBaseComponent.prototype, "selectDemandEmitter", void 0);
     DemandListBaseComponent = __decorate([
         core_1.Component({
             selector: 'demand-list-component',
             templateUrl: APPLICATION_PATH + '/demandListBase.html',
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router])
+        __metadata('design:paramtypes', [])
     ], DemandListBaseComponent);
     return DemandListBaseComponent;
 }());

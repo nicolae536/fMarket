@@ -30,10 +30,22 @@ var NotificationService = (function () {
     NotificationService.prototype.emitNotificationToRootComponent = function (notification) {
         this.notificationFlux.next(notification);
     };
-    //
-    // updateBackground(background:string){
-    //     this.backgroundUpdate.next(background);
-    // }
+    NotificationService.prototype.emitSuccessNotificationToRootComponent = function (message, timeout) {
+        this.notificationFlux.next({
+            message: message,
+            type: 'success',
+            dismisable: true,
+            timeout: timeout
+        });
+    };
+    NotificationService.prototype.emitErrorNotificationToRootComponent = function (message, timeout) {
+        this.notificationFlux.next({
+            message: message,
+            type: 'danger',
+            dismisable: true,
+            timeout: timeout
+        });
+    };
     NotificationService.prototype.removeLoading = function () {
         this.firstLoad.next(applicationConstansts_1.ApplicationConstants.FIRST_LOAD);
     };

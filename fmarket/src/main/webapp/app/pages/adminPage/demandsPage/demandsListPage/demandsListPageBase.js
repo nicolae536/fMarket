@@ -1,8 +1,9 @@
 "use strict";
 var _ = require('underscore');
 var DemandStatus_1 = require("../../../../models/DemandStatus");
+var DemandSearchObject_1 = require("../../../../models/DemandSearchObject");
 var DemandsListPageBase = (function () {
-    function DemandsListPageBase(_categoriesMenuService, _demandService, _requestTypeService) {
+    function DemandsListPageBase(router, _categoriesMenuService, _demandService, _requestTypeService) {
         this.statusList = [{ status: DemandStatus_1.DemandStatus.ACTIVE, displayName: DemandStatus_1.DemandStatus.ACTIVE },
             { status: DemandStatus_1.DemandStatus.CLOSED, displayName: DemandStatus_1.DemandStatus.CLOSED },
             { status: DemandStatus_1.DemandStatus.IN_REVIEW, displayName: DemandStatus_1.DemandStatus.IN_REVIEW },
@@ -13,7 +14,9 @@ var DemandsListPageBase = (function () {
         this._demandService = _demandService;
         this._requestTypeService = _requestTypeService;
         this._demandsRoute = "";
-        this._searchObject = { page: 1, accountId: '', status: DemandStatus_1.DemandStatus.WAITING_FOR_REVIEW };
+        this._searchObject = new DemandSearchObject_1.DemandSearchObject('', 1, DemandStatus_1.DemandStatus.PENDING, -1);
+        this._searchObject.domainName = "Alege domeniu...";
+        this._router = router;
     }
     DemandsListPageBase.prototype.showDomainsDialog = function () {
         this._menuTreeDialog.showMenuTreeDialog();
@@ -27,7 +30,9 @@ var DemandsListPageBase = (function () {
             }
         })
             .subscribe(function (response) {
-            me._demandsList = response;
+            me._demandsList = response.data;
+            me.totalPages = response.totalPages;
+            me._searchObject.page = response.page;
         }, function (error) {
         });
     };
@@ -68,7 +73,7 @@ var DemandsListPageBase = (function () {
         var me = this;
         this._demandService.getCityList()
             .subscribe(function (response) {
-            me._cityesList = _.map(response, function (city) {
+            me._citiesList = _.map(response, function (city) {
                 return {
                     displayName: city['name'],
                     boundItem: city
@@ -94,6 +99,9 @@ var DemandsListPageBase = (function () {
             });
         }, function (error) {
         });
+    };
+    DemandsListPageBase.prototype.navigateToDemand = function (demand) {
+        this._router.navigate(['/Admin/EditDemand', { id: demand.id }]);
     };
     return DemandsListPageBase;
 }());

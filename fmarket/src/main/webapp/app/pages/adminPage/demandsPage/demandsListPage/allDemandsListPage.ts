@@ -2,7 +2,7 @@
  * Created by nick_ on 4/22/2016.
  */
 import {Component, OnInit, OnChanges} from "@angular/core";
-import {CanActivate} from "@angular/router-deprecated";
+import {CanActivate, Router} from "@angular/router-deprecated";
 
 import {DemandListBaseComponent} from "../../../../components/demandComponent/demandListBase/demandListBase";
 import {DemandService} from "../../../../services/demandService";
@@ -24,8 +24,8 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
 @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 export class AllDemandsListPage extends DemandsListPageBase implements OnInit, OnChanges {
     pageName='demands';
-    constructor(_categoriesMenuService:CategoriesMenuService,_demandService:DemandService, _requestTypeService:RequestTypeService) {
-        super(_categoriesMenuService, _demandService, _requestTypeService);
+    constructor(router:Router,_categoriesMenuService:CategoriesMenuService,_demandService:DemandService, _requestTypeService:RequestTypeService) {
+        super(router,_categoriesMenuService, _demandService, _requestTypeService);
     }
 
     public ngOnInit():any {

@@ -28,10 +28,24 @@ export class NotificationService {
     emitNotificationToRootComponent(notification:IAlert){
         this.notificationFlux.next(notification);
     }
-    //
-    // updateBackground(background:string){
-    //     this.backgroundUpdate.next(background);
-    // }
+
+    emitSuccessNotificationToRootComponent(message:string, timeout:number){
+        this.notificationFlux.next({
+            message:message,
+            type:'success',
+            dismisable:true,
+            timeout:timeout
+        });
+    }
+
+    emitErrorNotificationToRootComponent(message:string, timeout:number){
+        this.notificationFlux.next({
+            message: message,
+            type: 'danger',
+            dismisable: true,
+            timeout: timeout
+        });
+    }
 
     removeLoading() {
         this.firstLoad.next(ApplicationConstants.FIRST_LOAD);

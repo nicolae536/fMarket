@@ -1,31 +1,19 @@
-<div class="demand-edit-component">
+<div *ngIf="_demand" class="demand-edit-component">
     <div class="row">
         <div class="col-md-9 col-xs-12">
             <div class="form-group">
                 <label>Title</label>
-                <input type="text" class="form-control" [disabled]="_demand.isInEditMode" [ngModel]="_demand.title"/>
-            </div>
-            <div class="form-group">
-                <label>Categorii</label>
-                <select-component
-                        [select-items]="_domains"
-                        [single-item-selected]="_demand.domain"
-                        [multi-select]="false"
-                        (loaded)="referenceSelectComponent($event)"
-                ></select-component>
+                <input type="text" class="form-control" [disabled]="!_demand.isInEditMode" [ngModel]="_demand.title"/>
             </div>
             <div class="form-group">
                 <label>Orase</label>
-                <select-component
-                        [select-items]="_cities"
-                        [selected-items]="_demand.cities"
-                        [multi-select]="true"
-                        (loaded)="referenceSelectComponent($event)"
-                ></select-component>
+                <span class="form-control city-presentation">
+                    <span *ngFor="let city of _demand.cities" class="label label-success">{{city}}</span>
+                </span>
             </div>
             <div class="form-group">
                 <label>Mesaj</label>
-                <textarea class="form-control" [disabled]="_demand.isInEditMode" [ngModel]="_demand.message"></textarea>
+                <textarea class="form-control" [disabled]="!_demand.isInEditMode" [ngModel]="_demand.message"></textarea>
             </div>
         </div>
         <div class="col-md-3 col-xs-12 button-group">
@@ -37,7 +25,7 @@
             </div>
             <div class="button-container">
                 <button class="btn btn-danger"
-                    (click)="declineDemand()">
+                    (click)="rejectDemand()">
                     Refuza
                 </button>
             </div>
@@ -48,7 +36,13 @@
                 </button>
                 <button *ngIf="_demand.isInEditMode" class="btn btn-info"
                         (click)="saveEditedDemand()">
-                    Editeaza
+                    Salveaza
+                </button>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-warning"
+                        (click)="goBackToPreviousPage()">
+                    Inapoi la lista
                 </button>
             </div>
         </div>
@@ -56,16 +50,16 @@
     <hr/>
     <div class="row">
         <div class="col-md-2">
-            id: {{demand.accountId}}
+            id: {{_demand.accountId}}
         </div>
         <div class="col-md-4">
-            email: {{demand.accountEmail}}
+            email: {{_demand.accountEmail}}
         </div>
         <div class="col-md-3">
-            status: {{demand.accountStatus}}
+            status: {{_demand.accountStatus}}
         </div>
         <div class="col-md-3">
-            numar cereri: {{demand.demandsCount}}
+            numar cereri: {{_demand.demandsCount}}
         </div>
     </div>
 </div>

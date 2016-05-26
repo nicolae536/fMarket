@@ -35,7 +35,7 @@ export class MenuTreeDialog extends ModalDialog{
     }
 
     selectMenuItem(menuItem:IMenuItem) {
-        if(!menuItem.hasChildrens){
+        if(!menuItem.hasChildrens && menuItem.domainId){
             this.responseObject = menuItem;
             this.positiveAction();
             this.hide();

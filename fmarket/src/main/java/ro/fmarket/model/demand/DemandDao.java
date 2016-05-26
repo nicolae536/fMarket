@@ -75,7 +75,7 @@ public class DemandDao extends BaseDao<Demand> {
 
 	public int getCriteriaTotalCount(Criteria criteria) {
 		criteria.setProjection(Projections.rowCount());
-		return (int) criteria.uniqueResult();
+		return (int)(long)criteria.uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")

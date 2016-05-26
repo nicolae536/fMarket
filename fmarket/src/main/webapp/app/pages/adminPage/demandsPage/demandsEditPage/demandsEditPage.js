@@ -13,15 +13,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_deprecated_1 = require("@angular/router-deprecated");
+var common_1 = require('@angular/common');
 var demandService_1 = require("../../../../services/demandService");
 var requestTypeService_1 = require("../../../../services/requestTypeService");
 var demandEdit_1 = require("../../../../components/demandComponent/demandEdit/demandEdit");
 var Roles_1 = require("../../../../models/Roles");
 var authorizationService_1 = require("../../../../services/authorizationService");
-var _ = require('underscore');
+var notificationService_1 = require("../../../../services/notificationService");
 var applicationPath = '/app/pages/adminPage/demandsPage/demandsEditPage';
 var DemandsEditPage = (function () {
-    function DemandsEditPage(router, params, demandService, requestTypeService) {
+    function DemandsEditPage(router, _location, params, demandService, requestTypeService, notificationService) {
+        this._location = _location;
+        this._notificationService = notificationService;
         this._router = router;
         this._demandService = demandService;
         this._requestTypeService = requestTypeService;
@@ -43,36 +46,8 @@ var DemandsEditPage = (function () {
         }, function (error) {
         });
     };
-    DemandsEditPage.prototype.getCities = function () {
-        var me = this;
-        this._demandService.getCityList()
-            .subscribe(function (response) {
-            me._cityesList = _.map(response, function (city) {
-                return {
-                    displayName: city['name'],
-                    boundItem: city
-                };
-            });
-        }, function (error) {
-        });
-    };
-    DemandsEditPage.prototype.getDomains = function () {
-        var me = this;
-        this._requestTypeService.getRequestTypesWithFilters()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
-            .subscribe(function (response) {
-            me._domainsList = _.map(response, function (domain) {
-                return {
-                    displayName: domain['name'],
-                    boundItem: domain
-                };
-            });
-        }, function (error) {
-        });
+    DemandsEditPage.prototype.navigateToList = function ($event) {
+        this._location.back();
     };
     DemandsEditPage.prototype.acceptDemand = function (demand) {
         var me = this;
@@ -83,8 +58,10 @@ var DemandsEditPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._router.navigate(['Admin/Demands/DemandsList']);
+            me._router.navigate(['/Admin/Demands/DemandsList']);
+            me._notificationService.emitSuccessNotificationToRootComponent('Cerere activata cu success', 3);
         }, function (error) {
+            me._notificationService.emitErrorNotificationToRootComponent('Cerere nu a putut fi activata !', 3);
         });
     };
     DemandsEditPage.prototype.rejectDemand = function (id) {
@@ -96,8 +73,9 @@ var DemandsEditPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._router.navigate(['Admin/Demands/DemandsList']);
+            me._router.navigate(['/Admin/Demands/DemandsList']);
         }, function (error) {
+            me._notificationService.emitErrorNotificationToRootComponent('Erroare de server cererea nu poate fi refuzata !', 3);
         });
     };
     DemandsEditPage.prototype.saveEditedDemand = function (demand) {
@@ -109,8 +87,9 @@ var DemandsEditPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._router.navigate(['Admin/Demands/DemandsList']);
+            me._router.navigate(['/Admin/Demands/DemandsList']);
         }, function (error) {
+            me._notificationService.emitErrorNotificationToRootComponent('Cerere nu poate fi salvata !', 3);
         });
     };
     DemandsEditPage = __decorate([
@@ -121,7 +100,7 @@ var DemandsEditPage = (function () {
             directives: [demandEdit_1.DemandEditComponent]
         }),
         router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, router_deprecated_1.RouteParams, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+        __metadata('design:paramtypes', [router_deprecated_1.Router, common_1.Location, router_deprecated_1.RouteParams, demandService_1.DemandService, requestTypeService_1.RequestTypeService, notificationService_1.NotificationService])
     ], DemandsEditPage);
     return DemandsEditPage;
 }());

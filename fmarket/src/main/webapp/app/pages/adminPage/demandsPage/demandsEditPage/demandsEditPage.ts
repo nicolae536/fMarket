@@ -4,6 +4,7 @@
 
 import {Component, OnInit} from "@angular/core";
 import {RouteParams, Router, CanActivate} from "@angular/router-deprecated";
+import {Location} from '@angular/common'
 
 import {DemandService} from "../../../../services/demandService";
 import {RequestTypeService} from "../../../../services/requestTypeService";
@@ -12,6 +13,7 @@ import {Demand} from "../../../../models/demand";
 import {Role} from "../../../../models/Roles";
 import {AuthorizationService} from "../../../../services/authorizationService";
 import * as _ from 'underscore';
+import {NotificationService} from "../../../../services/notificationService";
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
 
 @Component({
@@ -24,15 +26,18 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
 export class DemandsEditPage implements OnInit {
     private _router:Router;
     private _demandService:DemandService;
+    private _notificationService:NotificationService;
     private _requestTypeService:RequestTypeService;
+    private _location:Location;
 
     private _demandId:number;
     _demand;
-    _domainsList;
-    _cityesList;
 
-    constructor(router:Router, params:RouteParams, demandService:DemandService, requestTypeService:RequestTypeService)
+    constructor(router:Router, _location: Location, params:RouteParams, demandService:DemandService, requestTypeService:RequestTypeService,
+                notificationService:NotificationService)
     {
+        this._location = _location;
+        this._notificationService = notificationService;
         this._router = router;
         this._demandService = demandService;
         this._requestTypeService = requestTypeService;
@@ -61,51 +66,8 @@ export class DemandsEditPage implements OnInit {
                 })
     }
 
-
-    private getCities():void {
-        let me = this;
-        this._demandService.getCityList()
-            // .map((response)=> {
-            //     if (response.text().length > 0) {
-            //         return response.json();
-            //     }
-            // })
-            .subscribe(
-                response => {
-                    me._cityesList = _.map(response, (city) => {
-                        return {
-                            displayName: city['name'],
-                            boundItem: city
-                        };
-                    });
-                },
-                error => {
-
-                }
-            )
-    }
-
-    private getDomains():void {
-        let me = this;
-        this._requestTypeService.getRequestTypesWithFilters()
-            .map((response)=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
-            .subscribe(
-                response => {
-                    me._domainsList = _.map(response, (domain) => {
-                        return {
-                            displayName: domain['name'],
-                            boundItem: domain
-                        };
-                    });
-                },
-                error => {
-
-                }
-            )
+    navigateToList($event){
+        this._location.back();
     }
 
     private acceptDemand(demand:Demand){
@@ -119,10 +81,11 @@ export class DemandsEditPage implements OnInit {
             })
             .subscribe(
                 response =>{
-                    me._router.navigate(['Admin/Demands/DemandsList']);
+                    me._router.navigate(['/Admin/Demands/DemandsList']);
+                    me._notificationService.emitSuccessNotificationToRootComponent('Cerere activata cu success',3);
                 },
                 error =>{
-
+                    me._notificationService.emitErrorNotificationToRootComponent('Cerere nu a putut fi activata !',3);
                 }
             );
     }
@@ -138,10 +101,10 @@ export class DemandsEditPage implements OnInit {
             })
             .subscribe(
                 response =>{
-                    me._router.navigate(['Admin/Demands/DemandsList']);
+                    me._router.navigate(['/Admin/Demands/DemandsList']);
                 },
                 error =>{
-
+                    me._notificationService.emitErrorNotificationToRootComponent('Erroare de server cererea nu poate fi refuzata !',3);
                 }
             );
     }
@@ -157,10 +120,10 @@ export class DemandsEditPage implements OnInit {
             })
             .subscribe(
                 response =>{
-                    me._router.navigate(['Admin/Demands/DemandsList']);
+                    me._router.navigate(['/Admin/Demands/DemandsList']);
                 },
                 error =>{
-
+                    me._notificationService.emitErrorNotificationToRootComponent('Cerere nu poate fi salvata !',3);
                 }
             );
     }

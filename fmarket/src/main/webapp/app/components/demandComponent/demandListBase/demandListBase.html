@@ -1,12 +1,12 @@
 <div class="demand-list-base clearfix">
     <div class="list-group">
-        <div *ngFor="let demand of demandList" class="list-group-item" (click)="navigateToDetails(demand)">
-            <a [routerLink]="['Admin/Demands/'+demand.id]">
+        <div *ngFor="let demand of demandList" class="list-group-item" (click)="selectDemand(demand)">
+            <a>
                 <div class="pull-right">
-                    <span>{{domain.accountId}}</span>
-                    <span>{{domain.date}}</span>
+                    <span class="label label-success" title="Id-ul contului care a postat cererea">Id cont: {{demand.accountId}}</span>
+                    <span class="label label-success" title="Data la care a fost postata cererea">Data: {{demand.creationDate}}</span>
                 </div>
-                {{domain.title}} <span class="label label-info" *ngIf="domain.status">{{String(demand.status)}}</span>
+                {{demand.title}} <span class="label label-success" title="Statusul cereri" *ngIf="demand.status">{{demand.status}}</span>
             </a>
         </div>
     </div>

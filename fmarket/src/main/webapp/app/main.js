@@ -7,10 +7,6 @@ var app_component_1 = require('./app.component');
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var http_1 = require('@angular/http');
-// import * as $ from 'jquery';
-// import * as animateScroll from 'animateScroll';
-//
-// _.extend($, {animateScroll: animateScroll});
 core_1.enableProdMode();
 //console.log(HTTP_PROVIDERS);
 platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [

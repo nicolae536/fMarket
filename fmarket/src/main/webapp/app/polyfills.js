@@ -6,16 +6,9 @@
 // import 'es6-promise';
 // import 'es7-reflect-metadata';
 // Prefer CoreJS over the polyfills above
-require('core-js/es6');
-require('core-js/es7/reflect');
+require('es6-shim/es6-shim.min');
+require('reflect-metadata/Reflect.js');
 require('zone.js/dist/zone');
 // Typescript emit helpers polyfill
 require('ts-helpers');
-if ('production' === ENV) {
-}
-else {
-    // Development
-    Error.stackTraceLimit = Infinity;
-    require('zone.js/dist/long-stack-trace-zone');
-}
 //# sourceMappingURL=polyfills.js.map
