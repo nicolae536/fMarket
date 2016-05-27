@@ -12,6 +12,7 @@ import {Role} from "../../../../models/Roles";
 import {AuthorizationService} from "../../../../services/authorizationService";
 import {MenuTreeDialog} from "../../../../components/menuComponent/menuTreeDialog/menuTreeDialog";
 import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
+import {LocalizationService} from "../../../../services/localizationService";
 
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
 
@@ -24,8 +25,12 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
 // @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 export class AllDemandsListPage extends DemandsListPageBase implements OnInit, OnChanges {
     pageName='demands';
-    constructor(router:Router,_categoriesMenuService:CategoriesMenuService,_demandService:DemandService, _requestTypeService:RequestTypeService) {
-        super(router,_categoriesMenuService, _demandService, _requestTypeService);
+    constructor(router:Router,
+                _categoriesMenuService:CategoriesMenuService,
+                _demandService:DemandService,
+                _requestTypeService:RequestTypeService,
+                _localizationService:LocalizationService) {
+        super(router,_categoriesMenuService, _demandService, _requestTypeService, _localizationService);
     }
 
     public ngOnInit():any {

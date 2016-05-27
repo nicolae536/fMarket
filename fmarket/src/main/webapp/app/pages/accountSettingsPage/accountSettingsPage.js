@@ -20,6 +20,7 @@ var jqueryService_1 = require("../../services/jqueryService");
 var applicationConstansts_1 = require("../../models/applicationConstansts");
 var tabsRoutingComponent_1 = require("../../components/tabsComponent/tabsRoutingComponent");
 var notificationService_1 = require("../../services/notificationService");
+var Roles_1 = require("../../models/Roles");
 var applicationPath = '/app/pages/accountSettingsPage';
 var AccountSettingsPage = (function () {
     function AccountSettingsPage(router, notificationService) {
@@ -30,7 +31,7 @@ var AccountSettingsPage = (function () {
         jqueryService_1.JqueryService.removeElementWithAnimation(document.getElementById(applicationConstansts_1.ApplicationConstants.LOADING_SPINNER));
     }
     AccountSettingsPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
-        if (!(authorizationService_1.AuthorizationService.isLoggedIn() && !authorizationService_1.AuthorizationService.hasRole(Role.ADMIN))) {
+        if (!(authorizationService_1.AuthorizationService.isLoggedIn() && !authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN))) {
             this.router.navigate(['/login']);
             this._notificationService.emitSuccessNotificationToRootComponent("Nu aveti access la acest modul !!!", 5);
         }

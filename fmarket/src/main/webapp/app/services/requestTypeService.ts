@@ -13,7 +13,6 @@ export class RequestTypeService {
     }
 
     getRequestTypesWithFilters(searchQuery?:string) {
-        // + `/?searchQuery=${searchQuery}`
         return this.api.get(this._requestDomains);
     }
 

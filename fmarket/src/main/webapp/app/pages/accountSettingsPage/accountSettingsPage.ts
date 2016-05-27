@@ -11,6 +11,7 @@ import {JqueryService} from "../../services/jqueryService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
 import {TabsRoutingComponent} from "../../components/tabsComponent/tabsRoutingComponent";
 import {NotificationService} from "../../services/notificationService";
+import {Role} from "../../models/Roles";
 var applicationPath:string = '/app/pages/accountSettingsPage';
 
 @Component({
@@ -23,16 +24,12 @@ var applicationPath:string = '/app/pages/accountSettingsPage';
     new Route({
         path: '/details',
         component: AccountEditPage,
-        // name: 'Details',
-        // useAsDefault:true
     }),
     new Route({
         path: '/demands',
         component: AccountDemandsPage,
-        // name: 'Demands'
     })
 ])
-// @CanActivate(()=>{return AuthorizationService.isLoggedIn();})
 export class AccountSettingsPage implements OnActivate{
     router:Router;
     _notificationService:NotificationService;

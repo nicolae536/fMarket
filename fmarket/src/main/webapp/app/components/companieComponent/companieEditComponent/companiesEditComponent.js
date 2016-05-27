@@ -13,7 +13,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var _ = require('underscore');
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
 var common_1 = require("@angular/common");
 var newCompanyRequest_1 = require("../../../models/newCompanyRequest");
 var Angular2ExtensionValidators_1 = require("../../../models/Angular2ExtensionValidators");
@@ -22,11 +21,16 @@ var CompaniesEditComponent = (function () {
     function CompaniesEditComponent(formBuilder) {
         this.saveCompanieEmitter = new core_1.EventEmitter();
         this.loaded = new core_1.EventEmitter();
+        this.discardChangesEmitter = new core_1.EventEmitter();
         this._formBuilder = formBuilder;
     }
     CompaniesEditComponent.prototype.ngOnInit = function () {
         this._companieEditForm = this._formBuilder.group([]);
+        if (!this._companieEditFormModel) {
+            this._companieEditFormModel = newCompanyRequest_1.NewCompanyRequest.getEmptyCompany();
+        }
         this.buildCompanieEditForm();
+        this.loaded.emit(this);
     };
     CompaniesEditComponent.prototype.destroyCompanieEditForm = function () {
         var me = this;
@@ -55,7 +59,10 @@ var CompaniesEditComponent = (function () {
         if (!this._companieEditForm.valid) {
             return;
         }
-        this.saveCompanieEmitter.emit(this._companieEditForm.value);
+        this._companieEditFormModel.cityId = this.selectCity._selectedItem.boundItem['id'];
+        this._companieEditFormModel.companyDomainId = this.selectCompanyDomain._selectedItem.boundItem['id'];
+        this._companieEditFormModel.demandDomains = this.getDemandDomaina(this.selectDemandDomain._selectedItems);
+        this.saveCompanieEmitter.emit(this._companieEditFormModel);
     };
     CompaniesEditComponent.prototype.referenceSelectCityComponent = function ($event) {
         this.selectCity = $event;
@@ -66,10 +73,32 @@ var CompaniesEditComponent = (function () {
     CompaniesEditComponent.prototype.referenceSelectDemandDomainComponent = function ($event) {
         this.selectDemandDomain = $event;
     };
+    CompaniesEditComponent.prototype.goToPreviousPage = function () {
+        this.discardChangesEmitter.emit(null);
+    };
+    CompaniesEditComponent.prototype.getDemandDomaina = function (_selectedItems) {
+        return _.map(_selectedItems, function (item) {
+            if (item) {
+                return item['id'];
+            }
+        });
+    };
     __decorate([
         core_1.Input('companie-model'), 
         __metadata('design:type', newCompanyRequest_1.NewCompanyRequest)
     ], CompaniesEditComponent.prototype, "_companieEditFormModel", void 0);
+    __decorate([
+        core_1.Input('company-domains'), 
+        __metadata('design:type', Array)
+    ], CompaniesEditComponent.prototype, "_companyDomains", void 0);
+    __decorate([
+        core_1.Input('cities'), 
+        __metadata('design:type', Array)
+    ], CompaniesEditComponent.prototype, "_cities", void 0);
+    __decorate([
+        core_1.Input('domains'), 
+        __metadata('design:type', Array)
+    ], CompaniesEditComponent.prototype, "_domains", void 0);
     __decorate([
         core_1.Output('save-edited-companie'), 
         __metadata('design:type', core_1.EventEmitter)
@@ -78,11 +107,15 @@ var CompaniesEditComponent = (function () {
         core_1.Output('reference-companie-edit-component'), 
         __metadata('design:type', core_1.EventEmitter)
     ], CompaniesEditComponent.prototype, "loaded", void 0);
+    __decorate([
+        core_1.Output('discard-changes-companie'), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], CompaniesEditComponent.prototype, "discardChangesEmitter", void 0);
     CompaniesEditComponent = __decorate([
         core_1.Component({
             selector: 'companies-edit-componet',
             templateUrl: '/app/components/companieComponent/companieEditComponent/companieEditComponent.html',
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES, selectComponent_1.SelectComponent]
+            directives: [selectComponent_1.SelectComponent]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], CompaniesEditComponent);

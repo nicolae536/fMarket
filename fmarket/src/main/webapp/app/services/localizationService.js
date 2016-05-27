@@ -9,25 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
- * Created by nick_ on 4/24/2016.
-*/
+ * Created by NicolaeB on 5/27/2016.
+ */
 var core_1 = require('@angular/core');
 var fMarketApi_1 = require("./fMarketApi");
-var AccountService = (function () {
-    function AccountService(api) {
-        this._AccountController = '/account';
+var LocalizationService = (function () {
+    function LocalizationService(api) {
         this.api = api;
     }
-    AccountService.prototype.getAccount = function () {
+    LocalizationService.prototype.getCityList = function () {
+        return this.api.get('/cities');
     };
-    AccountService.prototype.saveEditedAccount = function (accountDto) {
-        return this.api.post(this._AccountController, JSON.stringify(accountDto));
+    LocalizationService.prototype.mapNameToSelect2Item = function (array) {
+        return _.map(array, function (item) {
+            return {
+                displayName: item['name'],
+                boundItem: item
+            };
+        });
     };
-    AccountService = __decorate([
+    LocalizationService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
-    ], AccountService);
-    return AccountService;
+    ], LocalizationService);
+    return LocalizationService;
 }());
-exports.AccountService = AccountService;
-//# sourceMappingURL=accountService.js.map
+exports.LocalizationService = LocalizationService;
+//# sourceMappingURL=localizationService.js.map

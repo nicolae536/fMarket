@@ -9,6 +9,7 @@ import {DemandService} from "../../../services/demandService";
 import {RequestTypeService} from "../../../services/requestTypeService";
 import {DemandsListPageBase} from "../../adminPage/demandsPage/demandsListPage/demandsListPageBase";
 import {CategoriesMenuService} from "../../../services/categoriesMenuService";
+import {LocalizationService} from "../../../services/localizationService";
 
 var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage';
 
@@ -17,8 +18,12 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage'
     templateUrl: applicationPath + '/accountDemandsPage.html'
 })
 export class AccountDemandsPage extends DemandsListPageBase implements OnInit, OnChanges {
-    constructor(router:Router,_categoriesMenuService:CategoriesMenuService,_demandService:DemandService, _requestTypeService:RequestTypeService) {
-        super(router, _categoriesMenuService, _demandService, _requestTypeService);
+    constructor(router:Router,
+                _categoriesMenuService:CategoriesMenuService,
+                _demandService:DemandService,
+                _requestTypeService:RequestTypeService,
+                localizationService:LocalizationService) {
+        super(router, _categoriesMenuService, _demandService, _requestTypeService, localizationService);
     }
 
     ngOnInit():any {

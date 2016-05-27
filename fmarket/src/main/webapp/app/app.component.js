@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-// import {RouteConfig} from "@angular/router-deprecated";
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
@@ -34,6 +33,7 @@ var Roles_1 = require("./models/Roles");
 var jqueryService_1 = require("./services/jqueryService");
 var fMarketApi_1 = require("./services/fMarketApi");
 var _ = require('underscore');
+var localizationService_1 = require("./services/localizationService");
 var AppComponent = (function () {
     function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
         this.addItem = true;
@@ -145,7 +145,8 @@ var AppComponent = (function () {
                 requestTypeService_1.RequestTypeService,
                 subscribersService_1.SubscribersService,
                 usersService_1.UserService,
-                companiesService_1.CompaniesService
+                companiesService_1.CompaniesService,
+                localizationService_1.LocalizationService
             ]
         }),
         router_1.Routes(authorizationService_1.AuthorizationService.getApplicationRootRoutes()), 

@@ -18,7 +18,7 @@
                     </li>
                     <li *ngIf="isAdminUser()" dropdown class="dropdown">
                         <a href="#" class="dropdown-toggle" dropdownToggle role="button" aria-haspopup="true"
-                           aria-expanded="false">Admin <span class="caret"></span></a>
+                           aria-expanded="false">{{_myAccountLabel}}<span class="caret"></span></a>
                         <ul dropdownMenu class="dropdown-menu">
                             <li *ngFor="let p of _adminApplicationPages"><a [routerLink]="[p.link]">{{p.name}}</a></li>
                         </ul>

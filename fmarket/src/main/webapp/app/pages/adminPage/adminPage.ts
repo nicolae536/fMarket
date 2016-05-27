@@ -13,6 +13,7 @@ import {ApplicationConstants} from "../../models/applicationConstansts";
 import {NotificationService} from "../../services/notificationService";
 import {AuthorizationService} from "../../services/authorizationService";
 import {Role} from "../../models/Roles";
+import {CompanieCreatePage} from "./companiesPage/companiesEditPage/companiesCreatePage";
 
 var applicationPath:string = '/app/pages/adminPage';
 
@@ -26,43 +27,34 @@ var applicationPath:string = '/app/pages/adminPage';
     new Route({
         path: '/users',
         component: UsersPage,
-        // name: 'Users',
-        // useAsDefault:true
     }),
     new Route({
         path: '/subscribers',
         component: SubscribersPage,
-        // name: 'Subscribers'
     }),
     new Route({
         path: '/categorii',
         component: CategoriesPage,
-        // name: 'Categories'
     }),
     new Route({
         path: '/cereri',
         component: DemandsPage,
-        // name: 'Demands'
     }),
     new Route({
         path: '/cerere-detalii/:id',
         component: DemandsEditPage,
-        // name: 'EditDemand',
     }),
     new Route({
         path: '/companie/lista',
         component: CompaniesPage,
-        // name: 'Companies'
     }),
     new Route({
         path: '/companie/detalii/:id',
         component: CompaniesEditPage,
-        // name: 'CompanieDetails'
     }),
     new Route({
         path: '/companie/ceeaza',
-        component: CompaniesEditPage,
-        // name: 'CompanieCreate'
+        component: CompanieCreatePage,
     }),
 ])
 export class AdminPage implements AfterViewChecked, OnActivate{

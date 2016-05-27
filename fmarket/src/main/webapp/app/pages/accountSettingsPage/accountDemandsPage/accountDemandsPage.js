@@ -23,11 +23,12 @@ var demandService_1 = require("../../../services/demandService");
 var requestTypeService_1 = require("../../../services/requestTypeService");
 var demandsListPageBase_1 = require("../../adminPage/demandsPage/demandsListPage/demandsListPageBase");
 var categoriesMenuService_1 = require("../../../services/categoriesMenuService");
+var localizationService_1 = require("../../../services/localizationService");
 var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
 var AccountDemandsPage = (function (_super) {
     __extends(AccountDemandsPage, _super);
-    function AccountDemandsPage(router, _categoriesMenuService, _demandService, _requestTypeService) {
-        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService);
+    function AccountDemandsPage(router, _categoriesMenuService, _demandService, _requestTypeService, localizationService) {
+        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, localizationService);
     }
     AccountDemandsPage.prototype.ngOnInit = function () {
         this.getUserDemandsWithFilter();
@@ -52,7 +53,7 @@ var AccountDemandsPage = (function (_super) {
             selector: 'account-demands-Page',
             templateUrl: applicationPath + '/accountDemandsPage.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
     ], AccountDemandsPage);
     return AccountDemandsPage;
 }(demandsListPageBase_1.DemandsListPageBase));

@@ -15,7 +15,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-// import {CanActivate} from "@angular/router-deprecated";
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 require("rxjs/add/operator/map");
 var subscriber_1 = require("../../../models/subscriber");
@@ -23,15 +22,12 @@ var actionDialog_1 = require("../../../components/actionDialog/actionDialog");
 var subscribersService_1 = require("../../../services/subscribersService");
 var pageWithNavigation_1 = require("../../../components/pageWithNavigation/pageWithNavigation");
 var createSubscriberDialog_1 = require("../../../components/createSubscriberDialog/createSubscriberDialog");
-var mock_City_1 = require("../../../services/mock-providers/mock-City");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
-//import operators
-//-map
-//import mocks
+var localizationService_1 = require("../../../services/localizationService");
 var applicationPath = '/app/pages/adminPage/subscribersPage';
 var SubscribersPage = (function (_super) {
     __extends(SubscribersPage, _super);
-    function SubscribersPage(subscribersService) {
+    function SubscribersPage(subscribersService, localizationService) {
         _super.call(this);
         this.subscribeDatePicker = { state: false };
         this.unSubscribeDatePicker = { state: false };
@@ -51,10 +47,11 @@ var SubscribersPage = (function (_super) {
         this.sortkeyAndFilter["EMAIL"] = true;
         this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
         this.sortkeyAndFilter["UNSUBSCRIBE_DATE"] = true;
+        this._localizationService = localizationService;
         this._subscribersService = subscribersService;
     }
     SubscribersPage.prototype.ngOnInit = function () {
-        this.cityList = mock_City_1.CITYES;
+        this.getCities();
         this.matchSortOrderByColumn('');
         this.getSubscribersWithFilters();
     };
@@ -186,6 +183,20 @@ var SubscribersPage = (function (_super) {
         }
         this.unsubscribeDateFilter = new Date(this.unsubscriberFormatedDate);
     };
+    SubscribersPage.prototype.getCities = function () {
+        var me = this;
+        me._localizationService.getCityList()
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        })
+            .subscribe(function (succesR) {
+            me.cityList = succesR;
+        }, function (error) {
+            me.cityList = [];
+        });
+    };
     SubscribersPage = __decorate([
         core_1.Component({
             selector: 'subscribers-Page',
@@ -194,7 +205,7 @@ var SubscribersPage = (function (_super) {
             encapsulation: core_1.ViewEncapsulation.None,
             directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [subscribersService_1.SubscribersService])
+        __metadata('design:paramtypes', [subscribersService_1.SubscribersService, localizationService_1.LocalizationService])
     ], SubscribersPage);
     return SubscribersPage;
 }(pageWithNavigation_1.PageWithNavigation));

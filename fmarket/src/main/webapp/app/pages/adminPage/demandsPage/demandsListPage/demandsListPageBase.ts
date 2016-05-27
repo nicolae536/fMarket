@@ -13,6 +13,7 @@ import {IMenuItem} from "../../../../models/interfaces/iMenuItem";
 import {MenuTreeDialog} from "../../../../components/menuComponent/menuTreeDialog/menuTreeDialog";
 import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
 import {DemandSearchObject} from "../../../../models/DemandSearchObject";
+import {LocalizationService} from "../../../../services/localizationService";
 
 export class DemandsListPageBase {
     //components
@@ -22,8 +23,9 @@ export class DemandsListPageBase {
     public _demandService:DemandService;
     public _requestTypeService:RequestTypeService;
     private _categoriesMenuService:CategoriesMenuService;
-    private _router:Router;
+    private _localizationService:LocalizationService;
 
+    private _router:Router;
     // containers
     public _demandsList:Array<DemandAdminDto>;
     public _domainsList:Array<Select2Item>;
@@ -39,7 +41,8 @@ export class DemandsListPageBase {
         {status:DemandStatus.REJECTED, displayName:DemandStatus.REJECTED},
         {status:DemandStatus.WAITING_FOR_REVIEW, displayName:DemandStatus.WAITING_FOR_REVIEW}];
 
-    constructor(router:Router ,_categoriesMenuService:CategoriesMenuService, _demandService:DemandService, _requestTypeService:RequestTypeService) {
+    constructor(router:Router ,_categoriesMenuService:CategoriesMenuService, _demandService:DemandService,
+                _requestTypeService:RequestTypeService, _localizationService:LocalizationService) {
         this._categoriesMenuService = _categoriesMenuService;
         this._demandService = _demandService;
         this._requestTypeService = _requestTypeService;
@@ -47,6 +50,7 @@ export class DemandsListPageBase {
         this._searchObject = new DemandSearchObject('', 1, DemandStatus.PENDING, -1);
         this._searchObject.domainName = "Alege domeniu...";
         this._router = router;
+        this._localizationService=_localizationService;
     }
 
     showDomainsDialog(){
@@ -118,20 +122,15 @@ export class DemandsListPageBase {
 
     public getCities():void {
         let me = this;
-        this._demandService.getCityList()
-            // .map((response)=> {
-            //     if (response.text().length > 0) {
-        //         return response.json();
-            //     }
-            // })
+        this._localizationService.getCityList()
+            .map((response)=> {
+                if (response.text().length > 0) {
+                return response.json();
+                }
+            })
             .subscribe(
                 response => {
-                    me._citiesList = _.map(response, (city) => {
-                        return {
-                            displayName: city['name'],
-                            boundItem: city
-                        };
-                    });
+                    me._citiesList = me._localizationService.mapNameToSelect2Item(response)
                 },
                 error => {
 

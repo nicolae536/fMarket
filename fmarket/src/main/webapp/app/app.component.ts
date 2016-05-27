@@ -1,5 +1,4 @@
-import {Component, OnInit, AfterViewInit} from "@angular/core";
-// import {RouteConfig} from "@angular/router-deprecated";
+import {Component, OnInit} from "@angular/core";
 import {Routes, Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {Location, CORE_DIRECTIVES, FormBuilder} from "@angular/common";
 import {AlertComponent} from "ng2-bootstrap/ng2-bootstrap";
@@ -24,6 +23,7 @@ import {Role} from "./models/Roles";
 import {JqueryService} from "./services/jqueryService";
 import {FMarketApi} from "./services/fMarketApi";
 import * as _ from 'underscore';
+import {LocalizationService} from "./services/localizationService";
 
 @Component({
     selector: 'my-app',
@@ -114,7 +114,8 @@ import * as _ from 'underscore';
         RequestTypeService,
         SubscribersService,
         UserService,
-        CompaniesService
+        CompaniesService,
+        LocalizationService
     ]
 })
 
@@ -175,6 +176,7 @@ export class AppComponent implements OnInit {
     private startDemadsWatcher() {
         let me = this;
 
+        //noinspection TypeScriptUnresolvedFunction
         Observable.interval(15 * ApplicationConstants.SECOND).subscribe(
             success => {
                 me._notificationService.getStatus()

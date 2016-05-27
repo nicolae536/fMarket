@@ -7,7 +7,7 @@
                        placeholder="Nume companie"/>
             </div>
             <div class="form-group">
-                <label>Nume companie</label>
+                <label>Email companie</label>
                 <input type="text" [ngFormControl]="_companieEditForm.controls['email']" [(ngModel)]="_companieEditFormModel.email" class="form-control"
                        placeholder="Email companie"/>
             </div>
@@ -55,12 +55,12 @@
             </div>
         </div>
         <div class="actions">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-success">
                 Salveaza
             </button>
-            <a [routerLink]="['Admin/Companies']">
+            <button type="button" class="btn btn-primary" (click)="goToPreviousPage()">
                 Inapoi
-            </a>
+            </button>
         </div>
     </form>
 </div>

@@ -23,10 +23,11 @@ var companiesService_1 = require("../../../../services/companiesService");
 var notificationService_1 = require("../../../../services/notificationService");
 var companiesEditComponent_1 = require("../../../../components/companieComponent/companieEditComponent/companiesEditComponent");
 var companiesEditBase_1 = require("./companiesEditBase");
+var localizationService_1 = require("../../../../services/localizationService");
 var CompaniesEditPage = (function (_super) {
     __extends(CompaniesEditPage, _super);
-    function CompaniesEditPage(location, router, companiesService, notificationService) {
-        _super.call(this, location, router, companiesService, notificationService);
+    function CompaniesEditPage(location, router, companiesService, notificationService, localizationService) {
+        _super.call(this, location, router, companiesService, notificationService, localizationService);
     }
     CompaniesEditPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
         this.companieId = curr.getParam('id');
@@ -46,13 +47,26 @@ var CompaniesEditPage = (function (_super) {
             me._router.navigate(['/admin/companie/lista']);
         });
     };
+    CompaniesEditPage.prototype.saveCompanie = function (companieDto) {
+        var me = this;
+        this._companiesService.editCompany(companieDto)
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        })
+            .subscribe(function (success) {
+            me._location.back();
+        }, function (error) {
+        });
+    };
     CompaniesEditPage = __decorate([
         core_1.Component({
             selector: 'companies-edit-page',
             templateUrl: '/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
             directives: [companiesEditComponent_1.CompaniesEditComponent]
         }), 
-        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
+        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], CompaniesEditPage);
     return CompaniesEditPage;
 }(companiesEditBase_1.CompaniesEditBase));

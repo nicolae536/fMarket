@@ -24,11 +24,12 @@ var requestTypeService_1 = require("../../../../services/requestTypeService");
 var demandsListPageBase_1 = require("./demandsListPageBase");
 var categoriesMenuService_1 = require("../../../../services/categoriesMenuService");
 var menuTreeDialog_1 = require("../../../../components/menuComponent/menuTreeDialog/menuTreeDialog");
+var localizationService_1 = require("../../../../services/localizationService");
 var applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
 var NewDemandsListPage = (function (_super) {
     __extends(NewDemandsListPage, _super);
-    function NewDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService) {
-        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService);
+    function NewDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService) {
+        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService);
         this.pageName = 'new-demands';
         this._demandsRoute = '/new';
     }
@@ -48,7 +49,7 @@ var NewDemandsListPage = (function (_super) {
             styleUrls: [applicationPath + '/demandsListPageBase.css'],
             directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
     ], NewDemandsListPage);
     return NewDemandsListPage;
 }(demandsListPageBase_1.DemandsListPageBase));

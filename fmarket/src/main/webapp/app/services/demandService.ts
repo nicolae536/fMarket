@@ -2,9 +2,7 @@
  * Created by nick_ on 4/16/2016.
  */
 import {Injectable} from "@angular/core";
-import {CITYES} from "./mock-providers/mock-City";
 import {FMarketApi} from "./fMarketApi";
-import {Observable} from "rxjs/Observable";
 import {Select2Item} from "../components/selectComponent/selectComponent";
 import {Demand} from "../models/demand";
 import * as _ from "underscore";
@@ -17,12 +15,6 @@ export class DemandService {
 
     constructor(api:FMarketApi) {
         this.api = api;
-    }
-
-    getCityList() {
-        return new Observable((observer)=> {
-            observer.next(CITYES);
-        });
     }
 
     createDemand(demand:Demand) {
@@ -98,7 +90,7 @@ export class DemandService {
 
     private getSearchObj(search:DemandSearchObject) {
         let response = {}
-        if(search.accountId && !isNaN(parseInt(+search.accountId))){
+        if(search.accountId && !isNaN(parseInt(Number(search.accountId)))){
             response['accountId'] = search.accountId;
         }
         if(search.page && search.page > 0){

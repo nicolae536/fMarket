@@ -48233,31 +48233,31 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(32);
-	// import {RouteConfig} from "@angular/router-deprecated";
 	var router_1 = __webpack_require__(305);
 	var common_1 = __webpack_require__(206);
 	var ng2_bootstrap_1 = __webpack_require__(328);
 	var Observable_1 = __webpack_require__(66);
 	__webpack_require__(485);
 	var authorizationService_1 = __webpack_require__(494);
-	var headerComponent_1 = __webpack_require__(625);
-	var notificationService_1 = __webpack_require__(527);
+	var headerComponent_1 = __webpack_require__(624);
+	var notificationService_1 = __webpack_require__(526);
 	var applicationConstansts_1 = __webpack_require__(495);
 	var localStorageService_1 = __webpack_require__(541);
-	var footerComponent_1 = __webpack_require__(626);
+	var footerComponent_1 = __webpack_require__(625);
 	var registrationService_1 = __webpack_require__(539);
-	var accountService_1 = __webpack_require__(621);
+	var accountService_1 = __webpack_require__(620);
 	var categoriesMenuService_1 = __webpack_require__(497);
 	var companieTypesService_1 = __webpack_require__(592);
 	var demandService_1 = __webpack_require__(520);
 	var requestTypeService_1 = __webpack_require__(595);
-	var subscribersService_1 = __webpack_require__(526);
+	var subscribersService_1 = __webpack_require__(525);
 	var usersService_1 = __webpack_require__(583);
-	var companiesService_1 = __webpack_require__(609);
+	var companiesService_1 = __webpack_require__(607);
 	var Roles_1 = __webpack_require__(585);
-	var jqueryService_1 = __webpack_require__(523);
+	var jqueryService_1 = __webpack_require__(522);
 	var fMarketApi_1 = __webpack_require__(498);
-	var _ = __webpack_require__(522);
+	var _ = __webpack_require__(521);
+	var localizationService_1 = __webpack_require__(535);
 	var AppComponent = (function () {
 	    function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
 	        this.addItem = true;
@@ -48369,7 +48369,8 @@
 	                requestTypeService_1.RequestTypeService,
 	                subscribersService_1.SubscribersService,
 	                usersService_1.UserService,
-	                companiesService_1.CompaniesService
+	                companiesService_1.CompaniesService,
+	                localizationService_1.LocalizationService
 	            ]
 	        }),
 	        router_1.Routes(authorizationService_1.AuthorizationService.getApplicationRootRoutes()), 
@@ -68159,9 +68160,9 @@
 	var loginPage_1 = __webpack_require__(540);
 	var forgetPasswordPage_1 = __webpack_require__(542);
 	var adminPage_1 = __webpack_require__(543);
-	var accountSettingsPage_1 = __webpack_require__(618);
-	var successPage_1 = __webpack_require__(623);
-	var tokenConfirmPage_1 = __webpack_require__(624);
+	var accountSettingsPage_1 = __webpack_require__(617);
+	var successPage_1 = __webpack_require__(622);
+	var tokenConfirmPage_1 = __webpack_require__(623);
 	var AuthorizationService = (function () {
 	    function AuthorizationService() {
 	    }
@@ -68558,14 +68559,15 @@
 	var common_1 = __webpack_require__(206);
 	var categoriesMenuService_1 = __webpack_require__(497);
 	var demandService_1 = __webpack_require__(520);
-	var jqueryService_1 = __webpack_require__(523);
-	var Angular2ExtensionValidators_1 = __webpack_require__(524);
-	var subscribersService_1 = __webpack_require__(526);
-	var notificationService_1 = __webpack_require__(527);
-	var demandComponent_1 = __webpack_require__(528);
+	var jqueryService_1 = __webpack_require__(522);
+	var Angular2ExtensionValidators_1 = __webpack_require__(523);
+	var subscribersService_1 = __webpack_require__(525);
+	var notificationService_1 = __webpack_require__(526);
+	var demandComponent_1 = __webpack_require__(527);
+	var localizationService_1 = __webpack_require__(535);
 	var folderPath = '/app/pages/homePage';
 	var HomePage = (function () {
-	    function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService) {
+	    function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService, _localizationService) {
 	        this.scrollProperty = 'scrollY';
 	        this._categoriesMenuService = _categoriesMenuService;
 	        this._router = router;
@@ -68573,6 +68575,7 @@
 	        this._subscribersService = subscribersService;
 	        this._formBuilder = formBuilder;
 	        this._notificationService = notificationService;
+	        this._localizationService = _localizationService;
 	    }
 	    HomePage.prototype.ngOnInit = function () {
 	        this.getCities();
@@ -68664,14 +68667,9 @@
 	    };
 	    HomePage.prototype.getCities = function () {
 	        var me = this;
-	        this._demandService.getCityList()
+	        this._localizationService.getCityList()
 	            .subscribe(function (response) {
-	            me._cityes = response.map(function (city) {
-	                return {
-	                    displayName: city['name'],
-	                    boundItem: city
-	                };
-	            });
+	            me._cityes = me._localizationService.mapNameToSelect2Item(response);
 	        }, function (error) {
 	            console.log(error.message);
 	            me._cityes = [];
@@ -68703,7 +68701,7 @@
 	            templateUrl: folderPath + '/homePage.html',
 	            directives: [demandComponent_1.DemandComponent]
 	        }), 
-	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService])
+	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService])
 	    ], HomePage);
 	    return HomePage;
 	}());
@@ -71505,20 +71503,13 @@
 	 * Created by nick_ on 4/16/2016.
 	 */
 	var core_1 = __webpack_require__(32);
-	var mock_City_1 = __webpack_require__(521);
 	var fMarketApi_1 = __webpack_require__(498);
-	var Observable_1 = __webpack_require__(66);
-	var _ = __webpack_require__(522);
+	var _ = __webpack_require__(521);
 	var DemandService = (function () {
 	    function DemandService(api) {
 	        this._DemandController = '/admin/demands';
 	        this.api = api;
 	    }
-	    DemandService.prototype.getCityList = function () {
-	        return new Observable_1.Observable(function (observer) {
-	            observer.next(mock_City_1.CITYES);
-	        });
-	    };
 	    DemandService.prototype.createDemand = function (demand) {
 	        var beckedDemand = this.convertDemand(demand);
 	        return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
@@ -71576,7 +71567,7 @@
 	    };
 	    DemandService.prototype.getSearchObj = function (search) {
 	        var response = {};
-	        if (search.accountId && !isNaN(parseInt(+search.accountId))) {
+	        if (search.accountId && !isNaN(parseInt(Number(search.accountId)))) {
 	            response['accountId'] = search.accountId;
 	        }
 	        if (search.page && search.page > 0) {
@@ -71601,18 +71592,6 @@
 
 /***/ },
 /* 521 */
-/***/ function(module, exports) {
-
-	"use strict";
-	exports.CITYES = [
-	    { id: -1, name: 'Choose...' },
-	    { id: 1, name: "Cluj" },
-	    { id: 2, name: "Dorna" },
-	    { id: 3, name: "Blaj" }];
-	//# sourceMappingURL=mock-City.js.map
-
-/***/ },
-/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -73166,11 +73145,11 @@
 
 
 /***/ },
-/* 523 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _ = __webpack_require__(522);
+	var _ = __webpack_require__(521);
 	// import * as $ from 'jquery';
 	// import * as animateScroll from 'animateScroll';
 	// console.log(animateScroll);
@@ -73253,11 +73232,11 @@
 	//# sourceMappingURL=jqueryService.js.map
 
 /***/ },
-/* 524 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var accountStatus_1 = __webpack_require__(525);
+	var accountStatus_1 = __webpack_require__(524);
 	var EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	var PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$/i;
 	var PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
@@ -73347,7 +73326,7 @@
 	//# sourceMappingURL=Angular2ExtensionValidators.js.map
 
 /***/ },
-/* 525 */
+/* 524 */
 /***/ function(module, exports) {
 
 	/**
@@ -73367,7 +73346,7 @@
 	//# sourceMappingURL=accountStatus.js.map
 
 /***/ },
-/* 526 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73419,7 +73398,7 @@
 	//# sourceMappingURL=subscribersService.js.map
 
 /***/ },
-/* 527 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73483,7 +73462,7 @@
 	//# sourceMappingURL=notificationService.js.map
 
 /***/ },
-/* 528 */
+/* 527 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73501,11 +73480,11 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var selectComponent_1 = __webpack_require__(529);
-	var demand_1 = __webpack_require__(531);
-	var Angular2ExtensionValidators_1 = __webpack_require__(524);
+	var selectComponent_1 = __webpack_require__(528);
+	var demand_1 = __webpack_require__(530);
+	var Angular2ExtensionValidators_1 = __webpack_require__(523);
 	var authorizationService_1 = __webpack_require__(494);
-	var menuTreeDialog_1 = __webpack_require__(532);
+	var menuTreeDialog_1 = __webpack_require__(531);
 	var APPLICATION_PATH = '/app/components/demandComponent';
 	var DemandComponent = (function () {
 	    function DemandComponent(_formBuilder) {
@@ -73661,7 +73640,7 @@
 	//# sourceMappingURL=demandComponent.js.map
 
 /***/ },
-/* 529 */
+/* 528 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73679,7 +73658,7 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var ng2_bootstrap_1 = __webpack_require__(328);
-	var filterPipe_1 = __webpack_require__(530);
+	var filterPipe_1 = __webpack_require__(529);
 	var SelectComponent = (function () {
 	    function SelectComponent() {
 	        this.loadedSelect = new core_1.EventEmitter();
@@ -73800,7 +73779,7 @@
 	//# sourceMappingURL=selectComponent.js.map
 
 /***/ },
-/* 530 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73849,7 +73828,7 @@
 	//# sourceMappingURL=filterPipe.js.map
 
 /***/ },
-/* 531 */
+/* 530 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -73873,7 +73852,7 @@
 	//# sourceMappingURL=demand.js.map
 
 /***/ },
-/* 532 */
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -73892,8 +73871,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(32);
-	var modalDialog_1 = __webpack_require__(533);
-	var menuTreeComponent_1 = __webpack_require__(534);
+	var modalDialog_1 = __webpack_require__(532);
+	var menuTreeComponent_1 = __webpack_require__(533);
 	var MenuTreeDialog = (function (_super) {
 	    __extends(MenuTreeDialog, _super);
 	    function MenuTreeDialog() {
@@ -73963,7 +73942,7 @@
 	//# sourceMappingURL=menuTreeDialog.js.map
 
 /***/ },
-/* 533 */
+/* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -74024,7 +74003,7 @@
 	//# sourceMappingURL=modalDialog.js.map
 
 /***/ },
-/* 534 */
+/* 533 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -74038,7 +74017,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(32);
-	var baseMenuComponent_1 = __webpack_require__(535);
+	var baseMenuComponent_1 = __webpack_require__(534);
 	var MenuTreeComponent = (function () {
 	    //TODO implement menuService
 	    function MenuTreeComponent() {
@@ -74211,7 +74190,7 @@
 	//# sourceMappingURL=menuTreeComponent.js.map
 
 /***/ },
-/* 535 */
+/* 534 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -74330,6 +74309,49 @@
 	//# sourceMappingURL=baseMenuComponent.js.map
 
 /***/ },
+/* 535 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by NicolaeB on 5/27/2016.
+	 */
+	var core_1 = __webpack_require__(32);
+	var fMarketApi_1 = __webpack_require__(498);
+	var LocalizationService = (function () {
+	    function LocalizationService(api) {
+	        this.api = api;
+	    }
+	    LocalizationService.prototype.getCityList = function () {
+	        return this.api.get('/cities');
+	    };
+	    LocalizationService.prototype.mapNameToSelect2Item = function (array) {
+	        return _.map(array, function (item) {
+	            return {
+	                displayName: item['name'],
+	                boundItem: item
+	            };
+	        });
+	    };
+	    LocalizationService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
+	    ], LocalizationService);
+	    return LocalizationService;
+	}());
+	exports.LocalizationService = LocalizationService;
+	//# sourceMappingURL=localizationService.js.map
+
+/***/ },
 /* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -74350,8 +74372,8 @@
 	var router_1 = __webpack_require__(305);
 	var registrationComponent_1 = __webpack_require__(537);
 	var registrationService_1 = __webpack_require__(539);
-	var notificationService_1 = __webpack_require__(527);
-	var jqueryService_1 = __webpack_require__(523);
+	var notificationService_1 = __webpack_require__(526);
+	var jqueryService_1 = __webpack_require__(522);
 	var folderPath = '/app/pages/registrationPage';
 	var RegistrationPage = (function () {
 	    function RegistrationPage(router, registrationService, notificationService) {
@@ -74432,7 +74454,7 @@
 	var common_1 = __webpack_require__(206);
 	var router_1 = __webpack_require__(305);
 	var registerAccount_1 = __webpack_require__(538);
-	var Angular2ExtensionValidators_1 = __webpack_require__(524);
+	var Angular2ExtensionValidators_1 = __webpack_require__(523);
 	var APPLICATION_PATH = '/app/components/registrationComponent';
 	var RegistrationComponent = (function () {
 	    function RegistrationComponent(formBuilder) {
@@ -74670,8 +74692,8 @@
 	var registrationService_1 = __webpack_require__(539);
 	var applicationConstansts_1 = __webpack_require__(495);
 	var localStorageService_1 = __webpack_require__(541);
-	var notificationService_1 = __webpack_require__(527);
-	var jqueryService_1 = __webpack_require__(523);
+	var notificationService_1 = __webpack_require__(526);
+	var jqueryService_1 = __webpack_require__(522);
 	var folderPath = '/app/pages/registrationPage';
 	var LoginPage = (function () {
 	    function LoginPage(router, registrationService, localStorageService, ntificationService) {
@@ -74789,8 +74811,8 @@
 	var router_1 = __webpack_require__(305);
 	var registrationComponent_1 = __webpack_require__(537);
 	var registrationService_1 = __webpack_require__(539);
-	var notificationService_1 = __webpack_require__(527);
-	var jqueryService_1 = __webpack_require__(523);
+	var notificationService_1 = __webpack_require__(526);
+	var jqueryService_1 = __webpack_require__(522);
 	var folderPath = '/app/pages/registrationPage';
 	var ForgetPasswordPage = (function () {
 	    function ForgetPasswordPage(router, registrationService, notificationService) {
@@ -74872,13 +74894,14 @@
 	var categoriesPage_1 = __webpack_require__(589);
 	var demandsPage_1 = __webpack_require__(599);
 	var companiesPage_1 = __webpack_require__(606);
-	var companiesEditPage_1 = __webpack_require__(611);
-	var demandsEditPage_1 = __webpack_require__(615);
-	var jqueryService_1 = __webpack_require__(523);
+	var companiesEditPage_1 = __webpack_require__(609);
+	var demandsEditPage_1 = __webpack_require__(613);
+	var jqueryService_1 = __webpack_require__(522);
 	var applicationConstansts_1 = __webpack_require__(495);
-	var notificationService_1 = __webpack_require__(527);
+	var notificationService_1 = __webpack_require__(526);
 	var authorizationService_1 = __webpack_require__(494);
 	var Roles_1 = __webpack_require__(585);
+	var companiesCreatePage_1 = __webpack_require__(616);
 	var applicationPath = '/app/pages/adminPage';
 	var AdminPage = (function () {
 	    function AdminPage(location, router, notificationService) {
@@ -74945,7 +74968,7 @@
 	            }),
 	            new router_1.Route({
 	                path: '/companie/ceeaza',
-	                component: companiesEditPage_1.CompaniesEditPage,
+	                component: companiesCreatePage_1.CompanieCreatePage,
 	            }),
 	        ]), 
 	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, notificationService_1.NotificationService])
@@ -74985,18 +75008,17 @@
 	var usersService_1 = __webpack_require__(583);
 	var user_1 = __webpack_require__(581);
 	//import mocks
-	var mock_City_1 = __webpack_require__(521);
 	var mock_Status_1 = __webpack_require__(584);
 	var Roles_1 = __webpack_require__(585);
 	var authorizationService_1 = __webpack_require__(494);
-	var notificationService_1 = __webpack_require__(527);
+	var notificationService_1 = __webpack_require__(526);
+	var localizationService_1 = __webpack_require__(535);
 	var applicationPath = '/app/pages/adminPage/usersPage';
 	var UsersPage = (function (_super) {
 	    __extends(UsersPage, _super);
-	    function UsersPage(_userService, notificationService) {
+	    function UsersPage(_userService, notificationService, localizationService) {
 	        _super.call(this);
 	        this._userService = _userService;
-	        this.cityList = mock_City_1.CITYES;
 	        this.statusList = mock_Status_1.STATUS;
 	        this.usersPerPage = 10;
 	        this.emailFilter = "";
@@ -75004,6 +75026,7 @@
 	        this.cityId = -1;
 	        this.selectedStatusFilter = null;
 	        this._notificationService = notificationService;
+	        this.getCities();
 	    }
 	    UsersPage.prototype.ngOnInit = function () {
 	        var me = this;
@@ -75079,6 +75102,20 @@
 	            }
 	        });
 	    };
+	    UsersPage.prototype.getCities = function () {
+	        var me = this;
+	        me._localizationService.getCityList()
+	            .map(function (response) {
+	            if (response.text().length > 0) {
+	                return response.json();
+	            }
+	        })
+	            .subscribe(function (succesR) {
+	            me.cityList = succesR;
+	        }, function (error) {
+	            me.cityList = [];
+	        });
+	    };
 	    //grid
 	    UsersPage.prototype.createAccount = function () {
 	        this.userDialog.show("", new user_1.User());
@@ -75105,7 +75142,7 @@
 	            directives: [actionDialog_1.ActionDialog, createUserDialog_1.CreateUserDialog, common_1.NgForm]
 	        }),
 	        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-	        __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService])
+	        __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
 	    ], UsersPage);
 	    return UsersPage;
 	}(pageWithNavigation_1.PageWithNavigation));
@@ -79872,10 +79909,10 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var modalDialog_1 = __webpack_require__(533);
+	var modalDialog_1 = __webpack_require__(532);
 	var user_1 = __webpack_require__(581);
-	var Angular2ExtensionValidators_1 = __webpack_require__(524);
-	var _ = __webpack_require__(522);
+	var Angular2ExtensionValidators_1 = __webpack_require__(523);
+	var _ = __webpack_require__(521);
 	var CreateUserDialog = (function (_super) {
 	    __extends(CreateUserDialog, _super);
 	    function CreateUserDialog(formBuilder) {
@@ -80075,7 +80112,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(32);
-	var modalDialog_1 = __webpack_require__(533);
+	var modalDialog_1 = __webpack_require__(532);
 	var ActionDialog = (function (_super) {
 	    __extends(ActionDialog, _super);
 	    function ActionDialog() {
@@ -80178,7 +80215,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var accountStatus_1 = __webpack_require__(525);
+	var accountStatus_1 = __webpack_require__(524);
 	exports.STATUS = [
 	    { status: null, displayName: "Chose..." },
 	    { status: accountStatus_1.AccountStatus.AUTO, displayName: "AUTO" },
@@ -80227,23 +80264,19 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	// import {CanActivate} from "@angular/router-deprecated";
 	var ng2_bootstrap_1 = __webpack_require__(328);
 	__webpack_require__(577);
 	var subscriber_1 = __webpack_require__(587);
 	var actionDialog_1 = __webpack_require__(582);
-	var subscribersService_1 = __webpack_require__(526);
+	var subscribersService_1 = __webpack_require__(525);
 	var pageWithNavigation_1 = __webpack_require__(579);
 	var createSubscriberDialog_1 = __webpack_require__(588);
-	var mock_City_1 = __webpack_require__(521);
 	var applicationConstansts_1 = __webpack_require__(495);
-	//import operators
-	//-map
-	//import mocks
+	var localizationService_1 = __webpack_require__(535);
 	var applicationPath = '/app/pages/adminPage/subscribersPage';
 	var SubscribersPage = (function (_super) {
 	    __extends(SubscribersPage, _super);
-	    function SubscribersPage(subscribersService) {
+	    function SubscribersPage(subscribersService, localizationService) {
 	        _super.call(this);
 	        this.subscribeDatePicker = { state: false };
 	        this.unSubscribeDatePicker = { state: false };
@@ -80263,10 +80296,11 @@
 	        this.sortkeyAndFilter["EMAIL"] = true;
 	        this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
 	        this.sortkeyAndFilter["UNSUBSCRIBE_DATE"] = true;
+	        this._localizationService = localizationService;
 	        this._subscribersService = subscribersService;
 	    }
 	    SubscribersPage.prototype.ngOnInit = function () {
-	        this.cityList = mock_City_1.CITYES;
+	        this.getCities();
 	        this.matchSortOrderByColumn('');
 	        this.getSubscribersWithFilters();
 	    };
@@ -80398,6 +80432,20 @@
 	        }
 	        this.unsubscribeDateFilter = new Date(this.unsubscriberFormatedDate);
 	    };
+	    SubscribersPage.prototype.getCities = function () {
+	        var me = this;
+	        me._localizationService.getCityList()
+	            .map(function (response) {
+	            if (response.text().length > 0) {
+	                return response.json();
+	            }
+	        })
+	            .subscribe(function (succesR) {
+	            me.cityList = succesR;
+	        }, function (error) {
+	            me.cityList = [];
+	        });
+	    };
 	    SubscribersPage = __decorate([
 	        core_1.Component({
 	            selector: 'subscribers-Page',
@@ -80406,7 +80454,7 @@
 	            encapsulation: core_1.ViewEncapsulation.None,
 	            directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
 	        }), 
-	        __metadata('design:paramtypes', [subscribersService_1.SubscribersService])
+	        __metadata('design:paramtypes', [subscribersService_1.SubscribersService, localizationService_1.LocalizationService])
 	    ], SubscribersPage);
 	    return SubscribersPage;
 	}(pageWithNavigation_1.PageWithNavigation));
@@ -80457,9 +80505,9 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var modalDialog_1 = __webpack_require__(533);
+	var modalDialog_1 = __webpack_require__(532);
 	var subscriber_1 = __webpack_require__(587);
-	var Angular2ExtensionValidators_1 = __webpack_require__(524);
+	var Angular2ExtensionValidators_1 = __webpack_require__(523);
 	var CreateSubscriberDialog = (function (_super) {
 	    __extends(CreateSubscriberDialog, _super);
 	    function CreateSubscriberDialog(formBuilder) {
@@ -80757,7 +80805,6 @@
 	        this.api = api;
 	    }
 	    CompanieTypeService.prototype.getCompanyTypesWithFilters = function (searchQuery) {
-	        //+ `/?searchQuery=${searchQuery}`
 	        return this.api.get(this._CompanyDomainController);
 	    };
 	    CompanieTypeService.prototype.deleteCompanyType = function (companyId) {
@@ -80949,7 +80996,6 @@
 	        this.api = api;
 	    }
 	    RequestTypeService.prototype.getRequestTypesWithFilters = function (searchQuery) {
-	        // + `/?searchQuery=${searchQuery}`
 	        return this.api.get(this._requestDomains);
 	    };
 	    RequestTypeService.prototype.deleteRequestType = function (requestId) {
@@ -80985,10 +81031,10 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(32);
-	var menuTreeComponent_1 = __webpack_require__(534);
+	var menuTreeComponent_1 = __webpack_require__(533);
 	var categoriesMenuService_1 = __webpack_require__(497);
 	var menuItemDialog_1 = __webpack_require__(597);
-	var selectComponent_1 = __webpack_require__(529);
+	var selectComponent_1 = __webpack_require__(528);
 	var authorizationService_1 = __webpack_require__(494);
 	var Roles_1 = __webpack_require__(585);
 	var applicationPath = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
@@ -81121,8 +81167,8 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var selectComponent_1 = __webpack_require__(529);
-	var Angular2ExtensionValidators_1 = __webpack_require__(524);
+	var selectComponent_1 = __webpack_require__(528);
+	var Angular2ExtensionValidators_1 = __webpack_require__(523);
 	//used template to not download the same html multiple times
 	var MenuItemDialog = (function () {
 	    function MenuItemDialog(formBuilder) {
@@ -81389,12 +81435,13 @@
 	var requestTypeService_1 = __webpack_require__(595);
 	var demandsListPageBase_1 = __webpack_require__(602);
 	var categoriesMenuService_1 = __webpack_require__(497);
-	var menuTreeDialog_1 = __webpack_require__(532);
+	var menuTreeDialog_1 = __webpack_require__(531);
+	var localizationService_1 = __webpack_require__(535);
 	var applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
 	var NewDemandsListPage = (function (_super) {
 	    __extends(NewDemandsListPage, _super);
-	    function NewDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService) {
-	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService);
+	    function NewDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService) {
+	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService);
 	        this.pageName = 'new-demands';
 	        this._demandsRoute = '/new';
 	    }
@@ -81414,7 +81461,7 @@
 	            styleUrls: [applicationPath + '/demandsListPageBase.css'],
 	            directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
 	    ], NewDemandsListPage);
 	    return NewDemandsListPage;
 	}(demandsListPageBase_1.DemandsListPageBase));
@@ -81483,11 +81530,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _ = __webpack_require__(522);
+	var _ = __webpack_require__(521);
 	var DemandStatus_1 = __webpack_require__(603);
 	var DemandSearchObject_1 = __webpack_require__(604);
 	var DemandsListPageBase = (function () {
-	    function DemandsListPageBase(router, _categoriesMenuService, _demandService, _requestTypeService) {
+	    function DemandsListPageBase(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService) {
 	        this.statusList = [{ status: DemandStatus_1.DemandStatus.ACTIVE, displayName: DemandStatus_1.DemandStatus.ACTIVE },
 	            { status: DemandStatus_1.DemandStatus.CLOSED, displayName: DemandStatus_1.DemandStatus.CLOSED },
 	            { status: DemandStatus_1.DemandStatus.IN_REVIEW, displayName: DemandStatus_1.DemandStatus.IN_REVIEW },
@@ -81501,6 +81548,7 @@
 	        this._searchObject = new DemandSearchObject_1.DemandSearchObject('', 1, DemandStatus_1.DemandStatus.PENDING, -1);
 	        this._searchObject.domainName = "Alege domeniu...";
 	        this._router = router;
+	        this._localizationService = _localizationService;
 	    }
 	    DemandsListPageBase.prototype.showDomainsDialog = function () {
 	        this._menuTreeDialog.showMenuTreeDialog();
@@ -81555,14 +81603,14 @@
 	    };
 	    DemandsListPageBase.prototype.getCities = function () {
 	        var me = this;
-	        this._demandService.getCityList()
+	        this._localizationService.getCityList()
+	            .map(function (response) {
+	            if (response.text().length > 0) {
+	                return response.json();
+	            }
+	        })
 	            .subscribe(function (response) {
-	            me._citiesList = _.map(response, function (city) {
-	                return {
-	                    displayName: city['name'],
-	                    boundItem: city
-	                };
-	            });
+	            me._citiesList = me._localizationService.mapNameToSelect2Item(response);
 	        }, function (error) {
 	        });
 	    };
@@ -81662,13 +81710,14 @@
 	var demandService_1 = __webpack_require__(520);
 	var requestTypeService_1 = __webpack_require__(595);
 	var demandsListPageBase_1 = __webpack_require__(602);
-	var menuTreeDialog_1 = __webpack_require__(532);
+	var menuTreeDialog_1 = __webpack_require__(531);
 	var categoriesMenuService_1 = __webpack_require__(497);
+	var localizationService_1 = __webpack_require__(535);
 	var applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
 	var AllDemandsListPage = (function (_super) {
 	    __extends(AllDemandsListPage, _super);
-	    function AllDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService) {
-	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService);
+	    function AllDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService) {
+	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService);
 	        this.pageName = 'demands';
 	    }
 	    AllDemandsListPage.prototype.ngOnInit = function () {
@@ -81688,7 +81737,7 @@
 	            styleUrls: [applicationPath + '/demandsListPageBase.css'],
 	            directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
 	    ], AllDemandsListPage);
 	    return AllDemandsListPage;
 	}(demandsListPageBase_1.DemandsListPageBase));
@@ -81714,11 +81763,10 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var createCompanieDialog_1 = __webpack_require__(607);
-	var companiesService_1 = __webpack_require__(609);
-	var notificationService_1 = __webpack_require__(527);
-	var companieListComponent_1 = __webpack_require__(610);
-	var _ = __webpack_require__(522);
+	var companiesService_1 = __webpack_require__(607);
+	var notificationService_1 = __webpack_require__(526);
+	var companieListComponent_1 = __webpack_require__(608);
+	var _ = __webpack_require__(521);
 	var applicationPath = '/app/pages/adminPage/companiesPage';
 	var CompaniesPage = (function () {
 	    function CompaniesPage(router, companiesService, notificationService) {
@@ -81735,6 +81783,7 @@
 	    };
 	    CompaniesPage.prototype.getCompaniesWithFilters = function () {
 	        var me = this;
+	        debugger;
 	        this._companiesService.getCompaniesForUsers(this.searchFilter)
 	            .map(function (response) {
 	            if (response.text().length > 0) {
@@ -81749,7 +81798,7 @@
 	        });
 	    };
 	    CompaniesPage.prototype.goToNewCompanyPage = function () {
-	        this._router.navigate(['/admin/ceeaza']);
+	        this._router.navigate(['/admin/companie/ceeaza']);
 	    };
 	    CompaniesPage.prototype.selectCompanie = function (id) {
 	        this._router.navigate(['/admin/detalii', { id: id }]);
@@ -82113,7 +82162,7 @@
 	            selector: 'compnaies-Page',
 	            templateUrl: applicationPath + '/companiesPage.html',
 	            styleUrls: [applicationPath + '/companiesPage.css'],
-	            directives: [createCompanieDialog_1.CreateCompanieDialog, companieListComponent_1.CompanieListComponent]
+	            directives: [companieListComponent_1.CompanieListComponent]
 	        }), 
 	        __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
 	    ], CompaniesPage);
@@ -82124,109 +82173,6 @@
 
 /***/ },
 /* 607 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 5/6/2016.
-	 */
-	var _ = __webpack_require__(522);
-	var common_1 = __webpack_require__(206);
-	var core_1 = __webpack_require__(32);
-	var modalDialog_1 = __webpack_require__(533);
-	var companieDto_1 = __webpack_require__(608);
-	var CreateCompanieDialog = (function (_super) {
-	    __extends(CreateCompanieDialog, _super);
-	    function CreateCompanieDialog(formBuilder) {
-	        _super.call(this);
-	        this.loaded = new core_1.EventEmitter();
-	        this._formBuilder = formBuilder;
-	        this.responseObject = new companieDto_1.CompanieDto();
-	    }
-	    CreateCompanieDialog.prototype.ngOnInit = function () {
-	        this._createCompanieForm = this._formBuilder.group([]);
-	        this.buildCompanieForm();
-	        this.loaded.emit(this);
-	    };
-	    CreateCompanieDialog.prototype.cancelCreateCompanie = function () {
-	        this.destroyCompanieForm();
-	        this.cancelAction();
-	        this.responseObject = new companieDto_1.CompanieDto();
-	    };
-	    CreateCompanieDialog.prototype.submitNewCompanie = function () {
-	        if (!this._createCompanieForm.valid) {
-	            return;
-	        }
-	        this.positiveAction();
-	    };
-	    CreateCompanieDialog.prototype.destroyCompanieForm = function () {
-	        var me = this;
-	        _.each(this.getCompanieFormControls(), function (value) {
-	            me._createCompanieForm.removeControl(value);
-	        });
-	    };
-	    CreateCompanieDialog.prototype.getCompanieFormControls = function () {
-	        var colector = [];
-	        _.each(this._createCompanieForm.controls, function (control, name) {
-	            colector[name] = name;
-	        });
-	        return colector;
-	    };
-	    CreateCompanieDialog.prototype.buildCompanieForm = function () {
-	    };
-	    __decorate([
-	        core_1.Input('title'), 
-	        __metadata('design:type', String)
-	    ], CreateCompanieDialog.prototype, "title", void 0);
-	    __decorate([
-	        core_1.Output('reference-component'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], CreateCompanieDialog.prototype, "loaded", void 0);
-	    CreateCompanieDialog = __decorate([
-	        core_1.Component({
-	            selector: 'create-companie-dialog',
-	            templateUrl: 'app/components/companieComponent/createCompanieDialog/createCompanieDialog.html',
-	            directives: [common_1.FORM_DIRECTIVES]
-	        }), 
-	        __metadata('design:paramtypes', [common_1.FormBuilder])
-	    ], CreateCompanieDialog);
-	    return CreateCompanieDialog;
-	}(modalDialog_1.ModalDialog));
-	exports.CreateCompanieDialog = CreateCompanieDialog;
-	//# sourceMappingURL=createCompanieDialog.js.map
-
-/***/ },
-/* 608 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by nick_ on 5/6/2016.
-	 */
-	"use strict";
-	var CompanieDto = (function () {
-	    function CompanieDto() {
-	    }
-	    return CompanieDto;
-	}());
-	exports.CompanieDto = CompanieDto;
-	//# sourceMappingURL=companieDto.js.map
-
-/***/ },
-/* 609 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -82287,7 +82233,7 @@
 	//# sourceMappingURL=companiesService.js.map
 
 /***/ },
-/* 610 */
+/* 608 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -82335,7 +82281,7 @@
 	//# sourceMappingURL=companieListComponent.js.map
 
 /***/ },
-/* 611 */
+/* 609 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -82359,14 +82305,15 @@
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
 	var common_1 = __webpack_require__(206);
-	var companiesService_1 = __webpack_require__(609);
-	var notificationService_1 = __webpack_require__(527);
-	var companiesEditComponent_1 = __webpack_require__(612);
-	var companiesEditBase_1 = __webpack_require__(614);
+	var companiesService_1 = __webpack_require__(607);
+	var notificationService_1 = __webpack_require__(526);
+	var companiesEditComponent_1 = __webpack_require__(610);
+	var companiesEditBase_1 = __webpack_require__(612);
+	var localizationService_1 = __webpack_require__(535);
 	var CompaniesEditPage = (function (_super) {
 	    __extends(CompaniesEditPage, _super);
-	    function CompaniesEditPage(location, router, companiesService, notificationService) {
-	        _super.call(this, location, router, companiesService, notificationService);
+	    function CompaniesEditPage(location, router, companiesService, notificationService, localizationService) {
+	        _super.call(this, location, router, companiesService, notificationService, localizationService);
 	    }
 	    CompaniesEditPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
 	        this.companieId = curr.getParam('id');
@@ -82386,13 +82333,26 @@
 	            me._router.navigate(['/admin/companie/lista']);
 	        });
 	    };
+	    CompaniesEditPage.prototype.saveCompanie = function (companieDto) {
+	        var me = this;
+	        this._companiesService.editCompany(companieDto)
+	            .map(function (response) {
+	            if (response.text().length > 0) {
+	                return response.json();
+	            }
+	        })
+	            .subscribe(function (success) {
+	            me._location.back();
+	        }, function (error) {
+	        });
+	    };
 	    CompaniesEditPage = __decorate([
 	        core_1.Component({
 	            selector: 'companies-edit-page',
 	            templateUrl: '/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
 	            directives: [companiesEditComponent_1.CompaniesEditComponent]
 	        }), 
-	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
+	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
 	    ], CompaniesEditPage);
 	    return CompaniesEditPage;
 	}(companiesEditBase_1.CompaniesEditBase));
@@ -82400,7 +82360,7 @@
 	//# sourceMappingURL=companiesEditPage.js.map
 
 /***/ },
-/* 612 */
+/* 610 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -82416,22 +82376,26 @@
 	/**
 	 * Created by nick_ on 5/6/2016.
 	 */
-	var _ = __webpack_require__(522);
+	var _ = __webpack_require__(521);
 	var core_1 = __webpack_require__(32);
-	var router_deprecated_1 = __webpack_require__(545);
 	var common_1 = __webpack_require__(206);
-	var newCompanyRequest_1 = __webpack_require__(613);
-	var Angular2ExtensionValidators_1 = __webpack_require__(524);
-	var selectComponent_1 = __webpack_require__(529);
+	var newCompanyRequest_1 = __webpack_require__(611);
+	var Angular2ExtensionValidators_1 = __webpack_require__(523);
+	var selectComponent_1 = __webpack_require__(528);
 	var CompaniesEditComponent = (function () {
 	    function CompaniesEditComponent(formBuilder) {
 	        this.saveCompanieEmitter = new core_1.EventEmitter();
 	        this.loaded = new core_1.EventEmitter();
+	        this.discardChangesEmitter = new core_1.EventEmitter();
 	        this._formBuilder = formBuilder;
 	    }
 	    CompaniesEditComponent.prototype.ngOnInit = function () {
 	        this._companieEditForm = this._formBuilder.group([]);
+	        if (!this._companieEditFormModel) {
+	            this._companieEditFormModel = newCompanyRequest_1.NewCompanyRequest.getEmptyCompany();
+	        }
 	        this.buildCompanieEditForm();
+	        this.loaded.emit(this);
 	    };
 	    CompaniesEditComponent.prototype.destroyCompanieEditForm = function () {
 	        var me = this;
@@ -82460,7 +82424,10 @@
 	        if (!this._companieEditForm.valid) {
 	            return;
 	        }
-	        this.saveCompanieEmitter.emit(this._companieEditForm.value);
+	        this._companieEditFormModel.cityId = this.selectCity._selectedItem.boundItem['id'];
+	        this._companieEditFormModel.companyDomainId = this.selectCompanyDomain._selectedItem.boundItem['id'];
+	        this._companieEditFormModel.demandDomains = this.getDemandDomaina(this.selectDemandDomain._selectedItems);
+	        this.saveCompanieEmitter.emit(this._companieEditFormModel);
 	    };
 	    CompaniesEditComponent.prototype.referenceSelectCityComponent = function ($event) {
 	        this.selectCity = $event;
@@ -82471,10 +82438,32 @@
 	    CompaniesEditComponent.prototype.referenceSelectDemandDomainComponent = function ($event) {
 	        this.selectDemandDomain = $event;
 	    };
+	    CompaniesEditComponent.prototype.goToPreviousPage = function () {
+	        this.discardChangesEmitter.emit(null);
+	    };
+	    CompaniesEditComponent.prototype.getDemandDomaina = function (_selectedItems) {
+	        return _.map(_selectedItems, function (item) {
+	            if (item) {
+	                return item['id'];
+	            }
+	        });
+	    };
 	    __decorate([
 	        core_1.Input('companie-model'), 
 	        __metadata('design:type', newCompanyRequest_1.NewCompanyRequest)
 	    ], CompaniesEditComponent.prototype, "_companieEditFormModel", void 0);
+	    __decorate([
+	        core_1.Input('company-domains'), 
+	        __metadata('design:type', Array)
+	    ], CompaniesEditComponent.prototype, "_companyDomains", void 0);
+	    __decorate([
+	        core_1.Input('cities'), 
+	        __metadata('design:type', Array)
+	    ], CompaniesEditComponent.prototype, "_cities", void 0);
+	    __decorate([
+	        core_1.Input('domains'), 
+	        __metadata('design:type', Array)
+	    ], CompaniesEditComponent.prototype, "_domains", void 0);
 	    __decorate([
 	        core_1.Output('save-edited-companie'), 
 	        __metadata('design:type', core_1.EventEmitter)
@@ -82483,11 +82472,15 @@
 	        core_1.Output('reference-companie-edit-component'), 
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], CompaniesEditComponent.prototype, "loaded", void 0);
+	    __decorate([
+	        core_1.Output('discard-changes-companie'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], CompaniesEditComponent.prototype, "discardChangesEmitter", void 0);
 	    CompaniesEditComponent = __decorate([
 	        core_1.Component({
 	            selector: 'companies-edit-componet',
 	            templateUrl: '/app/components/companieComponent/companieEditComponent/companieEditComponent.html',
-	            directives: [router_deprecated_1.ROUTER_DIRECTIVES, selectComponent_1.SelectComponent]
+	            directives: [selectComponent_1.SelectComponent]
 	        }), 
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], CompaniesEditComponent);
@@ -82497,7 +82490,7 @@
 	//# sourceMappingURL=companiesEditComponent.js.map
 
 /***/ },
-/* 613 */
+/* 611 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -82524,37 +82517,67 @@
 	//# sourceMappingURL=newCompanyRequest.js.map
 
 /***/ },
-/* 614 */
-/***/ function(module, exports) {
+/* 612 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var newCompanyRequest_1 = __webpack_require__(611);
 	var CompaniesEditBase = (function () {
-	    function CompaniesEditBase(location, router, companiesService, notificationService) {
+	    function CompaniesEditBase(location, router, companiesService, notificationService, localizationService) {
 	        this._router = router;
 	        this._companiesService = companiesService;
 	        this._notificationService = notificationService;
 	        this._location = location;
+	        this._localizationService = localizationService;
+	        this._companie = newCompanyRequest_1.NewCompanyRequest.getEmptyCompany();
 	    }
 	    CompaniesEditBase.prototype.referenceComponent = function (companieEditComponent) {
 	        this._companieEditComponent = companieEditComponent;
 	    };
-	    CompaniesEditBase.prototype.saveCompanie = function (companieDto) {
+	    CompaniesEditBase.prototype.goToPreviousLocation = function () {
+	        this._location.back();
+	    };
+	    CompaniesEditBase.prototype.getCities = function () {
 	        var me = this;
-	        this._companiesService.editCompany(companieDto)
+	        this._localizationService.getCityList()
 	            .map(function (response) {
 	            if (response.text().length > 0) {
 	                return response.json();
 	            }
 	        })
 	            .subscribe(function (success) {
-	            me._location.back();
+	            me._cities = me._localizationService.mapNameToSelect2Item(success);
 	        }, function (error) {
+	            me._cities = new Array();
 	        });
 	    };
-	    CompaniesEditBase.prototype.goToPreviousLocation = function () {
-	        this._location.back();
+	    CompaniesEditBase.prototype.getCompanieDomains = function () {
+	        var me = this;
+	        this._localizationService.getCityList()
+	            .map(function (response) {
+	            if (response.text().length > 0) {
+	                return response.json();
+	            }
+	        })
+	            .subscribe(function (success) {
+	            me._companyDomains = me._localizationService.mapNameToSelect2Item(success);
+	        }, function (error) {
+	            me._companyDomains = new Array();
+	        });
 	    };
-	    CompaniesEditBase.prototype.createCompanie = function ($event) {
+	    CompaniesEditBase.prototype.getDomains = function () {
+	        var me = this;
+	        this._localizationService.getCityList()
+	            .map(function (response) {
+	            if (response.text().length > 0) {
+	                return response.json();
+	            }
+	        })
+	            .subscribe(function (success) {
+	            me._domains = me._localizationService.mapNameToSelect2Item(success);
+	        }, function (error) {
+	            me._domains = new Array();
+	        });
 	    };
 	    return CompaniesEditBase;
 	}());
@@ -82562,7 +82585,7 @@
 	//# sourceMappingURL=companiesEditBase.js.map
 
 /***/ },
-/* 615 */
+/* 613 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -82583,8 +82606,8 @@
 	var common_1 = __webpack_require__(206);
 	var demandService_1 = __webpack_require__(520);
 	var requestTypeService_1 = __webpack_require__(595);
-	var demandEdit_1 = __webpack_require__(616);
-	var notificationService_1 = __webpack_require__(527);
+	var demandEdit_1 = __webpack_require__(614);
+	var notificationService_1 = __webpack_require__(526);
 	var applicationPath = '/app/pages/adminPage/demandsPage/demandsEditPage';
 	var DemandsEditPage = (function () {
 	    function DemandsEditPage(router, _location, demandService, requestTypeService, notificationService) {
@@ -82674,7 +82697,7 @@
 	//# sourceMappingURL=demandsEditPage.js.map
 
 /***/ },
-/* 616 */
+/* 614 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -82691,7 +82714,7 @@
 	 * Created by nick_ on 4/20/2016.
 	 */
 	var core_1 = __webpack_require__(32);
-	var demandDetailsDTO_1 = __webpack_require__(617);
+	var demandDetailsDTO_1 = __webpack_require__(615);
 	var APPLICATION_PATH = '/app/components/demandComponent/demandEdit';
 	var DemandEditComponent = (function () {
 	    function DemandEditComponent() {
@@ -82749,7 +82772,7 @@
 	//# sourceMappingURL=demandEdit.js.map
 
 /***/ },
-/* 617 */
+/* 615 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -82767,7 +82790,62 @@
 	//# sourceMappingURL=demandDetailsDTO.js.map
 
 /***/ },
-/* 618 */
+/* 616 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by nick_ on 5/6/2016.
+	 */
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(32);
+	var router_1 = __webpack_require__(305);
+	var common_1 = __webpack_require__(206);
+	var companiesService_1 = __webpack_require__(607);
+	var notificationService_1 = __webpack_require__(526);
+	var companiesEditComponent_1 = __webpack_require__(610);
+	var companiesEditBase_1 = __webpack_require__(612);
+	var localizationService_1 = __webpack_require__(535);
+	var CompanieCreatePage = (function (_super) {
+	    __extends(CompanieCreatePage, _super);
+	    function CompanieCreatePage(location, router, companiesService, notificationService, localizationService) {
+	        _super.call(this, location, router, companiesService, notificationService, localizationService);
+	    }
+	    CompanieCreatePage.prototype.ngOnInit = function () {
+	        this.getCities();
+	        this.getCompanieDomains();
+	        this.getDomains();
+	    };
+	    CompanieCreatePage.prototype.saveCompanie = function (companieDto) {
+	    };
+	    CompanieCreatePage = __decorate([
+	        core_1.Component({
+	            selector: 'companies-edit-page',
+	            templateUrl: '/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
+	            directives: [companiesEditComponent_1.CompaniesEditComponent]
+	        }), 
+	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
+	    ], CompanieCreatePage);
+	    return CompanieCreatePage;
+	}(companiesEditBase_1.CompaniesEditBase));
+	exports.CompanieCreatePage = CompanieCreatePage;
+	//# sourceMappingURL=companiesCreatePage.js.map
+
+/***/ },
+/* 617 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -82785,13 +82863,14 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var accountEditPage_1 = __webpack_require__(619);
-	var accountDemandsPage_1 = __webpack_require__(622);
+	var accountEditPage_1 = __webpack_require__(618);
+	var accountDemandsPage_1 = __webpack_require__(621);
 	var authorizationService_1 = __webpack_require__(494);
-	var jqueryService_1 = __webpack_require__(523);
+	var jqueryService_1 = __webpack_require__(522);
 	var applicationConstansts_1 = __webpack_require__(495);
 	var tabsRoutingComponent_1 = __webpack_require__(598);
-	var notificationService_1 = __webpack_require__(527);
+	var notificationService_1 = __webpack_require__(526);
+	var Roles_1 = __webpack_require__(585);
 	var applicationPath = '/app/pages/accountSettingsPage';
 	var AccountSettingsPage = (function () {
 	    function AccountSettingsPage(router, notificationService) {
@@ -82802,7 +82881,7 @@
 	        jqueryService_1.JqueryService.removeElementWithAnimation(document.getElementById(applicationConstansts_1.ApplicationConstants.LOADING_SPINNER));
 	    }
 	    AccountSettingsPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
-	        if (!(authorizationService_1.AuthorizationService.isLoggedIn() && !authorizationService_1.AuthorizationService.hasRole(Role.ADMIN))) {
+	        if (!(authorizationService_1.AuthorizationService.isLoggedIn() && !authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN))) {
 	            this.router.navigate(['/login']);
 	            this._notificationService.emitSuccessNotificationToRootComponent("Nu aveti access la acest modul !!!", 5);
 	        }
@@ -82831,7 +82910,7 @@
 	//# sourceMappingURL=accountSettingsPage.js.map
 
 /***/ },
-/* 619 */
+/* 618 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -82848,18 +82927,19 @@
 	 * Created by nick_ on 4/26/2016.
 	 */
 	var core_1 = __webpack_require__(32);
-	var accountDto_1 = __webpack_require__(620);
-	var accountService_1 = __webpack_require__(621);
+	var accountDto_1 = __webpack_require__(619);
+	var accountService_1 = __webpack_require__(620);
 	var demandService_1 = __webpack_require__(520);
-	var _ = __webpack_require__(522);
+	var localizationService_1 = __webpack_require__(535);
 	var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
 	var AccountEditPage = (function () {
-	    function AccountEditPage(accountService, demandService) {
+	    function AccountEditPage(accountService, demandService, localizationService) {
 	        this._submitLabel = 'Salveaza contul';
 	        this._cityesList = new Array();
 	        this._accountService = accountService;
 	        this._demandService = demandService;
 	        this._account = new accountDto_1.AccountDto();
+	        this._localizationService = localizationService;
 	    }
 	    AccountEditPage.prototype.ngOnInit = function () {
 	        this.getCityList();
@@ -82882,14 +82962,14 @@
 	    };
 	    AccountEditPage.prototype.getCityList = function () {
 	        var me = this;
-	        this._demandService.getCityList()
+	        this._localizationService.getCityList()
+	            .map(function (response) {
+	            if (response.text().length > 0) {
+	                return response.json();
+	            }
+	        })
 	            .subscribe(function (response) {
-	            me._cityesList = _.map(response, function (city) {
-	                return {
-	                    displayName: city['name'],
-	                    boundItem: city
-	                };
-	            });
+	            me._cityesList = me._localizationService.mapNameToSelect2Item(response);
 	        }, function (error) {
 	        });
 	    };
@@ -82898,7 +82978,7 @@
 	            selector: 'account-edit-Page',
 	            templateUrl: applicationPath + '/accountEditPage.html'
 	        }), 
-	        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService])
+	        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService])
 	    ], AccountEditPage);
 	    return AccountEditPage;
 	}());
@@ -82906,7 +82986,7 @@
 	//# sourceMappingURL=accountEditPage.js.map
 
 /***/ },
-/* 620 */
+/* 619 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -82922,7 +83002,7 @@
 	//# sourceMappingURL=accountDto.js.map
 
 /***/ },
-/* 621 */
+/* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -82937,7 +83017,7 @@
 	};
 	/**
 	 * Created by nick_ on 4/24/2016.
-	 */
+	*/
 	var core_1 = __webpack_require__(32);
 	var fMarketApi_1 = __webpack_require__(498);
 	var AccountService = (function () {
@@ -82960,7 +83040,7 @@
 	//# sourceMappingURL=accountService.js.map
 
 /***/ },
-/* 622 */
+/* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -82988,11 +83068,12 @@
 	var requestTypeService_1 = __webpack_require__(595);
 	var demandsListPageBase_1 = __webpack_require__(602);
 	var categoriesMenuService_1 = __webpack_require__(497);
+	var localizationService_1 = __webpack_require__(535);
 	var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
 	var AccountDemandsPage = (function (_super) {
 	    __extends(AccountDemandsPage, _super);
-	    function AccountDemandsPage(router, _categoriesMenuService, _demandService, _requestTypeService) {
-	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService);
+	    function AccountDemandsPage(router, _categoriesMenuService, _demandService, _requestTypeService, localizationService) {
+	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, localizationService);
 	    }
 	    AccountDemandsPage.prototype.ngOnInit = function () {
 	        this.getUserDemandsWithFilter();
@@ -83017,7 +83098,7 @@
 	            selector: 'account-demands-Page',
 	            templateUrl: applicationPath + '/accountDemandsPage.html'
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
 	    ], AccountDemandsPage);
 	    return AccountDemandsPage;
 	}(demandsListPageBase_1.DemandsListPageBase));
@@ -83025,7 +83106,7 @@
 	//# sourceMappingURL=accountDemandsPage.js.map
 
 /***/ },
-/* 623 */
+/* 622 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -83076,7 +83157,7 @@
 	//# sourceMappingURL=successPage.js.map
 
 /***/ },
-/* 624 */
+/* 623 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -83096,7 +83177,7 @@
 	var router_1 = __webpack_require__(305);
 	// import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 	var registrationService_1 = __webpack_require__(539);
-	var notificationService_1 = __webpack_require__(527);
+	var notificationService_1 = __webpack_require__(526);
 	var localStorageService_1 = __webpack_require__(541);
 	var applicationConstansts_1 = __webpack_require__(495);
 	var Roles_1 = __webpack_require__(585);
@@ -83156,7 +83237,7 @@
 	//# sourceMappingURL=tokenConfirmPage.js.map
 
 /***/ },
-/* 625 */
+/* 624 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -83180,7 +83261,7 @@
 	var localStorageService_1 = __webpack_require__(541);
 	var applicationConstansts_1 = __webpack_require__(495);
 	var registrationService_1 = __webpack_require__(539);
-	var notificationService_1 = __webpack_require__(527);
+	var notificationService_1 = __webpack_require__(526);
 	var directoryPath = '/app/components/headerComponent';
 	var HeaderComponent = (function () {
 	    function HeaderComponent(router, localStorageService, registrationService, notificationService) {
@@ -83268,7 +83349,7 @@
 	//# sourceMappingURL=headerComponent.js.map
 
 /***/ },
-/* 626 */
+/* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**

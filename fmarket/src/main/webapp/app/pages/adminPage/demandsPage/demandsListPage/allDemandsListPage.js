@@ -24,11 +24,12 @@ var requestTypeService_1 = require("../../../../services/requestTypeService");
 var demandsListPageBase_1 = require("./demandsListPageBase");
 var menuTreeDialog_1 = require("../../../../components/menuComponent/menuTreeDialog/menuTreeDialog");
 var categoriesMenuService_1 = require("../../../../services/categoriesMenuService");
+var localizationService_1 = require("../../../../services/localizationService");
 var applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
 var AllDemandsListPage = (function (_super) {
     __extends(AllDemandsListPage, _super);
-    function AllDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService) {
-        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService);
+    function AllDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService) {
+        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService);
         this.pageName = 'demands';
     }
     AllDemandsListPage.prototype.ngOnInit = function () {
@@ -48,7 +49,7 @@ var AllDemandsListPage = (function (_super) {
             styleUrls: [applicationPath + '/demandsListPageBase.css'],
             directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
     ], AllDemandsListPage);
     return AllDemandsListPage;
 }(demandsListPageBase_1.DemandsListPageBase));

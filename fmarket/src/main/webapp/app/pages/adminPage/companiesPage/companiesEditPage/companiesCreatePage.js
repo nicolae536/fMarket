@@ -22,28 +22,29 @@ var common_1 = require("@angular/common");
 var companiesService_1 = require("../../../../services/companiesService");
 var notificationService_1 = require("../../../../services/notificationService");
 var companiesEditComponent_1 = require("../../../../components/companieComponent/companieEditComponent/companiesEditComponent");
-var authorizationService_1 = require("../../../../services/authorizationService");
-var Roles_1 = require("../../../../models/Roles");
 var companiesEditBase_1 = require("./companiesEditBase");
-var newCompanyRequest_1 = require("../../../../models/newCompanyRequest");
-var CreateCompaniesPage = (function (_super) {
-    __extends(CreateCompaniesPage, _super);
-    function CreateCompaniesPage(location, router, companiesService, notificationService) {
-        _super.call(this, location, router, companiesService, notificationService);
+var localizationService_1 = require("../../../../services/localizationService");
+var CompanieCreatePage = (function (_super) {
+    __extends(CompanieCreatePage, _super);
+    function CompanieCreatePage(location, router, companiesService, notificationService, localizationService) {
+        _super.call(this, location, router, companiesService, notificationService, localizationService);
     }
-    CreateCompaniesPage.prototype.ngOnInit = function () {
-        this._companie = newCompanyRequest_1.NewCompanyRequest.getEmptyCompany();
+    CompanieCreatePage.prototype.ngOnInit = function () {
+        this.getCities();
+        this.getCompanieDomains();
+        this.getDomains();
     };
-    CreateCompaniesPage = __decorate([
+    CompanieCreatePage.prototype.saveCompanie = function (companieDto) {
+    };
+    CompanieCreatePage = __decorate([
         core_1.Component({
             selector: 'companies-edit-page',
             templateUrl: '/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
             directives: [companiesEditComponent_1.CompaniesEditComponent]
-        }),
-        router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
-    ], CreateCompaniesPage);
-    return CreateCompaniesPage;
+        }), 
+        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
+    ], CompanieCreatePage);
+    return CompanieCreatePage;
 }(companiesEditBase_1.CompaniesEditBase));
-exports.CreateCompaniesPage = CreateCompaniesPage;
+exports.CompanieCreatePage = CompanieCreatePage;
 //# sourceMappingURL=companiesCreatePage.js.map

@@ -19,7 +19,6 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage';
     styleUrls: [applicationPath + '/demandsPage.css'],
     directives: [TabsRoutingComponent, ROUTER_DIRECTIVES]
 })
-// @CanActivate(()=>{    return AuthorizationService.hasRole(Role.ADMIN) && AuthorizationService.isLoggedIn();})
 @Routes([
     new Route({
         path: '/newDemands',

@@ -13,6 +13,7 @@ import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 import {SubscribersService} from "../../services/subscribersService";
 import {NotificationService} from "../../services/notificationService";
 import {DemandComponent} from "../../components/demandComponent/demandComponent";
+import {LocalizationService} from "../../services/localizationService";
 
 const folderPath = '/app/pages/homePage';
 
@@ -42,19 +43,22 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     private _notificationService:NotificationService;
     menuDictionary;
     private _router:Router;
+    private _localizationService:LocalizationService;
 
     constructor(_categoriesMenuService:CategoriesMenuService,
                 router:Router,
                 _demandService:DemandService,
                 subscribersService:SubscribersService,
                 formBuilder:FormBuilder,
-                notificationService:NotificationService) {
+                notificationService:NotificationService,
+                _localizationService:LocalizationService) {
         this._categoriesMenuService = _categoriesMenuService;
         this._router = router;
         this._demandService = _demandService;
         this._subscribersService = subscribersService;
         this._formBuilder = formBuilder;
         this._notificationService = notificationService;
+        this._localizationService = _localizationService;
     }
     ngOnInit():any {
         this.getCities();
@@ -164,15 +168,10 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
 
     getCities():void {
         var me = this;
-        this._demandService.getCityList()
+        this._localizationService.getCityList()
             .subscribe(
                 response=> {
-                    me._cityes = response.map((city)=> {
-                        return {
-                            displayName: city['name'],
-                            boundItem: city
-                        };
-                    });
+                    me._cityes = me._localizationService.mapNameToSelect2Item(response);
                 },
                 error=> {
                     console.log(error.message);

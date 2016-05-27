@@ -3,14 +3,13 @@
  */
 
 import {OnInit, Component} from "@angular/core";
-import {RouteParams, Router, CanActivate} from "@angular/router";
+import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {CompaniesService} from "../../../../services/companiesService";
 import {NotificationService} from "../../../../services/notificationService";
 import {CompaniesEditComponent} from "../../../../components/companieComponent/companieEditComponent/companiesEditComponent";
-import {AuthorizationService} from "../../../../services/authorizationService";
-import {Role} from "../../../../models/Roles";
 import {CompaniesEditBase} from "./companiesEditBase";
+import {LocalizationService} from "../../../../services/localizationService";
 import {NewCompanyRequest} from "../../../../models/newCompanyRequest";
 
 
@@ -19,15 +18,23 @@ import {NewCompanyRequest} from "../../../../models/newCompanyRequest";
     templateUrl:'/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
     directives:[CompaniesEditComponent]
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
-
-export class CreateCompaniesPage extends CompaniesEditBase implements OnInit {
-
-    constructor(location:Location,router:Router,companiesService:CompaniesService, notificationService:NotificationService) {
-        super(location, router, companiesService, notificationService);
+export class CompanieCreatePage extends CompaniesEditBase implements OnInit {
+    
+    constructor(location:Location,
+                router:Router,
+                companiesService:CompaniesService,
+                notificationService:NotificationService,
+                localizationService:LocalizationService) {
+        super(location, router, companiesService, notificationService, localizationService);
     }
 
     ngOnInit() {
-        this._companie = NewCompanyRequest.getEmptyCompany();
+        this.getCities();
+        this.getCompanieDomains();
+        this.getDomains();
+    }
+
+    saveCompanie(companieDto:NewCompanyRequest){
+        
     }
 }

@@ -19,7 +19,7 @@ let applicationPath='/app/pages/adminPage/companiesPage'
     selector: 'compnaies-Page',
     templateUrl: applicationPath + '/companiesPage.html',
     styleUrls: [applicationPath + '/companiesPage.css'],
-    directives:[CreateCompanieDialog, CompanieListComponent]
+    directives:[CompanieListComponent]
 })
 export class CompaniesPage implements OnInit {
     private _createCompanieDialog:CreateCompanieDialog;
@@ -39,7 +39,6 @@ export class CompaniesPage implements OnInit {
     }
     
     ngOnInit(){
-        // this._paginationWrapper.currentPage=1;
         this.getCompaniesWithFilters();
     }
 
@@ -68,7 +67,7 @@ export class CompaniesPage implements OnInit {
     }
 
     goToNewCompanyPage(){
-        this._router.navigate(['/admin/ceeaza'])
+        this._router.navigate(['/admin/companie/ceeaza']);
     }
 
     selectCompanie(id){
@@ -425,7 +424,7 @@ export class CompaniesPage implements OnInit {
     }
 
     splitViewInPiecesUsingScreen(mockArray:Array<DomainCompanieDto>) {
-        let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+        let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0]['clientWidth'];
 
         if(screenWidth <= 767){
             return [mockArray]

@@ -12,20 +12,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/16/2016.
  */
 var core_1 = require("@angular/core");
-var mock_City_1 = require("./mock-providers/mock-City");
 var fMarketApi_1 = require("./fMarketApi");
-var Observable_1 = require("rxjs/Observable");
 var _ = require("underscore");
 var DemandService = (function () {
     function DemandService(api) {
         this._DemandController = '/admin/demands';
         this.api = api;
     }
-    DemandService.prototype.getCityList = function () {
-        return new Observable_1.Observable(function (observer) {
-            observer.next(mock_City_1.CITYES);
-        });
-    };
     DemandService.prototype.createDemand = function (demand) {
         var beckedDemand = this.convertDemand(demand);
         return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
@@ -83,7 +76,7 @@ var DemandService = (function () {
     };
     DemandService.prototype.getSearchObj = function (search) {
         var response = {};
-        if (search.accountId && !isNaN(parseInt(+search.accountId))) {
+        if (search.accountId && !isNaN(parseInt(Number(search.accountId)))) {
             response['accountId'] = search.accountId;
         }
         if (search.page && search.page > 0) {

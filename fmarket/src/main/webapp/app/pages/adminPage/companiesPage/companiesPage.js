@@ -13,7 +13,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var createCompanieDialog_1 = require("../../../components/companieComponent/createCompanieDialog/createCompanieDialog");
 var companiesService_1 = require("../../../services/companiesService");
 var notificationService_1 = require("../../../services/notificationService");
 var companieListComponent_1 = require("../../../components/companieComponent/companieListComponent/companieListComponent");
@@ -34,6 +33,7 @@ var CompaniesPage = (function () {
     };
     CompaniesPage.prototype.getCompaniesWithFilters = function () {
         var me = this;
+        debugger;
         this._companiesService.getCompaniesForUsers(this.searchFilter)
             .map(function (response) {
             if (response.text().length > 0) {
@@ -48,7 +48,7 @@ var CompaniesPage = (function () {
         });
     };
     CompaniesPage.prototype.goToNewCompanyPage = function () {
-        this._router.navigate(['/admin/ceeaza']);
+        this._router.navigate(['/admin/companie/ceeaza']);
     };
     CompaniesPage.prototype.selectCompanie = function (id) {
         this._router.navigate(['/admin/detalii', { id: id }]);
@@ -412,7 +412,7 @@ var CompaniesPage = (function () {
             selector: 'compnaies-Page',
             templateUrl: applicationPath + '/companiesPage.html',
             styleUrls: [applicationPath + '/companiesPage.css'],
-            directives: [createCompanieDialog_1.CreateCompanieDialog, companieListComponent_1.CompanieListComponent]
+            directives: [companieListComponent_1.CompanieListComponent]
         }), 
         __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
     ], CompaniesPage);

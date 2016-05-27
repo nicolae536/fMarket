@@ -16,7 +16,6 @@ var RequestTypeService = (function () {
         this.api = api;
     }
     RequestTypeService.prototype.getRequestTypesWithFilters = function (searchQuery) {
-        // + `/?searchQuery=${searchQuery}`
         return this.api.get(this._requestDomains);
     };
     RequestTypeService.prototype.deleteRequestType = function (requestId) {

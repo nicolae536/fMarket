@@ -23,6 +23,7 @@ var applicationConstansts_1 = require("../../models/applicationConstansts");
 var notificationService_1 = require("../../services/notificationService");
 var authorizationService_1 = require("../../services/authorizationService");
 var Roles_1 = require("../../models/Roles");
+var companiesCreatePage_1 = require("./companiesPage/companiesEditPage/companiesCreatePage");
 var applicationPath = '/app/pages/adminPage';
 var AdminPage = (function () {
     function AdminPage(location, router, notificationService) {
@@ -89,7 +90,7 @@ var AdminPage = (function () {
             }),
             new router_1.Route({
                 path: '/companie/ceeaza',
-                component: companiesEditPage_1.CompaniesEditPage,
+                component: companiesCreatePage_1.CompanieCreatePage,
             }),
         ]), 
         __metadata('design:paramtypes', [common_1.Location, router_1.Router, notificationService_1.NotificationService])
