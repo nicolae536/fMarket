@@ -9,44 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_deprecated_1 = require('@angular/router-deprecated');
+var router_1 = require("@angular/router");
 var companiesPage_1 = require("./companiesPage/companiesPage");
 var domainsPage_1 = require("./domainsPage/domainsPage");
 var categoriesMenuPage_1 = require("./categoriesMenuPage/categoriesMenuPage");
 var tabsRoutingComponent_1 = require("../../../components/tabsComponent/tabsRoutingComponent");
-var Roles_1 = require("../../../models/Roles");
-var authorizationService_1 = require("../../../services/authorizationService");
 var applicationPath = '/app/pages/adminPage/categoriesPage';
 var CategoriesPage = (function () {
     function CategoriesPage() {
-        this.tabPagesList = [{ name: 'Meniu', link: 'Categories/CategoriesMenu', enableMarker: false, markerContent: "" },
-            { name: 'Companii', link: 'Categories/Companies', enableMarker: false, markerContent: "" },
-            { name: 'Cereri', link: 'Categories/Domains', enableMarker: false, markerContent: "" }];
+        this.tabPagesList = [{ name: 'Meniu', link: '/admin/categorii/meniu', enableMarker: false, markerContent: "" },
+            { name: 'Companii', link: '/admin/categorii/firme', enableMarker: false, markerContent: "" },
+            { name: 'Cereri', link: '/admin/categorii/domenii', enableMarker: false, markerContent: "" }];
     }
     CategoriesPage = __decorate([
         core_1.Component({
             selector: 'categoryes-page',
             templateUrl: applicationPath + '/categoriesPage.html',
             styleUrls: [applicationPath + '/categoriesPage.css'],
-            directives: [tabsRoutingComponent_1.TabsRoutingComponent, router_deprecated_1.ROUTER_DIRECTIVES]
+            directives: [tabsRoutingComponent_1.TabsRoutingComponent, router_1.ROUTER_DIRECTIVES]
         }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN) && authorizationService_1.AuthorizationService.isLoggedIn(); }),
-        router_deprecated_1.RouteConfig([
-            new router_deprecated_1.Route({
+        router_1.Routes([
+            new router_1.Route({
                 path: '/meniu',
                 component: categoriesMenuPage_1.CategoriesMenuPage,
-                name: 'CategoriesMenu',
-                useAsDefault: true
             }),
-            new router_deprecated_1.Route({
+            new router_1.Route({
                 path: '/firme',
                 component: companiesPage_1.CompaniesPage,
-                name: 'Companies'
             }),
-            new router_deprecated_1.Route({
+            new router_1.Route({
                 path: '/domenii',
                 component: domainsPage_1.DomainsPage,
-                name: 'Domains'
             }),
         ]), 
         __metadata('design:paramtypes', [])

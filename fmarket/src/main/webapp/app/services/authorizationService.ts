@@ -1,8 +1,7 @@
-///<reference path="../pages/registrationPage/successPages/successResetPasswordPage.ts"/>
 /**
  * Created by nick_ on 5/5/2016.
  */
-import {Route} from "@angular/router-deprecated";
+import {Route} from "@angular/router";
 import {ApplicationConstants} from "../models/applicationConstansts";
 import {HomePage} from "../pages/homePage/homePage";
 import {RegistrationPage} from "../pages/registrationPage/registrationPage";
@@ -11,7 +10,6 @@ import {ForgetPasswordPage} from "../pages/registrationPage/forgetPasswordPage/f
 import {AdminPage} from "../pages/adminPage/adminPage";
 import {AccountSettingsPage} from "../pages/accountSettingsPage/accountSettingsPage";
 import {SuccessPage} from "../pages/registrationPage/successPages/successPage";
-import {SuccessResetPasswordPage} from "../pages/registrationPage/successPages/successResetPasswordPage";
 import {TokenConfirmPage} from "../pages/registrationPage/tokenConfirmPage/tokenConfirmPage";
 
 export class AuthorizationService {
@@ -61,63 +59,40 @@ export class AuthorizationService {
         let applicationRoutes = [
             new Route({
                 path: '/',
-                name: 'Home',
                 component: HomePage,
-                useAsDefault: true
             }),
             new Route({
                 path: '/registration',
-                name: 'Registration',
                 component: RegistrationPage
             }),
             new Route({
                 path: '/login',
-                name: 'Login',
                 component: LoginPage
             }),
             new Route({
                 path: '/forget-password',
-                name: 'ForgetPassword',
                 component: ForgetPasswordPage
             }),
             new Route({
                 path: '/success/:succesOption',
-                name: 'Success',
                 component: SuccessPage
             }),
             new Route({
-                path: '/admin/...',
-                name: 'Admin',
+                path: '/admin',
                 component: AdminPage
             }),
             new Route({
-                path: '/account/...',
-                name: 'Account',
+                path: '/account',
                 component: AccountSettingsPage
             }),
             new Route({
                 path: '/confirm/registration',
-                name: 'TokenConfirmation',
                 component: TokenConfirmPage
+            }),
+            new Route({
+                path: '*',
+                component: HomePage
             })];
-
-        //
-        // if (AuthorizationService.isLoggedIn() && AuthorizationService.getActiveUserState() === "ADMIN") {
-        //     applicationRoutes.push(new Route({
-        //         path: '/admin/...',
-        //         name: 'Admin',
-        //         component: AdminPage
-        //     }));
-        // }
-        //
-        // if (AuthorizationService.isLoggedIn()) {
-        //     applicationRoutes.push(
-        //         new Route({
-        //             path: '/account/...',
-        //             name: 'Account',
-        //             component: AccountSettingsPage
-        //         }));
-        // }
 
         return applicationRoutes;
     }

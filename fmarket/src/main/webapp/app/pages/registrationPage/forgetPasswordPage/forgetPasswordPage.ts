@@ -3,7 +3,7 @@
  */
 
 import {Component, OnInit, ViewChild, AfterViewChecked, ElementRef} from "@angular/core";
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../../services/registrationService";
@@ -81,7 +81,7 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
             })
             .subscribe(
                 response => {
-                    me._router.navigate(['Success', {succesOption:'success-rest-password'}]);
+                    me._router.navigate(['/success', {succesOption:'success-rest-password'}]);
                 },
                 error => {
                     me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Resetare parola invalida!', timeout:5});

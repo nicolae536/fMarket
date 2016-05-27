@@ -3,47 +3,40 @@
  */
 
 import {OnInit, Component} from "@angular/core";
-import {RouteParams, Router, CanActivate} from "@angular/router-deprecated";
+import {Router, OnActivate, RouteSegment, RouteTree} from "@angular/router";
+import {Location} from "@angular/common";
 
-import {CompanieDto} from "../../../../models/companieDto";
 import {CompaniesService} from "../../../../services/companiesService";
 import {NotificationService} from "../../../../services/notificationService";
 import {CompaniesEditComponent} from "../../../../components/companieComponent/companieEditComponent/companiesEditComponent";
-import {AuthorizationService} from "../../../../services/authorizationService";
-import {Role} from "../../../../models/Roles";
-
+import {CompaniesEditBase} from "./companiesEditBase";
+import {NewCompanyRequest} from "../../../../models/newCompanyRequest";
+import {LocalizationService} from "../../../../services/localizationService";
 
 @Component({
     selector:'companies-edit-page',
     templateUrl:'/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
     directives:[CompaniesEditComponent]
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 
-export class CompaniesEditPage implements OnInit {
-    private _companieEditComponent:CompaniesEditComponent;
+export class CompaniesEditPage extends CompaniesEditBase implements OnInit, OnActivate {
+    private companieId;
 
-    private _companiesService:CompaniesService;
-
-    private _companie:CompanieDto;
-    private _routeParametres:RouteParams;
-    private _notificationService:NotificationService;
-    private _router:Router;
-
-    constructor(router:Router,companiesService:CompaniesService, routeParametres:RouteParams, notificationService:NotificationService) {
-        this._router = router;
-        this._companiesService = companiesService;
-        this._routeParametres = routeParametres;
-        this._notificationService = notificationService;
+    constructor(location:Location,
+                router:Router,
+                companiesService:CompaniesService,
+                notificationService:NotificationService,
+                localizationService:LocalizationService) {
+        super(location, router, companiesService, notificationService, localizationService);
     }
 
-    referenceComponent(companieEditComponent:CompaniesEditComponent){
-        this._companieEditComponent = companieEditComponent;
+    routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
+        this.companieId = curr.getParam('id');
     }
 
-    ngOnInit():any {
+    ngOnInit() {
         let me=this;
-        this._companiesService.getCompanieDetails(parseInt(this._routeParametres.get('id')))
+        this._companiesService.getCompanyDetails(parseInt(this.companieId))
             .map(response=>{
                 if(response.text().length>0){
                     return response.json();
@@ -54,13 +47,28 @@ export class CompaniesEditPage implements OnInit {
                     me._companie = response;
                 },
                 error=>{
-                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Erroare la incarcarea companiei!', timeout:5});
-                    me._router.navigate(['Admin/Companies']);
+                    me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!',5);
+                    me._router.navigate(['/admin/companie/lista']);
                 }
-            )
+            );
     }
 
-    saveCompanie(companieDto:CompanieDto){
-        //this._companiesService.
+    saveCompanie(companieDto:NewCompanyRequest){
+        let me=this;
+
+        this._companiesService.editCompany(companieDto)
+            .map(response=>{
+                if(response.text().length>0){
+                    return response.json();
+                }
+            })
+            .subscribe(
+                success =>{
+                    me._location.back();
+                },
+                error =>{
+
+                }
+            )
     }
 }

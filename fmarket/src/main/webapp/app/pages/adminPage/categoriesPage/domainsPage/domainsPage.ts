@@ -1,6 +1,5 @@
 import {Component, OnInit, Injectable} from '@angular/core';
 import {Response} from "@angular/http";
-import {CanActivate} from "@angular/router-deprecated";
 import {FORM_DIRECTIVES, FormBuilder, Validators} from "@angular/common";
 
 import {RequestType} from '../../../../models/requestType';
@@ -18,7 +17,6 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/domainsPage';
     styleUrls: [applicationPath + '/domainsPage.css'],
     directives:[FORM_DIRECTIVES]
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 
 export class DomainsPage implements OnInit {
     domainsTypes:Array<RequestType> = [new RequestType("", "test", 1), new RequestType("", "test", 3), new RequestType("", "test", 2)];

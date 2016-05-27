@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var Observable_1 = require("rxjs/Observable");
@@ -33,7 +33,7 @@ var Roles_1 = require("./models/Roles");
 var jqueryService_1 = require("./services/jqueryService");
 var fMarketApi_1 = require("./services/fMarketApi");
 var _ = require('underscore');
-//= {type: "success", dismisable: true, message:""};
+var localizationService_1 = require("./services/localizationService");
 var AppComponent = (function () {
     function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
         this.addItem = true;
@@ -129,7 +129,7 @@ var AppComponent = (function () {
             selector: 'my-app',
             template: "\n        <div class=\"application-wrapper\">\n            <header-component></header-component>\n            <div class=\"page-container\">\n                <div class=\"notification-wrapper\">\n                    <div *ngFor=\"let notification of _notifications\"  class=\"wrapper-inner\">\n                        <div [class.ng-for-item]=\"notification.new\"  class=\"notification-helper\">\n                                <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                                    {{notification.message}}\n                                </alert>\n                        </div>\n                    </div>\n                </div>\n                <router-outlet></router-outlet>\n            </div>\n            <footer-component></footer-component>\n        </div>\n    ",
             styles: ["\n        .application-wrapper{\n            padding-bottom: 98px;\n            position: relative;\n            min-height: 100vh;           \n        }\n        \n        .login-background{\n            background: url('/staticResorces/registration-background.png');\n        }\n        \n        .page-container{\n            margin-top: 50px;\n        }\n        \n        .page-container .notification-wrapper{\n            position: fixed;\n            min-width: 100%;\n            z-index: 10001;\n            top: 8%;           \n        }\n        \n        .page-container .notification-wrapper .wrapper-inner{\n            display:block;\n        }\n        \n        .page-container .notification-helper{\n            position: relative;\n            display: inline-block;\n            left: 50%;\n            transform: translate(-50%, 0);\n        }\n        \n        @keyframes item-animation {\n            0% {\n                padding-left: 100px;\n            }\n            100% {\n                padding-left: 0px;\n            } \n        }\n\n        .ng-for-item {\n            animation: item-animation 0.5s;\n        }\n        \n        @media (max-width: 990px){\n            .application-wrapper{\n                    padding-bottom: 320px !important\n            }\n    }\n    "],
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.AlertComponent, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent],
+            directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.AlertComponent, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent],
             providers: [
                 common_1.FormBuilder,
                 fMarketApi_1.FMarketApi,
@@ -145,11 +145,12 @@ var AppComponent = (function () {
                 requestTypeService_1.RequestTypeService,
                 subscribersService_1.SubscribersService,
                 usersService_1.UserService,
-                companiesService_1.CompaniesService
+                companiesService_1.CompaniesService,
+                localizationService_1.LocalizationService
             ]
         }),
-        router_deprecated_1.RouteConfig(authorizationService_1.AuthorizationService.getApplicationRootRoutes()), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService])
+        router_1.Routes(authorizationService_1.AuthorizationService.getApplicationRootRoutes()), 
+        __metadata('design:paramtypes', [router_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService])
     ], AppComponent);
     return AppComponent;
 }());

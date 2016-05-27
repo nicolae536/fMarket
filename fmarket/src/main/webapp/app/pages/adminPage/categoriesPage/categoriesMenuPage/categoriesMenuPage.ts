@@ -1,6 +1,5 @@
 import {Component, OnInit} from "@angular/core";
 import {Response} from "@angular/http";
-import {CanActivate} from "@angular/router-deprecated";
 
 import {MenuTreeComponent} from "../../../../components/menuComponent/menuTreeComponent";
 import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
@@ -20,8 +19,6 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenu
     styleUrls: [applicationPath + '/categoriesMenuPage.css'],
     directives: [MenuTreeComponent, MenuItemDialog, SelectComponent],
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
-
 export class CategoriesMenuPage implements OnInit {
     menuDictionary:Array<Object> = [];
     private _categoriesMenuService:CategoriesMenuService;
@@ -39,10 +36,6 @@ export class CategoriesMenuPage implements OnInit {
     ngOnInit() {
         this.getMenuDictionary();
         this.getDomains();
-    }
-
-    referenceSelectComponent(select){
-
     }
 
     referenceModal(modal:MenuItemDialog) {

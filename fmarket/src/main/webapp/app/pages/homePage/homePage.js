@@ -12,7 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/12/2016.
  */
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
 var categoriesMenuService_1 = require("../../services/categoriesMenuService");
 var demandService_1 = require("../../services/demandService");
@@ -21,9 +21,10 @@ var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValid
 var subscribersService_1 = require("../../services/subscribersService");
 var notificationService_1 = require("../../services/notificationService");
 var demandComponent_1 = require("../../components/demandComponent/demandComponent");
+var localizationService_1 = require("../../services/localizationService");
 var folderPath = '/app/pages/homePage';
 var HomePage = (function () {
-    function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService) {
+    function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService, _localizationService) {
         this.scrollProperty = 'scrollY';
         this._categoriesMenuService = _categoriesMenuService;
         this._router = router;
@@ -31,6 +32,7 @@ var HomePage = (function () {
         this._subscribersService = subscribersService;
         this._formBuilder = formBuilder;
         this._notificationService = notificationService;
+        this._localizationService = _localizationService;
     }
     HomePage.prototype.ngOnInit = function () {
         this.getCities();
@@ -97,7 +99,7 @@ var HomePage = (function () {
             }
         }).subscribe(function (respose) {
             me._demandDialog.restData();
-            me._router.navigate(['Success', { succesOption: 'create-demand' }]);
+            me._router.navigate(['/success', { succesOption: 'create-demand' }]);
         }, function (error) {
             _this._notificationService.emitNotificationToRootComponent({
                 type: 'danger',
@@ -122,14 +124,9 @@ var HomePage = (function () {
     };
     HomePage.prototype.getCities = function () {
         var me = this;
-        this._demandService.getCityList()
+        this._localizationService.getCityList()
             .subscribe(function (response) {
-            me._cityes = response.map(function (city) {
-                return {
-                    displayName: city['name'],
-                    boundItem: city
-                };
-            });
+            me._cityes = me._localizationService.mapNameToSelect2Item(response);
         }, function (error) {
             console.log(error.message);
             me._cityes = [];
@@ -161,7 +158,7 @@ var HomePage = (function () {
             templateUrl: folderPath + '/homePage.html',
             directives: [demandComponent_1.DemandComponent]
         }), 
-        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_deprecated_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService])
+        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], HomePage);
     return HomePage;
 }());

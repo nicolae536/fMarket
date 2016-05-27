@@ -13,7 +13,6 @@ export class CompanieTypeService {
     }
 
     getCompanyTypesWithFilters(searchQuery:string) {
-        //+ `/?searchQuery=${searchQuery}`
         return this.api.get(this._CompanyDomainController );
     }
 

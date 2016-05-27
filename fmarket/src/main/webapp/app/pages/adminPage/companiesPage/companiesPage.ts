@@ -2,7 +2,7 @@
  * Created by nick_ on 5/6/2016.
  */
 import {Component, OnInit} from "@angular/core";
-import {CanActivate, Router} from "@angular/router-deprecated";
+import {Routes, Router, ROUTER_DIRECTIVES, Route} from "@angular/router";
 import {Role} from "../../../models/Roles";
 import {AuthorizationService} from "../../../services/authorizationService";
 import {CreateCompanieDialog} from "../../../components/companieComponent/createCompanieDialog/createCompanieDialog";
@@ -19,10 +19,8 @@ let applicationPath='/app/pages/adminPage/companiesPage'
     selector: 'compnaies-Page',
     templateUrl: applicationPath + '/companiesPage.html',
     styleUrls: [applicationPath + '/companiesPage.css'],
-    directives:[CreateCompanieDialog, CompanieListComponent]
+    directives:[CompanieListComponent]
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
-
 export class CompaniesPage implements OnInit {
     private _createCompanieDialog:CreateCompanieDialog;
 
@@ -30,7 +28,6 @@ export class CompaniesPage implements OnInit {
     private _companiesService:CompaniesService;
 
     private _companiesList:Array<DomainCompanieDto>;
-    // private _paginationWrapper:PaginationWrapper = new PaginationWrapper();
 
     private searchFilter:string;
     private _router:Router;
@@ -42,7 +39,6 @@ export class CompaniesPage implements OnInit {
     }
     
     ngOnInit(){
-        // this._paginationWrapper.currentPage=1;
         this.getCompaniesWithFilters();
     }
 
@@ -53,7 +49,7 @@ export class CompaniesPage implements OnInit {
     private getCompaniesWithFilters() {
         let me=this;
 
-        this._companiesService.getCompanies(this.searchFilter)
+        this._companiesService.getCompaniesForUsers(this.searchFilter)
             .map(response =>{
                 if(response.text().length>0){
                     return response.json();
@@ -70,8 +66,12 @@ export class CompaniesPage implements OnInit {
             )
     }
 
+    goToNewCompanyPage(){
+        this._router.navigate(['/admin/companie/ceeaza']);
+    }
+
     selectCompanie(id){
-        this._router.navigate(['Admin/CompanieDetails', {id:id}]);
+        this._router.navigate(['/admin/detalii', {id:id}]);
     }
 
     submitSearch(){
@@ -424,7 +424,7 @@ export class CompaniesPage implements OnInit {
     }
 
     splitViewInPiecesUsingScreen(mockArray:Array<DomainCompanieDto>) {
-        let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+        let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0]['clientWidth'];
 
         if(screenWidth <= 767){
             return [mockArray]

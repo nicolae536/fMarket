@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 import {NgForm} from "@angular/common";
-import {CanActivate} from "@angular/router-deprecated";
 import {DROPDOWN_DIRECTIVES, DATEPICKER_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import "rxjs/add/operator/map";
 import {Subscriber} from "../../../models/subscriber";
@@ -8,15 +7,8 @@ import {ActionDialog} from "../../../components/actionDialog/actionDialog";
 import {SubscribersService} from "../../../services/subscribersService";
 import {PageWithNavigation} from "../../../components/pageWithNavigation/pageWithNavigation";
 import {CreateSubscriberDialog} from "../../../components/createSubscriberDialog/createSubscriberDialog";
-import {CITYES} from "../../../services/mock-providers/mock-City";
-import {Role} from "../../../models/Roles";
-import {AuthorizationService} from "../../../services/authorizationService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
-
-//import operators
-//-map
-
-//import mocks
+import {LocalizationService} from "../../../services/localizationService";
 
 var applicationPath:string = '/app/pages/adminPage/subscribersPage';
 
@@ -27,10 +19,6 @@ var applicationPath:string = '/app/pages/adminPage/subscribersPage';
     encapsulation: ViewEncapsulation.None,
     directives: [CreateSubscriberDialog, ActionDialog, NgForm, DATEPICKER_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
-@CanActivate(()=> {
-    return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);
-})
-
 export class SubscribersPage extends PageWithNavigation implements OnInit {
     _subscribersService:SubscribersService;
     actionDialog:ActionDialog;
@@ -60,17 +48,20 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
     createSubscriberDialog:CreateSubscriberDialog;
     subscribersList:Array<Subscriber> = [];
     private deleteMessage = "Are you sure that you want to delete this subscriber ?";
+    private _localizationService:LocalizationService;
 
-    constructor(subscribersService:SubscribersService) {
+    constructor(subscribersService:SubscribersService, localizationService:LocalizationService) {
         super();
+
         this.sortkeyAndFilter["EMAIL"] = true;
         this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
         this.sortkeyAndFilter["UNSUBSCRIBE_DATE"] = true;
+        this._localizationService = localizationService;
         this._subscribersService = subscribersService;
     }
 
     ngOnInit() {
-        this.cityList = CITYES;
+        this.getCities();
         this.matchSortOrderByColumn('');
         this.getSubscribersWithFilters();
     }
@@ -239,5 +230,21 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
         this.unsubscribeDateFilter = new Date(this.unsubscriberFormatedDate);
     }
 
-    
+    private getCities() {
+        let me = this;
+        me._localizationService.getCityList()
+            .map(response=>{
+                if(response.text().length>0){
+                    return response.json();
+                }
+            })
+            .subscribe(
+                succesR=>{
+                    me.cityList=succesR;
+                },
+                error=>{
+                    me.cityList=[];
+                }
+            )
+    }
 }

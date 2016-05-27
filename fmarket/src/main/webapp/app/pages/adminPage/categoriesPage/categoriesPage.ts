@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RouteConfig, Route, ROUTER_DIRECTIVES, CanActivate} from '@angular/router-deprecated';
+import {Routes, Router, ROUTER_DIRECTIVES, Route} from "@angular/router";
 
 import {CompaniesPage} from "./companiesPage/companiesPage";
 import {DomainsPage} from "./domainsPage/domainsPage";
@@ -17,23 +17,18 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage';
     styleUrls: [applicationPath + '/categoriesPage.css'],
     directives: [TabsRoutingComponent, ROUTER_DIRECTIVES]
 })
-@CanActivate(()=>{    return AuthorizationService.hasRole(Role.ADMIN) && AuthorizationService.isLoggedIn();})
-@RouteConfig([
+@Routes([
     new Route({
         path: '/meniu',
         component: CategoriesMenuPage,
-        name: 'CategoriesMenu',
-        useAsDefault:true
     }),
     new Route({
         path: '/firme',
         component: CompaniesPage,
-        name: 'Companies'
     }),
     new Route({
         path: '/domenii',
         component: DomainsPage,
-        name: 'Domains'
     }),
 ])
 
@@ -43,8 +38,8 @@ export class CategoriesPage {
     tabPagesList:Array<TabHeader>;
 
     constructor() {
-        this.tabPagesList = [{name: 'Meniu', link: 'Categories/CategoriesMenu', enableMarker:false, markerContent: ""},
-            {name: 'Companii', link: 'Categories/Companies', enableMarker:false, markerContent: ""},
-            {name: 'Cereri', link: 'Categories/Domains', enableMarker:false, markerContent: ""}];
+        this.tabPagesList = [{name: 'Meniu', link: '/admin/categorii/meniu', enableMarker:false, markerContent: ""},
+            {name: 'Companii', link: '/admin/categorii/firme', enableMarker:false, markerContent: ""},
+            {name: 'Cereri', link: '/admin/categorii/domenii', enableMarker:false, markerContent: ""}];
     }
 } 

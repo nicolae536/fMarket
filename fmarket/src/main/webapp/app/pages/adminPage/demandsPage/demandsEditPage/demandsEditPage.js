@@ -12,24 +12,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var common_1 = require('@angular/common');
 var demandService_1 = require("../../../../services/demandService");
 var requestTypeService_1 = require("../../../../services/requestTypeService");
 var demandEdit_1 = require("../../../../components/demandComponent/demandEdit/demandEdit");
-var Roles_1 = require("../../../../models/Roles");
-var authorizationService_1 = require("../../../../services/authorizationService");
 var notificationService_1 = require("../../../../services/notificationService");
 var applicationPath = '/app/pages/adminPage/demandsPage/demandsEditPage';
 var DemandsEditPage = (function () {
-    function DemandsEditPage(router, _location, params, demandService, requestTypeService, notificationService) {
+    function DemandsEditPage(router, _location, demandService, requestTypeService, notificationService) {
         this._location = _location;
         this._notificationService = notificationService;
         this._router = router;
         this._demandService = demandService;
         this._requestTypeService = requestTypeService;
-        this._demandId = Number(params.get('id'));
     }
+    DemandsEditPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
+        this._demandId = Number(curr.getParam('id'));
+    };
     DemandsEditPage.prototype.ngOnInit = function () {
         this.getDemand();
     };
@@ -58,7 +58,7 @@ var DemandsEditPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._router.navigate(['/Admin/Demands/DemandsList']);
+            me._location.back();
             me._notificationService.emitSuccessNotificationToRootComponent('Cerere activata cu success', 3);
         }, function (error) {
             me._notificationService.emitErrorNotificationToRootComponent('Cerere nu a putut fi activata !', 3);
@@ -73,7 +73,7 @@ var DemandsEditPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._router.navigate(['/Admin/Demands/DemandsList']);
+            me._location.back();
         }, function (error) {
             me._notificationService.emitErrorNotificationToRootComponent('Erroare de server cererea nu poate fi refuzata !', 3);
         });
@@ -87,7 +87,7 @@ var DemandsEditPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._router.navigate(['/Admin/Demands/DemandsList']);
+            me._location.back();
         }, function (error) {
             me._notificationService.emitErrorNotificationToRootComponent('Cerere nu poate fi salvata !', 3);
         });
@@ -98,9 +98,8 @@ var DemandsEditPage = (function () {
             templateUrl: applicationPath + '/demandsEditPage.html',
             styleUrls: [applicationPath + '/demandsEditPage.css'],
             directives: [demandEdit_1.DemandEditComponent]
-        }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, common_1.Location, router_deprecated_1.RouteParams, demandService_1.DemandService, requestTypeService_1.RequestTypeService, notificationService_1.NotificationService])
+        }), 
+        __metadata('design:paramtypes', [router_1.Router, common_1.Location, demandService_1.DemandService, requestTypeService_1.RequestTypeService, notificationService_1.NotificationService])
     ], DemandsEditPage);
     return DemandsEditPage;
 }());

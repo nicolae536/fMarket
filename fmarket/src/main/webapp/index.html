@@ -22,8 +22,6 @@
 </head>
 
 <body class="app-layout">
-<!--hidden div to dowload the backgroun-->
-    <div style="background: url('/staticResorces/registration-background.png'); width:0px; height:0px;"></div>
     <div id="loadingSpinnerComponent" class="spinner-absolute-center">
         <div class="sk-circle">
             <div class="sk-circle1 sk-child"></div>
@@ -43,31 +41,14 @@
     <my-app class="app-layout">
 
     </my-app>
-    <!-- 1. Load libraries -->
-    <!-- Polyfill(s) for older browsers -->
-    <!--<script src="node_modules/es6-shim/es6-shim.min.js"></script>-->
-    <!--<script src="node_modules/zone.js/dist/zone.js"></script>-->
-    <!--<script src="node_modules/reflect-metadata/Reflect.js"></script>-->
-    <!--<script src="node_modules/systemjs/dist/system.src.js"></script>-->
-
-    <!--<script src="/node_modules/underscore/underscore.js"></script>-->
 
     <script src="/node_modules/jQueryLibs/jquery.js"></script>
     <script src="/node_modules/jQueryLibs/animatescroll.min.js"></script>
-    <!--&lt;!&ndash; bootstrap &ndash;&gt;-->
 
-    <!--<script src="/node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>-->
-
-    <!--&lt;!&ndash; 2. Configure SystemJS &ndash;&gt;-->
-    <!--<script src="systemjs.config.js"></script>-->
-    <!--<script>-->
-        <!--System.import('app').catch(function (err) {-->
-            <!--console.error(err);-->
-        <!--});-->
-    <!--</script>-->
-
-
+    <!--dev-->
     <script src="/dist/fmarket.bundle.dev.js"></script>
+
+    <!--prod-->
     <!--<script src="/dist/fmarket.release.js"></script>-->
 </body>
 </html>

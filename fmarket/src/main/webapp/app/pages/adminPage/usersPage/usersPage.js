@@ -24,18 +24,17 @@ var actionDialog_1 = require('../../../components/actionDialog/actionDialog');
 var usersService_1 = require('../../../services/usersService');
 var user_1 = require('../../../models/user');
 //import mocks
-var mock_City_1 = require('../../../services/mock-providers/mock-City');
 var mock_Status_1 = require('../../../services/mock-providers/mock-Status');
 var Roles_1 = require("../../../models/Roles");
 var authorizationService_1 = require("../../../services/authorizationService");
 var notificationService_1 = require("../../../services/notificationService");
+var localizationService_1 = require("../../../services/localizationService");
 var applicationPath = '/app/pages/adminPage/usersPage';
 var UsersPage = (function (_super) {
     __extends(UsersPage, _super);
-    function UsersPage(_userService, notificationService) {
+    function UsersPage(_userService, notificationService, localizationService) {
         _super.call(this);
         this._userService = _userService;
-        this.cityList = mock_City_1.CITYES;
         this.statusList = mock_Status_1.STATUS;
         this.usersPerPage = 10;
         this.emailFilter = "";
@@ -43,6 +42,7 @@ var UsersPage = (function (_super) {
         this.cityId = -1;
         this.selectedStatusFilter = null;
         this._notificationService = notificationService;
+        this.getCities();
     }
     UsersPage.prototype.ngOnInit = function () {
         var me = this;
@@ -118,6 +118,20 @@ var UsersPage = (function (_super) {
             }
         });
     };
+    UsersPage.prototype.getCities = function () {
+        var me = this;
+        me._localizationService.getCityList()
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        })
+            .subscribe(function (succesR) {
+            me.cityList = succesR;
+        }, function (error) {
+            me.cityList = [];
+        });
+    };
     //grid
     UsersPage.prototype.createAccount = function () {
         this.userDialog.show("", new user_1.User());
@@ -144,7 +158,7 @@ var UsersPage = (function (_super) {
             directives: [actionDialog_1.ActionDialog, createUserDialog_1.CreateUserDialog, common_1.NgForm]
         }),
         router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService])
+        __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], UsersPage);
     return UsersPage;
 }(pageWithNavigation_1.PageWithNavigation));

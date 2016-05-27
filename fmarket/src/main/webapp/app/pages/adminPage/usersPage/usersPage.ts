@@ -13,12 +13,12 @@ import {UserService} from '../../../services/usersService';
 import {User} from '../../../models/user';
 
 //import mocks
-import {CITYES} from '../../../services/mock-providers/mock-City';
 import {STATUS} from '../../../services/mock-providers/mock-Status';
 import {AccountStatus} from "../../../models/accountStatus";
 import {Role} from "../../../models/Roles";
 import {AuthorizationService} from "../../../services/authorizationService";
 import {NotificationService} from "../../../services/notificationService";
+import {LocalizationService} from "../../../services/localizationService";
 
 var applicationPath:string = '/app/pages/adminPage/usersPage';
 
@@ -36,7 +36,7 @@ export class UsersPage extends PageWithNavigation implements OnInit {
     actionDialog:ActionDialog;
     userBackup:User;
 
-    cityList:Array<Object> = CITYES;
+    cityList:Array<Object>;
     statusList:Array<Object> = STATUS;
 
     usersPerPage:number = 10;
@@ -46,11 +46,13 @@ export class UsersPage extends PageWithNavigation implements OnInit {
     cityId = -1;
     selectedStatusFilter:AccountStatus = null;
     private _notificationService:NotificationService;
+    _localizationService:LocalizationService;
 
 
-    constructor(private _userService:UserService, notificationService:NotificationService) {
+    constructor(private _userService:UserService, notificationService:NotificationService, localizationService:LocalizationService) {
         super();
         this._notificationService = notificationService;
+        this.getCities();
     }
 
     ngOnInit() {
@@ -142,6 +144,23 @@ export class UsersPage extends PageWithNavigation implements OnInit {
                 });
     }
 
+    private getCities() {
+        let me = this;
+        me._localizationService.getCityList()
+            .map(response=>{
+                if(response.text().length>0){
+                    return response.json();
+                }
+            })
+            .subscribe(
+                succesR=>{
+                    me.cityList=succesR;
+                },
+                error=>{
+                    me.cityList=[];
+                }
+            )
+    }
     //grid
     createAccount() {
         this.userDialog.show("", new User());

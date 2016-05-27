@@ -12,40 +12,40 @@
                         </div>
                     </div>
                     <ul class="nav nav-pills nav-stacked">
-                        <li [ngClass]="router.isRouteActive(router.generate(['Admin/Users'])) ? 'active':''">
-                            <a [routerLink]="['Admin/Users']" class="clearfix">
+                        <li [class.active]="checkRoute('/admin/users')">
+                            <a [routerLink]="['/admin/users']" class="clearfix">
                                 <div class="pull-left">
                                     <span class="glyphicon glyphicon-user"></span>
                                 </div>
                                 Useri
                             </a>
                         </li>
-                        <li [ngClass]="router.isRouteActive(router.generate(['Admin/Subscribers'])) ? 'active':''">
-                            <a [routerLink]="['Admin/Subscribers']">
+                        <li [class.active]="checkRoute('/admin/subscribers')">
+                            <a [routerLink]="['/admin/subscribers']">
                                 <div class="pull-left">
                                     <span class="glyphicon glyphicon-globe"></span>
                                 </div>
                                 Subscriberi
                             </a>
                         </li>
-                        <li [ngClass]="router.isRouteActive(router.generate(['Admin/Categories/CategoriesMenu'])) ? 'active':''">
-                            <a [routerLink]="['Admin/Categories/CategoriesMenu']">
+                        <li [class.active]="checkRoute('/categorii/meniu')">
+                            <a [routerLink]="['/admin/categorii/meniu']">
                                 <div class="pull-left">
                                     <span class="glyphicon glyphicon-tasks"></span>
                                 </div>
                                 Categorii
                             </a>
                         </li>
-                        <li [ngClass]="router.isRouteActive(router.generate(['Admin/Demands'])) ? 'active':''">
-                            <a [routerLink]="['Admin/Demands']">
+                        <li [class.active]="checkRoute('/admin/cereri/newDemands')">
+                            <a [routerLink]="['/admin/cereri/newDemands']">
                                 <div class="pull-left">
                                     <span class="glyphicon glyphicon-list-alt"></span>
                                 </div>
                                 Anunturi
                             </a>
                         </li>
-                        <li [ngClass]="router.isRouteActive(router.generate(['Admin/Companies'])) ? 'active':''">
-                            <a [routerLink]="['Admin/Companies']">
+                        <li [class.active]="checkRoute('/admin/companie/lista')">
+                            <a [routerLink]="['/admin/companie/lista']">
                                 <div class="pull-left">
                                     <span class="glyphicon glyphicon-transfer"></span>
                                 </div>

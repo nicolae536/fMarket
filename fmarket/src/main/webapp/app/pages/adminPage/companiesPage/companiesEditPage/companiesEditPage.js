@@ -2,6 +2,11 @@
  * Created by nick_ on 5/6/2016.
  */
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -12,25 +17,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
+var common_1 = require("@angular/common");
 var companiesService_1 = require("../../../../services/companiesService");
 var notificationService_1 = require("../../../../services/notificationService");
 var companiesEditComponent_1 = require("../../../../components/companieComponent/companieEditComponent/companiesEditComponent");
-var authorizationService_1 = require("../../../../services/authorizationService");
-var Roles_1 = require("../../../../models/Roles");
-var CompaniesEditPage = (function () {
-    function CompaniesEditPage(router, companiesService, routeParametres, notificationService) {
-        this._router = router;
-        this._companiesService = companiesService;
-        this._routeParametres = routeParametres;
-        this._notificationService = notificationService;
+var companiesEditBase_1 = require("./companiesEditBase");
+var localizationService_1 = require("../../../../services/localizationService");
+var CompaniesEditPage = (function (_super) {
+    __extends(CompaniesEditPage, _super);
+    function CompaniesEditPage(location, router, companiesService, notificationService, localizationService) {
+        _super.call(this, location, router, companiesService, notificationService, localizationService);
     }
-    CompaniesEditPage.prototype.referenceComponent = function (companieEditComponent) {
-        this._companieEditComponent = companieEditComponent;
+    CompaniesEditPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
+        this.companieId = curr.getParam('id');
     };
     CompaniesEditPage.prototype.ngOnInit = function () {
         var me = this;
-        this._companiesService.getCompanieDetails(parseInt(this._routeParametres.get('id')))
+        this._companiesService.getCompanyDetails(parseInt(this.companieId))
             .map(function (response) {
             if (response.text().length > 0) {
                 return response.json();
@@ -39,23 +43,32 @@ var CompaniesEditPage = (function () {
             .subscribe(function (response) {
             me._companie = response;
         }, function (error) {
-            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Erroare la incarcarea companiei!', timeout: 5 });
-            me._router.navigate(['Admin/Companies']);
+            me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!', 5);
+            me._router.navigate(['/admin/companie/lista']);
         });
     };
     CompaniesEditPage.prototype.saveCompanie = function (companieDto) {
-        //this._companiesService.
+        var me = this;
+        this._companiesService.editCompany(companieDto)
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        })
+            .subscribe(function (success) {
+            me._location.back();
+        }, function (error) {
+        });
     };
     CompaniesEditPage = __decorate([
         core_1.Component({
             selector: 'companies-edit-page',
             templateUrl: '/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
             directives: [companiesEditComponent_1.CompaniesEditComponent]
-        }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, companiesService_1.CompaniesService, router_deprecated_1.RouteParams, notificationService_1.NotificationService])
+        }), 
+        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], CompaniesEditPage);
     return CompaniesEditPage;
-}());
+}(companiesEditBase_1.CompaniesEditBase));
 exports.CompaniesEditPage = CompaniesEditPage;
 //# sourceMappingURL=companiesEditPage.js.map

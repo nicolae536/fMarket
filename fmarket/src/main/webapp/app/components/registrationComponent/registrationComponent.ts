@@ -3,7 +3,7 @@
  */
 import {Component, OnInit, EventEmitter, Input, Output, OnChanges} from "@angular/core";
 import {FORM_DIRECTIVES, FormBuilder, ControlGroup, Validators} from "@angular/common";
-import {ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 import {RegisterAccount} from "../../models/registerAccount";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 

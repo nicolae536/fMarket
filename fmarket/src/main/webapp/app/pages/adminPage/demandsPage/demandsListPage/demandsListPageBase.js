@@ -3,7 +3,7 @@ var _ = require('underscore');
 var DemandStatus_1 = require("../../../../models/DemandStatus");
 var DemandSearchObject_1 = require("../../../../models/DemandSearchObject");
 var DemandsListPageBase = (function () {
-    function DemandsListPageBase(router, _categoriesMenuService, _demandService, _requestTypeService) {
+    function DemandsListPageBase(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService) {
         this.statusList = [{ status: DemandStatus_1.DemandStatus.ACTIVE, displayName: DemandStatus_1.DemandStatus.ACTIVE },
             { status: DemandStatus_1.DemandStatus.CLOSED, displayName: DemandStatus_1.DemandStatus.CLOSED },
             { status: DemandStatus_1.DemandStatus.IN_REVIEW, displayName: DemandStatus_1.DemandStatus.IN_REVIEW },
@@ -17,6 +17,7 @@ var DemandsListPageBase = (function () {
         this._searchObject = new DemandSearchObject_1.DemandSearchObject('', 1, DemandStatus_1.DemandStatus.PENDING, -1);
         this._searchObject.domainName = "Alege domeniu...";
         this._router = router;
+        this._localizationService = _localizationService;
     }
     DemandsListPageBase.prototype.showDomainsDialog = function () {
         this._menuTreeDialog.showMenuTreeDialog();
@@ -71,14 +72,14 @@ var DemandsListPageBase = (function () {
     };
     DemandsListPageBase.prototype.getCities = function () {
         var me = this;
-        this._demandService.getCityList()
+        this._localizationService.getCityList()
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        })
             .subscribe(function (response) {
-            me._citiesList = _.map(response, function (city) {
-                return {
-                    displayName: city['name'],
-                    boundItem: city
-                };
-            });
+            me._citiesList = me._localizationService.mapNameToSelect2Item(response);
         }, function (error) {
         });
     };

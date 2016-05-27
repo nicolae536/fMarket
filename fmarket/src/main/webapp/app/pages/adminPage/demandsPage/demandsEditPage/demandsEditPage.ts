@@ -3,7 +3,7 @@
  */
 
 import {Component, OnInit} from "@angular/core";
-import {RouteParams, Router, CanActivate} from "@angular/router-deprecated";
+import {Router, OnActivate, RouteSegment, RouteTree} from "@angular/router";
 import {Location} from '@angular/common'
 
 import {DemandService} from "../../../../services/demandService";
@@ -22,18 +22,17 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
     styleUrls: [applicationPath + '/demandsEditPage.css'],
     directives: [DemandEditComponent]
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
-export class DemandsEditPage implements OnInit {
+// @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
+export class DemandsEditPage implements OnInit, OnActivate {
     private _router:Router;
     private _demandService:DemandService;
     private _notificationService:NotificationService;
     private _requestTypeService:RequestTypeService;
     private _location:Location;
-
     private _demandId:number;
-    _demand;
 
-    constructor(router:Router, _location: Location, params:RouteParams, demandService:DemandService, requestTypeService:RequestTypeService,
+    _demand;
+    constructor(router:Router, _location: Location, demandService:DemandService, requestTypeService:RequestTypeService,
                 notificationService:NotificationService)
     {
         this._location = _location;
@@ -41,9 +40,12 @@ export class DemandsEditPage implements OnInit {
         this._router = router;
         this._demandService = demandService;
         this._requestTypeService = requestTypeService;
-        this._demandId = Number(params.get('id'))
     }
-    
+
+    routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
+        this._demandId = Number(curr.getParam('id'))
+    }
+
     ngOnInit():any {
         this.getDemand();
     }
@@ -81,7 +83,7 @@ export class DemandsEditPage implements OnInit {
             })
             .subscribe(
                 response =>{
-                    me._router.navigate(['/Admin/Demands/DemandsList']);
+                    me._location.back();
                     me._notificationService.emitSuccessNotificationToRootComponent('Cerere activata cu success',3);
                 },
                 error =>{
@@ -101,7 +103,7 @@ export class DemandsEditPage implements OnInit {
             })
             .subscribe(
                 response =>{
-                    me._router.navigate(['/Admin/Demands/DemandsList']);
+                    me._location.back();
                 },
                 error =>{
                     me._notificationService.emitErrorNotificationToRootComponent('Erroare de server cererea nu poate fi refuzata !',3);
@@ -120,7 +122,7 @@ export class DemandsEditPage implements OnInit {
             })
             .subscribe(
                 response =>{
-                    me._router.navigate(['/Admin/Demands/DemandsList']);
+                    me._location.back();
                 },
                 error =>{
                     me._notificationService.emitErrorNotificationToRootComponent('Cerere nu poate fi salvata !',3);

@@ -2,7 +2,7 @@
  * Created by nick_ on 4/12/2016.
  */
 import {Component, OnInit} from "@angular/core";
-import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 
 import {IPageReference} from "../../models/interfaces/iPageReference";
@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit():any {
         this._usersApplicationPages = [
-            {link: 'Home', name: 'Home'},
+            {link: '/', name: 'Home'},
         ];
 
         this.setUserRoutes();
@@ -64,13 +64,13 @@ export class HeaderComponent implements OnInit {
         }
 
         this._adminApplicationPages = [
-            {link: 'Admin/Users', name: 'Useri'},
-            {link: 'Admin/Subscribers', name: 'Subscriberi'},
-            {link: 'Admin/Categories/CategoriesMenu', name: 'Meniu categorii'},
-            {link: 'Admin/Categories/Companies', name: 'Compani'},
-            {link: 'Admin/Categories/Domains', name: 'Domenii'},
-            {link: 'Admin/Demands/NewDemandsList', name: 'Cereri noi'},
-            {link: 'Admin/Demands/DemandsList', name: 'Cereri'}
+            {link: '/admin/users', name: 'Useri'},
+            {link: '/admin/subscribers', name: 'Subscriberi'},
+            {link: '/admin/categorii/meniu', name: 'Meniu categorii'},
+            {link: '/admin/categorii/firme', name: 'Compani'},
+            {link: '/admin/categorii/domenii', name: 'Domenii'},
+            {link: '/admin/cereri/newDemands', name: 'Cereri noi'},
+            {link: '/admin/cereri/lista', name: 'Cereri'}
         ];
     }
 
@@ -83,9 +83,13 @@ export class HeaderComponent implements OnInit {
 
         this._myAccountLabel = userState.email;
         this._myAccountDropdownPages = [
-            {link: 'Account/Demands', name: 'Anunturile mele'},
-            {link: 'Account/Details', name: 'Setari'},
+            {link: '/account/demands', name: 'Anunturile mele'},
+            {link: '/account/details', name: 'Setari'},
         ]
+    }
+
+    chechIdNormalUser(){
+        return AuthorizationService.isLoggedIn() && !AuthorizationService.hasRole(Role.ADMIN);
     }
 
     isLoggedIn() {

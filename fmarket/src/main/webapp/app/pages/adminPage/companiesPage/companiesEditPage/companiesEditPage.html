@@ -1,7 +1,11 @@
 <div class="companies-edit-page clearfix">
     <companies-edit-componet
-        [companie]="_companie"
+        [companie-model]="_companie"
+        [company-domains]="_companyDomains"
+        [cities]="_cities"
+        [domains]="_domains"
         (save-edited-companie)="saveCompanie($event)"
+        (navigate-back)="goToPreviousLocation()"
         (reference-companie-edit-component)="referenceComponent($event)"
     ></companies-edit-componet>
 </div>

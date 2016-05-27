@@ -12,12 +12,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/21/2016.
  */
 var core_1 = require('@angular/core');
-var router_deprecated_1 = require('@angular/router-deprecated');
+var router_1 = require('@angular/router');
 var applicationPath = '/app/components/tabsComponent';
 var TabsRoutingComponent = (function () {
     function TabsRoutingComponent(router) {
         this.router = router;
     }
+    TabsRoutingComponent.prototype.checkRoute = function (link) {
+        return JSON.stringify(this.router.createUrlTree([link])) == JSON.stringify(this.router.urlTree) ? 'active' : '';
+    };
     __decorate([
         core_1.Input('tabs-pages-list'), 
         __metadata('design:type', Array)
@@ -27,9 +30,9 @@ var TabsRoutingComponent = (function () {
             selector: 'tabs-component',
             templateUrl: applicationPath + '/tabsComponent.html',
             styleUrls: [applicationPath + '/tabsComponent.css'],
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES]
+            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router])
+        __metadata('design:paramtypes', [router_1.Router])
     ], TabsRoutingComponent);
     return TabsRoutingComponent;
 }());

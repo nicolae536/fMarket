@@ -2,7 +2,9 @@
  * Created by nick_ on 5/6/2016.
  */
 import {Component} from "@angular/core";
-import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {Router, ROUTER_DIRECTIVES, OnActivate, RouteSegment, RouteTree} from "@angular/router";
+
+// import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {RegistrationService} from "../../../services/registrationService";
 import {NotificationService} from "../../../services/notificationService";
 import {LocalStorageService} from "../../../services/localStorageService";
@@ -15,20 +17,23 @@ import {Role} from "../../../models/Roles";
     directives:[ROUTER_DIRECTIVES]
 })
 
-export class TokenConfirmPage {
+export class TokenConfirmPage implements OnActivate{
     private _registrationService:RegistrationService;
     private _router:Router;
     private _notificationService:NotificationService;
     private _localeStorageService:LocalStorageService;
-
     private showTokenError:boolean = false;
 
-    constructor(router:Router, params:RouteParams, registrationService:RegistrationService, notificationService:NotificationService, localeStorageService:LocalStorageService) {
+    constructor(router:Router, registrationService:RegistrationService, notificationService:NotificationService, localeStorageService:LocalStorageService) {
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
         this._localeStorageService = localeStorageService;
-        this.validateToken(params.get('token'));
+
+    }
+
+    routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
+        this.validateToken(curr.getParam('token'));
     }
 
     private validateToken(token:string) {
@@ -58,7 +63,7 @@ export class TokenConfirmPage {
                         message: 'Cont activat cu succes.',
                         timeout:5
                     });
-                    me._router.navigate(['Home']);
+                    me._router.navigate(['/']);
                 },
                 error=> {
                    me.showTokenError = true;

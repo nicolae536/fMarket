@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 /**
  * Created by nick_ on 4/24/2016.
- */
+*/
 var core_1 = require('@angular/core');
 var fMarketApi_1 = require("./fMarketApi");
 var AccountService = (function () {

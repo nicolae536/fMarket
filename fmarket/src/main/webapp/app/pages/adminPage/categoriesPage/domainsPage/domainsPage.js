@@ -9,12 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_deprecated_1 = require("@angular/router-deprecated");
 var common_1 = require("@angular/common");
 var requestType_1 = require('../../../../models/requestType');
 var requestTypeService_1 = require('../../../../services/requestTypeService');
-var authorizationService_1 = require("../../../../services/authorizationService");
-var Roles_1 = require("../../../../models/Roles");
 var applicationPath = '/app/pages/adminPage/categoriesPage/domainsPage';
 var DomainsPage = (function () {
     function DomainsPage(requestTypeService, formBuilder) {
@@ -121,8 +118,7 @@ var DomainsPage = (function () {
             templateUrl: applicationPath + '/domainsPage.html',
             styleUrls: [applicationPath + '/domainsPage.css'],
             directives: [common_1.FORM_DIRECTIVES]
-        }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
+        }), 
         __metadata('design:paramtypes', [requestTypeService_1.RequestTypeService, common_1.FormBuilder])
     ], DomainsPage);
     return DomainsPage;

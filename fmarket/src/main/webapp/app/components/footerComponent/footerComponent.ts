@@ -3,7 +3,7 @@
  */
 
 import {Component} from "@angular/core";
-import {ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 
 let directoryPath = '/app/components/footerComponent';
 @Component({

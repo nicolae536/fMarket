@@ -17,20 +17,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/22/2016.
  */
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var demandListBase_1 = require("../../../../components/demandComponent/demandListBase/demandListBase");
 var demandService_1 = require("../../../../services/demandService");
 var requestTypeService_1 = require("../../../../services/requestTypeService");
 var demandsListPageBase_1 = require("./demandsListPageBase");
-var Roles_1 = require("../../../../models/Roles");
-var authorizationService_1 = require("../../../../services/authorizationService");
 var menuTreeDialog_1 = require("../../../../components/menuComponent/menuTreeDialog/menuTreeDialog");
 var categoriesMenuService_1 = require("../../../../services/categoriesMenuService");
+var localizationService_1 = require("../../../../services/localizationService");
 var applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
 var AllDemandsListPage = (function (_super) {
     __extends(AllDemandsListPage, _super);
-    function AllDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService) {
-        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService);
+    function AllDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService) {
+        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService);
         this.pageName = 'demands';
     }
     AllDemandsListPage.prototype.ngOnInit = function () {
@@ -49,9 +48,8 @@ var AllDemandsListPage = (function (_super) {
             templateUrl: applicationPath + '/demandsListPageBase.html',
             styleUrls: [applicationPath + '/demandsListPageBase.css'],
             directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
-        }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+        }), 
+        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
     ], AllDemandsListPage);
     return AllDemandsListPage;
 }(demandsListPageBase_1.DemandsListPageBase));

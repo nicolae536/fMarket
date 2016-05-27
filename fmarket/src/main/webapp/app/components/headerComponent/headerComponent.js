@@ -12,7 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/12/2016.
  */
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var authorizationService_1 = require("../../services/authorizationService");
 var Roles_1 = require("../../models/Roles");
@@ -35,7 +35,7 @@ var HeaderComponent = (function () {
     }
     HeaderComponent.prototype.ngOnInit = function () {
         this._usersApplicationPages = [
-            { link: 'Home', name: 'Home' },
+            { link: '/', name: 'Home' },
         ];
         this.setUserRoutes();
         this.setAdminRoutes();
@@ -49,13 +49,13 @@ var HeaderComponent = (function () {
             return;
         }
         this._adminApplicationPages = [
-            { link: 'Admin/Users', name: 'Useri' },
-            { link: 'Admin/Subscribers', name: 'Subscriberi' },
-            { link: 'Admin/Categories/CategoriesMenu', name: 'Meniu categorii' },
-            { link: 'Admin/Categories/Companies', name: 'Compani' },
-            { link: 'Admin/Categories/Domains', name: 'Domenii' },
-            { link: 'Admin/Demands/NewDemandsList', name: 'Cereri noi' },
-            { link: 'Admin/Demands/DemandsList', name: 'Cereri' }
+            { link: '/admin/users', name: 'Useri' },
+            { link: '/admin/subscribers', name: 'Subscriberi' },
+            { link: '/admin/categorii/meniu', name: 'Meniu categorii' },
+            { link: '/admin/categorii/firme', name: 'Compani' },
+            { link: '/admin/categorii/domenii', name: 'Domenii' },
+            { link: '/admin/cereri/newDemands', name: 'Cereri noi' },
+            { link: '/admin/cereri/lista', name: 'Cereri' }
         ];
     };
     HeaderComponent.prototype.setUserRoutes = function () {
@@ -65,9 +65,12 @@ var HeaderComponent = (function () {
         }
         this._myAccountLabel = userState.email;
         this._myAccountDropdownPages = [
-            { link: 'Account/Demands', name: 'Anunturile mele' },
-            { link: 'Account/Details', name: 'Setari' },
+            { link: '/account/demands', name: 'Anunturile mele' },
+            { link: '/account/details', name: 'Setari' },
         ];
+    };
+    HeaderComponent.prototype.chechIdNormalUser = function () {
+        return authorizationService_1.AuthorizationService.isLoggedIn() && !authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
     };
     HeaderComponent.prototype.isLoggedIn = function () {
         return authorizationService_1.AuthorizationService.isLoggedIn();
@@ -94,9 +97,9 @@ var HeaderComponent = (function () {
         core_1.Component({
             selector: 'header-component',
             templateUrl: directoryPath + '/headerComponent.html',
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
+            directives: [router_1.ROUTER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, localStorageService_1.LocalStorageService, registrationService_1.RegistrationService, notificationService_1.NotificationService])
+        __metadata('design:paramtypes', [router_1.Router, localStorageService_1.LocalStorageService, registrationService_1.RegistrationService, notificationService_1.NotificationService])
     ], HeaderComponent);
     return HeaderComponent;
 }());

@@ -16,7 +16,6 @@ var CompanieTypeService = (function () {
         this.api = api;
     }
     CompanieTypeService.prototype.getCompanyTypesWithFilters = function (searchQuery) {
-        //+ `/?searchQuery=${searchQuery}`
         return this.api.get(this._CompanyDomainController);
     };
     CompanieTypeService.prototype.deleteCompanyType = function (companyId) {

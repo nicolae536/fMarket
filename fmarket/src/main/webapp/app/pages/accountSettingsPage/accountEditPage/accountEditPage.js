@@ -12,20 +12,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/26/2016.
  */
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
 var accountDto_1 = require("../../../models/accountDto");
 var accountService_1 = require("../../../services/accountService");
 var demandService_1 = require("../../../services/demandService");
-var authorizationService_1 = require("../../../services/authorizationService");
-var _ = require('underscore');
+var localizationService_1 = require("../../../services/localizationService");
 var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
 var AccountEditPage = (function () {
-    function AccountEditPage(accountService, demandService) {
+    function AccountEditPage(accountService, demandService, localizationService) {
         this._submitLabel = 'Salveaza contul';
         this._cityesList = new Array();
         this._accountService = accountService;
         this._demandService = demandService;
         this._account = new accountDto_1.AccountDto();
+        this._localizationService = localizationService;
     }
     AccountEditPage.prototype.ngOnInit = function () {
         this.getCityList();
@@ -48,14 +47,14 @@ var AccountEditPage = (function () {
     };
     AccountEditPage.prototype.getCityList = function () {
         var me = this;
-        this._demandService.getCityList()
+        this._localizationService.getCityList()
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        })
             .subscribe(function (response) {
-            me._cityesList = _.map(response, function (city) {
-                return {
-                    displayName: city['name'],
-                    boundItem: city
-                };
-            });
+            me._cityesList = me._localizationService.mapNameToSelect2Item(response);
         }, function (error) {
         });
     };
@@ -63,9 +62,8 @@ var AccountEditPage = (function () {
         core_1.Component({
             selector: 'account-edit-Page',
             templateUrl: applicationPath + '/accountEditPage.html'
-        }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn(); }), 
-        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService])
+        }), 
+        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService])
     ], AccountEditPage);
     return AccountEditPage;
 }());

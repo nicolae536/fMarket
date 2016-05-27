@@ -3,7 +3,7 @@
  */
 
 import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked} from "@angular/core";
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 
 import {RegistrationComponent} from "../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../services/registrationService";
@@ -37,7 +37,9 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     private _registrationComponent:RegistrationComponent;
     private _notificationService:NotificationService;
     private _loginPage;
+
     constructor(router:Router,registrationService:RegistrationService, notificationService:NotificationService) {
+        debugger;
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
@@ -59,7 +61,6 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     ngAfterViewChecked():any {
         JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
         this._notificationService.removeLoading();
-
     }
 
     referenceComponent($event){
@@ -77,7 +78,7 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
             })
             .subscribe(
                 response => {
-                    me._router.navigate(['Success', {succesOption:'success-registration'}]);
+                    me._router.navigate(['/success', {succesOption:'success-registration'}]);
                 },
                 error => {
                     me._registrationComponent.markAllFieldsAsErrors({email:true, password:true});
