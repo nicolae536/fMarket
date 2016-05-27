@@ -3,8 +3,8 @@
  */
 
 import {OnInit, Component} from "@angular/core";
-import {RouteParams, Router, CanActivate} from "@angular/router-deprecated";
-
+import {RouteParams, Router, CanActivate} from "@angular/router";
+import {Location} from "@angular/common";
 import {CompaniesService} from "../../../../services/companiesService";
 import {NotificationService} from "../../../../services/notificationService";
 import {CompaniesEditComponent} from "../../../../components/companieComponent/companieEditComponent/companiesEditComponent";
@@ -23,8 +23,8 @@ import {NewCompanyRequest} from "../../../../models/newCompanyRequest";
 
 export class CreateCompaniesPage extends CompaniesEditBase implements OnInit {
 
-    constructor(router:Router,companiesService:CompaniesService, routeParametres:RouteParams, notificationService:NotificationService) {
-        super(router, companiesService, routeParametres, notificationService);
+    constructor(location:Location,router:Router,companiesService:CompaniesService, notificationService:NotificationService) {
+        super(location, router, companiesService, notificationService);
     }
 
     ngOnInit() {

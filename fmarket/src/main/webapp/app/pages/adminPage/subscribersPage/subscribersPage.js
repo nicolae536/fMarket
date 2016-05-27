@@ -15,7 +15,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var router_deprecated_1 = require("@angular/router-deprecated");
+// import {CanActivate} from "@angular/router-deprecated";
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 require("rxjs/add/operator/map");
 var subscriber_1 = require("../../../models/subscriber");
@@ -24,8 +24,6 @@ var subscribersService_1 = require("../../../services/subscribersService");
 var pageWithNavigation_1 = require("../../../components/pageWithNavigation/pageWithNavigation");
 var createSubscriberDialog_1 = require("../../../components/createSubscriberDialog/createSubscriberDialog");
 var mock_City_1 = require("../../../services/mock-providers/mock-City");
-var Roles_1 = require("../../../models/Roles");
-var authorizationService_1 = require("../../../services/authorizationService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
 //import operators
 //-map
@@ -195,9 +193,6 @@ var SubscribersPage = (function (_super) {
             styleUrls: [applicationPath + '/subscribersPage.css'],
             encapsulation: core_1.ViewEncapsulation.None,
             directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
-        }),
-        router_deprecated_1.CanActivate(function () {
-            return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
         }), 
         __metadata('design:paramtypes', [subscribersService_1.SubscribersService])
     ], SubscribersPage);

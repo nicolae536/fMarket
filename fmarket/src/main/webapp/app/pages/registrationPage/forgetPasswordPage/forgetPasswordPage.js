@@ -12,7 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var registrationComponent_1 = require("../../../components/registrationComponent/registrationComponent");
 var registrationService_1 = require("../../../services/registrationService");
 var notificationService_1 = require("../../../services/notificationService");
@@ -52,7 +52,7 @@ var ForgetPasswordPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._router.navigate(['Success', { succesOption: 'success-rest-password' }]);
+            me._router.navigate(['/success', { succesOption: 'success-rest-password' }]);
         }, function (error) {
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Resetare parola invalida!', timeout: 5 });
             me._registrationComponent.markAllFieldsAsErrors({ email: true, password: true });
@@ -69,7 +69,7 @@ var ForgetPasswordPage = (function () {
             styles: ["\n    .forget-password-page{\n        padding-top: 14vh;\n    }\n    "],
             directives: [registrationComponent_1.RegistrationComponent]
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
+        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
     ], ForgetPasswordPage);
     return ForgetPasswordPage;
 }());

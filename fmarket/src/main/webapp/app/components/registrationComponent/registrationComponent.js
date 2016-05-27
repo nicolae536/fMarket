@@ -13,7 +13,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var registerAccount_1 = require("../../models/registerAccount");
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
 var APPLICATION_PATH = '/app/components/registrationComponent';
@@ -139,7 +139,7 @@ var RegistrationComponent = (function () {
         core_1.Component({
             selector: 'registration-component',
             templateUrl: APPLICATION_PATH + '/registrationComponent.html',
-            directives: [common_1.FORM_DIRECTIVES, router_deprecated_1.ROUTER_DIRECTIVES]
+            directives: [common_1.FORM_DIRECTIVES, router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], RegistrationComponent);

@@ -3,7 +3,7 @@
  */
 
 import {OnInit, Component} from "@angular/core";
-import {RouteParams, Router, CanActivate} from "@angular/router-deprecated";
+import {Router, OnActivate, RouteSegment, RouteTree} from "@angular/router";
 import {Location} from "@angular/common";
 
 import {CompaniesService} from "../../../../services/companiesService";
@@ -19,17 +19,22 @@ import {CompaniesEditBase} from "./companiesEditBase";
     templateUrl:'/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
     directives:[CompaniesEditComponent]
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
+// @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 
-export class CompaniesEditPage extends CompaniesEditBase implements OnInit {
-    
-    constructor(location:Location,router:Router,companiesService:CompaniesService, routeParametres:RouteParams, notificationService:NotificationService) {
-        super(location, router, companiesService, routeParametres, notificationService);
+export class CompaniesEditPage extends CompaniesEditBase implements OnInit, OnActivate {
+    private companieId;
+
+    constructor(location:Location,router:Router,companiesService:CompaniesService, notificationService:NotificationService) {
+        super(location, router, companiesService, notificationService);
+    }
+
+    routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
+        this.companieId = curr.getParam('id');
     }
 
     ngOnInit() {
         let me=this;
-        this._companiesService.getCompanyDetails(parseInt(this._routeParametres.get('id')))
+        this._companiesService.getCompanyDetails(parseInt(this.companieId))
             .map(response=>{
                 if(response.text().length>0){
                     return response.json();
@@ -41,7 +46,7 @@ export class CompaniesEditPage extends CompaniesEditBase implements OnInit {
                 },
                 error=>{
                     me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!',5);
-                    me._router.navigate(['/Admin/Companies']);
+                    me._router.navigate(['/admin/companie/lista']);
                 }
             );
     }

@@ -17,22 +17,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
 var companiesService_1 = require("../../../../services/companiesService");
 var notificationService_1 = require("../../../../services/notificationService");
 var companiesEditComponent_1 = require("../../../../components/companieComponent/companieEditComponent/companiesEditComponent");
-var authorizationService_1 = require("../../../../services/authorizationService");
-var Roles_1 = require("../../../../models/Roles");
 var companiesEditBase_1 = require("./companiesEditBase");
 var CompaniesEditPage = (function (_super) {
     __extends(CompaniesEditPage, _super);
-    function CompaniesEditPage(location, router, companiesService, routeParametres, notificationService) {
-        _super.call(this, location, router, companiesService, routeParametres, notificationService);
+    function CompaniesEditPage(location, router, companiesService, notificationService) {
+        _super.call(this, location, router, companiesService, notificationService);
     }
+    CompaniesEditPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
+        this.companieId = curr.getParam('id');
+    };
     CompaniesEditPage.prototype.ngOnInit = function () {
         var me = this;
-        this._companiesService.getCompanyDetails(parseInt(this._routeParametres.get('id')))
+        this._companiesService.getCompanyDetails(parseInt(this.companieId))
             .map(function (response) {
             if (response.text().length > 0) {
                 return response.json();
@@ -42,7 +43,7 @@ var CompaniesEditPage = (function (_super) {
             me._companie = response;
         }, function (error) {
             me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!', 5);
-            me._router.navigate(['/Admin/Companies']);
+            me._router.navigate(['/admin/companie/lista']);
         });
     };
     CompaniesEditPage = __decorate([
@@ -50,9 +51,8 @@ var CompaniesEditPage = (function (_super) {
             selector: 'companies-edit-page',
             templateUrl: '/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
             directives: [companiesEditComponent_1.CompaniesEditComponent]
-        }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [common_1.Location, router_deprecated_1.Router, companiesService_1.CompaniesService, router_deprecated_1.RouteParams, notificationService_1.NotificationService])
+        }), 
+        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
     ], CompaniesEditPage);
     return CompaniesEditPage;
 }(companiesEditBase_1.CompaniesEditBase));

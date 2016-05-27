@@ -12,42 +12,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var accountEditPage_1 = require("./accountEditPage/accountEditPage");
 var accountDemandsPage_1 = require("./accountDemandsPage/accountDemandsPage");
 var authorizationService_1 = require("../../services/authorizationService");
 var jqueryService_1 = require("../../services/jqueryService");
 var applicationConstansts_1 = require("../../models/applicationConstansts");
 var tabsRoutingComponent_1 = require("../../components/tabsComponent/tabsRoutingComponent");
+var notificationService_1 = require("../../services/notificationService");
 var applicationPath = '/app/pages/accountSettingsPage';
 var AccountSettingsPage = (function () {
-    function AccountSettingsPage(router) {
+    function AccountSettingsPage(router, notificationService) {
         this.router = router;
-        this.tabPagesList = [{ name: 'Contul meu', link: 'Account/Details', enableMarker: false, markerContent: "" },
-            { name: 'Cererile mele', link: 'Account/Demands', enableMarker: false, markerContent: "" }];
+        this.tabPagesList = [{ name: 'Contul meu', link: '/account/details', enableMarker: false, markerContent: "" },
+            { name: 'Cererile mele', link: '/account/demands', enableMarker: false, markerContent: "" }];
+        this._notificationService = notificationService;
         jqueryService_1.JqueryService.removeElementWithAnimation(document.getElementById(applicationConstansts_1.ApplicationConstants.LOADING_SPINNER));
     }
+    AccountSettingsPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
+        if (!(authorizationService_1.AuthorizationService.isLoggedIn() && !authorizationService_1.AuthorizationService.hasRole(Role.ADMIN))) {
+            this.router.navigate(['/login']);
+            this._notificationService.emitSuccessNotificationToRootComponent("Nu aveti access la acest modul !!!", 5);
+        }
+    };
     AccountSettingsPage = __decorate([
         core_1.Component({
             selector: 'account-settings-Page',
             templateUrl: applicationPath + '/accountSettingsPage.html',
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES, tabsRoutingComponent_1.TabsRoutingComponent]
+            directives: [router_1.ROUTER_DIRECTIVES, tabsRoutingComponent_1.TabsRoutingComponent]
         }),
-        router_deprecated_1.RouteConfig([
-            new router_deprecated_1.Route({
+        router_1.Routes([
+            new router_1.Route({
                 path: '/details',
                 component: accountEditPage_1.AccountEditPage,
-                name: 'Details',
-                useAsDefault: true
             }),
-            new router_deprecated_1.Route({
+            new router_1.Route({
                 path: '/demands',
                 component: accountDemandsPage_1.AccountDemandsPage,
-                name: 'Demands'
             })
-        ]),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn(); }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router])
+        ]), 
+        __metadata('design:paramtypes', [router_1.Router, notificationService_1.NotificationService])
     ], AccountSettingsPage);
     return AccountSettingsPage;
 }());

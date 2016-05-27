@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 import {NgForm} from "@angular/common";
-import {CanActivate} from "@angular/router-deprecated";
+// import {CanActivate} from "@angular/router-deprecated";
 import {DROPDOWN_DIRECTIVES, DATEPICKER_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import "rxjs/add/operator/map";
 import {Subscriber} from "../../../models/subscriber";
@@ -27,9 +27,9 @@ var applicationPath:string = '/app/pages/adminPage/subscribersPage';
     encapsulation: ViewEncapsulation.None,
     directives: [CreateSubscriberDialog, ActionDialog, NgForm, DATEPICKER_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
-@CanActivate(()=> {
-    return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);
-})
+// @CanActivate(()=> {
+//     return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);
+// })
 
 export class SubscribersPage extends PageWithNavigation implements OnInit {
     _subscribersService:SubscribersService;

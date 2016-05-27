@@ -1,12 +1,9 @@
 import {Component, OnInit} from "@angular/core";
-import {CanActivate} from "@angular/router-deprecated";
 import {Response} from "@angular/http";
 import {FormBuilder, Validators} from "@angular/common";
 
 import {CompanieType} from "../../../../models/companieType";
 import {CompanieTypeService} from "../../../../services/companieTypesService";
-import {AuthorizationService} from "../../../../services/authorizationService";
-import {Role} from "../../../../models/Roles";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage';
 
@@ -14,9 +11,6 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage'
     selector: 'companies-Page',
     templateUrl: applicationPath + '/companiesPage.html',
     styleUrls: [applicationPath + '/companiesPage.css'],
-})
-@CanActivate(()=> {
-    return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);
 })
 
 export class CompaniesPage implements OnInit {

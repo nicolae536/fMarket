@@ -12,11 +12,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/26/2016.
  */
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
 var accountDto_1 = require("../../../models/accountDto");
 var accountService_1 = require("../../../services/accountService");
 var demandService_1 = require("../../../services/demandService");
-var authorizationService_1 = require("../../../services/authorizationService");
 var _ = require('underscore');
 var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
 var AccountEditPage = (function () {
@@ -63,8 +61,7 @@ var AccountEditPage = (function () {
         core_1.Component({
             selector: 'account-edit-Page',
             templateUrl: applicationPath + '/accountEditPage.html'
-        }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn(); }), 
+        }), 
         __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService])
     ], AccountEditPage);
     return AccountEditPage;

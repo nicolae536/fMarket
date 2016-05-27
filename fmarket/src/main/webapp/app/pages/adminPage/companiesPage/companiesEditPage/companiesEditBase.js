@@ -1,9 +1,8 @@
 "use strict";
 var CompaniesEditBase = (function () {
-    function CompaniesEditBase(location, router, companiesService, routeParametres, notificationService) {
+    function CompaniesEditBase(location, router, companiesService, notificationService) {
         this._router = router;
         this._companiesService = companiesService;
-        this._routeParametres = routeParametres;
         this._notificationService = notificationService;
         this._location = location;
     }
@@ -24,7 +23,7 @@ var CompaniesEditBase = (function () {
         });
     };
     CompaniesEditBase.prototype.goToPreviousLocation = function () {
-        me.location.back();
+        this._location.back();
     };
     CompaniesEditBase.prototype.createCompanie = function ($event) {
     };

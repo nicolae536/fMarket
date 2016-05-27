@@ -9,12 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
 var common_1 = require("@angular/common");
 var companieType_1 = require("../../../../models/companieType");
 var companieTypesService_1 = require("../../../../services/companieTypesService");
-var authorizationService_1 = require("../../../../services/authorizationService");
-var Roles_1 = require("../../../../models/Roles");
 var applicationPath = '/app/pages/adminPage/categoriesPage/companiesPage';
 var CompaniesPage = (function () {
     function CompaniesPage(companieTypeService, formBuilder) {
@@ -118,9 +115,6 @@ var CompaniesPage = (function () {
             selector: 'companies-Page',
             templateUrl: applicationPath + '/companiesPage.html',
             styleUrls: [applicationPath + '/companiesPage.css'],
-        }),
-        router_deprecated_1.CanActivate(function () {
-            return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
         }), 
         __metadata('design:paramtypes', [companieTypesService_1.CompanieTypeService, common_1.FormBuilder])
     ], CompaniesPage);

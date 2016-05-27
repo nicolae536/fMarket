@@ -42,14 +42,14 @@
         <div *ngIf="showForgetPasswordLink || _showRegisterLink || _showLoginLink" class="links clearfix">
             <div *ngIf="showForgetPasswordLink">
                 <label>Ai uitat parola?</label>
-                <a [routerLink]="['ForgetPassword']">{{_forgetPasswordLabel}}</a>
+                <a [routerLink]="['/forget-password']">{{_forgetPasswordLabel}}</a>
             </div>
             <div *ngIf="_showRegisterLink">
             	<label>Nu ai cont?</label>
-                <a [routerLink]="['Registration']">Inregistreaza-te</a>
+                <a [routerLink]="['/registration']">Inregistreaza-te</a>
             </div>
             <div *ngIf="_showLoginLink">
-                <a [routerLink]="['Login']">Ai deja un cont?</a>
+                <a [routerLink]="['/login']">Ai deja un cont?</a>
             </div>
         </div>
     </div>

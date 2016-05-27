@@ -1,11 +1,9 @@
 /**
  * Created by nick_ on 4/23/2016.
  */
-/**
- * Created by nick_ on 4/22/2016.
- */
+
 import {Component, OnChanges, OnInit} from "@angular/core";
-import {CanActivate, Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 
 import {DemandListBaseComponent} from "../../../../components/demandComponent/demandListBase/demandListBase";
 import {DemandService} from "../../../../services/demandService";
@@ -24,7 +22,7 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
     styleUrls: [applicationPath + '/demandsListPageBase.css'],
     directives: [DemandListBaseComponent, MenuTreeDialog]
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
+// @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 export class NewDemandsListPage extends DemandsListPageBase implements OnInit, OnChanges{
     pageName='new-demands';
     constructor(router:Router,_categoriesMenuService:CategoriesMenuService, _demandService:DemandService, _requestTypeService:RequestTypeService){

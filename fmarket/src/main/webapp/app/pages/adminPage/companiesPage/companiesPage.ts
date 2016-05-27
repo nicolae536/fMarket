@@ -2,7 +2,7 @@
  * Created by nick_ on 5/6/2016.
  */
 import {Component, OnInit} from "@angular/core";
-import {CanActivate, Router} from "@angular/router-deprecated";
+import {Routes, Router, ROUTER_DIRECTIVES, Route} from "@angular/router";
 import {Role} from "../../../models/Roles";
 import {AuthorizationService} from "../../../services/authorizationService";
 import {CreateCompanieDialog} from "../../../components/companieComponent/createCompanieDialog/createCompanieDialog";
@@ -21,8 +21,6 @@ let applicationPath='/app/pages/adminPage/companiesPage'
     styleUrls: [applicationPath + '/companiesPage.css'],
     directives:[CreateCompanieDialog, CompanieListComponent]
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
-
 export class CompaniesPage implements OnInit {
     private _createCompanieDialog:CreateCompanieDialog;
 
@@ -30,7 +28,6 @@ export class CompaniesPage implements OnInit {
     private _companiesService:CompaniesService;
 
     private _companiesList:Array<DomainCompanieDto>;
-    // private _paginationWrapper:PaginationWrapper = new PaginationWrapper();
 
     private searchFilter:string;
     private _router:Router;
@@ -71,11 +68,11 @@ export class CompaniesPage implements OnInit {
     }
 
     goToNewCompanyPage(){
-        this._router.navigate(['/Admin/CompanieCreate'])
+        this._router.navigate(['/admin/ceeaza'])
     }
 
     selectCompanie(id){
-        this._router.navigate(['/Admin/CompanieDetails', {id:id}]);
+        this._router.navigate(['/admin/detalii', {id:id}]);
     }
 
     submitSearch(){

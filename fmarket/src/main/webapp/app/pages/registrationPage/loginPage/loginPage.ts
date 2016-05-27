@@ -6,7 +6,7 @@
  */
 
 import {Component, OnInit, ViewChild, AfterViewChecked, ElementRef} from "@angular/core";
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../../services/registrationService";
@@ -83,7 +83,7 @@ export class LoginPage implements OnInit, AfterViewChecked {
             .subscribe(
                 response => {
                     me._localStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
-                    me._router.navigate(['Home'])
+                    me._router.navigate(['/'])
                 },
                 error => {
                     me._notificationService.emitNotificationToRootComponent({type:"danger", dismisable:true, message:"Date de autentificare incorecte!", timeout:5});

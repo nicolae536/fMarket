@@ -17,9 +17,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/26/2016.
  */
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
-var router_deprecated_2 = require("@angular/router-deprecated");
-var authorizationService_1 = require("../../../services/authorizationService");
+// import {CanActivate} from "@angular/router-deprecated";
+var router_1 = require("@angular/router");
 var demandService_1 = require("../../../services/demandService");
 var requestTypeService_1 = require("../../../services/requestTypeService");
 var demandsListPageBase_1 = require("../../adminPage/demandsPage/demandsListPage/demandsListPageBase");
@@ -52,11 +51,8 @@ var AccountDemandsPage = (function (_super) {
         core_1.Component({
             selector: 'account-demands-Page',
             templateUrl: applicationPath + '/accountDemandsPage.html'
-        }),
-        router_deprecated_1.CanActivate(function () {
-            return authorizationService_1.AuthorizationService.isLoggedIn();
         }), 
-        __metadata('design:paramtypes', [router_deprecated_2.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
+        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService])
     ], AccountDemandsPage);
     return AccountDemandsPage;
 }(demandsListPageBase_1.DemandsListPageBase));

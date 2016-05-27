@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
 var menuTreeComponent_1 = require("../../../../components/menuComponent/menuTreeComponent");
 var categoriesMenuService_1 = require("../../../../services/categoriesMenuService");
 var menuItemDialog_1 = require("../../../../components/menuComponent/menuItemDialog/menuItemDialog");
@@ -27,8 +26,6 @@ var CategoriesMenuPage = (function () {
     CategoriesMenuPage.prototype.ngOnInit = function () {
         this.getMenuDictionary();
         this.getDomains();
-    };
-    CategoriesMenuPage.prototype.referenceSelectComponent = function (select) {
     };
     CategoriesMenuPage.prototype.referenceModal = function (modal) {
         this._menuItemModal = modal;
@@ -121,8 +118,7 @@ var CategoriesMenuPage = (function () {
             templateUrl: applicationPath + '/categoriesMenuPage.html',
             styleUrls: [applicationPath + '/categoriesMenuPage.css'],
             directives: [menuTreeComponent_1.MenuTreeComponent, menuItemDialog_1.MenuItemDialog, selectComponent_1.SelectComponent],
-        }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
+        }), 
         __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])
     ], CategoriesMenuPage);
     return CategoriesMenuPage;

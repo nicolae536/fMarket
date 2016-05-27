@@ -12,21 +12,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 5/6/2016.
  */
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
+// import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 var registrationService_1 = require("../../../services/registrationService");
 var notificationService_1 = require("../../../services/notificationService");
 var localStorageService_1 = require("../../../services/localStorageService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
 var Roles_1 = require("../../../models/Roles");
 var TokenConfirmPage = (function () {
-    function TokenConfirmPage(router, params, registrationService, notificationService, localeStorageService) {
+    function TokenConfirmPage(router, registrationService, notificationService, localeStorageService) {
         this.showTokenError = false;
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
         this._localeStorageService = localeStorageService;
-        this.validateToken(params.get('token'));
     }
+    TokenConfirmPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
+        this.validateToken(curr.getParam('token'));
+    };
     TokenConfirmPage.prototype.validateToken = function (token) {
         var me = this;
         this._registrationService.validateToken(token)
@@ -53,7 +56,7 @@ var TokenConfirmPage = (function () {
                 message: 'Cont activat cu succes.',
                 timeout: 5
             });
-            me._router.navigate(['Home']);
+            me._router.navigate(['/']);
         }, function (error) {
             me.showTokenError = true;
         });
@@ -62,9 +65,9 @@ var TokenConfirmPage = (function () {
         core_1.Component({
             selector: 'token-confirm',
             templateUrl: '/app/pages/registrationPage/errorPages/errorActivateTokenPage.html',
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES]
+            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, router_deprecated_1.RouteParams, registrationService_1.RegistrationService, notificationService_1.NotificationService, localStorageService_1.LocalStorageService])
+        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, localStorageService_1.LocalStorageService])
     ], TokenConfirmPage);
     return TokenConfirmPage;
 }());

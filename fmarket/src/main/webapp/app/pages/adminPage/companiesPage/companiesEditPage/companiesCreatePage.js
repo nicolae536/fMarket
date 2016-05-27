@@ -17,7 +17,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
+var common_1 = require("@angular/common");
 var companiesService_1 = require("../../../../services/companiesService");
 var notificationService_1 = require("../../../../services/notificationService");
 var companiesEditComponent_1 = require("../../../../components/companieComponent/companieEditComponent/companiesEditComponent");
@@ -27,8 +28,8 @@ var companiesEditBase_1 = require("./companiesEditBase");
 var newCompanyRequest_1 = require("../../../../models/newCompanyRequest");
 var CreateCompaniesPage = (function (_super) {
     __extends(CreateCompaniesPage, _super);
-    function CreateCompaniesPage(router, companiesService, routeParametres, notificationService) {
-        _super.call(this, router, companiesService, routeParametres, notificationService);
+    function CreateCompaniesPage(location, router, companiesService, notificationService) {
+        _super.call(this, location, router, companiesService, notificationService);
     }
     CreateCompaniesPage.prototype.ngOnInit = function () {
         this._companie = newCompanyRequest_1.NewCompanyRequest.getEmptyCompany();
@@ -39,8 +40,8 @@ var CreateCompaniesPage = (function (_super) {
             templateUrl: '/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
             directives: [companiesEditComponent_1.CompaniesEditComponent]
         }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, companiesService_1.CompaniesService, router_deprecated_1.RouteParams, notificationService_1.NotificationService])
+        router_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
+        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
     ], CreateCompaniesPage);
     return CreateCompaniesPage;
 }(companiesEditBase_1.CompaniesEditBase));

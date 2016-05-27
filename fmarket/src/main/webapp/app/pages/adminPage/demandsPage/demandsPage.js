@@ -12,17 +12,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/21/2016.
  */
 var core_1 = require('@angular/core');
-var router_deprecated_1 = require('@angular/router-deprecated');
+var router_1 = require("@angular/router");
 var tabsRoutingComponent_1 = require("../../../components/tabsComponent/tabsRoutingComponent");
 var newDemandsListPage_1 = require("./demandsListPage/newDemandsListPage");
 var allDemandsListPage_1 = require("./demandsListPage/allDemandsListPage");
-var Roles_1 = require("../../../models/Roles");
-var authorizationService_1 = require("../../../services/authorizationService");
 var applicationPath = '/app/pages/adminPage/demandsPage';
 var DemandsPage = (function () {
     function DemandsPage() {
-        this.tabPagesList = [{ name: 'Cereri noi', link: 'Demands/NewDemandsList', enableMarker: false, markerContent: "" },
-            { name: 'Cereri', link: 'Demands/DemandsList', enableMarker: true, markerContent: "" },
+        this.tabPagesList = [{ name: 'Cereri noi', link: '/admin/cereri/newDemands', enableMarker: false, markerContent: "" },
+            { name: 'Cereri', link: '/admin/cereri/lista', enableMarker: true, markerContent: "" },
         ];
     }
     DemandsPage = __decorate([
@@ -30,20 +28,16 @@ var DemandsPage = (function () {
             selector: 'demands-page',
             templateUrl: applicationPath + '/demandsPage.html',
             styleUrls: [applicationPath + '/demandsPage.css'],
-            directives: [tabsRoutingComponent_1.TabsRoutingComponent, router_deprecated_1.ROUTER_DIRECTIVES]
+            directives: [tabsRoutingComponent_1.TabsRoutingComponent, router_1.ROUTER_DIRECTIVES]
         }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN) && authorizationService_1.AuthorizationService.isLoggedIn(); }),
-        router_deprecated_1.RouteConfig([
-            new router_deprecated_1.Route({
+        router_1.Routes([
+            new router_1.Route({
                 path: '/newDemands',
                 component: newDemandsListPage_1.NewDemandsListPage,
-                name: 'NewDemandsList',
-                useAsDefault: true
             }),
-            new router_deprecated_1.Route({
+            new router_1.Route({
                 path: '/lista',
                 component: allDemandsListPage_1.AllDemandsListPage,
-                name: 'DemandsList',
             })
         ]), 
         __metadata('design:paramtypes', [])

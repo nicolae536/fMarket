@@ -12,9 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 5/6/2016.
  */
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
-var Roles_1 = require("../../../models/Roles");
-var authorizationService_1 = require("../../../services/authorizationService");
+var router_1 = require("@angular/router");
 var createCompanieDialog_1 = require("../../../components/companieComponent/createCompanieDialog/createCompanieDialog");
 var companiesService_1 = require("../../../services/companiesService");
 var notificationService_1 = require("../../../services/notificationService");
@@ -50,10 +48,10 @@ var CompaniesPage = (function () {
         });
     };
     CompaniesPage.prototype.goToNewCompanyPage = function () {
-        this._router.navigate(['/Admin/CompanieCreate']);
+        this._router.navigate(['/admin/ceeaza']);
     };
     CompaniesPage.prototype.selectCompanie = function (id) {
-        this._router.navigate(['/Admin/CompanieDetails', { id: id }]);
+        this._router.navigate(['/admin/detalii', { id: id }]);
     };
     CompaniesPage.prototype.submitSearch = function () {
         this.getCompaniesWithFilters();
@@ -415,9 +413,8 @@ var CompaniesPage = (function () {
             templateUrl: applicationPath + '/companiesPage.html',
             styleUrls: [applicationPath + '/companiesPage.css'],
             directives: [createCompanieDialog_1.CreateCompanieDialog, companieListComponent_1.CompanieListComponent]
-        }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
+        }), 
+        __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
     ], CompaniesPage);
     return CompaniesPage;
 }());

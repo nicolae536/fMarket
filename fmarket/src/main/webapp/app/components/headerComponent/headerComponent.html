@@ -7,8 +7,8 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li *ngFor="let page of _usersApplicationPages"><a [routerLink]="[page.link]">{{page.name}}</a></li>
-                    <li *ngIf="!isLoggedIn()"><a [routerLink]="['Login']">Contul meu</a></li>
-                    <li *ngIf="isLoggedIn()" dropdown class="dropdown">
+                    <li *ngIf="!isLoggedIn()"><a [routerLink]="['/login']">Contul meu</a></li>
+                    <li *ngIf="chechIdNormalUser()" dropdown class="dropdown">
                         <a href="#" class="dropdown-toggle" dropdownToggle role="button" aria-haspopup="true"
                            aria-expanded="false">{{_myAccountLabel}}<span class="caret"></span></a>
                         <ul dropdownMenu class="dropdown-menu">

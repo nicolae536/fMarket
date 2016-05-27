@@ -3,7 +3,7 @@
  */
 import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit} from "@angular/core";
 import {Response} from "@angular/http";
-import {Router} from "@angular/router-deprecated"
+import {Router} from "@angular/router"
 import {FormBuilder, Validators} from "@angular/common";
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
 import {DemandService} from "../../services/demandService";
@@ -133,7 +133,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
         }).subscribe(
             respose=> {
                 me._demandDialog.restData();
-                me._router.navigate(['Success', {succesOption:'create-demand'}])
+                me._router.navigate(['/success', {succesOption:'create-demand'}])
             },
             error=> {
                 this._notificationService.emitNotificationToRootComponent({

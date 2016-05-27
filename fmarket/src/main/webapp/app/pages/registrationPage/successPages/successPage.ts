@@ -3,22 +3,24 @@
  */
 
 import {Component} from "@angular/core";
-import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {Router, ROUTER_DIRECTIVES, OnActivate, RouteSegment, RouteTree} from "@angular/router";
+// import {RouteParams} from "@angular/common";
 
 @Component({
     selector:'success-register-page',
     templateUrl: 'app/pages/registrationPage/successPages/successPage.html',
     directives:[ROUTER_DIRECTIVES]
 })
-export class SuccessPage{
+export class SuccessPage implements OnActivate{
     private _router:Router;
-    private _params:RouteParams;
     private message;
 
-    constructor(router:Router, params:RouteParams){
+    constructor(router:Router){
         this._router = router;
-        this._params = params;
-        let succesOption = this._params.get('succesOption');
+    }
+
+    routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
+        let succesOption = curr.getParam('succesOption');
 
         switch (succesOption) {
             case 'success-registration':

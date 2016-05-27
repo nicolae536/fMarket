@@ -2,7 +2,7 @@
  * Created by nick_ on 4/26/2016.
  */
 import {Component, OnInit} from "@angular/core";
-import {CanActivate} from "@angular/router-deprecated";
+// import {CanActivate} from "@angular/router-deprecated";
 
 import {AccountEditComponent} from "../../../components/accountComponent/accountEditComponent/accountEditComponent";
 import {AccountDto} from "../../../models/accountDto";
@@ -17,7 +17,6 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
     selector: 'account-edit-Page',
     templateUrl: applicationPath + '/accountEditPage.html'
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn();})
 export class AccountEditPage implements OnInit{
     private _accountEditComponent;
 

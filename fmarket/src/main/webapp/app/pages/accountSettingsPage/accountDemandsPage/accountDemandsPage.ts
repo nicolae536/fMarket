@@ -2,8 +2,8 @@
  * Created by nick_ on 4/26/2016.
  */
 import {Component, OnInit, OnChanges} from "@angular/core";
-import {CanActivate} from "@angular/router-deprecated";
-import {Router} from "@angular/router-deprecated";
+// import {CanActivate} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 import {AuthorizationService} from "../../../services/authorizationService";
 import {DemandService} from "../../../services/demandService";
 import {RequestTypeService} from "../../../services/requestTypeService";
@@ -16,10 +16,6 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage'
     selector: 'account-demands-Page',
     templateUrl: applicationPath + '/accountDemandsPage.html'
 })
-@CanActivate(()=> {
-    return AuthorizationService.isLoggedIn();
-})
-
 export class AccountDemandsPage extends DemandsListPageBase implements OnInit, OnChanges {
     constructor(router:Router,_categoriesMenuService:CategoriesMenuService,_demandService:DemandService, _requestTypeService:RequestTypeService) {
         super(router, _categoriesMenuService, _demandService, _requestTypeService);

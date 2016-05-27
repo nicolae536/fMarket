@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/22/2016.
  */
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {Response} from "@angular/http";
 import {DemandService} from "../../../../services/demandService";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";

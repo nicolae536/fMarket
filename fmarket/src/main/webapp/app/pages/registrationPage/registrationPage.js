@@ -12,7 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require("@angular/router");
 var registrationComponent_1 = require("../../components/registrationComponent/registrationComponent");
 var registrationService_1 = require("../../services/registrationService");
 var notificationService_1 = require("../../services/notificationService");
@@ -20,6 +20,7 @@ var jqueryService_1 = require("../../services/jqueryService");
 var folderPath = '/app/pages/registrationPage';
 var RegistrationPage = (function () {
     function RegistrationPage(router, registrationService, notificationService) {
+        debugger;
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
@@ -52,7 +53,7 @@ var RegistrationPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._router.navigate(['Success', { succesOption: 'success-registration' }]);
+            me._router.navigate(['/success', { succesOption: 'success-registration' }]);
         }, function (error) {
             me._registrationComponent.markAllFieldsAsErrors({ email: true, password: true });
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Inregistrare invalida!', timeout: 5 });
@@ -68,7 +69,7 @@ var RegistrationPage = (function () {
             templateUrl: folderPath + '/registrationPage.html',
             directives: [registrationComponent_1.RegistrationComponent]
         }), 
-        __metadata('design:paramtypes', [router_deprecated_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
+        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
     ], RegistrationPage);
     return RegistrationPage;
 }());
