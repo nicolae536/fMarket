@@ -4,6 +4,7 @@
 import {Injectable} from '@angular/core';
 import {FMarketApi} from "./fMarketApi";
 import {Select2Item} from "../components/selectComponent/selectComponent";
+import * as _ from 'underscore'
 
 
 @Injectable()

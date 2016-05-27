@@ -53,4 +53,12 @@ export class CompaniesService{
     deleteCompany(id:number){
         return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER +`${id}`);
     }
+
+    getCompanieDomains() {
+        return this.api.get('/company/domains');
+    }
+
+    getDemandDomanins(){
+        return this.api.get('/demand/domains');
+    }
 }

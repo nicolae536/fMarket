@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,9 +43,9 @@ var CompaniesEditComponent = (function () {
         this._companieEditForm.addControl('phone', this._formBuilder.control(this._companieEditFormModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber])));
         this._companieEditForm.addControl('contactPerson', this._formBuilder.control(this._companieEditFormModel.contactPerson, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
         this._companieEditForm.addControl('address', this._formBuilder.control(this._companieEditFormModel.address, common_1.Validators.required));
-        this._companieEditForm.addControl('cityId', this._formBuilder.control(this._companieEditFormModel.cityId, common_1.Validators.required));
-        this._companieEditForm.addControl('companyDomain', this._formBuilder.control(this._companieEditFormModel.companyDomain, common_1.Validators.required));
-        this._companieEditForm.addControl('demandDomains', this._formBuilder.control(this._companieEditFormModel.demandDomains, common_1.Validators.required));
+        this._companieEditForm.addControl('cityId', this._formBuilder.control(this._companieEditFormModel.cityId));
+        this._companieEditForm.addControl('companyDomain', this._formBuilder.control(this._companieEditFormModel.companyDomain));
+        this._companieEditForm.addControl('demandDomains', this._formBuilder.control(this._companieEditFormModel.demandDomains));
     };
     CompaniesEditComponent.prototype.getCompanieFormControls = function () {
         var colector = [];
@@ -61,7 +60,7 @@ var CompaniesEditComponent = (function () {
         }
         this._companieEditFormModel.cityId = this.selectCity._selectedItem.boundItem['id'];
         this._companieEditFormModel.companyDomainId = this.selectCompanyDomain._selectedItem.boundItem['id'];
-        this._companieEditFormModel.demandDomains = this.getDemandDomaina(this.selectDemandDomain._selectedItems);
+        this._companieEditFormModel.demandDomains = this.getDemandDomains(this.selectDemandDomain._selectedItems);
         this.saveCompanieEmitter.emit(this._companieEditFormModel);
     };
     CompaniesEditComponent.prototype.referenceSelectCityComponent = function ($event) {
@@ -76,10 +75,10 @@ var CompaniesEditComponent = (function () {
     CompaniesEditComponent.prototype.goToPreviousPage = function () {
         this.discardChangesEmitter.emit(null);
     };
-    CompaniesEditComponent.prototype.getDemandDomaina = function (_selectedItems) {
+    CompaniesEditComponent.prototype.getDemandDomains = function (_selectedItems) {
         return _.map(_selectedItems, function (item) {
             if (item) {
-                return item['id'];
+                return item['boundItem']['id'];
             }
         });
     };
@@ -120,6 +119,6 @@ var CompaniesEditComponent = (function () {
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], CompaniesEditComponent);
     return CompaniesEditComponent;
-}());
+})();
 exports.CompaniesEditComponent = CompaniesEditComponent;
 //# sourceMappingURL=companiesEditComponent.js.map

@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -46,11 +45,17 @@ var CompaniesService = (function () {
     CompaniesService.prototype.deleteCompany = function (id) {
         return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER + ("" + id));
     };
+    CompaniesService.prototype.getCompanieDomains = function () {
+        return this.api.get('/company/domains');
+    };
+    CompaniesService.prototype.getDemandDomanins = function () {
+        return this.api.get('/demand/domains');
+    };
     CompaniesService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], CompaniesService);
     return CompaniesService;
-}());
+})();
 exports.CompaniesService = CompaniesService;
 //# sourceMappingURL=companiesService.js.map

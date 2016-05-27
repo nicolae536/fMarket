@@ -4,7 +4,6 @@
 /**
  * Created by nick_ on 4/17/2016.
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -78,6 +77,6 @@ var LoginPage = (function () {
         __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService, notificationService_1.NotificationService])
     ], LoginPage);
     return LoginPage;
-}());
+})();
 exports.LoginPage = LoginPage;
 //# sourceMappingURL=loginPage.js.map

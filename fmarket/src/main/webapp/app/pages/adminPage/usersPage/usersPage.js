@@ -1,4 +1,3 @@
-"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -161,6 +160,6 @@ var UsersPage = (function (_super) {
         __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], UsersPage);
     return UsersPage;
-}(pageWithNavigation_1.PageWithNavigation));
+})(pageWithNavigation_1.PageWithNavigation);
 exports.UsersPage = UsersPage;
 //# sourceMappingURL=usersPage.js.map

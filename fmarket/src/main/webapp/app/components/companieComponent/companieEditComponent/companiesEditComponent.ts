@@ -63,11 +63,11 @@ export class CompaniesEditComponent implements OnInit{
         this._companieEditForm.addControl('address',this._formBuilder.control(
             this._companieEditFormModel.address, Validators.required));
         this._companieEditForm.addControl('cityId',this._formBuilder.control(
-            this._companieEditFormModel.cityId, Validators.required));
+            this._companieEditFormModel.cityId));
         this._companieEditForm.addControl('companyDomain',this._formBuilder.control(
-            this._companieEditFormModel.companyDomain, Validators.required));
+            this._companieEditFormModel.companyDomain));
         this._companieEditForm.addControl('demandDomains',this._formBuilder.control(
-            this._companieEditFormModel.demandDomains, Validators.required));
+            this._companieEditFormModel.demandDomains));
     }
 
     private getCompanieFormControls() {
@@ -87,7 +87,7 @@ export class CompaniesEditComponent implements OnInit{
 
         this._companieEditFormModel.cityId = this.selectCity._selectedItem.boundItem['id'];
         this._companieEditFormModel.companyDomainId = this.selectCompanyDomain._selectedItem.boundItem['id'];
-        this._companieEditFormModel.demandDomains = this.getDemandDomaina(this.selectDemandDomain._selectedItems);
+        this._companieEditFormModel.demandDomains = this.getDemandDomains(this.selectDemandDomain._selectedItems);
 
         this.saveCompanieEmitter.emit(this._companieEditFormModel);
     }
@@ -108,10 +108,10 @@ export class CompaniesEditComponent implements OnInit{
         this.discardChangesEmitter.emit(null);
     }
 
-    private getDemandDomaina(_selectedItems:Array<Object>) {
+    private getDemandDomains(_selectedItems:Array<Object>) {
         return _.map(_selectedItems,(item)=>{
             if(item) {
-                return item['id'];
+                return item['boundItem']['id'];
             }
         });
     }

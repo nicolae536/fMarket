@@ -1,7 +1,6 @@
 /**
  * Created by NicolaeB on 4/26/2016.
  */
-"use strict";
 var DemandStatus = (function () {
     function DemandStatus() {
     }
@@ -12,6 +11,6 @@ var DemandStatus = (function () {
     DemandStatus.CLOSED = "CLOSED";
     DemandStatus.REJECTED = "REJECTED";
     return DemandStatus;
-}());
+})();
 exports.DemandStatus = DemandStatus;
 //# sourceMappingURL=DemandStatus.js.map

@@ -60,7 +60,7 @@ export class CompaniesEditBase{
 
     getCompanieDomains(){
         let me =this;
-        this._localizationService.getCityList()
+        this._companiesService.getCompanieDomains()
             .map(response=>{
                 if(response.text().length>0){
                     return response.json();
@@ -78,7 +78,7 @@ export class CompaniesEditBase{
 
     getDomains(){
         let me =this;
-        this._localizationService.getCityList()
+        this._companiesService.getDemandDomanins()
             .map(response=>{
                 if(response.text().length>0){
                     return response.json();

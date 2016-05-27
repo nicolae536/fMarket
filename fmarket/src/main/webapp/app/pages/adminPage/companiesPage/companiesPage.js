@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -25,7 +24,6 @@ var CompaniesPage = (function () {
         this._notificationService = notificationService;
     }
     CompaniesPage.prototype.ngOnInit = function () {
-        // this._paginationWrapper.currentPage=1;
         this.getCompaniesWithFilters();
     };
     CompaniesPage.prototype.referenceCompaniesDialog = function (_createCompanieDialog) {
@@ -33,7 +31,6 @@ var CompaniesPage = (function () {
     };
     CompaniesPage.prototype.getCompaniesWithFilters = function () {
         var me = this;
-        debugger;
         this._companiesService.getCompaniesForUsers(this.searchFilter)
             .map(function (response) {
             if (response.text().length > 0) {
@@ -386,7 +383,7 @@ var CompaniesPage = (function () {
         ];
     };
     CompaniesPage.prototype.splitViewInPiecesUsingScreen = function (mockArray) {
-        var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+        var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0]['clientWidth'];
         if (screenWidth <= 767) {
             return [mockArray];
         }
@@ -417,6 +414,6 @@ var CompaniesPage = (function () {
         __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
     ], CompaniesPage);
     return CompaniesPage;
-}());
+})();
 exports.CompaniesPage = CompaniesPage;
 //# sourceMappingURL=companiesPage.js.map

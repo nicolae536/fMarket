@@ -1,4 +1,3 @@
-"use strict";
 var newCompanyRequest_1 = require("../../../../models/newCompanyRequest");
 var CompaniesEditBase = (function () {
     function CompaniesEditBase(location, router, companiesService, notificationService, localizationService) {
@@ -31,7 +30,7 @@ var CompaniesEditBase = (function () {
     };
     CompaniesEditBase.prototype.getCompanieDomains = function () {
         var me = this;
-        this._localizationService.getCityList()
+        this._companiesService.getCompanieDomains()
             .map(function (response) {
             if (response.text().length > 0) {
                 return response.json();
@@ -45,7 +44,7 @@ var CompaniesEditBase = (function () {
     };
     CompaniesEditBase.prototype.getDomains = function () {
         var me = this;
-        this._localizationService.getCityList()
+        this._companiesService.getDemandDomanins()
             .map(function (response) {
             if (response.text().length > 0) {
                 return response.json();
@@ -58,6 +57,6 @@ var CompaniesEditBase = (function () {
         });
     };
     return CompaniesEditBase;
-}());
+})();
 exports.CompaniesEditBase = CompaniesEditBase;
 //# sourceMappingURL=companiesEditBase.js.map

@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -13,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require('@angular/core');
 var fMarketApi_1 = require("./fMarketApi");
+var _ = require('underscore');
 var LocalizationService = (function () {
     function LocalizationService(api) {
         this.api = api;
@@ -33,6 +33,6 @@ var LocalizationService = (function () {
         __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], LocalizationService);
     return LocalizationService;
-}());
+})();
 exports.LocalizationService = LocalizationService;
 //# sourceMappingURL=localizationService.js.map

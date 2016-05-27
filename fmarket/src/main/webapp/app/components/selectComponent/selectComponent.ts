@@ -8,7 +8,7 @@ import {FilterPipe} from "./filterPipe";
 @Component({
     selector: 'select-component',
     template: `
-            <div dropdown [(isOpen)]="_dropdownStatus.isopen"class="bs-ui-select-2 dropdown clearfix">
+            <div dropdown [(isOpen)]="_dropdownStatus.isopen" [class.dropUp]="dropUp" [class.dropdown]="!dropUp" class="bs-ui-select-2 clearfix">
                 <span *ngIf="!muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [disabled]="checkItems()" 
                     class="btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
                         <span *ngIf="!_selectedItem">Choose...</span>
@@ -132,6 +132,7 @@ export class SelectComponent implements OnInit, OnChanges {
     @Input('single-item-selected') _selectedItem:Select2Item;
     @Input('selected-items') _selectedItems:Array<Select2Item>;
     @Input('multi-select') muliSelect:boolean;
+    @Input('dropup-menu') dropUp:boolean;
 
     @Output('loaded') loadedSelect:EventEmitter<SelectComponent> = new EventEmitter<SelectComponent>();
     _chooseItemValue = {displayName: 'Choose...', boundItem: null};

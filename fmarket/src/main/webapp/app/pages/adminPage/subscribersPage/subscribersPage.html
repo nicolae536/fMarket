@@ -48,12 +48,14 @@
                                                 <datepicker (click)="openSubscribeDatePicke($event)"
                                                             [(ngModel)]="subscribeDateFilter"
                                                             [showWeeks]="true"
-                                                            ></datepicker>
+                                                ></datepicker>
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="text" [placeholder]="dateTimePlaceHolder" class="form-control" [(ngModel)]="subscriberFormatedDate" (ngModelChange)="updateSubscribeDatePicker()"
-                                           />
+                                    <input type="text" [placeholder]="dateTimePlaceHolder" class="form-control"
+                                           [(ngModel)]="subscriberFormatedDate"
+                                           (ngModelChange)="updateSubscribeDatePicker()"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -74,8 +76,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="text" [(ngModel)]="unsubscriberFormatedDate" class="form-control" [placeholder]="dateTimePlaceHolder" (ngModelChange)="updateunSubscribeDatePicker()"
-                                           />
+                                    <input type="text" [(ngModel)]="unsubscriberFormatedDate" class="form-control"
+                                           [placeholder]="dateTimePlaceHolder"
+                                           (ngModelChange)="updateunSubscribeDatePicker()"
+                                    />
                                 </div>
                             </div>
                         </div>

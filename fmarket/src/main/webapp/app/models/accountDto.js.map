@@ -1,1 +1,1 @@
-{"version":3,"file":"accountDto.js","sourceRoot":"","sources":["accountDto.ts"],"names":[],"mappings":";AACA;;GAEG;AACH;IAAA;IAiBA,CAAC;IAAD,iBAAC;AAAD,CAAC,AAjBD,IAiBC;AAjBY,kBAAU,aAiBtB,CAAA"}
+{"version":3,"file":"accountDto.js","sourceRoot":"","sources":["accountDto.ts"],"names":["AccountDto","AccountDto.constructor"],"mappings":"AACA;;GAEG;AACH;IAAAA;IAiBAC,CAACA;IAADD,iBAACA;AAADA,CAACA,AAjBD,IAiBC;AAjBY,kBAAU,aAiBtB,CAAA"}

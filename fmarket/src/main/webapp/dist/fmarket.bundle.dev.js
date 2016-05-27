@@ -44,7 +44,6 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	__webpack_require__(1);
 	__webpack_require__(3);
 	var platform_browser_dynamic_1 = __webpack_require__(26);
@@ -48222,7 +48221,6 @@
 /* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -48296,6 +48294,7 @@
 	    };
 	    AppComponent.prototype.startDemadsWatcher = function () {
 	        var me = this;
+	        //noinspection TypeScriptUnresolvedFunction
 	        Observable_1.Observable.interval(15 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
 	            me._notificationService.getStatus()
 	                .map(function (response) {
@@ -48377,7 +48376,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService])
 	    ], AppComponent);
 	    return AppComponent;
-	}());
+	})();
 	exports.AppComponent = AppComponent;
 	//# sourceMappingURL=app.component.js.map
 
@@ -68149,7 +68148,6 @@
 /* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	/**
 	 * Created by nick_ on 5/5/2016.
 	 */
@@ -68240,7 +68238,7 @@
 	        return applicationRoutes;
 	    };
 	    return AuthorizationService;
-	}());
+	})();
 	exports.AuthorizationService = AuthorizationService;
 	//# sourceMappingURL=authorizationService.js.map
 
@@ -68248,7 +68246,6 @@
 /* 495 */
 /***/ function(module, exports) {
 
-	"use strict";
 	/**
 	 * Created by nick_ on 5/5/2016.
 	 */
@@ -68533,7 +68530,7 @@
 	    ApplicationConstants.FIRST_LOAD = 'first-load';
 	    ApplicationConstants.LOADING_SPINNER = 'loadingSpinnerComponent';
 	    return ApplicationConstants;
-	}());
+	})();
 	exports.ApplicationConstants = ApplicationConstants;
 	//# sourceMappingURL=applicationConstansts.js.map
 
@@ -68541,7 +68538,6 @@
 /* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68704,7 +68700,7 @@
 	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService])
 	    ], HomePage);
 	    return HomePage;
-	}());
+	})();
 	exports.HomePage = HomePage;
 	//# sourceMappingURL=homePage.js.map
 
@@ -68712,7 +68708,6 @@
 /* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68752,7 +68747,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], CategoriesMenuService);
 	    return CategoriesMenuService;
-	}());
+	})();
 	exports.CategoriesMenuService = CategoriesMenuService;
 	//# sourceMappingURL=categoriesMenuService.js.map
 
@@ -68760,7 +68755,6 @@
 /* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68812,7 +68806,7 @@
 	        __metadata('design:paramtypes', [http_1.Http])
 	    ], FMarketApi);
 	    return FMarketApi;
-	}());
+	})();
 	exports.FMarketApi = FMarketApi;
 	//# sourceMappingURL=fMarketApi.js.map
 
@@ -71489,7 +71483,6 @@
 /* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -71586,7 +71579,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], DemandService);
 	    return DemandService;
-	}());
+	})();
 	exports.DemandService = DemandService;
 	//# sourceMappingURL=demandService.js.map
 
@@ -73148,7 +73141,6 @@
 /* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var _ = __webpack_require__(521);
 	// import * as $ from 'jquery';
 	// import * as animateScroll from 'animateScroll';
@@ -73227,7 +73219,7 @@
 	        $(nativeElement).height(pageHeight);
 	    };
 	    return JqueryService;
-	}());
+	})();
 	exports.JqueryService = JqueryService;
 	//# sourceMappingURL=jqueryService.js.map
 
@@ -73235,7 +73227,6 @@
 /* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var accountStatus_1 = __webpack_require__(524);
 	var EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	var PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$/i;
@@ -73321,7 +73312,7 @@
 	        };
 	    };
 	    return CustomValidators;
-	}());
+	})();
 	exports.CustomValidators = CustomValidators;
 	//# sourceMappingURL=Angular2ExtensionValidators.js.map
 
@@ -73332,7 +73323,6 @@
 	/**
 	 * Created by NicolaeB on 4/26/2016.
 	 */
-	"use strict";
 	var AccountStatus = (function () {
 	    function AccountStatus() {
 	    }
@@ -73341,7 +73331,7 @@
 	    AccountStatus.DISABLED = "DISABLED";
 	    AccountStatus.AUTO = "AUTO";
 	    return AccountStatus;
-	}());
+	})();
 	exports.AccountStatus = AccountStatus;
 	//# sourceMappingURL=accountStatus.js.map
 
@@ -73349,7 +73339,6 @@
 /* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73393,7 +73382,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], SubscribersService);
 	    return SubscribersService;
-	}());
+	})();
 	exports.SubscribersService = SubscribersService;
 	//# sourceMappingURL=subscribersService.js.map
 
@@ -73401,7 +73390,6 @@
 /* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73457,7 +73445,7 @@
 	        __metadata('design:paramtypes', [http_1.Http])
 	    ], NotificationService);
 	    return NotificationService;
-	}());
+	})();
 	exports.NotificationService = NotificationService;
 	//# sourceMappingURL=notificationService.js.map
 
@@ -73465,7 +73453,6 @@
 /* 527 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73635,7 +73622,7 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], DemandComponent);
 	    return DemandComponent;
-	}());
+	})();
 	exports.DemandComponent = DemandComponent;
 	//# sourceMappingURL=demandComponent.js.map
 
@@ -73643,7 +73630,6 @@
 /* 528 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73753,13 +73739,17 @@
 	        __metadata('design:type', Boolean)
 	    ], SelectComponent.prototype, "muliSelect", void 0);
 	    __decorate([
+	        core_1.Input('dropup-menu'), 
+	        __metadata('design:type', Boolean)
+	    ], SelectComponent.prototype, "dropUp", void 0);
+	    __decorate([
 	        core_1.Output('loaded'), 
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], SelectComponent.prototype, "loadedSelect", void 0);
 	    SelectComponent = __decorate([
 	        core_1.Component({
 	            selector: 'select-component',
-	            template: "\n            <div dropdown [(isOpen)]=\"_dropdownStatus.isopen\"class=\"bs-ui-select-2 dropdown clearfix\">\n                <span *ngIf=\"!muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <span *ngIf=\"!_selectedItem\">Choose...</span>\n                        <span *ngIf=\"_selectedItem && _selectedItem.displayName\">{{_selectedItem.displayName}}</span>\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span class=\"glyphicon glyphicon-remove pull-right simple-dropdown\" *ngIf=\"_selectedItem !== _chooseItemValue\"(click)=\"removeSelection($event)\"></span>\n                </span>\n                \n                <button *ngIf=\"muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    <div class=\"col-xs-10 col-md-10 clearfix\">\n                        <span *ngIf=\"_selectedItems.length < 1\">Choose...</span>\n                        <span class=\"label label-info pull-left\" *ngFor=\"let item of _selectedItems\">{{item.displayName}} <span (click)=\"removeItemFromSelection($event,item)\">&times;</span></span>\n                    </div>\n                    <div class=\"col-xs-2 col-md-2\">\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span *ngIf=\"_selectedItems.length > 0\" class=\"glyphicon glyphicon-remove pull-right\" (click)=\"removeSelection($event)\"></span>\n                    </div>\n                </button>\n                <div dropdownMenu class=\"ui-select2-list-container dropdown-menu\" >\n                        <div class=\"ui-select2-search\">\n                            <div *ngIf=\"searchQuery.length > 0\" class=\"ui-select2-search-right-icon\">\n                                <span class=\"glyphicon glyphicon-remove\" (click)=\"removeSearchQuery()\"></span>\n                            </div>\n                            <input class=\"form-control\" [(ngModel)]=\"searchQuery\" placeholder=\"Search..\"/>\n                        </div>\n                        <div class=\"ui-select2-list\">\n                            <div *ngIf=\"!muliSelect\" class=\"ui-select2-list-item\" (click)=\"selectItem(_chooseItemValue)\">{{_chooseItemValue.displayName}}</div>\n                            <div class=\"ui-select2-list-item\" *ngFor=\"let i of items|filterItems:searchQuery\" (click)=\"selectItem(i)\">{{i.displayName}}</div>\n                        </div>\n                </div>\n            </div>\n    ",
+	            template: "\n            <div dropdown [(isOpen)]=\"_dropdownStatus.isopen\" [class.dropUp]=\"dropUp\" [class.dropdown]=\"!dropUp\" class=\"bs-ui-select-2 clearfix\">\n                <span *ngIf=\"!muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <span *ngIf=\"!_selectedItem\">Choose...</span>\n                        <span *ngIf=\"_selectedItem && _selectedItem.displayName\">{{_selectedItem.displayName}}</span>\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span class=\"glyphicon glyphicon-remove pull-right simple-dropdown\" *ngIf=\"_selectedItem !== _chooseItemValue\"(click)=\"removeSelection($event)\"></span>\n                </span>\n                \n                <button *ngIf=\"muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    <div class=\"col-xs-10 col-md-10 clearfix\">\n                        <span *ngIf=\"_selectedItems.length < 1\">Choose...</span>\n                        <span class=\"label label-info pull-left\" *ngFor=\"let item of _selectedItems\">{{item.displayName}} <span (click)=\"removeItemFromSelection($event,item)\">&times;</span></span>\n                    </div>\n                    <div class=\"col-xs-2 col-md-2\">\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span *ngIf=\"_selectedItems.length > 0\" class=\"glyphicon glyphicon-remove pull-right\" (click)=\"removeSelection($event)\"></span>\n                    </div>\n                </button>\n                <div dropdownMenu class=\"ui-select2-list-container dropdown-menu\" >\n                        <div class=\"ui-select2-search\">\n                            <div *ngIf=\"searchQuery.length > 0\" class=\"ui-select2-search-right-icon\">\n                                <span class=\"glyphicon glyphicon-remove\" (click)=\"removeSearchQuery()\"></span>\n                            </div>\n                            <input class=\"form-control\" [(ngModel)]=\"searchQuery\" placeholder=\"Search..\"/>\n                        </div>\n                        <div class=\"ui-select2-list\">\n                            <div *ngIf=\"!muliSelect\" class=\"ui-select2-list-item\" (click)=\"selectItem(_chooseItemValue)\">{{_chooseItemValue.displayName}}</div>\n                            <div class=\"ui-select2-list-item\" *ngFor=\"let i of items|filterItems:searchQuery\" (click)=\"selectItem(i)\">{{i.displayName}}</div>\n                        </div>\n                </div>\n            </div>\n    ",
 	            styles: ["\n        .bs-ui-select-2{\n            border-radius: 5px;\n            position:relative;\n            margin-bottom:10px;\n        }\n\n        .ui-select-toggle{\n            text-align: left;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect{\n            padding-top: 7px;        \n            height: auto;\n            min-height: 34px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.dropdown-toggle .glyphicon.glyphicon-remove.pull-right{\n            margin-right: 7px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .label.label-info{\n            margin-left: 5px;\n            top: 2px;\n            margin-bottom: 4px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-10,.col-md-10{\n            padding-left: 0px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-2,.col-md-2{\n            padding-right: 0px;\n        }\n        \n        .bs-ui-select-2.dropdown .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{\n            background-color: white;\n        }\n        \n        .ui-select2-list-container{            \n            width:100%;\n            padding-left: 5px;\n            padding-right: 5px;\n        }\n\n        .ui-select2-list-container .ui-select2-list{\n            max-height: 200px;\n            overflow: auto;\n        }\n\n        .ui-select2-list-item{\n            position: relative;\n            display: block;\n            padding: 10px 15px;\n            margin-bottom: -1px;\n            background-color: #fff;\n        }\n\n        .ui-select2-list-item:hover{\n            background-color: lightgray;\n            cursor: pointer;\n        }        \n\n        .ui-select2-search{\n            padding: 3px 0px 5px 0px;\n            border-bottom:1px solid #ccc;\n            position: relative;\n        }\n\n        .ui-select2-search-right-icon{\n            position: absolute;\n            right: 10px;\n            top: 12px;\n            cursor: pointer;\n        }\n    "],
 	            pipes: [filterPipe_1.FilterPipe],
 	            directives: [ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
@@ -73767,14 +73757,14 @@
 	        __metadata('design:paramtypes', [])
 	    ], SelectComponent);
 	    return SelectComponent;
-	}());
+	})();
 	exports.SelectComponent = SelectComponent;
 	//This definition will remain here so the component may be exported with his types
 	var Select2Item = (function () {
 	    function Select2Item() {
 	    }
 	    return Select2Item;
-	}());
+	})();
 	exports.Select2Item = Select2Item;
 	//# sourceMappingURL=selectComponent.js.map
 
@@ -73782,7 +73772,6 @@
 /* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73823,7 +73812,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], FilterPipe);
 	    return FilterPipe;
-	}());
+	})();
 	exports.FilterPipe = FilterPipe;
 	//# sourceMappingURL=filterPipe.js.map
 
@@ -73831,7 +73820,6 @@
 /* 530 */
 /***/ function(module, exports) {
 
-	"use strict";
 	var Demand = (function () {
 	    function Demand() {
 	        this.title = '';
@@ -73847,7 +73835,7 @@
 	        this.domainId = -1;
 	    }
 	    return Demand;
-	}());
+	})();
 	exports.Demand = Demand;
 	//# sourceMappingURL=demand.js.map
 
@@ -73855,7 +73843,6 @@
 /* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -73937,7 +73924,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], MenuTreeDialog);
 	    return MenuTreeDialog;
-	}(modalDialog_1.ModalDialog));
+	})(modalDialog_1.ModalDialog);
 	exports.MenuTreeDialog = MenuTreeDialog;
 	//# sourceMappingURL=menuTreeDialog.js.map
 
@@ -73945,7 +73932,6 @@
 /* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73998,7 +73984,7 @@
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], ModalDialog.prototype, "confirmAction", void 0);
 	    return ModalDialog;
-	}());
+	})();
 	exports.ModalDialog = ModalDialog;
 	//# sourceMappingURL=modalDialog.js.map
 
@@ -74006,7 +73992,6 @@
 /* 533 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74185,7 +74170,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], MenuTreeComponent);
 	    return MenuTreeComponent;
-	}());
+	})();
 	exports.MenuTreeComponent = MenuTreeComponent;
 	//# sourceMappingURL=menuTreeComponent.js.map
 
@@ -74193,7 +74178,6 @@
 /* 534 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74304,7 +74288,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], BaseMenuComponent);
 	    return BaseMenuComponent;
-	}());
+	})();
 	exports.BaseMenuComponent = BaseMenuComponent;
 	//# sourceMappingURL=baseMenuComponent.js.map
 
@@ -74312,7 +74296,6 @@
 /* 535 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74327,6 +74310,7 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var fMarketApi_1 = __webpack_require__(498);
+	var _ = __webpack_require__(521);
 	var LocalizationService = (function () {
 	    function LocalizationService(api) {
 	        this.api = api;
@@ -74347,7 +74331,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], LocalizationService);
 	    return LocalizationService;
-	}());
+	})();
 	exports.LocalizationService = LocalizationService;
 	//# sourceMappingURL=localizationService.js.map
 
@@ -74358,7 +74342,6 @@
 	/**
 	 * Created by nick_ on 4/17/2016.
 	 */
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74429,7 +74412,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
 	    ], RegistrationPage);
 	    return RegistrationPage;
-	}());
+	})();
 	exports.RegistrationPage = RegistrationPage;
 	//# sourceMappingURL=registrationPage.js.map
 
@@ -74437,7 +74420,6 @@
 /* 537 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74583,7 +74565,7 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], RegistrationComponent);
 	    return RegistrationComponent;
-	}());
+	})();
 	exports.RegistrationComponent = RegistrationComponent;
 	//# sourceMappingURL=registrationComponent.js.map
 
@@ -74594,7 +74576,6 @@
 	/**
 	 * Created by NicolaeB on 4/27/2016.
 	 */
-	"use strict";
 	var RegisterAccount = (function () {
 	    function RegisterAccount() {
 	        this.email = '';
@@ -74602,7 +74583,7 @@
 	        this.rememberMe = false;
 	    }
 	    return RegisterAccount;
-	}());
+	})();
 	exports.RegisterAccount = RegisterAccount;
 	//# sourceMappingURL=registerAccount.js.map
 
@@ -74610,7 +74591,6 @@
 /* 539 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74662,7 +74642,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], RegistrationService);
 	    return RegistrationService;
-	}());
+	})();
 	exports.RegistrationService = RegistrationService;
 	//# sourceMappingURL=registrationService.js.map
 
@@ -74676,7 +74656,6 @@
 	/**
 	 * Created by nick_ on 4/17/2016.
 	 */
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74750,7 +74729,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService, notificationService_1.NotificationService])
 	    ], LoginPage);
 	    return LoginPage;
-	}());
+	})();
 	exports.LoginPage = LoginPage;
 	//# sourceMappingURL=loginPage.js.map
 
@@ -74758,7 +74737,6 @@
 /* 541 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var Subject_1 = __webpack_require__(65);
 	/**
 	 * Created by nick_ on 5/5/2016.
@@ -74786,7 +74764,7 @@
 	        this.notifyObservers(key);
 	    };
 	    return LocalStorageService;
-	}());
+	})();
 	exports.LocalStorageService = LocalStorageService;
 	//# sourceMappingURL=localStorageService.js.map
 
@@ -74797,7 +74775,6 @@
 	/**
 	 * Created by nick_ on 4/17/2016.
 	 */
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74868,7 +74845,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
 	    ], ForgetPasswordPage);
 	    return ForgetPasswordPage;
-	}());
+	})();
 	exports.ForgetPasswordPage = ForgetPasswordPage;
 	//# sourceMappingURL=forgetPasswordPage.js.map
 
@@ -74876,7 +74853,6 @@
 /* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74974,7 +74950,7 @@
 	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, notificationService_1.NotificationService])
 	    ], AdminPage);
 	    return AdminPage;
-	}());
+	})();
 	exports.AdminPage = AdminPage;
 	//# sourceMappingURL=adminPage.js.map
 
@@ -74982,7 +74958,6 @@
 /* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -75145,7 +75120,7 @@
 	        __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
 	    ], UsersPage);
 	    return UsersPage;
-	}(pageWithNavigation_1.PageWithNavigation));
+	})(pageWithNavigation_1.PageWithNavigation);
 	exports.UsersPage = UsersPage;
 	//# sourceMappingURL=usersPage.js.map
 
@@ -79812,7 +79787,6 @@
 /* 579 */
 /***/ function(module, exports) {
 
-	"use strict";
 	var PageWithNavigation = (function () {
 	    function PageWithNavigation() {
 	        this.currentPageIndex = 1;
@@ -79884,7 +79858,7 @@
 	        this.pageNumbsersSubset = auxArray;
 	    };
 	    return PageWithNavigation;
-	}());
+	})();
 	exports.PageWithNavigation = PageWithNavigation;
 	//# sourceMappingURL=pageWithNavigation.js.map
 
@@ -79892,7 +79866,6 @@
 /* 580 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -80014,7 +79987,7 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], CreateUserDialog);
 	    return CreateUserDialog;
-	}(modalDialog_1.ModalDialog));
+	})(modalDialog_1.ModalDialog);
 	exports.CreateUserDialog = CreateUserDialog;
 	//# sourceMappingURL=createUserDialog.js.map
 
@@ -80022,7 +79995,6 @@
 /* 581 */
 /***/ function(module, exports) {
 
-	"use strict";
 	var User = (function () {
 	    function User(id, name, email, type, status, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes, phone) {
 	        this.isInEditMode = false;
@@ -80088,7 +80060,7 @@
 	        return true;
 	    };
 	    return User;
-	}());
+	})();
 	exports.User = User;
 	//# sourceMappingURL=user.js.map
 
@@ -80096,7 +80068,6 @@
 /* 582 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -80153,7 +80124,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], ActionDialog);
 	    return ActionDialog;
-	}(modalDialog_1.ModalDialog));
+	})(modalDialog_1.ModalDialog);
 	exports.ActionDialog = ActionDialog;
 	//# sourceMappingURL=actionDialog.js.map
 
@@ -80161,7 +80132,6 @@
 /* 583 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80206,7 +80176,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], UserService);
 	    return UserService;
-	}());
+	})();
 	exports.UserService = UserService;
 	//# sourceMappingURL=usersService.js.map
 
@@ -80214,7 +80184,6 @@
 /* 584 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var accountStatus_1 = __webpack_require__(524);
 	exports.STATUS = [
 	    { status: null, displayName: "Chose..." },
@@ -80228,7 +80197,6 @@
 /* 585 */
 /***/ function(module, exports) {
 
-	"use strict";
 	/**
 	 * Created by nick_ on 5/5/2016.
 	 */
@@ -80239,7 +80207,7 @@
 	    Role.USER = 'USER';
 	    Role.ANONYMUS = 'ANONYMUS';
 	    return Role;
-	}());
+	})();
 	exports.Role = Role;
 	//# sourceMappingURL=Roles.js.map
 
@@ -80247,7 +80215,6 @@
 /* 586 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -80457,7 +80424,7 @@
 	        __metadata('design:paramtypes', [subscribersService_1.SubscribersService, localizationService_1.LocalizationService])
 	    ], SubscribersPage);
 	    return SubscribersPage;
-	}(pageWithNavigation_1.PageWithNavigation));
+	})(pageWithNavigation_1.PageWithNavigation);
 	exports.SubscribersPage = SubscribersPage;
 	//# sourceMappingURL=subscribersPage.js.map
 
@@ -80465,7 +80432,6 @@
 /* 587 */
 /***/ function(module, exports) {
 
-	"use strict";
 	var Subscriber = (function () {
 	    function Subscriber(id, description, email, subscribeDate, unsubscribeDate, unsubscribeToken) {
 	        this.isInEditMode = false;
@@ -80480,7 +80446,7 @@
 	        return new Subscriber();
 	    };
 	    return Subscriber;
-	}());
+	})();
 	exports.Subscriber = Subscriber;
 	//# sourceMappingURL=subscriber.js.map
 
@@ -80488,7 +80454,6 @@
 /* 588 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -80578,7 +80543,7 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], CreateSubscriberDialog);
 	    return CreateSubscriberDialog;
-	}(modalDialog_1.ModalDialog));
+	})(modalDialog_1.ModalDialog);
 	exports.CreateSubscriberDialog = CreateSubscriberDialog;
 	//# sourceMappingURL=createSubscriberDialog.js.map
 
@@ -80586,7 +80551,6 @@
 /* 589 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80633,7 +80597,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], CategoriesPage);
 	    return CategoriesPage;
-	}());
+	})();
 	exports.CategoriesPage = CategoriesPage;
 	//# sourceMappingURL=categoriesPage.js.map
 
@@ -80641,7 +80605,6 @@
 /* 590 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80762,7 +80725,7 @@
 	        __metadata('design:paramtypes', [companieTypesService_1.CompanieTypeService, common_1.FormBuilder])
 	    ], CompaniesPage);
 	    return CompaniesPage;
-	}());
+	})();
 	exports.CompaniesPage = CompaniesPage;
 	//# sourceMappingURL=companiesPage.js.map
 
@@ -80770,7 +80733,6 @@
 /* 591 */
 /***/ function(module, exports) {
 
-	"use strict";
 	var CompanieType = (function () {
 	    function CompanieType(id, name, companies) {
 	        this.isInEditMode = false;
@@ -80779,7 +80741,7 @@
 	        //this.companies_no = companies;
 	    }
 	    return CompanieType;
-	}());
+	})();
 	exports.CompanieType = CompanieType;
 	//# sourceMappingURL=companieType.js.map
 
@@ -80787,7 +80749,6 @@
 /* 592 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80821,7 +80782,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], CompanieTypeService);
 	    return CompanieTypeService;
-	}());
+	})();
 	exports.CompanieTypeService = CompanieTypeService;
 	//# sourceMappingURL=companieTypesService.js.map
 
@@ -80829,7 +80790,6 @@
 /* 593 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80953,7 +80913,7 @@
 	        __metadata('design:paramtypes', [requestTypeService_1.RequestTypeService, common_1.FormBuilder])
 	    ], DomainsPage);
 	    return DomainsPage;
-	}());
+	})();
 	exports.DomainsPage = DomainsPage;
 	//# sourceMappingURL=domainsPage.js.map
 
@@ -80961,7 +80921,6 @@
 /* 594 */
 /***/ function(module, exports) {
 
-	"use strict";
 	var RequestType = (function () {
 	    function RequestType(id, name, companies) {
 	        this.isInEditMode = false;
@@ -80970,7 +80929,7 @@
 	        //this.companies = companies;
 	    }
 	    return RequestType;
-	}());
+	})();
 	exports.RequestType = RequestType;
 	//# sourceMappingURL=requestType.js.map
 
@@ -80978,7 +80937,6 @@
 /* 595 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81012,7 +80970,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], RequestTypeService);
 	    return RequestTypeService;
-	}());
+	})();
 	exports.RequestTypeService = RequestTypeService;
 	//# sourceMappingURL=requestTypeService.js.map
 
@@ -81020,7 +80978,6 @@
 /* 596 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81144,7 +81101,7 @@
 	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])
 	    ], CategoriesMenuPage);
 	    return CategoriesMenuPage;
-	}());
+	})();
 	exports.CategoriesMenuPage = CategoriesMenuPage;
 	//# sourceMappingURL=categoriesMenuPage.js.map
 
@@ -81152,7 +81109,6 @@
 /* 597 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81304,7 +81260,7 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], MenuItemDialog);
 	    return MenuItemDialog;
-	}());
+	})();
 	exports.MenuItemDialog = MenuItemDialog;
 	//# sourceMappingURL=menuItemDialog.js.map
 
@@ -81312,7 +81268,6 @@
 /* 598 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81349,7 +81304,7 @@
 	        __metadata('design:paramtypes', [router_1.Router])
 	    ], TabsRoutingComponent);
 	    return TabsRoutingComponent;
-	}());
+	})();
 	exports.TabsRoutingComponent = TabsRoutingComponent;
 	//# sourceMappingURL=tabsRoutingComponent.js.map
 
@@ -81357,7 +81312,6 @@
 /* 599 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81402,7 +81356,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], DemandsPage);
 	    return DemandsPage;
-	}());
+	})();
 	exports.DemandsPage = DemandsPage;
 	//# sourceMappingURL=demandsPage.js.map
 
@@ -81413,7 +81367,6 @@
 	/**
 	 * Created by nick_ on 4/23/2016.
 	 */
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -81464,7 +81417,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
 	    ], NewDemandsListPage);
 	    return NewDemandsListPage;
-	}(demandsListPageBase_1.DemandsListPageBase));
+	})(demandsListPageBase_1.DemandsListPageBase);
 	exports.NewDemandsListPage = NewDemandsListPage;
 	//# sourceMappingURL=newDemandsListPage.js.map
 
@@ -81472,7 +81425,6 @@
 /* 601 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81521,7 +81473,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], DemandListBaseComponent);
 	    return DemandListBaseComponent;
-	}());
+	})();
 	exports.DemandListBaseComponent = DemandListBaseComponent;
 	//# sourceMappingURL=demandListBase.js.map
 
@@ -81529,7 +81481,6 @@
 /* 602 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var _ = __webpack_require__(521);
 	var DemandStatus_1 = __webpack_require__(603);
 	var DemandSearchObject_1 = __webpack_require__(604);
@@ -81636,7 +81587,7 @@
 	        this._router.navigate(['/Admin/EditDemand', { id: demand.id }]);
 	    };
 	    return DemandsListPageBase;
-	}());
+	})();
 	exports.DemandsListPageBase = DemandsListPageBase;
 	//# sourceMappingURL=demandsListPageBase.js.map
 
@@ -81647,7 +81598,6 @@
 	/**
 	 * Created by NicolaeB on 4/26/2016.
 	 */
-	"use strict";
 	var DemandStatus = (function () {
 	    function DemandStatus() {
 	    }
@@ -81658,7 +81608,7 @@
 	    DemandStatus.CLOSED = "CLOSED";
 	    DemandStatus.REJECTED = "REJECTED";
 	    return DemandStatus;
-	}());
+	})();
 	exports.DemandStatus = DemandStatus;
 	//# sourceMappingURL=DemandStatus.js.map
 
@@ -81666,7 +81616,6 @@
 /* 604 */
 /***/ function(module, exports) {
 
-	"use strict";
 	/**
 	 * Created by NicolaeB on 5/26/2016.
 	 */
@@ -81678,7 +81627,7 @@
 	        this.domainId = domainId;
 	    }
 	    return DemandSearchObject;
-	}());
+	})();
 	exports.DemandSearchObject = DemandSearchObject;
 	//# sourceMappingURL=DemandSearchObject.js.map
 
@@ -81686,7 +81635,6 @@
 /* 605 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -81740,7 +81688,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
 	    ], AllDemandsListPage);
 	    return AllDemandsListPage;
-	}(demandsListPageBase_1.DemandsListPageBase));
+	})(demandsListPageBase_1.DemandsListPageBase);
 	exports.AllDemandsListPage = AllDemandsListPage;
 	//# sourceMappingURL=allDemandsListPage.js.map
 
@@ -81748,7 +81696,6 @@
 /* 606 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81775,7 +81722,6 @@
 	        this._notificationService = notificationService;
 	    }
 	    CompaniesPage.prototype.ngOnInit = function () {
-	        // this._paginationWrapper.currentPage=1;
 	        this.getCompaniesWithFilters();
 	    };
 	    CompaniesPage.prototype.referenceCompaniesDialog = function (_createCompanieDialog) {
@@ -81783,7 +81729,6 @@
 	    };
 	    CompaniesPage.prototype.getCompaniesWithFilters = function () {
 	        var me = this;
-	        debugger;
 	        this._companiesService.getCompaniesForUsers(this.searchFilter)
 	            .map(function (response) {
 	            if (response.text().length > 0) {
@@ -82136,7 +82081,7 @@
 	        ];
 	    };
 	    CompaniesPage.prototype.splitViewInPiecesUsingScreen = function (mockArray) {
-	        var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+	        var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0]['clientWidth'];
 	        if (screenWidth <= 767) {
 	            return [mockArray];
 	        }
@@ -82167,7 +82112,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
 	    ], CompaniesPage);
 	    return CompaniesPage;
-	}());
+	})();
 	exports.CompaniesPage = CompaniesPage;
 	//# sourceMappingURL=companiesPage.js.map
 
@@ -82175,7 +82120,6 @@
 /* 607 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82223,12 +82167,18 @@
 	    CompaniesService.prototype.deleteCompany = function (id) {
 	        return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER + ("" + id));
 	    };
+	    CompaniesService.prototype.getCompanieDomains = function () {
+	        return this.api.get('/company/domains');
+	    };
+	    CompaniesService.prototype.getDemandDomanins = function () {
+	        return this.api.get('/demand/domains');
+	    };
 	    CompaniesService = __decorate([
 	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], CompaniesService);
 	    return CompaniesService;
-	}());
+	})();
 	exports.CompaniesService = CompaniesService;
 	//# sourceMappingURL=companiesService.js.map
 
@@ -82236,7 +82186,6 @@
 /* 608 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82276,7 +82225,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], CompanieListComponent);
 	    return CompanieListComponent;
-	}());
+	})();
 	exports.CompanieListComponent = CompanieListComponent;
 	//# sourceMappingURL=companieListComponent.js.map
 
@@ -82287,7 +82236,6 @@
 	/**
 	 * Created by nick_ on 5/6/2016.
 	 */
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -82355,7 +82303,7 @@
 	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
 	    ], CompaniesEditPage);
 	    return CompaniesEditPage;
-	}(companiesEditBase_1.CompaniesEditBase));
+	})(companiesEditBase_1.CompaniesEditBase);
 	exports.CompaniesEditPage = CompaniesEditPage;
 	//# sourceMappingURL=companiesEditPage.js.map
 
@@ -82363,7 +82311,6 @@
 /* 610 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82409,9 +82356,9 @@
 	        this._companieEditForm.addControl('phone', this._formBuilder.control(this._companieEditFormModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber])));
 	        this._companieEditForm.addControl('contactPerson', this._formBuilder.control(this._companieEditFormModel.contactPerson, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
 	        this._companieEditForm.addControl('address', this._formBuilder.control(this._companieEditFormModel.address, common_1.Validators.required));
-	        this._companieEditForm.addControl('cityId', this._formBuilder.control(this._companieEditFormModel.cityId, common_1.Validators.required));
-	        this._companieEditForm.addControl('companyDomain', this._formBuilder.control(this._companieEditFormModel.companyDomain, common_1.Validators.required));
-	        this._companieEditForm.addControl('demandDomains', this._formBuilder.control(this._companieEditFormModel.demandDomains, common_1.Validators.required));
+	        this._companieEditForm.addControl('cityId', this._formBuilder.control(this._companieEditFormModel.cityId));
+	        this._companieEditForm.addControl('companyDomain', this._formBuilder.control(this._companieEditFormModel.companyDomain));
+	        this._companieEditForm.addControl('demandDomains', this._formBuilder.control(this._companieEditFormModel.demandDomains));
 	    };
 	    CompaniesEditComponent.prototype.getCompanieFormControls = function () {
 	        var colector = [];
@@ -82426,7 +82373,7 @@
 	        }
 	        this._companieEditFormModel.cityId = this.selectCity._selectedItem.boundItem['id'];
 	        this._companieEditFormModel.companyDomainId = this.selectCompanyDomain._selectedItem.boundItem['id'];
-	        this._companieEditFormModel.demandDomains = this.getDemandDomaina(this.selectDemandDomain._selectedItems);
+	        this._companieEditFormModel.demandDomains = this.getDemandDomains(this.selectDemandDomain._selectedItems);
 	        this.saveCompanieEmitter.emit(this._companieEditFormModel);
 	    };
 	    CompaniesEditComponent.prototype.referenceSelectCityComponent = function ($event) {
@@ -82441,10 +82388,10 @@
 	    CompaniesEditComponent.prototype.goToPreviousPage = function () {
 	        this.discardChangesEmitter.emit(null);
 	    };
-	    CompaniesEditComponent.prototype.getDemandDomaina = function (_selectedItems) {
+	    CompaniesEditComponent.prototype.getDemandDomains = function (_selectedItems) {
 	        return _.map(_selectedItems, function (item) {
 	            if (item) {
-	                return item['id'];
+	                return item['boundItem']['id'];
 	            }
 	        });
 	    };
@@ -82485,7 +82432,7 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], CompaniesEditComponent);
 	    return CompaniesEditComponent;
-	}());
+	})();
 	exports.CompaniesEditComponent = CompaniesEditComponent;
 	//# sourceMappingURL=companiesEditComponent.js.map
 
@@ -82493,7 +82440,6 @@
 /* 611 */
 /***/ function(module, exports) {
 
-	"use strict";
 	/**
 	 * Created by NicolaeB on 5/26/2016.
 	 */
@@ -82512,7 +82458,7 @@
 	        return new NewCompanyRequest("", "", "", "", "", -1, -1, []);
 	    };
 	    return NewCompanyRequest;
-	}());
+	})();
 	exports.NewCompanyRequest = NewCompanyRequest;
 	//# sourceMappingURL=newCompanyRequest.js.map
 
@@ -82520,7 +82466,6 @@
 /* 612 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var newCompanyRequest_1 = __webpack_require__(611);
 	var CompaniesEditBase = (function () {
 	    function CompaniesEditBase(location, router, companiesService, notificationService, localizationService) {
@@ -82553,7 +82498,7 @@
 	    };
 	    CompaniesEditBase.prototype.getCompanieDomains = function () {
 	        var me = this;
-	        this._localizationService.getCityList()
+	        this._companiesService.getCompanieDomains()
 	            .map(function (response) {
 	            if (response.text().length > 0) {
 	                return response.json();
@@ -82567,7 +82512,7 @@
 	    };
 	    CompaniesEditBase.prototype.getDomains = function () {
 	        var me = this;
-	        this._localizationService.getCityList()
+	        this._companiesService.getDemandDomanins()
 	            .map(function (response) {
 	            if (response.text().length > 0) {
 	                return response.json();
@@ -82580,7 +82525,7 @@
 	        });
 	    };
 	    return CompaniesEditBase;
-	}());
+	})();
 	exports.CompaniesEditBase = CompaniesEditBase;
 	//# sourceMappingURL=companiesEditBase.js.map
 
@@ -82591,7 +82536,6 @@
 	/**
 	 * Created by nick_ on 4/22/2016.
 	 */
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82692,7 +82636,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, demandService_1.DemandService, requestTypeService_1.RequestTypeService, notificationService_1.NotificationService])
 	    ], DemandsEditPage);
 	    return DemandsEditPage;
-	}());
+	})();
 	exports.DemandsEditPage = DemandsEditPage;
 	//# sourceMappingURL=demandsEditPage.js.map
 
@@ -82700,7 +82644,6 @@
 /* 614 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82767,7 +82710,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], DemandEditComponent);
 	    return DemandEditComponent;
-	}());
+	})();
 	exports.DemandEditComponent = DemandEditComponent;
 	//# sourceMappingURL=demandEdit.js.map
 
@@ -82775,7 +82718,6 @@
 /* 615 */
 /***/ function(module, exports) {
 
-	"use strict";
 	/**
 	 * Created by NicolaeB on 4/26/2016.
 	 */
@@ -82785,7 +82727,7 @@
 	        this.isInEditMode = false;
 	    }
 	    return DemandDetailsDTO;
-	}());
+	})();
 	exports.DemandDetailsDTO = DemandDetailsDTO;
 	//# sourceMappingURL=demandDetailsDTO.js.map
 
@@ -82796,7 +82738,6 @@
 	/**
 	 * Created by nick_ on 5/6/2016.
 	 */
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -82830,6 +82771,18 @@
 	        this.getDomains();
 	    };
 	    CompanieCreatePage.prototype.saveCompanie = function (companieDto) {
+	        var me = this;
+	        this._companiesService.createCompany(companieDto)
+	            .map(function (response) {
+	            if (response.text().length > 0) {
+	                return response.json();
+	            }
+	        })
+	            .subscribe(function (succes) {
+	            me._location.back();
+	        }, function (error) {
+	            //me.
+	        });
 	    };
 	    CompanieCreatePage = __decorate([
 	        core_1.Component({
@@ -82840,7 +82793,7 @@
 	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
 	    ], CompanieCreatePage);
 	    return CompanieCreatePage;
-	}(companiesEditBase_1.CompaniesEditBase));
+	})(companiesEditBase_1.CompaniesEditBase);
 	exports.CompanieCreatePage = CompanieCreatePage;
 	//# sourceMappingURL=companiesCreatePage.js.map
 
@@ -82851,7 +82804,6 @@
 	/**
 	 * Created by nick_ on 4/26/2016.
 	 */
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82905,7 +82857,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, notificationService_1.NotificationService])
 	    ], AccountSettingsPage);
 	    return AccountSettingsPage;
-	}());
+	})();
 	exports.AccountSettingsPage = AccountSettingsPage;
 	//# sourceMappingURL=accountSettingsPage.js.map
 
@@ -82913,7 +82865,6 @@
 /* 618 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82981,7 +82932,7 @@
 	        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService])
 	    ], AccountEditPage);
 	    return AccountEditPage;
-	}());
+	})();
 	exports.AccountEditPage = AccountEditPage;
 	//# sourceMappingURL=accountEditPage.js.map
 
@@ -82989,7 +82940,6 @@
 /* 619 */
 /***/ function(module, exports) {
 
-	"use strict";
 	/**
 	 * Created by NicolaeB on 4/27/2016.
 	 */
@@ -82997,7 +82947,7 @@
 	    function AccountDto() {
 	    }
 	    return AccountDto;
-	}());
+	})();
 	exports.AccountDto = AccountDto;
 	//# sourceMappingURL=accountDto.js.map
 
@@ -83005,7 +82955,6 @@
 /* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -83035,7 +82984,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], AccountService);
 	    return AccountService;
-	}());
+	})();
 	exports.AccountService = AccountService;
 	//# sourceMappingURL=accountService.js.map
 
@@ -83043,7 +82992,6 @@
 /* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -83101,7 +83049,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
 	    ], AccountDemandsPage);
 	    return AccountDemandsPage;
-	}(demandsListPageBase_1.DemandsListPageBase));
+	})(demandsListPageBase_1.DemandsListPageBase);
 	exports.AccountDemandsPage = AccountDemandsPage;
 	//# sourceMappingURL=accountDemandsPage.js.map
 
@@ -83112,7 +83060,6 @@
 	/**
 	 * Created by nick_ on 5/5/2016.
 	 */
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -83152,7 +83099,7 @@
 	        __metadata('design:paramtypes', [router_1.Router])
 	    ], SuccessPage);
 	    return SuccessPage;
-	}());
+	})();
 	exports.SuccessPage = SuccessPage;
 	//# sourceMappingURL=successPage.js.map
 
@@ -83160,7 +83107,6 @@
 /* 623 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -83232,7 +83178,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, localStorageService_1.LocalStorageService])
 	    ], TokenConfirmPage);
 	    return TokenConfirmPage;
-	}());
+	})();
 	exports.TokenConfirmPage = TokenConfirmPage;
 	//# sourceMappingURL=tokenConfirmPage.js.map
 
@@ -83240,7 +83186,6 @@
 /* 624 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -83344,7 +83289,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, localStorageService_1.LocalStorageService, registrationService_1.RegistrationService, notificationService_1.NotificationService])
 	    ], HeaderComponent);
 	    return HeaderComponent;
-	}());
+	})();
 	exports.HeaderComponent = HeaderComponent;
 	//# sourceMappingURL=headerComponent.js.map
 
@@ -83355,7 +83300,6 @@
 	/**
 	 * Created by nick_ on 5/6/2016.
 	 */
-	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -83380,7 +83324,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], FooterComponent);
 	    return FooterComponent;
-	}());
+	})();
 	exports.FooterComponent = FooterComponent;
 	//# sourceMappingURL=footerComponent.js.map
 
