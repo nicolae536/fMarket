@@ -14,21 +14,18 @@ import ro.fmarket.model.company.Company;
 @Entity
 public class CompanyRating extends BaseEntity {
 
-	@OneToOne(mappedBy = "rating", fetch = FetchType.LAZY)
-	private Company company;
-
 	/**
 	 * reviews nr
 	 */
 	@Min(0)
 	@Column(nullable = false)
-	private Integer votes;
+	private Integer votes = 0;
 
 	/**
 	 * Sum of stars
 	 */
 	@Min(0)
 	@Column(nullable = false)
-	private Integer score;
+	private Integer score = 0;
 
 }

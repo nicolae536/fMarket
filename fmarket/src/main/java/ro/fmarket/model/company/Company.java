@@ -31,7 +31,7 @@ import ro.fmarket.model.domain.demand.DemandDomain;
 @Entity
 public class Company extends BaseEntity {
 
-	@OneToOne(optional = false)
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	private Account account;
 
 	@Column(nullable = false)

@@ -13,12 +13,9 @@ import ro.fmarket.model.geographical.city.City;
 @Entity
 public class CompanyContactInfo extends BaseEntity {
 
-	@OneToOne(mappedBy = "contactInfo")
-	private Company company;
-
 	private String phone;
-	private String email;
 	private String address;
+	private String contactPerson;
 
 	@ManyToOne(optional = false)
 	private City city;
