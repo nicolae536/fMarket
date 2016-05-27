@@ -82353,6 +82353,7 @@
 	    CompaniesEditComponent.prototype.buildCompanieEditForm = function () {
 	        this._companieEditForm.addControl('name', this._formBuilder.control(this._companieEditFormModel.name, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
 	        this._companieEditForm.addControl('email', this._formBuilder.control(this._companieEditFormModel.email, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
+	        this._companieEditForm.addControl('password', this._formBuilder.control(this._companieEditFormModel.password, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword])));
 	        this._companieEditForm.addControl('phone', this._formBuilder.control(this._companieEditFormModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber])));
 	        this._companieEditForm.addControl('contactPerson', this._formBuilder.control(this._companieEditFormModel.contactPerson, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
 	        this._companieEditForm.addControl('address', this._formBuilder.control(this._companieEditFormModel.address, common_1.Validators.required));

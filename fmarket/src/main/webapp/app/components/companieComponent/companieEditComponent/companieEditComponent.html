@@ -12,17 +12,22 @@
                        placeholder="Email companie"/>
             </div>
             <div class="form-group">
+                <label>Parola</label>
+                <input type="password" [ngFormControl]="_companieEditForm.controls['password']" [(ngModel)]="_companieEditFormModel.password" class="form-control"
+                   placeholder="Email companie"/>
+            </div>
+            <div class="form-group">
                 <label>Telefon</label>
                 <input type="text" [ngFormControl]="_companieEditForm.controls['phone']" [(ngModel)]="_companieEditFormModel.phone" class="form-control"
                        placeholder="0712345689"/>
             </div>
             <div class="form-group">
-                <label>Telefon</label>
+                <label>Numele persoanei de contact</label>
                 <input type="text" [ngFormControl]="_companieEditForm.controls['contactPerson']" [(ngModel)]="_companieEditFormModel.contactPerson" class="form-control"
                        placeholder="Numele persoanei de contact"/>
             </div>
             <div class="form-group">
-                <label>Telefon</label>
+                <label>Adresa companie</label>
                 <input type="text" [ngFormControl]="_companieEditForm.controls['address']" [(ngModel)]="_companieEditFormModel.address" class="form-control"
                        placeholder="Adresa companie"/>
             </div>

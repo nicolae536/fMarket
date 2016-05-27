@@ -56,6 +56,8 @@ export class CompaniesEditComponent implements OnInit{
             this._companieEditFormModel.name,Validators.compose([Validators.required, Validators.minLength(3)])));
         this._companieEditForm.addControl('email',this._formBuilder.control(
             this._companieEditFormModel.email,Validators.compose([Validators.required, CustomValidators.validateEmail])));
+        this._companieEditForm.addControl('password',this._formBuilder.control(
+            this._companieEditFormModel.password,Validators.compose([Validators.required, CustomValidators.validatePassword])));
         this._companieEditForm.addControl('phone',this._formBuilder.control(
             this._companieEditFormModel.phone,Validators.compose([Validators.required, CustomValidators.validatePhoneNumber])));
         this._companieEditForm.addControl('contactPerson',this._formBuilder.control(

@@ -11,6 +11,7 @@ export class NewCompanyRequest{
     companyDomainId:number;
     demandDomains:Array<number>;
     companyDomain;
+    password:string;
 
 
     constructor(name:string, email:string, phone:string, contactPerson:string, address:string, cityId:number, companyDomainId:number, demandDomains:Array<number>) {
