@@ -35,6 +35,20 @@ export class CompanieCreatePage extends CompaniesEditBase implements OnInit {
     }
 
     saveCompanie(companieDto:NewCompanyRequest){
-        
+        let me = this;
+        this._companiesService.createCompany(companieDto)
+            .map(response=>{
+                if(response.text().length>0){
+                    return response.json();
+                }
+            })
+            .subscribe(
+                succes=>{
+                    me._location.back();
+                },
+                error=>{
+                    //me.
+                }
+            );
     }
 }
