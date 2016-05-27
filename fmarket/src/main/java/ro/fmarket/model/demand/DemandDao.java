@@ -26,7 +26,7 @@ public class DemandDao extends BaseDao<Demand> {
 	@SuppressWarnings("unchecked")
 	public List<Demand> getDemandsForAccount(int accountId) {
 		final Criteria criteria = getCriteria();
-		criteria.createAlias("account", "acc");
+//		criteria.createAlias("account", "acc");
 		criteria.add(Restrictions.eq("acc.id", accountId));
 		criteria.addOrder(Order.desc("creationDate"));
 

@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class CityController {
 
 	@Autowired
-	private CityDao dao;
+	private CityService service;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<City> getCities() {
-		return dao.getList();
+		return service.getAll();
 	}
 	
 }
