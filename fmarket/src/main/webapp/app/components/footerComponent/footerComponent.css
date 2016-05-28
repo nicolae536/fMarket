@@ -54,6 +54,7 @@
 .footer .logo-image-container {
     margin-top: 15px;
     max-height: 50px;
+    display: block;
     width: auto;
 }
 

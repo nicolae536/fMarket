@@ -73,7 +73,6 @@ export class SelectComponent implements OnInit, OnChanges, DoCheck {
 
     ngDoCheck() {
         this.computeSelectView();
-        console.log('checked');
     }
 
     computeSelectView():any {
