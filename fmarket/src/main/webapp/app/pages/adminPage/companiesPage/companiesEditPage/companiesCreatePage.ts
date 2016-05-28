@@ -12,7 +12,6 @@ import {CompaniesEditBase} from "./companiesEditBase";
 import {LocalizationService} from "../../../../services/localizationService";
 import {NewCompanyRequest} from "../../../../models/newCompanyRequest";
 
-
 @Component({
     selector:'companies-edit-page',
     templateUrl:'/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',

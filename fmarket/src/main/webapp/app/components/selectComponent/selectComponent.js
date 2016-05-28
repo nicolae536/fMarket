@@ -20,16 +20,36 @@ var SelectComponent = (function () {
         this.searchQuery = "";
         this._dropdownStatus = { isopen: false };
     }
-    SelectComponent.prototype.ngOnChanges = function (changes) {
-        if (changes.hasOwnProperty('_selectedItem')) {
-            // this._selectedItem=
-            console.log('selected item change', this._selectedItem);
-        }
-    };
     SelectComponent.prototype.ngOnInit = function () {
         this.loadedSelect.emit(this);
         this._selectedItem = this._selectedItem ? this._selectedItem : this._chooseItemValue;
         this._selectedItems = this._selectedItems ? this._selectedItems : [];
+    };
+    SelectComponent.prototype.ngOnChanges = function (changes) {
+        if (changes.hasOwnProperty('_selectedItem')) {
+            console.log('selected item change', this._selectedItem);
+        }
+    };
+    SelectComponent.prototype.ngDoCheck = function () {
+        this.computeSelectView();
+        console.log('checked');
+    };
+    SelectComponent.prototype.computeSelectView = function () {
+        var multiSelectRefPosition = null;
+        var simpleSelectRefPosition = null;
+        var documentHeight = Math.max(document.documentElement["clientHeight"], document.body["scrollHeight"], document.documentElement["scrollHeight"], document.body["offsetHeight"], document.documentElement["offsetHeight"]);
+        if (this.multiSelectRef) {
+            multiSelectRefPosition = this.getOffset(this.multiSelectRef.nativeElement);
+        }
+        if (this.simpleSelectRef) {
+            simpleSelectRefPosition = this.getOffset(this.simpleSelectRef.nativeElement);
+        }
+        if (multiSelectRefPosition) {
+            this.dropUp = multiSelectRefPosition.top + 305 > documentHeight ? true : false;
+        }
+        if (simpleSelectRefPosition) {
+            this.dropUp = simpleSelectRefPosition.top + 305 > documentHeight ? true : false;
+        }
     };
     Object.defineProperty(SelectComponent.prototype, "selectedItem", {
         get: function () {
@@ -90,6 +110,21 @@ var SelectComponent = (function () {
         this._selectedItem = item;
         this._selectedItems.push(item);
     };
+    SelectComponent.prototype.getOffset = function (el) {
+        var rect = el.getClientRects();
+        rect = rect.length > 0 ? rect[0] : rect;
+        var scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
+        var scrollLeft = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft;
+        return { top: rect.top + scrollTop, left: rect.left + scrollLeft };
+    };
+    __decorate([
+        core_1.ViewChild('simpleSelectRef'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], SelectComponent.prototype, "simpleSelectRef", void 0);
+    __decorate([
+        core_1.ViewChild('multiSelectRef'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], SelectComponent.prototype, "multiSelectRef", void 0);
     __decorate([
         core_1.Input('select-items'), 
         __metadata('design:type', Array)
@@ -107,18 +142,13 @@ var SelectComponent = (function () {
         __metadata('design:type', Boolean)
     ], SelectComponent.prototype, "muliSelect", void 0);
     __decorate([
-        core_1.Input('dropup-menu'), 
-        __metadata('design:type', Boolean)
-    ], SelectComponent.prototype, "dropUp", void 0);
-    __decorate([
         core_1.Output('loaded'), 
         __metadata('design:type', core_1.EventEmitter)
     ], SelectComponent.prototype, "loadedSelect", void 0);
     SelectComponent = __decorate([
         core_1.Component({
             selector: 'select-component',
-            template: "\n            <div dropdown [(isOpen)]=\"_dropdownStatus.isopen\" [class.dropUp]=\"dropUp\" [class.dropdown]=\"!dropUp\" class=\"bs-ui-select-2 clearfix\">\n                <span *ngIf=\"!muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <span *ngIf=\"!_selectedItem\">Choose...</span>\n                        <span *ngIf=\"_selectedItem && _selectedItem.displayName\">{{_selectedItem.displayName}}</span>\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span class=\"glyphicon glyphicon-remove pull-right simple-dropdown\" *ngIf=\"_selectedItem !== _chooseItemValue\"(click)=\"removeSelection($event)\"></span>\n                </span>\n                \n                <button *ngIf=\"muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    <div class=\"col-xs-10 col-md-10 clearfix\">\n                        <span *ngIf=\"_selectedItems.length < 1\">Choose...</span>\n                        <span class=\"label label-info pull-left\" *ngFor=\"let item of _selectedItems\">{{item.displayName}} <span (click)=\"removeItemFromSelection($event,item)\">&times;</span></span>\n                    </div>\n                    <div class=\"col-xs-2 col-md-2\">\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span *ngIf=\"_selectedItems.length > 0\" class=\"glyphicon glyphicon-remove pull-right\" (click)=\"removeSelection($event)\"></span>\n                    </div>\n                </button>\n                <div dropdownMenu class=\"ui-select2-list-container dropdown-menu\" >\n                        <div class=\"ui-select2-search\">\n                            <div *ngIf=\"searchQuery.length > 0\" class=\"ui-select2-search-right-icon\">\n                                <span class=\"glyphicon glyphicon-remove\" (click)=\"removeSearchQuery()\"></span>\n                            </div>\n                            <input class=\"form-control\" [(ngModel)]=\"searchQuery\" placeholder=\"Search..\"/>\n                        </div>\n                        <div class=\"ui-select2-list\">\n                            <div *ngIf=\"!muliSelect\" class=\"ui-select2-list-item\" (click)=\"selectItem(_chooseItemValue)\">{{_chooseItemValue.displayName}}</div>\n                            <div class=\"ui-select2-list-item\" *ngFor=\"let i of items|filterItems:searchQuery\" (click)=\"selectItem(i)\">{{i.displayName}}</div>\n                        </div>\n                </div>\n            </div>\n    ",
-            styles: ["\n        .bs-ui-select-2{\n            border-radius: 5px;\n            position:relative;\n            margin-bottom:10px;\n        }\n\n        .ui-select-toggle{\n            text-align: left;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect{\n            padding-top: 7px;        \n            height: auto;\n            min-height: 34px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.dropdown-toggle .glyphicon.glyphicon-remove.pull-right{\n            margin-right: 7px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .label.label-info{\n            margin-left: 5px;\n            top: 2px;\n            margin-bottom: 4px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-10,.col-md-10{\n            padding-left: 0px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-2,.col-md-2{\n            padding-right: 0px;\n        }\n        \n        .bs-ui-select-2.dropdown .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{\n            background-color: white;\n        }\n        \n        .ui-select2-list-container{            \n            width:100%;\n            padding-left: 5px;\n            padding-right: 5px;\n        }\n\n        .ui-select2-list-container .ui-select2-list{\n            max-height: 200px;\n            overflow: auto;\n        }\n\n        .ui-select2-list-item{\n            position: relative;\n            display: block;\n            padding: 10px 15px;\n            margin-bottom: -1px;\n            background-color: #fff;\n        }\n\n        .ui-select2-list-item:hover{\n            background-color: lightgray;\n            cursor: pointer;\n        }        \n\n        .ui-select2-search{\n            padding: 3px 0px 5px 0px;\n            border-bottom:1px solid #ccc;\n            position: relative;\n        }\n\n        .ui-select2-search-right-icon{\n            position: absolute;\n            right: 10px;\n            top: 12px;\n            cursor: pointer;\n        }\n    "],
+            template: "\n            <div dropdown [(isOpen)]=\"_dropdownStatus.isopen\" [class.dropUp]=\"dropUp\" [class.dropdown]=\"!dropUp\" class=\"bs-ui-select-2 clearfix\">\n                <span #simpleSelectRef *ngIf=\"!muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <span *ngIf=\"!_selectedItem\">Choose...</span>\n                        <span *ngIf=\"_selectedItem && _selectedItem.displayName\">{{_selectedItem.displayName}}</span>\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span class=\"glyphicon glyphicon-remove pull-right simple-dropdown\" *ngIf=\"_selectedItem !== _chooseItemValue\"(click)=\"removeSelection($event)\"></span>\n                </span>\n                \n                <button #multiSelectRef *ngIf=\"muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    <div class=\"col-xs-10 col-md-10 clearfix\">\n                        <span *ngIf=\"_selectedItems.length < 1\">Choose...</span>\n                        <span class=\"label label-info pull-left\" *ngFor=\"let item of _selectedItems\">{{item.displayName}} <span (click)=\"removeItemFromSelection($event,item)\">&times;</span></span>\n                    </div>\n                    <div class=\"col-xs-2 col-md-2\">\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span *ngIf=\"_selectedItems.length > 0\" class=\"glyphicon glyphicon-remove pull-right\" (click)=\"removeSelection($event)\"></span>\n                    </div>\n                </button>\n                <div dropdownMenu class=\"ui-select2-list-container dropdown-menu\" [class.dropdown-open]=\"_dropdownStatus.isopen\">\n                        <div class=\"ui-select2-search\">\n                            <div *ngIf=\"searchQuery.length > 0\" class=\"ui-select2-search-right-icon\">\n                                <span class=\"glyphicon glyphicon-remove\" (click)=\"removeSearchQuery()\"></span>\n                            </div>\n                            <input class=\"form-control\" [(ngModel)]=\"searchQuery\" placeholder=\"Search..\"/>\n                        </div>\n                        <div class=\"ui-select2-list\">\n                            <div *ngIf=\"!muliSelect\" class=\"ui-select2-list-item\" (click)=\"selectItem(_chooseItemValue)\">{{_chooseItemValue.displayName}}</div>\n                            <div class=\"ui-select2-list-item\" *ngFor=\"let i of items|filterItems:searchQuery\" (click)=\"selectItem(i)\">{{i.displayName}}</div>\n                        </div>\n                </div>\n            </div>\n    ",
             pipes: [filterPipe_1.FilterPipe],
             directives: [ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
         }), 

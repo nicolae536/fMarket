@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/9/2016.
  */
-import {Component, OnInit, Input, Output, EventEmitter, OnChanges} from "@angular/core";
+import {Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewChild, DoCheck, ElementRef} from "@angular/core";
 import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import {FilterPipe} from "./filterPipe";
 
@@ -9,7 +9,7 @@ import {FilterPipe} from "./filterPipe";
     selector: 'select-component',
     template: `
             <div dropdown [(isOpen)]="_dropdownStatus.isopen" [class.dropUp]="dropUp" [class.dropdown]="!dropUp" class="bs-ui-select-2 clearfix">
-                <span *ngIf="!muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [disabled]="checkItems()" 
+                <span #simpleSelectRef *ngIf="!muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [disabled]="checkItems()" 
                     class="btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
                         <span *ngIf="!_selectedItem">Choose...</span>
                         <span *ngIf="_selectedItem && _selectedItem.displayName">{{_selectedItem.displayName}}</span>
@@ -17,7 +17,7 @@ import {FilterPipe} from "./filterPipe";
                         <span class="glyphicon glyphicon-remove pull-right simple-dropdown" *ngIf="_selectedItem !== _chooseItemValue"(click)="removeSelection($event)"></span>
                 </span>
                 
-                <button *ngIf="muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [disabled]="checkItems()" 
+                <button #multiSelectRef *ngIf="muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [disabled]="checkItems()" 
                     class="btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
                     <div class="col-xs-10 col-md-10 clearfix">
                         <span *ngIf="_selectedItems.length < 1">Choose...</span>
@@ -28,7 +28,7 @@ import {FilterPipe} from "./filterPipe";
                         <span *ngIf="_selectedItems.length > 0" class="glyphicon glyphicon-remove pull-right" (click)="removeSelection($event)"></span>
                     </div>
                 </button>
-                <div dropdownMenu class="ui-select2-list-container dropdown-menu" >
+                <div dropdownMenu class="ui-select2-list-container dropdown-menu" [class.dropdown-open]="_dropdownStatus.isopen">
                         <div class="ui-select2-search">
                             <div *ngIf="searchQuery.length > 0" class="ui-select2-search-right-icon">
                                 <span class="glyphicon glyphicon-remove" (click)="removeSearchQuery()"></span>
@@ -42,108 +42,62 @@ import {FilterPipe} from "./filterPipe";
                 </div>
             </div>
     `,
-    styles: [`
-        .bs-ui-select-2{
-            border-radius: 5px;
-            position:relative;
-            margin-bottom:10px;
-        }
-
-        .ui-select-toggle{
-            text-align: left;
-        }
-        
-        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect{
-            padding-top: 7px;        
-            height: auto;
-            min-height: 34px;
-        }
-        
-        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.dropdown-toggle .glyphicon.glyphicon-remove.pull-right{
-            margin-right: 7px;
-        }
-        
-        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .label.label-info{
-            margin-left: 5px;
-            top: 2px;
-            margin-bottom: 4px;
-        }
-        
-        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-10,.col-md-10{
-            padding-left: 0px;
-        }
-        
-        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-2,.col-md-2{
-            padding-right: 0px;
-        }
-        
-        .bs-ui-select-2.dropdown .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
-            background-color: white;
-        }
-        
-        .ui-select2-list-container{            
-            width:100%;
-            padding-left: 5px;
-            padding-right: 5px;
-        }
-
-        .ui-select2-list-container .ui-select2-list{
-            max-height: 200px;
-            overflow: auto;
-        }
-
-        .ui-select2-list-item{
-            position: relative;
-            display: block;
-            padding: 10px 15px;
-            margin-bottom: -1px;
-            background-color: #fff;
-        }
-
-        .ui-select2-list-item:hover{
-            background-color: lightgray;
-            cursor: pointer;
-        }        
-
-        .ui-select2-search{
-            padding: 3px 0px 5px 0px;
-            border-bottom:1px solid #ccc;
-            position: relative;
-        }
-
-        .ui-select2-search-right-icon{
-            position: absolute;
-            right: 10px;
-            top: 12px;
-            cursor: pointer;
-        }
-    `],
     pipes: [FilterPipe],
     directives: [DROPDOWN_DIRECTIVES]
 })
-export class SelectComponent implements OnInit, OnChanges {
-    ngOnChanges(changes:{}):any {
-        if(changes.hasOwnProperty('_selectedItem')){
-            // this._selectedItem=
-            console.log('selected item change', this._selectedItem);
-        }
-    }
+export class SelectComponent implements OnInit, OnChanges, DoCheck {
+    @ViewChild('simpleSelectRef') simpleSelectRef:ElementRef;
+    @ViewChild('multiSelectRef') multiSelectRef:ElementRef;
     @Input('select-items') items:Array<Select2Item>;
     @Input('single-item-selected') _selectedItem:Select2Item;
     @Input('selected-items') _selectedItems:Array<Select2Item>;
     @Input('multi-select') muliSelect:boolean;
-    @Input('dropup-menu') dropUp:boolean;
-
     @Output('loaded') loadedSelect:EventEmitter<SelectComponent> = new EventEmitter<SelectComponent>();
     _chooseItemValue = {displayName: 'Choose...', boundItem: null};
-    private searchQuery = "";
 
+    private dropUp:boolean;
+    private searchQuery = "";
     public _dropdownStatus:{isopen:boolean} = {isopen: false};
 
     ngOnInit():any {
         this.loadedSelect.emit(this);
-        this._selectedItem =  this._selectedItem ? this._selectedItem : this._chooseItemValue;
+        this._selectedItem = this._selectedItem ? this._selectedItem : this._chooseItemValue;
         this._selectedItems = this._selectedItems ? this._selectedItems : [];
+    }
+
+    ngOnChanges(changes:{}):any {
+        if (changes.hasOwnProperty('_selectedItem')) {
+            console.log('selected item change', this._selectedItem);
+        }
+    }
+
+    ngDoCheck() {
+        this.computeSelectView();
+        console.log('checked');
+    }
+
+    computeSelectView():any {
+        let multiSelectRefPosition = null;
+        let simpleSelectRefPosition = null;
+        let documentHeight = Math.max(
+            document.documentElement["clientHeight"],
+            document.body["scrollHeight"],
+            document.documentElement["scrollHeight"],
+            document.body["offsetHeight"],
+            document.documentElement["offsetHeight"]);
+        if (this.multiSelectRef) {
+            multiSelectRefPosition = this.getOffset(this.multiSelectRef.nativeElement);
+        }
+        if (this.simpleSelectRef) {
+            simpleSelectRefPosition = this.getOffset(this.simpleSelectRef.nativeElement);
+        }
+
+        if (multiSelectRefPosition) {
+            this.dropUp = multiSelectRefPosition.top + 305 > documentHeight ? true : false;
+        }
+        if (simpleSelectRefPosition) {
+            this.dropUp = simpleSelectRefPosition.top + 305 > documentHeight ? true : false;
+        }
     }
 
     get selectedItem():Select2Item {
@@ -207,6 +161,14 @@ export class SelectComponent implements OnInit, OnChanges {
     public selectItem(item) {
         this._selectedItem = item;
         this._selectedItems.push(item);
+    }
+
+    private getOffset(el) {
+        let rect = el.getClientRects();
+        rect = rect.length > 0 ? rect[0] :  rect;
+        let scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
+        let scrollLeft = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft;
+        return {top: rect.top + scrollTop, left: rect.left + scrollLeft};
     }
 
 }

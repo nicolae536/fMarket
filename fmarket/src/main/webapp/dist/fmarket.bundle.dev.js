@@ -52,12 +52,42 @@
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
 	var http_1 = __webpack_require__(499);
+	var accountService_1 = __webpack_require__(620);
+	var categoriesMenuService_1 = __webpack_require__(497);
+	var companieTypesService_1 = __webpack_require__(592);
+	var demandService_1 = __webpack_require__(520);
+	var requestTypeService_1 = __webpack_require__(595);
+	var subscribersService_1 = __webpack_require__(525);
+	var usersService_1 = __webpack_require__(583);
+	var companiesService_1 = __webpack_require__(607);
+	var fMarketApi_1 = __webpack_require__(498);
+	var localizationService_1 = __webpack_require__(535);
+	var common_2 = __webpack_require__(206);
+	var notificationService_1 = __webpack_require__(526);
+	var localStorageService_1 = __webpack_require__(541);
+	var authorizationService_1 = __webpack_require__(494);
+	var registrationService_1 = __webpack_require__(539);
 	core_1.enableProdMode();
 	//console.log(HTTP_PROVIDERS);
 	platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
 	    http_1.HTTP_PROVIDERS,
 	    router_1.ROUTER_PROVIDERS,
 	    core_1.provide(common_1.LocationStrategy, { useClass: common_1.HashLocationStrategy }),
+	    common_2.FormBuilder,
+	    fMarketApi_1.FMarketApi,
+	    notificationService_1.NotificationService,
+	    localStorageService_1.LocalStorageService,
+	    registrationService_1.RegistrationService,
+	    accountService_1.AccountService,
+	    authorizationService_1.AuthorizationService,
+	    categoriesMenuService_1.CategoriesMenuService,
+	    companieTypesService_1.CompanieTypeService,
+	    demandService_1.DemandService,
+	    requestTypeService_1.RequestTypeService,
+	    subscribersService_1.SubscribersService,
+	    usersService_1.UserService,
+	    companiesService_1.CompaniesService,
+	    localizationService_1.LocalizationService,
 	]);
 	//# sourceMappingURL=main.js.map
 
@@ -48243,19 +48273,9 @@
 	var localStorageService_1 = __webpack_require__(541);
 	var footerComponent_1 = __webpack_require__(625);
 	var registrationService_1 = __webpack_require__(539);
-	var accountService_1 = __webpack_require__(620);
-	var categoriesMenuService_1 = __webpack_require__(497);
-	var companieTypesService_1 = __webpack_require__(592);
-	var demandService_1 = __webpack_require__(520);
-	var requestTypeService_1 = __webpack_require__(595);
-	var subscribersService_1 = __webpack_require__(525);
-	var usersService_1 = __webpack_require__(583);
-	var companiesService_1 = __webpack_require__(607);
 	var Roles_1 = __webpack_require__(585);
 	var jqueryService_1 = __webpack_require__(522);
-	var fMarketApi_1 = __webpack_require__(498);
 	var _ = __webpack_require__(521);
-	var localizationService_1 = __webpack_require__(535);
 	var AppComponent = (function () {
 	    function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
 	        this.addItem = true;
@@ -48353,24 +48373,7 @@
 	            template: "\n        <div class=\"application-wrapper\">\n            <header-component></header-component>\n            <div class=\"page-container\">\n                <div class=\"notification-wrapper\">\n                    <div *ngFor=\"let notification of _notifications\"  class=\"wrapper-inner\">\n                        <div [class.ng-for-item]=\"notification.new\"  class=\"notification-helper\">\n                                <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                                    {{notification.message}}\n                                </alert>\n                        </div>\n                    </div>\n                </div>\n                <router-outlet></router-outlet>\n            </div>\n            <footer-component></footer-component>\n        </div>\n    ",
 	            styles: ["\n        .application-wrapper{\n            padding-bottom: 98px;\n            position: relative;\n            min-height: 100vh;           \n        }\n        \n        .login-background{\n            background: url('/staticResorces/registration-background.png');\n        }\n        \n        .page-container{\n            margin-top: 50px;\n        }\n        \n        .page-container .notification-wrapper{\n            position: fixed;\n            min-width: 100%;\n            z-index: 10001;\n            top: 8%;           \n        }\n        \n        .page-container .notification-wrapper .wrapper-inner{\n            display:block;\n        }\n        \n        .page-container .notification-helper{\n            position: relative;\n            display: inline-block;\n            left: 50%;\n            transform: translate(-50%, 0);\n        }\n        \n        @keyframes item-animation {\n            0% {\n                padding-left: 100px;\n            }\n            100% {\n                padding-left: 0px;\n            } \n        }\n\n        .ng-for-item {\n            animation: item-animation 0.5s;\n        }\n        \n        @media (max-width: 990px){\n            .application-wrapper{\n                    padding-bottom: 320px !important\n            }\n    }\n    "],
 	            directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.AlertComponent, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent],
-	            providers: [
-	                common_1.FormBuilder,
-	                fMarketApi_1.FMarketApi,
-	                notificationService_1.NotificationService,
-	                localStorageService_1.LocalStorageService,
-	                registrationService_1.RegistrationService,
-	                accountService_1.AccountService,
-	                authorizationService_1.AuthorizationService,
-	                categoriesMenuService_1.CategoriesMenuService,
-	                companieTypesService_1.CompanieTypeService,
-	                demandService_1.DemandService,
-	                registrationService_1.RegistrationService,
-	                requestTypeService_1.RequestTypeService,
-	                subscribersService_1.SubscribersService,
-	                usersService_1.UserService,
-	                companiesService_1.CompaniesService,
-	                localizationService_1.LocalizationService
-	            ]
+	            providers: []
 	        }),
 	        router_1.Routes(authorizationService_1.AuthorizationService.getApplicationRootRoutes()), 
 	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService])
@@ -68664,6 +68667,11 @@
 	    HomePage.prototype.getCities = function () {
 	        var me = this;
 	        this._localizationService.getCityList()
+	            .map(function (response) {
+	            if (response.text().length > 0) {
+	                return response.json();
+	            }
+	        })
 	            .subscribe(function (response) {
 	            me._cityes = me._localizationService.mapNameToSelect2Item(response);
 	        }, function (error) {
@@ -73652,16 +73660,36 @@
 	        this.searchQuery = "";
 	        this._dropdownStatus = { isopen: false };
 	    }
-	    SelectComponent.prototype.ngOnChanges = function (changes) {
-	        if (changes.hasOwnProperty('_selectedItem')) {
-	            // this._selectedItem=
-	            console.log('selected item change', this._selectedItem);
-	        }
-	    };
 	    SelectComponent.prototype.ngOnInit = function () {
 	        this.loadedSelect.emit(this);
 	        this._selectedItem = this._selectedItem ? this._selectedItem : this._chooseItemValue;
 	        this._selectedItems = this._selectedItems ? this._selectedItems : [];
+	    };
+	    SelectComponent.prototype.ngOnChanges = function (changes) {
+	        if (changes.hasOwnProperty('_selectedItem')) {
+	            console.log('selected item change', this._selectedItem);
+	        }
+	    };
+	    SelectComponent.prototype.ngDoCheck = function () {
+	        this.computeSelectView();
+	        console.log('checked');
+	    };
+	    SelectComponent.prototype.computeSelectView = function () {
+	        var multiSelectRefPosition = null;
+	        var simpleSelectRefPosition = null;
+	        var documentHeight = Math.max(document.documentElement["clientHeight"], document.body["scrollHeight"], document.documentElement["scrollHeight"], document.body["offsetHeight"], document.documentElement["offsetHeight"]);
+	        if (this.multiSelectRef) {
+	            multiSelectRefPosition = this.getOffset(this.multiSelectRef.nativeElement);
+	        }
+	        if (this.simpleSelectRef) {
+	            simpleSelectRefPosition = this.getOffset(this.simpleSelectRef.nativeElement);
+	        }
+	        if (multiSelectRefPosition) {
+	            this.dropUp = multiSelectRefPosition.top + 305 > documentHeight ? true : false;
+	        }
+	        if (simpleSelectRefPosition) {
+	            this.dropUp = simpleSelectRefPosition.top + 305 > documentHeight ? true : false;
+	        }
 	    };
 	    Object.defineProperty(SelectComponent.prototype, "selectedItem", {
 	        get: function () {
@@ -73722,6 +73750,21 @@
 	        this._selectedItem = item;
 	        this._selectedItems.push(item);
 	    };
+	    SelectComponent.prototype.getOffset = function (el) {
+	        var rect = el.getClientRects();
+	        rect = rect.length > 0 ? rect[0] : rect;
+	        var scrollTop = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop;
+	        var scrollLeft = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft;
+	        return { top: rect.top + scrollTop, left: rect.left + scrollLeft };
+	    };
+	    __decorate([
+	        core_1.ViewChild('simpleSelectRef'), 
+	        __metadata('design:type', core_1.ElementRef)
+	    ], SelectComponent.prototype, "simpleSelectRef", void 0);
+	    __decorate([
+	        core_1.ViewChild('multiSelectRef'), 
+	        __metadata('design:type', core_1.ElementRef)
+	    ], SelectComponent.prototype, "multiSelectRef", void 0);
 	    __decorate([
 	        core_1.Input('select-items'), 
 	        __metadata('design:type', Array)
@@ -73739,18 +73782,13 @@
 	        __metadata('design:type', Boolean)
 	    ], SelectComponent.prototype, "muliSelect", void 0);
 	    __decorate([
-	        core_1.Input('dropup-menu'), 
-	        __metadata('design:type', Boolean)
-	    ], SelectComponent.prototype, "dropUp", void 0);
-	    __decorate([
 	        core_1.Output('loaded'), 
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], SelectComponent.prototype, "loadedSelect", void 0);
 	    SelectComponent = __decorate([
 	        core_1.Component({
 	            selector: 'select-component',
-	            template: "\n            <div dropdown [(isOpen)]=\"_dropdownStatus.isopen\" [class.dropUp]=\"dropUp\" [class.dropdown]=\"!dropUp\" class=\"bs-ui-select-2 clearfix\">\n                <span *ngIf=\"!muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <span *ngIf=\"!_selectedItem\">Choose...</span>\n                        <span *ngIf=\"_selectedItem && _selectedItem.displayName\">{{_selectedItem.displayName}}</span>\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span class=\"glyphicon glyphicon-remove pull-right simple-dropdown\" *ngIf=\"_selectedItem !== _chooseItemValue\"(click)=\"removeSelection($event)\"></span>\n                </span>\n                \n                <button *ngIf=\"muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    <div class=\"col-xs-10 col-md-10 clearfix\">\n                        <span *ngIf=\"_selectedItems.length < 1\">Choose...</span>\n                        <span class=\"label label-info pull-left\" *ngFor=\"let item of _selectedItems\">{{item.displayName}} <span (click)=\"removeItemFromSelection($event,item)\">&times;</span></span>\n                    </div>\n                    <div class=\"col-xs-2 col-md-2\">\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span *ngIf=\"_selectedItems.length > 0\" class=\"glyphicon glyphicon-remove pull-right\" (click)=\"removeSelection($event)\"></span>\n                    </div>\n                </button>\n                <div dropdownMenu class=\"ui-select2-list-container dropdown-menu\" >\n                        <div class=\"ui-select2-search\">\n                            <div *ngIf=\"searchQuery.length > 0\" class=\"ui-select2-search-right-icon\">\n                                <span class=\"glyphicon glyphicon-remove\" (click)=\"removeSearchQuery()\"></span>\n                            </div>\n                            <input class=\"form-control\" [(ngModel)]=\"searchQuery\" placeholder=\"Search..\"/>\n                        </div>\n                        <div class=\"ui-select2-list\">\n                            <div *ngIf=\"!muliSelect\" class=\"ui-select2-list-item\" (click)=\"selectItem(_chooseItemValue)\">{{_chooseItemValue.displayName}}</div>\n                            <div class=\"ui-select2-list-item\" *ngFor=\"let i of items|filterItems:searchQuery\" (click)=\"selectItem(i)\">{{i.displayName}}</div>\n                        </div>\n                </div>\n            </div>\n    ",
-	            styles: ["\n        .bs-ui-select-2{\n            border-radius: 5px;\n            position:relative;\n            margin-bottom:10px;\n        }\n\n        .ui-select-toggle{\n            text-align: left;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect{\n            padding-top: 7px;        \n            height: auto;\n            min-height: 34px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.dropdown-toggle .glyphicon.glyphicon-remove.pull-right{\n            margin-right: 7px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .label.label-info{\n            margin-left: 5px;\n            top: 2px;\n            margin-bottom: 4px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-10,.col-md-10{\n            padding-left: 0px;\n        }\n        \n        .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-2,.col-md-2{\n            padding-right: 0px;\n        }\n        \n        .bs-ui-select-2.dropdown .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{\n            background-color: white;\n        }\n        \n        .ui-select2-list-container{            \n            width:100%;\n            padding-left: 5px;\n            padding-right: 5px;\n        }\n\n        .ui-select2-list-container .ui-select2-list{\n            max-height: 200px;\n            overflow: auto;\n        }\n\n        .ui-select2-list-item{\n            position: relative;\n            display: block;\n            padding: 10px 15px;\n            margin-bottom: -1px;\n            background-color: #fff;\n        }\n\n        .ui-select2-list-item:hover{\n            background-color: lightgray;\n            cursor: pointer;\n        }        \n\n        .ui-select2-search{\n            padding: 3px 0px 5px 0px;\n            border-bottom:1px solid #ccc;\n            position: relative;\n        }\n\n        .ui-select2-search-right-icon{\n            position: absolute;\n            right: 10px;\n            top: 12px;\n            cursor: pointer;\n        }\n    "],
+	            template: "\n            <div dropdown [(isOpen)]=\"_dropdownStatus.isopen\" [class.dropUp]=\"dropUp\" [class.dropdown]=\"!dropUp\" class=\"bs-ui-select-2 clearfix\">\n                <span #simpleSelectRef *ngIf=\"!muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <span *ngIf=\"!_selectedItem\">Choose...</span>\n                        <span *ngIf=\"_selectedItem && _selectedItem.displayName\">{{_selectedItem.displayName}}</span>\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span class=\"glyphicon glyphicon-remove pull-right simple-dropdown\" *ngIf=\"_selectedItem !== _chooseItemValue\"(click)=\"removeSelection($event)\"></span>\n                </span>\n                \n                <button #multiSelectRef *ngIf=\"muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    <div class=\"col-xs-10 col-md-10 clearfix\">\n                        <span *ngIf=\"_selectedItems.length < 1\">Choose...</span>\n                        <span class=\"label label-info pull-left\" *ngFor=\"let item of _selectedItems\">{{item.displayName}} <span (click)=\"removeItemFromSelection($event,item)\">&times;</span></span>\n                    </div>\n                    <div class=\"col-xs-2 col-md-2\">\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span *ngIf=\"_selectedItems.length > 0\" class=\"glyphicon glyphicon-remove pull-right\" (click)=\"removeSelection($event)\"></span>\n                    </div>\n                </button>\n                <div dropdownMenu class=\"ui-select2-list-container dropdown-menu\" [class.dropdown-open]=\"_dropdownStatus.isopen\">\n                        <div class=\"ui-select2-search\">\n                            <div *ngIf=\"searchQuery.length > 0\" class=\"ui-select2-search-right-icon\">\n                                <span class=\"glyphicon glyphicon-remove\" (click)=\"removeSearchQuery()\"></span>\n                            </div>\n                            <input class=\"form-control\" [(ngModel)]=\"searchQuery\" placeholder=\"Search..\"/>\n                        </div>\n                        <div class=\"ui-select2-list\">\n                            <div *ngIf=\"!muliSelect\" class=\"ui-select2-list-item\" (click)=\"selectItem(_chooseItemValue)\">{{_chooseItemValue.displayName}}</div>\n                            <div class=\"ui-select2-list-item\" *ngFor=\"let i of items|filterItems:searchQuery\" (click)=\"selectItem(i)\">{{i.displayName}}</div>\n                        </div>\n                </div>\n            </div>\n    ",
 	            pipes: [filterPipe_1.FilterPipe],
 	            directives: [ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
 	        }), 
@@ -75001,6 +75039,7 @@
 	        this.cityId = -1;
 	        this.selectedStatusFilter = null;
 	        this._notificationService = notificationService;
+	        this._localizationService = localizationService;
 	        this.getCities();
 	    }
 	    UsersPage.prototype.ngOnInit = function () {
@@ -82372,10 +82411,11 @@
 	        if (!this._companieEditForm.valid) {
 	            return;
 	        }
-	        this._companieEditFormModel.cityId = this.selectCity && this.selectCity._selectedItem && this.selectCity._selectedItem.boundItem ? this.selectCity._selectedItem.boundItem['id'] : null;
-	        this._companieEditFormModel.companyDomainId = this.selectCompanyDomain && this.selectCompanyDomain._selectedItem && this.selectCompanyDomain._selectedItem.boundItem ? this.selectCompanyDomain._selectedItem.boundItem['id'] : null;
-	        this._companieEditFormModel.demandDomains = this.selectDemandDomain && this.selectDemandDomain._selectedItem && this.selectDemandDomain._selectedItem.boundItem ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
-	        this.saveCompanieEmitter.emit(this._companieEditFormModel);
+	        var requestObject = _.clone(this._companieEditFormModel);
+	        requestObject.cityId = this.selectCity && this.selectCity._selectedItem && this.selectCity._selectedItem.boundItem ? this.selectCity._selectedItem.boundItem['id'] : null;
+	        requestObject.companyDomainId = this.selectCompanyDomain && this.selectCompanyDomain._selectedItem && this.selectCompanyDomain._selectedItem.boundItem ? this.selectCompanyDomain._selectedItem.boundItem['id'] : null;
+	        requestObject.demandDomains = this.selectDemandDomain && this.selectDemandDomain._selectedItem && this.selectDemandDomain._selectedItem.boundItem ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
+	        this.saveCompanieEmitter.emit(requestObject);
 	    };
 	    CompaniesEditComponent.prototype.referenceSelectCityComponent = function ($event) {
 	        this.selectCity = $event;
@@ -83240,10 +83280,12 @@
 	            { link: '/admin/users', name: 'Useri' },
 	            { link: '/admin/subscribers', name: 'Subscriberi' },
 	            { link: '/admin/categorii/meniu', name: 'Meniu categorii' },
-	            { link: '/admin/categorii/firme', name: 'Compani' },
+	            { link: '/admin/categorii/firme', name: 'Categorii compani' },
 	            { link: '/admin/categorii/domenii', name: 'Domenii' },
 	            { link: '/admin/cereri/newDemands', name: 'Cereri noi' },
-	            { link: '/admin/cereri/lista', name: 'Cereri' }
+	            { link: '/admin/cereri/lista', name: 'Cereri' },
+	            { link: '/admin/companie/lista', name: 'Compani' },
+	            { link: '/admin/companie/ceeaza', name: 'Adauga compani' }
 	        ];
 	    };
 	    HeaderComponent.prototype.setUserRoutes = function () {
@@ -83276,7 +83318,7 @@
 	        })
 	            .subscribe(function (response) {
 	            me._localStorageService.removeItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE);
-	            me._router.navigate(['Home']);
+	            me._router.navigate(['/']);
 	        }, function (error) {
 	            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Erroare la logout!', timeout: 5 });
 	        });

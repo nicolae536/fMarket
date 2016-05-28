@@ -67,10 +67,12 @@ export class HeaderComponent implements OnInit {
             {link: '/admin/users', name: 'Useri'},
             {link: '/admin/subscribers', name: 'Subscriberi'},
             {link: '/admin/categorii/meniu', name: 'Meniu categorii'},
-            {link: '/admin/categorii/firme', name: 'Compani'},
+            {link: '/admin/categorii/firme', name: 'Categorii compani'},
             {link: '/admin/categorii/domenii', name: 'Domenii'},
             {link: '/admin/cereri/newDemands', name: 'Cereri noi'},
-            {link: '/admin/cereri/lista', name: 'Cereri'}
+            {link: '/admin/cereri/lista', name: 'Cereri'},
+            {link: '/admin/companie/lista', name: 'Compani'},
+            {link: '/admin/companie/ceeaza', name: 'Adauga compani'}
         ];
     }
 
@@ -111,7 +113,7 @@ export class HeaderComponent implements OnInit {
             .subscribe(
                 response=> {
                     me._localStorageService.removeItem(ApplicationConstants.ACTIVE_USER_STATE);
-                    me._router.navigate(['Home']);
+                    me._router.navigate(['/']);
                 }, error=> {
                     me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Erroare la logout!', timeout:5})
                 }

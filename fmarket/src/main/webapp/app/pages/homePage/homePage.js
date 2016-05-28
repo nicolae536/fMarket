@@ -124,6 +124,11 @@ var HomePage = (function () {
     HomePage.prototype.getCities = function () {
         var me = this;
         this._localizationService.getCityList()
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        })
             .subscribe(function (response) {
             me._cityes = me._localizationService.mapNameToSelect2Item(response);
         }, function (error) {

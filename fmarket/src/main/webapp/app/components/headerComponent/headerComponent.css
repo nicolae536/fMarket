@@ -14,6 +14,16 @@
     width: auto;
 }
 
+.dropdown-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: 0px;
+    overflow: hidden;
+    transition: .3s;
+    visibility: hidden;
+    display: block;
+}
+
 @media (min-width: 1024px) {
     .navbar.navbar-default.navbar-fixed-top .container-fluid{
         padding-left: 7%;

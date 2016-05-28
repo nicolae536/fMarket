@@ -51,10 +51,12 @@ var HeaderComponent = (function () {
             { link: '/admin/users', name: 'Useri' },
             { link: '/admin/subscribers', name: 'Subscriberi' },
             { link: '/admin/categorii/meniu', name: 'Meniu categorii' },
-            { link: '/admin/categorii/firme', name: 'Compani' },
+            { link: '/admin/categorii/firme', name: 'Categorii compani' },
             { link: '/admin/categorii/domenii', name: 'Domenii' },
             { link: '/admin/cereri/newDemands', name: 'Cereri noi' },
-            { link: '/admin/cereri/lista', name: 'Cereri' }
+            { link: '/admin/cereri/lista', name: 'Cereri' },
+            { link: '/admin/companie/lista', name: 'Compani' },
+            { link: '/admin/companie/ceeaza', name: 'Adauga compani' }
         ];
     };
     HeaderComponent.prototype.setUserRoutes = function () {
@@ -87,7 +89,7 @@ var HeaderComponent = (function () {
         })
             .subscribe(function (response) {
             me._localStorageService.removeItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE);
-            me._router.navigate(['Home']);
+            me._router.navigate(['/']);
         }, function (error) {
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Erroare la logout!', timeout: 5 });
         });

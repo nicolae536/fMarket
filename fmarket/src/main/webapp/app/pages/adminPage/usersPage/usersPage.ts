@@ -52,6 +52,7 @@ export class UsersPage extends PageWithNavigation implements OnInit {
     constructor(private _userService:UserService, notificationService:NotificationService, localizationService:LocalizationService) {
         super();
         this._notificationService = notificationService;
+        this._localizationService = localizationService;
         this.getCities();
     }
 

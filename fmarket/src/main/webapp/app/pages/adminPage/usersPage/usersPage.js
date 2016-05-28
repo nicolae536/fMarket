@@ -41,6 +41,7 @@ var UsersPage = (function (_super) {
         this.cityId = -1;
         this.selectedStatusFilter = null;
         this._notificationService = notificationService;
+        this._localizationService = localizationService;
         this.getCities();
     }
     UsersPage.prototype.ngOnInit = function () {

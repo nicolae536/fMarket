@@ -85,11 +85,12 @@ export class CompaniesEditComponent implements OnInit {
             return;
         }
 
-        this._companieEditFormModel.cityId = this.selectCity && this.selectCity._selectedItem && this.selectCity._selectedItem.boundItem ? this.selectCity._selectedItem.boundItem['id'] : null;
-        this._companieEditFormModel.companyDomainId = this.selectCompanyDomain && this.selectCompanyDomain._selectedItem && this.selectCompanyDomain._selectedItem.boundItem ? this.selectCompanyDomain._selectedItem.boundItem['id'] : null;
-        this._companieEditFormModel.demandDomains = this.selectDemandDomain && this.selectDemandDomain._selectedItem && this.selectDemandDomain._selectedItem.boundItem ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
+        var requestObject = _.clone(this._companieEditFormModel);
+        requestObject.cityId = this.selectCity && this.selectCity._selectedItem && this.selectCity._selectedItem.boundItem ? this.selectCity._selectedItem.boundItem['id'] : null;
+        requestObject.companyDomainId = this.selectCompanyDomain && this.selectCompanyDomain._selectedItem && this.selectCompanyDomain._selectedItem.boundItem ? this.selectCompanyDomain._selectedItem.boundItem['id'] : null;
+        requestObject.demandDomains = this.selectDemandDomain && this.selectDemandDomain._selectedItem && this.selectDemandDomain._selectedItem.boundItem ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
 
-        this.saveCompanieEmitter.emit(this._companieEditFormModel);
+        this.saveCompanieEmitter.emit(requestObject);
     }
 
     referenceSelectCityComponent($event:SelectComponent) {

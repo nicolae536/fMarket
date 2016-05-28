@@ -11,19 +11,9 @@ import {ApplicationConstants} from "./models/applicationConstansts";
 import {LocalStorageService} from "./services/localStorageService";
 import {FooterComponent} from "./components/footerComponent/footerComponent";
 import {RegistrationService} from "./services/registrationService";
-import {AccountService} from "./services/accountService";
-import {CategoriesMenuService} from "./services/categoriesMenuService";
-import {CompanieTypeService} from "./services/companieTypesService";
-import {DemandService} from "./services/demandService";
-import {RequestTypeService} from "./services/requestTypeService";
-import {SubscribersService} from "./services/subscribersService";
-import {UserService} from "./services/usersService";
-import {CompaniesService} from "./services/companiesService";
 import {Role} from "./models/Roles";
 import {JqueryService} from "./services/jqueryService";
-import {FMarketApi} from "./services/fMarketApi";
 import * as _ from 'underscore';
-import {LocalizationService} from "./services/localizationService";
 
 @Component({
     selector: 'my-app',
@@ -99,23 +89,7 @@ import {LocalizationService} from "./services/localizationService";
     `],
     directives: [ROUTER_DIRECTIVES, HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent],
     providers: [
-        FormBuilder,
 
-        FMarketApi,
-        NotificationService,
-        LocalStorageService,
-        RegistrationService,
-        AccountService,
-        AuthorizationService,
-        CategoriesMenuService,
-        CompanieTypeService,
-        DemandService,
-        RegistrationService,
-        RequestTypeService,
-        SubscribersService,
-        UserService,
-        CompaniesService,
-        LocalizationService
     ]
 })
 
