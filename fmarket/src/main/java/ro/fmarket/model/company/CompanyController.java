@@ -24,11 +24,6 @@ public class CompanyController {
 	@Autowired
 	private CompanyService service;
 
-	@RequestMapping(method = RequestMethod.POST)
-	public void createCompany(@Valid @RequestBody NewCompanyRequest request) {
-		service.createCompany(request);
-	}
-
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public CompanyDetailsDTO getCompanyDetails(@PathVariable("id") Integer id) {
 		return service.getCompanyDetails(id);

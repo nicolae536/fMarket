@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 
-@SpringBootApplication
-@EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@EnableAutoConfiguration
 public class ApplicationMain {
 
 	public static void main(String[] args) {

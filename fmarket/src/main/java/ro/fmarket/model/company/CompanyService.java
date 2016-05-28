@@ -11,8 +11,6 @@ public interface CompanyService {
 
 	void addStarsReview(Integer accountId, NewCompanyStarsReview request);
 
-	void createCompany(NewCompanyRequest request);
-
 	void addMessageReview(Integer accountId, NewCompanyMessageReview request);
 
 	List<FullDomainDTO> getCompaniesGroupedByDomain(String name);

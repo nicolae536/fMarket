@@ -43,10 +43,10 @@ public class Company extends BaseEntity {
 	@ManyToOne(optional = false)
 	private CompanyDomain domain;
 
-	@OneToOne(optional = false)
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	private CompanyContactInfo contactInfo;
 
-	@OneToOne(optional = false)
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	private CompanyRating rating;
 
 	@Column(nullable = false)
