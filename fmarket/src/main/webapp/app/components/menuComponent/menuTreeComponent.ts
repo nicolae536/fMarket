@@ -9,6 +9,9 @@ import {IMenuItem} from "../../models/interfaces/iMenuItem";
     templateUrl: '/app/components/menuComponent/menuTreeComponent.html',
     directives: [BaseMenuComponent],
     styles:[`
+        .menu-tree{
+            margin-right:30px;
+        }
         .menu-tree .col-md-4{
             padding:0px;
         }

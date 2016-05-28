@@ -73,8 +73,7 @@ var MenuTreeDialog = (function (_super) {
         core_1.Component({
             selector: 'menu-tree-dialog',
             templateUrl: '/app/components/menuComponent/menuTreeDialog/menuTreeDialog.html',
-            directives: [menuTreeComponent_1.MenuTreeComponent],
-            styles: ["\n        .modal-dialog .modal-body .menu-dialog-container{\n            padding-right: 40px;\n        }\n    "]
+            directives: [menuTreeComponent_1.MenuTreeComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], MenuTreeDialog);

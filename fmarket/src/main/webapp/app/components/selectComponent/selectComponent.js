@@ -32,7 +32,6 @@ var SelectComponent = (function () {
     };
     SelectComponent.prototype.ngDoCheck = function () {
         this.computeSelectView();
-        console.log('checked');
     };
     SelectComponent.prototype.computeSelectView = function () {
         var multiSelectRefPosition = null;

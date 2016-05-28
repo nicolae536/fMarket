@@ -73672,7 +73672,6 @@
 	    };
 	    SelectComponent.prototype.ngDoCheck = function () {
 	        this.computeSelectView();
-	        console.log('checked');
 	    };
 	    SelectComponent.prototype.computeSelectView = function () {
 	        var multiSelectRefPosition = null;
@@ -73956,8 +73955,7 @@
 	        core_1.Component({
 	            selector: 'menu-tree-dialog',
 	            templateUrl: '/app/components/menuComponent/menuTreeDialog/menuTreeDialog.html',
-	            directives: [menuTreeComponent_1.MenuTreeComponent],
-	            styles: ["\n        .modal-dialog .modal-body .menu-dialog-container{\n            padding-right: 40px;\n        }\n    "]
+	            directives: [menuTreeComponent_1.MenuTreeComponent]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], MenuTreeDialog);
@@ -74203,7 +74201,7 @@
 	            selector: 'menu-component',
 	            templateUrl: '/app/components/menuComponent/menuTreeComponent.html',
 	            directives: [baseMenuComponent_1.BaseMenuComponent],
-	            styles: ["\n        .menu-tree .col-md-4{\n            padding:0px;\n        }\n    "]
+	            styles: ["\n        .menu-tree{\n            margin-right:30px;\n        }\n        .menu-tree .col-md-4{\n            padding:0px;\n        }\n    "]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], MenuTreeComponent);

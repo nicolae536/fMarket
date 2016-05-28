@@ -7,12 +7,7 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 @Component({
     selector: 'menu-tree-dialog',
     templateUrl: '/app/components/menuComponent/menuTreeDialog/menuTreeDialog.html',
-    directives:[MenuTreeComponent],
-    styles:[`
-        .modal-dialog .modal-body .menu-dialog-container{
-            padding-right: 40px;
-        }
-    `]
+    directives:[MenuTreeComponent]
 })
 
 export class MenuTreeDialog extends ModalDialog{
