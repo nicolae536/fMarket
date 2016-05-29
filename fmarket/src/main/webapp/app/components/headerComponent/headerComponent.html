@@ -1,4 +1,4 @@
-<div class="sidenav" [style.margin-left]="sideMenuOpened ? '0' :'-250px'">
+<div class="sidenav-mobile" [style.margin-left]="sideMenuOpened ? '0' :'-250px'">
     <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">×</a>
     <ul class="nav navbar-nav navbar-right">
         <li *ngFor="let page of _usersApplicationPages"><a (click)="goToPageUsingSideMenu(page.link)">{{page.name}}</a></li>
