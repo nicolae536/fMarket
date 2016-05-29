@@ -1,9 +1,6 @@
 package ro.fmarket;
 
-import javax.transaction.TransactionManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -26,7 +23,9 @@ public class TestServiceImpl implements TestService {
 		city2.setCounty(city.getCounty());
 		city2.setName("A");
 		cityDao.save(city2);
+		
 		TestUitls.throwsss();
+		
 		City city3 = new City();
 		city3.setName("B");
 		city3.setCounty(city.getCounty());

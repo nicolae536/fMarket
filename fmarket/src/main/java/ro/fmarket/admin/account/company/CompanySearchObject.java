@@ -1,19 +1,25 @@
 package ro.fmarket.admin.account.company;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
 @Data
 public class CompanySearchObject {
 
+	@NotNull
+	@Min(1)
 	private Integer page;
 	
 	private Integer id;
+	
 	private String name;
+	
 	private String email;
+	
 	private Integer companyDomainId;
-	private List<Integer> demandDomainIds = new ArrayList<>();
+	
+	private Integer demandDomainId;
 	
 }

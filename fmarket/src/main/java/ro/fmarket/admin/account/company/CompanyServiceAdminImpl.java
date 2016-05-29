@@ -1,11 +1,15 @@
 package ro.fmarket.admin.account.company;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ro.fmarket.core.converter.CompanyAdminConverter;
 import ro.fmarket.core.converter.CompanyAdminConverter;
 import ro.fmarket.core.exception.NotFoundException;
 import ro.fmarket.core.rest.PaginatedResponse;
@@ -52,9 +56,14 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 	private PasswordEncoder encoder;
 
 	@Override
-	public PaginatedResponse<CompanyListItem> searchCompanies(CompanySearchObject searchObject) {
-		// TODO Auto-generated method stub
-		return null;
+	public PaginatedResponse<CompanyAdminDTO> searchCompanies(CompanySearchObject searchObject) {
+		Criteria criteria1 = companyDao.createCompanyCriteria(searchObject);
+		Criteria criteria2 = companyDao.createCompanyCriteria(searchObject);
+		Long totalPages = companyDao.getCriteriaTotalCount(criteria1);
+		Integer page = searchObject.getPage();
+		List<Company> companies = companyDao.searchCompanies(criteria2, page);
+		List<CompanyAdminDTO> data = CompanyAdminConverter.toDTOList(companies);
+		return new PaginatedResponse<CompanyAdminDTO>(data, totalPages.intValue(), page);
 	}
 
 	@Override
@@ -84,11 +93,11 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 		companyDao.deleteById(id);
 	}
 
-	@Override
-	public CompanyAdminDTO getCompanyDetails(int id) {
-		final Company company = companyDao.get(id);
-		return CompanyAdminConverter.toDTO(company);
-	}
+//	@Override
+//	public CompanyAdminDTO getCompanyDetails(int id) {
+//		final Company company = companyDao.get(id);
+//		return CompanyAdminConverter.toDTO(company);
+//	}
 
 	private Company createNewCompany(NewCompanyRequest request, Account account) {
 		Company company = new Company();

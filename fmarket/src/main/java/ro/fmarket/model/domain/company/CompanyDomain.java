@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ro.fmarket.core.base.BaseEntity;
 import ro.fmarket.model.company.Company;
+import ro.fmarket.model.demand.Demand;
 
 @Data
 @Entity
