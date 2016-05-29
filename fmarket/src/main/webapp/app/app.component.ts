@@ -144,6 +144,17 @@ export class AppComponent implements OnInit {
 
     private checkApplicationStatus(context) {
         let me = context;
+
+        let errorHandler = function () {
+            let response = {
+                email: null,
+                accountType: Role.USER,
+                loggedIn: false
+            };
+            context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
+            context.handleUserState(response, context);
+        }
+
         Observable.interval(60 * ApplicationConstants.SECOND).subscribe(
             success => {
                 context._registrationService.checkIfLoggedIn()
@@ -155,19 +166,18 @@ export class AppComponent implements OnInit {
                     .subscribe(
                         response=> {
                             context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
+                            context.handleUserState(response, context);
                         },
-                        error=> {
-                            context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, {
-                                email: null,
-                                accountType: Role.USER,
-                                loggedIn: false
-                            });
-                        }
+                        errorHandler
                     );
             },
-            error=>{
+            errorHandler);
+    }
 
-            });
+    private handleUserState(response, context){
+        if(!response.loggedIn && (context.location.path().indexOf('/admin') !== -1 || context.location.path().indexOf('/account') !== -1)){
+            context.router.navigate(['/']);
+        }
     }
 }
 

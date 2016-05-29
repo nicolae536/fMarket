@@ -51,7 +51,7 @@ var RegistrationPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._router.navigate(['/success', { succesOption: 'success-registration' }]);
+            me._router.navigate(['/success/success-registration']);
         }, function (error) {
             me._registrationComponent.markAllFieldsAsErrors({ email: true, password: true });
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Inregistrare invalida!', timeout: 5 });

@@ -98,6 +98,15 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.checkApplicationStatus = function (context) {
         var me = context;
+        var errorHandler = function () {
+            var response = {
+                email: null,
+                accountType: Roles_1.Role.USER,
+                loggedIn: false
+            };
+            context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
+            context.handleUserState(response, context);
+        };
         Observable_1.Observable.interval(60 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
             context._registrationService.checkIfLoggedIn()
                 .map(function (response) {
@@ -107,15 +116,14 @@ var AppComponent = (function () {
             })
                 .subscribe(function (response) {
                 context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
-            }, function (error) {
-                context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, {
-                    email: null,
-                    accountType: Roles_1.Role.USER,
-                    loggedIn: false
-                });
-            });
-        }, function (error) {
-        });
+                context.handleUserState(response, context);
+            }, errorHandler);
+        }, errorHandler);
+    };
+    AppComponent.prototype.handleUserState = function (response, context) {
+        if (!response.loggedIn && (context.location.path().indexOf('/admin') !== -1 || context.location.path().indexOf('/account') !== -1)) {
+            context.router.navigate(['/']);
+        }
     };
     AppComponent = __decorate([
         core_1.Component({

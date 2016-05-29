@@ -48351,7 +48351,16 @@
 	    };
 	    AppComponent.prototype.checkApplicationStatus = function (context) {
 	        var me = context;
-	        Observable_1.Observable.interval(15 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
+	        var errorHandler = function () {
+	            var response = {
+	                email: null,
+	                accountType: Roles_1.Role.USER,
+	                loggedIn: false
+	            };
+	            context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
+	            context.handleUserState(response, context);
+	        };
+	        Observable_1.Observable.interval(60 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
 	            context._registrationService.checkIfLoggedIn()
 	                .map(function (response) {
 	                if (response.text().length > 0) {
@@ -48360,15 +48369,14 @@
 	            })
 	                .subscribe(function (response) {
 	                context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
-	            }, function (error) {
-	                context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, {
-	                    email: null,
-	                    accountType: Roles_1.Role.USER,
-	                    loggedIn: false
-	                });
-	            });
-	        }, function (error) {
-	        });
+	                context.handleUserState(response, context);
+	            }, errorHandler);
+	        }, errorHandler);
+	    };
+	    AppComponent.prototype.handleUserState = function (response, context) {
+	        if (!response.loggedIn && (context.location.path().indexOf('/admin') !== -1 || context.location.path().indexOf('/account') !== -1)) {
+	            context.router.navigate(['/']);
+	        }
 	    };
 	    AppComponent = __decorate([
 	        core_1.Component({
@@ -68232,7 +68240,7 @@
 	                component: accountSettingsPage_1.AccountSettingsPage
 	            }),
 	            new router_1.Route({
-	                path: '/confirm/registration',
+	                path: '/confirm/:registration?token',
 	                component: tokenConfirmPage_1.TokenConfirmPage
 	            }),
 	            new router_1.Route({
@@ -74431,7 +74439,7 @@
 	            }
 	        })
 	            .subscribe(function (response) {
-	            me._router.navigate(['/success', { succesOption: 'success-registration' }]);
+	            me._router.navigate(['/success/success-registration']);
 	        }, function (error) {
 	            me._registrationComponent.markAllFieldsAsErrors({ email: true, password: true });
 	            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Inregistrare invalida!', timeout: 5 });
@@ -74935,7 +74943,7 @@
 	        this._notificationService.removeLoading();
 	    };
 	    AdminPage.prototype.checkRoute = function (link) {
-	        return this.location.path().indexOf(link) != -1;
+	        return this.location.path().indexOf(link) !== -1;
 	    };
 	    __decorate([
 	        core_1.ViewChild('leftMenu'), 
@@ -74983,7 +74991,7 @@
 	            new router_1.Route({
 	                path: '/ceeaza-companie/ceeaza',
 	                component: companiesCreatePage_1.CompanieCreatePage,
-	            }),
+	            })
 	        ]), 
 	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, notificationService_1.NotificationService])
 	    ], AdminPage);
@@ -83195,6 +83203,8 @@
 	    AccountDemandsPage.prototype.getDemandsWithFilter = function (filtru) {
 	        this.selectedFilter = filtru;
 	    };
+	    AccountDemandsPage.prototype.navigateToDemand = function ($event) {
+	    };
 	    AccountDemandsPage.prototype.getUserDemandsWithFilter = function () {
 	        var me = this;
 	        this._demandService.getUserDemandsWithFilter(this._searchObject)
@@ -83304,7 +83314,8 @@
 	        this._localeStorageService = localeStorageService;
 	    }
 	    TokenConfirmPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
-	        this.validateToken(curr.getParam('token'));
+	        var token = this.getParameterByName('token', location.href);
+	        this.validateToken(token);
 	        jqueryService_1.JqueryService.removeElementWithAnimation('#' + applicationConstansts_1.ApplicationConstants.LOADING_SPINNER);
 	    };
 	    TokenConfirmPage.prototype.validateToken = function (token) {
@@ -83337,6 +83348,18 @@
 	        }, function (error) {
 	            me.showTokenError = true;
 	        });
+	    };
+	    TokenConfirmPage.prototype.getParameterByName = function (name, url) {
+	        debugger;
+	        if (!url)
+	            url = window.location.href;
+	        name = name.replace(/[\[\]]/g, "\\$&");
+	        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
+	        if (!results)
+	            return null;
+	        if (!results[2])
+	            return '';
+	        return decodeURIComponent(results[2].replace(/\+/g, " "));
 	    };
 	    TokenConfirmPage = __decorate([
 	        core_1.Component({

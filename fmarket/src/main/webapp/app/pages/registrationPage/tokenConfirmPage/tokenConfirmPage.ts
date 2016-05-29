@@ -34,7 +34,9 @@ export class TokenConfirmPage implements OnActivate{
     }
 
     routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
-        this.validateToken(curr.getParam('token'));
+        let token = this.getParameterByName('token', location.href);
+
+        this.validateToken(token);
         JqueryService.removeElementWithAnimation('#'+ApplicationConstants.LOADING_SPINNER);
     }
 
@@ -71,5 +73,16 @@ export class TokenConfirmPage implements OnActivate{
                    me.showTokenError = true;
                 }
             )
+    }
+
+    getParameterByName(name, url) {
+        debugger;
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 }

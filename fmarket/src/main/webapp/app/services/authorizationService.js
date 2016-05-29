@@ -78,7 +78,7 @@ var AuthorizationService = (function () {
                 component: accountSettingsPage_1.AccountSettingsPage
             }),
             new router_1.Route({
-                path: '/confirm/registration',
+                path: '/confirm/:registration?token',
                 component: tokenConfirmPage_1.TokenConfirmPage
             }),
             new router_1.Route({

@@ -28,7 +28,8 @@ var TokenConfirmPage = (function () {
         this._localeStorageService = localeStorageService;
     }
     TokenConfirmPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
-        this.validateToken(curr.getParam('token'));
+        var token = this.getParameterByName('token', location.href);
+        this.validateToken(token);
         jqueryService_1.JqueryService.removeElementWithAnimation('#' + applicationConstansts_1.ApplicationConstants.LOADING_SPINNER);
     };
     TokenConfirmPage.prototype.validateToken = function (token) {
@@ -61,6 +62,18 @@ var TokenConfirmPage = (function () {
         }, function (error) {
             me.showTokenError = true;
         });
+    };
+    TokenConfirmPage.prototype.getParameterByName = function (name, url) {
+        debugger;
+        if (!url)
+            url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
+        if (!results)
+            return null;
+        if (!results[2])
+            return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     };
     TokenConfirmPage = __decorate([
         core_1.Component({
