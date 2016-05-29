@@ -4,7 +4,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
-
 import {IPageReference} from "../../models/interfaces/iPageReference";
 import {AuthorizationService} from "../../services/authorizationService";
 import {Role} from "../../models/Roles";
@@ -30,6 +29,8 @@ export class HeaderComponent implements OnInit {
     private _router:Router;
     private _registrationService:RegistrationService;
     private _notificationService:NotificationService;
+    private sideMenuOpened:boolean;
+    private hideImage:boolean;
 
     constructor(router:Router, localStorageService:LocalStorageService, registrationService:RegistrationService, notificationService:NotificationService) {
         this._router = router;
@@ -71,8 +72,8 @@ export class HeaderComponent implements OnInit {
             {link: '/admin/categorii/domenii', name: 'Domenii'},
             {link: '/admin/cereri/newDemands', name: 'Cereri noi'},
             {link: '/admin/cereri/lista', name: 'Cereri'},
-            {link: '/admin/companie/lista', name: 'Compani'},
-            {link: '/admin/companie/ceeaza', name: 'Adauga compani'}
+            {link: '/admin/companii', name: 'Companii'},
+            {link: '/admin/ceeaza-companie/ceeaza', name: 'Adauga compani'}
         ];
     }
 
@@ -90,12 +91,31 @@ export class HeaderComponent implements OnInit {
         ]
     }
 
-    chechIdNormalUser(){
+    chechIdNormalUser() {
         return AuthorizationService.isLoggedIn() && !AuthorizationService.hasRole(Role.ADMIN);
+    }
+
+    goToPageUsingSideMenu(link){
+        this._router.navigate([link]);
+        this.closeNav();
     }
 
     isLoggedIn() {
         return AuthorizationService.isLoggedIn();
+    }
+
+    openNav() {
+        this.hideImage = true;
+        setTimeout(()=>{
+            this.sideMenuOpened= true;
+        }, 200);
+    }
+
+    closeNav() {
+        this.sideMenuOpened = false;
+        setTimeout(()=>{
+            this.hideImage = false;
+        }, 500);
     }
 
     isAdminUser() {
@@ -103,7 +123,8 @@ export class HeaderComponent implements OnInit {
     }
 
     logout() {
-        let me=this;
+        let me = this;
+        this.closeNav();
         this._registrationService.logout()
             .map(response=> {
                 if (response.text().length > 0) {
@@ -115,7 +136,12 @@ export class HeaderComponent implements OnInit {
                     me._localStorageService.removeItem(ApplicationConstants.ACTIVE_USER_STATE);
                     me._router.navigate(['/']);
                 }, error=> {
-                    me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Erroare la logout!', timeout:5})
+                    me._notificationService.emitNotificationToRootComponent({
+                        type: 'danger',
+                        dismisable: true,
+                        message: 'Erroare la logout!',
+                        timeout: 5
+                    })
                 }
             )
 

@@ -80,15 +80,15 @@ var AdminPage = (function () {
                 component: demandsEditPage_1.DemandsEditPage,
             }),
             new router_1.Route({
-                path: '/companie/lista',
+                path: '/companii',
                 component: companiesPage_1.CompaniesPage,
             }),
             new router_1.Route({
-                path: '/companie/detalii/:id',
+                path: '/detalii-companie/:id',
                 component: companiesEditPage_1.CompaniesEditPage,
             }),
             new router_1.Route({
-                path: '/companie/ceeaza',
+                path: '/ceeaza-companie/ceeaza',
                 component: companiesCreatePage_1.CompanieCreatePage,
             }),
         ]), 

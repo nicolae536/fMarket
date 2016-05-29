@@ -67,11 +67,11 @@ export class CompaniesPage implements OnInit {
     }
 
     goToNewCompanyPage(){
-        this._router.navigate(['/admin/companie/ceeaza']);
+        this._router.navigate(['/admin/ceeaza-companie/ceeaza']);
     }
 
     selectCompanie(id){
-        this._router.navigate(['/admin/detalii', {id:id}]);
+        this._router.navigate(['/admin/detalii-companie/:id', {id:id}]);
     }
 
     submitSearch(){

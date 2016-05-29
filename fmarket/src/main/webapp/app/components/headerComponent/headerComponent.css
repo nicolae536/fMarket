@@ -4,6 +4,12 @@
     border-top: none;
 }
 
+
+.navbar.navbar-default.navbar-fixed-top .container-fluid{
+    transition: margin-left .5s;
+    margin-left: 0px;
+}
+
 .navbar.navbar-default.navbar-fixed-top .container-fluid .navbar-header {
     max-height: 50px;
     position: relative;
@@ -12,6 +18,7 @@
 .navbar.navbar-default.navbar-fixed-top .container-fluid .navbar-header .fMarket-brand-icon{
     max-height: 50px;
     width: auto;
+    transition: opacity .2s linear;
 }
 
 .dropdown-menu {
@@ -24,9 +31,24 @@
     display: block;
 }
 
+.navbar.navbar-default.navbar-fixed-top .container-fluid .visible-xs.visible-sm.mobile-menu{
+    padding-top: 10px;
+
+}
+
+.navbar.navbar-default.navbar-fixed-top .container-fluid .visible-xs.visible-sm.mobile-menu .glyphicon.glyphicon-align-justify{
+    font-size: 28px;
+    cursor: pointer;
+}
+
 @media (min-width: 1024px) {
     .navbar.navbar-default.navbar-fixed-top .container-fluid{
         padding-left: 7%;
         padding-right: 7%;
     }
 }
+
+.sidenav .nav.navbar-nav.navbar-right{
+    margin: auto;
+}
+

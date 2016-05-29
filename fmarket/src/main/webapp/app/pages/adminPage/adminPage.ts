@@ -45,15 +45,15 @@ var applicationPath:string = '/app/pages/adminPage';
         component: DemandsEditPage,
     }),
     new Route({
-        path: '/companie/lista',
+        path: '/companii',
         component: CompaniesPage,
     }),
     new Route({
-        path: '/companie/detalii/:id',
+        path: '/detalii-companie/:id',
         component: CompaniesEditPage,
     }),
     new Route({
-        path: '/companie/ceeaza',
+        path: '/ceeaza-companie/ceeaza',
         component: CompanieCreatePage,
     }),
 ])

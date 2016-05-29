@@ -167,13 +167,15 @@
     .home-page .home-page-first .about-website {
         position: relative;
     }
-
 }
-
 
 @media (max-width: 990px) {
     .home-page .home-page-subscriber {
         padding: 3% 5% 9% 5%;
+    }
+
+    .home-page .how-we-work{
+        padding: 3% 5%  3% 5%;
     }
 
     .home-page .home-page-subscriber .col-xs-12 {

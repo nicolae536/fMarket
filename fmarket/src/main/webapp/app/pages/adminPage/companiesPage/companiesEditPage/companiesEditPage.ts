@@ -48,7 +48,7 @@ export class CompaniesEditPage extends CompaniesEditBase implements OnInit, OnAc
                 },
                 error=>{
                     me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!',5);
-                    me._router.navigate(['/admin/companie/lista']);
+                    me._location.back();
                 }
             );
     }

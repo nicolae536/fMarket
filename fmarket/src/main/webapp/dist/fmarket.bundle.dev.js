@@ -48370,10 +48370,8 @@
 	    AppComponent = __decorate([
 	        core_1.Component({
 	            selector: 'my-app',
-	            template: "\n        <div class=\"application-wrapper\">\n            <header-component></header-component>\n            <div class=\"page-container\">\n                <div class=\"notification-wrapper\">\n                    <div *ngFor=\"let notification of _notifications\"  class=\"wrapper-inner\">\n                        <div [class.ng-for-item]=\"notification.new\"  class=\"notification-helper\">\n                                <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                                    {{notification.message}}\n                                </alert>\n                        </div>\n                    </div>\n                </div>\n                <router-outlet></router-outlet>\n            </div>\n            <footer-component></footer-component>\n        </div>\n    ",
-	            styles: ["\n        .application-wrapper{\n            padding-bottom: 98px;\n            position: relative;\n            min-height: 100vh;           \n        }\n        \n        .login-background{\n            background: url('/staticResorces/registration-background.png');\n        }\n        \n        .page-container{\n            margin-top: 50px;\n        }\n        \n        .page-container .notification-wrapper{\n            position: fixed;\n            min-width: 100%;\n            z-index: 10001;\n            top: 8%;           \n        }\n        \n        .page-container .notification-wrapper .wrapper-inner{\n            display:block;\n        }\n        \n        .page-container .notification-helper{\n            position: relative;\n            display: inline-block;\n            left: 50%;\n            transform: translate(-50%, 0);\n        }\n        \n        @keyframes item-animation {\n            0% {\n                padding-left: 100px;\n            }\n            100% {\n                padding-left: 0px;\n            } \n        }\n\n        .ng-for-item {\n            animation: item-animation 0.5s;\n        }\n        \n        @media (max-width: 990px){\n            .application-wrapper{\n                    padding-bottom: 320px !important\n            }\n    }\n    "],
-	            directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.AlertComponent, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent],
-	            providers: []
+	            template: "                \n        <div class=\"application-wrapper\">\n            <header-component></header-component>\n            <div class=\"page-container\">\n                <div class=\"notification-wrapper\">\n                    <div *ngFor=\"let notification of _notifications\"  class=\"wrapper-inner\">\n                        <div [class.ng-for-item]=\"notification.new\"  class=\"notification-helper\">\n                                <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                                    {{notification.message}}\n                                </alert>\n                        </div>\n                    </div>\n                </div>\n                <router-outlet></router-outlet>\n            </div>\n            <footer-component></footer-component>\n        </div>\n    ",
+	            directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.AlertComponent, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent]
 	        }),
 	        router_1.Routes(authorizationService_1.AuthorizationService.getApplicationRootRoutes()), 
 	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService])
@@ -74971,15 +74969,15 @@
 	                component: demandsEditPage_1.DemandsEditPage,
 	            }),
 	            new router_1.Route({
-	                path: '/companie/lista',
+	                path: '/companii',
 	                component: companiesPage_1.CompaniesPage,
 	            }),
 	            new router_1.Route({
-	                path: '/companie/detalii/:id',
+	                path: '/detalii-companie/:id',
 	                component: companiesEditPage_1.CompaniesEditPage,
 	            }),
 	            new router_1.Route({
-	                path: '/companie/ceeaza',
+	                path: '/ceeaza-companie/ceeaza',
 	                component: companiesCreatePage_1.CompanieCreatePage,
 	            }),
 	        ]), 
@@ -81780,10 +81778,10 @@
 	        });
 	    };
 	    CompaniesPage.prototype.goToNewCompanyPage = function () {
-	        this._router.navigate(['/admin/companie/ceeaza']);
+	        this._router.navigate(['/admin/ceeaza-companie/ceeaza']);
 	    };
 	    CompaniesPage.prototype.selectCompanie = function (id) {
-	        this._router.navigate(['/admin/detalii', { id: id }]);
+	        this._router.navigate(['/admin/detalii-companie/:id', { id: id }]);
 	    };
 	    CompaniesPage.prototype.submitSearch = function () {
 	        this.getCompaniesWithFilters();
@@ -82315,7 +82313,7 @@
 	            me._companie = response;
 	        }, function (error) {
 	            me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!', 5);
-	            me._router.navigate(['/admin/companie/lista']);
+	            me._location.back();
 	        });
 	    };
 	    CompaniesEditPage.prototype.saveCompanie = function (companieDto) {
@@ -83282,8 +83280,8 @@
 	            { link: '/admin/categorii/domenii', name: 'Domenii' },
 	            { link: '/admin/cereri/newDemands', name: 'Cereri noi' },
 	            { link: '/admin/cereri/lista', name: 'Cereri' },
-	            { link: '/admin/companie/lista', name: 'Compani' },
-	            { link: '/admin/companie/ceeaza', name: 'Adauga compani' }
+	            { link: '/admin/companii', name: 'Companii' },
+	            { link: '/admin/ceeaza-companie/ceeaza', name: 'Adauga compani' }
 	        ];
 	    };
 	    HeaderComponent.prototype.setUserRoutes = function () {
@@ -83300,14 +83298,33 @@
 	    HeaderComponent.prototype.chechIdNormalUser = function () {
 	        return authorizationService_1.AuthorizationService.isLoggedIn() && !authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
 	    };
+	    HeaderComponent.prototype.goToPageUsingSideMenu = function (link) {
+	        this._router.navigate([link]);
+	        this.closeNav();
+	    };
 	    HeaderComponent.prototype.isLoggedIn = function () {
 	        return authorizationService_1.AuthorizationService.isLoggedIn();
+	    };
+	    HeaderComponent.prototype.openNav = function () {
+	        var _this = this;
+	        this.hideImage = true;
+	        setTimeout(function () {
+	            _this.sideMenuOpened = true;
+	        }, 200);
+	    };
+	    HeaderComponent.prototype.closeNav = function () {
+	        var _this = this;
+	        this.sideMenuOpened = false;
+	        setTimeout(function () {
+	            _this.hideImage = false;
+	        }, 500);
 	    };
 	    HeaderComponent.prototype.isAdminUser = function () {
 	        return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
 	    };
 	    HeaderComponent.prototype.logout = function () {
 	        var me = this;
+	        this.closeNav();
 	        this._registrationService.logout()
 	            .map(function (response) {
 	            if (response.text().length > 0) {
@@ -83318,7 +83335,12 @@
 	            me._localStorageService.removeItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE);
 	            me._router.navigate(['/']);
 	        }, function (error) {
-	            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Erroare la logout!', timeout: 5 });
+	            me._notificationService.emitNotificationToRootComponent({
+	                type: 'danger',
+	                dismisable: true,
+	                message: 'Erroare la logout!',
+	                timeout: 5
+	            });
 	        });
 	    };
 	    HeaderComponent = __decorate([

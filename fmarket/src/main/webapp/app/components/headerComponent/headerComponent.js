@@ -55,8 +55,8 @@ var HeaderComponent = (function () {
             { link: '/admin/categorii/domenii', name: 'Domenii' },
             { link: '/admin/cereri/newDemands', name: 'Cereri noi' },
             { link: '/admin/cereri/lista', name: 'Cereri' },
-            { link: '/admin/companie/lista', name: 'Compani' },
-            { link: '/admin/companie/ceeaza', name: 'Adauga compani' }
+            { link: '/admin/companii', name: 'Companii' },
+            { link: '/admin/ceeaza-companie/ceeaza', name: 'Adauga compani' }
         ];
     };
     HeaderComponent.prototype.setUserRoutes = function () {
@@ -73,14 +73,33 @@ var HeaderComponent = (function () {
     HeaderComponent.prototype.chechIdNormalUser = function () {
         return authorizationService_1.AuthorizationService.isLoggedIn() && !authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
     };
+    HeaderComponent.prototype.goToPageUsingSideMenu = function (link) {
+        this._router.navigate([link]);
+        this.closeNav();
+    };
     HeaderComponent.prototype.isLoggedIn = function () {
         return authorizationService_1.AuthorizationService.isLoggedIn();
+    };
+    HeaderComponent.prototype.openNav = function () {
+        var _this = this;
+        this.hideImage = true;
+        setTimeout(function () {
+            _this.sideMenuOpened = true;
+        }, 200);
+    };
+    HeaderComponent.prototype.closeNav = function () {
+        var _this = this;
+        this.sideMenuOpened = false;
+        setTimeout(function () {
+            _this.hideImage = false;
+        }, 500);
     };
     HeaderComponent.prototype.isAdminUser = function () {
         return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
     };
     HeaderComponent.prototype.logout = function () {
         var me = this;
+        this.closeNav();
         this._registrationService.logout()
             .map(function (response) {
             if (response.text().length > 0) {
@@ -91,7 +110,12 @@ var HeaderComponent = (function () {
             me._localStorageService.removeItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE);
             me._router.navigate(['/']);
         }, function (error) {
-            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Erroare la logout!', timeout: 5 });
+            me._notificationService.emitNotificationToRootComponent({
+                type: 'danger',
+                dismisable: true,
+                message: 'Erroare la logout!',
+                timeout: 5
+            });
         });
     };
     HeaderComponent = __decorate([

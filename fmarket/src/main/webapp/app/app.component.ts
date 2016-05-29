@@ -17,7 +17,7 @@ import * as _ from 'underscore';
 
 @Component({
     selector: 'my-app',
-    template: `
+    template: `                
         <div class="application-wrapper">
             <header-component></header-component>
             <div class="page-container">
@@ -35,62 +35,7 @@ import * as _ from 'underscore';
             <footer-component></footer-component>
         </div>
     `,
-    styles: [`
-        .application-wrapper{
-            padding-bottom: 98px;
-            position: relative;
-            min-height: 100vh;           
-        }
-        
-        .login-background{
-            background: url('/staticResorces/registration-background.png');
-        }
-        
-        .page-container{
-            margin-top: 50px;
-        }
-        
-        .page-container .notification-wrapper{
-            position: fixed;
-            min-width: 100%;
-            z-index: 10001;
-            top: 8%;           
-        }
-        
-        .page-container .notification-wrapper .wrapper-inner{
-            display:block;
-        }
-        
-        .page-container .notification-helper{
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translate(-50%, 0);
-        }
-        
-        @keyframes item-animation {
-            0% {
-                padding-left: 100px;
-            }
-            100% {
-                padding-left: 0px;
-            } 
-        }
-
-        .ng-for-item {
-            animation: item-animation 0.5s;
-        }
-        
-        @media (max-width: 990px){
-            .application-wrapper{
-                    padding-bottom: 320px !important
-            }
-    }
-    `],
-    directives: [ROUTER_DIRECTIVES, HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent],
-    providers: [
-
-    ]
+    directives: [ROUTER_DIRECTIVES, HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent]
 })
 
 @Routes(AuthorizationService.getApplicationRootRoutes())

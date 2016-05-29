@@ -43,7 +43,7 @@ var CompaniesEditPage = (function (_super) {
             me._companie = response;
         }, function (error) {
             me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!', 5);
-            me._router.navigate(['/admin/companie/lista']);
+            me._location.back();
         });
     };
     CompaniesEditPage.prototype.saveCompanie = function (companieDto) {

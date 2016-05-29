@@ -45,10 +45,10 @@ var CompaniesPage = (function () {
         });
     };
     CompaniesPage.prototype.goToNewCompanyPage = function () {
-        this._router.navigate(['/admin/companie/ceeaza']);
+        this._router.navigate(['/admin/ceeaza-companie/ceeaza']);
     };
     CompaniesPage.prototype.selectCompanie = function (id) {
-        this._router.navigate(['/admin/detalii', { id: id }]);
+        this._router.navigate(['/admin/detalii-companie/:id', { id: id }]);
     };
     CompaniesPage.prototype.submitSearch = function () {
         this.getCompaniesWithFilters();
