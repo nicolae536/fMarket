@@ -34,10 +34,14 @@ public class CompanyDao extends BaseDao<Company> {
 		return criteria.list();
 	}
 
-	public Criteria createUserCriteria(CompanySearchObject searchObject) {
+	public Criteria createCompanyCriteria(CompanySearchObject searchObject) {
 		final Criteria criteria = getCriteria();
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-
+		if (searchObject.getName() != null) {
+			criteria.add(Restrictions.ilike("name", "%" + searchObject.getName() + "%"));
+		}
+		//TODO
+		
 		return criteria;
 	}
 

@@ -20,7 +20,7 @@ public class CompanyControllerAdmin {
 	private CompanyServiceAdmin service;
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public PaginatedResponse<CompanyListItem> searchCompanies(@Valid @RequestBody CompanySearchObject searchObject) {
+	public PaginatedResponse<CompanyAdminDTO> searchCompanies(@Valid @RequestBody CompanySearchObject searchObject) {
 		return service.searchCompanies(searchObject);
 	}
 
@@ -29,10 +29,10 @@ public class CompanyControllerAdmin {
 		service.createCompany(request);
 	}
 	
-	@RequestMapping(value ="/{id}", method = RequestMethod.GET)
-	public CompanyAdminDTO getCompanyDetails(@PathVariable("id") Integer id) {
-		return service.getCompanyDetails(id);
-	}
+//	@RequestMapping(value ="/{id}", method = RequestMethod.GET)
+//	public CompanyAdminDTO getCompanyDetails(@PathVariable("id") Integer id) {
+//		return service.getCompanyDetails(id);
+//	}
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public void editCompany(@Valid @RequestBody UpdateCompanyRequest request) {

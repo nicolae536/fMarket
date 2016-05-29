@@ -16,6 +16,7 @@ public class CompanyContactInfo extends BaseEntity {
 	private String phone;
 	private String address;
 	private String contactPerson;
+	private String email;
 
 	@ManyToOne(optional = false)
 	private City city;
