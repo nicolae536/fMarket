@@ -15,8 +15,6 @@ var APPLICATION_PATH = '/app/components/demandComponent/demandListBase';
 var DemandListBaseComponent = (function () {
     function DemandListBaseComponent() {
         this.demandList = new Array();
-        this.domainList = new Array();
-        this.citiesList = new Array();
         this.selectDemandEmitter = new core_1.EventEmitter();
     }
     DemandListBaseComponent.prototype.selectDemand = function (demand) {
@@ -26,14 +24,6 @@ var DemandListBaseComponent = (function () {
         core_1.Input('demand-list'), 
         __metadata('design:type', Array)
     ], DemandListBaseComponent.prototype, "demandList", void 0);
-    __decorate([
-        core_1.Input('domains-list'), 
-        __metadata('design:type', Array)
-    ], DemandListBaseComponent.prototype, "domainList", void 0);
-    __decorate([
-        core_1.Input('cities-list'), 
-        __metadata('design:type', Array)
-    ], DemandListBaseComponent.prototype, "citiesList", void 0);
     __decorate([
         core_1.Output('demand-selected'), 
         __metadata('design:type', core_1.EventEmitter)

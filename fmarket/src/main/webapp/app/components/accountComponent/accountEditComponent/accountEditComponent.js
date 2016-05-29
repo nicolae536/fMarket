@@ -14,6 +14,7 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var accountDto_1 = require("../../../models/accountDto");
 var selectComponent_1 = require("../../selectComponent/selectComponent");
+var _ = require('underscore');
 var APPLICATION_PATH = '/app/components/accountComponent/accountEditComponent';
 var AccountEditComponent = (function () {
     function AccountEditComponent(formBuilder) {
@@ -26,37 +27,33 @@ var AccountEditComponent = (function () {
         this._citySelector = citySelector;
     };
     AccountEditComponent.prototype.ngOnInit = function () {
-        this._accountFormModel.addControl('email', this._formBuilder.control(this._accountModel.email, common_1.Validators.required));
-        this._accountFormModel.addControl('name', this._formBuilder.control(this._accountModel.name, common_1.Validators.required));
-        this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem, common_1.Validators.required));
-        this._accountFormModel.addControl('type', this._formBuilder.control(this._accountModel.type, common_1.Validators.required));
-        this._accountFormModel.addControl('creationDate', this._formBuilder.control(this._accountModel.creationDate, common_1.Validators.required));
-        this._accountFormModel.addControl('activationDate', this._formBuilder.control(this._accountModel.activationDate, common_1.Validators.required));
-        this._accountFormModel.addControl('lastPasswordChangeDate', this._formBuilder.control(this._accountModel.lastPasswordChangeDate, common_1.Validators.required));
+        this.buildForm();
         this._accountEditComponentLoaded.emit(this);
-    };
-    AccountEditComponent.prototype.ngOnChanges = function (changes) {
     };
     AccountEditComponent.prototype.saveEditedAccount = function () {
         var accountDto = this.getFormData;
         if (accountDto !== null) {
-            this._saveAccountEmitter.emit(this._accountFormModel);
+            this._saveAccountEmitter.emit(accountDto);
         }
     };
     Object.defineProperty(AccountEditComponent.prototype, "getFormData", {
         get: function () {
+            var response = {};
             if (this._accountFormModel.valid) {
-                var formValue = this._accountFormModel.value;
-                this._accountModel.cityItem = formValue.cityItem;
-                this._accountModel.cityId = formValue.cityItem.boundItem['id'];
-                this._accountModel.city = formValue.cityItem.boundItem['city'];
-                return this._accountModel;
+                response = _.clone(this._accountModel);
+                response['cityId'] = this._citySelector && this._citySelector.selectedItem ? this._citySelector.selectedItem.boundItem['id'] : -1;
+                return response;
             }
             return null;
         },
         enumerable: true,
         configurable: true
     });
+    AccountEditComponent.prototype.buildForm = function () {
+        this._accountFormModel.addControl('email', this._formBuilder.control(this._accountModel.email, common_1.Validators.required));
+        this._accountFormModel.addControl('name', this._formBuilder.control(this._accountModel.name, common_1.Validators.required));
+        this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
+    };
     __decorate([
         core_1.Input('account-form-model'), 
         __metadata('design:type', accountDto_1.AccountDto)
@@ -64,7 +61,7 @@ var AccountEditComponent = (function () {
     __decorate([
         core_1.Input('city-list'), 
         __metadata('design:type', Object)
-    ], AccountEditComponent.prototype, "_cityList", void 0);
+    ], AccountEditComponent.prototype, "_cities", void 0);
     __decorate([
         core_1.Input('submit-label'), 
         __metadata('design:type', Object)

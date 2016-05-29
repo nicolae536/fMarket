@@ -98,20 +98,23 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.checkApplicationStatus = function (context) {
         var me = context;
-        context._registrationService.checkIfLoggedIn()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
-            .subscribe(function (response) {
-            context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
-        }, function (error) {
-            context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, {
-                email: null,
-                accountType: Roles_1.Role.USER,
-                loggedIn: false
+        Observable_1.Observable.interval(60 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
+            context._registrationService.checkIfLoggedIn()
+                .map(function (response) {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })
+                .subscribe(function (response) {
+                context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
+            }, function (error) {
+                context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, {
+                    email: null,
+                    accountType: Roles_1.Role.USER,
+                    loggedIn: false
+                });
             });
+        }, function (error) {
         });
     };
     AppComponent = __decorate([

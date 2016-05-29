@@ -3,6 +3,7 @@
  */
 import {Component, Input} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
+import {Location} from "@angular/common";
 import {TabHeader} from "../../models/TabHeader";
 
 let applicationPath:string = '/app/components/tabsComponent';
@@ -17,12 +18,14 @@ let applicationPath:string = '/app/components/tabsComponent';
 export class TabsRoutingComponent {
     @Input('tabs-pages-list') tabPagesList:Array<TabHeader>;
     private router:Router;
+    private location:Location;
 
-    constructor(router:Router) {
+    constructor(router:Router, location:Location) {
         this.router = router;
+        this.location = location;
     }
 
     checkRoute(link){
-        return JSON.stringify(this.router.createUrlTree([link])) == JSON.stringify(this.router.urlTree) ? 'active':''
+        return this.location.path().indexOf(link) !== -1 ? 'active':''
     }
 }

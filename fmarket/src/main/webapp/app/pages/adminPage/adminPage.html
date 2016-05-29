@@ -28,7 +28,7 @@
                                 Subscriberi
                             </a>
                         </li>
-                        <li [class.active]="checkRoute('/categorii/meniu')">
+                        <li [class.active]="checkRoute('/admin/categorii')">
                             <a [routerLink]="['/admin/categorii/meniu']">
                                 <div class="pull-left">
                                     <span class="glyphicon glyphicon-tasks"></span>
@@ -36,7 +36,7 @@
                                 Categorii
                             </a>
                         </li>
-                        <li [class.active]="checkRoute('/admin/cereri/newDemands')">
+                        <li [class.active]="checkRoute('/admin/cereri')">
                             <a [routerLink]="['/admin/cereri/newDemands']">
                                 <div class="pull-left">
                                     <span class="glyphicon glyphicon-list-alt"></span>
@@ -44,7 +44,7 @@
                                 Anunturi
                             </a>
                         </li>
-                        <li [class.active]="checkRoute('/admin/companii')">
+                        <li [class.active]="checkRoute('/admin/companii') || checkRoute('/admin/ceeaza-companie/ceeaza')">
                             <a [routerLink]="['/admin/companii']">
                                 <div class="pull-left">
                                     <span class="glyphicon glyphicon-transfer"></span>

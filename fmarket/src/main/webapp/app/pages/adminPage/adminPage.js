@@ -42,7 +42,7 @@ var AdminPage = (function () {
         this._notificationService.removeLoading();
     };
     AdminPage.prototype.checkRoute = function (link) {
-        return JSON.stringify(this.router.createUrlTree([link])) == JSON.stringify(this.router.urlTree) ? 'active' : '';
+        return this.location.path().indexOf(link) !== -1;
     };
     __decorate([
         core_1.ViewChild('leftMenu'), 
@@ -90,7 +90,7 @@ var AdminPage = (function () {
             new router_1.Route({
                 path: '/ceeaza-companie/ceeaza',
                 component: companiesCreatePage_1.CompanieCreatePage,
-            }),
+            })
         ]), 
         __metadata('design:paramtypes', [common_1.Location, router_1.Router, notificationService_1.NotificationService])
     ], AdminPage);

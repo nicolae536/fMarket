@@ -51,12 +51,9 @@ var HeaderComponent = (function () {
             { link: '/admin/users', name: 'Useri' },
             { link: '/admin/subscribers', name: 'Subscriberi' },
             { link: '/admin/categorii/meniu', name: 'Meniu categorii' },
-            { link: '/admin/categorii/firme', name: 'Categorii compani' },
-            { link: '/admin/categorii/domenii', name: 'Domenii' },
             { link: '/admin/cereri/newDemands', name: 'Cereri noi' },
             { link: '/admin/cereri/lista', name: 'Cereri' },
             { link: '/admin/companii', name: 'Companii' },
-            { link: '/admin/ceeaza-companie/ceeaza', name: 'Adauga compani' }
         ];
     };
     HeaderComponent.prototype.setUserRoutes = function () {

@@ -5,7 +5,7 @@
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-envelope"></span>
                 </div>
-                <input type="text" [ngFormControl]="_accountFormModel.controls['email']" placeholder="user@foobar.com"/>
+                <input class="form-control" type="text" [ngFormControl]="_accountFormModel.controls['email']" [(ngModel)]="_accountModel.email" placeholder="user@foobar.com"/>
             </div>
         </div>
         <div class="form-group">
@@ -13,35 +13,34 @@
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-user"></span>
                 </div>
-                <input type="text" [ngFormControl]="_accountFormModel.controls['name']"/>
+                <input class="form-control" type="text" [ngFormControl]="_accountFormModel.controls['name']" [(ngModel)]="_accountModel.name"/>
             </div>
         </div>
         <div>
             <label>Orase</label>
             <select-component
-                    [select-items]="_cityList"
+                    [select-items]="_cities"
                     [single-item-selected]="_accountFormModel.controls['cityItem'].value"
                     [multi-select]="false"
-                    (loaded)="referenceDomainComponent($event)">
+                    (loaded)="referenceCitySelectorComponent($event)">
             </select-component>
         </div>
-        <div>
-            <span>Tip cont: </span>
-            <span *ngIf="_accountFormModel.controls['type']" class="label-info">{{_accountFormModel.controls['type']}}</span>
+        <div *ngIf="_accountModel.accountType" class="form-group">
+            <label>Tip cont: </label>
+            <span class="form-control label-info" *ngIf="_accountModel.accountType">{{_accountModel.accountType}}</span>
         </div>
-        <div>
-            <span>Data in care a fost creeat: </span>
-            <span>{{_accountFormModel.controls['creationDate']}}</span>
+        <div *ngIf="_accountModel.creationDate" class="form-group">
+            <label>Data in care a fost creeat: </label>
+            <span class="form-control">{{_accountModel.creationDate}}</span>
         </div>
-        <div>
-            <span>Data in care a fost activat: </span>
-            <span>{{_accountFormModel.controls['activationDate']}}</span>
+        <div *ngIf="_accountModel.activationDate" class="form-group">
+            <label>Data in care a fost activat: </label>
+            <span class="form-control">{{_accountModel.activationDate}}</span>
         </div>
-        <div>
-            <span>Parola a fost schimbata in: </span>
-            <span>{{_accountFormModel.controls['lastPasswordChangeDate']}}</span>
+        <div *ngIf="_accountModel.lastPasswordChangeDate" class="form-group">
+            <label>Parola a fost schimbata in: </label>
+            <span class="form-control">{{_accountModel.lastPasswordChangeDate}}</span>
         </div>
-
         <div>
             <div class="pull-right">
                 <button type="submit" class="btn btn-primary">{{submitLabel}}</button>

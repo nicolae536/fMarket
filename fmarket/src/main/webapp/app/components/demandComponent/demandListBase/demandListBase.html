@@ -1,12 +1,13 @@
 <div class="demand-list-base clearfix">
     <div class="list-group">
         <div *ngFor="let demand of demandList" class="list-group-item" (click)="selectDemand(demand)">
-            <a>
+            <a href="javascript:void(0)">
                 <div class="pull-right">
-                    <span class="label label-success" title="Id-ul contului care a postat cererea">Id cont: {{demand.accountId}}</span>
-                    <span class="label label-success" title="Data la care a fost postata cererea">Data: {{demand.creationDate}}</span>
+                    <span *ngIf="demand.accountId" class="label label-success" title="Id-ul contului care a postat cererea">Id cont: {{demand.accountId}}</span>
+                    <span *ngIf="demand.creationDate" class="label label-success" title="Data la care a fost postata cererea">Data: {{demand.creationDate}}</span>
                 </div>
-                {{demand.title}} <span class="label label-success" title="Statusul cereri" *ngIf="demand.status">{{demand.status}}</span>
+                {{demand.title}}
+                <span class="label label-success" title="Statusul cereri" *ngIf="demand.status">{{demand.status}}</span>
             </a>
         </div>
     </div>

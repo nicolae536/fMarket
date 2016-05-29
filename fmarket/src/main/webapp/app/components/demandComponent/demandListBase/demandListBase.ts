@@ -13,8 +13,6 @@ const APPLICATION_PATH:string = '/app/components/demandComponent/demandListBase'
 })
 export class DemandListBaseComponent {
     @Input('demand-list') demandList:Array<DemandAdminDto> = new Array<DemandAdminDto>();
-    @Input('domains-list') domainList:Array<Select2Item> = new Array<Select2Item>();
-    @Input('cities-list') citiesList:Array<Select2Item> = new Array<Select2Item>();
 
     @Output('demand-selected') selectDemandEmitter:EventEmitter<DemandAdminDto> = new EventEmitter<DemandAdminDto>();
 

@@ -107,7 +107,9 @@ var SelectComponent = (function () {
     };
     SelectComponent.prototype.selectItem = function (item) {
         this._selectedItem = item;
-        this._selectedItems.push(item);
+        if (this._selectedItems.indexOf(item) === -1) {
+            this._selectedItems.push(item);
+        }
     };
     SelectComponent.prototype.getOffset = function (el) {
         var rect = el.getClientRects();

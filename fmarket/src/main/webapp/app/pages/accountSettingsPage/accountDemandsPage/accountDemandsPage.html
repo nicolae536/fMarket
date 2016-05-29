@@ -1,7 +1,22 @@
-<div class="demands-list-page">
-    <demand-list-component
-            [demand-list]="_demandsList"
-            [domains-list]="_domainsList"
-            [cities-list]="_cityesList">
-    </demand-list-component>
+<div class="user-demands-list-page">
+    <div class="demand-filters clearfix">
+        <div class="filter-demand col-md-4 col-xs-12" [class.active-filter]="selectedFilter === 'filtru'"
+             (click)="getDemandsWithFilter('filtru')">
+            Active
+        </div>
+        <div class="filter-demand col-md-4 col-xs-12" [class.active-filter]="selectedFilter === 'filtru1'"
+             (click)="getDemandsWithFilter('filtru1')">
+            Noi
+        </div>
+        <div class="filter-demand col-md-4 col-xs-12" style="border-right: none" [class.active-filter]="selectedFilter === 'filtru2'"
+             (click)="getDemandsWithFilter('filtru2')">
+            Refuzate
+        </div>
+    </div>
+    <div class="clearfix">
+        <demand-list-component
+                [demand-list]="_demandsList"
+                (demand-selected)="navigateToDemand($event)">
+        </demand-list-component>
+    </div>
 </div>

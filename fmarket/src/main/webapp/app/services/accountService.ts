@@ -9,7 +9,7 @@ import {AccountDto} from "../models/accountDto";
 
 @Injectable()
 export class AccountService {
-    private _AccountController:string = '/account';
+    private _AccountController:string = '/accounts';
     private api:FMarketApi;
 
     constructor(api:FMarketApi) {
@@ -17,10 +17,10 @@ export class AccountService {
     }
 
     getAccount(){
-
+        return this.api.get(this._AccountController + '/user');
     }
 
     saveEditedAccount(accountDto:AccountDto){
-        return this.api.post(this._AccountController, JSON.stringify(accountDto));
+        return this.api.post(this._AccountController +'/edit', JSON.stringify(accountDto));
     }
 }

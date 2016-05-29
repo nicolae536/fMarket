@@ -13,6 +13,7 @@
 @import "components/selectComponent/selectComponent.css";
 /*pages styles*/
 @import "/app/pages/accountSettingsPage/accountSettingsPage.css";
+@import "/app/pages/accountSettingsPage/accountDemandsPage/accountDemandsPage.css";
 
 @import "/app/pages/adminPage/adminPage.css";
 

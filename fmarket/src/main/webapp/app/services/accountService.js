@@ -14,13 +14,14 @@ var core_1 = require('@angular/core');
 var fMarketApi_1 = require("./fMarketApi");
 var AccountService = (function () {
     function AccountService(api) {
-        this._AccountController = '/account';
+        this._AccountController = '/accounts';
         this.api = api;
     }
     AccountService.prototype.getAccount = function () {
+        return this.api.get(this._AccountController + '/user');
     };
     AccountService.prototype.saveEditedAccount = function (accountDto) {
-        return this.api.post(this._AccountController, JSON.stringify(accountDto));
+        return this.api.post(this._AccountController + '/edit', JSON.stringify(accountDto));
     };
     AccountService = __decorate([
         core_1.Injectable(), 

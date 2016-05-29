@@ -39,7 +39,6 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     private _loginPage;
 
     constructor(router:Router,registrationService:RegistrationService, notificationService:NotificationService) {
-        debugger;
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;

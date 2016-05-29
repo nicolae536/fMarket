@@ -19,7 +19,6 @@ var jqueryService_1 = require("../../services/jqueryService");
 var folderPath = '/app/pages/registrationPage';
 var RegistrationPage = (function () {
     function RegistrationPage(router, registrationService, notificationService) {
-        debugger;
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;

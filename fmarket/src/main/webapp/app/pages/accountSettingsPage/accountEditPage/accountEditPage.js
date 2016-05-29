@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/26/2016.
  */
 var core_1 = require("@angular/core");
+var accountEditComponent_1 = require("../../../components/accountComponent/accountEditComponent/accountEditComponent");
 var accountDto_1 = require("../../../models/accountDto");
 var accountService_1 = require("../../../services/accountService");
 var demandService_1 = require("../../../services/demandService");
@@ -22,11 +23,12 @@ var AccountEditPage = (function () {
         this._cityesList = new Array();
         this._accountService = accountService;
         this._demandService = demandService;
-        this._account = new accountDto_1.AccountDto();
+        this._account = accountDto_1.AccountDto.getEmptyInstance();
         this._localizationService = localizationService;
     }
     AccountEditPage.prototype.ngOnInit = function () {
         this.getCityList();
+        this.getAccountData();
     };
     AccountEditPage.prototype.accountEditLoaded = function (accountEditComponent) {
         this._accountEditComponent = accountEditComponent;
@@ -57,10 +59,25 @@ var AccountEditPage = (function () {
         }, function (error) {
         });
     };
+    AccountEditPage.prototype.getAccountData = function () {
+        var me = this;
+        this._accountService.getAccount()
+            .map(function (response) {
+            if (response.text().length > 0) {
+                return response.json();
+            }
+        })
+            .subscribe(function (success) {
+            me._account = success;
+        }, function (error) {
+            me._account = accountDto_1.AccountDto.getEmptyInstance();
+        });
+    };
     AccountEditPage = __decorate([
         core_1.Component({
             selector: 'account-edit-Page',
-            templateUrl: applicationPath + '/accountEditPage.html'
+            templateUrl: applicationPath + '/accountEditPage.html',
+            directives: [accountEditComponent_1.AccountEditComponent]
         }), 
         __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService])
     ], AccountEditPage);

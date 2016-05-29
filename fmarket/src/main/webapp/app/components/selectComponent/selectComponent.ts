@@ -159,7 +159,10 @@ export class SelectComponent implements OnInit, OnChanges, DoCheck {
 
     public selectItem(item) {
         this._selectedItem = item;
-        this._selectedItems.push(item);
+
+        if(this._selectedItems.indexOf(item) === -1){
+            this._selectedItems.push(item);
+        }
     }
 
     private getOffset(el) {

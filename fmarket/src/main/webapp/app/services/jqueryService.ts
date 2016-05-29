@@ -75,7 +75,7 @@ export class JqueryService {
         return false;
     }
 
-    static removeElementWithAnimation(element:HTMLElement) {
+    static removeElementWithAnimation(element) {
         $(element).fadeOut(400,()=>{
             $(element).remove();
         });

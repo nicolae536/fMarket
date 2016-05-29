@@ -18,6 +18,8 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage'
     templateUrl: applicationPath + '/accountDemandsPage.html'
 })
 export class AccountDemandsPage extends DemandsListPageBase implements OnInit, OnChanges {
+    selectedFilter:string;
+
     constructor(router:Router,
                 _categoriesMenuService:CategoriesMenuService,
                 _demandService:DemandService,
@@ -32,6 +34,14 @@ export class AccountDemandsPage extends DemandsListPageBase implements OnInit, O
 
     ngOnChanges(changes:{}):any {
 
+    }
+
+    getDemandsWithFilter(filtru){
+        this.selectedFilter = filtru;
+    }
+
+    navigateToDemand($event){
+        
     }
 
     private getUserDemandsWithFilter() {

@@ -9,7 +9,7 @@
 }
 
 .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect{
-    padding-top: 7px;
+    padding-top: 2px;
     height: auto;
     min-height: 34px;
 }
@@ -20,7 +20,7 @@
 
 .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .label.label-info{
     margin-left: 5px;
-    top: 2px;
+    top: 4px;
     margin-bottom: 4px;
 }
 
@@ -30,6 +30,10 @@
 
 .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-3.col-md-2{
     padding: 0px;
+}
+
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-3.col-md-2 .glyphicon{
+    margin-top: 4px;
 }
 
 .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .remove-selected{

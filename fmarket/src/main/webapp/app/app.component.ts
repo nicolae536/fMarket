@@ -144,24 +144,30 @@ export class AppComponent implements OnInit {
 
     private checkApplicationStatus(context) {
         let me = context;
-        context._registrationService.checkIfLoggedIn()
-            .map(response => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
-            .subscribe(
-                response=> {
-                    context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
-                },
-                error=> {
-                    context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, {
-                        email: null,
-                        accountType: Role.USER,
-                        loggedIn: false
-                    });
-                }
-            );
+        Observable.interval(60 * ApplicationConstants.SECOND).subscribe(
+            success => {
+                context._registrationService.checkIfLoggedIn()
+                    .map(response => {
+                        if (response.text().length > 0) {
+                            return response.json();
+                        }
+                    })
+                    .subscribe(
+                        response=> {
+                            context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
+                        },
+                        error=> {
+                            context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, {
+                                email: null,
+                                accountType: Role.USER,
+                                loggedIn: false
+                            });
+                        }
+                    );
+            },
+            error=>{
+
+            });
     }
 }
 

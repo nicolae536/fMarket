@@ -18,6 +18,7 @@ var notificationService_1 = require("../../../services/notificationService");
 var localStorageService_1 = require("../../../services/localStorageService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
 var Roles_1 = require("../../../models/Roles");
+var jqueryService_1 = require("../../../services/jqueryService");
 var TokenConfirmPage = (function () {
     function TokenConfirmPage(router, registrationService, notificationService, localeStorageService) {
         this.showTokenError = false;
@@ -28,6 +29,7 @@ var TokenConfirmPage = (function () {
     }
     TokenConfirmPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
         this.validateToken(curr.getParam('token'));
+        jqueryService_1.JqueryService.removeElementWithAnimation('#' + applicationConstansts_1.ApplicationConstants.LOADING_SPINNER);
     };
     TokenConfirmPage.prototype.validateToken = function (token) {
         var me = this;

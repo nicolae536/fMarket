@@ -5,6 +5,7 @@ import {Component, OnInit, Output, EventEmitter, Input, OnChanges} from "@angula
 import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup} from "@angular/common";
 import {AccountDto} from "../../../models/accountDto";
 import {SelectComponent} from "../../selectComponent/selectComponent";
+import * as _ from 'underscore'
 
 const APPLICATION_PATH:string = '/app/components/accountComponent/accountEditComponent';
 
@@ -13,9 +14,10 @@ const APPLICATION_PATH:string = '/app/components/accountComponent/accountEditCom
     templateUrl: APPLICATION_PATH + '/accountEditComponent.html',
     directives: [FORM_DIRECTIVES, SelectComponent],
 })
-export class AccountEditComponent implements OnInit, OnChanges{
+export class AccountEditComponent implements OnInit{
+
     @Input('account-form-model') _accountModel:AccountDto;
-    @Input('city-list') _cityList;
+    @Input('city-list') _cities;
     @Input('submit-label') submitLabel;
     @Output('save-edited-account') _saveAccountEmitter:EventEmitter<AccountDto>=new EventEmitter<AccountDto>();
     @Output('account-edit-loaded') _accountEditComponentLoaded:EventEmitter<AccountEditComponent>=new EventEmitter<AccountEditComponent>();
@@ -34,37 +36,33 @@ export class AccountEditComponent implements OnInit, OnChanges{
     }
 
     ngOnInit():any {
-        this._accountFormModel.addControl('email', this._formBuilder.control(this._accountModel.email, Validators.required));
-        this._accountFormModel.addControl('name', this._formBuilder.control(this._accountModel.name, Validators.required));
-        this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem, Validators.required));
-        this._accountFormModel.addControl('type', this._formBuilder.control(this._accountModel.type, Validators.required));
-        this._accountFormModel.addControl('creationDate', this._formBuilder.control(this._accountModel.creationDate, Validators.required));
-        this._accountFormModel.addControl('activationDate', this._formBuilder.control(this._accountModel.activationDate, Validators.required));
-        this._accountFormModel.addControl('lastPasswordChangeDate', this._formBuilder.control(this._accountModel.lastPasswordChangeDate, Validators.required));
+        this.buildForm();
 
         this._accountEditComponentLoaded.emit(this);
     }
 
-    ngOnChanges(changes:{}):any {
-    }
-
     saveEditedAccount(){
-        let accountDto = this.getFormData;
+        let accountDto = this.getFormData as AccountDto;
 
         if(accountDto !== null) {
-            this._saveAccountEmitter.emit(this._accountFormModel);
+            this._saveAccountEmitter.emit(accountDto);
         }
     }
 
-    public get getFormData():AccountDto {
+    public get getFormData() {
+        let response = {};
         if (this._accountFormModel.valid) {
-            let formValue = this._accountFormModel.value;
-            this._accountModel.cityItem = formValue.cityItem;
-            this._accountModel.cityId = formValue.cityItem.boundItem['id'];
-            this._accountModel.city = formValue.cityItem.boundItem['city'];
+            response = _.clone(this._accountModel);
+            response['cityId'] = this._citySelector && this._citySelector.selectedItem ? this._citySelector.selectedItem.boundItem['id'] : -1;
 
-            return this._accountModel;
+            return response;
         }
         return null;
+    }
+
+    private buildForm() {
+        this._accountFormModel.addControl('email', this._formBuilder.control(this._accountModel.email, Validators.required));
+        this._accountFormModel.addControl('name', this._formBuilder.control(this._accountModel.name, Validators.required));
+        this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
     }
 }

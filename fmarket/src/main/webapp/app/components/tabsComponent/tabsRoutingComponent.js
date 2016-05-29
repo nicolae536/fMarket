@@ -12,13 +12,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var common_1 = require("@angular/common");
 var applicationPath = '/app/components/tabsComponent';
 var TabsRoutingComponent = (function () {
-    function TabsRoutingComponent(router) {
+    function TabsRoutingComponent(router, location) {
         this.router = router;
+        this.location = location;
     }
     TabsRoutingComponent.prototype.checkRoute = function (link) {
-        return JSON.stringify(this.router.createUrlTree([link])) == JSON.stringify(this.router.urlTree) ? 'active' : '';
+        return this.location.path().indexOf(link) !== -1 ? 'active' : '';
     };
     __decorate([
         core_1.Input('tabs-pages-list'), 
@@ -31,7 +33,7 @@ var TabsRoutingComponent = (function () {
             styleUrls: [applicationPath + '/tabsComponent.css'],
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [router_1.Router])
+        __metadata('design:paramtypes', [router_1.Router, common_1.Location])
     ], TabsRoutingComponent);
     return TabsRoutingComponent;
 })();

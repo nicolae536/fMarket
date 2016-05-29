@@ -55,7 +55,7 @@ var applicationPath:string = '/app/pages/adminPage';
     new Route({
         path: '/ceeaza-companie/ceeaza',
         component: CompanieCreatePage,
-    }),
+    })
 ])
 export class AdminPage implements AfterViewChecked, OnActivate{
 
@@ -86,6 +86,6 @@ export class AdminPage implements AfterViewChecked, OnActivate{
     }
     
     checkRoute(link){
-        return JSON.stringify(this.router.createUrlTree([link])) == JSON.stringify(this.router.urlTree) ? 'active':''
+        return this.location.path().indexOf(link) !==-1;
     }
 }

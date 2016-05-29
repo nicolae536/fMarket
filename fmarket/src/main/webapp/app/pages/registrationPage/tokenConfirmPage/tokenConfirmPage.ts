@@ -10,6 +10,7 @@ import {NotificationService} from "../../../services/notificationService";
 import {LocalStorageService} from "../../../services/localStorageService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
 import {Role} from "../../../models/Roles";
+import {JqueryService} from "../../../services/jqueryService";
 
 @Component({
     selector: 'token-confirm',
@@ -34,6 +35,7 @@ export class TokenConfirmPage implements OnActivate{
 
     routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
         this.validateToken(curr.getParam('token'));
+        JqueryService.removeElementWithAnimation('#'+ApplicationConstants.LOADING_SPINNER);
     }
 
     private validateToken(token:string) {

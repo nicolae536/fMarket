@@ -34,6 +34,11 @@ var AccountDemandsPage = (function (_super) {
     };
     AccountDemandsPage.prototype.ngOnChanges = function (changes) {
     };
+    AccountDemandsPage.prototype.getDemandsWithFilter = function (filtru) {
+        this.selectedFilter = filtru;
+    };
+    AccountDemandsPage.prototype.navigateToDemand = function ($event) {
+    };
     AccountDemandsPage.prototype.getUserDemandsWithFilter = function () {
         var me = this;
         this._demandService.getUserDemandsWithFilter(this._searchObject)

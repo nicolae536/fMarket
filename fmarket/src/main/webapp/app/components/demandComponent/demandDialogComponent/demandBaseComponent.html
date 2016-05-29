@@ -18,7 +18,7 @@
         <!--<button type="button" class="btn btn-default btn-sm" (click)="closeDemandDialog()">{{cancelLabel}}-->
         <!--</button>-->
         <button type="button" class="btn btn-success"
-                [disabled]="_demandComponent && _demandComponent.demandForm && !_demandComponent.demandForm    .valid"
+                [disabled]="_demandComponent && _demandComponent.demandForm && !_demandComponent.demandForm.valid"
                 (click)="createDemand()"> {{positiveLabel}}
         </button>
     </div>

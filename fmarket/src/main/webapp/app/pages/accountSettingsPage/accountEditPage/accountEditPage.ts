@@ -2,25 +2,23 @@
  * Created by nick_ on 4/26/2016.
  */
 import {Component, OnInit} from "@angular/core";
-
 import {AccountEditComponent} from "../../../components/accountComponent/accountEditComponent/accountEditComponent";
 import {AccountDto} from "../../../models/accountDto";
 import {AccountService} from "../../../services/accountService";
 import {DemandService} from "../../../services/demandService";
 import {Select2Item} from "../../../components/selectComponent/selectComponent";
-import {AuthorizationService} from "../../../services/authorizationService";
-import * as _ from 'underscore';
 import {LocalizationService} from "../../../services/localizationService";
 var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
 
 @Component({
     selector: 'account-edit-Page',
-    templateUrl: applicationPath + '/accountEditPage.html'
+    templateUrl: applicationPath + '/accountEditPage.html',
+    directives: [AccountEditComponent]
 })
-export class AccountEditPage implements OnInit{
+export class AccountEditPage implements OnInit {
     private _accountEditComponent;
 
-    private _accountService;
+    private _accountService:AccountService;
     private _demandService:DemandService;
 
     private _account:AccountDto;
@@ -28,34 +26,35 @@ export class AccountEditPage implements OnInit{
     private _cityesList:Array<Select2Item> = new Array<Select2Item>();
     private _localizationService:LocalizationService;
 
-    constructor(accountService:AccountService, demandService:DemandService, localizationService:LocalizationService){
-        this._accountService=accountService;
+    constructor(accountService:AccountService, demandService:DemandService, localizationService:LocalizationService) {
+        this._accountService = accountService;
         this._demandService = demandService;
-        this._account=new AccountDto();
+        this._account = AccountDto.getEmptyInstance();
         this._localizationService = localizationService;
     }
 
     ngOnInit():any {
         this.getCityList();
+        this.getAccountData();
     }
 
-    accountEditLoaded(accountEditComponent:AccountEditComponent){
-        this._accountEditComponent=accountEditComponent;
+    accountEditLoaded(accountEditComponent:AccountEditComponent) {
+        this._accountEditComponent = accountEditComponent;
     }
 
-    saveEditedAccount(editedAccount:AccountDto){
+    saveEditedAccount(editedAccount:AccountDto) {
         let me = this;
         this._accountService.saveEditedAccount(editedAccount)
-            .map((response)=>{
-                if(response.text().length>0){
+            .map((response)=> {
+                if (response.text().length > 0) {
                     return response.json();
                 }
             })
             .subscribe(
-                response =>{
+                response => {
                     me._account = response;
                 },
-                errr =>{
+                errr => {
 
                 }
             )
@@ -75,6 +74,25 @@ export class AccountEditPage implements OnInit{
                 },
                 error => {
 
+                }
+            )
+    }
+
+    private getAccountData() {
+        let me = this;
+        
+        this._accountService.getAccount()
+            .map(response=> {
+                if (response.text().length > 0) {
+                    return response.json();
+                }
+            })
+            .subscribe(
+                success=> {
+                    me._account = success;
+                },
+                error=> {
+                    me._account = AccountDto.getEmptyInstance();
                 }
             )
     }
