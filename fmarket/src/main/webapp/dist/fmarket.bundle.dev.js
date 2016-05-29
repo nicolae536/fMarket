@@ -81749,26 +81749,34 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
+	var common_1 = __webpack_require__(206);
 	var companiesService_1 = __webpack_require__(607);
 	var notificationService_1 = __webpack_require__(526);
 	var companieListComponent_1 = __webpack_require__(608);
 	var _ = __webpack_require__(521);
+	var selectComponent_1 = __webpack_require__(528);
+	var ng2_bootstrap_1 = __webpack_require__(328);
 	var applicationPath = '/app/pages/adminPage/companiesPage';
 	var CompaniesPage = (function () {
 	    function CompaniesPage(router, companiesService, notificationService) {
+	        this.searchFilter = { name: "", email: "", companyDomain: "", demandDomains: "", page: 1 };
+	        this.pagination = { totalItems: 1, currentPage: 1, maxSize: 7 };
 	        this._router = router;
 	        this._companiesService = companiesService;
 	        this._notificationService = notificationService;
 	    }
 	    CompaniesPage.prototype.ngOnInit = function () {
 	        this.getCompaniesWithFilters();
+	        this.getCompanieDomains();
+	        this.getDomains();
 	    };
 	    CompaniesPage.prototype.referenceCompaniesDialog = function (_createCompanieDialog) {
 	        this._createCompanieDialog = _createCompanieDialog;
 	    };
 	    CompaniesPage.prototype.getCompaniesWithFilters = function () {
 	        var me = this;
-	        this._companiesService.getCompaniesForUsers(this.searchFilter)
+	        this.searchFilter['page'] = this.pagination['currentPage'];
+	        this._companiesService.getCompanyWithFilters(this.searchFilter)
 	            .map(function (response) {
 	            if (response.text().length > 0) {
 	                return response.json();
@@ -81778,8 +81786,47 @@
 	            me._companiesList = me.splitViewInPiecesUsingScreen(response);
 	        }, function (error) {
 	            me._companiesList = me.splitViewInPiecesUsingScreen(me.getMockArray());
-	            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Eroare companiile nu pot fi afisate!', timeout: 5 });
+	            me._notificationService.emitNotificationToRootComponent({
+	                type: 'danger',
+	                dismisable: true,
+	                message: 'Eroare companiile nu pot fi afisate!',
+	                timeout: 5
+	            });
 	        });
+	    };
+	    CompaniesPage.prototype.getCompanieDomains = function () {
+	        var me = this;
+	        this._companiesService.getCompanieDomains()
+	            .map(function (response) {
+	            if (response.text().length > 0) {
+	                return response.json();
+	            }
+	        })
+	            .subscribe(function (success) {
+	            me.companieDomains = me._companiesService.mapNameToSelect2Item(success);
+	        }, function (error) {
+	            me.companieDomains = new Array();
+	        });
+	    };
+	    CompaniesPage.prototype.getDomains = function () {
+	        var me = this;
+	        this._companiesService.getDemandDomanins()
+	            .map(function (response) {
+	            if (response.text().length > 0) {
+	                return response.json();
+	            }
+	        })
+	            .subscribe(function (success) {
+	            me.domains = me._companiesService.mapNameToSelect2Item(success);
+	        }, function (error) {
+	            me.domains = new Array();
+	        });
+	    };
+	    CompaniesPage.prototype.referenceSelectCompanyDomainComponent = function ($event) {
+	        this.selectCompanieDomain = $event;
+	    };
+	    CompaniesPage.prototype.referenceSelectDemandDomainComponent = function ($event) {
+	        this.selectDomain = $event;
 	    };
 	    CompaniesPage.prototype.goToNewCompanyPage = function () {
 	        this._router.navigate(['/admin/ceeaza-companie/ceeaza']);
@@ -82146,7 +82193,7 @@
 	            selector: 'compnaies-Page',
 	            templateUrl: applicationPath + '/companiesPage.html',
 	            styleUrls: [applicationPath + '/companiesPage.css'],
-	            directives: [companieListComponent_1.CompanieListComponent]
+	            directives: [companieListComponent_1.CompanieListComponent, selectComponent_1.SelectComponent, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
 	        }), 
 	        __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
 	    ], CompaniesPage);
@@ -82173,6 +82220,7 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var fMarketApi_1 = __webpack_require__(498);
+	var _ = __webpack_require__(521);
 	var CompaniesService = (function () {
 	    function CompaniesService(api) {
 	        this.COMPANIE_CONTROLLER = '/companies';
@@ -82211,6 +82259,14 @@
 	    };
 	    CompaniesService.prototype.getDemandDomanins = function () {
 	        return this.api.get('/demand/domains');
+	    };
+	    CompaniesService.prototype.mapNameToSelect2Item = function (array) {
+	        return _.map(array, function (item) {
+	            return {
+	                displayName: item['name'],
+	                boundItem: item
+	            };
+	        });
 	    };
 	    CompaniesService = __decorate([
 	        core_1.Injectable(), 

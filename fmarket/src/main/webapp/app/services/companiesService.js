@@ -12,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require("@angular/core");
 var fMarketApi_1 = require("./fMarketApi");
+var _ = require("underscore");
 var CompaniesService = (function () {
     function CompaniesService(api) {
         this.COMPANIE_CONTROLLER = '/companies';
@@ -50,6 +51,14 @@ var CompaniesService = (function () {
     };
     CompaniesService.prototype.getDemandDomanins = function () {
         return this.api.get('/demand/domains');
+    };
+    CompaniesService.prototype.mapNameToSelect2Item = function (array) {
+        return _.map(array, function (item) {
+            return {
+                displayName: item['name'],
+                boundItem: item
+            };
+        });
     };
     CompaniesService = __decorate([
         core_1.Injectable(), 

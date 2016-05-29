@@ -7,6 +7,8 @@ import {IStarReview} from "../models/interfaces/iStarReview";
 import {IMessageReview} from "../models/interfaces/iMessageReview";
 import {NewCompanyRequest} from "../models/newCompanyRequest";
 import {CompanySearchObject} from "../models/companySearchObject";
+import {Select2Item} from "../components/selectComponent/selectComponent";
+import * as _ from "underscore";
 
 @Injectable()
 export class CompaniesService{
@@ -18,7 +20,7 @@ export class CompaniesService{
         this.api = api;
     }
 
-    getCompaniesForUsers(searchQuery:string){
+    getCompaniesForUsers(searchQuery){
         return this.api.get(this.COMPANIE_CONTROLLER + `/all?p=${searchQuery}`);
     }
 
@@ -60,5 +62,14 @@ export class CompaniesService{
 
     getDemandDomanins(){
         return this.api.get('/demand/domains');
+    }
+
+    mapNameToSelect2Item(array):Array<Select2Item>{
+        return _.map(array,(item)=>{
+            return {
+                displayName:item['name'],
+                boundItem:item
+            }
+        })
     }
 }

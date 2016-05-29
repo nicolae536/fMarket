@@ -1,23 +1,69 @@
 <div class="companies-page clearfix">
+    <div style="margin-bottom: 10px;">
+        <span class="h1">Companii</span>
+    </div>
+    <div class="clearfix">
+        <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <label>Nume</label>
+                <input class="form-control" [(ngModel)]="searchFilter.email"/>
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <label>Domeniu companie</label>
+                <select-component
+                        [select-items]="companieDomains"
+                        [single-item-selected]="searchFilter.companyDomain"
+                        [multi-select]="false"
+                        (loaded)="referenceSelectCompanyDomainComponent($event)"
+                ></select-component>
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+                <label>Domeniu cereri</label>
+                <select-component
+                        [select-items]="domains"
+                        [selected-items]="searchFilter.demandDomains"
+                        [multi-select]="true"
+                        (loaded)="referenceSelectDemandDomainComponent($event)"
+                ></select-component>
+            </div>
+        </div>
+        <div class="pull-right">
+            <div style="margin-top:25px;">
+                <button type="button" class="btn btn-success" (click)="goToNewCompanyPage()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Adauga companie
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="clearfix search-field-wrapper ">
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-6 col-xs-12">
             <div class="input-group">
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-search"></span>
                 </div>
-                <input type="text" class="form-control" [(ngModel)]="searchFilter" (ngModelChange)="chengeSearch($event)"/>
+                <input type="text" class="form-control" [(ngModel)]="searchFilter.name"
+                       (ngModelChange)="chengeSearch($event)"/>
             </div>
         </div>
         <div class="pull-right">
-            <button type="button" class="btn btn-success" (click)="goToNewCompanyPage()">
-                <span class="glyphicon glyphicon-plus"></span>
-                Adauga companie
+            <button class="btn btn-primary" (click)="getCompaniesWithFilters()">
+                <span class="glyphicon glyphicon-filter"></span>
+                Filtreaza companii
             </button>
         </div>
     </div>
-
-    <companie-list-component
-            [companies-list]="_companiesList"
-            (companie-selected)="selectCompanie($event)"
-    ></companie-list-component>
+    <div class="clearfix">
+        <companie-list-component
+                [companies-list]="_companiesList"
+                (companie-selected)="selectCompanie($event)"
+        ></companie-list-component>
+    </div>
+    <pagination [totalItems]="pagination.totalItems" [(ngModel)]="pagination.currentPage"
+                (ngModelChange)="getCompaniesWithFilters()" [maxSize]="pagination.maxSize" class="pagination-sm"
+                [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
 </div>
