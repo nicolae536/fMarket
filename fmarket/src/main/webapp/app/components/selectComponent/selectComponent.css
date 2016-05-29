@@ -24,12 +24,16 @@
     margin-bottom: 4px;
 }
 
-.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-10,.col-md-10{
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-9.col-md-10{
     padding-left: 0px;
 }
 
-.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-2.col-md-2{
-    padding-right: 0px;
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-3.col-md-2{
+    padding: 0px;
+}
+
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .remove-selected{
+    font-size: 15px;
 }
 
 .bs-ui-select-2.dropdown .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{

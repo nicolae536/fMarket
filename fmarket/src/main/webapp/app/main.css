@@ -191,6 +191,12 @@
 /*modal animation*/
 .modal {
     animation: modal-show 0.3s;
+    max-height: 98vh;
+}
+
+.modal .modal-content .modal-body{
+    max-height: 72vh;
+    overflow-y: auto;
 }
 
 .modal.remove{
@@ -600,11 +606,10 @@
 }
 
 .sidenav-mobile {
-    position: absolute;
     top: 0;
     right: 25px;
     font-size: 36px !important;
-    margin-left: 50px;
+    padding-top: 0px;
 }
 
 

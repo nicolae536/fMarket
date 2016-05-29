@@ -19,11 +19,11 @@ import {FilterPipe} from "./filterPipe";
                 
                 <button #multiSelectRef *ngIf="muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [disabled]="checkItems()" 
                     class="btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
-                    <div class="col-xs-10 col-md-10 clearfix">
+                    <div class="col-xs-9 col-md-10 clearfix">
                         <span *ngIf="_selectedItems.length < 1">Choose...</span>
-                        <span class="label label-info pull-left" *ngFor="let item of _selectedItems">{{item.displayName}} <span (click)="removeItemFromSelection($event,item)">&times;</span></span>
+                        <span class="label label-info pull-left" *ngFor="let item of _selectedItems">{{item.displayName}} <span class="remove-selected" (click)="removeItemFromSelection($event,item)">&times;</span></span>
                     </div>
-                    <div class="col-xs-2 col-md-2">
+                    <div class="col-xs-3 col-md-2">
                         <span [class]="getCarretClass()"></span>
                         <span *ngIf="_selectedItems.length > 0" class="glyphicon glyphicon-remove pull-right" (click)="removeSelection($event)"></span>
                     </div>
