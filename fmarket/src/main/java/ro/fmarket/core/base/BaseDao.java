@@ -3,19 +3,14 @@ package ro.fmarket.core.base;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BaseDao<T> {
 
-	@Autowired
-	private EntityManagerFactory entityManagerFactory;
-	
 	@Autowired
 	private EntityManager entityManager;
 
@@ -27,7 +22,7 @@ public class BaseDao<T> {
 	}
 
 	protected Session getSession() {
-		return (Session) entityManager.getDelegate();
+		return entityManager.unwrap(Session.class);
 	}
 
 	@SuppressWarnings("unchecked")
