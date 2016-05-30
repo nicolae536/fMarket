@@ -48362,6 +48362,7 @@
 	            context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
 	            context.handleUserState(response, context);
 	        };
+	        //noinspection TypeScriptUnresolvedFunction
 	        Observable_1.Observable.interval(60 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
 	            context._registrationService.checkIfLoggedIn()
 	                .map(function (response) {
