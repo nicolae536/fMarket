@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
-import javax.transaction.TransactionManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -24,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan("ro.fmarket")
 @EnableAsync
 @EnableConfigurationProperties
-//@EnableTransactionManagement
+@EnableTransactionManagement
 @EnableAspectJAutoProxy
 @EnableJpaRepositories
 public class AppConfig {

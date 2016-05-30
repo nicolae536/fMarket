@@ -2,6 +2,7 @@ package ro.fmarket.core.base;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import org.hibernate.Criteria;
@@ -14,6 +15,9 @@ public class BaseDao<T> {
 
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
+	
+	@Autowired
+	private EntityManager entityManager;
 
 	protected Class<T> type;
 
@@ -23,8 +27,7 @@ public class BaseDao<T> {
 	}
 
 	protected Session getSession() {
-		SessionFactory factory = entityManagerFactory.unwrap(SessionFactory.class);
-		return factory.getCurrentSession();
+		return (Session) entityManager.getDelegate();
 	}
 
 	@SuppressWarnings("unchecked")

@@ -23,13 +23,15 @@ public class TestServiceImpl implements TestService {
 		city2.setCounty(city.getCounty());
 		city2.setName("A");
 		cityDao.save(city2);
+		cityDao.saveCounty();
 		
-		TestUitls.throwsss();
 		
 		City city3 = new City();
 		city3.setName("B");
 		city3.setCounty(city.getCounty());
 		cityDao.save(city3);
+		
+		TestUitls.throwsss();
 	}
 	
 }
