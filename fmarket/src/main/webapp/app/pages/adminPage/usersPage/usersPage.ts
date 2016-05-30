@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {NgForm} from '@angular/common';
+import {NgForm, CORE_DIRECTIVES} from '@angular/common';
 import {CanActivate} from "@angular/router-deprecated";
 
 
@@ -19,6 +19,7 @@ import {Role} from "../../../models/Roles";
 import {AuthorizationService} from "../../../services/authorizationService";
 import {NotificationService} from "../../../services/notificationService";
 import {LocalizationService} from "../../../services/localizationService";
+import {PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 
 var applicationPath:string = '/app/pages/adminPage/usersPage';
 
@@ -27,10 +28,10 @@ var applicationPath:string = '/app/pages/adminPage/usersPage';
     templateUrl: applicationPath + '/usersPage.html',
     styleUrls: [applicationPath + '/usersPage.css'],
     encapsulation: ViewEncapsulation.None,
-    directives: [ActionDialog, CreateUserDialog, NgForm]
+    directives: [ActionDialog, CreateUserDialog, NgForm, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })
 @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
-export class UsersPage extends PageWithNavigation implements OnInit {
+export class UsersPage implements OnInit {
     usersList:User[];
     userDialog:CreateUserDialog;
     actionDialog:ActionDialog;
@@ -46,13 +47,15 @@ export class UsersPage extends PageWithNavigation implements OnInit {
     cityId = -1;
     selectedStatusFilter:AccountStatus = null;
     private _notificationService:NotificationService;
-    _localizationService:LocalizationService;
+    private _localizationService:LocalizationService;
+    private pagination:Object = {totalItems:1, currentPage:1, maxSize:7};
 
 
-    constructor(private _userService:UserService, notificationService:NotificationService, localizationService:LocalizationService) {
-        super();
-        this._notificationService = notificationService;
-        this._localizationService = localizationService;
+    constructor(
+        private _userService:UserService,
+        private _notificationService:NotificationService,
+        private _localizationService:LocalizationService)
+    {
         this.getCities();
     }
 
@@ -72,7 +75,7 @@ export class UsersPage extends PageWithNavigation implements OnInit {
 
     getUsers() {
         var me = this;
-        this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
+        this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.pagination['currentPage'])
             .map((response) => {
                 if (response.text().length > 0) {
                     return response.json();
@@ -81,7 +84,8 @@ export class UsersPage extends PageWithNavigation implements OnInit {
             .subscribe(
                 response => {
                     me.usersList = response.data;
-                    me.mapPageIndexes(response.totalPages, response.page);
+                    me.pagination['totalItems']=response.totalPages;
+                    me.pagination['currentPage']=response.page;
                     console.log(response);
                 },
                 error => {

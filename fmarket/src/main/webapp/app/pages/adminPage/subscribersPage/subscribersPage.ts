@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from "@angular/core";
-import {NgForm} from "@angular/common";
-import {DROPDOWN_DIRECTIVES, DATEPICKER_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
+import {NgForm, CORE_DIRECTIVES} from "@angular/common";
+import {DROPDOWN_DIRECTIVES, DATEPICKER_DIRECTIVES, PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import "rxjs/add/operator/map";
 import {Subscriber} from "../../../models/subscriber";
 import {ActionDialog} from "../../../components/actionDialog/actionDialog";
@@ -17,9 +17,9 @@ var applicationPath:string = '/app/pages/adminPage/subscribersPage';
     templateUrl: applicationPath + '/subscribersPage.html',
     styleUrls: [applicationPath + '/subscribersPage.css'],
     encapsulation: ViewEncapsulation.None,
-    directives: [CreateSubscriberDialog, ActionDialog, NgForm, DATEPICKER_DIRECTIVES, DROPDOWN_DIRECTIVES]
+    directives: [CreateSubscriberDialog, ActionDialog, NgForm, DATEPICKER_DIRECTIVES, DROPDOWN_DIRECTIVES, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })
-export class SubscribersPage extends PageWithNavigation implements OnInit {
+export class SubscribersPage implements OnInit {
     _subscribersService:SubscribersService;
     actionDialog:ActionDialog;
     subscribeDatePicker = {state: false};
@@ -44,6 +44,7 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
     dateTimePlaceHolder:string = ApplicationConstants.getLocaleDateString();
     subscriberFormatedDate:string;
     unsubscriberFormatedDate:string;
+    private pagination:Object = {totalItems:1, currentPage:1, maxSize:7};
 
     createSubscriberDialog:CreateSubscriberDialog;
     subscribersList:Array<Subscriber> = [];
@@ -51,8 +52,6 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
     private _localizationService:LocalizationService;
 
     constructor(subscribersService:SubscribersService, localizationService:LocalizationService) {
-        super();
-
         this.sortkeyAndFilter["EMAIL"] = true;
         this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
         this.sortkeyAndFilter["UNSUBSCRIBE_DATE"] = true;
@@ -98,7 +97,7 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
 
     getSubscribersWithFilters() {
         var me = this;
-        this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.currentPageIndex, this.sortKey, this.sortOrder)
+        this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.pagination['currentPage'], this.sortKey, this.sortOrder)
             .map((response) => {
                 if (response.text().length > 0) {
                     return response.json();
@@ -107,7 +106,8 @@ export class SubscribersPage extends PageWithNavigation implements OnInit {
             .subscribe(
                 response => {
                     me.subscribersList = response.data;
-                    me.mapPageIndexes(response.totalPages, response.page);
+                    me.pagination['totalItems'] = response.totalPages;
+                    me.pagination['currentPage'] = response.page;
                 },
                 error => {
 

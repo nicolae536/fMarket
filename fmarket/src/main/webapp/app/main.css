@@ -74,6 +74,25 @@
     margin-top: -36px;
 }
 
+.arrow_box_bottom {
+    position: relative;
+    background: #ffffff;
+}
+.arrow_box_bottom:after {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-top-color: #ffffff;
+    border-width: 12px;
+    margin-left: -12px;
+}
+
 
 /*for error style*/
 .ng-dirty.ng-invalid.ng-touched {
@@ -193,10 +212,12 @@
 .modal {
     animation: modal-show 0.3s;
     max-height: 98vh;
+    max-width: 100vw;
 }
 
 .modal .modal-content .modal-body{
     max-height: 72vh;
+    max-width: 100vw;
     overflow-y: auto;
 }
 

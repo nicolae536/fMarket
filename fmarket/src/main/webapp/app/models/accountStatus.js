@@ -1,6 +1,7 @@
 /**
  * Created by NicolaeB on 4/26/2016.
  */
+"use strict";
 var AccountStatus = (function () {
     function AccountStatus() {
     }
@@ -9,6 +10,6 @@ var AccountStatus = (function () {
     AccountStatus.DISABLED = "DISABLED";
     AccountStatus.AUTO = "AUTO";
     return AccountStatus;
-})();
+}());
 exports.AccountStatus = AccountStatus;
 //# sourceMappingURL=accountStatus.js.map

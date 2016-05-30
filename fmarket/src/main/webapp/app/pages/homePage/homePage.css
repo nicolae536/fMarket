@@ -44,8 +44,7 @@
     color: #666666;
     margin-top: 3px;
     display: block;
-    position: absolute;
-    bottom: 5px;
+    bottom: 3vh;
 }
 
 
@@ -154,7 +153,7 @@
 
     .home-page .home-page-first .about-website {
         position: relative;
-        padding-top: 15%;
+        padding-top: 7%;
     }
 }
 

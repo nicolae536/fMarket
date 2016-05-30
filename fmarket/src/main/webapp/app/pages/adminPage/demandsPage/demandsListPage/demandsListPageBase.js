@@ -1,3 +1,4 @@
+"use strict";
 var _ = require('underscore');
 var DemandStatus_1 = require("../../../../models/DemandStatus");
 var DemandSearchObject_1 = require("../../../../models/DemandSearchObject");
@@ -104,6 +105,6 @@ var DemandsListPageBase = (function () {
         this._router.navigate(['/Admin/EditDemand', { id: demand.id }]);
     };
     return DemandsListPageBase;
-})();
+}());
 exports.DemandsListPageBase = DemandsListPageBase;
 //# sourceMappingURL=demandsListPageBase.js.map

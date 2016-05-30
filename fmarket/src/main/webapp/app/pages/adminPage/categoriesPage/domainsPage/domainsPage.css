@@ -26,16 +26,17 @@
     padding-right: 0px;
 }
 
-.domains-page .domain-type .list-group .list-group-item .col-md-9 .form-control {
+.domains-page .domain-type .list-group .list-group-item .col-md-8 .form-control {
     margin-top: -13px;
     height: 42px;
     margin-left: -31px;
     text-indent: 18px;
-    z-index: 10;
+    z-index: 1000;
+
 }
 
-.domains-page .domain-type .list-group .list-group-item .col-md-3 {
-    padding-right: 0px;
+.domains-page .domain-type .list-group .list-group-item .col-md-4 {
+    padding: 0px;
 }
 
 .domains-page .domain-type .list-group .list-group-item .secondary {

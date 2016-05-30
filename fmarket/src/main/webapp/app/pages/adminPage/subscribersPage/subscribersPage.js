@@ -1,8 +1,4 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -19,15 +15,12 @@ require("rxjs/add/operator/map");
 var subscriber_1 = require("../../../models/subscriber");
 var actionDialog_1 = require("../../../components/actionDialog/actionDialog");
 var subscribersService_1 = require("../../../services/subscribersService");
-var pageWithNavigation_1 = require("../../../components/pageWithNavigation/pageWithNavigation");
 var createSubscriberDialog_1 = require("../../../components/createSubscriberDialog/createSubscriberDialog");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
 var localizationService_1 = require("../../../services/localizationService");
 var applicationPath = '/app/pages/adminPage/subscribersPage';
-var SubscribersPage = (function (_super) {
-    __extends(SubscribersPage, _super);
+var SubscribersPage = (function () {
     function SubscribersPage(subscribersService, localizationService) {
-        _super.call(this);
         this.subscribeDatePicker = { state: false };
         this.unSubscribeDatePicker = { state: false };
         this.orderList = [{ value: -1, text: "Chose..." },
@@ -41,6 +34,7 @@ var SubscribersPage = (function (_super) {
         this.subscribeDateFilter = new Date();
         this.unsubscribeDateFilter = new Date();
         this.dateTimePlaceHolder = applicationConstansts_1.ApplicationConstants.getLocaleDateString();
+        this.pagination = { totalItems: 1, currentPage: 1, maxSize: 7 };
         this.subscribersList = [];
         this.deleteMessage = "Are you sure that you want to delete this subscriber ?";
         this.sortkeyAndFilter["EMAIL"] = true;
@@ -78,7 +72,7 @@ var SubscribersPage = (function (_super) {
     };
     SubscribersPage.prototype.getSubscribersWithFilters = function () {
         var me = this;
-        this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.currentPageIndex, this.sortKey, this.sortOrder)
+        this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.pagination['currentPage'], this.sortKey, this.sortOrder)
             .map(function (response) {
             if (response.text().length > 0) {
                 return response.json();
@@ -86,7 +80,8 @@ var SubscribersPage = (function (_super) {
         })
             .subscribe(function (response) {
             me.subscribersList = response.data;
-            me.mapPageIndexes(response.totalPages, response.page);
+            me.pagination['totalItems'] = response.totalPages;
+            me.pagination['currentPage'] = response.page;
         }, function (error) {
         });
     };
@@ -202,11 +197,11 @@ var SubscribersPage = (function (_super) {
             templateUrl: applicationPath + '/subscribersPage.html',
             styleUrls: [applicationPath + '/subscribersPage.css'],
             encapsulation: core_1.ViewEncapsulation.None,
-            directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
+            directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [subscribersService_1.SubscribersService, localizationService_1.LocalizationService])
     ], SubscribersPage);
     return SubscribersPage;
-})(pageWithNavigation_1.PageWithNavigation);
+}());
 exports.SubscribersPage = SubscribersPage;
 //# sourceMappingURL=subscribersPage.js.map

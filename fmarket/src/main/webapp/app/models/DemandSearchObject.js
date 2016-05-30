@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Created by NicolaeB on 5/26/2016.
  */
@@ -9,6 +10,6 @@ var DemandSearchObject = (function () {
         this.domainId = domainId;
     }
     return DemandSearchObject;
-})();
+}());
 exports.DemandSearchObject = DemandSearchObject;
 //# sourceMappingURL=DemandSearchObject.js.map

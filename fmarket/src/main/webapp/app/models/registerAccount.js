@@ -1,6 +1,7 @@
 /**
  * Created by NicolaeB on 4/27/2016.
  */
+"use strict";
 var RegisterAccount = (function () {
     function RegisterAccount() {
         this.email = '';
@@ -8,6 +9,6 @@ var RegisterAccount = (function () {
         this.rememberMe = false;
     }
     return RegisterAccount;
-})();
+}());
 exports.RegisterAccount = RegisterAccount;
 //# sourceMappingURL=registerAccount.js.map

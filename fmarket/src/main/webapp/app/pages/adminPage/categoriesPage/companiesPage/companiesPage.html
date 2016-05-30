@@ -36,15 +36,15 @@
         </form>
     </div>
     <div class="companie-type">
-        <ul class="list-group">
-            <li *ngFor="let companieType of companieTypes" class="list-group-item clearfix">
-                <div class="col-md-9">
+        <div class="list-group">
+            <div *ngFor="let companieType of companieTypes" class="list-group-item clearfix">
+                <div class="col-md-9 col-xs-6">
  					<span *ngIf="!companieType.isInEditMode">
  						{{companieType.name}}
  					</span>
-                    <input *ngIf="companieType.isInEditMode" class="form-control" [(ngModel)]="companieType.name"/>
+                    <input autofocus *ngIf="companieType.isInEditMode" class="form-control" [(ngModel)]="companieType.name"/>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-xs-6">
                     <a class="secondary" (click)="deleteCompanyType(companieType)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
@@ -54,11 +54,11 @@
                     <a *ngIf="companieType.isInEditMode" class="secondary" (click)="revertEdit(companieType)">
                         <span class="glyphicon glyphicon-remove"></span>
                     </a>
-                    <button *ngIf="companieType.isInEditMode" type="submit"  class="secondary btn btn-default" (click)="editCompaniType(companieType)">
+                    <a *ngIf="companieType.isInEditMode" class="secondary" (click)="editCompaniType(companieType)">
                         <span class="glyphicon glyphicon-ok"></span>
-                    </button>
+                    </a>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </div>

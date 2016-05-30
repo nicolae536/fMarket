@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -84,6 +85,6 @@ var TokenConfirmPage = (function () {
         __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, localStorageService_1.LocalStorageService])
     ], TokenConfirmPage);
     return TokenConfirmPage;
-})();
+}());
 exports.TokenConfirmPage = TokenConfirmPage;
 //# sourceMappingURL=tokenConfirmPage.js.map

@@ -1,4 +1,4 @@
-<div class="users-page">
+<div class="clearfix">
     <!-- TODO catch close event -->
     <action-dialog
             [title]="'Delete'"
@@ -97,20 +97,20 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th class="col-md-1">Id</th>
-                                <th class="col-md-3 pointer-cursor" (click)="sortByColumn('EMAIL')">
+                                <th class="col-md-1 col-xs-1">Id</th>
+                                <th class="col-md-3 col-xs-5 pointer-cursor" (click)="sortByColumn('EMAIL')">
                                     <span>Email</span>
                                     <span [ngClass]="getClassForSorting('EMAIL')"></span>
                                 </th>
-                                <th class="col-md-2 pointer-cursor" (click)="sortByColumn('SUBSCRIBE_DATE')">
+                                <th class="col-md-2 col-xs-5 pointer-cursor hidden-sm hidden-xs" (click)="sortByColumn('SUBSCRIBE_DATE')">
                                     <span>Subscribe date</span>
                                     <span [ngClass]="getClassForSorting('SUBSCRIBE_DATE')"></span>
                                 </th>
-                                <th class="col-md-2 pointer-cursor" (click)="sortByColumn('UNSUBSCRIBE_DATE')">
+                                <th class="col-md-2 hidden-sm hidden-xs pointer-cursor" (click)="sortByColumn('UNSUBSCRIBE_DATE')">
                                     <span>Unsubscribe date</span>
                                     <span [ngClass]="getClassForSorting('UNSUBSCRIBE_DATE')"></span>
                                 </th>
-                                <th class="col-md-3">Unsubscribe token</th>
+                                <th class="col-md-3 hidden-sm hidden-xs">Unsubscribe token</th>
                                 <th colspan="3">Actiuni</th>
                             </tr>
                             </thead>
@@ -123,13 +123,13 @@
                                 <td>
                                     <span>{{subscriber.email}}</span>
                                 </td>
-                                <td>
+                                <td class="hidden-sm hidden-xs">
                                     <span>{{subscriber.subscribeDate}}</span>
                                 </td>
-                                <td class="fit-select-to-td">
+                                <td class="fit-select-to-td hidden-sm hidden-xs">
                                     <span>{{subscriber.unsubscribeDate}}</span>
                                 </td>
-                                <td class="fit-select-to-td">
+                                <td class="fit-select-to-td hidden-sm hidden-xs">
                                     <span>{{subscriber.unsubscribeToken}}</span>
                                 </td>
                                 <td>
@@ -151,31 +151,10 @@
                             </tr>
                             <tr class="navigation-row">
                                 <td colspan="8" class="navigation-column">
-                                    <div class="col-xs-1">
-                                        <a href="javascript: void(0)" (click)="navigateLeft()">
-                                            <span class="glyphicon glyphicon-chevron-left"></span>
-                                        </a>
-                                    </div>
-                                    <div class="col-xs-9">
-                                        <div class="btn-group" role="group" *ngIf="pageNumbsersSubset.length > 1">
-                                            <button *ngFor="let page of pageNumbsersSubset" [class]="isPageActive(page)"
-                                                    type="button" (click)="goToPageUsingIndex(page)">{{page}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="javascript: void(0)" (click)="navigateRight()">
-                                            <span class="glyphicon glyphicon-chevron-right"></span>
-                                        </a>
-                                    </div>
+                                    <pagination [totalItems]="pagination.totalItems" [(ngModel)]="pagination.currentPage"
+                                                (ngModelChange)="getUsers()" [maxSize]="pagination.maxSize" class="pagination-sm"
+                                                [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
                                 </td>
-                                <!-- <td class="fit-select-to-td" colspan="2">
-                                    <select [(ngModel)]="usersPerPage" (ngModelChange)="getUsers()">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                    </select>
-                                </td> -->
                             </tr>
                             </tbody>
                         </table>

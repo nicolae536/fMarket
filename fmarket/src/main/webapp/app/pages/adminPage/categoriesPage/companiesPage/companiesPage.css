@@ -25,18 +25,22 @@
     padding-top: 14px;
     height: 42px;
     padding-right: 0px;
+    padding-left: 0px;
+}
+
+.companies-page .companie-type .list-group .list-group-item .col-md-9{
 }
 
 .companies-page .companie-type .list-group .list-group-item .col-md-9 .form-control {
     margin-top: -15px;
     height: 42px;
-    margin-left: -31px;
+    margin-left: -16px;
     text-indent: 18px;
-    z-index: 10;
+    z-index: 1000;
 }
 
 .companies-page .companie-type .list-group .list-group-item .col-md-3 {
-    padding-right: 0px;
+    padding: 0px;
 }
 
 .companies-page .companie-type .list-group .list-group-item .secondary {

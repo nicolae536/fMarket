@@ -1,8 +1,4 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -17,7 +13,6 @@ var common_1 = require('@angular/common');
 var router_deprecated_1 = require("@angular/router-deprecated");
 //import operators
 require('rxjs/add/operator/map'); //-map
-var pageWithNavigation_1 = require('../../../components/pageWithNavigation/pageWithNavigation');
 var createUserDialog_1 = require('../../../components/createUserDialog/createUserDialog');
 var actionDialog_1 = require('../../../components/actionDialog/actionDialog');
 var usersService_1 = require('../../../services/usersService');
@@ -28,20 +23,20 @@ var Roles_1 = require("../../../models/Roles");
 var authorizationService_1 = require("../../../services/authorizationService");
 var notificationService_1 = require("../../../services/notificationService");
 var localizationService_1 = require("../../../services/localizationService");
+var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var applicationPath = '/app/pages/adminPage/usersPage';
-var UsersPage = (function (_super) {
-    __extends(UsersPage, _super);
-    function UsersPage(_userService, notificationService, localizationService) {
-        _super.call(this);
+var UsersPage = (function () {
+    function UsersPage(_userService, _notificationService, _localizationService) {
         this._userService = _userService;
+        this._notificationService = _notificationService;
+        this._localizationService = _localizationService;
         this.statusList = mock_Status_1.STATUS;
         this.usersPerPage = 10;
         this.emailFilter = "";
         this.nameFilter = "";
         this.cityId = -1;
         this.selectedStatusFilter = null;
-        this._notificationService = notificationService;
-        this._localizationService = localizationService;
+        this.pagination = { totalItems: 1, currentPage: 1, maxSize: 7 };
         this.getCities();
     }
     UsersPage.prototype.ngOnInit = function () {
@@ -57,7 +52,7 @@ var UsersPage = (function (_super) {
     };
     UsersPage.prototype.getUsers = function () {
         var me = this;
-        this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.currentPageIndex)
+        this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.pagination['currentPage'])
             .map(function (response) {
             if (response.text().length > 0) {
                 return response.json();
@@ -65,7 +60,8 @@ var UsersPage = (function (_super) {
         })
             .subscribe(function (response) {
             me.usersList = response.data;
-            me.mapPageIndexes(response.totalPages, response.page);
+            me.pagination['totalItems'] = response.totalPages;
+            me.pagination['currentPage'] = response.page;
             console.log(response);
         }, function (error) {
             console.log(error);
@@ -155,12 +151,12 @@ var UsersPage = (function (_super) {
             templateUrl: applicationPath + '/usersPage.html',
             styleUrls: [applicationPath + '/usersPage.css'],
             encapsulation: core_1.ViewEncapsulation.None,
-            directives: [actionDialog_1.ActionDialog, createUserDialog_1.CreateUserDialog, common_1.NgForm]
+            directives: [actionDialog_1.ActionDialog, createUserDialog_1.CreateUserDialog, common_1.NgForm, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
         }),
         router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
         __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], UsersPage);
     return UsersPage;
-})(pageWithNavigation_1.PageWithNavigation);
+}());
 exports.UsersPage = UsersPage;
 //# sourceMappingURL=usersPage.js.map
