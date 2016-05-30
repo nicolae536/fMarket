@@ -1,6 +1,5 @@
 package ro.fmarket.admin.account.company;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -9,10 +8,11 @@ import lombok.Data;
 public class CompanySearchObject {
 
 	@NotNull
-	@Min(1)
 	private Integer page;
 	
-	private Integer id;
+	private Integer accountId;
+	
+	private Integer companyId;
 	
 	private String name;
 	

@@ -56,14 +56,14 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 	private PasswordEncoder encoder;
 
 	@Override
-	public PaginatedResponse<CompanyAdminDTO> searchCompanies(CompanySearchObject searchObject) {
+	public PaginatedResponse<CompanyListItemAdmin> searchCompanies(CompanySearchObject searchObject) {
 		Criteria criteria1 = companyDao.createCompanyCriteria(searchObject);
 		Criteria criteria2 = companyDao.createCompanyCriteria(searchObject);
 		Long totalPages = companyDao.getCriteriaTotalCount(criteria1);
 		Integer page = searchObject.getPage();
 		List<Company> companies = companyDao.searchCompanies(criteria2, page);
-		List<CompanyAdminDTO> data = CompanyAdminConverter.toDTOList(companies);
-		return new PaginatedResponse<CompanyAdminDTO>(data, totalPages.intValue(), page);
+		List<CompanyListItemAdmin> data = CompanyAdminConverter.toListItems(companies);
+		return new PaginatedResponse<CompanyListItemAdmin>(data, totalPages.intValue(), page);
 	}
 
 	@Override
@@ -78,7 +78,6 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 	
 	@Override
 	public void updateCompany(UpdateCompanyRequest request) {
-		// TODO Auto-generated method stub
 		Company company = companyDao.get(request.getId());
 		if (company == null) {
 			throw new NotFoundException("Company");
@@ -120,6 +119,7 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 		info.setCity(cityDao.load(request.getCityId()));
 		info.setPhone(request.getPhone());
 		info.setContactPerson(request.getContactPerson());
+		info.setEmail(request.getEmail());
 		return info;
 	}
 

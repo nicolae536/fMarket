@@ -30,7 +30,11 @@ public class CompanyDao extends BaseDao<Company> {
 	@SuppressWarnings("unchecked")
 	public List<String> getEmailsByDomainAndCities(int demandDomainId, List<Integer> cityIds) {
 		Criteria criteria = getCriteria();
-		criteria.add(Restrictions.eq("", demandDomainId));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		criteria.createAlias("demandDomains", "dd");
+		criteria.add(Restrictions.eq("dd.id", demandDomainId));
+		criteria.createAlias("contactInfo", "cc");
+		criteria.setProjection(Projections.property("ci.email"));
 		return criteria.list();
 	}
 
@@ -40,7 +44,19 @@ public class CompanyDao extends BaseDao<Company> {
 		if (searchObject.getName() != null) {
 			criteria.add(Restrictions.ilike("name", "%" + searchObject.getName() + "%"));
 		}
-		//TODO
+		if (searchObject.getAccountId() != null) {
+			criteria.add(Restrictions.eq("account.id", searchObject.getAccountId()));
+		}
+		if (searchObject.getCompanyId() != null) {
+			criteria.add(Restrictions.eq("id", searchObject.getCompanyId()));
+		}
+		if (searchObject.getCompanyDomainId() != null) {
+			criteria.add(Restrictions.eq("domain.id", searchObject.getCompanyDomainId()));
+		}
+		if (searchObject.getDemandDomainId() != null) {
+			criteria.createAlias("demandDomains", "dd");
+			criteria.add(Restrictions.eq("dd.id", searchObject.getDemandDomainId()));
+		}
 		
 		return criteria;
 	}

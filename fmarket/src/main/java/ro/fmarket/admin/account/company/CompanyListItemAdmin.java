@@ -3,17 +3,16 @@ package ro.fmarket.admin.account.company;
 import lombok.Data;
 
 @Data
-public class CompanyAdminDTO {
+public class CompanyListItemAdmin {
 	
 	private int id;
 	
+	private int accountId;
+	
 	private String name;
 	
-	private String phone;
-	
 	private String email;
-	
-	private String address;
-	
+
+	private String companyDomain;
 	
 }

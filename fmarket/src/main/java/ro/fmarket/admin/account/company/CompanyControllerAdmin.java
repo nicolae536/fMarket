@@ -20,7 +20,7 @@ public class CompanyControllerAdmin {
 	private CompanyServiceAdmin service;
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public PaginatedResponse<CompanyAdminDTO> searchCompanies(@Valid @RequestBody CompanySearchObject searchObject) {
+	public PaginatedResponse<CompanyListItemAdmin> searchCompanies(@Valid @RequestBody CompanySearchObject searchObject) {
 		return service.searchCompanies(searchObject);
 	}
 

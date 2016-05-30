@@ -5,7 +5,6 @@ import javax.sql.DataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -15,7 +14,6 @@ import com.zaxxer.hikari.HikariDataSource;
 public class DatabaseConfig extends HikariConfig {
 
 	@Bean(destroyMethod = "close")
-	@Primary
 	public DataSource getDataSourceBean() {
 		return new HikariDataSource(this);
 	}

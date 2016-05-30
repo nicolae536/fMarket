@@ -5,7 +5,7 @@ import ro.fmarket.model.company.NewCompanyRequest;
 
 public interface CompanyServiceAdmin {
 
-	PaginatedResponse<CompanyAdminDTO> searchCompanies(CompanySearchObject searchObject);
+	PaginatedResponse<CompanyListItemAdmin> searchCompanies(CompanySearchObject searchObject);
 	
 	void createCompany(NewCompanyRequest request);
 	

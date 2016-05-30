@@ -3,28 +3,25 @@ package ro.fmarket.core.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import ro.fmarket.admin.account.company.CompanyAdminDTO;
+import ro.fmarket.admin.account.company.CompanyListItemAdmin;
 import ro.fmarket.model.company.Company;
-import ro.fmarket.model.company.rating.CompanyContactInfo;
 
 public class CompanyAdminConverter {
 
-	public static CompanyAdminDTO toDTO(Company company) {
-		CompanyAdminDTO result = new CompanyAdminDTO();
+	public static CompanyListItemAdmin toListItem(Company company) {
+		CompanyListItemAdmin result = new CompanyListItemAdmin();
+		result.setAccountId(company.getAccount().getId());
 		result.setId(company.getId());
 		result.setName(company.getName());
 		result.setEmail(company.getAccount().getEmail());
-		CompanyContactInfo contactInfo = company.getContactInfo();
-		result.setAddress(contactInfo.getAddress());
-		result.setPhone(contactInfo.getPhone());
-		result.setEmail(contactInfo.getEmail());
+		result.setCompanyDomain(company.getDomain().getName());
 		return result;
 	}
 	
-	public static List<CompanyAdminDTO> toDTOList(List<Company> companies) {
-		List<CompanyAdminDTO> result = new ArrayList<>();
+	public static List<CompanyListItemAdmin> toListItems(List<Company> companies) {
+		List<CompanyListItemAdmin> result = new ArrayList<>();
 		for (Company c : companies) {
-			result.add(toDTO(c));
+			result.add(toListItem(c));
 		}
 		return result;
 	}
