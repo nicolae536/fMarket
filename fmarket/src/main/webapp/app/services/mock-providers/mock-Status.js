@@ -1,4 +1,3 @@
-"use strict";
 var accountStatus_1 = require("../../models/accountStatus");
 exports.STATUS = [
     { status: null, displayName: "Chose..." },

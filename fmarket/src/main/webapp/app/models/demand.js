@@ -1,4 +1,3 @@
-"use strict";
 var Demand = (function () {
     function Demand() {
         this.title = '';
@@ -14,6 +13,6 @@ var Demand = (function () {
         this.domainId = -1;
     }
     return Demand;
-}());
+})();
 exports.Demand = Demand;
 //# sourceMappingURL=demand.js.map

@@ -1,4 +1,3 @@
-"use strict";
 var _ = require('underscore');
 // import * as $ from 'jquery';
 // import * as animateScroll from 'animateScroll';
@@ -77,6 +76,6 @@ var JqueryService = (function () {
         $(nativeElement).height(pageHeight);
     };
     return JqueryService;
-}());
+})();
 exports.JqueryService = JqueryService;
 //# sourceMappingURL=jqueryService.js.map

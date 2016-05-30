@@ -1,4 +1,4 @@
-var env = 'prod';
+var env = 'dev';
 
 switch (env) {
     case 'prod':

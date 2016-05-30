@@ -6,6 +6,10 @@
     margin-top:25px;
 }
 
+.companies-page .companies-grid-view{
+    padding-top: 1%;
+}
+
 @media (max-width: 990px){
     .companies-page .operations{
         width: 100%;

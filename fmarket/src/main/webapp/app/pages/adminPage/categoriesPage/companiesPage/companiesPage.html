@@ -41,12 +41,14 @@
             <div class="list-group">
                 <div *ngFor="let companieType of companieTypes" class="list-group-item clearfix">
                     <div class="col-md-9 col-xs-6">
- 					<span *ngIf="!companieType.isInEditMode" [title]="companieType.name">
- 						{{companieType.name}}
- 					</span>
+                        <div *ngIf="!companieType.isInEditMode" class="text-center-indent">
+ 					        <span [title]="companieType.name">
+ 					        	{{companieType.name}}
+ 					        </span>
+                        </div>
                         <input autofocus *ngIf="companieType.isInEditMode" class="form-control" [(ngModel)]="companieType.name"/>
                     </div>
-                    <div class="col-md-3 col-xs-6">
+                    <div class="col-md-3 col-xs-6 operation-labels">
                         <a class="secondary" (click)="deleteCompanyType(companieType)">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>

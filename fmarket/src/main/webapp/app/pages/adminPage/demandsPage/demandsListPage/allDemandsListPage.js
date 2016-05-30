@@ -1,4 +1,3 @@
-"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -52,6 +51,6 @@ var AllDemandsListPage = (function (_super) {
         __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
     ], AllDemandsListPage);
     return AllDemandsListPage;
-}(demandsListPageBase_1.DemandsListPageBase));
+})(demandsListPageBase_1.DemandsListPageBase);
 exports.AllDemandsListPage = AllDemandsListPage;
 //# sourceMappingURL=allDemandsListPage.js.map

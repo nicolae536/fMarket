@@ -40,7 +40,7 @@
         <div class="domain-type">
             <ul class="list-group">
                 <li *ngFor="let requestType of domainsTypes" class="list-group-item clearfix">
-                    <div class="pull-right">
+                    <div class="pull-right align-operations">
                         <a class="secondary" (click)="deleteRequestType(requestType)">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
@@ -55,10 +55,12 @@
                         </a>
                         <span class="pull-right label label-info">- Companii - {{requestType.companies}}</span>
                     </div>
-                    <div class="col-md-7 col-xs-4 col-sm-4" [title]="requestType.name">
-  					    <span *ngIf="!requestType.isInEditMode">
-  						    {{requestType.name}}
-  					    </span>
+                    <div class="col-md-7 col-xs-4 col-sm-4">
+                        <div *ngIf="!requestType.isInEditMode" class="text-center-indent">
+  					        <span [title]="requestType.name">
+  						        {{requestType.name}}
+  					        </span>
+                        </div>
                         <input autofocus *ngIf="requestType.isInEditMode" class="form-control" [(ngModel)]="requestType.name"/>
                     </div>
                 </li>

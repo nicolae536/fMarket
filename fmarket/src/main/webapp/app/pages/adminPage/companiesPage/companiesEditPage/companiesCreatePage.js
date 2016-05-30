@@ -1,7 +1,6 @@
 /**
  * Created by nick_ on 5/6/2016.
  */
-"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -57,6 +56,6 @@ var CompanieCreatePage = (function (_super) {
         __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], CompanieCreatePage);
     return CompanieCreatePage;
-}(companiesEditBase_1.CompaniesEditBase));
+})(companiesEditBase_1.CompaniesEditBase);
 exports.CompanieCreatePage = CompanieCreatePage;
 //# sourceMappingURL=companiesCreatePage.js.map

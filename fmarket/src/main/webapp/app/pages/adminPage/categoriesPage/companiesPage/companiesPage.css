@@ -19,10 +19,14 @@
 }
 
 .companies-page .companie-type .list-group .list-group-item {
-    padding-top: 14px;
+    padding-top: 0px;
     height: 42px;
     padding-right: 0px;
     padding-left: 0px;
+}
+
+.companies-page .companie-type .list-group .list-group-item .text-center-indent{
+    padding-top: 14px;
 }
 
 .companies-page.clearfix .col-lg-6.col-xs-12 .pull-right{
@@ -36,15 +40,15 @@
 }
 
 .companies-page .companie-type .list-group .list-group-item .col-md-9 .form-control {
-    margin-top: -15px;
+    margin-top: -1px;
     height: 42px;
     margin-left: -16px;
     text-indent: 18px;
     z-index: 1000;
 }
 
-.companies-page .companie-type .list-group .list-group-item .col-md-3 {
-    padding: 0px;
+.companies-page .companie-type .list-group .list-group-item .col-md-3.operation-labels{
+    padding: 14px 0px 0px 0px;
 }
 
 .companies-page .companie-type .list-group .list-group-item .secondary {

@@ -21,21 +21,26 @@
 }
 
 .domains-page .domain-type .list-group .list-group-item {
-    padding-top: 12px;
+    padding: 0px;
     height: 42px;
-    padding-right: 0px;
-    padding-left: 0px;
+}
+
+.domains-page .domain-type .list-group .list-group-item .align-operations{
+    padding-top: 12px;
 }
 
 .domains-page .domain-type .list-group .list-group-item .col-md-7{
     white-space: nowrap;
-    overflow: hidden;
+    overflow: auto;
     text-overflow: ellipsis;
-    padding-right:0px;
+}
+
+.domains-page .domain-type .list-group .list-group-item .col-md-7 .text-center-indent{
+    margin-top: 12px;
 }
 
 .domains-page .domain-type .list-group .list-group-item .col-md-7 .form-control {
-    margin-top: -13px;
+    margin-top: -1px;
     height: 42px;
     margin-left: -16px;
     text-indent: 18px;
@@ -88,16 +93,16 @@
         padding-top:2%
     }
 
-    .domains-page .domain-type .list-group .list-group-item .col-md-8.col-xs-4.col-sm-4{
+    .domains-page .domain-type .list-group .list-group-item .col-md-7.col-xs-4.col-sm-4{
         width: 25%;
         padding: 0;
     }
 
-    .domains-page .domain-type .list-group .list-group-item .col-md-8.col-xs-4.col-sm-4 span{
+    .domains-page .domain-type .list-group .list-group-item .col-md-7.col-xs-4.col-sm-4 span{
         margin-left: 15px;
     }
 
-    .domains-page .domain-type .list-group .list-group-item .col-md-8 .form-control{
+    .domains-page .domain-type .list-group .list-group-item .col-md-7 .form-control{
         margin-left: 0px;
         text-indent: 0;
     }
