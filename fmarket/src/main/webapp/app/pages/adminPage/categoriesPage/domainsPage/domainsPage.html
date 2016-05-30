@@ -55,7 +55,7 @@
                         </a>
                         <span class="pull-right label label-info">- Companii - {{requestType.companies}}</span>
                     </div>
-                    <div class="col-md-8 col-xs-4 col-sm-4">
+                    <div class="col-md-7 col-xs-4 col-sm-4" [title]="requestType.name">
   					    <span *ngIf="!requestType.isInEditMode">
   						    {{requestType.name}}
   					    </span>

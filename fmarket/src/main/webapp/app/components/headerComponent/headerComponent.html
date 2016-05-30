@@ -8,7 +8,7 @@
         <li *ngIf="!isLoggedIn()"><a (click)="goToPageUsingSideMenu('/login')">Contul meu</a></li>
         <div *ngIf="chechIdNormalUser()" dropdown class="dropdown">
             <li *ngFor="let p of _myAccountDropdownPages"><a (click)="goToPageUsingSideMenu(p.link)">{{p.name}}</a></li>
-            <li><a (click)="logout()">Logut</a></li>
+            <li><a (click)="logout()">Logout</a></li>
         </div>
         <div *ngIf="isAdminUser()" dropdown class="dropdown">
             <li *ngFor="let p of _adminApplicationPages"><a (click)="goToPageUsingSideMenu(p.link)">{{p.name}}</a></li>

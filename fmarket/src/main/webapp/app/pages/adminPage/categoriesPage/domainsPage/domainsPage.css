@@ -27,13 +27,14 @@
     padding-left: 0px;
 }
 
-.domains-page .domain-type .list-group .list-group-item .col-md-8{
+.domains-page .domain-type .list-group .list-group-item .col-md-7{
     white-space: nowrap;
-    overflow: auto;
+    overflow: hidden;
     text-overflow: ellipsis;
+    padding-right:0px;
 }
 
-.domains-page .domain-type .list-group .list-group-item .col-md-8 .form-control {
+.domains-page .domain-type .list-group .list-group-item .col-md-7 .form-control {
     margin-top: -13px;
     height: 42px;
     margin-left: -16px;

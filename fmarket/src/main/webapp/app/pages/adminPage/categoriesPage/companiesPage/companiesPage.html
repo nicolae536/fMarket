@@ -41,7 +41,7 @@
             <div class="list-group">
                 <div *ngFor="let companieType of companieTypes" class="list-group-item clearfix">
                     <div class="col-md-9 col-xs-6">
- 					<span *ngIf="!companieType.isInEditMode">
+ 					<span *ngIf="!companieType.isInEditMode" [title]="companieType.name">
  						{{companieType.name}}
  					</span>
                         <input autofocus *ngIf="companieType.isInEditMode" class="form-control" [(ngModel)]="companieType.name"/>

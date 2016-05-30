@@ -10,11 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.fmarket.core.converter.CompanyAdminConverter;
-import ro.fmarket.core.converter.CompanyAdminConverter;
 import ro.fmarket.core.exception.NotFoundException;
 import ro.fmarket.core.rest.PaginatedResponse;
 import ro.fmarket.core.utils.DateUtils;
-import ro.fmarket.mail.MailServiceImpl;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.account.AccountDao;
 import ro.fmarket.model.account.consts.AccountStatus;
@@ -28,7 +26,6 @@ import ro.fmarket.model.company.rating.CompanyContactInfo;
 import ro.fmarket.model.company.rating.CompanyRating;
 import ro.fmarket.model.domain.company.CompanyDomainDao;
 import ro.fmarket.model.domain.demand.DemandDomainDao;
-import ro.fmarket.model.geographical.city.City;
 import ro.fmarket.model.geographical.city.CityDao;
 
 @Service

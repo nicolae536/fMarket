@@ -4,7 +4,7 @@
 
 .admin-page-container .col-sm-2.sidenav{
     background-color: #f8f8f8;
-    border-right: 1px solid cornflowerblue;
+    border-right: 1px solid #000000;
     padding: 0;
 }
 
@@ -77,7 +77,7 @@
 }
 
 .admin-page-container .admin-menu-title .glyphicon.glyphicon-th-list {
-    font-size: 25px;
+    font-size: 16px;
 }
 
 .admin-page-container .container-fluid .row .upper-page-container{

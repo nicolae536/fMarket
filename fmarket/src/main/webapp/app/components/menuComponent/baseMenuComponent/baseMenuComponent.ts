@@ -9,7 +9,7 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 	<div class="base-menu-component">
 	    <div class="base-menu-container" [ngClass]="{'active-menu':!!selectedItem}">
 	        <div class="menu-title">
-	            <span class="h1">{{menuTitle}}</span>
+	            <span class="h3">{{menuTitle}}</span>
 	            <span *ngIf="!selectedItem" class="glyphicon glyphicon-triangle-right"></span>
 	        </div>
 		    <ul class="nav nav-pills nav-stacked clearfix">
