@@ -15,3 +15,10 @@
 .user-demands-list-page .filter-demand.active-filter{
     background-color: #ece6e6;
 }
+
+@media (max-width: 990px){
+    .user-demands-list-page .filter-demand{
+        border-right: none;
+        border-bottom: 3px solid lightgray;
+    }
+}

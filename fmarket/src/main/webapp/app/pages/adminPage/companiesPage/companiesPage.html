@@ -31,8 +31,8 @@
                 ></select-component>
             </div>
         </div>
-        <div class="pull-right">
-            <div style="margin-top:25px;">
+        <div class="pull-right operations">
+            <div style="inline-with-row">
                 <button type="button" class="btn btn-success" (click)="goToNewCompanyPage()">
                     <span class="glyphicon glyphicon-plus"></span>
                     Adauga companie
@@ -50,7 +50,7 @@
                        (ngModelChange)="chengeSearch($event)"/>
             </div>
         </div>
-        <div class="pull-right">
+        <div class="pull-right operations">
             <button class="btn btn-primary" (click)="getCompaniesWithFilters()">
                 <span class="glyphicon glyphicon-filter"></span>
                 Filtreaza companii

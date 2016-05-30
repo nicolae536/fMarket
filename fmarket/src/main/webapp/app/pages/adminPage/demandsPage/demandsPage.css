@@ -4,6 +4,7 @@
 
 .demands-list-page .filters .domain-select{
     height:32px;
+    width: 100%;
 }
 
 .demands-list-page .filters .col-md-6.col-xs-12{
@@ -12,4 +13,10 @@
 
 .demands-list-page .demand-list-container{
     padding: 15px;
+}
+
+@media (max-width: 990px) {
+    .demand-list-base .list-group .list-group-item .label.label-success {
+        margin-left: 2px;
+    }
 }

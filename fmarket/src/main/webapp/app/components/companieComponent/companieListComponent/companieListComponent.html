@@ -1,7 +1,7 @@
 <div class="companie-list-component clearfix">
     <div class="companies-grid clearfix">
         <div *ngFor="let container of _companieList; let i=index">
-            <div class="col-md-3 col-xs-12">
+            <div *ngIf="container && container.length >0" class="col-md-3 col-xs-12">
                 <div *ngFor="let cellWrapper of container">
                     <div class="title-wrapper">
                         <span class="h4 cell-tag-label">

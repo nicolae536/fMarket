@@ -1,24 +1,21 @@
+.companies-page{
+    padding-top:1%
+}
+
 .companies-page .companie-type-filter {
-    padding-top: 1%;
+    padding: 0 0;
 }
 
 .companies-page .add-companie {
-    padding-top: 1%;
-    width: 600px;
+    margin-top: 1%;
     animation: slide-down-49 0.4s;
 }
 
-.companies-page .companie-type-filter{
-    width: 600px;
-}
-
 .companies-page .companie-type-filter .search-field {
-    width: 300px;
+    padding: 0;
 }
-
 .companies-page .companie-type {
     padding-top: 1%;
-    width: 600px;
 }
 
 .companies-page .companie-type .list-group .list-group-item {
@@ -28,7 +25,14 @@
     padding-left: 0px;
 }
 
+.companies-page.clearfix .col-lg-6.col-xs-12 .pull-right{
+    padding-top: 1%;
+}
+
 .companies-page .companie-type .list-group .list-group-item .col-md-9{
+    white-space: nowrap;
+    overflow: auto;
+    text-overflow: ellipsis;
 }
 
 .companies-page .companie-type .list-group .list-group-item .col-md-9 .form-control {
@@ -76,4 +80,18 @@
 
 .companies-page .companie-type .list-group .list-group-item .pull-right.label.label-info{
     margin-right: 5px;
+}
+
+@media (max-width: 990px) {
+    .companies-page{
+        padding-top:2%
+    }
+
+    .companies-page.clearfix .col-lg-6.col-xs-12 .pull-right{
+        width: 100%;
+    }
+
+    .companies-page.clearfix .col-lg-6.col-xs-12 .pull-right .btn{
+        width: 100%;
+    }
 }

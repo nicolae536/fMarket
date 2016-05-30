@@ -18,3 +18,8 @@
     margin: 10px 1px 0 1px ;
 }
 
+@media (max-width: 990px){
+    .account-settings-page{
+        padding: 0;
+    }
+}

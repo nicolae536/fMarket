@@ -47,7 +47,7 @@ var CompaniesPage = (function () {
             }
         })
             .subscribe(function (response) {
-            me._companiesList = me.splitViewInPiecesUsingScreen(response);
+            me._companiesList = me.splitViewInPiecesUsingScreen(response.data);
         }, function (error) {
             me._companiesList = me.splitViewInPiecesUsingScreen(me.getMockArray());
             me._notificationService.emitNotificationToRootComponent({

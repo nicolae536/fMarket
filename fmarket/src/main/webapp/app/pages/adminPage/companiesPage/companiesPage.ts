@@ -65,7 +65,7 @@ export class CompaniesPage implements OnInit {
             })
             .subscribe(
                 response=> {
-                    me._companiesList = me.splitViewInPiecesUsingScreen(response);
+                    me._companiesList = me.splitViewInPiecesUsingScreen(response.data);
                 },
                 error=> {
                     me._companiesList = me.splitViewInPiecesUsingScreen(me.getMockArray());

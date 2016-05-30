@@ -1,19 +1,19 @@
-.domains-page .domain-type-filter {
+.domains-page {
     padding-top: 1%;
+}
+
+.domains-page .domain-type-filter{
+    padding: 0;
+}
+
+.domains-page .operations{
+    padding-top: 1%;
+
 }
 
 .domains-page .add-request {
     padding-top: 1%;
     animation: slide-down-49 0.4s;
-    width: 600px;
-}
-
-.domains-page .domain-type-filter{
-    width: 600px;
-}
-
-.domains-page .domain-type-filter .search-field {
-    width: 300px;
 }
 
 .domains-page .domain-type {
@@ -24,12 +24,19 @@
     padding-top: 12px;
     height: 42px;
     padding-right: 0px;
+    padding-left: 0px;
+}
+
+.domains-page .domain-type .list-group .list-group-item .col-md-8{
+    white-space: nowrap;
+    overflow: auto;
+    text-overflow: ellipsis;
 }
 
 .domains-page .domain-type .list-group .list-group-item .col-md-8 .form-control {
     margin-top: -13px;
     height: 42px;
-    margin-left: -31px;
+    margin-left: -16px;
     text-indent: 18px;
     z-index: 1000;
 
@@ -73,4 +80,32 @@
 
 .domains-page .domain-type .list-group .list-group-item .pull-right.label.label-info{
     margin-right: 5px;
+}
+
+@media (max-width: 990px) {
+    .domains-page{
+        padding-top:2%
+    }
+
+    .domains-page .domain-type .list-group .list-group-item .col-md-8.col-xs-4.col-sm-4{
+        width: 25%;
+        padding: 0;
+    }
+
+    .domains-page .domain-type .list-group .list-group-item .col-md-8.col-xs-4.col-sm-4 span{
+        margin-left: 15px;
+    }
+
+    .domains-page .domain-type .list-group .list-group-item .col-md-8 .form-control{
+        margin-left: 0px;
+        text-indent: 0;
+    }
+
+    .domains-page .operations{
+        width: 100%;
+    }
+
+    .domains-page .operations .btn{
+        width: 100%;
+    }
 }

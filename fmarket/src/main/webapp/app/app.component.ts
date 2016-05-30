@@ -155,6 +155,7 @@ export class AppComponent implements OnInit {
             context.handleUserState(response, context);
         }
 
+        //noinspection TypeScriptUnresolvedFunction
         Observable.interval(60 * ApplicationConstants.SECOND).subscribe(
             success => {
                 context._registrationService.checkIfLoggedIn()
