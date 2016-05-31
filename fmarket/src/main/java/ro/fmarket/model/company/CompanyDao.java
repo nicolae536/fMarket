@@ -73,19 +73,17 @@ public class CompanyDao extends BaseDao<Company> {
 		return criteria.list();
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Company> getAllCompanyNames(String domainName) {
-		Criteria criteria = getCriteria();
-		criteria.createAlias("domain", "d");
-		if (StringUtils.isNotBlank(domainName)) {
-			criteria.add(Restrictions.ilike("d.name", "%" + domainName + "%"));
-		}
-		criteria.setProjection(
-				Projections.projectionList().add(Projections.property("d.name")).add(Projections.property("name")).add(Projections.property("id")));
-
-		criteria.addOrder(Order.asc("d.name"));
-		criteria.addOrder(Order.asc("name"));
-		return criteria.list();
-	}
+//	@SuppressWarnings("unchecked")
+//	public List<Company> getAllCompanyNames(String domainName) {
+//		Criteria criteria = getCriteria();
+//		criteria.createAlias("domain", "d");
+//		if (StringUtils.isNotBlank(domainName)) {
+//			criteria.add(Restrictions.ilike("d.name", "%" + domainName + "%"));
+//		}
+//
+//		criteria.addOrder(Order.asc("d.name"));
+//		criteria.addOrder(Order.asc("name"));
+//		return criteria.list();
+//	}
 
 }
