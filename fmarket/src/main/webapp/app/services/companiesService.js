@@ -38,7 +38,7 @@ var CompaniesService = (function () {
         return this.api.post(this.ADMIN_COMPANIE_CONTROLLER + '/search', JSON.stringify(searchObject));
     };
     CompaniesService.prototype.getCompanyDetails = function (companyId) {
-        return this.api.get(this.ADMIN_COMPANIE_CONTROLLER + ("" + companyId));
+        return this.api.get(this.ADMIN_COMPANIE_CONTROLLER + ("/" + companyId));
     };
     CompaniesService.prototype.editCompany = function (updatedCompany) {
         return this.api.put(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(updatedCompany));

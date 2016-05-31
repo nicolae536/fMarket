@@ -5,11 +5,11 @@
                 <div *ngFor="let cellWrapper of container">
                     <div class="title-wrapper">
                         <span class="h4 cell-tag-label">
-                            {{cellWrapper.domain}}
+                            {{cellWrapper.domainName}}
                         </span>
                     </div>
                     <div class="companies-list">
-                        <div *ngFor="let companie of cellWrapper.companiesList" class="companie-list-item">
+                        <div *ngFor="let companie of cellWrapper.companies" class="companie-list-item">
                             <img class="logo-item" [src]="companie.logoSrc"/>
                             <a click="selectCompanie(companie)" >
                                {{companie.name}} <!--<img [src]=""/>-->

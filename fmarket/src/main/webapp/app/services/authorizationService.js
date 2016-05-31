@@ -11,6 +11,7 @@ var adminPage_1 = require("../pages/adminPage/adminPage");
 var accountSettingsPage_1 = require("../pages/accountSettingsPage/accountSettingsPage");
 var successPage_1 = require("../pages/registrationPage/successPages/successPage");
 var tokenConfirmPage_1 = require("../pages/registrationPage/tokenConfirmPage/tokenConfirmPage");
+var companiesPage_1 = require("../pages/companiesPage/companiesPage");
 var AuthorizationService = (function () {
     function AuthorizationService() {
     }
@@ -76,6 +77,10 @@ var AuthorizationService = (function () {
             new router_1.Route({
                 path: '/account',
                 component: accountSettingsPage_1.AccountSettingsPage
+            }),
+            new router_1.Route({
+                path: '/firme',
+                component: companiesPage_1.CompaniesPage
             }),
             new router_1.Route({
                 path: '/confirm/:registration?token',

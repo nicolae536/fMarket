@@ -45,7 +45,7 @@ export class CompaniesService{
     }
 
     getCompanyDetails(companyId:number){
-        return this.api.get(this.ADMIN_COMPANIE_CONTROLLER+`${companyId}`);
+        return this.api.get(this.ADMIN_COMPANIE_CONTROLLER+`/${companyId}`);
     }
 
     editCompany(updatedCompany:NewCompanyRequest){

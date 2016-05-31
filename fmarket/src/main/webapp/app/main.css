@@ -35,6 +35,7 @@
 @import "/app/pages/registrationPage/registrationPage.css";
 @import "/app/pages/registrationPage/errorPages/errorActivateTokenPage.css";
 @import "/app/pages/registrationPage/successPages/successPage.css";
+@import "/app/pages/companiesPage/companiesPage.css";
 
 @import "pages/homePage/homePage.css";
 
