@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
-var router_deprecated_1 = require("@angular/router-deprecated");
 //import operators
 require('rxjs/add/operator/map'); //-map
 var createUserDialog_1 = require('../../../components/createUserDialog/createUserDialog');
@@ -19,8 +17,6 @@ var usersService_1 = require('../../../services/usersService');
 var user_1 = require('../../../models/user');
 //import mocks
 var mock_Status_1 = require('../../../services/mock-providers/mock-Status');
-var Roles_1 = require("../../../models/Roles");
-var authorizationService_1 = require("../../../services/authorizationService");
 var notificationService_1 = require("../../../services/notificationService");
 var localizationService_1 = require("../../../services/localizationService");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
@@ -132,11 +128,10 @@ var UsersPage = (function () {
             styleUrls: [applicationPath + '/usersPage.css'],
             encapsulation: core_1.ViewEncapsulation.None,
             directives: [actionDialog_1.ActionDialog, createUserDialog_1.CreateUserDialog, common_1.NgForm, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
-        }),
-        router_deprecated_1.CanActivate(function () { return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN); }), 
+        }), 
         __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], UsersPage);
     return UsersPage;
-}());
+})();
 exports.UsersPage = UsersPage;
 //# sourceMappingURL=usersPage.js.map

@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -14,7 +13,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by nick_ on 4/24/2016.
  */
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var localStorageService_1 = require("./localStorageService");
 var authorizationService_1 = require("./authorizationService");
 var Roles_1 = require("../models/Roles");
@@ -43,6 +42,6 @@ var ApplicationStateService = (function () {
         __metadata('design:paramtypes', [localStorageService_1.LocalStorageService])
     ], ApplicationStateService);
     return ApplicationStateService;
-}());
+})();
 exports.ApplicationStateService = ApplicationStateService;
 //# sourceMappingURL=applicationStateService.js.map

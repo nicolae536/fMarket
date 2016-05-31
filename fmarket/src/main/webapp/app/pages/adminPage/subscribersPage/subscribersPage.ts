@@ -5,7 +5,6 @@ import "rxjs/add/operator/map";
 import {Subscriber} from "../../../models/subscriber";
 import {ActionDialog} from "../../../components/actionDialog/actionDialog";
 import {SubscribersService} from "../../../services/subscribersService";
-import {PageWithNavigation} from "../../../components/pageWithNavigation/pageWithNavigation";
 import {CreateSubscriberDialog} from "../../../components/createSubscriberDialog/createSubscriberDialog";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
 import {LocalizationService} from "../../../services/localizationService";

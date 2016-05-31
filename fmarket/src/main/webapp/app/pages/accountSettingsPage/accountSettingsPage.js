@@ -1,7 +1,6 @@
 /**
  * Created by nick_ on 4/26/2016.
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33,7 +32,7 @@ var AccountSettingsPage = (function () {
     AccountSettingsPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
         if (!(authorizationService_1.AuthorizationService.isLoggedIn() && !authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN))) {
             this.router.navigate(['/login']);
-            this._notificationService.emitSuccessNotificationToRootComponent("Nu aveti access la acest modul !!!", 5);
+            this._notificationService.emitErrorNotificationToRootComponent("Nu aveti access la acest modul !!!", 5);
         }
     };
     AccountSettingsPage = __decorate([
@@ -55,6 +54,6 @@ var AccountSettingsPage = (function () {
         __metadata('design:paramtypes', [router_1.Router, notificationService_1.NotificationService])
     ], AccountSettingsPage);
     return AccountSettingsPage;
-}());
+})();
 exports.AccountSettingsPage = AccountSettingsPage;
 //# sourceMappingURL=accountSettingsPage.js.map

@@ -1,12 +1,9 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {NgForm, CORE_DIRECTIVES} from '@angular/common';
-import {CanActivate} from "@angular/router-deprecated";
-
 
 //import operators
 import 'rxjs/add/operator/map';//-map
 
-import {PageWithNavigation} from '../../../components/pageWithNavigation/pageWithNavigation';
 import {CreateUserDialog} from '../../../components/createUserDialog/createUserDialog';
 import {ActionDialog} from '../../../components/actionDialog/actionDialog';
 import {UserService} from '../../../services/usersService';
@@ -15,8 +12,6 @@ import {User} from '../../../models/user';
 //import mocks
 import {STATUS} from '../../../services/mock-providers/mock-Status';
 import {AccountStatus} from "../../../models/accountStatus";
-import {Role} from "../../../models/Roles";
-import {AuthorizationService} from "../../../services/authorizationService";
 import {NotificationService} from "../../../services/notificationService";
 import {LocalizationService} from "../../../services/localizationService";
 import {PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
@@ -30,7 +25,6 @@ var applicationPath:string = '/app/pages/adminPage/usersPage';
     encapsulation: ViewEncapsulation.None,
     directives: [ActionDialog, CreateUserDialog, NgForm, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })
-@CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 export class UsersPage implements OnInit {
     usersList:User[];
     userDialog:CreateUserDialog;

@@ -1,4 +1,3 @@
-"use strict";
 var newCompanyRequest_1 = require("../../../../models/newCompanyRequest");
 var CompaniesEditBase = (function () {
     function CompaniesEditBase(location, router, companiesService, notificationService, localizationService) {
@@ -43,6 +42,6 @@ var CompaniesEditBase = (function () {
         });
     };
     return CompaniesEditBase;
-}());
+})();
 exports.CompaniesEditBase = CompaniesEditBase;
 //# sourceMappingURL=companiesEditBase.js.map

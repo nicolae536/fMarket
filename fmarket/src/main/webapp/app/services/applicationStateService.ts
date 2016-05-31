@@ -4,7 +4,7 @@
 /**
  * Created by nick_ on 4/24/2016.
  */
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 import {LocalStorageService} from "./localStorageService";
 import {AuthorizationService} from "./authorizationService";
 import {Role} from "../models/Roles";
@@ -14,17 +14,17 @@ import {ApplicationConstants} from "../models/applicationConstansts";
 export class ApplicationStateService {
     private _localStorageService:LocalStorageService;
 
-    constructor(localStorageService:LocalStorageService){
+    constructor(localStorageService:LocalStorageService) {
         this._localStorageService = localStorageService;
     }
 
-    setApplicationSessionState(userState){
+    setApplicationSessionState(userState) {
         this._localStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, userState);
     }
 
     removeUserSession() {
         let userState = AuthorizationService.getActiveUserState();
-        if(!userState.loggedIn){
+        if (!userState.loggedIn) {
             return;
         }
 

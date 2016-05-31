@@ -70,12 +70,7 @@ export class CompaniesPage implements OnInit {
                 },
                 error=> {
                     me._companiesList = [];
-                    me._notificationService.emitNotificationToRootComponent({
-                        type: 'danger',
-                        dismisable: true,
-                        message: 'Eroare companiile nu pot fi afisate!',
-                        timeout: 5
-                    });
+                    me._notificationService.emitErrorNotificationToRootComponent('Eroare companiile nu pot fi afisate!', 5);
                 }
             )
     }
@@ -123,12 +118,14 @@ export class CompaniesPage implements OnInit {
     }
 
     removeCompanie($event:CompanieDto){
+        let me=this;
         this._companiesService.deleteCompany($event.id)
             .subscribe(result=>{
-                console.log('a');
+                me.getCompaniesWithFilters();
             },
-            e=>{
-                console.log('re');
+            error=>{
+                me._notificationService.emitErrorNotificationToRootComponent('Compania nu a putut fi stearsa !', 5);
+                me.getCompaniesWithFilters();
             })
     }
 

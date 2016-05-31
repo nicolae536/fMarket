@@ -76,7 +76,6 @@ export class AdminPage implements AfterViewChecked, OnActivate{
     routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
         if(!(AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN))){
             this.router.navigate(['/login']);
-            this._notificationService.emitSuccessNotificationToRootComponent("Nu aveti access la acest modul !!!",5)
         }
     }
 

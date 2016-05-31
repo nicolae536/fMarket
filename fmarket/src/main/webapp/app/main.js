@@ -1,4 +1,3 @@
-"use strict";
 require('zone.js');
 require('reflect-metadata');
 var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');

@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -49,12 +48,7 @@ var CompaniesPage = (function () {
             me.pagination.totalItems = response.totalPages;
         }, function (error) {
             me._companiesList = [];
-            me._notificationService.emitNotificationToRootComponent({
-                type: 'danger',
-                dismisable: true,
-                message: 'Eroare companiile nu pot fi afisate!',
-                timeout: 5
-            });
+            me._notificationService.emitErrorNotificationToRootComponent('Eroare companiile nu pot fi afisate!', 5);
         });
     };
     CompaniesPage.prototype.getCompanieDomains = function () {
@@ -88,11 +82,13 @@ var CompaniesPage = (function () {
         this._router.navigate(['/admin/detalii-companie', { id: $event.id }]);
     };
     CompaniesPage.prototype.removeCompanie = function ($event) {
+        var me = this;
         this._companiesService.deleteCompany($event.id)
             .subscribe(function (result) {
-            console.log('a');
-        }, function (e) {
-            console.log('re');
+            me.getCompaniesWithFilters();
+        }, function (error) {
+            me._notificationService.emitErrorNotificationToRootComponent('Compania nu a putut fi stearsa !', 5);
+            me.getCompaniesWithFilters();
         });
     };
     CompaniesPage.prototype.submitSearch = function () {
@@ -459,6 +455,6 @@ var CompaniesPage = (function () {
         __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
     ], CompaniesPage);
     return CompaniesPage;
-}());
+})();
 exports.CompaniesPage = CompaniesPage;
 //# sourceMappingURL=companiesPage.js.map

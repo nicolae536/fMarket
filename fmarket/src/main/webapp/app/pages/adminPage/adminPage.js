@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -35,7 +34,6 @@ var AdminPage = (function () {
     AdminPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
         if (!(authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN))) {
             this.router.navigate(['/login']);
-            this._notificationService.emitSuccessNotificationToRootComponent("Nu aveti access la acest modul !!!", 5);
         }
     };
     AdminPage.prototype.ngAfterViewChecked = function () {
@@ -96,6 +94,6 @@ var AdminPage = (function () {
         __metadata('design:paramtypes', [common_1.Location, router_1.Router, notificationService_1.NotificationService])
     ], AdminPage);
     return AdminPage;
-}());
+})();
 exports.AdminPage = AdminPage;
 //# sourceMappingURL=adminPage.js.map

@@ -1,7 +1,6 @@
 /**
  * Created by nick_ on 4/17/2016.
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -67,6 +66,6 @@ var ForgetPasswordPage = (function () {
         __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
     ], ForgetPasswordPage);
     return ForgetPasswordPage;
-}());
+})();
 exports.ForgetPasswordPage = ForgetPasswordPage;
 //# sourceMappingURL=forgetPasswordPage.js.map
