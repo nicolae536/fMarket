@@ -14,6 +14,7 @@ import {RegistrationService} from "./services/registrationService";
 import {Role} from "./models/Roles";
 import {JqueryService} from "./services/jqueryService";
 import * as _ from 'underscore';
+import {ApplicationStateService} from "./services/applicationStateService";
 
 @Component({
     selector: 'my-app',
@@ -46,13 +47,17 @@ export class AppComponent implements OnInit {
     _notifications:IAlert [];
     private _notificationService:NotificationService;
     private _registrationService:RegistrationService;
-    private _localeStorageService:LocalStorageService;
     addItem:boolean=true;
+    private _applicationStateService:ApplicationStateService;
 
-    constructor(router:Router, location:Location, notificationService:NotificationService, registrationService:RegistrationService, localeStorageService:LocalStorageService) {
+    constructor(router:Router,
+                location:Location,
+                notificationService:NotificationService,
+                registrationService:RegistrationService,
+                applicationStateService:ApplicationStateService) {
         this._registrationService = registrationService;
         this._notificationService = notificationService;
-        this._localeStorageService = localeStorageService;
+        this._applicationStateService = applicationStateService;
 
         this.router = router;
         this.location = location;
@@ -145,14 +150,14 @@ export class AppComponent implements OnInit {
                 accountType: Role.USER,
                 loggedIn: false
             };
-            context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
+            context._applicationStateService.removeUserSession();
             context.handleUserState(response, context);
         }
 
         context._registrationService.checkIfLoggedIn()
             .subscribe(
                 response=> {
-                    context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
+                    context._applicationStateService.setApplicationSessionState(response);
                     context.handleUserState(response, context);
                 },
                 errorHandler

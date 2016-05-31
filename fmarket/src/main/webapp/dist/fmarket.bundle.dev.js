@@ -48274,18 +48274,18 @@
 	var headerComponent_1 = __webpack_require__(627);
 	var notificationService_1 = __webpack_require__(529);
 	var applicationConstansts_1 = __webpack_require__(495);
-	var localStorageService_1 = __webpack_require__(521);
 	var footerComponent_1 = __webpack_require__(628);
 	var registrationService_1 = __webpack_require__(542);
 	var Roles_1 = __webpack_require__(522);
 	var jqueryService_1 = __webpack_require__(525);
 	var _ = __webpack_require__(524);
+	var applicationStateService_1 = __webpack_require__(520);
 	var AppComponent = (function () {
-	    function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
+	    function AppComponent(router, location, notificationService, registrationService, applicationStateService) {
 	        this.addItem = true;
 	        this._registrationService = registrationService;
 	        this._notificationService = notificationService;
-	        this._localeStorageService = localeStorageService;
+	        this._applicationStateService = applicationStateService;
 	        this.router = router;
 	        this.location = location;
 	        this._notifications = new Array();
@@ -48355,12 +48355,12 @@
 	                accountType: Roles_1.Role.USER,
 	                loggedIn: false
 	            };
-	            context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
+	            context._applicationStateService.removeUserSession();
 	            context.handleUserState(response, context);
 	        };
 	        context._registrationService.checkIfLoggedIn()
 	            .subscribe(function (response) {
-	            context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
+	            context._applicationStateService.setApplicationSessionState(response);
 	            context.handleUserState(response, context);
 	        }, errorHandler);
 	    };
@@ -48376,7 +48376,7 @@
 	            directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.AlertComponent, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent]
 	        }),
 	        router_1.Routes(authorizationService_1.AuthorizationService.getApplicationRootRoutes()), 
-	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService])
+	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, applicationStateService_1.ApplicationStateService])
 	    ], AppComponent);
 	    return AppComponent;
 	}());
