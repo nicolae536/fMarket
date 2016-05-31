@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -36,11 +37,6 @@ var AccountEditPage = (function () {
     AccountEditPage.prototype.saveEditedAccount = function (editedAccount) {
         var me = this;
         this._accountService.saveEditedAccount(editedAccount)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._account = response;
         }, function (errr) {
@@ -49,11 +45,6 @@ var AccountEditPage = (function () {
     AccountEditPage.prototype.getCityList = function () {
         var me = this;
         this._localizationService.getCityList()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._cityesList = me._localizationService.mapNameToSelect2Item(response);
         }, function (error) {
@@ -62,11 +53,6 @@ var AccountEditPage = (function () {
     AccountEditPage.prototype.getAccountData = function () {
         var me = this;
         this._accountService.getAccount()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (success) {
             me._account = success;
         }, function (error) {
@@ -82,6 +68,6 @@ var AccountEditPage = (function () {
         __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService])
     ], AccountEditPage);
     return AccountEditPage;
-})();
+}());
 exports.AccountEditPage = AccountEditPage;
 //# sourceMappingURL=accountEditPage.js.map

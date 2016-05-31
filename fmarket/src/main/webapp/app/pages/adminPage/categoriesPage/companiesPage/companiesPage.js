@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -27,11 +28,6 @@ var CompaniesPage = (function () {
     CompaniesPage.prototype.getCompanyTypesWithFilters = function () {
         var me = this;
         this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-            .map(function (response) {
-            if (response.text().length) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me.companieTypes = response;
         }, function (error) {
@@ -44,11 +40,7 @@ var CompaniesPage = (function () {
             return;
         }
         this._companieTypeService.addCompanyType(this.newDomain)
-            .map(function (response) {
-            if (response.text().length) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
+            .subscribe(function (response) {
             me.getCompanyTypesWithFilters();
             me.newDomain = "";
             me.toggleAddCompanieDomain(false);
@@ -61,11 +53,7 @@ var CompaniesPage = (function () {
     CompaniesPage.prototype.deleteCompanyType = function (companyType) {
         var me = this;
         this._companieTypeService.deleteCompanyType(companyType.id)
-            .map(function (response) {
-            if (response.text().length) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
+            .subscribe(function (response) {
             me.getCompanyTypesWithFilters();
         }, function (error) {
             //me.companieTypes = [];
@@ -74,11 +62,7 @@ var CompaniesPage = (function () {
     CompaniesPage.prototype.editCompaniType = function (companyType) {
         var me = this;
         this._companieTypeService.editCompaniType(companyType)
-            .map(function (response) {
-            if (response.text().length) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
+            .subscribe(function (response) {
             companyType.isInEditMode = false;
             //this.companieTypes = response.data;
         }, function (error) {
@@ -118,6 +102,6 @@ var CompaniesPage = (function () {
         __metadata('design:paramtypes', [companieTypesService_1.CompanieTypeService, common_1.FormBuilder])
     ], CompaniesPage);
     return CompaniesPage;
-})();
+}());
 exports.CompaniesPage = CompaniesPage;
 //# sourceMappingURL=companiesPage.js.map

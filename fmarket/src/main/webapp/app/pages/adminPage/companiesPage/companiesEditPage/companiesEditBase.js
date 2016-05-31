@@ -1,3 +1,4 @@
+"use strict";
 var newCompanyRequest_1 = require("../../../../models/newCompanyRequest");
 var CompaniesEditBase = (function () {
     function CompaniesEditBase(location, router, companiesService, notificationService, localizationService) {
@@ -17,11 +18,6 @@ var CompaniesEditBase = (function () {
     CompaniesEditBase.prototype.getCities = function () {
         var me = this;
         this._localizationService.getCityList()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (success) {
             me._cities = me._localizationService.mapNameToSelect2Item(success);
         }, function (error) {
@@ -31,11 +27,6 @@ var CompaniesEditBase = (function () {
     CompaniesEditBase.prototype.getCompanieDomains = function () {
         var me = this;
         this._companiesService.getCompanieDomains()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (success) {
             me._companyDomains = me._localizationService.mapNameToSelect2Item(success);
         }, function (error) {
@@ -45,11 +36,6 @@ var CompaniesEditBase = (function () {
     CompaniesEditBase.prototype.getDomains = function () {
         var me = this;
         this._companiesService.getDemandDomanins()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (success) {
             me._domains = me._localizationService.mapNameToSelect2Item(success);
         }, function (error) {
@@ -57,6 +43,6 @@ var CompaniesEditBase = (function () {
         });
     };
     return CompaniesEditBase;
-})();
+}());
 exports.CompaniesEditBase = CompaniesEditBase;
 //# sourceMappingURL=companiesEditBase.js.map

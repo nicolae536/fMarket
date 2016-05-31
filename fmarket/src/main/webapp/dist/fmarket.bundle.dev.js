@@ -44,6 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	__webpack_require__(1);
 	__webpack_require__(3);
 	var platform_browser_dynamic_1 = __webpack_require__(26);
@@ -52,21 +53,22 @@
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
 	var http_1 = __webpack_require__(499);
-	var accountService_1 = __webpack_require__(620);
+	var accountService_1 = __webpack_require__(623);
 	var categoriesMenuService_1 = __webpack_require__(497);
-	var companieTypesService_1 = __webpack_require__(591);
-	var demandService_1 = __webpack_require__(520);
-	var requestTypeService_1 = __webpack_require__(594);
-	var subscribersService_1 = __webpack_require__(525);
-	var usersService_1 = __webpack_require__(582);
-	var companiesService_1 = __webpack_require__(606);
+	var companieTypesService_1 = __webpack_require__(592);
+	var demandService_1 = __webpack_require__(523);
+	var requestTypeService_1 = __webpack_require__(595);
+	var subscribersService_1 = __webpack_require__(528);
+	var usersService_1 = __webpack_require__(584);
+	var companiesService_1 = __webpack_require__(607);
 	var fMarketApi_1 = __webpack_require__(498);
-	var localizationService_1 = __webpack_require__(535);
+	var localizationService_1 = __webpack_require__(538);
 	var common_2 = __webpack_require__(206);
-	var notificationService_1 = __webpack_require__(526);
-	var localStorageService_1 = __webpack_require__(541);
+	var notificationService_1 = __webpack_require__(529);
+	var localStorageService_1 = __webpack_require__(521);
 	var authorizationService_1 = __webpack_require__(494);
-	var registrationService_1 = __webpack_require__(539);
+	var registrationService_1 = __webpack_require__(542);
+	var applicationStateService_1 = __webpack_require__(520);
 	core_1.enableProdMode();
 	//console.log(HTTP_PROVIDERS);
 	platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
@@ -74,6 +76,7 @@
 	    router_1.ROUTER_PROVIDERS,
 	    core_1.provide(common_1.LocationStrategy, { useClass: common_1.HashLocationStrategy }),
 	    common_2.FormBuilder,
+	    applicationStateService_1.ApplicationStateService,
 	    fMarketApi_1.FMarketApi,
 	    notificationService_1.NotificationService,
 	    localStorageService_1.LocalStorageService,
@@ -48251,6 +48254,7 @@
 /* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -48267,25 +48271,29 @@
 	var Observable_1 = __webpack_require__(66);
 	__webpack_require__(485);
 	var authorizationService_1 = __webpack_require__(494);
-	var headerComponent_1 = __webpack_require__(624);
-	var notificationService_1 = __webpack_require__(526);
+	var headerComponent_1 = __webpack_require__(627);
+	var notificationService_1 = __webpack_require__(529);
 	var applicationConstansts_1 = __webpack_require__(495);
-	var localStorageService_1 = __webpack_require__(541);
-	var footerComponent_1 = __webpack_require__(625);
-	var registrationService_1 = __webpack_require__(539);
-	var Roles_1 = __webpack_require__(584);
-	var jqueryService_1 = __webpack_require__(522);
-	var _ = __webpack_require__(521);
+	var localStorageService_1 = __webpack_require__(521);
+	var footerComponent_1 = __webpack_require__(628);
+	var registrationService_1 = __webpack_require__(542);
+	var Roles_1 = __webpack_require__(522);
+	var jqueryService_1 = __webpack_require__(525);
+	var _ = __webpack_require__(524);
 	var AppComponent = (function () {
 	    function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
 	        this.addItem = true;
 	        this._registrationService = registrationService;
+	        this._notificationService = notificationService;
 	        this._localeStorageService = localeStorageService;
-	        var me = this;
 	        this.router = router;
 	        this.location = location;
 	        this._notifications = new Array();
-	        this._notificationService = notificationService;
+	        _.defer(this.checkApplicationStatus, this);
+	        //this.startDemadsWatcher();
+	    }
+	    AppComponent.prototype.ngOnInit = function () {
+	        var me = this;
 	        this._notificationService.notificationFlux.subscribe(function (event) {
 	            event.new = true;
 	            if (event.timeout) {
@@ -48297,11 +48305,6 @@
 	            }
 	            setTimeout(function () { me._notifications[me._notifications.length - 1]['new'] = false; }, 500);
 	        });
-	        _.defer(this.checkApplicationStatus, this);
-	        //this.startDemadsWatcher();
-	    }
-	    AppComponent.prototype.ngOnInit = function () {
-	        var me = this;
 	        this._notificationService.firstLoad.subscribe(function (event) {
 	            if (applicationConstansts_1.ApplicationConstants.FIRST_LOAD) {
 	                var element = document.getElementById('loadingSpinnerComponent');
@@ -48317,11 +48320,6 @@
 	        //noinspection TypeScriptUnresolvedFunction
 	        Observable_1.Observable.interval(15 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
 	            me._notificationService.getStatus()
-	                .map(function (response) {
-	                if (response.text().length > 0) {
-	                    return response.json();
-	                }
-	            })
 	                .subscribe(function (response) {
 	                if (response && response > 0) {
 	                    me.showDissmisableNotification({
@@ -48360,18 +48358,10 @@
 	            context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
 	            context.handleUserState(response, context);
 	        };
-	        //noinspection TypeScriptUnresolvedFunction
-	        Observable_1.Observable.interval(60 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
-	            context._registrationService.checkIfLoggedIn()
-	                .map(function (response) {
-	                if (response.text().length > 0) {
-	                    return response.json();
-	                }
-	            })
-	                .subscribe(function (response) {
-	                context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
-	                context.handleUserState(response, context);
-	            }, errorHandler);
+	        context._registrationService.checkIfLoggedIn()
+	            .subscribe(function (response) {
+	            context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
+	            context.handleUserState(response, context);
 	        }, errorHandler);
 	    };
 	    AppComponent.prototype.handleUserState = function (response, context) {
@@ -48389,7 +48379,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService])
 	    ], AppComponent);
 	    return AppComponent;
-	})();
+	}());
 	exports.AppComponent = AppComponent;
 	//# sourceMappingURL=app.component.js.map
 
@@ -68161,19 +68151,20 @@
 /* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by nick_ on 5/5/2016.
 	 */
 	var router_1 = __webpack_require__(305);
 	var applicationConstansts_1 = __webpack_require__(495);
 	var homePage_1 = __webpack_require__(496);
-	var registrationPage_1 = __webpack_require__(536);
-	var loginPage_1 = __webpack_require__(540);
-	var forgetPasswordPage_1 = __webpack_require__(542);
-	var adminPage_1 = __webpack_require__(543);
-	var accountSettingsPage_1 = __webpack_require__(616);
-	var successPage_1 = __webpack_require__(622);
-	var tokenConfirmPage_1 = __webpack_require__(623);
+	var registrationPage_1 = __webpack_require__(539);
+	var loginPage_1 = __webpack_require__(543);
+	var forgetPasswordPage_1 = __webpack_require__(544);
+	var adminPage_1 = __webpack_require__(545);
+	var accountSettingsPage_1 = __webpack_require__(619);
+	var successPage_1 = __webpack_require__(625);
+	var tokenConfirmPage_1 = __webpack_require__(626);
 	var AuthorizationService = (function () {
 	    function AuthorizationService() {
 	    }
@@ -68251,7 +68242,7 @@
 	        return applicationRoutes;
 	    };
 	    return AuthorizationService;
-	})();
+	}());
 	exports.AuthorizationService = AuthorizationService;
 	//# sourceMappingURL=authorizationService.js.map
 
@@ -68259,6 +68250,7 @@
 /* 495 */
 /***/ function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by nick_ on 5/5/2016.
 	 */
@@ -68543,7 +68535,7 @@
 	    ApplicationConstants.FIRST_LOAD = 'first-load';
 	    ApplicationConstants.LOADING_SPINNER = 'loadingSpinnerComponent';
 	    return ApplicationConstants;
-	})();
+	}());
 	exports.ApplicationConstants = ApplicationConstants;
 	//# sourceMappingURL=applicationConstansts.js.map
 
@@ -68551,6 +68543,7 @@
 /* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68567,13 +68560,13 @@
 	var router_1 = __webpack_require__(305);
 	var common_1 = __webpack_require__(206);
 	var categoriesMenuService_1 = __webpack_require__(497);
-	var demandService_1 = __webpack_require__(520);
-	var jqueryService_1 = __webpack_require__(522);
-	var Angular2ExtensionValidators_1 = __webpack_require__(523);
-	var subscribersService_1 = __webpack_require__(525);
-	var notificationService_1 = __webpack_require__(526);
-	var demandComponent_1 = __webpack_require__(527);
-	var localizationService_1 = __webpack_require__(535);
+	var demandService_1 = __webpack_require__(523);
+	var jqueryService_1 = __webpack_require__(525);
+	var Angular2ExtensionValidators_1 = __webpack_require__(526);
+	var subscribersService_1 = __webpack_require__(528);
+	var notificationService_1 = __webpack_require__(529);
+	var demandComponent_1 = __webpack_require__(530);
+	var localizationService_1 = __webpack_require__(538);
 	var folderPath = '/app/pages/homePage';
 	var HomePage = (function () {
 	    function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService, _localizationService) {
@@ -68591,7 +68584,6 @@
 	        this.getMenuDictionary();
 	        this._subscribeForm = this._formBuilder.group([]);
 	        this._subscribeForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
-	        // this._notificationService.updateBackground(ApplicationConstants.homePage);
 	        this._notificationService.removeLoading();
 	    };
 	    HomePage.prototype.ngAfterViewInit = function () {
@@ -68610,27 +68602,12 @@
 	        }
 	        var me = this;
 	        this._subscribersService.subscribeTowebsite(this._subscribeForm.value)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (success) {
 	            me._subscribeForm.removeControl('email');
 	            _this._subscribeForm.addControl('email', _this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
-	            me._notificationService.emitNotificationToRootComponent({
-	                type: 'success',
-	                dismisable: true,
-	                message: 'Te-ai inscris cu success!',
-	                timeout: 5
-	            });
+	            me._notificationService.emitSuccessNotificationToRootComponent('Te-ai inscris cu success!', 5);
 	        }, function (error) {
-	            me._notificationService.emitNotificationToRootComponent({
-	                type: 'danger',
-	                dismisable: true,
-	                message: error.message,
-	                timeout: 5
-	            });
+	            me._notificationService.emitErrorNotificationToRootComponent(error.message, 5);
 	        });
 	    };
 	    HomePage.prototype.goToCreateDemand = function () {
@@ -68645,30 +68622,18 @@
 	        if (!this._demandDialog.IsValid()) {
 	            return;
 	        }
-	        this._demandService.createUserDemand(demand).map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        }).subscribe(function (respose) {
+	        this._demandService.createUserDemand(demand)
+	            .subscribe(function (respose) {
 	            me._demandDialog.restData();
 	            me._router.navigate(['/success', { succesOption: 'create-demand' }]);
 	        }, function (error) {
-	            _this._notificationService.emitNotificationToRootComponent({
-	                type: 'danger',
-	                dismisable: true,
-	                message: 'Cererea nu a putut fi creata',
-	                timeout: 5
-	            });
+	            _this._notificationService.emitErrorNotificationToRootComponent('Cererea nu a putut fi creata', 5);
 	        });
 	    };
 	    HomePage.prototype.getMenuDictionary = function () {
 	        var me = this;
 	        this._categoriesMenuService.getMenuDictionary()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        }).subscribe(function (response) {
+	            .subscribe(function (response) {
 	            me.menuDictionary = response;
 	        }, function (error) {
 	            me.menuDictionary = [];
@@ -68677,11 +68642,6 @@
 	    HomePage.prototype.getCities = function () {
 	        var me = this;
 	        this._localizationService.getCityList()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._cityes = me._localizationService.mapNameToSelect2Item(response);
 	        }, function (error) {
@@ -68718,7 +68678,7 @@
 	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService])
 	    ], HomePage);
 	    return HomePage;
-	})();
+	}());
 	exports.HomePage = HomePage;
 	//# sourceMappingURL=homePage.js.map
 
@@ -68726,6 +68686,7 @@
 /* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68765,7 +68726,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], CategoriesMenuService);
 	    return CategoriesMenuService;
-	})();
+	}());
 	exports.CategoriesMenuService = CategoriesMenuService;
 	//# sourceMappingURL=categoriesMenuService.js.map
 
@@ -68773,6 +68734,7 @@
 /* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68784,30 +68746,40 @@
 	};
 	var http_1 = __webpack_require__(499);
 	var core_1 = __webpack_require__(32);
+	var applicationStateService_1 = __webpack_require__(520);
 	var FMarketApi = (function () {
-	    function FMarketApi(http) {
+	    function FMarketApi(http, applicationStateService) {
 	        this.http = http;
+	        this._applicationStateService = applicationStateService;
 	    }
 	    FMarketApi.prototype.request = function (url, options) {
-	        return this.http.request(url, this.getRequestOptions(options));
+	        return this.http.request(url, this.getRequestOptions(options)).map(this.responseMessageHandler);
 	    };
 	    FMarketApi.prototype.get = function (url, options) {
-	        return this.http.get(url, this.getRequestOptions(options));
+	        return this.http.get(url, this.getRequestOptions(options)).map(this.responseMessageHandler);
 	    };
 	    FMarketApi.prototype.post = function (url, body, options) {
-	        return this.http.post(url, body, this.getRequestOptions(options));
+	        return this.http.post(url, body, this.getRequestOptions(options)).map(this.responseMessageHandler);
 	    };
 	    FMarketApi.prototype.put = function (url, body, options) {
-	        return this.http.put(url, body, this.getRequestOptions(options));
+	        return this.http.put(url, body, this.getRequestOptions(options)).map(this.responseMessageHandler);
 	    };
 	    FMarketApi.prototype.delete = function (url, options) {
-	        return this.http.delete(url, this.getRequestOptions(options));
+	        return this.http.delete(url, this.getRequestOptions(options)).map(this.responseMessageHandler);
 	    };
 	    FMarketApi.prototype.patch = function (url, body, options) {
-	        return this.http.patch(url, body, this.getRequestOptions(options));
+	        return this.http.patch(url, body, this.getRequestOptions(options)).map(this.responseMessageHandler);
 	    };
 	    FMarketApi.prototype.head = function (url, options) {
-	        return this.http.head(url, this.getRequestOptions(options));
+	        return this.http.head(url, this.getRequestOptions(options)).map(this.responseMessageHandler);
+	    };
+	    FMarketApi.prototype.responseMessageHandler = function (response) {
+	        if (response.status === 401) {
+	            this._applicationStateService.removeUserSession();
+	        }
+	        if (response && response.text instanceof Function && response.text().length > 0) {
+	            return response.json();
+	        }
 	    };
 	    FMarketApi.prototype.getRequestOptions = function (options) {
 	        var headers = new http_1.Headers();
@@ -68821,10 +68793,10 @@
 	    };
 	    FMarketApi = __decorate([
 	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [http_1.Http])
+	        __metadata('design:paramtypes', [http_1.Http, applicationStateService_1.ApplicationStateService])
 	    ], FMarketApi);
 	    return FMarketApi;
-	})();
+	}());
 	exports.FMarketApi = FMarketApi;
 	//# sourceMappingURL=fMarketApi.js.map
 
@@ -71501,6 +71473,115 @@
 /* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by NicolaeB on 5/31/2016.
+	 */
+	/**
+	 * Created by nick_ on 4/24/2016.
+	 */
+	var core_1 = __webpack_require__(32);
+	var localStorageService_1 = __webpack_require__(521);
+	var authorizationService_1 = __webpack_require__(494);
+	var Roles_1 = __webpack_require__(522);
+	var applicationConstansts_1 = __webpack_require__(495);
+	var ApplicationStateService = (function () {
+	    function ApplicationStateService(localStorageService) {
+	        this._localStorageService = localStorageService;
+	    }
+	    ApplicationStateService.prototype.setApplicationSessionState = function (userState) {
+	        this._localStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, userState);
+	    };
+	    ApplicationStateService.prototype.removeUserSession = function () {
+	        var userState = authorizationService_1.AuthorizationService.getActiveUserState();
+	        if (!userState.loggedIn) {
+	            return;
+	        }
+	        userState = {
+	            email: null,
+	            accountType: Roles_1.Role.USER,
+	            loggedIn: false
+	        };
+	        this._localStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, userState);
+	    };
+	    ApplicationStateService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [localStorageService_1.LocalStorageService])
+	    ], ApplicationStateService);
+	    return ApplicationStateService;
+	}());
+	exports.ApplicationStateService = ApplicationStateService;
+	//# sourceMappingURL=applicationStateService.js.map
+
+/***/ },
+/* 521 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var Subject_1 = __webpack_require__(65);
+	/**
+	 * Created by nick_ on 5/5/2016.
+	 */
+	var LocalStorageService = (function () {
+	    function LocalStorageService() {
+	        this.storageStateChange = new Subject_1.Subject();
+	    }
+	    LocalStorageService.prototype.notifyObservers = function (key) {
+	        this.storageStateChange.next({ keyChanged: key, newValue: this.getItem(key) });
+	    };
+	    LocalStorageService.prototype.setItem = function (key, value) {
+	        localStorage.setItem(key, JSON.stringify(value));
+	        this.notifyObservers(key);
+	    };
+	    LocalStorageService.prototype.getItem = function (key) {
+	        var item = localStorage.getItem(key);
+	        if (!item) {
+	            return null;
+	        }
+	        return JSON.parse(item);
+	    };
+	    LocalStorageService.prototype.removeItem = function (key) {
+	        localStorage.removeItem(key);
+	        this.notifyObservers(key);
+	    };
+	    return LocalStorageService;
+	}());
+	exports.LocalStorageService = LocalStorageService;
+	//# sourceMappingURL=localStorageService.js.map
+
+/***/ },
+/* 522 */
+/***/ function(module, exports) {
+
+	"use strict";
+	/**
+	 * Created by nick_ on 5/5/2016.
+	 */
+	var Role = (function () {
+	    function Role() {
+	    }
+	    Role.ADMIN = 'ADMIN';
+	    Role.USER = 'USER';
+	    Role.ANONYMUS = 'ANONYMUS';
+	    return Role;
+	}());
+	exports.Role = Role;
+	//# sourceMappingURL=Roles.js.map
+
+/***/ },
+/* 523 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -71515,7 +71596,7 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var fMarketApi_1 = __webpack_require__(498);
-	var _ = __webpack_require__(521);
+	var _ = __webpack_require__(524);
 	var DemandService = (function () {
 	    function DemandService(api) {
 	        this._DemandController = '/admin/demands';
@@ -71597,12 +71678,12 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], DemandService);
 	    return DemandService;
-	})();
+	}());
 	exports.DemandService = DemandService;
 	//# sourceMappingURL=demandService.js.map
 
 /***/ },
-/* 521 */
+/* 524 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -73156,10 +73237,11 @@
 
 
 /***/ },
-/* 522 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(521);
+	"use strict";
+	var _ = __webpack_require__(524);
 	// import * as $ from 'jquery';
 	// import * as animateScroll from 'animateScroll';
 	// console.log(animateScroll);
@@ -73237,15 +73319,16 @@
 	        $(nativeElement).height(pageHeight);
 	    };
 	    return JqueryService;
-	})();
+	}());
 	exports.JqueryService = JqueryService;
 	//# sourceMappingURL=jqueryService.js.map
 
 /***/ },
-/* 523 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var accountStatus_1 = __webpack_require__(524);
+	"use strict";
+	var accountStatus_1 = __webpack_require__(527);
 	var EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	var PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$/i;
 	var PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
@@ -73330,17 +73413,18 @@
 	        };
 	    };
 	    return CustomValidators;
-	})();
+	}());
 	exports.CustomValidators = CustomValidators;
 	//# sourceMappingURL=Angular2ExtensionValidators.js.map
 
 /***/ },
-/* 524 */
+/* 527 */
 /***/ function(module, exports) {
 
 	/**
 	 * Created by NicolaeB on 4/26/2016.
 	 */
+	"use strict";
 	var AccountStatus = (function () {
 	    function AccountStatus() {
 	    }
@@ -73349,14 +73433,15 @@
 	    AccountStatus.DISABLED = "DISABLED";
 	    AccountStatus.AUTO = "AUTO";
 	    return AccountStatus;
-	})();
+	}());
 	exports.AccountStatus = AccountStatus;
 	//# sourceMappingURL=accountStatus.js.map
 
 /***/ },
-/* 525 */
+/* 528 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73400,14 +73485,15 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], SubscribersService);
 	    return SubscribersService;
-	})();
+	}());
 	exports.SubscribersService = SubscribersService;
 	//# sourceMappingURL=subscribersService.js.map
 
 /***/ },
-/* 526 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73421,17 +73507,14 @@
 	 * Created by nick_ on 4/24/2016.
 	 */
 	var core_1 = __webpack_require__(32);
-	var http_1 = __webpack_require__(499);
 	var fMarketApi_1 = __webpack_require__(498);
 	var Subject_1 = __webpack_require__(65);
 	var applicationConstansts_1 = __webpack_require__(495);
 	var NotificationService = (function () {
-	    // public backgroundUpdate:Subject<string> = new Subject();
-	    function NotificationService(http) {
-	        this._NotificationController = '/notify';
+	    function NotificationService(api) {
 	        this.notificationFlux = new Subject_1.Subject();
 	        this.firstLoad = new Subject_1.Subject();
-	        this.api = new fMarketApi_1.FMarketApi(http);
+	        this.api = api;
 	    }
 	    NotificationService.prototype.getStatus = function () {
 	        return this.api.get('/admin/demands/newcount');
@@ -73460,17 +73543,18 @@
 	    };
 	    NotificationService = __decorate([
 	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [http_1.Http])
+	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], NotificationService);
 	    return NotificationService;
-	})();
+	}());
 	exports.NotificationService = NotificationService;
 	//# sourceMappingURL=notificationService.js.map
 
 /***/ },
-/* 527 */
+/* 530 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73485,11 +73569,11 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var selectComponent_1 = __webpack_require__(528);
-	var demand_1 = __webpack_require__(530);
-	var Angular2ExtensionValidators_1 = __webpack_require__(523);
+	var selectComponent_1 = __webpack_require__(531);
+	var demand_1 = __webpack_require__(533);
+	var Angular2ExtensionValidators_1 = __webpack_require__(526);
 	var authorizationService_1 = __webpack_require__(494);
-	var menuTreeDialog_1 = __webpack_require__(531);
+	var menuTreeDialog_1 = __webpack_require__(534);
 	var APPLICATION_PATH = '/app/components/demandComponent';
 	var DemandComponent = (function () {
 	    function DemandComponent(_formBuilder) {
@@ -73640,14 +73724,15 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], DemandComponent);
 	    return DemandComponent;
-	})();
+	}());
 	exports.DemandComponent = DemandComponent;
 	//# sourceMappingURL=demandComponent.js.map
 
 /***/ },
-/* 528 */
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73662,7 +73747,7 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var ng2_bootstrap_1 = __webpack_require__(328);
-	var filterPipe_1 = __webpack_require__(529);
+	var filterPipe_1 = __webpack_require__(532);
 	var SelectComponent = (function () {
 	    function SelectComponent() {
 	        this.loadedSelect = new core_1.EventEmitter();
@@ -73806,21 +73891,22 @@
 	        __metadata('design:paramtypes', [])
 	    ], SelectComponent);
 	    return SelectComponent;
-	})();
+	}());
 	exports.SelectComponent = SelectComponent;
 	//This definition will remain here so the component may be exported with his types
 	var Select2Item = (function () {
 	    function Select2Item() {
 	    }
 	    return Select2Item;
-	})();
+	}());
 	exports.Select2Item = Select2Item;
 	//# sourceMappingURL=selectComponent.js.map
 
 /***/ },
-/* 529 */
+/* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -73861,14 +73947,15 @@
 	        __metadata('design:paramtypes', [])
 	    ], FilterPipe);
 	    return FilterPipe;
-	})();
+	}());
 	exports.FilterPipe = FilterPipe;
 	//# sourceMappingURL=filterPipe.js.map
 
 /***/ },
-/* 530 */
+/* 533 */
 /***/ function(module, exports) {
 
+	"use strict";
 	var Demand = (function () {
 	    function Demand() {
 	        this.title = '';
@@ -73884,14 +73971,15 @@
 	        this.domainId = -1;
 	    }
 	    return Demand;
-	})();
+	}());
 	exports.Demand = Demand;
 	//# sourceMappingURL=demand.js.map
 
 /***/ },
-/* 531 */
+/* 534 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -73907,8 +73995,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(32);
-	var modalDialog_1 = __webpack_require__(532);
-	var menuTreeComponent_1 = __webpack_require__(533);
+	var modalDialog_1 = __webpack_require__(535);
+	var menuTreeComponent_1 = __webpack_require__(536);
 	var MenuTreeDialog = (function (_super) {
 	    __extends(MenuTreeDialog, _super);
 	    function MenuTreeDialog() {
@@ -73972,14 +74060,15 @@
 	        __metadata('design:paramtypes', [])
 	    ], MenuTreeDialog);
 	    return MenuTreeDialog;
-	})(modalDialog_1.ModalDialog);
+	}(modalDialog_1.ModalDialog));
 	exports.MenuTreeDialog = MenuTreeDialog;
 	//# sourceMappingURL=menuTreeDialog.js.map
 
 /***/ },
-/* 532 */
+/* 535 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74032,14 +74121,15 @@
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], ModalDialog.prototype, "confirmAction", void 0);
 	    return ModalDialog;
-	})();
+	}());
 	exports.ModalDialog = ModalDialog;
 	//# sourceMappingURL=modalDialog.js.map
 
 /***/ },
-/* 533 */
+/* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74050,7 +74140,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(32);
-	var baseMenuComponent_1 = __webpack_require__(534);
+	var baseMenuComponent_1 = __webpack_require__(537);
 	var MenuTreeComponent = (function () {
 	    //TODO implement menuService
 	    function MenuTreeComponent() {
@@ -74218,14 +74308,15 @@
 	        __metadata('design:paramtypes', [])
 	    ], MenuTreeComponent);
 	    return MenuTreeComponent;
-	})();
+	}());
 	exports.MenuTreeComponent = MenuTreeComponent;
 	//# sourceMappingURL=menuTreeComponent.js.map
 
 /***/ },
-/* 534 */
+/* 537 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74336,14 +74427,15 @@
 	        __metadata('design:paramtypes', [])
 	    ], BaseMenuComponent);
 	    return BaseMenuComponent;
-	})();
+	}());
 	exports.BaseMenuComponent = BaseMenuComponent;
 	//# sourceMappingURL=baseMenuComponent.js.map
 
 /***/ },
-/* 535 */
+/* 538 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74358,7 +74450,7 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var fMarketApi_1 = __webpack_require__(498);
-	var _ = __webpack_require__(521);
+	var _ = __webpack_require__(524);
 	var LocalizationService = (function () {
 	    function LocalizationService(api) {
 	        this.api = api;
@@ -74379,17 +74471,18 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], LocalizationService);
 	    return LocalizationService;
-	})();
+	}());
 	exports.LocalizationService = LocalizationService;
 	//# sourceMappingURL=localizationService.js.map
 
 /***/ },
-/* 536 */
+/* 539 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by nick_ on 4/17/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74401,10 +74494,10 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var registrationComponent_1 = __webpack_require__(537);
-	var registrationService_1 = __webpack_require__(539);
-	var notificationService_1 = __webpack_require__(526);
-	var jqueryService_1 = __webpack_require__(522);
+	var registrationComponent_1 = __webpack_require__(540);
+	var registrationService_1 = __webpack_require__(542);
+	var notificationService_1 = __webpack_require__(529);
+	var jqueryService_1 = __webpack_require__(525);
 	var folderPath = '/app/pages/registrationPage';
 	var RegistrationPage = (function () {
 	    function RegistrationPage(router, registrationService, notificationService) {
@@ -74434,11 +74527,6 @@
 	    RegistrationPage.prototype.requestHandler = function (account) {
 	        var me = this;
 	        this._registrationService.createAccount(account)
-	            .map(function (response) {
-	            if (response.text()) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._router.navigate(['/success/success-registration']);
 	        }, function (error) {
@@ -74459,14 +74547,15 @@
 	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
 	    ], RegistrationPage);
 	    return RegistrationPage;
-	})();
+	}());
 	exports.RegistrationPage = RegistrationPage;
 	//# sourceMappingURL=registrationPage.js.map
 
 /***/ },
-/* 537 */
+/* 540 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74482,8 +74571,8 @@
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
 	var router_1 = __webpack_require__(305);
-	var registerAccount_1 = __webpack_require__(538);
-	var Angular2ExtensionValidators_1 = __webpack_require__(523);
+	var registerAccount_1 = __webpack_require__(541);
+	var Angular2ExtensionValidators_1 = __webpack_require__(526);
 	var APPLICATION_PATH = '/app/components/registrationComponent';
 	var RegistrationComponent = (function () {
 	    function RegistrationComponent(formBuilder) {
@@ -74612,17 +74701,18 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], RegistrationComponent);
 	    return RegistrationComponent;
-	})();
+	}());
 	exports.RegistrationComponent = RegistrationComponent;
 	//# sourceMappingURL=registrationComponent.js.map
 
 /***/ },
-/* 538 */
+/* 541 */
 /***/ function(module, exports) {
 
 	/**
 	 * Created by NicolaeB on 4/27/2016.
 	 */
+	"use strict";
 	var RegisterAccount = (function () {
 	    function RegisterAccount() {
 	        this.email = '';
@@ -74630,14 +74720,15 @@
 	        this.rememberMe = false;
 	    }
 	    return RegisterAccount;
-	})();
+	}());
 	exports.RegisterAccount = RegisterAccount;
 	//# sourceMappingURL=registerAccount.js.map
 
 /***/ },
-/* 539 */
+/* 542 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74689,12 +74780,12 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], RegistrationService);
 	    return RegistrationService;
-	})();
+	}());
 	exports.RegistrationService = RegistrationService;
 	//# sourceMappingURL=registrationService.js.map
 
 /***/ },
-/* 540 */
+/* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -74703,6 +74794,7 @@
 	/**
 	 * Created by nick_ on 4/17/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74714,19 +74806,18 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var registrationComponent_1 = __webpack_require__(537);
-	var registrationService_1 = __webpack_require__(539);
-	var applicationConstansts_1 = __webpack_require__(495);
-	var localStorageService_1 = __webpack_require__(541);
-	var notificationService_1 = __webpack_require__(526);
-	var jqueryService_1 = __webpack_require__(522);
+	var registrationComponent_1 = __webpack_require__(540);
+	var registrationService_1 = __webpack_require__(542);
+	var notificationService_1 = __webpack_require__(529);
+	var jqueryService_1 = __webpack_require__(525);
+	var applicationStateService_1 = __webpack_require__(520);
 	var folderPath = '/app/pages/registrationPage';
 	var LoginPage = (function () {
-	    function LoginPage(router, registrationService, localStorageService, ntificationService) {
+	    function LoginPage(router, registrationService, ntificationService, applicationStateService) {
 	        this._router = router;
 	        this._registrationService = registrationService;
-	        this._localStorageService = localStorageService;
 	        this._notificationService = ntificationService;
+	        this._applicationStateService = applicationStateService;
 	    }
 	    LoginPage.prototype.ngAfterViewChecked = function () {
 	        jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
@@ -74750,13 +74841,8 @@
 	    LoginPage.prototype.requestHandler = function (account) {
 	        var me = this;
 	        this._registrationService.login(account)
-	            .map(function (response) {
-	            if (response.text()) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
-	            me._localStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
+	            me._applicationStateService.setApplicationSessionState(response);
 	            me._router.navigate(['/']);
 	        }, function (error) {
 	            me._notificationService.emitNotificationToRootComponent({ type: "danger", dismisable: true, message: "Date de autentificare incorecte!", timeout: 5 });
@@ -74773,55 +74859,21 @@
 	            templateUrl: folderPath + '/registrationPage.html',
 	            directives: [registrationComponent_1.RegistrationComponent]
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService, notificationService_1.NotificationService])
+	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
 	    ], LoginPage);
 	    return LoginPage;
-	})();
+	}());
 	exports.LoginPage = LoginPage;
 	//# sourceMappingURL=loginPage.js.map
 
 /***/ },
-/* 541 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Subject_1 = __webpack_require__(65);
-	/**
-	 * Created by nick_ on 5/5/2016.
-	 */
-	var LocalStorageService = (function () {
-	    function LocalStorageService() {
-	        this.storageStateChange = new Subject_1.Subject();
-	    }
-	    LocalStorageService.prototype.notifyObservers = function (key) {
-	        this.storageStateChange.next({ keyChanged: key, newValue: this.getItem(key) });
-	    };
-	    LocalStorageService.prototype.setItem = function (key, value) {
-	        localStorage.setItem(key, JSON.stringify(value));
-	        this.notifyObservers(key);
-	    };
-	    LocalStorageService.prototype.getItem = function (key) {
-	        var item = localStorage.getItem(key);
-	        if (!item) {
-	            return null;
-	        }
-	        return JSON.parse(item);
-	    };
-	    LocalStorageService.prototype.removeItem = function (key) {
-	        localStorage.removeItem(key);
-	        this.notifyObservers(key);
-	    };
-	    return LocalStorageService;
-	})();
-	exports.LocalStorageService = LocalStorageService;
-	//# sourceMappingURL=localStorageService.js.map
-
-/***/ },
-/* 542 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by nick_ on 4/17/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74833,10 +74885,10 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var registrationComponent_1 = __webpack_require__(537);
-	var registrationService_1 = __webpack_require__(539);
-	var notificationService_1 = __webpack_require__(526);
-	var jqueryService_1 = __webpack_require__(522);
+	var registrationComponent_1 = __webpack_require__(540);
+	var registrationService_1 = __webpack_require__(542);
+	var notificationService_1 = __webpack_require__(529);
+	var jqueryService_1 = __webpack_require__(525);
 	var folderPath = '/app/pages/registrationPage';
 	var ForgetPasswordPage = (function () {
 	    function ForgetPasswordPage(router, registrationService, notificationService) {
@@ -74866,11 +74918,6 @@
 	    ForgetPasswordPage.prototype.requestHandler = function (account) {
 	        var me = this;
 	        this._registrationService.resetPassword(account)
-	            .map(function (response) {
-	            if (response.text()) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._router.navigate(['/success', { succesOption: 'success-rest-password' }]);
 	        }, function (error) {
@@ -74892,14 +74939,15 @@
 	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
 	    ], ForgetPasswordPage);
 	    return ForgetPasswordPage;
-	})();
+	}());
 	exports.ForgetPasswordPage = ForgetPasswordPage;
 	//# sourceMappingURL=forgetPasswordPage.js.map
 
 /***/ },
-/* 543 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -74912,19 +74960,19 @@
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
 	var common_1 = __webpack_require__(206);
-	var usersPage_1 = __webpack_require__(544);
-	var subscribersPage_1 = __webpack_require__(585);
-	var categoriesPage_1 = __webpack_require__(588);
-	var demandsPage_1 = __webpack_require__(598);
-	var companiesPage_1 = __webpack_require__(605);
-	var companiesEditPage_1 = __webpack_require__(608);
-	var demandsEditPage_1 = __webpack_require__(612);
-	var jqueryService_1 = __webpack_require__(522);
+	var usersPage_1 = __webpack_require__(546);
+	var subscribersPage_1 = __webpack_require__(586);
+	var categoriesPage_1 = __webpack_require__(589);
+	var demandsPage_1 = __webpack_require__(599);
+	var companiesPage_1 = __webpack_require__(606);
+	var companiesEditPage_1 = __webpack_require__(611);
+	var demandsEditPage_1 = __webpack_require__(615);
+	var jqueryService_1 = __webpack_require__(525);
 	var applicationConstansts_1 = __webpack_require__(495);
-	var notificationService_1 = __webpack_require__(526);
+	var notificationService_1 = __webpack_require__(529);
 	var authorizationService_1 = __webpack_require__(494);
-	var Roles_1 = __webpack_require__(584);
-	var companiesCreatePage_1 = __webpack_require__(615);
+	var Roles_1 = __webpack_require__(522);
+	var companiesCreatePage_1 = __webpack_require__(618);
 	var applicationPath = '/app/pages/adminPage';
 	var AdminPage = (function () {
 	    function AdminPage(location, router, notificationService) {
@@ -74997,14 +75045,15 @@
 	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, notificationService_1.NotificationService])
 	    ], AdminPage);
 	    return AdminPage;
-	})();
+	}());
 	exports.AdminPage = AdminPage;
 	//# sourceMappingURL=adminPage.js.map
 
 /***/ },
-/* 544 */
+/* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -75016,19 +75065,19 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var router_deprecated_1 = __webpack_require__(545);
+	var router_deprecated_1 = __webpack_require__(547);
 	//import operators
-	__webpack_require__(577); //-map
-	var createUserDialog_1 = __webpack_require__(579);
-	var actionDialog_1 = __webpack_require__(581);
-	var usersService_1 = __webpack_require__(582);
-	var user_1 = __webpack_require__(580);
+	__webpack_require__(579); //-map
+	var createUserDialog_1 = __webpack_require__(581);
+	var actionDialog_1 = __webpack_require__(583);
+	var usersService_1 = __webpack_require__(584);
+	var user_1 = __webpack_require__(582);
 	//import mocks
-	var mock_Status_1 = __webpack_require__(583);
-	var Roles_1 = __webpack_require__(584);
+	var mock_Status_1 = __webpack_require__(585);
+	var Roles_1 = __webpack_require__(522);
 	var authorizationService_1 = __webpack_require__(494);
-	var notificationService_1 = __webpack_require__(526);
-	var localizationService_1 = __webpack_require__(535);
+	var notificationService_1 = __webpack_require__(529);
+	var localizationService_1 = __webpack_require__(538);
 	var ng2_bootstrap_1 = __webpack_require__(328);
 	var applicationPath = '/app/pages/adminPage/usersPage';
 	var UsersPage = (function () {
@@ -75059,15 +75108,10 @@
 	    UsersPage.prototype.getUsers = function () {
 	        var me = this;
 	        this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.pagination['currentPage'])
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
-	            me.usersList = response.data;
-	            me.pagination['totalItems'] = response.totalPages;
-	            me.pagination['currentPage'] = response.page;
+	            me.usersList = response['data'];
+	            me.pagination['totalItems'] = response['totalPages'];
+	            me.pagination['currentPage'] = response['page'];
 	            console.log(response);
 	        }, function (error) {
 	            console.log(error);
@@ -75087,11 +75131,6 @@
 	        var me = this;
 	        this.actionDialog.hide();
 	        this._userService.deleteUser(user)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            var userIndex = me.usersList.indexOf(user);
 	            if (userIndex !== -1) {
@@ -75105,11 +75144,6 @@
 	        var _this = this;
 	        user.isInEditMode = false;
 	        this._userService.updateUser(user)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            //success
 	        }, function (error) {
@@ -75123,13 +75157,8 @@
 	    UsersPage.prototype.getCities = function () {
 	        var me = this;
 	        me._localizationService.getCityList()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (succesR) {
-	            me.cityList = succesR;
+	            me['cityList'] = succesR;
 	        }, function (error) {
 	            me.cityList = [];
 	        });
@@ -75163,23 +75192,23 @@
 	        __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
 	    ], UsersPage);
 	    return UsersPage;
-	})();
+	}());
 	exports.UsersPage = UsersPage;
 	//# sourceMappingURL=usersPage.js.map
 
 /***/ },
-/* 545 */
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(546));
+	__export(__webpack_require__(548));
 	//# sourceMappingURL=index.js.map
 
 /***/ },
-/* 546 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -75191,33 +75220,33 @@
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	var router_1 = __webpack_require__(547);
+	var router_1 = __webpack_require__(549);
 	exports.Router = router_1.Router;
-	var router_outlet_1 = __webpack_require__(572);
+	var router_outlet_1 = __webpack_require__(574);
 	exports.RouterOutlet = router_outlet_1.RouterOutlet;
-	var router_link_1 = __webpack_require__(574);
+	var router_link_1 = __webpack_require__(576);
 	exports.RouterLink = router_link_1.RouterLink;
-	var instruction_1 = __webpack_require__(559);
+	var instruction_1 = __webpack_require__(561);
 	exports.RouteParams = instruction_1.RouteParams;
 	exports.RouteData = instruction_1.RouteData;
-	var route_registry_1 = __webpack_require__(555);
+	var route_registry_1 = __webpack_require__(557);
 	exports.RouteRegistry = route_registry_1.RouteRegistry;
 	exports.ROUTER_PRIMARY_COMPONENT = route_registry_1.ROUTER_PRIMARY_COMPONENT;
-	__export(__webpack_require__(568));
-	var lifecycle_annotations_1 = __webpack_require__(573);
+	__export(__webpack_require__(570));
+	var lifecycle_annotations_1 = __webpack_require__(575);
 	exports.CanActivate = lifecycle_annotations_1.CanActivate;
-	var instruction_2 = __webpack_require__(559);
+	var instruction_2 = __webpack_require__(561);
 	exports.Instruction = instruction_2.Instruction;
 	exports.ComponentInstruction = instruction_2.ComponentInstruction;
 	var core_1 = __webpack_require__(32);
 	exports.OpaqueToken = core_1.OpaqueToken;
-	var router_providers_common_1 = __webpack_require__(575);
+	var router_providers_common_1 = __webpack_require__(577);
 	exports.ROUTER_PROVIDERS_COMMON = router_providers_common_1.ROUTER_PROVIDERS_COMMON;
-	var router_providers_1 = __webpack_require__(576);
+	var router_providers_1 = __webpack_require__(578);
 	exports.ROUTER_PROVIDERS = router_providers_1.ROUTER_PROVIDERS;
 	exports.ROUTER_BINDINGS = router_providers_1.ROUTER_BINDINGS;
-	var router_outlet_2 = __webpack_require__(572);
-	var router_link_2 = __webpack_require__(574);
+	var router_outlet_2 = __webpack_require__(574);
+	var router_link_2 = __webpack_require__(576);
 	/**
 	 * A list of directives. To use the router directives like {@link RouterOutlet} and
 	 * {@link RouterLink}, add this to your `directives` array in the {@link View} decorator of your
@@ -75244,7 +75273,7 @@
 	//# sourceMappingURL=router.js.map
 
 /***/ },
-/* 547 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -75265,13 +75294,13 @@
 	var __param = (this && this.__param) || function (paramIndex, decorator) {
 	    return function (target, key) { decorator(target, key, paramIndex); }
 	};
-	var async_1 = __webpack_require__(548);
-	var collection_1 = __webpack_require__(551);
-	var lang_1 = __webpack_require__(549);
-	var exceptions_1 = __webpack_require__(552);
+	var async_1 = __webpack_require__(550);
+	var collection_1 = __webpack_require__(553);
+	var lang_1 = __webpack_require__(551);
+	var exceptions_1 = __webpack_require__(554);
 	var common_1 = __webpack_require__(206);
-	var route_registry_1 = __webpack_require__(555);
-	var route_lifecycle_reflector_1 = __webpack_require__(570);
+	var route_registry_1 = __webpack_require__(557);
+	var route_lifecycle_reflector_1 = __webpack_require__(572);
 	var core_1 = __webpack_require__(32);
 	var _resolveToTrue = async_1.PromiseWrapper.resolve(true);
 	var _resolveToFalse = async_1.PromiseWrapper.resolve(false);
@@ -75794,7 +75823,7 @@
 	//# sourceMappingURL=router.js.map
 
 /***/ },
-/* 548 */
+/* 550 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -75803,8 +75832,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var lang_1 = __webpack_require__(549);
-	var promise_1 = __webpack_require__(550);
+	var lang_1 = __webpack_require__(551);
+	var promise_1 = __webpack_require__(552);
 	exports.PromiseWrapper = promise_1.PromiseWrapper;
 	exports.PromiseCompleter = promise_1.PromiseCompleter;
 	var Subject_1 = __webpack_require__(65);
@@ -75949,7 +75978,7 @@
 	//# sourceMappingURL=async.js.map
 
 /***/ },
-/* 549 */
+/* 551 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
@@ -76434,7 +76463,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 550 */
+/* 552 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -76488,11 +76517,11 @@
 	//# sourceMappingURL=promise.js.map
 
 /***/ },
-/* 551 */
+/* 553 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lang_1 = __webpack_require__(549);
+	var lang_1 = __webpack_require__(551);
 	exports.Map = lang_1.global.Map;
 	exports.Set = lang_1.global.Set;
 	// Safari and Internet Explorer do not support the iterable parameter to the
@@ -76861,7 +76890,7 @@
 	//# sourceMappingURL=collection.js.map
 
 /***/ },
-/* 552 */
+/* 554 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -76870,9 +76899,9 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var base_wrapped_exception_1 = __webpack_require__(553);
-	var exception_handler_1 = __webpack_require__(554);
-	var exception_handler_2 = __webpack_require__(554);
+	var base_wrapped_exception_1 = __webpack_require__(555);
+	var exception_handler_1 = __webpack_require__(556);
+	var exception_handler_2 = __webpack_require__(556);
 	exports.ExceptionHandler = exception_handler_2.ExceptionHandler;
 	var BaseException = (function (_super) {
 	    __extends(BaseException, _super);
@@ -76944,7 +76973,7 @@
 	//# sourceMappingURL=exceptions.js.map
 
 /***/ },
-/* 553 */
+/* 555 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -76999,13 +77028,13 @@
 	//# sourceMappingURL=base_wrapped_exception.js.map
 
 /***/ },
-/* 554 */
+/* 556 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lang_1 = __webpack_require__(549);
-	var base_wrapped_exception_1 = __webpack_require__(553);
-	var collection_1 = __webpack_require__(551);
+	var lang_1 = __webpack_require__(551);
+	var base_wrapped_exception_1 = __webpack_require__(555);
+	var collection_1 = __webpack_require__(553);
 	var _ArrayLogger = (function () {
 	    function _ArrayLogger() {
 	        this.res = [];
@@ -77136,7 +77165,7 @@
 	//# sourceMappingURL=exception_handler.js.map
 
 /***/ },
-/* 555 */
+/* 557 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -77152,17 +77181,17 @@
 	var __param = (this && this.__param) || function (paramIndex, decorator) {
 	    return function (target, key) { decorator(target, key, paramIndex); }
 	};
-	var collection_1 = __webpack_require__(551);
-	var async_1 = __webpack_require__(548);
-	var lang_1 = __webpack_require__(549);
-	var exceptions_1 = __webpack_require__(552);
+	var collection_1 = __webpack_require__(553);
+	var async_1 = __webpack_require__(550);
+	var lang_1 = __webpack_require__(551);
+	var exceptions_1 = __webpack_require__(554);
 	var core_1 = __webpack_require__(32);
-	var route_config_impl_1 = __webpack_require__(556);
-	var rules_1 = __webpack_require__(557);
-	var rule_set_1 = __webpack_require__(560);
-	var instruction_1 = __webpack_require__(559);
-	var route_config_normalizer_1 = __webpack_require__(567);
-	var url_parser_1 = __webpack_require__(558);
+	var route_config_impl_1 = __webpack_require__(558);
+	var rules_1 = __webpack_require__(559);
+	var rule_set_1 = __webpack_require__(562);
+	var instruction_1 = __webpack_require__(561);
+	var route_config_normalizer_1 = __webpack_require__(569);
+	var url_parser_1 = __webpack_require__(560);
 	var _resolveToNull = async_1.PromiseWrapper.resolve(null);
 	// A LinkItemArray is an array, which describes a set of routes
 	// The items in the array are found in groups:
@@ -77607,7 +77636,7 @@
 	//# sourceMappingURL=route_registry.js.map
 
 /***/ },
-/* 556 */
+/* 558 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -77808,7 +77837,7 @@
 	//# sourceMappingURL=route_config_impl.js.map
 
 /***/ },
-/* 557 */
+/* 559 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -77817,12 +77846,12 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var lang_1 = __webpack_require__(549);
-	var exceptions_1 = __webpack_require__(552);
-	var promise_1 = __webpack_require__(550);
-	var collection_1 = __webpack_require__(551);
-	var url_parser_1 = __webpack_require__(558);
-	var instruction_1 = __webpack_require__(559);
+	var lang_1 = __webpack_require__(551);
+	var exceptions_1 = __webpack_require__(554);
+	var promise_1 = __webpack_require__(552);
+	var collection_1 = __webpack_require__(553);
+	var url_parser_1 = __webpack_require__(560);
+	var instruction_1 = __webpack_require__(561);
 	// RouteMatch objects hold information about a match between a rule and a URL
 	var RouteMatch = (function () {
 	    function RouteMatch() {
@@ -77935,7 +77964,7 @@
 	//# sourceMappingURL=rules.js.map
 
 /***/ },
-/* 558 */
+/* 560 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -77944,9 +77973,9 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var collection_1 = __webpack_require__(551);
-	var lang_1 = __webpack_require__(549);
-	var exceptions_1 = __webpack_require__(552);
+	var collection_1 = __webpack_require__(553);
+	var lang_1 = __webpack_require__(551);
+	var exceptions_1 = __webpack_require__(554);
 	function convertUrlParamsToArray(urlParams) {
 	    var paramsArray = [];
 	    if (lang_1.isBlank(urlParams)) {
@@ -78175,7 +78204,7 @@
 	//# sourceMappingURL=url_parser.js.map
 
 /***/ },
-/* 559 */
+/* 561 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -78184,9 +78213,9 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var collection_1 = __webpack_require__(551);
-	var lang_1 = __webpack_require__(549);
-	var async_1 = __webpack_require__(548);
+	var collection_1 = __webpack_require__(553);
+	var lang_1 = __webpack_require__(551);
+	var async_1 = __webpack_require__(550);
 	/**
 	 * `RouteParams` is an immutable map of parameters for the given route
 	 * based on the url matcher and optional parameters for that route.
@@ -78524,20 +78553,20 @@
 	//# sourceMappingURL=instruction.js.map
 
 /***/ },
-/* 560 */
+/* 562 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lang_1 = __webpack_require__(549);
-	var exceptions_1 = __webpack_require__(552);
-	var collection_1 = __webpack_require__(551);
-	var async_1 = __webpack_require__(548);
-	var rules_1 = __webpack_require__(557);
-	var route_config_impl_1 = __webpack_require__(556);
-	var async_route_handler_1 = __webpack_require__(561);
-	var sync_route_handler_1 = __webpack_require__(562);
-	var param_route_path_1 = __webpack_require__(563);
-	var regex_route_path_1 = __webpack_require__(566);
+	var lang_1 = __webpack_require__(551);
+	var exceptions_1 = __webpack_require__(554);
+	var collection_1 = __webpack_require__(553);
+	var async_1 = __webpack_require__(550);
+	var rules_1 = __webpack_require__(559);
+	var route_config_impl_1 = __webpack_require__(558);
+	var async_route_handler_1 = __webpack_require__(563);
+	var sync_route_handler_1 = __webpack_require__(564);
+	var param_route_path_1 = __webpack_require__(565);
+	var regex_route_path_1 = __webpack_require__(568);
 	/**
 	 * A `RuleSet` is responsible for recognizing routes for a particular component.
 	 * It is consumed by `RouteRegistry`, which knows how to recognize an entire hierarchy of
@@ -78682,12 +78711,12 @@
 	//# sourceMappingURL=rule_set.js.map
 
 /***/ },
-/* 561 */
+/* 563 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lang_1 = __webpack_require__(549);
-	var instruction_1 = __webpack_require__(559);
+	var lang_1 = __webpack_require__(551);
+	var instruction_1 = __webpack_require__(561);
 	var AsyncRouteHandler = (function () {
 	    function AsyncRouteHandler(_loader, data) {
 	        if (data === void 0) { data = null; }
@@ -78712,13 +78741,13 @@
 	//# sourceMappingURL=async_route_handler.js.map
 
 /***/ },
-/* 562 */
+/* 564 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var async_1 = __webpack_require__(548);
-	var lang_1 = __webpack_require__(549);
-	var instruction_1 = __webpack_require__(559);
+	var async_1 = __webpack_require__(550);
+	var lang_1 = __webpack_require__(551);
+	var instruction_1 = __webpack_require__(561);
 	var SyncRouteHandler = (function () {
 	    function SyncRouteHandler(componentType, data) {
 	        this.componentType = componentType;
@@ -78734,16 +78763,16 @@
 	//# sourceMappingURL=sync_route_handler.js.map
 
 /***/ },
-/* 563 */
+/* 565 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lang_1 = __webpack_require__(549);
-	var exceptions_1 = __webpack_require__(552);
-	var collection_1 = __webpack_require__(551);
-	var utils_1 = __webpack_require__(564);
-	var url_parser_1 = __webpack_require__(558);
-	var route_path_1 = __webpack_require__(565);
+	var lang_1 = __webpack_require__(551);
+	var exceptions_1 = __webpack_require__(554);
+	var collection_1 = __webpack_require__(553);
+	var utils_1 = __webpack_require__(566);
+	var url_parser_1 = __webpack_require__(560);
+	var route_path_1 = __webpack_require__(567);
 	/**
 	 * Identified by a `...` URL segment. This indicates that the
 	 * Route will continue to be matched by child `Router`s.
@@ -79006,12 +79035,12 @@
 	//# sourceMappingURL=param_route_path.js.map
 
 /***/ },
-/* 564 */
+/* 566 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lang_1 = __webpack_require__(549);
-	var collection_1 = __webpack_require__(551);
+	var lang_1 = __webpack_require__(551);
+	var collection_1 = __webpack_require__(553);
 	var TouchMap = (function () {
 	    function TouchMap(map) {
 	        var _this = this;
@@ -79050,7 +79079,7 @@
 	//# sourceMappingURL=utils.js.map
 
 /***/ },
-/* 565 */
+/* 567 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -79076,12 +79105,12 @@
 	//# sourceMappingURL=route_path.js.map
 
 /***/ },
-/* 566 */
+/* 568 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lang_1 = __webpack_require__(549);
-	var route_path_1 = __webpack_require__(565);
+	var lang_1 = __webpack_require__(551);
+	var route_path_1 = __webpack_require__(567);
 	var RegexRoutePath = (function () {
 	    function RegexRoutePath(_reString, _serializer) {
 	        this._reString = _reString;
@@ -79112,13 +79141,13 @@
 	//# sourceMappingURL=regex_route_path.js.map
 
 /***/ },
-/* 567 */
+/* 569 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var route_config_decorator_1 = __webpack_require__(568);
-	var lang_1 = __webpack_require__(549);
-	var exceptions_1 = __webpack_require__(552);
+	var route_config_decorator_1 = __webpack_require__(570);
+	var lang_1 = __webpack_require__(551);
+	var exceptions_1 = __webpack_require__(554);
 	/**
 	 * Given a JS Object that represents a route config, returns a corresponding Route, AsyncRoute,
 	 * AuxRoute or Redirect object.
@@ -79212,13 +79241,13 @@
 	//# sourceMappingURL=route_config_normalizer.js.map
 
 /***/ },
-/* 568 */
+/* 570 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var route_config_impl_1 = __webpack_require__(556);
-	var core_private_1 = __webpack_require__(569);
-	var route_config_impl_2 = __webpack_require__(556);
+	var route_config_impl_1 = __webpack_require__(558);
+	var core_private_1 = __webpack_require__(571);
+	var route_config_impl_2 = __webpack_require__(558);
 	exports.Route = route_config_impl_2.Route;
 	exports.Redirect = route_config_impl_2.Redirect;
 	exports.AuxRoute = route_config_impl_2.AuxRoute;
@@ -79233,7 +79262,7 @@
 	//# sourceMappingURL=route_config_decorator.js.map
 
 /***/ },
-/* 569 */
+/* 571 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -79242,12 +79271,12 @@
 	//# sourceMappingURL=core_private.js.map
 
 /***/ },
-/* 570 */
+/* 572 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var core_1 = __webpack_require__(32);
-	var lifecycle_annotations_impl_1 = __webpack_require__(571);
+	var lifecycle_annotations_impl_1 = __webpack_require__(573);
 	var core_2 = __webpack_require__(32);
 	function hasLifecycleHook(e, type) {
 	    if (!(type instanceof core_1.Type))
@@ -79269,7 +79298,7 @@
 	//# sourceMappingURL=route_lifecycle_reflector.js.map
 
 /***/ },
-/* 571 */
+/* 573 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -79302,7 +79331,7 @@
 	//# sourceMappingURL=lifecycle_annotations_impl.js.map
 
 /***/ },
-/* 572 */
+/* 574 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -79318,14 +79347,14 @@
 	var __param = (this && this.__param) || function (paramIndex, decorator) {
 	    return function (target, key) { decorator(target, key, paramIndex); }
 	};
-	var async_1 = __webpack_require__(548);
-	var collection_1 = __webpack_require__(551);
-	var lang_1 = __webpack_require__(549);
+	var async_1 = __webpack_require__(550);
+	var collection_1 = __webpack_require__(553);
+	var lang_1 = __webpack_require__(551);
 	var core_1 = __webpack_require__(32);
-	var routerMod = __webpack_require__(547);
-	var instruction_1 = __webpack_require__(559);
-	var hookMod = __webpack_require__(573);
-	var route_lifecycle_reflector_1 = __webpack_require__(570);
+	var routerMod = __webpack_require__(549);
+	var instruction_1 = __webpack_require__(561);
+	var hookMod = __webpack_require__(575);
+	var route_lifecycle_reflector_1 = __webpack_require__(572);
 	var _resolveToTrue = async_1.PromiseWrapper.resolve(true);
 	/**
 	 * A router outlet is a placeholder that Angular dynamically fills based on the application's route.
@@ -79494,7 +79523,7 @@
 	//# sourceMappingURL=router_outlet.js.map
 
 /***/ },
-/* 573 */
+/* 575 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -79502,9 +79531,9 @@
 	 * to be used by the decorator versions of these annotations.
 	 */
 	"use strict";
-	var core_private_1 = __webpack_require__(569);
-	var lifecycle_annotations_impl_1 = __webpack_require__(571);
-	var lifecycle_annotations_impl_2 = __webpack_require__(571);
+	var core_private_1 = __webpack_require__(571);
+	var lifecycle_annotations_impl_1 = __webpack_require__(573);
+	var lifecycle_annotations_impl_2 = __webpack_require__(573);
 	exports.routerCanReuse = lifecycle_annotations_impl_2.routerCanReuse;
 	exports.routerCanDeactivate = lifecycle_annotations_impl_2.routerCanDeactivate;
 	exports.routerOnActivate = lifecycle_annotations_impl_2.routerOnActivate;
@@ -79540,7 +79569,7 @@
 	//# sourceMappingURL=lifecycle_annotations.js.map
 
 /***/ },
-/* 574 */
+/* 576 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -79555,8 +79584,8 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var lang_1 = __webpack_require__(549);
-	var router_1 = __webpack_require__(547);
+	var lang_1 = __webpack_require__(551);
+	var router_1 = __webpack_require__(549);
 	/**
 	 * The RouterLink directive lets you link to specific parts of your app.
 	 *
@@ -79640,15 +79669,15 @@
 	//# sourceMappingURL=router_link.js.map
 
 /***/ },
-/* 575 */
+/* 577 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var router_1 = __webpack_require__(547);
-	var route_registry_1 = __webpack_require__(555);
-	var exceptions_1 = __webpack_require__(552);
+	var router_1 = __webpack_require__(549);
+	var route_registry_1 = __webpack_require__(557);
+	var exceptions_1 = __webpack_require__(554);
 	/**
 	 * The Platform agnostic ROUTER PROVIDERS
 	 */
@@ -79681,11 +79710,11 @@
 	//# sourceMappingURL=router_providers_common.js.map
 
 /***/ },
-/* 576 */
+/* 578 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var router_providers_common_1 = __webpack_require__(575);
+	var router_providers_common_1 = __webpack_require__(577);
 	var platform_browser_1 = __webpack_require__(201);
 	var common_1 = __webpack_require__(206);
 	/**
@@ -79726,17 +79755,17 @@
 	//# sourceMappingURL=router_providers.js.map
 
 /***/ },
-/* 577 */
+/* 579 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var Observable_1 = __webpack_require__(66);
-	var map_1 = __webpack_require__(578);
+	var map_1 = __webpack_require__(580);
 	Observable_1.Observable.prototype.map = map_1.map;
 	//# sourceMappingURL=map.js.map
 
 /***/ },
-/* 578 */
+/* 580 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -79827,9 +79856,10 @@
 	//# sourceMappingURL=map.js.map
 
 /***/ },
-/* 579 */
+/* 581 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -79846,10 +79876,10 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var modalDialog_1 = __webpack_require__(532);
-	var user_1 = __webpack_require__(580);
-	var Angular2ExtensionValidators_1 = __webpack_require__(523);
-	var _ = __webpack_require__(521);
+	var modalDialog_1 = __webpack_require__(535);
+	var user_1 = __webpack_require__(582);
+	var Angular2ExtensionValidators_1 = __webpack_require__(526);
+	var _ = __webpack_require__(524);
 	var CreateUserDialog = (function (_super) {
 	    __extends(CreateUserDialog, _super);
 	    function CreateUserDialog(formBuilder) {
@@ -79951,14 +79981,15 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], CreateUserDialog);
 	    return CreateUserDialog;
-	})(modalDialog_1.ModalDialog);
+	}(modalDialog_1.ModalDialog));
 	exports.CreateUserDialog = CreateUserDialog;
 	//# sourceMappingURL=createUserDialog.js.map
 
 /***/ },
-/* 580 */
+/* 582 */
 /***/ function(module, exports) {
 
+	"use strict";
 	var User = (function () {
 	    function User(id, name, email, type, status, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes, phone) {
 	        this.isInEditMode = false;
@@ -80024,14 +80055,15 @@
 	        return true;
 	    };
 	    return User;
-	})();
+	}());
 	exports.User = User;
 	//# sourceMappingURL=user.js.map
 
 /***/ },
-/* 581 */
+/* 583 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -80047,7 +80079,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(32);
-	var modalDialog_1 = __webpack_require__(532);
+	var modalDialog_1 = __webpack_require__(535);
 	var ActionDialog = (function (_super) {
 	    __extends(ActionDialog, _super);
 	    function ActionDialog() {
@@ -80088,14 +80120,15 @@
 	        __metadata('design:paramtypes', [])
 	    ], ActionDialog);
 	    return ActionDialog;
-	})(modalDialog_1.ModalDialog);
+	}(modalDialog_1.ModalDialog));
 	exports.ActionDialog = ActionDialog;
 	//# sourceMappingURL=actionDialog.js.map
 
 /***/ },
-/* 582 */
+/* 584 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80140,15 +80173,16 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], UserService);
 	    return UserService;
-	})();
+	}());
 	exports.UserService = UserService;
 	//# sourceMappingURL=usersService.js.map
 
 /***/ },
-/* 583 */
+/* 585 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var accountStatus_1 = __webpack_require__(524);
+	"use strict";
+	var accountStatus_1 = __webpack_require__(527);
 	exports.STATUS = [
 	    { status: null, displayName: "Chose..." },
 	    { status: accountStatus_1.AccountStatus.AUTO, displayName: "AUTO" },
@@ -80158,27 +80192,10 @@
 	//# sourceMappingURL=mock-Status.js.map
 
 /***/ },
-/* 584 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by nick_ on 5/5/2016.
-	 */
-	var Role = (function () {
-	    function Role() {
-	    }
-	    Role.ADMIN = 'ADMIN';
-	    Role.USER = 'USER';
-	    Role.ANONYMUS = 'ANONYMUS';
-	    return Role;
-	})();
-	exports.Role = Role;
-	//# sourceMappingURL=Roles.js.map
-
-/***/ },
-/* 585 */
+/* 586 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80191,13 +80208,13 @@
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
 	var ng2_bootstrap_1 = __webpack_require__(328);
-	__webpack_require__(577);
-	var subscriber_1 = __webpack_require__(586);
-	var actionDialog_1 = __webpack_require__(581);
-	var subscribersService_1 = __webpack_require__(525);
-	var createSubscriberDialog_1 = __webpack_require__(587);
+	__webpack_require__(579);
+	var subscriber_1 = __webpack_require__(587);
+	var actionDialog_1 = __webpack_require__(583);
+	var subscribersService_1 = __webpack_require__(528);
+	var createSubscriberDialog_1 = __webpack_require__(588);
 	var applicationConstansts_1 = __webpack_require__(495);
-	var localizationService_1 = __webpack_require__(535);
+	var localizationService_1 = __webpack_require__(538);
 	var applicationPath = '/app/pages/adminPage/subscribersPage';
 	var SubscribersPage = (function () {
 	    function SubscribersPage(subscribersService, localizationService) {
@@ -80240,11 +80257,6 @@
 	    SubscribersPage.prototype.createSubscriber = function (subscriberValue) {
 	        var me = this;
 	        this._subscribersService.subscribe(subscriberValue.email)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me.getSubscribersWithFilters();
 	        }, function (error) {
@@ -80253,11 +80265,6 @@
 	    SubscribersPage.prototype.getSubscribersWithFilters = function () {
 	        var me = this;
 	        this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.pagination['currentPage'], this.sortKey, this.sortOrder)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me.subscribersList = response.data;
 	            me.pagination['totalItems'] = response.totalPages;
@@ -80267,22 +80274,13 @@
 	    };
 	    SubscribersPage.prototype.subscribe = function (subscriber) {
 	        this._subscribersService.subscribe(subscriber.email)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	        }, function (error) {
 	        });
 	    };
 	    SubscribersPage.prototype.unsubscribe = function (subscriber) {
 	        this._subscribersService.unsubscribe(subscriber.id)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        }).subscribe(function (response) {
+	            .subscribe(function (response) {
 	        }, function (error) {
 	        });
 	    };
@@ -80290,11 +80288,6 @@
 	        var me = this;
 	        this.actionDialog.hide();
 	        this._subscribersService.delete(subscriber.id)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            var subscriberIndex = me.subscribersList.indexOf(subscriber);
 	            if (subscriberIndex !== -1) {
@@ -80360,11 +80353,6 @@
 	    SubscribersPage.prototype.getCities = function () {
 	        var me = this;
 	        me._localizationService.getCityList()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (succesR) {
 	            me.cityList = succesR;
 	        }, function (error) {
@@ -80382,14 +80370,15 @@
 	        __metadata('design:paramtypes', [subscribersService_1.SubscribersService, localizationService_1.LocalizationService])
 	    ], SubscribersPage);
 	    return SubscribersPage;
-	})();
+	}());
 	exports.SubscribersPage = SubscribersPage;
 	//# sourceMappingURL=subscribersPage.js.map
 
 /***/ },
-/* 586 */
+/* 587 */
 /***/ function(module, exports) {
 
+	"use strict";
 	var Subscriber = (function () {
 	    function Subscriber(id, description, email, subscribeDate, unsubscribeDate, unsubscribeToken) {
 	        this.isInEditMode = false;
@@ -80404,14 +80393,15 @@
 	        return new Subscriber();
 	    };
 	    return Subscriber;
-	})();
+	}());
 	exports.Subscriber = Subscriber;
 	//# sourceMappingURL=subscriber.js.map
 
 /***/ },
-/* 587 */
+/* 588 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -80428,9 +80418,9 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var modalDialog_1 = __webpack_require__(532);
-	var subscriber_1 = __webpack_require__(586);
-	var Angular2ExtensionValidators_1 = __webpack_require__(523);
+	var modalDialog_1 = __webpack_require__(535);
+	var subscriber_1 = __webpack_require__(587);
+	var Angular2ExtensionValidators_1 = __webpack_require__(526);
 	var CreateSubscriberDialog = (function (_super) {
 	    __extends(CreateSubscriberDialog, _super);
 	    function CreateSubscriberDialog(formBuilder) {
@@ -80501,14 +80491,15 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], CreateSubscriberDialog);
 	    return CreateSubscriberDialog;
-	})(modalDialog_1.ModalDialog);
+	}(modalDialog_1.ModalDialog));
 	exports.CreateSubscriberDialog = CreateSubscriberDialog;
 	//# sourceMappingURL=createSubscriberDialog.js.map
 
 /***/ },
-/* 588 */
+/* 589 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80520,10 +80511,10 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var companiesPage_1 = __webpack_require__(589);
-	var domainsPage_1 = __webpack_require__(592);
-	var categoriesMenuPage_1 = __webpack_require__(595);
-	var tabsRoutingComponent_1 = __webpack_require__(597);
+	var companiesPage_1 = __webpack_require__(590);
+	var domainsPage_1 = __webpack_require__(593);
+	var categoriesMenuPage_1 = __webpack_require__(596);
+	var tabsRoutingComponent_1 = __webpack_require__(598);
 	var applicationPath = '/app/pages/adminPage/categoriesPage';
 	var CategoriesPage = (function () {
 	    function CategoriesPage() {
@@ -80555,14 +80546,15 @@
 	        __metadata('design:paramtypes', [])
 	    ], CategoriesPage);
 	    return CategoriesPage;
-	})();
+	}());
 	exports.CategoriesPage = CategoriesPage;
 	//# sourceMappingURL=categoriesPage.js.map
 
 /***/ },
-/* 589 */
+/* 590 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80574,8 +80566,8 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var companieType_1 = __webpack_require__(590);
-	var companieTypesService_1 = __webpack_require__(591);
+	var companieType_1 = __webpack_require__(591);
+	var companieTypesService_1 = __webpack_require__(592);
 	var applicationPath = '/app/pages/adminPage/categoriesPage/companiesPage';
 	var CompaniesPage = (function () {
 	    function CompaniesPage(companieTypeService, formBuilder) {
@@ -80592,11 +80584,6 @@
 	    CompaniesPage.prototype.getCompanyTypesWithFilters = function () {
 	        var me = this;
 	        this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-	            .map(function (response) {
-	            if (response.text().length) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me.companieTypes = response;
 	        }, function (error) {
@@ -80609,11 +80596,7 @@
 	            return;
 	        }
 	        this._companieTypeService.addCompanyType(this.newDomain)
-	            .map(function (response) {
-	            if (response.text().length) {
-	                return response.json();
-	            }
-	        }).subscribe(function (response) {
+	            .subscribe(function (response) {
 	            me.getCompanyTypesWithFilters();
 	            me.newDomain = "";
 	            me.toggleAddCompanieDomain(false);
@@ -80626,11 +80609,7 @@
 	    CompaniesPage.prototype.deleteCompanyType = function (companyType) {
 	        var me = this;
 	        this._companieTypeService.deleteCompanyType(companyType.id)
-	            .map(function (response) {
-	            if (response.text().length) {
-	                return response.json();
-	            }
-	        }).subscribe(function (response) {
+	            .subscribe(function (response) {
 	            me.getCompanyTypesWithFilters();
 	        }, function (error) {
 	            //me.companieTypes = [];
@@ -80639,11 +80618,7 @@
 	    CompaniesPage.prototype.editCompaniType = function (companyType) {
 	        var me = this;
 	        this._companieTypeService.editCompaniType(companyType)
-	            .map(function (response) {
-	            if (response.text().length) {
-	                return response.json();
-	            }
-	        }).subscribe(function (response) {
+	            .subscribe(function (response) {
 	            companyType.isInEditMode = false;
 	            //this.companieTypes = response.data;
 	        }, function (error) {
@@ -80683,14 +80658,15 @@
 	        __metadata('design:paramtypes', [companieTypesService_1.CompanieTypeService, common_1.FormBuilder])
 	    ], CompaniesPage);
 	    return CompaniesPage;
-	})();
+	}());
 	exports.CompaniesPage = CompaniesPage;
 	//# sourceMappingURL=companiesPage.js.map
 
 /***/ },
-/* 590 */
+/* 591 */
 /***/ function(module, exports) {
 
+	"use strict";
 	var CompanieType = (function () {
 	    function CompanieType(id, name, companies) {
 	        this.isInEditMode = false;
@@ -80699,14 +80675,15 @@
 	        //this.companies_no = companies;
 	    }
 	    return CompanieType;
-	})();
+	}());
 	exports.CompanieType = CompanieType;
 	//# sourceMappingURL=companieType.js.map
 
 /***/ },
-/* 591 */
+/* 592 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80740,14 +80717,15 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], CompanieTypeService);
 	    return CompanieTypeService;
-	})();
+	}());
 	exports.CompanieTypeService = CompanieTypeService;
 	//# sourceMappingURL=companieTypesService.js.map
 
 /***/ },
-/* 592 */
+/* 593 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80759,8 +80737,8 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var requestType_1 = __webpack_require__(593);
-	var requestTypeService_1 = __webpack_require__(594);
+	var requestType_1 = __webpack_require__(594);
+	var requestTypeService_1 = __webpack_require__(595);
 	var applicationPath = '/app/pages/adminPage/categoriesPage/domainsPage';
 	var DomainsPage = (function () {
 	    function DomainsPage(requestTypeService, formBuilder) {
@@ -80777,11 +80755,6 @@
 	    DomainsPage.prototype.getRequestTypesWithFilters = function () {
 	        var me = this;
 	        this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-	            .map(function (response) {
-	            if (response.text().length) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me.domainsTypes = response;
 	        }, function (error) {
@@ -80794,11 +80767,6 @@
 	        }
 	        var me = this;
 	        this._requestTypeService.addRequestType(this.newRequestType)
-	            .map(function (response) {
-	            if (response.text().length) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me.getRequestTypesWithFilters();
 	            me.newRequestType = "";
@@ -80811,11 +80779,6 @@
 	    DomainsPage.prototype.deleteRequestType = function (requestType) {
 	        var me = this;
 	        this._requestTypeService.deleteRequestType(requestType.id)
-	            .map(function (response) {
-	            if (response.text().length) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me.domainsTypes = response;
 	            me.getRequestTypesWithFilters();
@@ -80826,11 +80789,6 @@
 	    DomainsPage.prototype.editRequestType = function (requestType) {
 	        var me = this;
 	        this._requestTypeService.editRequestType(requestType)
-	            .map(function (response) {
-	            if (response.text().length) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            requestType.isInEditMode = false;
 	            //this.companieTypes = response.data;
@@ -80871,14 +80829,15 @@
 	        __metadata('design:paramtypes', [requestTypeService_1.RequestTypeService, common_1.FormBuilder])
 	    ], DomainsPage);
 	    return DomainsPage;
-	})();
+	}());
 	exports.DomainsPage = DomainsPage;
 	//# sourceMappingURL=domainsPage.js.map
 
 /***/ },
-/* 593 */
+/* 594 */
 /***/ function(module, exports) {
 
+	"use strict";
 	var RequestType = (function () {
 	    function RequestType(id, name, companies) {
 	        this.isInEditMode = false;
@@ -80887,14 +80846,15 @@
 	        //this.companies = companies;
 	    }
 	    return RequestType;
-	})();
+	}());
 	exports.RequestType = RequestType;
 	//# sourceMappingURL=requestType.js.map
 
 /***/ },
-/* 594 */
+/* 595 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80928,14 +80888,15 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], RequestTypeService);
 	    return RequestTypeService;
-	})();
+	}());
 	exports.RequestTypeService = RequestTypeService;
 	//# sourceMappingURL=requestTypeService.js.map
 
 /***/ },
-/* 595 */
+/* 596 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -80946,12 +80907,12 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(32);
-	var menuTreeComponent_1 = __webpack_require__(533);
+	var menuTreeComponent_1 = __webpack_require__(536);
 	var categoriesMenuService_1 = __webpack_require__(497);
-	var menuItemDialog_1 = __webpack_require__(596);
-	var selectComponent_1 = __webpack_require__(528);
+	var menuItemDialog_1 = __webpack_require__(597);
+	var selectComponent_1 = __webpack_require__(531);
 	var authorizationService_1 = __webpack_require__(494);
-	var Roles_1 = __webpack_require__(584);
+	var Roles_1 = __webpack_require__(522);
 	var applicationPath = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
 	var CategoriesMenuPage = (function () {
 	    function CategoriesMenuPage(_categoriesMenuService) {
@@ -80970,11 +80931,7 @@
 	    CategoriesMenuPage.prototype.getMenuDictionary = function () {
 	        var me = this;
 	        this._categoriesMenuService.getMenuDictionary()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        }).subscribe(function (response) {
+	            .subscribe(function (response) {
 	            me.menuDictionary = response;
 	        }, function (error) {
 	            me.menuDictionary = [];
@@ -80990,11 +80947,7 @@
 	    CategoriesMenuPage.prototype.addMenuItem = function (newDomainMenuItemRequest) {
 	        var me = this;
 	        me._categoriesMenuService.addMenuItem(newDomainMenuItemRequest)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        }).subscribe(function (response) {
+	            .subscribe(function (response) {
 	            me._menuItemModal.hide();
 	            me.getMenuDictionary();
 	        }, function (error) {
@@ -81012,11 +80965,7 @@
 	    CategoriesMenuPage.prototype.editMenuItem = function (updateDomainMenuItemRequest) {
 	        var me = this;
 	        me._categoriesMenuService.updateMenuItem(updateDomainMenuItemRequest)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        }).subscribe(function (response) {
+	            .subscribe(function (response) {
 	            me._menuItemModal.hide();
 	            me.getMenuDictionary();
 	        }, function (error) {
@@ -81026,11 +80975,7 @@
 	    CategoriesMenuPage.prototype.deleteMenuItem = function (id) {
 	        var _this = this;
 	        this._categoriesMenuService.deleteMenuItem(id)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        }).subscribe(function (response) {
+	            .subscribe(function (response) {
 	            _this.getMenuDictionary();
 	        }, function (errod) {
 	        });
@@ -81038,11 +80983,7 @@
 	    CategoriesMenuPage.prototype.getDomains = function () {
 	        var me = this;
 	        this._categoriesMenuService.getDomains()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        }).subscribe(function (response) {
+	            .subscribe(function (response) {
 	            me._domains = response;
 	        }, function (error) {
 	            console.log(me._domains);
@@ -81059,14 +81000,15 @@
 	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])
 	    ], CategoriesMenuPage);
 	    return CategoriesMenuPage;
-	})();
+	}());
 	exports.CategoriesMenuPage = CategoriesMenuPage;
 	//# sourceMappingURL=categoriesMenuPage.js.map
 
 /***/ },
-/* 596 */
+/* 597 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81081,8 +81023,8 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var selectComponent_1 = __webpack_require__(528);
-	var Angular2ExtensionValidators_1 = __webpack_require__(523);
+	var selectComponent_1 = __webpack_require__(531);
+	var Angular2ExtensionValidators_1 = __webpack_require__(526);
 	//used template to not download the same html multiple times
 	var MenuItemDialog = (function () {
 	    function MenuItemDialog(formBuilder) {
@@ -81218,14 +81160,15 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], MenuItemDialog);
 	    return MenuItemDialog;
-	})();
+	}());
 	exports.MenuItemDialog = MenuItemDialog;
 	//# sourceMappingURL=menuItemDialog.js.map
 
 /***/ },
-/* 597 */
+/* 598 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81264,14 +81207,15 @@
 	        __metadata('design:paramtypes', [router_1.Router, common_1.Location])
 	    ], TabsRoutingComponent);
 	    return TabsRoutingComponent;
-	})();
+	}());
 	exports.TabsRoutingComponent = TabsRoutingComponent;
 	//# sourceMappingURL=tabsRoutingComponent.js.map
 
 /***/ },
-/* 598 */
+/* 599 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81286,9 +81230,9 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var tabsRoutingComponent_1 = __webpack_require__(597);
-	var newDemandsListPage_1 = __webpack_require__(599);
-	var allDemandsListPage_1 = __webpack_require__(604);
+	var tabsRoutingComponent_1 = __webpack_require__(598);
+	var newDemandsListPage_1 = __webpack_require__(600);
+	var allDemandsListPage_1 = __webpack_require__(605);
 	var applicationPath = '/app/pages/adminPage/demandsPage';
 	var DemandsPage = (function () {
 	    function DemandsPage() {
@@ -81316,17 +81260,18 @@
 	        __metadata('design:paramtypes', [])
 	    ], DemandsPage);
 	    return DemandsPage;
-	})();
+	}());
 	exports.DemandsPage = DemandsPage;
 	//# sourceMappingURL=demandsPage.js.map
 
 /***/ },
-/* 599 */
+/* 600 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by nick_ on 4/23/2016.
 	 */
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -81343,13 +81288,13 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var demandListBase_1 = __webpack_require__(600);
-	var demandService_1 = __webpack_require__(520);
-	var requestTypeService_1 = __webpack_require__(594);
-	var demandsListPageBase_1 = __webpack_require__(601);
+	var demandListBase_1 = __webpack_require__(601);
+	var demandService_1 = __webpack_require__(523);
+	var requestTypeService_1 = __webpack_require__(595);
+	var demandsListPageBase_1 = __webpack_require__(602);
 	var categoriesMenuService_1 = __webpack_require__(497);
-	var menuTreeDialog_1 = __webpack_require__(531);
-	var localizationService_1 = __webpack_require__(535);
+	var menuTreeDialog_1 = __webpack_require__(534);
+	var localizationService_1 = __webpack_require__(538);
 	var applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
 	var NewDemandsListPage = (function (_super) {
 	    __extends(NewDemandsListPage, _super);
@@ -81377,14 +81322,15 @@
 	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
 	    ], NewDemandsListPage);
 	    return NewDemandsListPage;
-	})(demandsListPageBase_1.DemandsListPageBase);
+	}(demandsListPageBase_1.DemandsListPageBase));
 	exports.NewDemandsListPage = NewDemandsListPage;
 	//# sourceMappingURL=newDemandsListPage.js.map
 
 /***/ },
-/* 600 */
+/* 601 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81423,17 +81369,18 @@
 	        __metadata('design:paramtypes', [])
 	    ], DemandListBaseComponent);
 	    return DemandListBaseComponent;
-	})();
+	}());
 	exports.DemandListBaseComponent = DemandListBaseComponent;
 	//# sourceMappingURL=demandListBase.js.map
 
 /***/ },
-/* 601 */
+/* 602 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(521);
-	var DemandStatus_1 = __webpack_require__(602);
-	var DemandSearchObject_1 = __webpack_require__(603);
+	"use strict";
+	var _ = __webpack_require__(524);
+	var DemandStatus_1 = __webpack_require__(603);
+	var DemandSearchObject_1 = __webpack_require__(604);
 	var DemandsListPageBase = (function () {
 	    function DemandsListPageBase(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService) {
 	        this.statusList = [{ status: DemandStatus_1.DemandStatus.ACTIVE, displayName: DemandStatus_1.DemandStatus.ACTIVE },
@@ -81457,11 +81404,6 @@
 	    DemandsListPageBase.prototype.getAllDemandsList = function () {
 	        var me = this;
 	        this._demandService.getDemandsWithFilters(this._searchObject)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._demandsList = response.data;
 	            me.totalPages = response.totalPages;
@@ -81472,11 +81414,7 @@
 	    DemandsListPageBase.prototype.getMenuDictionary = function () {
 	        var me = this;
 	        this._categoriesMenuService.getMenuDictionary()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        }).subscribe(function (response) {
+	            .subscribe(function (response) {
 	            me.menuDictionary = response;
 	        }, function (error) {
 	            me.menuDictionary = [];
@@ -81485,11 +81423,6 @@
 	    DemandsListPageBase.prototype.getNewDemandsList = function () {
 	        var me = this;
 	        this._demandService.getNewDemands()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._demandsList = response;
 	        }, function (error) {
@@ -81505,11 +81438,6 @@
 	    DemandsListPageBase.prototype.getCities = function () {
 	        var me = this;
 	        this._localizationService.getCityList()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._citiesList = me._localizationService.mapNameToSelect2Item(response);
 	        }, function (error) {
@@ -81518,11 +81446,6 @@
 	    DemandsListPageBase.prototype.getDomains = function () {
 	        var me = this;
 	        this._requestTypeService.getRequestTypesWithFilters()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._domainsList = _.map(response, function (domain) {
 	                return {
@@ -81537,17 +81460,18 @@
 	        this._router.navigate(['/Admin/EditDemand', { id: demand.id }]);
 	    };
 	    return DemandsListPageBase;
-	})();
+	}());
 	exports.DemandsListPageBase = DemandsListPageBase;
 	//# sourceMappingURL=demandsListPageBase.js.map
 
 /***/ },
-/* 602 */
+/* 603 */
 /***/ function(module, exports) {
 
 	/**
 	 * Created by NicolaeB on 4/26/2016.
 	 */
+	"use strict";
 	var DemandStatus = (function () {
 	    function DemandStatus() {
 	    }
@@ -81558,14 +81482,15 @@
 	    DemandStatus.CLOSED = "CLOSED";
 	    DemandStatus.REJECTED = "REJECTED";
 	    return DemandStatus;
-	})();
+	}());
 	exports.DemandStatus = DemandStatus;
 	//# sourceMappingURL=DemandStatus.js.map
 
 /***/ },
-/* 603 */
+/* 604 */
 /***/ function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by NicolaeB on 5/26/2016.
 	 */
@@ -81577,14 +81502,15 @@
 	        this.domainId = domainId;
 	    }
 	    return DemandSearchObject;
-	})();
+	}());
 	exports.DemandSearchObject = DemandSearchObject;
 	//# sourceMappingURL=DemandSearchObject.js.map
 
 /***/ },
-/* 604 */
+/* 605 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -81604,13 +81530,13 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var demandListBase_1 = __webpack_require__(600);
-	var demandService_1 = __webpack_require__(520);
-	var requestTypeService_1 = __webpack_require__(594);
-	var demandsListPageBase_1 = __webpack_require__(601);
-	var menuTreeDialog_1 = __webpack_require__(531);
+	var demandListBase_1 = __webpack_require__(601);
+	var demandService_1 = __webpack_require__(523);
+	var requestTypeService_1 = __webpack_require__(595);
+	var demandsListPageBase_1 = __webpack_require__(602);
+	var menuTreeDialog_1 = __webpack_require__(534);
 	var categoriesMenuService_1 = __webpack_require__(497);
-	var localizationService_1 = __webpack_require__(535);
+	var localizationService_1 = __webpack_require__(538);
 	var applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
 	var AllDemandsListPage = (function (_super) {
 	    __extends(AllDemandsListPage, _super);
@@ -81638,14 +81564,15 @@
 	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
 	    ], AllDemandsListPage);
 	    return AllDemandsListPage;
-	})(demandsListPageBase_1.DemandsListPageBase);
+	}(demandsListPageBase_1.DemandsListPageBase));
 	exports.AllDemandsListPage = AllDemandsListPage;
 	//# sourceMappingURL=allDemandsListPage.js.map
 
 /***/ },
-/* 605 */
+/* 606 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -81661,17 +81588,19 @@
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
 	var common_1 = __webpack_require__(206);
-	var companiesService_1 = __webpack_require__(606);
-	var notificationService_1 = __webpack_require__(526);
-	var companieListComponent_1 = __webpack_require__(607);
-	var _ = __webpack_require__(521);
-	var selectComponent_1 = __webpack_require__(528);
+	var _ = __webpack_require__(524);
+	var companiesService_1 = __webpack_require__(607);
+	var notificationService_1 = __webpack_require__(529);
+	var selectComponent_1 = __webpack_require__(531);
 	var ng2_bootstrap_1 = __webpack_require__(328);
+	var companiesAdminListComponent_1 = __webpack_require__(608);
+	var companySearchObject_1 = __webpack_require__(609);
+	var Ng2Pagination_1 = __webpack_require__(610);
 	var applicationPath = '/app/pages/adminPage/companiesPage';
 	var CompaniesPage = (function () {
 	    function CompaniesPage(router, companiesService, notificationService) {
-	        this.searchFilter = { name: "", email: "", companyDomain: "", demandDomains: "", page: 1 };
-	        this.pagination = { totalItems: 1, currentPage: 1, maxSize: 7 };
+	        this.searchFilter = new companySearchObject_1.CompanySearchObject();
+	        this.pagination = new Ng2Pagination_1.Ng2Pagination();
 	        this._router = router;
 	        this._companiesService = companiesService;
 	        this._notificationService = notificationService;
@@ -81688,15 +81617,12 @@
 	        var me = this;
 	        this.searchFilter['page'] = this.pagination['currentPage'];
 	        this._companiesService.getCompanyWithFilters(this.searchFilter)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
-	            me._companiesList = me.splitViewInPiecesUsingScreen(me.getMockArray());
+	            me._companiesList = response.data;
+	            me.pagination.currentPage = response.page;
+	            me.pagination.totalItems = response.totalPages;
 	        }, function (error) {
-	            me._companiesList = me.splitViewInPiecesUsingScreen(me.getMockArray());
+	            me._companiesList = [];
 	            me._notificationService.emitNotificationToRootComponent({
 	                type: 'danger',
 	                dismisable: true,
@@ -81708,11 +81634,6 @@
 	    CompaniesPage.prototype.getCompanieDomains = function () {
 	        var me = this;
 	        this._companiesService.getCompanieDomains()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (success) {
 	            me.companieDomains = me._companiesService.mapNameToSelect2Item(success);
 	        }, function (error) {
@@ -81722,11 +81643,6 @@
 	    CompaniesPage.prototype.getDomains = function () {
 	        var me = this;
 	        this._companiesService.getDemandDomanins()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (success) {
 	            me.domains = me._companiesService.mapNameToSelect2Item(success);
 	        }, function (error) {
@@ -81742,8 +81658,16 @@
 	    CompaniesPage.prototype.goToNewCompanyPage = function () {
 	        this._router.navigate(['/admin/ceeaza-companie/ceeaza']);
 	    };
-	    CompaniesPage.prototype.selectCompanie = function (id) {
-	        this._router.navigate(['/admin/detalii-companie/:id', { id: id }]);
+	    CompaniesPage.prototype.selectCompanie = function ($event) {
+	        this._router.navigate(['/admin/detalii-companie', { id: $event.id }]);
+	    };
+	    CompaniesPage.prototype.removeCompanie = function ($event) {
+	        this._companiesService.deleteCompany($event.id)
+	            .subscribe(function (result) {
+	            console.log('a');
+	        }, function (e) {
+	            console.log('re');
+	        });
 	    };
 	    CompaniesPage.prototype.submitSearch = function () {
 	        this.getCompaniesWithFilters();
@@ -82104,19 +82028,20 @@
 	            selector: 'compnaies-Page',
 	            templateUrl: applicationPath + '/companiesPage.html',
 	            styleUrls: [applicationPath + '/companiesPage.css'],
-	            directives: [companieListComponent_1.CompanieListComponent, selectComponent_1.SelectComponent, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
+	            directives: [companiesAdminListComponent_1.CompanieAdmminListComponent, selectComponent_1.SelectComponent, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
 	        }), 
 	        __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
 	    ], CompaniesPage);
 	    return CompaniesPage;
-	})();
+	}());
 	exports.CompaniesPage = CompaniesPage;
 	//# sourceMappingURL=companiesPage.js.map
 
 /***/ },
-/* 606 */
+/* 607 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82131,7 +82056,7 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var fMarketApi_1 = __webpack_require__(498);
-	var _ = __webpack_require__(521);
+	var _ = __webpack_require__(524);
 	var CompaniesService = (function () {
 	    function CompaniesService(api) {
 	        this.COMPANIE_CONTROLLER = '/companies';
@@ -82163,7 +82088,7 @@
 	        return this.api.put(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(updatedCompany));
 	    };
 	    CompaniesService.prototype.deleteCompany = function (id) {
-	        return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER + ("" + id));
+	        return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER + ("/" + id));
 	    };
 	    CompaniesService.prototype.getCompanieDomains = function () {
 	        return this.api.get('/company/domains');
@@ -82184,14 +82109,15 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], CompaniesService);
 	    return CompaniesService;
-	})();
+	}());
 	exports.CompaniesService = CompaniesService;
 	//# sourceMappingURL=companiesService.js.map
 
 /***/ },
-/* 607 */
+/* 608 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82205,43 +82131,90 @@
 	 * Created by nick_ on 5/6/2016.
 	 */
 	var core_1 = __webpack_require__(32);
-	var CompanieListComponent = (function () {
-	    function CompanieListComponent() {
+	var CompanieAdmminListComponent = (function () {
+	    function CompanieAdmminListComponent() {
 	        this._companieSelectedEmitter = new core_1.EventEmitter();
+	        this._companieRemovedEmitter = new core_1.EventEmitter();
 	    }
-	    CompanieListComponent.prototype.selectCompanie = function (companie) {
+	    CompanieAdmminListComponent.prototype.selectCompanie = function (companie) {
 	        this._companieSelectedEmitter.emit(companie);
 	    };
-	    CompanieListComponent.prototype.getImageTitle = function (companie) {
-	        return "<img src=\"" + companie.logoSrc + "\" class=\"companie-logo\" />";
+	    CompanieAdmminListComponent.prototype.removeCompanie = function ($event, companie) {
+	        $event.stopPropagation();
+	        this._companieRemovedEmitter.emit(companie);
 	    };
 	    __decorate([
-	        core_1.Input('companies-list'), 
+	        core_1.Input('admin-companies-list'), 
 	        __metadata('design:type', Array)
-	    ], CompanieListComponent.prototype, "_companieList", void 0);
+	    ], CompanieAdmminListComponent.prototype, "_companieList", void 0);
 	    __decorate([
-	        core_1.Output('companie-selected'), 
+	        core_1.Output('admin-companie-selected'), 
 	        __metadata('design:type', core_1.EventEmitter)
-	    ], CompanieListComponent.prototype, "_companieSelectedEmitter", void 0);
-	    CompanieListComponent = __decorate([
+	    ], CompanieAdmminListComponent.prototype, "_companieSelectedEmitter", void 0);
+	    __decorate([
+	        core_1.Output('admin-companie-removed'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], CompanieAdmminListComponent.prototype, "_companieRemovedEmitter", void 0);
+	    CompanieAdmminListComponent = __decorate([
 	        core_1.Component({
-	            selector: 'companie-list-component',
-	            templateUrl: '/app/components/companieComponent/companieListComponent/companieListComponent.html',
+	            selector: 'companie-admin-list-component',
+	            templateUrl: '/app/components/companieComponent/companieListComponent/companiesAdminListComponent.html',
 	        }), 
 	        __metadata('design:paramtypes', [])
-	    ], CompanieListComponent);
-	    return CompanieListComponent;
-	})();
-	exports.CompanieListComponent = CompanieListComponent;
-	//# sourceMappingURL=companieListComponent.js.map
+	    ], CompanieAdmminListComponent);
+	    return CompanieAdmminListComponent;
+	}());
+	exports.CompanieAdmminListComponent = CompanieAdmminListComponent;
+	//# sourceMappingURL=companiesAdminListComponent.js.map
 
 /***/ },
-/* 608 */
+/* 609 */
+/***/ function(module, exports) {
+
+	"use strict";
+	/**
+	 * Created by NicolaeB on 5/26/2016.
+	 */
+	var CompanySearchObject = (function () {
+	    function CompanySearchObject() {
+	        this.name = "";
+	        this.email = "";
+	        this.companyDomain = "";
+	        this.demandDomains = "";
+	        this.page = 1;
+	    }
+	    return CompanySearchObject;
+	}());
+	exports.CompanySearchObject = CompanySearchObject;
+	//# sourceMappingURL=companySearchObject.js.map
+
+/***/ },
+/* 610 */
+/***/ function(module, exports) {
+
+	"use strict";
+	/**
+	 * Created by NicolaeB on 5/31/2016.
+	 */
+	var Ng2Pagination = (function () {
+	    function Ng2Pagination() {
+	        this.totalItems = 1;
+	        this.currentPage = 1;
+	        this.maxSize = 7;
+	    }
+	    return Ng2Pagination;
+	}());
+	exports.Ng2Pagination = Ng2Pagination;
+	//# sourceMappingURL=Ng2Pagination.js.map
+
+/***/ },
+/* 611 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by nick_ on 5/6/2016.
 	 */
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -82259,11 +82232,11 @@
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
 	var common_1 = __webpack_require__(206);
-	var companiesService_1 = __webpack_require__(606);
-	var notificationService_1 = __webpack_require__(526);
-	var companiesEditComponent_1 = __webpack_require__(609);
-	var companiesEditBase_1 = __webpack_require__(611);
-	var localizationService_1 = __webpack_require__(535);
+	var companiesService_1 = __webpack_require__(607);
+	var notificationService_1 = __webpack_require__(529);
+	var companiesEditComponent_1 = __webpack_require__(612);
+	var companiesEditBase_1 = __webpack_require__(614);
+	var localizationService_1 = __webpack_require__(538);
 	var CompaniesEditPage = (function (_super) {
 	    __extends(CompaniesEditPage, _super);
 	    function CompaniesEditPage(location, router, companiesService, notificationService, localizationService) {
@@ -82275,11 +82248,6 @@
 	    CompaniesEditPage.prototype.ngOnInit = function () {
 	        var me = this;
 	        this._companiesService.getCompanyDetails(parseInt(this.companieId))
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._companie = response;
 	        }, function (error) {
@@ -82290,11 +82258,6 @@
 	    CompaniesEditPage.prototype.saveCompanie = function (companieDto) {
 	        var me = this;
 	        this._companiesService.editCompany(companieDto)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (success) {
 	            me._location.back();
 	        }, function (error) {
@@ -82309,14 +82272,15 @@
 	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
 	    ], CompaniesEditPage);
 	    return CompaniesEditPage;
-	})(companiesEditBase_1.CompaniesEditBase);
+	}(companiesEditBase_1.CompaniesEditBase));
 	exports.CompaniesEditPage = CompaniesEditPage;
 	//# sourceMappingURL=companiesEditPage.js.map
 
 /***/ },
-/* 609 */
+/* 612 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82329,12 +82293,12 @@
 	/**
 	 * Created by nick_ on 5/6/2016.
 	 */
-	var _ = __webpack_require__(521);
+	var _ = __webpack_require__(524);
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var newCompanyRequest_1 = __webpack_require__(610);
-	var Angular2ExtensionValidators_1 = __webpack_require__(523);
-	var selectComponent_1 = __webpack_require__(528);
+	var newCompanyRequest_1 = __webpack_require__(613);
+	var Angular2ExtensionValidators_1 = __webpack_require__(526);
+	var selectComponent_1 = __webpack_require__(531);
 	var CompaniesEditComponent = (function () {
 	    function CompaniesEditComponent(formBuilder) {
 	        this.saveCompanieEmitter = new core_1.EventEmitter();
@@ -82440,14 +82404,15 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], CompaniesEditComponent);
 	    return CompaniesEditComponent;
-	})();
+	}());
 	exports.CompaniesEditComponent = CompaniesEditComponent;
 	//# sourceMappingURL=companiesEditComponent.js.map
 
 /***/ },
-/* 610 */
+/* 613 */
 /***/ function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by NicolaeB on 5/26/2016.
 	 */
@@ -82466,15 +82431,16 @@
 	        return new NewCompanyRequest("", "", "", "", "", -1, -1, []);
 	    };
 	    return NewCompanyRequest;
-	})();
+	}());
 	exports.NewCompanyRequest = NewCompanyRequest;
 	//# sourceMappingURL=newCompanyRequest.js.map
 
 /***/ },
-/* 611 */
+/* 614 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var newCompanyRequest_1 = __webpack_require__(610);
+	"use strict";
+	var newCompanyRequest_1 = __webpack_require__(613);
 	var CompaniesEditBase = (function () {
 	    function CompaniesEditBase(location, router, companiesService, notificationService, localizationService) {
 	        this._router = router;
@@ -82493,11 +82459,6 @@
 	    CompaniesEditBase.prototype.getCities = function () {
 	        var me = this;
 	        this._localizationService.getCityList()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (success) {
 	            me._cities = me._localizationService.mapNameToSelect2Item(success);
 	        }, function (error) {
@@ -82507,11 +82468,6 @@
 	    CompaniesEditBase.prototype.getCompanieDomains = function () {
 	        var me = this;
 	        this._companiesService.getCompanieDomains()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (success) {
 	            me._companyDomains = me._localizationService.mapNameToSelect2Item(success);
 	        }, function (error) {
@@ -82521,11 +82477,6 @@
 	    CompaniesEditBase.prototype.getDomains = function () {
 	        var me = this;
 	        this._companiesService.getDemandDomanins()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (success) {
 	            me._domains = me._localizationService.mapNameToSelect2Item(success);
 	        }, function (error) {
@@ -82533,17 +82484,18 @@
 	        });
 	    };
 	    return CompaniesEditBase;
-	})();
+	}());
 	exports.CompaniesEditBase = CompaniesEditBase;
 	//# sourceMappingURL=companiesEditBase.js.map
 
 /***/ },
-/* 612 */
+/* 615 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by nick_ on 4/22/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82556,10 +82508,10 @@
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
 	var common_1 = __webpack_require__(206);
-	var demandService_1 = __webpack_require__(520);
-	var requestTypeService_1 = __webpack_require__(594);
-	var demandEdit_1 = __webpack_require__(613);
-	var notificationService_1 = __webpack_require__(526);
+	var demandService_1 = __webpack_require__(523);
+	var requestTypeService_1 = __webpack_require__(595);
+	var demandEdit_1 = __webpack_require__(616);
+	var notificationService_1 = __webpack_require__(529);
 	var applicationPath = '/app/pages/adminPage/demandsPage/demandsEditPage';
 	var DemandsEditPage = (function () {
 	    function DemandsEditPage(router, _location, demandService, requestTypeService, notificationService) {
@@ -82578,11 +82530,6 @@
 	    DemandsEditPage.prototype.getDemand = function () {
 	        var me = this;
 	        this._demandService.getDemand(this._demandId)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._demand = response;
 	        }, function (error) {
@@ -82594,11 +82541,6 @@
 	    DemandsEditPage.prototype.acceptDemand = function (demand) {
 	        var me = this;
 	        this._demandService.acceptDemand(demand)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._location.back();
 	            me._notificationService.emitSuccessNotificationToRootComponent('Cerere activata cu success', 3);
@@ -82609,11 +82551,6 @@
 	    DemandsEditPage.prototype.rejectDemand = function (id) {
 	        var me = this;
 	        this._demandService.declineDemand(id)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._location.back();
 	        }, function (error) {
@@ -82623,11 +82560,6 @@
 	    DemandsEditPage.prototype.saveEditedDemand = function (demand) {
 	        var me = this;
 	        this._demandService.saveDemand(demand)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._location.back();
 	        }, function (error) {
@@ -82644,14 +82576,15 @@
 	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, demandService_1.DemandService, requestTypeService_1.RequestTypeService, notificationService_1.NotificationService])
 	    ], DemandsEditPage);
 	    return DemandsEditPage;
-	})();
+	}());
 	exports.DemandsEditPage = DemandsEditPage;
 	//# sourceMappingURL=demandsEditPage.js.map
 
 /***/ },
-/* 613 */
+/* 616 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82665,7 +82598,7 @@
 	 * Created by nick_ on 4/20/2016.
 	 */
 	var core_1 = __webpack_require__(32);
-	var demandDetailsDTO_1 = __webpack_require__(614);
+	var demandDetailsDTO_1 = __webpack_require__(617);
 	var APPLICATION_PATH = '/app/components/demandComponent/demandEdit';
 	var DemandEditComponent = (function () {
 	    function DemandEditComponent() {
@@ -82718,14 +82651,15 @@
 	        __metadata('design:paramtypes', [])
 	    ], DemandEditComponent);
 	    return DemandEditComponent;
-	})();
+	}());
 	exports.DemandEditComponent = DemandEditComponent;
 	//# sourceMappingURL=demandEdit.js.map
 
 /***/ },
-/* 614 */
+/* 617 */
 /***/ function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by NicolaeB on 4/26/2016.
 	 */
@@ -82735,17 +82669,18 @@
 	        this.isInEditMode = false;
 	    }
 	    return DemandDetailsDTO;
-	})();
+	}());
 	exports.DemandDetailsDTO = DemandDetailsDTO;
 	//# sourceMappingURL=demandDetailsDTO.js.map
 
 /***/ },
-/* 615 */
+/* 618 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by nick_ on 5/6/2016.
 	 */
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -82763,11 +82698,11 @@
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
 	var common_1 = __webpack_require__(206);
-	var companiesService_1 = __webpack_require__(606);
-	var notificationService_1 = __webpack_require__(526);
-	var companiesEditComponent_1 = __webpack_require__(609);
-	var companiesEditBase_1 = __webpack_require__(611);
-	var localizationService_1 = __webpack_require__(535);
+	var companiesService_1 = __webpack_require__(607);
+	var notificationService_1 = __webpack_require__(529);
+	var companiesEditComponent_1 = __webpack_require__(612);
+	var companiesEditBase_1 = __webpack_require__(614);
+	var localizationService_1 = __webpack_require__(538);
 	var CompanieCreatePage = (function (_super) {
 	    __extends(CompanieCreatePage, _super);
 	    function CompanieCreatePage(location, router, companiesService, notificationService, localizationService) {
@@ -82781,11 +82716,6 @@
 	    CompanieCreatePage.prototype.saveCompanie = function (companieDto) {
 	        var me = this;
 	        this._companiesService.createCompany(companieDto)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (succes) {
 	            me._location.back();
 	        }, function (error) {
@@ -82801,17 +82731,18 @@
 	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
 	    ], CompanieCreatePage);
 	    return CompanieCreatePage;
-	})(companiesEditBase_1.CompaniesEditBase);
+	}(companiesEditBase_1.CompaniesEditBase));
 	exports.CompanieCreatePage = CompanieCreatePage;
 	//# sourceMappingURL=companiesCreatePage.js.map
 
 /***/ },
-/* 616 */
+/* 619 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by nick_ on 4/26/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82823,14 +82754,14 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var accountEditPage_1 = __webpack_require__(617);
-	var accountDemandsPage_1 = __webpack_require__(621);
+	var accountEditPage_1 = __webpack_require__(620);
+	var accountDemandsPage_1 = __webpack_require__(624);
 	var authorizationService_1 = __webpack_require__(494);
-	var jqueryService_1 = __webpack_require__(522);
+	var jqueryService_1 = __webpack_require__(525);
 	var applicationConstansts_1 = __webpack_require__(495);
-	var tabsRoutingComponent_1 = __webpack_require__(597);
-	var notificationService_1 = __webpack_require__(526);
-	var Roles_1 = __webpack_require__(584);
+	var tabsRoutingComponent_1 = __webpack_require__(598);
+	var notificationService_1 = __webpack_require__(529);
+	var Roles_1 = __webpack_require__(522);
 	var applicationPath = '/app/pages/accountSettingsPage';
 	var AccountSettingsPage = (function () {
 	    function AccountSettingsPage(router, notificationService) {
@@ -82865,14 +82796,15 @@
 	        __metadata('design:paramtypes', [router_1.Router, notificationService_1.NotificationService])
 	    ], AccountSettingsPage);
 	    return AccountSettingsPage;
-	})();
+	}());
 	exports.AccountSettingsPage = AccountSettingsPage;
 	//# sourceMappingURL=accountSettingsPage.js.map
 
 /***/ },
-/* 617 */
+/* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82886,11 +82818,11 @@
 	 * Created by nick_ on 4/26/2016.
 	 */
 	var core_1 = __webpack_require__(32);
-	var accountEditComponent_1 = __webpack_require__(618);
-	var accountDto_1 = __webpack_require__(619);
-	var accountService_1 = __webpack_require__(620);
-	var demandService_1 = __webpack_require__(520);
-	var localizationService_1 = __webpack_require__(535);
+	var accountEditComponent_1 = __webpack_require__(621);
+	var accountDto_1 = __webpack_require__(622);
+	var accountService_1 = __webpack_require__(623);
+	var demandService_1 = __webpack_require__(523);
+	var localizationService_1 = __webpack_require__(538);
 	var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
 	var AccountEditPage = (function () {
 	    function AccountEditPage(accountService, demandService, localizationService) {
@@ -82911,11 +82843,6 @@
 	    AccountEditPage.prototype.saveEditedAccount = function (editedAccount) {
 	        var me = this;
 	        this._accountService.saveEditedAccount(editedAccount)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._account = response;
 	        }, function (errr) {
@@ -82924,11 +82851,6 @@
 	    AccountEditPage.prototype.getCityList = function () {
 	        var me = this;
 	        this._localizationService.getCityList()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._cityesList = me._localizationService.mapNameToSelect2Item(response);
 	        }, function (error) {
@@ -82937,11 +82859,6 @@
 	    AccountEditPage.prototype.getAccountData = function () {
 	        var me = this;
 	        this._accountService.getAccount()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (success) {
 	            me._account = success;
 	        }, function (error) {
@@ -82957,14 +82874,15 @@
 	        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService])
 	    ], AccountEditPage);
 	    return AccountEditPage;
-	})();
+	}());
 	exports.AccountEditPage = AccountEditPage;
 	//# sourceMappingURL=accountEditPage.js.map
 
 /***/ },
-/* 618 */
+/* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82979,9 +82897,9 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var accountDto_1 = __webpack_require__(619);
-	var selectComponent_1 = __webpack_require__(528);
-	var _ = __webpack_require__(521);
+	var accountDto_1 = __webpack_require__(622);
+	var selectComponent_1 = __webpack_require__(531);
+	var _ = __webpack_require__(524);
 	var APPLICATION_PATH = '/app/components/accountComponent/accountEditComponent';
 	var AccountEditComponent = (function () {
 	    function AccountEditComponent(formBuilder) {
@@ -83050,14 +82968,15 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], AccountEditComponent);
 	    return AccountEditComponent;
-	})();
+	}());
 	exports.AccountEditComponent = AccountEditComponent;
 	//# sourceMappingURL=accountEditComponent.js.map
 
 /***/ },
-/* 619 */
+/* 622 */
 /***/ function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by NicolaeB on 4/27/2016.
 	 */
@@ -83085,14 +83004,15 @@
 	        return new AccountDto(-1, '', '', '', (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), '', null, '', 0, 0, null, '');
 	    };
 	    return AccountDto;
-	})();
+	}());
 	exports.AccountDto = AccountDto;
 	//# sourceMappingURL=accountDto.js.map
 
 /***/ },
-/* 620 */
+/* 623 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -83123,14 +83043,15 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], AccountService);
 	    return AccountService;
-	})();
+	}());
 	exports.AccountService = AccountService;
 	//# sourceMappingURL=accountService.js.map
 
 /***/ },
-/* 621 */
+/* 624 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -83151,11 +83072,11 @@
 	var core_1 = __webpack_require__(32);
 	// import {CanActivate} from "@angular/router-deprecated";
 	var router_1 = __webpack_require__(305);
-	var demandService_1 = __webpack_require__(520);
-	var requestTypeService_1 = __webpack_require__(594);
-	var demandsListPageBase_1 = __webpack_require__(601);
+	var demandService_1 = __webpack_require__(523);
+	var requestTypeService_1 = __webpack_require__(595);
+	var demandsListPageBase_1 = __webpack_require__(602);
 	var categoriesMenuService_1 = __webpack_require__(497);
-	var localizationService_1 = __webpack_require__(535);
+	var localizationService_1 = __webpack_require__(538);
 	var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
 	var AccountDemandsPage = (function (_super) {
 	    __extends(AccountDemandsPage, _super);
@@ -83175,11 +83096,6 @@
 	    AccountDemandsPage.prototype.getUserDemandsWithFilter = function () {
 	        var me = this;
 	        this._demandService.getUserDemandsWithFilter(this._searchObject)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            me._demandsList = response;
 	        }, function (error) {
@@ -83193,17 +83109,18 @@
 	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService])
 	    ], AccountDemandsPage);
 	    return AccountDemandsPage;
-	})(demandsListPageBase_1.DemandsListPageBase);
+	}(demandsListPageBase_1.DemandsListPageBase));
 	exports.AccountDemandsPage = AccountDemandsPage;
 	//# sourceMappingURL=accountDemandsPage.js.map
 
 /***/ },
-/* 622 */
+/* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by nick_ on 5/5/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -83243,14 +83160,15 @@
 	        __metadata('design:paramtypes', [router_1.Router])
 	    ], SuccessPage);
 	    return SuccessPage;
-	})();
+	}());
 	exports.SuccessPage = SuccessPage;
 	//# sourceMappingURL=successPage.js.map
 
 /***/ },
-/* 623 */
+/* 626 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -83266,19 +83184,18 @@
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
 	// import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
-	var registrationService_1 = __webpack_require__(539);
-	var notificationService_1 = __webpack_require__(526);
-	var localStorageService_1 = __webpack_require__(541);
+	var registrationService_1 = __webpack_require__(542);
+	var notificationService_1 = __webpack_require__(529);
 	var applicationConstansts_1 = __webpack_require__(495);
-	var Roles_1 = __webpack_require__(584);
-	var jqueryService_1 = __webpack_require__(522);
+	var jqueryService_1 = __webpack_require__(525);
+	var applicationStateService_1 = __webpack_require__(520);
 	var TokenConfirmPage = (function () {
-	    function TokenConfirmPage(router, registrationService, notificationService, localeStorageService) {
+	    function TokenConfirmPage(router, registrationService, notificationService, applicationStateService) {
 	        this.showTokenError = false;
 	        this._router = router;
 	        this._registrationService = registrationService;
 	        this._notificationService = notificationService;
-	        this._localeStorageService = localeStorageService;
+	        this._applicationStateService = applicationStateService;
 	    }
 	    TokenConfirmPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
 	        var token = this.getParameterByName('token', location.href);
@@ -83288,29 +83205,14 @@
 	    TokenConfirmPage.prototype.validateToken = function (token) {
 	        var me = this;
 	        this._registrationService.validateToken(token)
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
 	            if (!response) {
-	                me._notificationService.emitNotificationToRootComponent({
-	                    type: 'danger',
-	                    dismisable: true,
-	                    message: 'Serverul nu a returnat userul autentificat!',
-	                    timeout: 5
-	                });
-	                me._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, { email: null, accountType: Roles_1.Role.USER, loggedIn: false });
+	                me._notificationService.emitErrorNotificationToRootComponent('Serverul nu a returnat userul autentificat!', 5);
+	                me._applicationStateService.removeUserSession();
 	                return;
 	            }
-	            me._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
-	            me._notificationService.emitNotificationToRootComponent({
-	                type: 'success',
-	                dismisable: true,
-	                message: 'Cont activat cu succes.',
-	                timeout: 5
-	            });
+	            me._applicationStateService.setApplicationSessionState(response);
+	            me._notificationService.emitSuccessNotificationToRootComponent('Cont activat cu succes.', 5);
 	            me._router.navigate(['/']);
 	        }, function (error) {
 	            me.showTokenError = true;
@@ -83334,17 +83236,18 @@
 	            templateUrl: '/app/pages/registrationPage/errorPages/errorActivateTokenPage.html',
 	            directives: [router_1.ROUTER_DIRECTIVES]
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, localStorageService_1.LocalStorageService])
+	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
 	    ], TokenConfirmPage);
 	    return TokenConfirmPage;
-	})();
+	}());
 	exports.TokenConfirmPage = TokenConfirmPage;
 	//# sourceMappingURL=tokenConfirmPage.js.map
 
 /***/ },
-/* 624 */
+/* 627 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -83361,22 +83264,19 @@
 	var router_1 = __webpack_require__(305);
 	var ng2_bootstrap_1 = __webpack_require__(328);
 	var authorizationService_1 = __webpack_require__(494);
-	var Roles_1 = __webpack_require__(584);
-	var localStorageService_1 = __webpack_require__(541);
-	var applicationConstansts_1 = __webpack_require__(495);
-	var registrationService_1 = __webpack_require__(539);
-	var notificationService_1 = __webpack_require__(526);
+	var Roles_1 = __webpack_require__(522);
+	var localStorageService_1 = __webpack_require__(521);
+	var registrationService_1 = __webpack_require__(542);
+	var notificationService_1 = __webpack_require__(529);
+	var applicationStateService_1 = __webpack_require__(520);
 	var directoryPath = '/app/components/headerComponent';
 	var HeaderComponent = (function () {
-	    function HeaderComponent(router, localStorageService, registrationService, notificationService) {
+	    function HeaderComponent(router, localStorageService, registrationService, notificationService, applicationStateService) {
 	        this._router = router;
 	        this._registrationService = registrationService;
 	        this._notificationService = notificationService;
-	        var me = this;
+	        this._applicationStateService = applicationStateService;
 	        this._localStorageService = localStorageService;
-	        this._localStorageService.storageStateChange.subscribe(function (event) {
-	            me.resolveChanges(event);
-	        });
 	        this._myAccountLabel = 'Contul meu';
 	    }
 	    HeaderComponent.prototype.ngOnInit = function () {
@@ -83385,6 +83285,10 @@
 	        ];
 	        this.setUserRoutes();
 	        this.setAdminRoutes();
+	        var me = this;
+	        this._localStorageService.storageStateChange.subscribe(function (event) {
+	            me.resolveChanges(event);
+	        });
 	    };
 	    HeaderComponent.prototype.resolveChanges = function (event) {
 	        this.setUserRoutes();
@@ -83445,21 +83349,11 @@
 	        var me = this;
 	        this.closeNav();
 	        this._registrationService.logout()
-	            .map(function (response) {
-	            if (response.text().length > 0) {
-	                return response.json();
-	            }
-	        })
 	            .subscribe(function (response) {
-	            me._localStorageService.removeItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE);
+	            me._applicationStateService.removeUserSession();
 	            me._router.navigate(['/']);
 	        }, function (error) {
-	            me._notificationService.emitNotificationToRootComponent({
-	                type: 'danger',
-	                dismisable: true,
-	                message: 'Erroare la logout!',
-	                timeout: 5
-	            });
+	            me._notificationService.emitErrorNotificationToRootComponent('Erroare la logout!', 5);
 	        });
 	    };
 	    HeaderComponent = __decorate([
@@ -83468,20 +83362,21 @@
 	            templateUrl: directoryPath + '/headerComponent.html',
 	            directives: [router_1.ROUTER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, localStorageService_1.LocalStorageService, registrationService_1.RegistrationService, notificationService_1.NotificationService])
+	        __metadata('design:paramtypes', [router_1.Router, localStorageService_1.LocalStorageService, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
 	    ], HeaderComponent);
 	    return HeaderComponent;
-	})();
+	}());
 	exports.HeaderComponent = HeaderComponent;
 	//# sourceMappingURL=headerComponent.js.map
 
 /***/ },
-/* 625 */
+/* 628 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by nick_ on 5/6/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -83506,7 +83401,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], FooterComponent);
 	    return FooterComponent;
-	})();
+	}());
 	exports.FooterComponent = FooterComponent;
 	//# sourceMappingURL=footerComponent.js.map
 

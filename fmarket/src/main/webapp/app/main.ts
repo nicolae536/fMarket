@@ -22,6 +22,7 @@ import {NotificationService} from "./services/notificationService";
 import {LocalStorageService} from "./services/localStorageService";
 import {AuthorizationService} from "./services/authorizationService";
 import {RegistrationService} from "./services/registrationService";
+import {ApplicationStateService} from "./services/applicationStateService";
 
 enableProdMode();
 //console.log(HTTP_PROVIDERS);
@@ -31,6 +32,7 @@ bootstrap(AppComponent, [
     provide(LocationStrategy, {useClass: HashLocationStrategy}),
 
     FormBuilder,
+    ApplicationStateService,
     FMarketApi,
     NotificationService,
     LocalStorageService,

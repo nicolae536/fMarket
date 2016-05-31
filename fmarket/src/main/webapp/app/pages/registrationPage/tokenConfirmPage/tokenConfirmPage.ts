@@ -7,10 +7,10 @@ import {Router, ROUTER_DIRECTIVES, OnActivate, RouteSegment, RouteTree} from "@a
 // import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {RegistrationService} from "../../../services/registrationService";
 import {NotificationService} from "../../../services/notificationService";
-import {LocalStorageService} from "../../../services/localStorageService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
 import {Role} from "../../../models/Roles";
 import {JqueryService} from "../../../services/jqueryService";
+import {ApplicationStateService} from "../../../services/applicationStateService";
 
 @Component({
     selector: 'token-confirm',
@@ -22,14 +22,14 @@ export class TokenConfirmPage implements OnActivate{
     private _registrationService:RegistrationService;
     private _router:Router;
     private _notificationService:NotificationService;
-    private _localeStorageService:LocalStorageService;
+    private _applicationStateService:ApplicationStateService;
     private showTokenError:boolean = false;
 
-    constructor(router:Router, registrationService:RegistrationService, notificationService:NotificationService, localeStorageService:LocalStorageService) {
+    constructor(router:Router, registrationService:RegistrationService, notificationService:NotificationService, applicationStateService:ApplicationStateService) {
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
-        this._localeStorageService = localeStorageService;
+        this._applicationStateService = applicationStateService;
 
     }
 
@@ -43,30 +43,16 @@ export class TokenConfirmPage implements OnActivate{
     private validateToken(token:string) {
         let me = this;
         this._registrationService.validateToken(token)
-            .map(response=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response=> {
                     if (!response) {
-                        me._notificationService.emitNotificationToRootComponent({
-                            type: 'danger',
-                            dismisable: true,
-                            message: 'Serverul nu a returnat userul autentificat!',
-                            timeout:5
-                        });
-                        me._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, {email:null, accountType:Role.USER, loggedIn:false});
+                        me._notificationService.emitErrorNotificationToRootComponent('Serverul nu a returnat userul autentificat!', 5);
+                        me._applicationStateService.removeUserSession();
                         return;
                     }
-                    me._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
-                    me._notificationService.emitNotificationToRootComponent({
-                        type: 'success',
-                        dismisable: true,
-                        message: 'Cont activat cu succes.',
-                        timeout:5
-                    });
+
+                    me._applicationStateService.setApplicationSessionState(response);
+                    me._notificationService.emitSuccessNotificationToRootComponent('Cont activat cu succes.', 5);
                     me._router.navigate(['/']);
                 },
                 error=> {

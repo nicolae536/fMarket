@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,17 +16,16 @@ var router_1 = require("@angular/router");
 // import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 var registrationService_1 = require("../../../services/registrationService");
 var notificationService_1 = require("../../../services/notificationService");
-var localStorageService_1 = require("../../../services/localStorageService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
-var Roles_1 = require("../../../models/Roles");
 var jqueryService_1 = require("../../../services/jqueryService");
+var applicationStateService_1 = require("../../../services/applicationStateService");
 var TokenConfirmPage = (function () {
-    function TokenConfirmPage(router, registrationService, notificationService, localeStorageService) {
+    function TokenConfirmPage(router, registrationService, notificationService, applicationStateService) {
         this.showTokenError = false;
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
-        this._localeStorageService = localeStorageService;
+        this._applicationStateService = applicationStateService;
     }
     TokenConfirmPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
         var token = this.getParameterByName('token', location.href);
@@ -35,29 +35,14 @@ var TokenConfirmPage = (function () {
     TokenConfirmPage.prototype.validateToken = function (token) {
         var me = this;
         this._registrationService.validateToken(token)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             if (!response) {
-                me._notificationService.emitNotificationToRootComponent({
-                    type: 'danger',
-                    dismisable: true,
-                    message: 'Serverul nu a returnat userul autentificat!',
-                    timeout: 5
-                });
-                me._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, { email: null, accountType: Roles_1.Role.USER, loggedIn: false });
+                me._notificationService.emitErrorNotificationToRootComponent('Serverul nu a returnat userul autentificat!', 5);
+                me._applicationStateService.removeUserSession();
                 return;
             }
-            me._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
-            me._notificationService.emitNotificationToRootComponent({
-                type: 'success',
-                dismisable: true,
-                message: 'Cont activat cu succes.',
-                timeout: 5
-            });
+            me._applicationStateService.setApplicationSessionState(response);
+            me._notificationService.emitSuccessNotificationToRootComponent('Cont activat cu succes.', 5);
             me._router.navigate(['/']);
         }, function (error) {
             me.showTokenError = true;
@@ -81,9 +66,9 @@ var TokenConfirmPage = (function () {
             templateUrl: '/app/pages/registrationPage/errorPages/errorActivateTokenPage.html',
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, localStorageService_1.LocalStorageService])
+        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
     ], TokenConfirmPage);
     return TokenConfirmPage;
-})();
+}());
 exports.TokenConfirmPage = TokenConfirmPage;
 //# sourceMappingURL=tokenConfirmPage.js.map

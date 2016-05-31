@@ -1,0 +1,19 @@
+<div class="admin-companies-list">
+    <div class="list-group admin-companies-list">
+        <div *ngFor="let companie of _companieList" class="list-group-item clearfix" (click)="selectCompanie(companie)">
+            <div class="col-md-7 col-xs-9 row-data" [title]="'Detalii despre '+companie.name">
+                <span class="h4">
+                    {{companie.id}}.{{companie.name}}
+                </span>
+                <span class="label label-success">
+                    {{companie.email}}
+                </span>
+            </div>
+            <div class="pull-right opatations">
+                <a class="secondary" (click)="removeCompanie($event, companie)" [title]="'Sterge compania '+companie.name">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

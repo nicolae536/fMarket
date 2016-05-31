@@ -47,11 +47,6 @@ export class AccountDemandsPage extends DemandsListPageBase implements OnInit, O
     private getUserDemandsWithFilter() {
         let me = this;
         this._demandService.getUserDemandsWithFilter(this._searchObject)
-            .map(response=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response=> {
                     me._demandsList = response;

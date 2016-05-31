@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -27,11 +28,6 @@ var DomainsPage = (function () {
     DomainsPage.prototype.getRequestTypesWithFilters = function () {
         var me = this;
         this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-            .map(function (response) {
-            if (response.text().length) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me.domainsTypes = response;
         }, function (error) {
@@ -44,11 +40,6 @@ var DomainsPage = (function () {
         }
         var me = this;
         this._requestTypeService.addRequestType(this.newRequestType)
-            .map(function (response) {
-            if (response.text().length) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me.getRequestTypesWithFilters();
             me.newRequestType = "";
@@ -61,11 +52,6 @@ var DomainsPage = (function () {
     DomainsPage.prototype.deleteRequestType = function (requestType) {
         var me = this;
         this._requestTypeService.deleteRequestType(requestType.id)
-            .map(function (response) {
-            if (response.text().length) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me.domainsTypes = response;
             me.getRequestTypesWithFilters();
@@ -76,11 +62,6 @@ var DomainsPage = (function () {
     DomainsPage.prototype.editRequestType = function (requestType) {
         var me = this;
         this._requestTypeService.editRequestType(requestType)
-            .map(function (response) {
-            if (response.text().length) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             requestType.isInEditMode = false;
             //this.companieTypes = response.data;
@@ -121,6 +102,6 @@ var DomainsPage = (function () {
         __metadata('design:paramtypes', [requestTypeService_1.RequestTypeService, common_1.FormBuilder])
     ], DomainsPage);
     return DomainsPage;
-})();
+}());
 exports.DomainsPage = DomainsPage;
 //# sourceMappingURL=domainsPage.js.map

@@ -43,11 +43,6 @@ export class CompaniesEditBase{
     getCities(){
         let me =this;
         this._localizationService.getCityList()
-            .map(response=>{
-                if(response.text().length>0){
-                    return response.json();
-                }
-            })
             .subscribe(
                 success=>{
                     me._cities = me._localizationService.mapNameToSelect2Item(success);
@@ -61,11 +56,6 @@ export class CompaniesEditBase{
     getCompanieDomains(){
         let me =this;
         this._companiesService.getCompanieDomains()
-            .map(response=>{
-                if(response.text().length>0){
-                    return response.json();
-                }
-            })
             .subscribe(
                 success=>{
                     me._companyDomains = me._localizationService.mapNameToSelect2Item(success);
@@ -79,11 +69,6 @@ export class CompaniesEditBase{
     getDomains(){
         let me =this;
         this._companiesService.getDemandDomanins()
-            .map(response=>{
-                if(response.text().length>0){
-                    return response.json();
-                }
-            })
             .subscribe(
                 success=>{
                     me._domains = me._localizationService.mapNameToSelect2Item(success);

@@ -60,11 +60,6 @@ export class DemandsListPageBase {
     public getAllDemandsList():void {
         let me = this;
         this._demandService.getDemandsWithFilters(this._searchObject)
-            .map((response)=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me._demandsList = response.data;
@@ -80,27 +75,18 @@ export class DemandsListPageBase {
     public getMenuDictionary():void {
         var me = this;
         this._categoriesMenuService.getMenuDictionary()
-            .map((response:Response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            }).subscribe(
-            response => {
-                me.menuDictionary = response;
-            },
-            error => {
-                me.menuDictionary = [];
-            });
+            .subscribe(
+                response => {
+                    me.menuDictionary = response;
+                },
+                error => {
+                    me.menuDictionary = [];
+                });
     }
 
     public getNewDemandsList() {
         let me = this;
         this._demandService.getNewDemands()
-            .map((response)=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me._demandsList = response;
@@ -123,11 +109,6 @@ export class DemandsListPageBase {
     public getCities():void {
         let me = this;
         this._localizationService.getCityList()
-            .map((response)=> {
-                if (response.text().length > 0) {
-                return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me._citiesList = me._localizationService.mapNameToSelect2Item(response)
@@ -141,11 +122,6 @@ export class DemandsListPageBase {
     public getDomains():void {
         let me = this;
         this._requestTypeService.getRequestTypesWithFilters()
-            .map((response)=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me._domainsList = _.map(response, (domain) => {

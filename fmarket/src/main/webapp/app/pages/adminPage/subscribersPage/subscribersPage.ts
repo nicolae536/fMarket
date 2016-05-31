@@ -81,11 +81,6 @@ export class SubscribersPage implements OnInit {
         var me = this;
 
         this._subscribersService.subscribe(subscriberValue.email)
-            .map((response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me.getSubscribersWithFilters();
@@ -98,11 +93,6 @@ export class SubscribersPage implements OnInit {
     getSubscribersWithFilters() {
         var me = this;
         this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.pagination['currentPage'], this.sortKey, this.sortOrder)
-            .map((response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me.subscribersList = response.data;
@@ -116,11 +106,6 @@ export class SubscribersPage implements OnInit {
 
     subscribe(subscriber:Subscriber) {
         this._subscribersService.subscribe(subscriber.email)
-            .map((response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                 }, error=> {
@@ -130,15 +115,11 @@ export class SubscribersPage implements OnInit {
 
     unsubscribe(subscriber:Subscriber) {
         this._subscribersService.unsubscribe(subscriber.id)
-            .map((response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })            .subscribe(
-            response => {
-            }, error=> {
+            .subscribe(
+                response => {
+                }, error=> {
 
-            })
+                });
     }
 
     actionDialogConfirmDelete(subscriber:Subscriber) {
@@ -146,11 +127,6 @@ export class SubscribersPage implements OnInit {
 
         this.actionDialog.hide();
         this._subscribersService.delete(subscriber.id)
-            .map((response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     var subscriberIndex = me.subscribersList.indexOf(subscriber);
@@ -233,11 +209,6 @@ export class SubscribersPage implements OnInit {
     private getCities() {
         let me = this;
         me._localizationService.getCityList()
-            .map(response=>{
-                if(response.text().length>0){
-                    return response.json();
-                }
-            })
             .subscribe(
                 succesR=>{
                     me.cityList=succesR;

@@ -65,7 +65,6 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
         this.getMenuDictionary();
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
-        // this._notificationService.updateBackground(ApplicationConstants.homePage);
         this._notificationService.removeLoading();
     }
 
@@ -88,29 +87,14 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
 
         let me = this;
         this._subscribersService.subscribeTowebsite(this._subscribeForm.value)
-            .map(response=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 success=> {
                     me._subscribeForm.removeControl('email');
                     this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
-                    me._notificationService.emitNotificationToRootComponent({
-                        type: 'success',
-                        dismisable: true,
-                        message: 'Te-ai inscris cu success!',
-                        timeout: 5
-                    });
+                    me._notificationService.emitSuccessNotificationToRootComponent('Te-ai inscris cu success!',5);
                 },
                 error=> {
-                    me._notificationService.emitNotificationToRootComponent({
-                        type: 'danger',
-                        dismisable: true,
-                        message: error.message,
-                        timeout: 5
-                    });
+                    me._notificationService.emitErrorNotificationToRootComponent(error.message,5);
                 }
             )
     }
@@ -130,50 +114,33 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
             return;
         }
 
-        this._demandService.createUserDemand(demand).map((response)=> {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        }).subscribe(
-            respose=> {
-                me._demandDialog.restData();
-                me._router.navigate(['/success', {succesOption:'create-demand'}])
-            },
-            error=> {
-                this._notificationService.emitNotificationToRootComponent({
-                    type:'danger',
-                    dismisable:true,
-                    message:'Cererea nu a putut fi creata',
-                    timeout:5
-                })
-            }
+        this._demandService.createUserDemand(demand)
+            .subscribe(
+                respose=> {
+                    me._demandDialog.restData();
+                    me._router.navigate(['/success', {succesOption:'create-demand'}])
+                },
+                error=> {
+                    this._notificationService.emitErrorNotificationToRootComponent('Cererea nu a putut fi creata',5);
+                }
         )
     }
 
     private getMenuDictionary():void {
         var me = this;
         this._categoriesMenuService.getMenuDictionary()
-            .map((response:Response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            }).subscribe(
-            response => {
-                me.menuDictionary = response;
-            },
-            error => {
-                me.menuDictionary = [];
-            });
+            .subscribe(
+                response => {
+                    me.menuDictionary = response;
+                },
+                error => {
+                    me.menuDictionary = [];
+                });
     }
 
     getCities():void {
         var me = this;
         this._localizationService.getCityList()
-            .map(response=>{
-                if(response.text().length>0){
-                    return response.json();
-                }
-            })
             .subscribe(
                 response=> {
                     me._cityes = me._localizationService.mapNameToSelect2Item(response);

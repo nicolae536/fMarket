@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -13,17 +14,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
+var _ = require("underscore");
 var companiesService_1 = require("../../../services/companiesService");
 var notificationService_1 = require("../../../services/notificationService");
-var companieListComponent_1 = require("../../../components/companieComponent/companieListComponent/companieListComponent");
-var _ = require("underscore");
 var selectComponent_1 = require("../../../components/selectComponent/selectComponent");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
+var companiesAdminListComponent_1 = require("../../../components/companieComponent/companieListComponent/companiesAdminListComponent");
+var companySearchObject_1 = require("../../../models/companySearchObject");
+var Ng2Pagination_1 = require("../../../models/Ng2Pagination");
 var applicationPath = '/app/pages/adminPage/companiesPage';
 var CompaniesPage = (function () {
     function CompaniesPage(router, companiesService, notificationService) {
-        this.searchFilter = { name: "", email: "", companyDomain: "", demandDomains: "", page: 1 };
-        this.pagination = { totalItems: 1, currentPage: 1, maxSize: 7 };
+        this.searchFilter = new companySearchObject_1.CompanySearchObject();
+        this.pagination = new Ng2Pagination_1.Ng2Pagination();
         this._router = router;
         this._companiesService = companiesService;
         this._notificationService = notificationService;
@@ -40,15 +43,12 @@ var CompaniesPage = (function () {
         var me = this;
         this.searchFilter['page'] = this.pagination['currentPage'];
         this._companiesService.getCompanyWithFilters(this.searchFilter)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
-            me._companiesList = me.splitViewInPiecesUsingScreen(me.getMockArray());
+            me._companiesList = response.data;
+            me.pagination.currentPage = response.page;
+            me.pagination.totalItems = response.totalPages;
         }, function (error) {
-            me._companiesList = me.splitViewInPiecesUsingScreen(me.getMockArray());
+            me._companiesList = [];
             me._notificationService.emitNotificationToRootComponent({
                 type: 'danger',
                 dismisable: true,
@@ -60,11 +60,6 @@ var CompaniesPage = (function () {
     CompaniesPage.prototype.getCompanieDomains = function () {
         var me = this;
         this._companiesService.getCompanieDomains()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (success) {
             me.companieDomains = me._companiesService.mapNameToSelect2Item(success);
         }, function (error) {
@@ -74,11 +69,6 @@ var CompaniesPage = (function () {
     CompaniesPage.prototype.getDomains = function () {
         var me = this;
         this._companiesService.getDemandDomanins()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (success) {
             me.domains = me._companiesService.mapNameToSelect2Item(success);
         }, function (error) {
@@ -94,8 +84,16 @@ var CompaniesPage = (function () {
     CompaniesPage.prototype.goToNewCompanyPage = function () {
         this._router.navigate(['/admin/ceeaza-companie/ceeaza']);
     };
-    CompaniesPage.prototype.selectCompanie = function (id) {
-        this._router.navigate(['/admin/detalii-companie/:id', { id: id }]);
+    CompaniesPage.prototype.selectCompanie = function ($event) {
+        this._router.navigate(['/admin/detalii-companie', { id: $event.id }]);
+    };
+    CompaniesPage.prototype.removeCompanie = function ($event) {
+        this._companiesService.deleteCompany($event.id)
+            .subscribe(function (result) {
+            console.log('a');
+        }, function (e) {
+            console.log('re');
+        });
     };
     CompaniesPage.prototype.submitSearch = function () {
         this.getCompaniesWithFilters();
@@ -456,11 +454,11 @@ var CompaniesPage = (function () {
             selector: 'compnaies-Page',
             templateUrl: applicationPath + '/companiesPage.html',
             styleUrls: [applicationPath + '/companiesPage.css'],
-            directives: [companieListComponent_1.CompanieListComponent, selectComponent_1.SelectComponent, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
+            directives: [companiesAdminListComponent_1.CompanieAdmminListComponent, selectComponent_1.SelectComponent, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
     ], CompaniesPage);
     return CompaniesPage;
-})();
+}());
 exports.CompaniesPage = CompaniesPage;
 //# sourceMappingURL=companiesPage.js.map

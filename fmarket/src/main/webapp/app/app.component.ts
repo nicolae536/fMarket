@@ -51,14 +51,21 @@ export class AppComponent implements OnInit {
 
     constructor(router:Router, location:Location, notificationService:NotificationService, registrationService:RegistrationService, localeStorageService:LocalStorageService) {
         this._registrationService = registrationService;
+        this._notificationService = notificationService;
         this._localeStorageService = localeStorageService;
-        let me = this;
 
         this.router = router;
         this.location = location;
+
         this._notifications = new Array<IAlert>();
 
-        this._notificationService = notificationService;
+        _.defer(this.checkApplicationStatus, this);
+        //this.startDemadsWatcher();
+    }
+
+    ngOnInit():any {
+        let me = this;
+
         this._notificationService.notificationFlux.subscribe(event=> {
             event.new = true;
 
@@ -72,13 +79,6 @@ export class AppComponent implements OnInit {
             setTimeout(()=>{me._notifications[me._notifications.length-1]['new']=false;}, 500);
         });
 
-        _.defer(this.checkApplicationStatus, this);
-        //this.startDemadsWatcher();
-    }
-
-    ngOnInit():any {
-        let me = this;
-
         this._notificationService.firstLoad.subscribe(event=> {
             if(ApplicationConstants.FIRST_LOAD){
                 let element = document.getElementById('loadingSpinnerComponent');
@@ -87,7 +87,6 @@ export class AppComponent implements OnInit {
                 }
 
                 JqueryService.removeElementWithAnimation(element);
-                // JqueryService.setAppBackground();
             }
         });
     }
@@ -99,11 +98,6 @@ export class AppComponent implements OnInit {
         Observable.interval(15 * ApplicationConstants.SECOND).subscribe(
             success => {
                 me._notificationService.getStatus()
-                    .map((response)=> {
-                        if (response.text().length > 0) {
-                            return response.json();
-                        }
-                    })
                     .subscribe(
                         response => {
                             if (response && response > 0) {
@@ -155,24 +149,14 @@ export class AppComponent implements OnInit {
             context.handleUserState(response, context);
         }
 
-        //noinspection TypeScriptUnresolvedFunction
-        Observable.interval(60 * ApplicationConstants.SECOND).subscribe(
-            success => {
-                context._registrationService.checkIfLoggedIn()
-                    .map(response => {
-                        if (response.text().length > 0) {
-                            return response.json();
-                        }
-                    })
-                    .subscribe(
-                        response=> {
-                            context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
-                            context.handleUserState(response, context);
-                        },
-                        errorHandler
-                    );
-            },
-            errorHandler);
+        context._registrationService.checkIfLoggedIn()
+            .subscribe(
+                response=> {
+                    context._localeStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
+                    context.handleUserState(response, context);
+                },
+                errorHandler
+            );
     }
 
     private handleUserState(response, context){

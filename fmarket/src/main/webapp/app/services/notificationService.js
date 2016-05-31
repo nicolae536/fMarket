@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -11,17 +12,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/24/2016.
  */
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
 var fMarketApi_1 = require("./fMarketApi");
 var Subject_1 = require("rxjs/Subject");
 var applicationConstansts_1 = require("../models/applicationConstansts");
 var NotificationService = (function () {
-    // public backgroundUpdate:Subject<string> = new Subject();
-    function NotificationService(http) {
-        this._NotificationController = '/notify';
+    function NotificationService(api) {
         this.notificationFlux = new Subject_1.Subject();
         this.firstLoad = new Subject_1.Subject();
-        this.api = new fMarketApi_1.FMarketApi(http);
+        this.api = api;
     }
     NotificationService.prototype.getStatus = function () {
         return this.api.get('/admin/demands/newcount');
@@ -50,9 +48,9 @@ var NotificationService = (function () {
     };
     NotificationService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], NotificationService);
     return NotificationService;
-})();
+}());
 exports.NotificationService = NotificationService;
 //# sourceMappingURL=notificationService.js.map

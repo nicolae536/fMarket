@@ -15,6 +15,7 @@ import {ApplicationConstants} from "../../../models/applicationConstansts";
 import {LocalStorageService} from "../../../services/localStorageService";
 import {NotificationService} from "../../../services/notificationService";
 import {JqueryService} from "../../../services/jqueryService";
+import {ApplicationStateService} from "../../../services/applicationStateService";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -37,15 +38,19 @@ export class LoginPage implements OnInit, AfterViewChecked {
     private _showRememberMeLink:boolean;
     private _showLoginLink:boolean;
     private _router:Router;
-    private _localStorageService:LocalStorageService;
     private _notificationService:NotificationService;
     private _registrationComponent:RegistrationComponent;
     private _loginPage;
-    constructor(router:Router, registrationService:RegistrationService,localStorageService:LocalStorageService, ntificationService:NotificationService) {
+    private _applicationStateService:ApplicationStateService;
+
+    constructor(router:Router,
+                registrationService:RegistrationService,
+                ntificationService:NotificationService,
+                applicationStateService:ApplicationStateService ) {
         this._router = router;
         this._registrationService = registrationService;
-        this._localStorageService = localStorageService;
         this._notificationService = ntificationService;
+        this._applicationStateService = applicationStateService;
     }
 
     ngAfterViewChecked():any {
@@ -75,14 +80,9 @@ export class LoginPage implements OnInit, AfterViewChecked {
         let me=this;
 
         this._registrationService.login(account)
-            .map((response)=> {
-                if (response.text()) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
-                    me._localStorageService.setItem(ApplicationConstants.ACTIVE_USER_STATE, response);
+                    me._applicationStateService.setApplicationSessionState(response);
                     me._router.navigate(['/'])
                 },
                 error => {

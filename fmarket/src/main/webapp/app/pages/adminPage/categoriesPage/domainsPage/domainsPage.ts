@@ -43,11 +43,6 @@ export class DomainsPage implements OnInit {
         let me = this;
 
         this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-            .map((response:Response) => {
-                if(response.text().length){
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me.domainsTypes = response;
@@ -65,11 +60,6 @@ export class DomainsPage implements OnInit {
         let me = this;
 
         this._requestTypeService.addRequestType(this.newRequestType)
-            .map((response:Response) => {
-                if(response.text().length){
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me.getRequestTypesWithFilters();
@@ -86,11 +76,6 @@ export class DomainsPage implements OnInit {
         let me = this;
 
         this._requestTypeService.deleteRequestType(requestType.id)
-            .map((response:Response) => {
-                if(response.text().length){
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me.domainsTypes = response;
@@ -105,11 +90,6 @@ export class DomainsPage implements OnInit {
     editRequestType(requestType:RequestType) {
         let me = this;
         this._requestTypeService.editRequestType(requestType)
-            .map((response:Response) => {
-                if(response.text().length){
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     requestType.isInEditMode = false;

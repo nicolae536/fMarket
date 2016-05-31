@@ -1,3 +1,4 @@
+"use strict";
 var _ = require('underscore');
 var DemandStatus_1 = require("../../../../models/DemandStatus");
 var DemandSearchObject_1 = require("../../../../models/DemandSearchObject");
@@ -24,11 +25,6 @@ var DemandsListPageBase = (function () {
     DemandsListPageBase.prototype.getAllDemandsList = function () {
         var me = this;
         this._demandService.getDemandsWithFilters(this._searchObject)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._demandsList = response.data;
             me.totalPages = response.totalPages;
@@ -39,11 +35,7 @@ var DemandsListPageBase = (function () {
     DemandsListPageBase.prototype.getMenuDictionary = function () {
         var me = this;
         this._categoriesMenuService.getMenuDictionary()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
+            .subscribe(function (response) {
             me.menuDictionary = response;
         }, function (error) {
             me.menuDictionary = [];
@@ -52,11 +44,6 @@ var DemandsListPageBase = (function () {
     DemandsListPageBase.prototype.getNewDemandsList = function () {
         var me = this;
         this._demandService.getNewDemands()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._demandsList = response;
         }, function (error) {
@@ -72,11 +59,6 @@ var DemandsListPageBase = (function () {
     DemandsListPageBase.prototype.getCities = function () {
         var me = this;
         this._localizationService.getCityList()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._citiesList = me._localizationService.mapNameToSelect2Item(response);
         }, function (error) {
@@ -85,11 +67,6 @@ var DemandsListPageBase = (function () {
     DemandsListPageBase.prototype.getDomains = function () {
         var me = this;
         this._requestTypeService.getRequestTypesWithFilters()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._domainsList = _.map(response, function (domain) {
                 return {
@@ -104,6 +81,6 @@ var DemandsListPageBase = (function () {
         this._router.navigate(['/Admin/EditDemand', { id: demand.id }]);
     };
     return DemandsListPageBase;
-})();
+}());
 exports.DemandsListPageBase = DemandsListPageBase;
 //# sourceMappingURL=demandsListPageBase.js.map

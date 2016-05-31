@@ -11,7 +11,9 @@
 @import "/app/components/registrationComponent/registrationComponent.css";
 @import "/app/components/loadingComponent/loadingComponentStyle.css";
 @import "/app/components/companieComponent/companieListComponent/companieListComponent.css";
-@import "components/selectComponent/selectComponent.css";
+@import "/app/components/selectComponent/selectComponent.css";
+@import "/app/components/companieComponent/companieListComponent/companiesAdminListComponent.css";
+
 /*pages styles*/
 @import "/app/pages/accountSettingsPage/accountSettingsPage.css";
 @import "/app/pages/accountSettingsPage/accountDemandsPage/accountDemandsPage.css";

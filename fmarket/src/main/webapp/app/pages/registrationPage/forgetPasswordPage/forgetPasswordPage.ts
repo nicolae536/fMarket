@@ -74,11 +74,6 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
         let me=this;
 
         this._registrationService.resetPassword(account)
-            .map((response)=> {
-                if (response.text()) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me._router.navigate(['/success', {succesOption:'success-rest-password'}]);

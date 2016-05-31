@@ -37,11 +37,6 @@ export class CompaniesPage implements OnInit {
         var me = this;
 
         this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-            .map((response:Response) => {
-                if (response.text().length) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me.companieTypes = response;
@@ -60,38 +55,30 @@ export class CompaniesPage implements OnInit {
         }
 
         this._companieTypeService.addCompanyType(this.newDomain)
-            .map((response:Response) => {
-                if (response.text().length) {
-                    return response.json();
-                }
-            })            .subscribe(
-            response => {
-                me.getCompanyTypesWithFilters();
-                me.newDomain = "";
-                me.toggleAddCompanieDomain(false);
-                me.rebuildForm();
-            },
-            error => {
-                //make the field red
-                //this.companieTypes = [];
-            });
+            .subscribe(
+                response => {
+                    me.getCompanyTypesWithFilters();
+                    me.newDomain = "";
+                    me.toggleAddCompanieDomain(false);
+                    me.rebuildForm();
+                },
+                error => {
+                    //make the field red
+                    //this.companieTypes = [];
+                });
     }
 
     deleteCompanyType(companyType:CompanieType) {
         var me = this;
 
         this._companieTypeService.deleteCompanyType(companyType.id)
-            .map((response:Response) => {
-                if (response.text().length) {
-                    return response.json();
-                }
-            })            .subscribe(
-            response => {
-                me.getCompanyTypesWithFilters()
-            },
-            error => {
-                //me.companieTypes = [];
-            });
+            .subscribe(
+                response => {
+                    me.getCompanyTypesWithFilters()
+                },
+                error => {
+                    //me.companieTypes = [];
+                });
 
     }
 
@@ -99,18 +86,14 @@ export class CompaniesPage implements OnInit {
         var me = this;
 
         this._companieTypeService.editCompaniType(companyType)
-            .map((response:Response) => {
-                if (response.text().length) {
-                    return response.json();
-                }
-            })            .subscribe(
-            response => {
-                companyType.isInEditMode = false;
-                //this.companieTypes = response.data;
-            },
-            error => {
-                //this.companieTypes = [];
-            });
+            .subscribe(
+                response => {
+                    companyType.isInEditMode = false;
+                    //this.companieTypes = response.data;
+                },
+                error => {
+                    //this.companieTypes = [];
+                });
     }
 
     toggleEditMode(companyType:CompanieType) {

@@ -11,6 +11,7 @@ import {LocalStorageService} from "../../services/localStorageService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
 import {RegistrationService} from "../../services/registrationService";
 import {NotificationService} from "../../services/notificationService";
+import {ApplicationStateService} from "../../services/applicationStateService";
 
 let directoryPath = '/app/components/headerComponent';
 @Component({
@@ -31,17 +32,19 @@ export class HeaderComponent implements OnInit {
     private _notificationService:NotificationService;
     private sideMenuOpened:boolean;
     private hideImage:boolean;
+    private _applicationStateService:ApplicationStateService;
 
-    constructor(router:Router, localStorageService:LocalStorageService, registrationService:RegistrationService, notificationService:NotificationService) {
+    constructor(router:Router, 
+                localStorageService:LocalStorageService, 
+                registrationService:RegistrationService, 
+                notificationService:NotificationService,
+                applicationStateService:ApplicationStateService ) {
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
-        let me = this;
-
+        this._applicationStateService =applicationStateService;
         this._localStorageService = localStorageService;
-        this._localStorageService.storageStateChange.subscribe(event=> {
-            me.resolveChanges(event);
-        })
+
         this._myAccountLabel = 'Contul meu';
     }
 
@@ -52,6 +55,11 @@ export class HeaderComponent implements OnInit {
 
         this.setUserRoutes();
         this.setAdminRoutes();
+
+        let me = this;
+        this._localStorageService.storageStateChange.subscribe(event=> {
+            me.resolveChanges(event);
+        })
     }
 
     resolveChanges(event) {
@@ -123,22 +131,12 @@ export class HeaderComponent implements OnInit {
         let me = this;
         this.closeNav();
         this._registrationService.logout()
-            .map(response=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response=> {
-                    me._localStorageService.removeItem(ApplicationConstants.ACTIVE_USER_STATE);
+                    me._applicationStateService.removeUserSession();
                     me._router.navigate(['/']);
                 }, error=> {
-                    me._notificationService.emitNotificationToRootComponent({
-                        type: 'danger',
-                        dismisable: true,
-                        message: 'Erroare la logout!',
-                        timeout: 5
-                    })
+                    me._notificationService.emitErrorNotificationToRootComponent('Erroare la logout!',5);
                 }
             )
 

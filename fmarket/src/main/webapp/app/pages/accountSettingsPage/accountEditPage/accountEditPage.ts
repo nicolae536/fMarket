@@ -45,11 +45,6 @@ export class AccountEditPage implements OnInit {
     saveEditedAccount(editedAccount:AccountDto) {
         let me = this;
         this._accountService.saveEditedAccount(editedAccount)
-            .map((response)=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me._account = response;
@@ -63,11 +58,6 @@ export class AccountEditPage implements OnInit {
     private getCityList() {
         let me = this;
         this._localizationService.getCityList()
-            .map((response)=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me._cityesList = me._localizationService.mapNameToSelect2Item(response);
@@ -82,11 +72,6 @@ export class AccountEditPage implements OnInit {
         let me = this;
         
         this._accountService.getAccount()
-            .map(response=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 success=> {
                     me._account = success;

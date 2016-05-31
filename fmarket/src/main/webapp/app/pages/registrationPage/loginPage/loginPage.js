@@ -4,6 +4,7 @@
 /**
  * Created by nick_ on 4/17/2016.
  */
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -17,17 +18,16 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var registrationComponent_1 = require("../../../components/registrationComponent/registrationComponent");
 var registrationService_1 = require("../../../services/registrationService");
-var applicationConstansts_1 = require("../../../models/applicationConstansts");
-var localStorageService_1 = require("../../../services/localStorageService");
 var notificationService_1 = require("../../../services/notificationService");
 var jqueryService_1 = require("../../../services/jqueryService");
+var applicationStateService_1 = require("../../../services/applicationStateService");
 var folderPath = '/app/pages/registrationPage';
 var LoginPage = (function () {
-    function LoginPage(router, registrationService, localStorageService, ntificationService) {
+    function LoginPage(router, registrationService, ntificationService, applicationStateService) {
         this._router = router;
         this._registrationService = registrationService;
-        this._localStorageService = localStorageService;
         this._notificationService = ntificationService;
+        this._applicationStateService = applicationStateService;
     }
     LoginPage.prototype.ngAfterViewChecked = function () {
         jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
@@ -51,13 +51,8 @@ var LoginPage = (function () {
     LoginPage.prototype.requestHandler = function (account) {
         var me = this;
         this._registrationService.login(account)
-            .map(function (response) {
-            if (response.text()) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
-            me._localStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
+            me._applicationStateService.setApplicationSessionState(response);
             me._router.navigate(['/']);
         }, function (error) {
             me._notificationService.emitNotificationToRootComponent({ type: "danger", dismisable: true, message: "Date de autentificare incorecte!", timeout: 5 });
@@ -74,9 +69,9 @@ var LoginPage = (function () {
             templateUrl: folderPath + '/registrationPage.html',
             directives: [registrationComponent_1.RegistrationComponent]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService, notificationService_1.NotificationService])
+        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
     ], LoginPage);
     return LoginPage;
-})();
+}());
 exports.LoginPage = LoginPage;
 //# sourceMappingURL=loginPage.js.map

@@ -1,3 +1,4 @@
+"use strict";
 var Subscriber = (function () {
     function Subscriber(id, description, email, subscribeDate, unsubscribeDate, unsubscribeToken) {
         this.isInEditMode = false;
@@ -12,6 +13,6 @@ var Subscriber = (function () {
         return new Subscriber();
     };
     return Subscriber;
-})();
+}());
 exports.Subscriber = Subscriber;
 //# sourceMappingURL=subscriber.js.map

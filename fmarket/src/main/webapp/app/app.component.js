@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -27,12 +28,16 @@ var AppComponent = (function () {
     function AppComponent(router, location, notificationService, registrationService, localeStorageService) {
         this.addItem = true;
         this._registrationService = registrationService;
+        this._notificationService = notificationService;
         this._localeStorageService = localeStorageService;
-        var me = this;
         this.router = router;
         this.location = location;
         this._notifications = new Array();
-        this._notificationService = notificationService;
+        _.defer(this.checkApplicationStatus, this);
+        //this.startDemadsWatcher();
+    }
+    AppComponent.prototype.ngOnInit = function () {
+        var me = this;
         this._notificationService.notificationFlux.subscribe(function (event) {
             event.new = true;
             if (event.timeout) {
@@ -44,11 +49,6 @@ var AppComponent = (function () {
             }
             setTimeout(function () { me._notifications[me._notifications.length - 1]['new'] = false; }, 500);
         });
-        _.defer(this.checkApplicationStatus, this);
-        //this.startDemadsWatcher();
-    }
-    AppComponent.prototype.ngOnInit = function () {
-        var me = this;
         this._notificationService.firstLoad.subscribe(function (event) {
             if (applicationConstansts_1.ApplicationConstants.FIRST_LOAD) {
                 var element = document.getElementById('loadingSpinnerComponent');
@@ -64,11 +64,6 @@ var AppComponent = (function () {
         //noinspection TypeScriptUnresolvedFunction
         Observable_1.Observable.interval(15 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
             me._notificationService.getStatus()
-                .map(function (response) {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
                 .subscribe(function (response) {
                 if (response && response > 0) {
                     me.showDissmisableNotification({
@@ -107,18 +102,10 @@ var AppComponent = (function () {
             context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
             context.handleUserState(response, context);
         };
-        //noinspection TypeScriptUnresolvedFunction
-        Observable_1.Observable.interval(60 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
-            context._registrationService.checkIfLoggedIn()
-                .map(function (response) {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
-                .subscribe(function (response) {
-                context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
-                context.handleUserState(response, context);
-            }, errorHandler);
+        context._registrationService.checkIfLoggedIn()
+            .subscribe(function (response) {
+            context._localeStorageService.setItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE, response);
+            context.handleUserState(response, context);
         }, errorHandler);
     };
     AppComponent.prototype.handleUserState = function (response, context) {
@@ -136,6 +123,6 @@ var AppComponent = (function () {
         __metadata('design:paramtypes', [router_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, localStorageService_1.LocalStorageService])
     ], AppComponent);
     return AppComponent;
-})();
+}());
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

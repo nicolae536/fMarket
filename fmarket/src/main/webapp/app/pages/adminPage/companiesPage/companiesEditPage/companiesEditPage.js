@@ -1,6 +1,7 @@
 /**
  * Created by nick_ on 5/6/2016.
  */
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -34,11 +35,6 @@ var CompaniesEditPage = (function (_super) {
     CompaniesEditPage.prototype.ngOnInit = function () {
         var me = this;
         this._companiesService.getCompanyDetails(parseInt(this.companieId))
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._companie = response;
         }, function (error) {
@@ -49,11 +45,6 @@ var CompaniesEditPage = (function (_super) {
     CompaniesEditPage.prototype.saveCompanie = function (companieDto) {
         var me = this;
         this._companiesService.editCompany(companieDto)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (success) {
             me._location.back();
         }, function (error) {
@@ -68,6 +59,6 @@ var CompaniesEditPage = (function (_super) {
         __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], CompaniesEditPage);
     return CompaniesEditPage;
-})(companiesEditBase_1.CompaniesEditBase);
+}(companiesEditBase_1.CompaniesEditBase));
 exports.CompaniesEditPage = CompaniesEditPage;
 //# sourceMappingURL=companiesEditPage.js.map

@@ -1,3 +1,4 @@
+"use strict";
 var PageWithNavigation = (function () {
     function PageWithNavigation() {
         this.currentPageIndex = 1;
@@ -69,6 +70,6 @@ var PageWithNavigation = (function () {
         this.pageNumbsersSubset = auxArray;
     };
     return PageWithNavigation;
-})();
+}());
 exports.PageWithNavigation = PageWithNavigation;
 //# sourceMappingURL=pageWithNavigation.js.map

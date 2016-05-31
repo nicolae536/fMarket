@@ -70,11 +70,6 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
         let me=this;
 
         this._registrationService.createAccount(account)
-            .map((response)=> {
-                if (response.text()) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me._router.navigate(['/success/success-registration']);

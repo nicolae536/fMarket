@@ -1,0 +1,26 @@
+<div class="clearfix search-field-wrapper ">
+    <div class="col-md-6 col-xs-12">
+        <div class="input-group">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-search"></span>
+            </div>
+            <input type="text" class="form-control" [(ngModel)]="searchFilter.name"
+                   (ngModelChange)="chengeSearch($event)"/>
+        </div>
+    </div>
+    <div class="pull-right operations">
+        <button class="btn btn-primary" (click)="getCompaniesWithFilters()">
+            <span class="glyphicon glyphicon-filter"></span>
+            Filtreaza companii
+        </button>
+    </div>
+</div>
+<div class="clearfix companies-grid-view">
+    <companie-list-component
+            [companies-list]="_companiesList"
+            (companie-selected)="selectCompanie($event)"
+    ></companie-list-component>
+</div>
+<pagination [totalItems]="pagination.totalItems" [(ngModel)]="pagination.currentPage"
+            (ngModelChange)="getCompaniesWithFilters()" [maxSize]="pagination.maxSize" class="pagination-sm"
+            [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>

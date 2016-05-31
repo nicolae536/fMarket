@@ -37,11 +37,6 @@ export class CompaniesEditPage extends CompaniesEditBase implements OnInit, OnAc
     ngOnInit() {
         let me=this;
         this._companiesService.getCompanyDetails(parseInt(this.companieId))
-            .map(response=>{
-                if(response.text().length>0){
-                    return response.json();
-                }
-            })
             .subscribe(
                 response=>{
                     me._companie = response;
@@ -57,11 +52,6 @@ export class CompaniesEditPage extends CompaniesEditBase implements OnInit, OnAc
         let me=this;
 
         this._companiesService.editCompany(companieDto)
-            .map(response=>{
-                if(response.text().length>0){
-                    return response.json();
-                }
-            })
             .subscribe(
                 success =>{
                     me._location.back();

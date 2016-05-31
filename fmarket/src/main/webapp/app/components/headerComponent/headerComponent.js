@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -16,20 +17,17 @@ var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var authorizationService_1 = require("../../services/authorizationService");
 var Roles_1 = require("../../models/Roles");
 var localStorageService_1 = require("../../services/localStorageService");
-var applicationConstansts_1 = require("../../models/applicationConstansts");
 var registrationService_1 = require("../../services/registrationService");
 var notificationService_1 = require("../../services/notificationService");
+var applicationStateService_1 = require("../../services/applicationStateService");
 var directoryPath = '/app/components/headerComponent';
 var HeaderComponent = (function () {
-    function HeaderComponent(router, localStorageService, registrationService, notificationService) {
+    function HeaderComponent(router, localStorageService, registrationService, notificationService, applicationStateService) {
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
-        var me = this;
+        this._applicationStateService = applicationStateService;
         this._localStorageService = localStorageService;
-        this._localStorageService.storageStateChange.subscribe(function (event) {
-            me.resolveChanges(event);
-        });
         this._myAccountLabel = 'Contul meu';
     }
     HeaderComponent.prototype.ngOnInit = function () {
@@ -38,6 +36,10 @@ var HeaderComponent = (function () {
         ];
         this.setUserRoutes();
         this.setAdminRoutes();
+        var me = this;
+        this._localStorageService.storageStateChange.subscribe(function (event) {
+            me.resolveChanges(event);
+        });
     };
     HeaderComponent.prototype.resolveChanges = function (event) {
         this.setUserRoutes();
@@ -98,21 +100,11 @@ var HeaderComponent = (function () {
         var me = this;
         this.closeNav();
         this._registrationService.logout()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
-            me._localStorageService.removeItem(applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE);
+            me._applicationStateService.removeUserSession();
             me._router.navigate(['/']);
         }, function (error) {
-            me._notificationService.emitNotificationToRootComponent({
-                type: 'danger',
-                dismisable: true,
-                message: 'Erroare la logout!',
-                timeout: 5
-            });
+            me._notificationService.emitErrorNotificationToRootComponent('Erroare la logout!', 5);
         });
     };
     HeaderComponent = __decorate([
@@ -121,9 +113,9 @@ var HeaderComponent = (function () {
             templateUrl: directoryPath + '/headerComponent.html',
             directives: [router_1.ROUTER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, localStorageService_1.LocalStorageService, registrationService_1.RegistrationService, notificationService_1.NotificationService])
+        __metadata('design:paramtypes', [router_1.Router, localStorageService_1.LocalStorageService, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
     ], HeaderComponent);
     return HeaderComponent;
-})();
+}());
 exports.HeaderComponent = HeaderComponent;
 //# sourceMappingURL=headerComponent.js.map

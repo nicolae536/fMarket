@@ -1,3 +1,4 @@
+"use strict";
 require('zone.js');
 require('reflect-metadata');
 var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
@@ -21,6 +22,7 @@ var notificationService_1 = require("./services/notificationService");
 var localStorageService_1 = require("./services/localStorageService");
 var authorizationService_1 = require("./services/authorizationService");
 var registrationService_1 = require("./services/registrationService");
+var applicationStateService_1 = require("./services/applicationStateService");
 core_1.enableProdMode();
 //console.log(HTTP_PROVIDERS);
 platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
@@ -28,6 +30,7 @@ platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
     router_1.ROUTER_PROVIDERS,
     core_1.provide(common_1.LocationStrategy, { useClass: common_1.HashLocationStrategy }),
     common_2.FormBuilder,
+    applicationStateService_1.ApplicationStateService,
     fMarketApi_1.FMarketApi,
     notificationService_1.NotificationService,
     localStorageService_1.LocalStorageService,

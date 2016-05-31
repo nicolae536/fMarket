@@ -11,14 +11,12 @@ import {ApplicationConstants} from "../models/applicationConstansts";
 
 @Injectable()
 export class NotificationService {
-    private _NotificationController:string = '/notify';
     private api:FMarketApi;
     public notificationFlux:Subject<any> = new Subject();
     public firstLoad:Subject<any> = new Subject();
-    // public backgroundUpdate:Subject<string> = new Subject();
-
-    constructor(http:Http) {
-        this.api = new FMarketApi(http);
+    
+    constructor(api:FMarketApi) {
+        this.api = api;
     }
 
     getStatus(){

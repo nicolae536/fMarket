@@ -54,11 +54,6 @@ export class DemandsEditPage implements OnInit, OnActivate {
         let me=this;
 
         this._demandService.getDemand(this._demandId)
-            .map((response)=> {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
                     me._demand = response;
@@ -76,11 +71,6 @@ export class DemandsEditPage implements OnInit, OnActivate {
         let me=this;
 
         this._demandService.acceptDemand(demand)
-            .map((response)=>{
-                if(response.text().length > 0){
-                    return response.json();
-                }
-            })
             .subscribe(
                 response =>{
                     me._location.back();
@@ -96,11 +86,6 @@ export class DemandsEditPage implements OnInit, OnActivate {
         let me=this;
 
         this._demandService.declineDemand(id)
-            .map((response)=>{
-                if(response.text().length > 0){
-                    return response.json();
-                }
-            })
             .subscribe(
                 response =>{
                     me._location.back();
@@ -115,11 +100,6 @@ export class DemandsEditPage implements OnInit, OnActivate {
         let me=this;
 
         this._demandService.saveDemand(demand)
-            .map((response)=>{
-                if(response.text().length > 0){
-                    return response.json();
-                }
-            })
             .subscribe(
                 response =>{
                     me._location.back();

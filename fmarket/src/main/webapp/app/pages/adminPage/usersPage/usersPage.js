@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -52,15 +53,10 @@ var UsersPage = (function () {
     UsersPage.prototype.getUsers = function () {
         var me = this;
         this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.pagination['currentPage'])
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
-            me.usersList = response.data;
-            me.pagination['totalItems'] = response.totalPages;
-            me.pagination['currentPage'] = response.page;
+            me.usersList = response['data'];
+            me.pagination['totalItems'] = response['totalPages'];
+            me.pagination['currentPage'] = response['page'];
             console.log(response);
         }, function (error) {
             console.log(error);
@@ -80,11 +76,6 @@ var UsersPage = (function () {
         var me = this;
         this.actionDialog.hide();
         this._userService.deleteUser(user)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             var userIndex = me.usersList.indexOf(user);
             if (userIndex !== -1) {
@@ -98,11 +89,6 @@ var UsersPage = (function () {
         var _this = this;
         user.isInEditMode = false;
         this._userService.updateUser(user)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             //success
         }, function (error) {
@@ -116,13 +102,8 @@ var UsersPage = (function () {
     UsersPage.prototype.getCities = function () {
         var me = this;
         me._localizationService.getCityList()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (succesR) {
-            me.cityList = succesR;
+            me['cityList'] = succesR;
         }, function (error) {
             me.cityList = [];
         });
@@ -156,6 +137,6 @@ var UsersPage = (function () {
         __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], UsersPage);
     return UsersPage;
-})();
+}());
 exports.UsersPage = UsersPage;
 //# sourceMappingURL=usersPage.js.map

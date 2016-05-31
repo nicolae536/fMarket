@@ -1,6 +1,7 @@
 /**
  * Created by nick_ on 4/22/2016.
  */
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -35,11 +36,6 @@ var DemandsEditPage = (function () {
     DemandsEditPage.prototype.getDemand = function () {
         var me = this;
         this._demandService.getDemand(this._demandId)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._demand = response;
         }, function (error) {
@@ -51,11 +47,6 @@ var DemandsEditPage = (function () {
     DemandsEditPage.prototype.acceptDemand = function (demand) {
         var me = this;
         this._demandService.acceptDemand(demand)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._location.back();
             me._notificationService.emitSuccessNotificationToRootComponent('Cerere activata cu success', 3);
@@ -66,11 +57,6 @@ var DemandsEditPage = (function () {
     DemandsEditPage.prototype.rejectDemand = function (id) {
         var me = this;
         this._demandService.declineDemand(id)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._location.back();
         }, function (error) {
@@ -80,11 +66,6 @@ var DemandsEditPage = (function () {
     DemandsEditPage.prototype.saveEditedDemand = function (demand) {
         var me = this;
         this._demandService.saveDemand(demand)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._location.back();
         }, function (error) {
@@ -101,6 +82,6 @@ var DemandsEditPage = (function () {
         __metadata('design:paramtypes', [router_1.Router, common_1.Location, demandService_1.DemandService, requestTypeService_1.RequestTypeService, notificationService_1.NotificationService])
     ], DemandsEditPage);
     return DemandsEditPage;
-})();
+}());
 exports.DemandsEditPage = DemandsEditPage;
 //# sourceMappingURL=demandsEditPage.js.map

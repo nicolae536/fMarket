@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59,11 +60,6 @@ var SubscribersPage = (function () {
     SubscribersPage.prototype.createSubscriber = function (subscriberValue) {
         var me = this;
         this._subscribersService.subscribe(subscriberValue.email)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me.getSubscribersWithFilters();
         }, function (error) {
@@ -72,11 +68,6 @@ var SubscribersPage = (function () {
     SubscribersPage.prototype.getSubscribersWithFilters = function () {
         var me = this;
         this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.pagination['currentPage'], this.sortKey, this.sortOrder)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me.subscribersList = response.data;
             me.pagination['totalItems'] = response.totalPages;
@@ -86,22 +77,13 @@ var SubscribersPage = (function () {
     };
     SubscribersPage.prototype.subscribe = function (subscriber) {
         this._subscribersService.subscribe(subscriber.email)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
         }, function (error) {
         });
     };
     SubscribersPage.prototype.unsubscribe = function (subscriber) {
         this._subscribersService.unsubscribe(subscriber.id)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
+            .subscribe(function (response) {
         }, function (error) {
         });
     };
@@ -109,11 +91,6 @@ var SubscribersPage = (function () {
         var me = this;
         this.actionDialog.hide();
         this._subscribersService.delete(subscriber.id)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             var subscriberIndex = me.subscribersList.indexOf(subscriber);
             if (subscriberIndex !== -1) {
@@ -179,11 +156,6 @@ var SubscribersPage = (function () {
     SubscribersPage.prototype.getCities = function () {
         var me = this;
         me._localizationService.getCityList()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (succesR) {
             me.cityList = succesR;
         }, function (error) {
@@ -201,6 +173,6 @@ var SubscribersPage = (function () {
         __metadata('design:paramtypes', [subscribersService_1.SubscribersService, localizationService_1.LocalizationService])
     ], SubscribersPage);
     return SubscribersPage;
-})();
+}());
 exports.SubscribersPage = SubscribersPage;
 //# sourceMappingURL=subscribersPage.js.map

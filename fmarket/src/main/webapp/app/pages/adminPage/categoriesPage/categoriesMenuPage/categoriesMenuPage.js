@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -32,11 +33,7 @@ var CategoriesMenuPage = (function () {
     CategoriesMenuPage.prototype.getMenuDictionary = function () {
         var me = this;
         this._categoriesMenuService.getMenuDictionary()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
+            .subscribe(function (response) {
             me.menuDictionary = response;
         }, function (error) {
             me.menuDictionary = [];
@@ -52,11 +49,7 @@ var CategoriesMenuPage = (function () {
     CategoriesMenuPage.prototype.addMenuItem = function (newDomainMenuItemRequest) {
         var me = this;
         me._categoriesMenuService.addMenuItem(newDomainMenuItemRequest)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
+            .subscribe(function (response) {
             me._menuItemModal.hide();
             me.getMenuDictionary();
         }, function (error) {
@@ -74,11 +67,7 @@ var CategoriesMenuPage = (function () {
     CategoriesMenuPage.prototype.editMenuItem = function (updateDomainMenuItemRequest) {
         var me = this;
         me._categoriesMenuService.updateMenuItem(updateDomainMenuItemRequest)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
+            .subscribe(function (response) {
             me._menuItemModal.hide();
             me.getMenuDictionary();
         }, function (error) {
@@ -88,11 +77,7 @@ var CategoriesMenuPage = (function () {
     CategoriesMenuPage.prototype.deleteMenuItem = function (id) {
         var _this = this;
         this._categoriesMenuService.deleteMenuItem(id)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
+            .subscribe(function (response) {
             _this.getMenuDictionary();
         }, function (errod) {
         });
@@ -100,11 +85,7 @@ var CategoriesMenuPage = (function () {
     CategoriesMenuPage.prototype.getDomains = function () {
         var me = this;
         this._categoriesMenuService.getDomains()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
+            .subscribe(function (response) {
             me._domains = response;
         }, function (error) {
             console.log(me._domains);
@@ -121,6 +102,6 @@ var CategoriesMenuPage = (function () {
         __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])
     ], CategoriesMenuPage);
     return CategoriesMenuPage;
-})();
+}());
 exports.CategoriesMenuPage = CategoriesMenuPage;
 //# sourceMappingURL=categoriesMenuPage.js.map

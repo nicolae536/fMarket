@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,7 +45,7 @@ var CompaniesService = (function () {
         return this.api.put(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(updatedCompany));
     };
     CompaniesService.prototype.deleteCompany = function (id) {
-        return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER + ("" + id));
+        return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER + ("/" + id));
     };
     CompaniesService.prototype.getCompanieDomains = function () {
         return this.api.get('/company/domains');
@@ -65,6 +66,6 @@ var CompaniesService = (function () {
         __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], CompaniesService);
     return CompaniesService;
-})();
+}());
 exports.CompaniesService = CompaniesService;
 //# sourceMappingURL=companiesService.js.map

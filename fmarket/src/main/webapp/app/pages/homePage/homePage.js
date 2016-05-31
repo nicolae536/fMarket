@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,7 +39,6 @@ var HomePage = (function () {
         this.getMenuDictionary();
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
-        // this._notificationService.updateBackground(ApplicationConstants.homePage);
         this._notificationService.removeLoading();
     };
     HomePage.prototype.ngAfterViewInit = function () {
@@ -57,27 +57,12 @@ var HomePage = (function () {
         }
         var me = this;
         this._subscribersService.subscribeTowebsite(this._subscribeForm.value)
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (success) {
             me._subscribeForm.removeControl('email');
             _this._subscribeForm.addControl('email', _this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
-            me._notificationService.emitNotificationToRootComponent({
-                type: 'success',
-                dismisable: true,
-                message: 'Te-ai inscris cu success!',
-                timeout: 5
-            });
+            me._notificationService.emitSuccessNotificationToRootComponent('Te-ai inscris cu success!', 5);
         }, function (error) {
-            me._notificationService.emitNotificationToRootComponent({
-                type: 'danger',
-                dismisable: true,
-                message: error.message,
-                timeout: 5
-            });
+            me._notificationService.emitErrorNotificationToRootComponent(error.message, 5);
         });
     };
     HomePage.prototype.goToCreateDemand = function () {
@@ -92,30 +77,18 @@ var HomePage = (function () {
         if (!this._demandDialog.IsValid()) {
             return;
         }
-        this._demandService.createUserDemand(demand).map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        }).subscribe(function (respose) {
+        this._demandService.createUserDemand(demand)
+            .subscribe(function (respose) {
             me._demandDialog.restData();
             me._router.navigate(['/success', { succesOption: 'create-demand' }]);
         }, function (error) {
-            _this._notificationService.emitNotificationToRootComponent({
-                type: 'danger',
-                dismisable: true,
-                message: 'Cererea nu a putut fi creata',
-                timeout: 5
-            });
+            _this._notificationService.emitErrorNotificationToRootComponent('Cererea nu a putut fi creata', 5);
         });
     };
     HomePage.prototype.getMenuDictionary = function () {
         var me = this;
         this._categoriesMenuService.getMenuDictionary()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        }).subscribe(function (response) {
+            .subscribe(function (response) {
             me.menuDictionary = response;
         }, function (error) {
             me.menuDictionary = [];
@@ -124,11 +97,6 @@ var HomePage = (function () {
     HomePage.prototype.getCities = function () {
         var me = this;
         this._localizationService.getCityList()
-            .map(function (response) {
-            if (response.text().length > 0) {
-                return response.json();
-            }
-        })
             .subscribe(function (response) {
             me._cityes = me._localizationService.mapNameToSelect2Item(response);
         }, function (error) {
@@ -165,6 +133,6 @@ var HomePage = (function () {
         __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], HomePage);
     return HomePage;
-})();
+}());
 exports.HomePage = HomePage;
 //# sourceMappingURL=homePage.js.map

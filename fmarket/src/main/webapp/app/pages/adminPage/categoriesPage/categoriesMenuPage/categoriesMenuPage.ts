@@ -45,17 +45,13 @@ export class CategoriesMenuPage implements OnInit {
     private getMenuDictionary():void {
         var me = this;
         this._categoriesMenuService.getMenuDictionary()
-            .map((response:Response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            }).subscribe(
-            response => {
-                me.menuDictionary = response;
-            },
-            error => {
-                me.menuDictionary = [];
-            });
+            .subscribe(
+                response => {
+                    me.menuDictionary = response;
+                },
+                error => {
+                    me.menuDictionary = [];
+                });
     }
 
     selectMenuItem(menuItem:INewDomainMenuItemRequest) {
@@ -70,18 +66,14 @@ export class CategoriesMenuPage implements OnInit {
     addMenuItem(newDomainMenuItemRequest:INewDomainMenuItemRequest) {
         let me = this;
         me._categoriesMenuService.addMenuItem(newDomainMenuItemRequest)
-            .map((response:Response) => {
-                if (response.text().length > 0) {
-                    return response.json();
+            .subscribe(
+                response=> {
+                    me._menuItemModal.hide();
+                    me.getMenuDictionary();
+                },
+                error=> {
+                   // me._menuItemModal.showErrors();
                 }
-            }).subscribe(
-            response=> {
-                me._menuItemModal.hide();
-                me.getMenuDictionary();
-            },
-            error=> {
-               // me._menuItemModal.showErrors();
-            }
         );
     }
 
@@ -99,51 +91,39 @@ export class CategoriesMenuPage implements OnInit {
 
 
         me._categoriesMenuService.updateMenuItem(updateDomainMenuItemRequest)
-            .map((response:Response) => {
-                if (response.text().length > 0) {
-                    return response.json();
+            .subscribe(
+                response=> {
+                    me._menuItemModal.hide();
+                    me.getMenuDictionary();
+                },
+                error=> {
+                   // me._menuItemModal.showErrors();
                 }
-            }).subscribe(
-            response=> {
-                me._menuItemModal.hide();
-                me.getMenuDictionary();
-            },
-            error=> {
-               // me._menuItemModal.showErrors();
-            }
         );
     }
 
     deleteMenuItem(id:number) {
         this._categoriesMenuService.deleteMenuItem(id)
-            .map((response:Response) => {
-                if (response.text().length > 0) {
-                    return response.json();
+            .subscribe(
+                response => {
+                    this.getMenuDictionary();
+                },
+                errod=> {
                 }
-            }).subscribe(
-            response => {
-                this.getMenuDictionary();
-            },
-            errod=> {
-            }
         )
     }
 
     getDomains():void {
         var me = this;
         this._categoriesMenuService.getDomains()
-            .map((response:Response) => {
-                if (response.text().length > 0) {
-                    return response.json();
+            .subscribe(
+                response => {
+                    me._domains = response;
+                },
+                error => {
+                    console.log(me._domains);
+                    me._domains = [];
                 }
-            }).subscribe(
-            response => {
-                me._domains = response;
-            },
-            error => {
-                console.log(me._domains);
-                me._domains = [];
-            }
         )
     }
 }

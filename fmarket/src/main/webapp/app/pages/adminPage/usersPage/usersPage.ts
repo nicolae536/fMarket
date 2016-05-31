@@ -76,16 +76,11 @@ export class UsersPage implements OnInit {
     getUsers() {
         var me = this;
         this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.pagination['currentPage'])
-            .map((response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })
             .subscribe(
                 response => {
-                    me.usersList = response.data;
-                    me.pagination['totalItems']=response.totalPages;
-                    me.pagination['currentPage']=response.page;
+                    me.usersList = response['data'];
+                    me.pagination['totalItems']=response['totalPages'];
+                    me.pagination['currentPage']=response['page'];
                     console.log(response);
                 },
                 error => {
@@ -111,11 +106,6 @@ export class UsersPage implements OnInit {
 
         this.actionDialog.hide();
         this._userService.deleteUser(user)
-            .map((response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })    
             .subscribe(
                 response => {
                     var userIndex = me.usersList.indexOf(user);
@@ -131,11 +121,6 @@ export class UsersPage implements OnInit {
     saveEditedUser(user:User) {
         user.isInEditMode = false;
         this._userService.updateUser(user)
-            .map((response) => {
-                if (response.text().length > 0) {
-                    return response.json();
-                }
-            })       
             .subscribe(
                 response => {
                     //success
@@ -152,14 +137,9 @@ export class UsersPage implements OnInit {
     private getCities() {
         let me = this;
         me._localizationService.getCityList()
-            .map(response=>{
-                if(response.text().length>0){
-                    return response.json();
-                }
-            })
             .subscribe(
                 succesR=>{
-                    me.cityList=succesR;
+                    me['cityList']=succesR;
                 },
                 error=>{
                     me.cityList=[];
