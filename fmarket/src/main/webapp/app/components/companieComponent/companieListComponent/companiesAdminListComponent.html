@@ -1,19 +1,46 @@
 <div class="admin-companies-list">
-    <div class="list-group admin-companies-list">
-        <div *ngFor="let companie of _companieList" class="list-group-item clearfix" (click)="selectCompanie(companie)">
-            <div class="col-md-7 col-xs-9 row-data" [title]="'Detalii despre '+companie.name">
-                <span class="h4">
-                    {{companie.id}}.{{companie.name}}
-                </span>
-                <span class="label label-success">
-                    {{companie.email}}
-                </span>
-            </div>
-            <div class="pull-right opatations">
-                <a class="secondary" (click)="removeCompanie($event, companie)" [title]="'Sterge compania '+companie.name">
+    <table class="table table-striped text-center">
+        <thead class="thead-inverse">
+        <tr>
+            <th class="hidden-xs hidden-sm">Id</th>
+            <th class="hidden-xs hidden-sm">Id cont</th>
+            <th>Nume</th>
+            <th class="hidden-xs hidden-sm">Email</th>
+            <th>Domeniu companie</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let companie of _companieList" (click)="selectCompanie(companie)">
+            <th class="hidden-xs hidden-sm">{{companie.id}}</th>
+            <td class="hidden-xs hidden-sm">{{companie.accountId}}</td>
+            <td>{{companie.name}}</td>
+            <td class="hidden-xs hidden-sm">{{companie.email}}</td>
+            <td>{{companie.companyDomain}}</td>
+            <td [title]="'Sterge compania '+companie.name">
+                <a (click)="removeCompanie($event, companie)">
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
-            </div>
-        </div>
-    </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--<div class="list-group admin-companies-list">-->
+    <!--<div *ngFor="let companie of _companieList" class="list-group-item clearfix" (click)="selectCompanie(companie)">-->
+    <!--<div class="col-md-7 col-xs-9 row-data" [title]="'Detalii despre '+companie.name">-->
+    <!--<span class="h4">-->
+    <!--{{companie.id}}.{{companie.name}}-->
+    <!--</span>-->
+    <!--<span class="label label-success">-->
+    <!--{{companie.email}}-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--<div class="pull-right opatations">-->
+    <!--<a class="secondary" (click)="removeCompanie($event, companie)" [title]="'Sterge compania '+companie.name">-->
+    <!--<span class="glyphicon glyphicon-trash"></span>-->
+    <!--</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 </div>

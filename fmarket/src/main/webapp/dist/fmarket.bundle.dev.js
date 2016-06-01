@@ -78278,12 +78278,10 @@
 	var ng2_bootstrap_1 = __webpack_require__(328);
 	var companiesService_1 = __webpack_require__(575);
 	var notificationService_1 = __webpack_require__(529);
-	var Ng2Pagination_1 = __webpack_require__(578);
 	var applicationPath = '/app/pages/companiesPage';
 	var CompaniesPage = (function () {
 	    function CompaniesPage(router, companiesService, notificationService) {
 	        this.searchFilter = "";
-	        this.pagination = new Ng2Pagination_1.Ng2Pagination();
 	        this._router = router;
 	        this._companiesService = companiesService;
 	        this._notificationService = notificationService;
@@ -78305,352 +78303,6 @@
 	    CompaniesPage.prototype.selectCompanie = function ($event) {
 	        // this._router.navigate([`/admin/detalii-companie/${$event.id}`]);
 	    };
-	    CompaniesPage.prototype.submitSearch = function () {
-	        this.getCompaniesWithFilters();
-	    };
-	    CompaniesPage.prototype.chengeSearch = function ($event) {
-	        this.getCompaniesWithFilters();
-	    };
-	    // getMockArray():Array<DomainCompanieDto> {
-	    //     return [
-	    //         {
-	    //             domain: '1',
-	    //             companiesList: [
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '2',
-	    //             companiesList: [
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '3',
-	    //             companiesList: [
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '4',
-	    //             companiesList: [
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '5',
-	    //             companiesList: [
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '6',
-	    //             companiesList: [
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '7',
-	    //             companiesList: [
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '8',
-	    //             companiesList: [
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '9',
-	    //             companiesList: [
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '11',
-	    //             companiesList: [
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '12',
-	    //             companiesList: [
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '13',
-	    //             companiesList: [
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '14',
-	    //             companiesList: [
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '15',
-	    //             companiesList: [
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '16',
-	    //             companiesList: [
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '17',
-	    //             companiesList: [
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpgg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '17',
-	    //             companiesList: [
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpgg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //         {
-	    //             domain: '17',
-	    //             companiesList: [
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpgg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 },
-	    //                 {
-	    //                     id: 1,
-	    //                     logoSrc: '/staticResorces/demoIcon.jpg'
-	    //                 }
-	    //             ]
-	    //         },
-	    //
-	    //     ]
-	    // }
 	    CompaniesPage.prototype.splitViewInPiecesUsingScreen = function (mockArray) {
 	        var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0]['clientWidth'];
 	        if (screenWidth <= 767) {
@@ -78704,15 +78356,17 @@
 	 * Created by nick_ on 5/6/2016.
 	 */
 	var core_1 = __webpack_require__(32);
+	var ng2_bootstrap_1 = __webpack_require__(328);
 	var CompanieListComponent = (function () {
 	    function CompanieListComponent() {
 	        this._companieSelectedEmitter = new core_1.EventEmitter();
+	        this.tooltip = { visible: false };
 	    }
 	    CompanieListComponent.prototype.selectCompanie = function (companie) {
 	        this._companieSelectedEmitter.emit(companie);
 	    };
-	    CompanieListComponent.prototype.getImageTitle = function (companie) {
-	        return "<img src=\"" + companie.logoSrc + "\" class=\"companie-logo\" />";
+	    CompanieListComponent.prototype.getImageTooltip = function (companie) {
+	        return "<img class=\"logo-item\" src=\"" + companie + "\"/>";
 	    };
 	    __decorate([
 	        core_1.Input('companies-list'), 
@@ -78726,6 +78380,7 @@
 	        core_1.Component({
 	            selector: 'companie-list-component',
 	            templateUrl: '/app/components/companieComponent/companieListComponent/companieListComponent.html',
+	            directives: [ng2_bootstrap_1.TOOLTIP_DIRECTIVES]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], CompanieListComponent);

@@ -1,6 +1,9 @@
 <div class="user-companies-page">
     <div class="sub-container">
         <div class="user-companies-page-container">
+            <div class="text-center">
+                <h2>Companii</h2>
+            </div>
             <div class="clearfix search-field-wrapper ">
                 <div class="col-md-6 col-xs-12">
                     <div class="input-group">
@@ -8,10 +11,10 @@
                             <span class="glyphicon glyphicon-search"></span>
                         </div>
                         <input type="text" class="form-control" [(ngModel)]="searchFilter"
-                               (ngModelChange)="chengeSearch($event)"/>
+                               (ngModelChange)="getCompaniesWithFilters()"/>
                     </div>
                 </div>
-                <div class="pull-right operations">
+                <div class="col-md-3 col-xs-12 operations">
                     <button class="btn btn-primary" (click)="getCompaniesWithFilters()">
                         <span class="glyphicon glyphicon-filter"></span>
                         Filtreaza companii
@@ -24,9 +27,6 @@
                         (companie-selected)="selectCompanie($event)"
                 ></companie-list-component>
             </div>
-            <pagination [totalItems]="pagination.totalItems" [(ngModel)]="pagination.currentPage"
-                        (ngModelChange)="getCompaniesWithFilters()" [maxSize]="pagination.maxSize" class="pagination-sm"
-                        [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
         </div>
     </div>
 </div>

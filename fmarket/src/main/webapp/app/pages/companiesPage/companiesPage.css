@@ -14,3 +14,7 @@
     background: white;
     padding: 15px 30px;
 }
+
+.user-companies-page .sub-container .user-companies-page-container .companies-grid-view{
+    padding-top: 2%;
+}

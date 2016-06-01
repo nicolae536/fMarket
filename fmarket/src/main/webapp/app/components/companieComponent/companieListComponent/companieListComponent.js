@@ -11,15 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 5/6/2016.
  */
 var core_1 = require("@angular/core");
+var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var CompanieListComponent = (function () {
     function CompanieListComponent() {
         this._companieSelectedEmitter = new core_1.EventEmitter();
+        this.tooltip = { visible: false };
     }
     CompanieListComponent.prototype.selectCompanie = function (companie) {
         this._companieSelectedEmitter.emit(companie);
     };
-    CompanieListComponent.prototype.getImageTitle = function (companie) {
-        return "<img src=\"" + companie.logoSrc + "\" class=\"companie-logo\" />";
+    CompanieListComponent.prototype.getImageTooltip = function (companie) {
+        return "<img class=\"logo-item\" src=\"" + companie + "\"/>";
     };
     __decorate([
         core_1.Input('companies-list'), 
@@ -33,6 +35,7 @@ var CompanieListComponent = (function () {
         core_1.Component({
             selector: 'companie-list-component',
             templateUrl: '/app/components/companieComponent/companieListComponent/companieListComponent.html',
+            directives: [ng2_bootstrap_1.TOOLTIP_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])
     ], CompanieListComponent);
