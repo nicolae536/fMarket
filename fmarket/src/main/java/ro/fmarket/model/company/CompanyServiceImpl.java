@@ -46,11 +46,11 @@ public class CompanyServiceImpl implements CompanyService {
 			CompanyNameDTO dto = new CompanyNameDTO(company.getId(), company.getName(), "src"); // TODO
 			String domain = company.getDomain().getName();
 			if (groups.containsKey(domain)) {
+				groups.get(domain).add(dto);
+			} else {
 				ArrayList<CompanyNameDTO> newList = new ArrayList<CompanyNameDTO>();
 				newList.add(dto);
 				groups.put(domain, newList);
-			} else {
-				groups.get(domain).add(dto);
 			}
 		}
 		for (Map.Entry<String, List<CompanyNameDTO>> entry : groups.entrySet()) {
