@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 
 import lombok.Data;
 import ro.fmarket.model.account.consts.AccountStatus;
+import ro.fmarket.model.domain.demand.DemandDomain;
 
 @Data
 public class DemandDetailsDTO {
@@ -19,6 +20,7 @@ public class DemandDetailsDTO {
 	private boolean phoneContact;
 	private DateTime creationDate;
 	private DateTime activationDate;
+	private DemandDomain domain;
 	
 	/* Account */
 	
