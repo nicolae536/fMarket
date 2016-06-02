@@ -3,19 +3,23 @@
  */
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {DemandDetailsDTO} from "../../../models/demandDetailsDTO";
+import {SelectComponent, Select2Item} from "../../selectComponent/selectComponent";
 
 const APPLICATION_PATH:string = '/app/components/demandComponent/demandEdit';
 
 @Component({
     selector: 'demand-edit-component',
     templateUrl: APPLICATION_PATH + '/demandEdit.html',
+    directives:[SelectComponent]
 })
 export class DemandEditComponent {
     @Input('demand') _demand:DemandDetailsDTO;
+    @Input('demand-domains') _domains:Array<Select2Item>;
     @Output('reject-demand') rejectDemandEvent: EventEmitter<number> = new EventEmitter<number>();
     @Output('accept-demand') acceptDemandEvent: EventEmitter<DemandDetailsDTO> = new EventEmitter<DemandDetailsDTO>();
     @Output('save-demand') saveDemandEvent: EventEmitter<DemandDetailsDTO> = new EventEmitter<DemandDetailsDTO>();
     @Output('go-to-List') goToListEmitter: EventEmitter<any> = new EventEmitter<any>();
+    selectDemandComponent:SelectComponent;
 
     constructor() {}
 
@@ -29,6 +33,10 @@ export class DemandEditComponent {
 
     toggleEditMode(){
         this._demand.isInEditMode = true;
+    }
+
+    referenceDemandsComponent($event){
+        this.selectDemandComponent = $event;
     }
 
     saveEditedDemand(){

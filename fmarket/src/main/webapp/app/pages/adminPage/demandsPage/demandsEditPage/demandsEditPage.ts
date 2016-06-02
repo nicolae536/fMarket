@@ -14,6 +14,7 @@ import {Role} from "../../../../models/Roles";
 import {AuthorizationService} from "../../../../services/authorizationService";
 import * as _ from 'underscore';
 import {NotificationService} from "../../../../services/notificationService";
+import {Select2Item} from "../../../../components/selectComponent/selectComponent";
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
 
 @Component({
@@ -30,6 +31,7 @@ export class DemandsEditPage implements OnInit, OnActivate {
     private _requestTypeService:RequestTypeService;
     private _location:Location;
     private _demandId:number;
+    private _demandDomains:Array<Select2Item>;
 
     _demand;
     constructor(router:Router, _location: Location, demandService:DemandService, requestTypeService:RequestTypeService,
@@ -48,6 +50,7 @@ export class DemandsEditPage implements OnInit, OnActivate {
 
     ngOnInit():any {
         this.getDemand();
+        this.getDomains();
     }
 
     private getDemand() {
@@ -60,6 +63,19 @@ export class DemandsEditPage implements OnInit, OnActivate {
                 },
                 error=>{
 
+                })
+    }
+
+    getDomains(){
+        let me=this;
+
+        this._demandService.getDemandDomanins()
+            .subscribe(
+                response => {
+                    me._demandDomains = me._demandService.mapNameToSelect2Item(response);
+                },
+                error=>{
+                    me._demandDomains = new Array<Select2Item>();
                 })
     }
 

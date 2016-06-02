@@ -1,14 +1,48 @@
 <div class="demand-list-base clearfix">
     <div class="list-group">
-        <div *ngFor="let demand of demandList" class="list-group-item" (click)="selectDemand(demand)">
-            <a href="javascript:void(0)">
-                <div class="pull-right">
-                    <span *ngIf="demand.accountId" class="label label-success" title="Id-ul contului care a postat cererea">Id cont: {{demand.accountId}}</span>
-                    <span *ngIf="demand.creationDate" class="label label-success" title="Data la care a fost postata cererea">Data: {{demand.creationDate}}</span>
-                </div>
-                {{demand.title}}
-                <span class="label label-success" title="Statusul cereri" *ngIf="demand.status">{{demand.status}}</span>
-            </a>
-        </div>
+        <table class="table table-striped text-center">
+            <thead class="thead-inverse">
+            <tr>
+                <th class="hidden-xs hidden-sm vertical-align">Id</th>
+                <th class="hidden-xs hidden-sm vertical-align">Id cont</th>
+                <th class="text-left vertical-align">Titlu</th>
+                <th class="hidden-xs hidden-sm text-left vertical-align">Data creeri</th>
+                <th class="vertical-align">Status</th>
+                <th class="vertical-align">Domeniu</th>
+                <th class="vertical-align" colspan="2">Actiuni</th>
+            </tr>
+            </thead>
+            <tbody class="table-body">
+            <tr *ngFor="let demand of demandList">
+                <td class="hidden-xs hidden-sm">{{demand.id}}</td>
+                <td class="hidden-xs hidden-sm">{{demand.accountId}}</td>
+                <td class="text-left">{{demand.title}}</td>
+                <td class="hidden-xs hidden-sm text-left">{{demand.email}}</td>
+                <td>{{demand.creationDate}}</td>
+                <td>{{demand.status}}</td>
+                <td [title]="'Editeaza compania '+demand.title">
+                    <a class="action"   (click)="selectDemand(demand)">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                </td>
+                <td [title]="'Sterge compania '+demand.title">
+                    <a class="action" (click)="removeDemand($event, companie)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--<div  class="list-group-item">-->
+            <!--<a href="javascript:void(0)">-->
+                <!--<div class="pull-right">-->
+                    <!--<span *ngIf="demand.accountId" class="label label-success" title="Id-ul contului care a postat cererea">Id cont: {{demand.accountId}}</span>-->
+                    <!--<span *ngIf="demand.creationDate" class="label label-success" title="Data la care a fost postata cererea">Data: {{demand.creationDate}}</span>-->
+                <!--</div>-->
+                <!--{{demand.title}}-->
+                <!--<span class="label label-success" title="Statusul cereri" *ngIf="demand.status">{{demand.status}}</span>-->
+            <!--</a>-->
+        <!--</div>-->
     </div>
 </div>

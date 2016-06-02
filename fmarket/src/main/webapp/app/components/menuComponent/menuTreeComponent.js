@@ -143,6 +143,10 @@ var MenuTreeComponent = (function () {
         __metadata('design:type', Boolean)
     ], MenuTreeComponent.prototype, "useDomainMarker", void 0);
     __decorate([
+        core_1.Input('remove-position'), 
+        __metadata('design:type', Boolean)
+    ], MenuTreeComponent.prototype, "removePosition", void 0);
+    __decorate([
         core_1.Output('menu-tree-component-loaded'), 
         __metadata('design:type', core_1.EventEmitter)
     ], MenuTreeComponent.prototype, "menuTreeCompoenentLoaded", void 0);

@@ -17,23 +17,27 @@ var authorizationService_1 = require("./services/authorizationService");
 var headerComponent_1 = require("./components/headerComponent/headerComponent");
 var notificationService_1 = require("./services/notificationService");
 var applicationConstansts_1 = require("./models/applicationConstansts");
+var localStorageService_1 = require("./services/localStorageService");
 var footerComponent_1 = require("./components/footerComponent/footerComponent");
 var registrationService_1 = require("./services/registrationService");
 var Roles_1 = require("./models/Roles");
 var jqueryService_1 = require("./services/jqueryService");
-var _ = require('underscore');
+var _ = require("underscore");
 var applicationStateService_1 = require("./services/applicationStateService");
+var Rx_1 = require("rxjs/Rx");
 var AppComponent = (function () {
-    function AppComponent(router, location, notificationService, registrationService, applicationStateService) {
+    function AppComponent(router, location, notificationService, registrationService, applicationStateService, localeStorageService) {
         this.addItem = true;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
         this._applicationStateService = applicationStateService;
         this.router = router;
         this.location = location;
+        this._localeStorageService = localeStorageService;
         this._notifications = new Array();
+        this.rsSubject = new Rx_1.Subject();
+        this.startDemadsWatcher();
         _.defer(this.checkApplicationStatus, this);
-        //this.startDemadsWatcher();
     }
     AppComponent.prototype.ngOnInit = function () {
         var me = this;
@@ -46,7 +50,9 @@ var AppComponent = (function () {
                 console.log(event);
                 me._notifications.push(event);
             }
-            setTimeout(function () { me._notifications[me._notifications.length - 1]['new'] = false; }, 500);
+            setTimeout(function () {
+                me._notifications[me._notifications.length - 1]['new'] = false;
+            }, 500);
         });
         this._notificationService.firstLoad.subscribe(function (event) {
             if (applicationConstansts_1.ApplicationConstants.FIRST_LOAD) {
@@ -57,23 +63,37 @@ var AppComponent = (function () {
                 jqueryService_1.JqueryService.removeElementWithAnimation(element);
             }
         });
+        // this._localeStorageService.storageStateChange.subscribe(
+        //     event=>{
+        //             this.rsSubject.next(true);
+        //             return;
+        //         }
+        //         this.rsSubject.next(false);
+        //     }
+        // )
     };
     AppComponent.prototype.startDemadsWatcher = function () {
         var me = this;
         //noinspection TypeScriptUnresolvedFunction
-        Observable_1.Observable.interval(15 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
-            me._notificationService.getStatus()
-                .subscribe(function (response) {
-                if (response && response > 0) {
-                    me.showDissmisableNotification({
-                        type: "success",
-                        dismisable: true,
-                        message: response + " cereri noi!",
-                        timeout: 5
-                    }, 5);
-                }
-            }, function (error) {
-            });
+        this.adminDemandsWatcher = Observable_1.Observable.interval(15 * applicationConstansts_1.ApplicationConstants.SECOND).subscribe(function (success) {
+            if (authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN)) {
+                me._notificationService.getStatus()
+                    .subscribe(function (response) {
+                    console.log(1);
+                    if (response && response > 0) {
+                        var alertMessage = {
+                            type: "danger",
+                            dismisable: true,
+                            message: "(" + response + ") Cereri noi de validat!",
+                            timeout: null
+                        };
+                        debugger;
+                        me._notifications.push(alertMessage);
+                    }
+                }, function (error) {
+                    console.log(1);
+                });
+            }
         }, function (error) {
         });
     };
@@ -119,7 +139,7 @@ var AppComponent = (function () {
             directives: [router_1.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.AlertComponent, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent]
         }),
         router_1.Routes(authorizationService_1.AuthorizationService.getApplicationRootRoutes()), 
-        __metadata('design:paramtypes', [router_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, applicationStateService_1.ApplicationStateService])
+        __metadata('design:paramtypes', [router_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, applicationStateService_1.ApplicationStateService, localStorageService_1.LocalStorageService])
     ], AppComponent);
     return AppComponent;
 })();

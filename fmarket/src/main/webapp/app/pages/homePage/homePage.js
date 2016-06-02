@@ -79,7 +79,7 @@ var HomePage = (function () {
         this._demandService.createUserDemand(demand)
             .subscribe(function (respose) {
             me._demandDialog.restData();
-            me._router.navigate(['/success', { succesOption: 'create-demand' }]);
+            me._router.navigate(['/success/create-demand']);
         }, function (error) {
             _this._notificationService.emitErrorNotificationToRootComponent('Cererea nu a putut fi creata', 5);
         });

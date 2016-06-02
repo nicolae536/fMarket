@@ -42,6 +42,9 @@ var DemandService = (function () {
     DemandService.prototype.getDemand = function (_demandId) {
         return this.api.get(this._DemandController + ("/" + _demandId));
     };
+    DemandService.prototype.getDemandDomanins = function () {
+        return this.api.get('/demand/domains');
+    };
     DemandService.prototype.acceptDemand = function (demand) {
         return this.api.post(this._DemandController + ("/accept/" + demand.id), JSON.stringify(''));
     };
@@ -88,6 +91,14 @@ var DemandService = (function () {
             response['domainId'] = search.domainId;
         }
         return response;
+    };
+    DemandService.prototype.mapNameToSelect2Item = function (array) {
+        return _.map(array, function (item) {
+            return {
+                displayName: item['name'],
+                boundItem: item
+            };
+        });
     };
     DemandService = __decorate([
         core_1.Injectable(), 

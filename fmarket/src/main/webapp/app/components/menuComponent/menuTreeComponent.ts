@@ -22,6 +22,7 @@ export class MenuTreeComponent implements OnChanges, OnInit {
     @Input('menu-tree-data') menuDictionary:Array<IMenuItem>;
     @Input('enable-operations') enableOperations:boolean;
     @Input('use-domain-marker') useDomainMarker:boolean;
+    @Input('remove-position') removePosition:boolean
     //menuDictionary;
     @Output('menu-tree-component-loaded') menuTreeCompoenentLoaded:EventEmitter<MenuTreeComponent>=new EventEmitter<MenuTreeComponent>();
     @Output('select-menu-item') selectNewItem:EventEmitter<IMenuItem> = new EventEmitter<IMenuItem>();

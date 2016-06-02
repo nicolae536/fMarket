@@ -4,6 +4,8 @@
 
 import {Component} from "@angular/core";
 import {Router, ROUTER_DIRECTIVES, OnActivate, RouteSegment, RouteTree} from "@angular/router";
+import {JqueryService} from "../../../services/jqueryService";
+import {ApplicationConstants} from "../../../models/applicationConstansts";
 // import {RouteParams} from "@angular/common";
 
 @Component({
@@ -14,9 +16,11 @@ import {Router, ROUTER_DIRECTIVES, OnActivate, RouteSegment, RouteTree} from "@a
 export class SuccessPage implements OnActivate{
     private _router:Router;
     private message;
+    private title;
 
     constructor(router:Router){
         this._router = router;
+        JqueryService.removeElementWithAnimation('#' + ApplicationConstants.LOADING_SPINNER);
     }
 
     routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
@@ -24,13 +28,16 @@ export class SuccessPage implements OnActivate{
 
         switch (succesOption) {
             case 'success-registration':
+                this.title = 'Inregistrare cu seccess';
                 this.message = 'Ati fost inregistrat cu success. O sa primiti un email pentru a confirma contul creat';
                 break;
             case 'success-rest-password':
+                this.title = 'Inregistrare cu seccess';
                 this.message ='Parola a fost resetata cu success. O sa primiti un email pentru a confirma resetarea parolei';
                 break;
             case 'create-demand':
-                this.message ='Cererea a fost creata cu success.';
+                this.title = 'Cerere trimisa cu seccess';
+                this.message ='Operatorii nostri vor prelua cererea in cel mai scurt timp.';
                 break;
         }
     }

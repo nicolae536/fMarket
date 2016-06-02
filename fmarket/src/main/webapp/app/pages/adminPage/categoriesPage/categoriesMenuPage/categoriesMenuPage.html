@@ -9,6 +9,7 @@
         <menu-component
                 [use-domain-marker]="true"
                 [menu-tree-data]="menuDictionary"
+                [remove-position]="false"
                 [enable-operations]="isAdminUser"
                 (item-selected)="selectMenuItem($event)"
                 (add-menu-item)="showAddMenuModal($event)"

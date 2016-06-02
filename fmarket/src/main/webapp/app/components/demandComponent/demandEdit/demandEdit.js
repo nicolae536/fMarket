@@ -12,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require("@angular/core");
 var demandDetailsDTO_1 = require("../../../models/demandDetailsDTO");
+var selectComponent_1 = require("../../selectComponent/selectComponent");
 var APPLICATION_PATH = '/app/components/demandComponent/demandEdit';
 var DemandEditComponent = (function () {
     function DemandEditComponent() {
@@ -29,6 +30,9 @@ var DemandEditComponent = (function () {
     DemandEditComponent.prototype.toggleEditMode = function () {
         this._demand.isInEditMode = true;
     };
+    DemandEditComponent.prototype.referenceDemandsComponent = function ($event) {
+        this.selectDemandComponent = $event;
+    };
     DemandEditComponent.prototype.saveEditedDemand = function () {
         this._demand.isInEditMode = false;
         this.saveDemandEvent.emit(this._demand);
@@ -40,6 +44,10 @@ var DemandEditComponent = (function () {
         core_1.Input('demand'), 
         __metadata('design:type', demandDetailsDTO_1.DemandDetailsDTO)
     ], DemandEditComponent.prototype, "_demand", void 0);
+    __decorate([
+        core_1.Input('demand-domains'), 
+        __metadata('design:type', Array)
+    ], DemandEditComponent.prototype, "_domains", void 0);
     __decorate([
         core_1.Output('reject-demand'), 
         __metadata('design:type', core_1.EventEmitter)
@@ -60,6 +68,7 @@ var DemandEditComponent = (function () {
         core_1.Component({
             selector: 'demand-edit-component',
             templateUrl: APPLICATION_PATH + '/demandEdit.html',
+            directives: [selectComponent_1.SelectComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], DemandEditComponent);

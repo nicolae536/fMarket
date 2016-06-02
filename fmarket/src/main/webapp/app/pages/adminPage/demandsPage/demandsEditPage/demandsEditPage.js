@@ -31,6 +31,7 @@ var DemandsEditPage = (function () {
     };
     DemandsEditPage.prototype.ngOnInit = function () {
         this.getDemand();
+        this.getDomains();
     };
     DemandsEditPage.prototype.getDemand = function () {
         var me = this;
@@ -38,6 +39,15 @@ var DemandsEditPage = (function () {
             .subscribe(function (response) {
             me._demand = response;
         }, function (error) {
+        });
+    };
+    DemandsEditPage.prototype.getDomains = function () {
+        var me = this;
+        this._demandService.getDemandDomanins()
+            .subscribe(function (response) {
+            me._demandDomains = me._demandService.mapNameToSelect2Item(response);
+        }, function (error) {
+            me._demandDomains = new Array();
         });
     };
     DemandsEditPage.prototype.navigateToList = function ($event) {

@@ -1,6 +1,3 @@
-.demand-list-base .list-group .list-group-item:hover{
+.demand-list-base .table-body .glyphicon:hover{
     cursor: pointer;
-}
-.demand-list-base .list-group .list-group-item .label.label-success{
-    margin-left: 25px;
 }

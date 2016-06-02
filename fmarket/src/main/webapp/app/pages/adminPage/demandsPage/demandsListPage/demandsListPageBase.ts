@@ -47,7 +47,7 @@ export class DemandsListPageBase {
         this._demandService = _demandService;
         this._requestTypeService = _requestTypeService;
         this._demandsRoute = "";
-        this._searchObject = new DemandSearchObject('', 1, DemandStatus.PENDING, -1);
+        this._searchObject = new DemandSearchObject('', 1, DemandStatus.WAITING_FOR_REVIEW, -1);
         this._searchObject.domainName = "Alege domeniu...";
         this._router = router;
         this._localizationService=_localizationService;
@@ -138,6 +138,6 @@ export class DemandsListPageBase {
     }
 
     navigateToDemand(demand:DemandAdminDto){
-        this._router.navigate(['/Admin/EditDemand', {id:demand.id}]);
+        this._router.navigate([`/admin/cerere-detalii/${demand.id}`]);
     }
 }

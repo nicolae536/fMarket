@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
+var _ = require('underscore');
 //import operators
 require('rxjs/add/operator/map'); //-map
 var createUserDialog_1 = require('../../../components/createUserDialog/createUserDialog');
@@ -61,8 +62,16 @@ var UsersPage = (function () {
     };
     //user actions
     UsersPage.prototype.toggleEditMode = function (user) {
-        this.userBackup = user;
+        user.userBackup = _.clone(user);
         user.isInEditMode = true;
+    };
+    UsersPage.prototype.closeEditMode = function (user) {
+        user.email = user.userBackup.email;
+        user.name = user.userBackup.name;
+        user.status = user.userBackup.status;
+        user.city = user.userBackup.city;
+        user.cityId = user.userBackup.cityId;
+        user.isInEditMode = false;
     };
     UsersPage.prototype.deleteUser = function (user) {
         var me = this;

@@ -20,8 +20,7 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 		                    <span class="glyphicon glyphicon-pencil operation" (click)="editMenuItem($event,item)" title="Editeaza optiune"></span>
 		                    <span class="glyphicon glyphicon-remove operation" (click)="removeMenuItem($event,item.id)" title="Sterge optiune"></span>
 		                </div>
-		                <span *ngIf="item.hasChildrens" class="glyphicon glyphicon-arrow-right"></span>
-		                {{item.orderNr}}.{{item.name}}
+		                {{removePosition ? '' : item.orderNr +'.'}}{{item.name}}
 		            </a>
 		    	</li>
 		    	
@@ -43,7 +42,7 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
         }
     
         .base-menu-component .base-menu-container .menu-title{
-            padding: 9px 0 16px 48px;
+            padding: 13px 0 12px 48px;
             color: black;
             position: relative;
             background-color:#f1f1f1;
@@ -105,10 +104,6 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
              background-color:#e8fff5;
         }
         
-        .base-menu-component .base-menu-container .nav.nav-pills.nav-stacked .domain-marker a{
-            border-top-left-radius: 100px;
-        }
-
 		.base-menu-component .base-menu-container .nav.nav-pills.nav-stacked .input-group{
 			padding-bottom:5px;
 		}
@@ -152,6 +147,7 @@ export class BaseMenuComponent implements OnChanges, OnInit {
     @Input('enable-operations') enableOperations:boolean;
     @Input('selected-item') selectedItem:IMenuItem;
     @Input('use-domain-marker') useDomainMarker:boolean;
+    @Input('remove-position') removePosition:boolean
 
     @Output('select-menu-item') broadcastMenuItem:EventEmitter<IUpdateDomainMenuItemRequest> = new EventEmitter<IUpdateDomainMenuItemRequest>();
     @Output('add-new-item') broadcastNewItem:EventEmitter<number> = new EventEmitter<number>();

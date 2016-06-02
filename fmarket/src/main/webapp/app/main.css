@@ -1,4 +1,3 @@
-
 /*components styles*/
 @import "/app/components/companieComponent/createCompanieDialog/createCompanieDialog.css";
 @import "/app/components/createUserDialog/createUserDialog.css";
@@ -13,30 +12,23 @@
 @import "/app/components/companieComponent/companieListComponent/companieListComponent.css";
 @import "/app/components/selectComponent/selectComponent.css";
 @import "/app/components/companieComponent/companieListComponent/companiesAdminListComponent.css";
-
 /*pages styles*/
 @import "/app/pages/accountSettingsPage/accountSettingsPage.css";
 @import "/app/pages/accountSettingsPage/accountDemandsPage/accountDemandsPage.css";
-
 @import "/app/pages/adminPage/adminPage.css";
-
 @import "/app/pages/adminPage/categoriesPage/categoriesPage.css";
 @import "/app/pages/adminPage/categoriesPage/categoriesMenuPage/categoriesMenuPage.css";
 @import "/app/pages/adminPage/categoriesPage/companiesPage/companiesPage.css";
 @import "/app/pages/adminPage/categoriesPage/domainsPage/domainsPage.css";
-
 @import "/app/pages/adminPage/companiesPage/companiesPage.css";
-
 @import "/app/pages/adminPage/demandsPage/demandsPage.css";
 @import "/app/pages/adminPage/demandsPage/demandsEditPage/demandsEditPage.css";
 @import "/app/pages/adminPage/subscribersPage/subscribersPage.css";
 @import "/app/pages/adminPage/usersPage/usersPage.css";
-
 @import "/app/pages/registrationPage/registrationPage.css";
 @import "/app/pages/registrationPage/errorPages/errorActivateTokenPage.css";
 @import "/app/pages/registrationPage/successPages/successPage.css";
 @import "/app/pages/companiesPage/companiesPage.css";
-
 @import "pages/homePage/homePage.css";
 
 .modal-dialog.modal {
@@ -44,7 +36,7 @@
     max-height: 100% !important;
 }
 
-.page-animation{
+.page-animation {
     animation-timing-function: ease-in;
     animation: page-show-animation 0.5s;
 }
@@ -54,6 +46,7 @@
     background: #6495ED;
     border: 4px solid #598BE4;
 }
+
 .arrow_box_right:after, .arrow_box_right:before {
     left: 100%;
     top: 50%;
@@ -71,6 +64,7 @@
     border-width: 30px;
     margin-top: -30px;
 }
+
 .arrow_box_right:before {
     border-color: rgba(89, 139, 228, 0);
     border-left-color: #598BE4;
@@ -82,6 +76,7 @@
     position: relative;
     background: #ffffff;
 }
+
 .arrow_box_bottom:after {
     top: 100%;
     left: 50%;
@@ -102,6 +97,7 @@
     background: #ffffff;
     border: 4px solid #00ccae;
 }
+
 .blue_arrow_box_top:after, .blue_arrow_box_top:before {
     bottom: 100%;
     left: 30px;
@@ -119,6 +115,7 @@
     border-width: 10px;
     margin-left: -10px;
 }
+
 .blue_arrow_box_top:before {
     border-color: rgba(0, 166, 218, 0);
     border-bottom-color: #00ccae;
@@ -131,11 +128,11 @@
     border-color: #ab2424;
 }
 
-.ng-untouched.ng-pristine.ng-invalid.backend-error{
+.ng-untouched.ng-pristine.ng-invalid.backend-error {
     border-color: #ab2424;
 }
 
-.ng-pristine.ng-invalid.backend-error.ng-touched{
+.ng-pristine.ng-invalid.backend-error.ng-touched {
     border-color: #ab2424;
 }
 
@@ -160,23 +157,23 @@
         opacity: 0;
         height: 0px;
     }
-    10%{
+    10% {
         opacity: 0.10;
         height: 5px;
     }
-    30%{
+    30% {
         opacity: 0.30;
         height: 10px;
     }
-    50%{
+    50% {
         opacity: 0.50;
         height: 15px;
     }
-    70%{
+    70% {
         opacity: 0.70;
         height: 20px;
     }
-    100%{
+    100% {
         opacity: 1;
         height: 27px;
     }
@@ -188,52 +185,52 @@
         opacity: 0;
         height: 0px;
     }
-    10%{
+    10% {
         padding-top: 1px;
         opacity: 0.10;
         height: 5px;
     }
-    20%{
+    20% {
         padding-top: 2px;
         opacity: 0.30;
         height: 10px;
     }
-    30%{
+    30% {
         padding-top: 3px;
         opacity: 0.50;
         height: 15px;
     }
-    40%{
+    40% {
         padding-top: 4px;
         opacity: 0.70;
         height: 20px;
     }
-    50%{
+    50% {
         padding-top: 6px;
         opacity: 1;
         height: 25px;
     }
-    60%{
+    60% {
         padding-top: 9px;
         opacity: 1;
         height: 30px;
     }
-    70%{
+    70% {
         padding-top: 11px;
         opacity: 1;
         height: 35px;
     }
-    80%{
+    80% {
         padding-top: 12px;
         opacity: 1;
         height: 40px;
     }
-    90%{
+    90% {
         padding-top: 14px;
         opacity: 1;
         height: 45px;
     }
-    100%{
+    100% {
         padding-top: 15px;
         opacity: 1;
         height: 49px;
@@ -247,277 +244,275 @@
     max-width: 100vw;
 }
 
-.modal .modal-content .modal-body{
+.modal .modal-content .modal-body {
     max-height: 72vh;
     max-width: 100vw;
-    overflow-y: auto;
 }
 
-.modal.remove{
+.modal.remove {
     animation: modal-remove 0.3;
 }
 
-.modal-backdrop{
+.modal-backdrop {
     animation: modal-show-back 0.3s;
 }
 
-.modal-backdrop.remove{
+.modal-backdrop.remove {
     animation: modal-remove-back 0.3s;
 }
 
 @keyframes modal-show {
-    0%{
+    0% {
         opacity: 0.01;
     }
-    5%{
+    5% {
         opacity: 0.05;
     }
-    10%{
+    10% {
         opacity: 0.10;
     }
-    15%{
+    15% {
         opacity: 0.15;
     }
-    20%{
+    20% {
         opacity: 0.20;
     }
-    25%{
+    25% {
         opacity: 0.25;
     }
-    30%{
+    30% {
         opacity: 0.30;
     }
-    35%{
+    35% {
         opacity: 0.35;
     }
-    40%{
+    40% {
         opacity: 0.40;
     }
-    45%{
+    45% {
         opacity: 0.45;
     }
-    50%{
+    50% {
         opacity: 0.50;
     }
-    55%{
+    55% {
         opacity: 0.55;
     }
-    60%{
+    60% {
         opacity: 0.60;
     }
-    65%{
+    65% {
         opacity: 0.65;
     }
-    70%{
+    70% {
         opacity: 0.70;
     }
-    75%{
+    75% {
         opacity: 0.75;
     }
-    80%{
+    80% {
         opacity: 0.80;
     }
-    85%{
+    85% {
         opacity: 0.85;
     }
-    90%{
+    90% {
         opacity: 0.90;
     }
-    95%{
+    95% {
         opacity: 0.95;
     }
-    100%{
+    100% {
         opacity: 1;
     }
 }
 
 @keyframes modal-remove {
-    0%{
+    0% {
         opacity: 1;
     }
-    5%{
+    5% {
         opacity: 0.95;
     }
-    10%{
+    10% {
         opacity: 0.90;
     }
-    15%{
+    15% {
         opacity: 0.85;
     }
-    20%{
+    20% {
         opacity: 0.80;
     }
-    25%{
+    25% {
         opacity: 0.75;
     }
-    30%{
+    30% {
         opacity: 0.70;
     }
-    35%{
+    35% {
         opacity: 0.65;
     }
-    40%{
+    40% {
         opacity: 0.60;
     }
-    45%{
+    45% {
         opacity: 0.55;
     }
-    50%{
+    50% {
         opacity: 0.50;
     }
-    55%{
+    55% {
         opacity: 0.45;
     }
-    60%{
+    60% {
         opacity: 0.40;
     }
-    65%{
+    65% {
         opacity: 0.35;
     }
-    70%{
+    70% {
         opacity: 0.30;
     }
-    75%{
+    75% {
         opacity: 0.25;
     }
-    80%{
+    80% {
         opacity: 0.20;
     }
-    85%{
+    85% {
         opacity: 0.15;
     }
-    90%{
+    90% {
         opacity: 0.10;
     }
-    95%{
+    95% {
         opacity: 0.05;
     }
-    100%{
+    100% {
         opacity: 0;
     }
 }
 
 @keyframes modal-remove-back {
-    0%{
+    0% {
         opacity: 0.5;
     }
-    20%{
+    20% {
         opacity: 0.4;
     }
-    40%{
+    40% {
         opacity: 0.3;
     }
-    60%{
+    60% {
         opacity: 0.2;
     }
 
-    80%{
+    80% {
         opacity: 0.1;
     }
 
-    100%{
+    100% {
         opacity: 0;
     }
 }
 
-
 @keyframes modal-show-back {
-    0%{
+    0% {
         opacity: 0;
     }
-    20%{
+    20% {
         opacity: 0.10;
     }
-    40%{
+    40% {
         opacity: 0.2;
     }
-    60%{
+    60% {
         opacity: 0.30;
     }
 
-    80%{
+    80% {
         opacity: 0.4;
     }
 
-    100%{
+    100% {
         opacity: 0.5;
     }
 }
 
 /*page show animation*/
 @keyframes page-show-animation {
-    0%{
+    0% {
         height: 100%;
     }
-    5%{
+    5% {
         padding-left: 95%;
     }
-    10%{
+    10% {
         padding-left: 90%;
     }
-    15%{
+    15% {
         padding-left: 85%;
     }
-    20%{
+    20% {
         padding-left: 80%;
     }
-    25%{
+    25% {
         padding-left: 75%;
     }
-    30%{
+    30% {
         padding-left: 70%;
     }
-    35%{
+    35% {
         padding-left: 65%;
     }
-    40%{
+    40% {
         padding-left: 60%;
     }
-    45%{
+    45% {
         padding-left: 55%;
     }
-    50%{
+    50% {
         padding-left: 50%;
     }
-    55%{
+    55% {
         padding-left: 45%;
     }
-    60%{
+    60% {
         padding-left: 40%;
     }
-    65%{
+    65% {
         padding-left: 35%;
     }
-    70%{
+    70% {
         padding-left: 30%;
     }
-    75%{
+    75% {
         padding-left: 25%;
     }
-    80%{
+    80% {
         padding-left: 20%;
     }
-    85%{
+    85% {
         padding-left: 15%;
     }
-    90%{
+    90% {
         padding-left: 10%;
     }
-    95%{
+    95% {
         padding-left: 5%;
     }
-    100%{
+    100% {
         padding-left: 0%;
     }
 }
 
 /*list item appear transition*/
-.right-to-middle-effect{
-    -webkit-transition: opacity 1000ms ease-in-out,left 500ms ease-in-out;
-    -moz-transition: opacity 1000ms ease-in-out,left 500ms ease-in-out;
-    -ms-transition: opacity 1000ms ease-in-out,left 500ms ease-in-out ;
-    -o-transition: opacity 1000ms ease-in-out,left 500ms ease-in-out;
-    transition: opacity 1000ms ease-in-out,left 500ms ease-in-out;
+.right-to-middle-effect {
+    -webkit-transition: opacity 1000ms ease-in-out, left 500ms ease-in-out;
+    -moz-transition: opacity 1000ms ease-in-out, left 500ms ease-in-out;
+    -ms-transition: opacity 1000ms ease-in-out, left 500ms ease-in-out;
+    -o-transition: opacity 1000ms ease-in-out, left 500ms ease-in-out;
+    transition: opacity 1000ms ease-in-out, left 500ms ease-in-out;
     animation: transition-right-to-middle 2s;
 }
 
@@ -525,31 +520,31 @@
     0% {
         left: 100%;
     }
-    10%{
+    10% {
         left: 90%;
     }
-    20%{
+    20% {
         left: 80%;
     }
-    30%{
+    30% {
         left: 70%;
     }
-    40%{
+    40% {
         left: 60%;
     }
-    50%{
+    50% {
         left: 50%;
     }
-    60%{
+    60% {
         left: 40%;
     }
-    70%{
+    70% {
         left: 30%;
     }
-    80%{
+    80% {
         left: 20%;
     }
-    90%{
+    90% {
         left: 10%;
     }
     100% {
@@ -557,55 +552,54 @@
     }
 }
 
-
 /*dropdown animation*/
-.dropdown-menu > :first-child{
+.dropdown-menu > :first-child {
     margin-top: 5px;
 }
 
-.dropdown-menu > :last-child{
+.dropdown-menu > :last-child {
     margin-bottom: 5px;
     background-color: #e7e7e7;
     cursor: pointer;
 }
 
-.open>.dropdown-menu {
+.open > .dropdown-menu {
     visibility: visible;
     max-height: 500px;
 }
 
 /*application wrapper style*/
-.application-wrapper{
+.application-wrapper {
     padding-bottom: 98px;
     position: relative;
     min-height: 100vh;
 }
 
-.application-wrapper .footer-absolute-wrapper{
+.application-wrapper .footer-absolute-wrapper {
     position: absolute;
     background-color: #f8f8f8;
 }
 
-.login-background{
+.login-background {
     background: url('/staticResorces/registration-background.png');
 }
 
-.page-container{
+.page-container {
     margin-top: 50px;
 }
 
-.page-container .notification-wrapper{
+.page-container .notification-wrapper {
     position: fixed;
     min-width: 100%;
     z-index: 10001;
     top: 8%;
 }
 
-.page-container .notification-wrapper .wrapper-inner{
-    display:block;
+.page-container .notification-wrapper .wrapper-inner {
+    display: block;
 }
 
-.page-container .notification-helper{
+.page-container .notification-helper {
     position: relative;
     display: inline-block;
     left: 50%;
@@ -629,65 +623,139 @@
     .application-wrapper {
         padding-bottom: 299px !important
     }
+
+    .modal .modal-content .modal-body {
+        overflow-y: auto;
+    }
 }
 
-/*side menu style*/
+@media (min-width: 768px) {
+    .modal-dialog.modal-dialog-very-sm {
+        width: 383px;
+        margin: 30px auto;
+    }
 
-.sidenav-mobile {
-    height: 100%;
-    width: 250px;
-    margin-left: -250px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    padding-top: 60px;
-    transition:margin-left .5s;
-    z-index: 1051;
+    /*side menu style*/
+    .sidenav-mobile {
+        height: 100%;
+        width: 250px;
+        margin-left: -250px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 60px;
+        transition: margin-left .5s;
+        z-index: 1051;
+    }
+
+    .sidenav-mobile a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s
+    }
+
+    .sidenav-mobile a:hover, .offcanvas a:focus {
+        color: #f1f1f1;
+    }
+
+    .sidenav-mobile {
+        top: 0;
+        right: 25px;
+        font-size: 36px !important;
+        padding-top: 0px;
+    }
+
+
 }
-
-.sidenav-mobile a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s
-}
-
-.sidenav-mobile a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
-}
-
-.sidenav-mobile {
-    top: 0;
-    right: 25px;
-    font-size: 36px !important;
-    padding-top: 0px;
-}
-
 
 .thead-inverse {
     background-color: #00a6da;
     color: white;
 }
 
-.password-error{
+.password-error {
     color: #ab2424;
     padding: 5px 0 5px 0;
     font-size: 12px;
     margin-top: -15px;
 }
 
-.checkbox-label{
+.checkbox-label {
     color: #978787;
     position: absolute;
     margin-left: 5px;
 }
+.remove-left-padding {
+    padding-left: 0px;
+}
+
+.remove-right-padding {
+    padding-right: 0px;
+}
+
+.glyphicon.glyphicon-trash {
+    color: #ab2424;
+    transition: .1s;
+}
+.padding-botom-15 {
+    padding-bottom: 15px;
+}
+
+.table .thead-inverse .vertical-align {
+    vertical-align: middle;
+}
+
+.vertical-align th {
+    vertical-align: middle;
+}
+
+.table .table-body tr > td.text-left {
+    text-align: left
+}
+
+.glyphicon.glyphicon-remove {
+    color: #ab2424;
+    transition: .1s;
+}
+
+.glyphicon.glyphicon-remove:hover {
+    color: #d53939;
+}
+
+.glyphicon.glyphicon-trash:hover {
+    color: #d53939;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 0px;
+}
+
+.table .table-body tr > td {
+    font-size: 14px;
+}
+
+.table .table-body tr > td, th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    text-align: center;
+    vertical-align: middle;
+    height: 32px;
+}
 
 @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
 }

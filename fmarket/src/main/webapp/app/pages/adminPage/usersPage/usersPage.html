@@ -77,13 +77,13 @@
             </div>
             <table class="table table-striped" cellspacing="0" width="100%">
                 <thead class="thead-inverse">
-                <tr class="vertical-align">
-                    <th class="col-md-1 col-sm-2 col-xs-2">Id</th>
-                    <th class="col-md-3 col-sm-4 col-xs-4 text-left">Email</th>
-                    <th class="col-md-3 col-sm-4 col-xs-4 text-left">Nume</th>
-                    <th class="col-md-1 hidden-sm hidden-xs">Status</th>
-                    <th class="col-md-3 hidden-sm hidden-xs">Oras</th>
-                    <th class="col-md-1 hidden-sm hidden-xs" colspan="2">Actiuni</th>
+                <tr>
+                    <th class="col-md-1 col-sm-2 col-xs-2 vertical-align">Id</th>
+                    <th class="col-md-3 col-sm-4 col-xs-4 text-left vertical-align">Email</th>
+                    <th class="col-md-3 col-sm-4 col-xs-4 text-left vertical-align">Nume</th>
+                    <th class="col-md-1 hidden-sm hidden-xs vertical-align">Status</th>
+                    <th class="col-md-3 hidden-sm hidden-xs vertical-align">Oras</th>
+                    <th class="col-md-1 hidden-sm hidden-xs vertical-align" colspan="2">Actiuni</th>
                 </tr>
                 </thead>
                 <tbody class="table-body">
@@ -119,6 +119,9 @@
                         <a href="javascript:void(0)" *ngIf="user.isInEditMode" (click)="saveEditedUser(user)">
                             <span *ngIf="user.isInEditMode" class="glyphicon glyphicon-ok"></span>
                         </a>
+                        <a href="javascript:void(0)" *ngIf="user.isInEditMode" (click)="closeEditMode(user)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
                     </td>
                     <td class="hidden-sm hidden-xs">
                         <a href="javascript:void(0)" (click)="deleteUser(user)">
@@ -126,7 +129,7 @@
                         </a>
                     </td>
                 </tr>
-                <tr class="navigation-row">
+                <tr class="navigation-row text-center">
                     <td colspan="7" class="navigation-column">
                         <pagination [totalItems]="pagination.totalItems" [(ngModel)]="pagination.currentPage"
                                     (ngModelChange)="getUsers()" [maxSize]="pagination.maxSize" class="pagination-sm"

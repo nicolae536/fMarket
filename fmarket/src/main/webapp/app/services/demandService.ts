@@ -48,6 +48,10 @@ export class DemandService {
         return this.api.get(this._DemandController + `/${_demandId}`);
     }
 
+    getDemandDomanins(){
+        return this.api.get('/demand/domains');
+    }
+
     acceptDemand(demand:Demand) {
         return this.api.post(this._DemandController + `/accept/${demand.id}`, JSON.stringify(''));
     }
@@ -103,5 +107,14 @@ export class DemandService {
             response['domainId'] = search.domainId;
         }
         return response;
+    }
+
+    mapNameToSelect2Item(array):Array<Select2Item>{
+        return _.map(array,(item)=>{
+            return {
+                displayName:item['name'],
+                boundItem:item
+            }
+        })
     }
 }

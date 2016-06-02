@@ -38,7 +38,7 @@ public class DemandDao extends BaseDao<Demand> {
 		Query query = getSession().createQuery(hql);
 		query.setParameter("oldStatus", DemandStatus.WAITING_FOR_REVIEW);
 		query.setParameter("newStatus", DemandStatus.IN_REVIEW);
-		getSession().createQuery(hql).executeUpdate();
+		query.executeUpdate();
 	}
 
 	public int getWaitingForReviewDemandsCount() {

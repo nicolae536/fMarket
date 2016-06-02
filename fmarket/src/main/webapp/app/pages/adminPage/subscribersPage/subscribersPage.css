@@ -61,6 +61,11 @@
     padding-top: 16px;
 }
 
+.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td > {
+    font-size: 12px;
+}
+
+
 .subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td > input {
     text-align: center;
 }
@@ -68,12 +73,43 @@
 .subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td, th {
     text-align: center;
     vertical-align: middle;
-    height: 50px;
+}
+
+.subscribers-page .page-content .row .table .thead-inverse .vertical-align th{
+    vertical-align: middle;
 }
 
 .subscribers-page .page-content .row .table .table-body .navigation-row .navigation-column {
     padding-right: 3%;
 }
+
+.padding-top-25{
+    padding-top: 25px;
+}
+
+.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td.text-left{
+    text-align: left;
+}
+
+.subscribers-page .page-content .row .table .thead-inverse .vertical-align th{
+    vertical-align: middle;
+}
+
+
+.subscribers-page .glyphicon.glyphicon-trash{
+    color: #ab2424;
+    transition: .1s;
+}
+
+.subscribers-page .glyphicon.glyphicon-trash:hover{
+    color: #d53939;
+}
+
+.subscribers-page .page-content .row .table .thead-inverse .vertical-align th{
+    vertical-align: middle;
+}
+
+
 
 /*helper classes*/
 .pointer-cursor {

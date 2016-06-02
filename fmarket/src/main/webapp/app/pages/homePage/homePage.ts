@@ -118,7 +118,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
             .subscribe(
                 respose=> {
                     me._demandDialog.restData();
-                    me._router.navigate(['/success', {succesOption:'create-demand'}])
+                    me._router.navigate(['/success/create-demand'])
                 },
                 error=> {
                     this._notificationService.emitErrorNotificationToRootComponent('Cererea nu a putut fi creata',5);

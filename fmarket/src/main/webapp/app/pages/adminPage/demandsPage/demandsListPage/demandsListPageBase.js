@@ -13,7 +13,7 @@ var DemandsListPageBase = (function () {
         this._demandService = _demandService;
         this._requestTypeService = _requestTypeService;
         this._demandsRoute = "";
-        this._searchObject = new DemandSearchObject_1.DemandSearchObject('', 1, DemandStatus_1.DemandStatus.PENDING, -1);
+        this._searchObject = new DemandSearchObject_1.DemandSearchObject('', 1, DemandStatus_1.DemandStatus.WAITING_FOR_REVIEW, -1);
         this._searchObject.domainName = "Alege domeniu...";
         this._router = router;
         this._localizationService = _localizationService;
@@ -77,7 +77,7 @@ var DemandsListPageBase = (function () {
         });
     };
     DemandsListPageBase.prototype.navigateToDemand = function (demand) {
-        this._router.navigate(['/Admin/EditDemand', { id: demand.id }]);
+        this._router.navigate([("/admin/cerere-detalii/" + demand.id)]);
     };
     return DemandsListPageBase;
 })();

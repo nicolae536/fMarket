@@ -19,7 +19,6 @@
 
 .admin-companies-list .table.table-striped .table-body > tr > td{
     vertical-align: middle;
-    height: 42px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

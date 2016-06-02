@@ -1,12 +1,12 @@
 <div class="error-page-padding">
     <div *ngIf="showTokenError" class="error-page clearfix">
         <div class="error-page-wrapper clearfix">
-            <span class="glyphicon glyphicon-remove"></span> <span class="h1">Inregistrare invalida</span>
-            <div>
+            <span class="glyphicon glyphicon-remove"></span> <span class="h2">Inregistrare invalida</span>
+            <div style="margin-top: 17px">
+                <div class="pull-right">
+                    <a type="button" [routerLink]="['/']">Continuati</a>
+                </div>
                 Tokenul nu a fost activat.
-            </div>
-            <div class="pull-right">
-                <a type="button" [routerLink]="['/']">Continuati</a>
             </div>
         </div>
     </div>

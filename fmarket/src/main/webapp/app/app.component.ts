@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Routes, Router, ROUTER_DIRECTIVES} from "@angular/router";
-import {Location, CORE_DIRECTIVES, FormBuilder} from "@angular/common";
+import {Location, CORE_DIRECTIVES} from "@angular/common";
 import {AlertComponent} from "ng2-bootstrap/ng2-bootstrap";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/interval";
@@ -13,8 +13,9 @@ import {FooterComponent} from "./components/footerComponent/footerComponent";
 import {RegistrationService} from "./services/registrationService";
 import {Role} from "./models/Roles";
 import {JqueryService} from "./services/jqueryService";
-import * as _ from 'underscore';
+import * as _ from "underscore";
 import {ApplicationStateService} from "./services/applicationStateService";
+import {Subject} from "rxjs/Rx";
 
 @Component({
     selector: 'my-app',
@@ -42,30 +43,37 @@ import {ApplicationStateService} from "./services/applicationStateService";
 @Routes(AuthorizationService.getApplicationRootRoutes())
 
 export class AppComponent implements OnInit {
-    router:Router;
-    location:Location;
-    _notifications:IAlert [];
+    private router:Router;
+    private location:Location;
+    private _notifications:IAlert [];
     private _notificationService:NotificationService;
     private _registrationService:RegistrationService;
-    addItem:boolean=true;
+    private addItem:boolean = true;
     private _applicationStateService:ApplicationStateService;
+    private _localeStorageService:LocalStorageService;
+    private adminDemandsWatcher;
+    private rsSubject:Subject;
 
     constructor(router:Router,
                 location:Location,
                 notificationService:NotificationService,
                 registrationService:RegistrationService,
-                applicationStateService:ApplicationStateService) {
+                applicationStateService:ApplicationStateService,
+                localeStorageService:LocalStorageService) {
         this._registrationService = registrationService;
         this._notificationService = notificationService;
         this._applicationStateService = applicationStateService;
 
         this.router = router;
         this.location = location;
+        this._localeStorageService = localeStorageService;
 
         this._notifications = new Array<IAlert>();
+        this.rsSubject = new Subject();
+        this.startDemadsWatcher();
+
 
         _.defer(this.checkApplicationStatus, this);
-        //this.startDemadsWatcher();
     }
 
     ngOnInit():any {
@@ -81,43 +89,61 @@ export class AppComponent implements OnInit {
                 console.log(event);
                 me._notifications.push(event);
             }
-            setTimeout(()=>{me._notifications[me._notifications.length-1]['new']=false;}, 500);
+            setTimeout(()=> {
+                me._notifications[me._notifications.length - 1]['new'] = false;
+            }, 500);
         });
 
         this._notificationService.firstLoad.subscribe(event=> {
-            if(ApplicationConstants.FIRST_LOAD){
+            if (ApplicationConstants.FIRST_LOAD) {
                 let element = document.getElementById('loadingSpinnerComponent');
-                if(!element){
+                if (!element) {
                     return;
                 }
 
                 JqueryService.removeElementWithAnimation(element);
             }
         });
+
+        // this._localeStorageService.storageStateChange.subscribe(
+        //     event=>{
+        //             this.rsSubject.next(true);
+        //             return;
+        //         }
+        //         this.rsSubject.next(false);
+        //     }
+        // )
     }
 
     private startDemadsWatcher() {
         let me = this;
 
         //noinspection TypeScriptUnresolvedFunction
-        Observable.interval(15 * ApplicationConstants.SECOND).subscribe(
+        this.adminDemandsWatcher = Observable.interval(15 * ApplicationConstants.SECOND).subscribe(
             success => {
-                me._notificationService.getStatus()
-                    .subscribe(
-                        response => {
-                            if (response && response > 0) {
-                                me.showDissmisableNotification({
-                                    type: "success",
-                                    dismisable: true,
-                                    message: response + " cereri noi!",
-                                    timeout: 5
-                                }, 5);
+                if (AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN)) {
 
+                    me._notificationService.getStatus()
+                        .subscribe(
+                            response => {
+                                console.log(1);
+                                if (response && response > 0) {
+                                    let alertMessage = {
+                                        type: "danger",
+                                        dismisable: true,
+                                        message: `(${response}) Cereri noi de validat!`,
+                                        timeout: null
+                                    };
+                                    debugger;
+                                    me._notifications.push(alertMessage);
+
+                                }
+                            },
+                            error => {
+                                console.log(1);
                             }
-                        },
-                        error => {
-                        }
-                    );
+                        );
+                }
             },
             error => {
 
@@ -164,8 +190,8 @@ export class AppComponent implements OnInit {
             );
     }
 
-    private handleUserState(response, context){
-        if(!response.loggedIn && (context.location.path().indexOf('/admin') !== -1 || context.location.path().indexOf('/account') !== -1)){
+    private handleUserState(response, context) {
+        if (!response.loggedIn && (context.location.path().indexOf('/admin') !== -1 || context.location.path().indexOf('/account') !== -1)) {
             context.router.navigate(['/']);
         }
     }

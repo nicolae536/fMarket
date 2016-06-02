@@ -15,10 +15,6 @@
         <!-- TODO catch close event -->
         <div class="page-title">
             <div class="row">
-                <div class="secondary">
-                    <input type="button" class="btn btn-primary" (click)="showSubscriberDialog()"
-                           value="Adauga subscriber"/>
-                </div>
                 <span class="h3">Abonati</span>
             </div>
         </div>
@@ -27,16 +23,16 @@
                 <div class="filters">
 
                     <div class="clearfix filter-container">
-                        <div class="col-lg-3">
+                        <div class="col-lg-3 remove-left-padding">
                             <div class="form-group">
-                                <span>Email:</span>
+                                <label>Email:</label>
                                 <input type="text" [(ngModel)]="emailFilter" placeholder="email@domain.com"
                                        class="form-control"/>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <span>Subscribe date:</span>
+                                <label>Data abonarii:</label>
                                 <div class="input-group">
                                     <div class="input-group-btn">
                                         <div dropdown [(isOpen)]="subscribeDatePicker.state">
@@ -61,7 +57,7 @@
 
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <span>Unsubscribe date:</span>
+                                <label>Data dezabonarii:</label>
                                 <div class="input-group">
                                     <div class="input-group-btn">
                                         <div dropdown [(isOpen)]="unSubscribeDatePicker.state">
@@ -82,10 +78,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 no-right-p">
-                            <div class="secondary">
+                        <div class="col-lg-3 no-right-p padding-top-25 remove-right-padding">
+                            <div class="pull-right">
+                                <input type="button" class="btn btn-primary" (click)="showSubscriberDialog()"
+                                       value="Adauga abonat"/>
+                            </div>
+                            <div class="pull-left">
                                 <input type="button" class="btn btn-success" (click)="getSubscribersWithFilters()"
-                                       value="Aplica Filtre"/>
+                                       value="Aplica filtre"/>
                             </div>
                         </div>
 
@@ -95,22 +95,24 @@
                     <div class="table-responsiv">
                         <table class="table table-striped">
                             <thead class="thead-inverse">
-                            <tr>
+                            <tr class="vertical-align">
                                 <th class="col-md-1 col-xs-1">Id</th>
-                                <th class="col-md-3 col-xs-5 pointer-cursor" (click)="sortByColumn('EMAIL')">
+                                <th class="col-md-3 col-xs-5 pointer-cursor text-left" (click)="sortByColumn('EMAIL')">
                                     <span>Email</span>
                                     <span [ngClass]="getClassForSorting('EMAIL')"></span>
                                 </th>
-                                <th class="col-md-2 col-xs-5 pointer-cursor hidden-sm hidden-xs" (click)="sortByColumn('SUBSCRIBE_DATE')">
-                                    <span>Subscribe date</span>
+                                <th class="col-md-2 col-xs-5 pointer-cursor hidden-sm hidden-xs"
+                                    (click)="sortByColumn('SUBSCRIBE_DATE')">
+                                    <span>Data abonarii</span>
                                     <span [ngClass]="getClassForSorting('SUBSCRIBE_DATE')"></span>
                                 </th>
-                                <th class="col-md-2 hidden-sm hidden-xs pointer-cursor" (click)="sortByColumn('UNSUBSCRIBE_DATE')">
-                                    <span>Unsubscribe date</span>
+                                <th class="col-md-2 hidden-sm hidden-xs pointer-cursor"
+                                    (click)="sortByColumn('UNSUBSCRIBE_DATE')">
+                                    <span>Data dezabonarii</span>
                                     <span [ngClass]="getClassForSorting('UNSUBSCRIBE_DATE')"></span>
                                 </th>
-                                <th class="col-md-3 hidden-sm hidden-xs">Unsubscribe token</th>
-                                <th colspan="3">Actiuni</th>
+                                <th class="col-md-3 hidden-sm hidden-xs text-left">Cod dezabonare</th>
+                                <th class="col-md-1" colspan="3">Actiuni</th>
                             </tr>
                             </thead>
                             <tbody class="table-body">
@@ -119,7 +121,7 @@
                                 <td>
                                     <span>{{subscriber.id}}</span>
                                 </td>
-                                <td>
+                                <td class="text-left">
                                     <span>{{subscriber.email}}</span>
                                 </td>
                                 <td class="hidden-sm hidden-xs">
@@ -128,7 +130,7 @@
                                 <td class="fit-select-to-td hidden-sm hidden-xs">
                                     <span>{{subscriber.unsubscribeDate}}</span>
                                 </td>
-                                <td class="fit-select-to-td hidden-sm hidden-xs">
+                                <td class="fit-select-to-td hidden-sm hidden-xs text-left">
                                     <span>{{subscriber.unsubscribeToken}}</span>
                                 </td>
                                 <td>
@@ -150,9 +152,12 @@
                             </tr>
                             <tr class="navigation-row">
                                 <td colspan="8" class="navigation-column">
-                                    <pagination [totalItems]="pagination.totalItems" [(ngModel)]="pagination.currentPage"
-                                                (ngModelChange)="getUsers()" [maxSize]="pagination.maxSize" class="pagination-sm"
-                                                [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
+                                    <pagination [totalItems]="pagination.totalItems"
+                                                [(ngModel)]="pagination.currentPage"
+                                                (ngModelChange)="getUsers()" [maxSize]="pagination.maxSize"
+                                                class="pagination-sm"
+                                                [boundaryLinks]="true" [rotate]="false"
+                                                (numPages)="numPages = $event"></pagination>
                                 </td>
                             </tr>
                             </tbody>

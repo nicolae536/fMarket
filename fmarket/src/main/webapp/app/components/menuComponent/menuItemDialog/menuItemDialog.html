@@ -1,21 +1,21 @@
 <div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>
 <div class="modal fade bs-example-modal-lg in menu-item-dialog" tabindex="-1" (click)="cancelAction()" role="dialog"
      [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0">
-    <div class="modal-dialog modal" [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0" (click)="stopPropagation($event)">
+    <div class="modal-dialog modal-dialog-very-sm modal" [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0" (click)="stopPropagation($event)">
         <div class="modal-content">
             <form [ngFormModel]="_menuItem" (ngSubmit)="submitMenuItem()">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" (click)="cancelAction()">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h2 class="modal-title">
+                    <h4 class="modal-title">
                         Adauga
-                    </h2>
+                    </h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Pozitie</label>
-                        <input class="form-control" [(ngFormControl)]="_menuItem.controls['orderNr']"
+                        <input type="number" class="form-control" [(ngFormControl)]="_menuItem.controls['orderNr']"
                                [(ngModel)]="orderNr"/>
                     </div>
                     <div class="form-group">

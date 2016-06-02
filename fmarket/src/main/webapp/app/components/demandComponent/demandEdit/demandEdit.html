@@ -6,15 +6,35 @@
                 <input type="text" class="form-control" [disabled]="!_demand.isInEditMode" [ngModel]="_demand.title"/>
             </div>
             <div class="form-group">
+                <label>Mesaj</label>
+                <textarea class="form-control" [disabled]="!_demand.isInEditMode" [ngModel]="_demand.message"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Domeniu</label>
+                <select-component
+                        [select-items]="_domains"
+                        [selected-items]="_demand.domain"
+                        [multi-select]="false"
+                        (loaded)="referenceDemandsComponent($event)">
+                </select-component>
+            </div>
+            <div class="form-group">
                 <label>Orase</label>
-                <span class="form-control city-presentation">
+                <span class="form-control city-presentation disabled">
                     <span *ngFor="let city of _demand.cities" class="label label-success">{{city}}</span>
                 </span>
             </div>
             <div class="form-group">
-                <label>Mesaj</label>
-                <textarea class="form-control" [disabled]="!_demand.isInEditMode" [ngModel]="_demand.message"></textarea>
+                <input type="checkbox" [(ngModel)]="_demand.allCities" />
+                <label class="checkbox-label">Doresc sa fiu contactat din orice oras</label>
             </div>
+            <div class="form-group">
+                <label>Data in care a fost creata cererea</label>
+                <span class="form-control">
+                    {{_demand.creationDate}}
+                </span>
+            </div>
+
         </div>
         <div class="col-md-3 col-xs-12 button-group">
             <div class="button-container">
@@ -49,17 +69,24 @@
     </div>
     <hr/>
     <div class="row">
+        <div class="col-md-1">
+            <label> Id cerere: {{_demand.accountId}}</label>
+        </div>
         <div class="col-md-2">
-            id: {{_demand.accountId}}
+            <label> Nume utilizator: {{_demand.name}}</label>
+
         </div>
         <div class="col-md-4">
-            email: {{_demand.accountEmail}}
+            <label> Email utilizator: {{_demand.accountEmail}}</label>
+
         </div>
         <div class="col-md-3">
-            status: {{_demand.accountStatus}}
+            <label> Statusul contului: {{_demand.accountStatus}}</label>
+
         </div>
-        <div class="col-md-3">
-            numar cereri: {{_demand.demandsCount}}
+        <div class="col-md-2">
+            <label> Numar cereri: {{_demand.demandsCount}}</label>
+
         </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {NgForm, CORE_DIRECTIVES} from '@angular/common';
-
+import * as _ from 'underscore';
 //import operators
 import 'rxjs/add/operator/map';//-map
 
@@ -87,8 +87,17 @@ export class UsersPage implements OnInit {
 
     //user actions
     toggleEditMode(user) {
-        this.userBackup = user;
+        user.userBackup = _.clone(user);
         user.isInEditMode = true;
+    }
+
+    closeEditMode(user:User) {
+        user.email = user.userBackup.email;
+        user.name = user.userBackup.name;
+        user.status = user.userBackup.status;
+        user.city = user.userBackup.city;
+        user.cityId = user.userBackup.cityId;
+        user.isInEditMode = false;
     }
 
     deleteUser(user:User) {

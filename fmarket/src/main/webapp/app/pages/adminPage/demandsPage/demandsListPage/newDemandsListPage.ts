@@ -22,7 +22,7 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
     directives: [DemandListBaseComponent, MenuTreeDialog]
 })
 export class NewDemandsListPage extends DemandsListPageBase implements OnInit, OnChanges{
-    pageName='new-demands';
+    pageName = 'new-demands';
     constructor(router:Router,
                 _categoriesMenuService:CategoriesMenuService,
                 _demandService:DemandService,

@@ -2,21 +2,26 @@
     <table class="table table-striped text-center">
         <thead class="thead-inverse">
         <tr>
-            <th class="hidden-xs hidden-sm">Id</th>
-            <th class="hidden-xs hidden-sm">Id cont</th>
-            <th>Nume</th>
-            <th class="hidden-xs hidden-sm">Email</th>
-            <th>Domeniu companie</th>
-            <th></th>
+            <th class="hidden-xs hidden-sm vertical-align">Id</th>
+            <th class="hidden-xs hidden-sm vertical-align">Id cont</th>
+            <th class="text-left vertical-align">Nume</th>
+            <th class="hidden-xs hidden-sm text-left vertical-align">Email</th>
+            <th class="vertical-align">Domeniu companie</th>
+            <th class="vertical-align" colspan="2">Actiuni</th>
         </tr>
         </thead>
         <tbody class="table-body">
-        <tr *ngFor="let companie of _companieList" (click)="selectCompanie(companie)">
+        <tr *ngFor="let companie of _companieList">
             <td class="hidden-xs hidden-sm">{{companie.id}}</td>
             <td class="hidden-xs hidden-sm">{{companie.accountId}}</td>
-            <td>{{companie.name}}</td>
-            <td class="hidden-xs hidden-sm">{{companie.email}}</td>
+            <td class="text-left">{{companie.name}}</td>
+            <td class="hidden-xs hidden-sm text-left">{{companie.email}}</td>
             <td>{{companie.companyDomain}}</td>
+            <td [title]="'Editeaza compania '+companie.name">
+                <a class="action"  (click)="selectCompanie(companie)">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </td>
             <td [title]="'Sterge compania '+companie.name">
                 <a class="action" (click)="removeCompanie($event, companie)">
                     <span class="glyphicon glyphicon-trash"></span>
