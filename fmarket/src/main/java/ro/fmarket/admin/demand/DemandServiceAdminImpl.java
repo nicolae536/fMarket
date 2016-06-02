@@ -39,7 +39,7 @@ public class DemandServiceAdminImpl implements DemandServiceAdmin {
 
 	@Override
 	public List<DemandAdminDTO> getInReviewDemands() {
-		List<Demand> demands = demandDao.getDemandsByStatuses(DemandStatus.IN_REVIEW);
+		List<Demand> demands = demandDao.getDemandsByStatuses(DemandStatus.IN_REVIEW, DemandStatus.WAITING_FOR_REVIEW);
 		return DemandAdminConverter.toDTOList(demands);
 	}
 

@@ -68,7 +68,7 @@ public class UserServiceAdminImpl implements UserServiceAdmin {
 
 	private void fillUserFields(Account account, NewUserRequest request) {
 		account.setEmail(request.getEmail());
-		account.setStatus(AccountStatus.ACTIVE);
+		account.setStatus(request.getAccountStatus());
 		account.setType(AccountType.USER);
 		if (request.getPassword() != null) {
 			account.setPassword(passwordEncoder.encode(request.getPassword()));

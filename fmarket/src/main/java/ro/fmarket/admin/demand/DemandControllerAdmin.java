@@ -46,6 +46,10 @@ public class DemandControllerAdmin {
 		service.declineDemand(request);
 	}
 
+	/**
+	 * In review or wainting for review demands
+	 * @return
+	 */
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public List<DemandAdminDTO> getInReviewDemands() {
 		return service.getInReviewDemands();
