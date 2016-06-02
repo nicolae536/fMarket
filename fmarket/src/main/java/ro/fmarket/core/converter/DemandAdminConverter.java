@@ -40,6 +40,8 @@ public class DemandAdminConverter {
 		result.setMessage(demand.getMessage());
 		result.setCities(convertCitiesToStrings(demand.getCities()));
 		result.setDomain(demand.getDomain());
+		result.setPhone(demand.getPhone());
+		result.setName(demand.getName());
 		
 		Account account = demand.getAccount();
 		result.setAccountEmail(account.getEmail());

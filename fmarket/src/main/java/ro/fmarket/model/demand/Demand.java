@@ -42,6 +42,10 @@ public class Demand extends BaseEntity {
 
 	@ManyToOne(optional = false)
 	private DemandDomain domain;
+	
+	private String phone;
+	
+	private String name;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20, nullable = false)

@@ -17,10 +17,11 @@ public class DemandDetailsDTO {
 	private String message;
 	private List<String> cities = new ArrayList<>();
 	private boolean allCities;
-	private boolean phoneContact;
+	private String phone;
 	private DateTime creationDate;
 	private DateTime activationDate;
 	private DemandDomain domain;
+	private String name;
 	
 	/* Account */
 	

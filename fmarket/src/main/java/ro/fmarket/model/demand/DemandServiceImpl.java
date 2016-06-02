@@ -14,6 +14,7 @@ import ro.fmarket.core.utils.TokenUtils;
 import ro.fmarket.mail.MailService;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.account.AccountDao;
+import ro.fmarket.model.account.details.AccountDetails;
 import ro.fmarket.model.demand.consts.DemandStatus;
 import ro.fmarket.model.domain.demand.DemandDomainDao;
 import ro.fmarket.model.geographical.city.CityDao;
@@ -98,6 +99,8 @@ public class DemandServiceImpl implements DemandService {
 		demand.setDomain(demandDomainDao.load(request.getDomainId()));
 		demand.setMessage(request.getMessage());
 		demand.setTitle(request.getTitle());
+		demand.setPhone(request.getPhone());
+		demand.setName(request.getName());
 		setAccountForDemand(request, isAccountLogged, demand);
 		setDemandCities(request, demand);
 
@@ -135,6 +138,12 @@ public class DemandServiceImpl implements DemandService {
 			} else {
 				AccountUtils.validateAccountIsNotClosed(account); // throw exception if account is closed
 			}
+		}
+		AccountDetails accountDetails = account.getAccountDetails();
+		accountDetails.setPhone(request.getPhone());
+		accountDetails.setName(request.getName());
+		if (request.getCities().size() == 1) {
+			accountDetails.setCity(cityDao.load(request.getCities().get(0)));
 		}
 		demand.setAccount(account);
 	}
