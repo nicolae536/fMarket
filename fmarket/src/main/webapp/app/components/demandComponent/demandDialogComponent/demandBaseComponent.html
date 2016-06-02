@@ -14,14 +14,14 @@
                 (loaded)="referenceDemandComponent($event)">
         </demand-component>
     </div>
-    <div class="create-demand-action">
-        <!--<button type="button" class="btn btn-default btn-sm" (click)="closeDemandDialog()">{{cancelLabel}}-->
+    <!--<div class="create-demand-action">-->
+        <!--&lt;!&ndash;<button type="button" class="btn btn-default btn-sm" (click)="closeDemandDialog()">{{cancelLabel}}&ndash;&gt;-->
+        <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--<button type="button" class="btn btn-success"-->
+                <!--[disabled]="_demandComponent && _demandComponent.demandForm && !_demandComponent.demandForm.valid"-->
+                <!--(click)="createDemand()"> {{positiveLabel}}-->
         <!--</button>-->
-        <button type="button" class="btn btn-success"
-                [disabled]="_demandComponent && _demandComponent.demandForm && !_demandComponent.demandForm.valid"
-                (click)="createDemand()"> {{positiveLabel}}
-        </button>
-    </div>
+    <!--</div>-->
 
     <!--<div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>-->
     <!--<div class="modal fade bs-example-modal-lg in" tabindex="-1" (click)="cancelAction()" role="dialog"-->

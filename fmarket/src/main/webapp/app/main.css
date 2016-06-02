@@ -93,7 +93,7 @@
     pointer-events: none;
     border-color: rgba(255, 255, 255, 0);
     border-top-color: #ffffff;
-    border-width: 12px;
+    border-width: 10px;
     margin-left: -12px;
 }
 
@@ -565,6 +565,8 @@
 
 .dropdown-menu > :last-child{
     margin-bottom: 5px;
+    background-color: #e7e7e7;
+    cursor: pointer;
 }
 
 .open>.dropdown-menu {
@@ -677,6 +679,12 @@
     padding: 5px 0 5px 0;
     font-size: 12px;
     margin-top: -15px;
+}
+
+.checkbox-label{
+    color: #978787;
+    position: absolute;
+    margin-left: 5px;
 }
 
 @media screen and (max-height: 450px) {

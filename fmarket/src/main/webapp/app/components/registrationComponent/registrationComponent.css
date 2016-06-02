@@ -49,6 +49,10 @@
     color:#DEE9EB;
 }
 
+.add-position-relative{
+    position: relative;
+}
+
 @media (max-width: 1176px) {
     .regisration-component {
         width: 80vw;

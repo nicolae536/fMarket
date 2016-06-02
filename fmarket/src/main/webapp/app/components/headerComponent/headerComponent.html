@@ -12,7 +12,7 @@
         </div>
         <div *ngIf="isAdminUser()" dropdown class="dropdown">
             <li *ngFor="let p of _adminApplicationPages"><a (click)="goToPageUsingSideMenu(p.link)">{{p.name}}</a></li>
-            <li><a style="cursor: pointer;" (click)="logout()">Logut</a></li>
+            <li><a style="cursor: pointer;" (click)="logout()">Iesire din cont</a></li>
         </div>
     </ul>
 </div>
@@ -35,7 +35,7 @@
                            aria-expanded="false">{{_myAccountLabel}}<span class="caret"></span></a>
                         <ul dropdownMenu class="dropdown-menu">
                             <li *ngFor="let p of _myAccountDropdownPages"><a [routerLink]="[p.link]">{{p.name}}</a></li>
-                            <li><a (click)="logout()">Logut</a></li>
+                            <li><a (click)="logout()">Iesire din cont</a></li>
                         </ul>
                     </li>
                     <li *ngIf="isAdminUser()" dropdown class="dropdown">
@@ -43,7 +43,7 @@
                            aria-expanded="false">{{_myAccountLabel}}<span class="caret"></span></a>
                         <ul dropdownMenu class="dropdown-menu">
                             <li *ngFor="let p of _adminApplicationPages"><a [routerLink]="[p.link]">{{p.name}}</a></li>
-                            <li><a style="cursor: pointer;" (click)="logout()">Logut</a></li>
+                            <li><a style="cursor: pointer;" (click)="logout()">Iesire din cont</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -49,10 +49,9 @@ var HeaderComponent = (function () {
             return;
         }
         this._adminApplicationPages = [
-            { link: '/admin/users', name: 'Useri' },
-            { link: '/admin/subscribers', name: 'Subscriberi' },
-            { link: '/admin/categorii/meniu', name: 'Meniu categorii' },
-            { link: '/admin/cereri/newDemands', name: 'Cereri noi' },
+            { link: '/admin/users', name: 'Utilizatori' },
+            { link: '/admin/subscribers', name: 'Abonati' },
+            { link: '/admin/categorii/meniu', name: 'Categorii' },
             { link: '/admin/cereri/lista', name: 'Cereri' },
             { link: '/admin/companii', name: 'Companii' },
         ];

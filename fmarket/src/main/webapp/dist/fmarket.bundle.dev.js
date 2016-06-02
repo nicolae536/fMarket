@@ -75135,7 +75135,7 @@
 	        var me = this;
 	        me._localizationService.getCityList()
 	            .subscribe(function (succesR) {
-	            me['cityList'] = succesR;
+	            me['cityList'] = [{ id: -1, name: "Alege..." }].concat(succesR);
 	        }, function (error) {
 	            me.cityList = [];
 	        });
@@ -75578,7 +75578,7 @@
 	            email: emailFilter.length > 0 ? emailFilter : null,
 	            name: nameFilter.length > 0 ? emailFilter : null,
 	            status: selectedStatusFilter ? selectedStatusFilter : null,
-	            cityId: cityId === undefined || cityId == null || cityId === -1 ? null : cityId,
+	            cityId: cityId === -1 || cityId == null || cityId === -1 ? null : cityId,
 	        };
 	        return requestOptions;
 	    };
@@ -75597,7 +75597,7 @@
 
 	var accountStatus_1 = __webpack_require__(527);
 	exports.STATUS = [
-	    { status: null, displayName: "Chose..." },
+	    { status: null, displayName: "Alege..." },
 	    { status: accountStatus_1.AccountStatus.AUTO, displayName: "AUTO" },
 	    { status: accountStatus_1.AccountStatus.ACTIVE, displayName: "ACTIVE" },
 	    { status: accountStatus_1.AccountStatus.DISABLED, displayName: "DISABLED" },
@@ -78566,10 +78566,9 @@
 	            return;
 	        }
 	        this._adminApplicationPages = [
-	            { link: '/admin/users', name: 'Useri' },
-	            { link: '/admin/subscribers', name: 'Subscriberi' },
-	            { link: '/admin/categorii/meniu', name: 'Meniu categorii' },
-	            { link: '/admin/cereri/newDemands', name: 'Cereri noi' },
+	            { link: '/admin/users', name: 'Utilizatori' },
+	            { link: '/admin/subscribers', name: 'Abonati' },
+	            { link: '/admin/categorii/meniu', name: 'Categorii' },
 	            { link: '/admin/cereri/lista', name: 'Cereri' },
 	            { link: '/admin/companii', name: 'Companii' },
 	        ];

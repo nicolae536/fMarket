@@ -42,6 +42,7 @@ export class UsersPage implements OnInit {
     selectedStatusFilter:AccountStatus = null;
     private _notificationService:NotificationService;
     private _localizationService:LocalizationService;
+    
     private pagination:Object = {totalItems:1, currentPage:1, maxSize:7};
 
 
@@ -133,7 +134,7 @@ export class UsersPage implements OnInit {
         me._localizationService.getCityList()
             .subscribe(
                 succesR=>{
-                    me['cityList']=succesR;
+                    me['cityList']=[{id: -1, name: "Alege..."}].concat(succesR);
                 },
                 error=>{
                     me.cityList=[];

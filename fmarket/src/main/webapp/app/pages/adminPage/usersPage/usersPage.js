@@ -99,7 +99,7 @@ var UsersPage = (function () {
         var me = this;
         me._localizationService.getCityList()
             .subscribe(function (succesR) {
-            me['cityList'] = succesR;
+            me['cityList'] = [{ id: -1, name: "Alege..." }].concat(succesR);
         }, function (error) {
             me.cityList = [];
         });

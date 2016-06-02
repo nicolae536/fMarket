@@ -14,39 +14,35 @@
     </create-user-dialog>
     <div class="page-title">
         <div class="row">
-            <div class="secondary">
-                <input type="button" class="btn btn-primary" (click)="createAccount()" value="Adauga user"/>
-            </div>
             <span class="h3">Conturi</span>
         </div>
     </div>
     <div class="page-content">
         <div class="row">
             <div class="filters">
-
                 <div class="clearfix filter-container">
-                    <div class="col-md-2 col-xs-12">
+                    <div class="col-md-1 col-xs-12 remove-left-padding">
                         <div class="form-group">
-                            <span>Id:</span>
-                            <input type="text" [(ngModel)]="idFilter" placeholder="0"
+                            <label>Id:</label>
+                            <input type="number" [(ngModel)]="idFilter" placeholder="0"
                                    class="form-control"/>
                         </div>
                     </div>
-                    <div class="col-md-2 col-xs-12">
+                    <div class="col-md-2 col-xs-12 remove-left-padding">
                         <div class="form-group">
-                            <span>Email:</span>
+                            <label>Email:</label>
                             <input type="text" [(ngModel)]="emailFilter" placeholder="user@domain.com"
                                    class="form-control"/>
                         </div>
                     </div>
-                    <div class="col-md-2 col-xs-12">
+                    <div class="col-md-2 col-xs-12 remove-left-padding">
                         <div class="form-group">
-                            <span>Name:</span>
+                            <label>Nume:</label>
                             <input type="text" [(ngModel)]="nameFilter" placeholder="Andrei" class="form-control"/>
                         </div>
                     </div>
-                    <div class="col-md-2 col-xs-12">
-                        <span>Status:</span>
+                    <div class="col-md-2 col-xs-12 remove-left-padding">
+                        <label>Status:</label>
 
                         <div>
                             <select class="user-status-select" [(ngModel)]="selectedStatusFilter">
@@ -55,8 +51,8 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-2 col-xs-12">
-                        <span>City:</span>
+                    <div class="col-md-2 col-xs-12 remove-left-padding">
+                        <label>Oras:</label>
 
                         <div>
                             <select class="user-status-select" [(ngModel)]="cityId">
@@ -64,32 +60,42 @@
                             </select>
                         </div>
                     </div>
-                    <div class="secondary">
-                        <button class="btn btn-success" (click)="applyFilters()">Aplica Filtre</button>
+                    <div class="col-md-3 col-xs-12 remove-right-padding push-down clearfix">
+                        <div class="pull-left">
+                            <button class="btn btn-success" (click)="applyFilters()">Aplica Filtre</button>
+                        </div>
+                        <div class="pull-right">
+                            <button class="btn btn-primary" (click)="createAccount()">
+                                <span class="glyphicon glyphicon-plus"></span> Adauga utilizator
+                            </button>
+                        </div>
+                    </div>
+                    <div class="push-down pull-right">
+
                     </div>
                 </div>
             </div>
             <table class="table table-striped" cellspacing="0" width="100%">
                 <thead class="thead-inverse">
-                <tr>
+                <tr class="vertical-align">
                     <th class="col-md-1 col-sm-2 col-xs-2">Id</th>
-                    <th class="col-md-3 col-sm-4 col-xs-4">Email</th>
-                    <th class="col-md-3 col-sm-4 col-xs-4">Name</th>
+                    <th class="col-md-3 col-sm-4 col-xs-4 text-left">Email</th>
+                    <th class="col-md-3 col-sm-4 col-xs-4 text-left">Nume</th>
                     <th class="col-md-1 hidden-sm hidden-xs">Status</th>
-                    <th class="col-md-3 hidden-sm hidden-xs">City</th>
+                    <th class="col-md-3 hidden-sm hidden-xs">Oras</th>
                     <th class="col-md-1 hidden-sm hidden-xs" colspan="2">Actiuni</th>
                 </tr>
                 </thead>
                 <tbody class="table-body">
-                <tr *ngFor="let user of usersList"  [ngClass]="user.isInEditMode ? 'success':''">
+                <tr *ngFor="let user of usersList" [ngClass]="user.isInEditMode ? 'success':''">
                     <td>
                         <span>{{user.id}}</span>
                     </td>
-                    <td>
+                    <td class="text-left">
                         <span *ngIf="!user.isInEditMode">{{user.email}}</span>
                         <input *ngIf="user.isInEditMode" type="text" class="form-control" [(ngModel)]="user.email"/>
                     </td>
-                    <td>
+                    <td class="text-left">
                         <span *ngIf="!user.isInEditMode">{{user.name}}</span>
                         <input *ngIf="user.isInEditMode" type="text" class="form-control" [(ngModel)]="user.name"/>
                     </td>

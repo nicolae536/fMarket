@@ -33,7 +33,7 @@ var UserService = (function () {
             email: emailFilter.length > 0 ? emailFilter : null,
             name: nameFilter.length > 0 ? emailFilter : null,
             status: selectedStatusFilter ? selectedStatusFilter : null,
-            cityId: cityId === undefined || cityId == null || cityId === -1 ? null : cityId,
+            cityId: cityId === -1 || cityId == null || cityId === -1 ? null : cityId,
         };
         return requestOptions;
     };
