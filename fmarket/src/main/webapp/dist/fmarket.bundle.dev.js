@@ -77604,7 +77604,6 @@
 	        this._demandId = Number(curr.getParam('id'));
 	    };
 	    DemandsEditPage.prototype.ngOnInit = function () {
-	        this.getDemand();
 	        this.getDomains();
 	    };
 	    DemandsEditPage.prototype.getDemand = function () {
@@ -77612,6 +77611,8 @@
 	        this._demandService.getDemand(this._demandId)
 	            .subscribe(function (response) {
 	            me._demand = response;
+	            me._demand['selectedDomain'] = me.getDomainById(me._demand.domainId);
+	            console.log(me._demand['selectedDomain']);
 	        }, function (error) {
 	        });
 	    };
@@ -77620,9 +77621,19 @@
 	        this._demandService.getDemandDomanins()
 	            .subscribe(function (response) {
 	            me._demandDomains = me._demandService.mapNameToSelect2Item(response);
+	            me.getDemand();
 	        }, function (error) {
 	            me._demandDomains = new Array();
 	        });
+	    };
+	    DemandsEditPage.prototype.getDomainById = function (demandId) {
+	        for (var _i = 0, _a = this._demandDomains; _i < _a.length; _i++) {
+	            var obj = _a[_i];
+	            if (obj['boundItem']['id'] === demandId) {
+	                return obj;
+	            }
+	        }
+	        return null;
 	    };
 	    DemandsEditPage.prototype.navigateToList = function ($event) {
 	        this._location.back();

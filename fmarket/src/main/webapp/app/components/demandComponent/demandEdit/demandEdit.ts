@@ -31,10 +31,6 @@ export class DemandEditComponent {
         this.rejectDemandEvent.emit(Number(this._demand.id));
     }
 
-    toggleEditMode(){
-        this._demand.isInEditMode = true;
-    }
-
     referenceDemandsComponent($event){
         this.selectDemandComponent = $event;
     }

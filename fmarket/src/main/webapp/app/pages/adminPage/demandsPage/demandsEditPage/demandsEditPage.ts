@@ -10,8 +10,6 @@ import {DemandService} from "../../../../services/demandService";
 import {RequestTypeService} from "../../../../services/requestTypeService";
 import {DemandEditComponent} from "../../../../components/demandComponent/demandEdit/demandEdit";
 import {Demand} from "../../../../models/demand";
-import {Role} from "../../../../models/Roles";
-import {AuthorizationService} from "../../../../services/authorizationService";
 import * as _ from 'underscore';
 import {NotificationService} from "../../../../services/notificationService";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";
@@ -49,7 +47,6 @@ export class DemandsEditPage implements OnInit, OnActivate {
     }
 
     ngOnInit():any {
-        this.getDemand();
         this.getDomains();
     }
 
@@ -60,23 +57,36 @@ export class DemandsEditPage implements OnInit, OnActivate {
             .subscribe(
                 response => {
                     me._demand = response;
+                    me._demand['selectedDomain']= me.getDomainById(me._demand.domainId);
+                    console.log(me._demand['selectedDomain']);
                 },
                 error=>{
 
                 })
     }
 
-    getDomains(){
+    private getDomains(){
         let me=this;
 
         this._demandService.getDemandDomanins()
             .subscribe(
                 response => {
                     me._demandDomains = me._demandService.mapNameToSelect2Item(response);
+                    me.getDemand();
                 },
                 error=>{
                     me._demandDomains = new Array<Select2Item>();
                 })
+    }
+
+    private getDomainById(demandId){
+        for(var obj of this._demandDomains){
+            if(obj['boundItem']['id'] === demandId){
+                return obj;
+            }
+        }
+
+        return null;
     }
 
     navigateToList($event){
