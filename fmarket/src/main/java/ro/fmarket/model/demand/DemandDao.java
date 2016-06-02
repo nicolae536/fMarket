@@ -34,10 +34,10 @@ public class DemandDao extends BaseDao<Demand> {
 	}
 
 	public void updateAllWaitingForReviewDemands() {
-		String hql = "update Demand d set d.status = :newStatus where d.status = :oldStatus";
+		String hql = "update Demand set status = :new where status = :old";
 		Query query = getSession().createQuery(hql);
-		query.setParameter("oldStatus", DemandStatus.WAITING_FOR_REVIEW);
-		query.setParameter("newStatus", DemandStatus.IN_REVIEW);
+		query.setParameter("old", DemandStatus.WAITING_FOR_REVIEW);
+		query.setParameter("new", DemandStatus.IN_REVIEW);
 		query.executeUpdate();
 	}
 

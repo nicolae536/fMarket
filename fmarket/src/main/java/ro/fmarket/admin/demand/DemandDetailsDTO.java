@@ -20,7 +20,8 @@ public class DemandDetailsDTO {
 	private String phone;
 	private DateTime creationDate;
 	private DateTime activationDate;
-	private DemandDomain domain;
+	private int domainId;
+	private String domain;
 	private String name;
 	
 	/* Account */

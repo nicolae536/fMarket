@@ -8,6 +8,7 @@ import ro.fmarket.admin.demand.DemandAdminDTO;
 import ro.fmarket.admin.demand.DemandDetailsDTO;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.demand.Demand;
+import ro.fmarket.model.domain.demand.DemandDomain;
 import ro.fmarket.model.geographical.city.DemandCity;
 
 public class DemandAdminConverter {
@@ -39,7 +40,9 @@ public class DemandAdminConverter {
 		result.setCreationDate(demand.getCreationDate());
 		result.setMessage(demand.getMessage());
 		result.setCities(convertCitiesToStrings(demand.getCities()));
-		result.setDomain(demand.getDomain());
+		DemandDomain domain = demand.getDomain();
+		result.setDomain(domain.getName());
+		result.setDomainId(domain.getId());
 		result.setPhone(demand.getPhone());
 		result.setName(demand.getName());
 		
