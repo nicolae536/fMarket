@@ -33,13 +33,16 @@ public class DemandServiceAdminImpl implements DemandServiceAdmin {
 
 	@Autowired
 	private DemandDao demandDao;
-	
+
 	@Autowired
 	private DemandDomainDao demandDomainDao;
 
 	@Override
 	public List<DemandAdminDTO> getInReviewDemands() {
 		List<Demand> demands = demandDao.getDemandsByStatuses(DemandStatus.IN_REVIEW, DemandStatus.WAITING_FOR_REVIEW);
+		if (!demands.isEmpty()) {
+			demandDao.updateAllWaitingForReviewDemands();
+		}
 		return DemandAdminConverter.toDTOList(demands);
 	}
 
@@ -107,6 +110,5 @@ public class DemandServiceAdminImpl implements DemandServiceAdmin {
 		demand.setTitle(request.getTitle());
 		demand.setDomain(demandDomainDao.load(request.getDomainId()));
 	}
-	
 
 }
