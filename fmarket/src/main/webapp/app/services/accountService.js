@@ -21,7 +21,15 @@ var AccountService = (function () {
         return this.api.get(this._AccountController + '/user');
     };
     AccountService.prototype.saveEditedAccount = function (accountDto) {
-        return this.api.post(this._AccountController + '/edit', JSON.stringify(accountDto));
+        console.log('edit-request');
+        return this.api.post(this._AccountController + '/edit', JSON.stringify({ name: accountDto.name, cityId: accountDto.cityId }));
+    };
+    AccountService.prototype.changePassword = function (accountDto) {
+        console.log('changepassword-request');
+        return this.api.post(this._AccountController + '/changepassword-1', JSON.stringify({ email: accountDto.email,
+            oldPassword: accountDto.lastPassword,
+            newPassword: accountDto.newPassword,
+            newPasswordConfirm: accountDto.confirmNewPassword }));
     };
     AccountService = __decorate([
         core_1.Injectable(), 

@@ -8,6 +8,9 @@ import {AccountService} from "../../../services/accountService";
 import {DemandService} from "../../../services/demandService";
 import {Select2Item} from "../../../components/selectComponent/selectComponent";
 import {LocalizationService} from "../../../services/localizationService";
+import {AccountUser} from "../../../models/accountUser";
+import {NotificationService} from "../../../services/notificationService";
+import {Router} from "@angular/router";
 var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
 
 @Component({
@@ -25,12 +28,20 @@ export class AccountEditPage implements OnInit {
     private _submitLabel:string = 'Salveaza contul';
     private _cityesList:Array<Select2Item> = new Array<Select2Item>();
     private _localizationService:LocalizationService;
+    private _notificationService:NotificationService;
+    private _router:Router;
 
-    constructor(accountService:AccountService, demandService:DemandService, localizationService:LocalizationService) {
+    constructor(accountService:AccountService,
+                demandService:DemandService,
+                localizationService:LocalizationService,
+                notificationService:NotificationService,
+                router:Router) {
         this._accountService = accountService;
         this._demandService = demandService;
+        this._router = router;
         this._account = AccountDto.getEmptyInstance();
         this._localizationService = localizationService;
+        this._notificationService = notificationService;
     }
 
     ngOnInit():any {
@@ -38,19 +49,39 @@ export class AccountEditPage implements OnInit {
         this.getAccountData();
     }
 
-    accountEditLoaded(accountEditComponent:AccountEditComponent) {
-        this._accountEditComponent = accountEditComponent;
+    changePassword(editedAccount:AccountUser) {
+        let me = this;
+        debugger;
+        if(!editedAccount){
+            this._notificationService.emitWarningNotificationToRootComponent('Complectati corect toate campurile pentru parole inainte de a salva!', 5)
+            return;
+        }
+
+        this._accountService.changePassword(editedAccount)
+            .subscribe(
+                response => {
+                    me._router.navigate(['/success/success-rest-password']);
+                },
+                errr => {
+                    this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5)
+                }
+            )
     }
 
-    saveEditedAccount(editedAccount:AccountDto) {
+    saveEditedAccount(editedAccount:AccountUser) {
         let me = this;
+        if(!editedAccount){
+            this._notificationService.emitWarningNotificationToRootComponent('Complectati toate datele inainte sa salvati contul!', 5)
+            return;
+        }
+
         this._accountService.saveEditedAccount(editedAccount)
             .subscribe(
                 response => {
                     me._account = response;
                 },
                 errr => {
-
+                    this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5)
                 }
             )
     }

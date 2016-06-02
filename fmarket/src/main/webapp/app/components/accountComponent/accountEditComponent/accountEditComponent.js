@@ -12,29 +12,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var accountDto_1 = require("../../../models/accountDto");
 var selectComponent_1 = require("../../selectComponent/selectComponent");
-var _ = require('underscore');
+var _ = require("underscore");
+var Angular2ExtensionValidators_1 = require("../../../models/Angular2ExtensionValidators");
+var accountUser_1 = require("../../../models/accountUser");
 var APPLICATION_PATH = '/app/components/accountComponent/accountEditComponent';
 var AccountEditComponent = (function () {
     function AccountEditComponent(formBuilder) {
         this._saveAccountEmitter = new core_1.EventEmitter();
-        this._accountEditComponentLoaded = new core_1.EventEmitter();
+        this._changePasswordEmitter = new core_1.EventEmitter();
         this._formBuilder = formBuilder;
         this._accountFormModel = this._formBuilder.group([{}]);
+        this._changePasswordFormModel = this._formBuilder.group([{}]);
     }
     AccountEditComponent.prototype.referenceCitySelectorComponent = function (citySelector) {
         this._citySelector = citySelector;
     };
     AccountEditComponent.prototype.ngOnInit = function () {
         this.buildForm();
-        this._accountEditComponentLoaded.emit(this);
     };
     AccountEditComponent.prototype.saveEditedAccount = function () {
-        var accountDto = this.getFormData;
-        if (accountDto !== null) {
-            this._saveAccountEmitter.emit(accountDto);
+        var accout = this.getFormData;
+        this._saveAccountEmitter.emit(accout);
+    };
+    AccountEditComponent.prototype.changePassword = function () {
+        var account = null;
+        if (this._changePasswordFormModel.valid) {
+            account = _.clone(this._accountModel);
         }
+        this._changePasswordEmitter.emit(account);
     };
     Object.defineProperty(AccountEditComponent.prototype, "getFormData", {
         get: function () {
@@ -49,14 +55,41 @@ var AccountEditComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    AccountEditComponent.prototype.checkIfPasswordIsMarked = function (controll) {
+        switch (controll) {
+            case 'password':
+                return this._changePasswordFormModel.controls['passwords']
+                    && this._changePasswordFormModel.controls['passwords']['controls']
+                    && this._changePasswordFormModel.controls['passwords']['controls']['password']
+                    && this._changePasswordFormModel.controls['passwords']['controls']['password']['errors']
+                    && this._changePasswordFormModel.controls['passwords']['controls']['password']['errors']['key'] == 'validatePassword';
+            case 'repeat':
+                return this._changePasswordFormModel.controls['passwords']
+                    && this._changePasswordFormModel.controls['passwords']['controls']
+                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']
+                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']['errors']
+                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']['errors']['key'] == 'validatePassword';
+        }
+    };
     AccountEditComponent.prototype.buildForm = function () {
-        this._accountFormModel.addControl('email', this._formBuilder.control(this._accountModel.email, common_1.Validators.required));
         this._accountFormModel.addControl('name', this._formBuilder.control(this._accountModel.name, common_1.Validators.required));
+        this._accountFormModel.addControl('phone', this._formBuilder.control(this._accountModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber, common_1.Validators.maxLength(12)])));
         this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
+        this._changePasswordFormModel.addControl('lastPassword', this._formBuilder.control(this._accountModel.lastPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
+        this._changePasswordFormModel.addControl('passwords', this._formBuilder.group({}, { validator: Angular2ExtensionValidators_1.CustomValidators.checkPasswords }));
+        this._changePasswordFormModel.controls['passwords']['addControl']('password', this._formBuilder.control(this._accountModel.newPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
+        this._changePasswordFormModel.controls['passwords']['addControl']('repeat', this._formBuilder.control(this._accountModel.confirmNewPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
+    };
+    AccountEditComponent.prototype.updateErrorField = function () {
+        this.showNotMatchPasswordField = this._changePasswordFormModel
+            && this._changePasswordFormModel.controls['passwords']
+            && this._changePasswordFormModel.controls['passwords']['errors']
+            && this._changePasswordFormModel.controls['passwords']['errors']['checkPasswords']
+            && !this._changePasswordFormModel.controls['passwords']['errors']['checkPasswords']['valid'];
     };
     __decorate([
         core_1.Input('account-form-model'), 
-        __metadata('design:type', accountDto_1.AccountDto)
+        __metadata('design:type', accountUser_1.AccountUser)
     ], AccountEditComponent.prototype, "_accountModel", void 0);
     __decorate([
         core_1.Input('city-list'), 
@@ -71,9 +104,9 @@ var AccountEditComponent = (function () {
         __metadata('design:type', core_1.EventEmitter)
     ], AccountEditComponent.prototype, "_saveAccountEmitter", void 0);
     __decorate([
-        core_1.Output('account-edit-loaded'), 
+        core_1.Output('change-password'), 
         __metadata('design:type', core_1.EventEmitter)
-    ], AccountEditComponent.prototype, "_accountEditComponentLoaded", void 0);
+    ], AccountEditComponent.prototype, "_changePasswordEmitter", void 0);
     AccountEditComponent = __decorate([
         core_1.Component({
             selector: 'account-edit-component',

@@ -45,6 +45,15 @@ export class NotificationService {
         });
     }
 
+    emitWarningNotificationToRootComponent(message:string, timeout:number){
+        this.notificationFlux.next({
+            message: message,
+            type: 'warning',
+            dismisable: true,
+            timeout: timeout
+        });
+    }
+
     removeLoading() {
         this.firstLoad.next(ApplicationConstants.FIRST_LOAD);
     }

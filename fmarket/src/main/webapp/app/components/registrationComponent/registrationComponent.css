@@ -49,13 +49,6 @@
     color:#DEE9EB;
 }
 
-.regisration-component .password-error{
-    color: #ab2424;
-    padding: 5px 0 5px 0;
-    font-size: 12px;
-    margin-top: -15px;
-}
-
 @media (max-width: 1176px) {
     .regisration-component {
         width: 80vw;

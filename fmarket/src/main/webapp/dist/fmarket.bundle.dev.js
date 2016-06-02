@@ -52,7 +52,7 @@
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
 	var http_1 = __webpack_require__(499);
-	var accountService_1 = __webpack_require__(591);
+	var accountService_1 = __webpack_require__(592);
 	var categoriesMenuService_1 = __webpack_require__(497);
 	var companieTypesService_1 = __webpack_require__(560);
 	var demandService_1 = __webpack_require__(523);
@@ -48269,10 +48269,10 @@
 	var Observable_1 = __webpack_require__(66);
 	__webpack_require__(485);
 	var authorizationService_1 = __webpack_require__(494);
-	var headerComponent_1 = __webpack_require__(597);
+	var headerComponent_1 = __webpack_require__(598);
 	var notificationService_1 = __webpack_require__(529);
 	var applicationConstansts_1 = __webpack_require__(495);
-	var footerComponent_1 = __webpack_require__(598);
+	var footerComponent_1 = __webpack_require__(599);
 	var registrationService_1 = __webpack_require__(542);
 	var Roles_1 = __webpack_require__(522);
 	var jqueryService_1 = __webpack_require__(525);
@@ -68160,9 +68160,9 @@
 	var forgetPasswordPage_1 = __webpack_require__(544);
 	var adminPage_1 = __webpack_require__(545);
 	var accountSettingsPage_1 = __webpack_require__(587);
-	var successPage_1 = __webpack_require__(593);
-	var tokenConfirmPage_1 = __webpack_require__(594);
-	var companiesPage_1 = __webpack_require__(595);
+	var successPage_1 = __webpack_require__(594);
+	var tokenConfirmPage_1 = __webpack_require__(595);
+	var companiesPage_1 = __webpack_require__(596);
 	var AuthorizationService = (function () {
 	    function AuthorizationService() {
 	    }
@@ -71608,7 +71608,7 @@
 	        var searchObj = this.getSearchObj(search);
 	        return this.api.post(this._DemandController + '/search', JSON.stringify(searchObj));
 	    };
-	    DemandService.prototype.getUserDemandsWithFilter = function (search) {
+	    DemandService.prototype.getUserDemandsWithFilter = function () {
 	        return this.api.get('/demands');
 	    };
 	    DemandService.prototype.getNewDemands = function () {
@@ -73527,6 +73527,14 @@
 	            timeout: timeout
 	        });
 	    };
+	    NotificationService.prototype.emitWarningNotificationToRootComponent = function (message, timeout) {
+	        this.notificationFlux.next({
+	            message: message,
+	            type: 'warning',
+	            dismisable: true,
+	            timeout: timeout
+	        });
+	    };
 	    NotificationService.prototype.removeLoading = function () {
 	        this.firstLoad.next(applicationConstansts_1.ApplicationConstants.FIRST_LOAD);
 	    };
@@ -74788,6 +74796,7 @@
 	var applicationStateService_1 = __webpack_require__(520);
 	var folderPath = '/app/pages/registrationPage';
 	var LoginPage = (function () {
+	    //</editor-fold>
 	    function LoginPage(router, registrationService, ntificationService, applicationStateService) {
 	        this._router = router;
 	        this._registrationService = registrationService;
@@ -74820,7 +74829,7 @@
 	            me._applicationStateService.setApplicationSessionState(response);
 	            me._router.navigate(['/']);
 	        }, function (error) {
-	            me._notificationService.emitNotificationToRootComponent({ type: "danger", dismisable: true, message: "Date de autentificare incorecte!", timeout: 5 });
+	            me._notificationService.emitErrorNotificationToRootComponent("Date de autentificare incorecte!", 5);
 	            me._registrationComponent.markAllFieldsAsErrors({ email: true, password: true });
 	        });
 	    };
@@ -77773,7 +77782,7 @@
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
 	var accountEditPage_1 = __webpack_require__(588);
-	var accountDemandsPage_1 = __webpack_require__(592);
+	var accountDemandsPage_1 = __webpack_require__(593);
 	var authorizationService_1 = __webpack_require__(494);
 	var jqueryService_1 = __webpack_require__(525);
 	var applicationConstansts_1 = __webpack_require__(495);
@@ -77792,7 +77801,7 @@
 	    AccountSettingsPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
 	        if (!(authorizationService_1.AuthorizationService.isLoggedIn() && !authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN))) {
 	            this.router.navigate(['/login']);
-	            this._notificationService.emitErrorNotificationToRootComponent("Nu aveti access la acest modul !!!", 5);
+	            this._notificationService.e("Nu aveti access la acest modul !!!", 5);
 	        }
 	    };
 	    AccountSettingsPage = __decorate([
@@ -77836,33 +77845,55 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var accountEditComponent_1 = __webpack_require__(589);
-	var accountDto_1 = __webpack_require__(590);
-	var accountService_1 = __webpack_require__(591);
+	var accountDto_1 = __webpack_require__(591);
+	var accountService_1 = __webpack_require__(592);
 	var demandService_1 = __webpack_require__(523);
 	var localizationService_1 = __webpack_require__(538);
+	var notificationService_1 = __webpack_require__(529);
+	var router_1 = __webpack_require__(305);
 	var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
 	var AccountEditPage = (function () {
-	    function AccountEditPage(accountService, demandService, localizationService) {
+	    function AccountEditPage(accountService, demandService, localizationService, notificationService, router) {
 	        this._submitLabel = 'Salveaza contul';
 	        this._cityesList = new Array();
 	        this._accountService = accountService;
 	        this._demandService = demandService;
+	        this._router = router;
 	        this._account = accountDto_1.AccountDto.getEmptyInstance();
 	        this._localizationService = localizationService;
+	        this._notificationService = notificationService;
 	    }
 	    AccountEditPage.prototype.ngOnInit = function () {
 	        this.getCityList();
 	        this.getAccountData();
 	    };
-	    AccountEditPage.prototype.accountEditLoaded = function (accountEditComponent) {
-	        this._accountEditComponent = accountEditComponent;
+	    AccountEditPage.prototype.changePassword = function (editedAccount) {
+	        var _this = this;
+	        var me = this;
+	        debugger;
+	        if (!editedAccount) {
+	            this._notificationService.emitWarningNotificationToRootComponent('Complectati corect toate campurile pentru parole inainte de a salva!', 5);
+	            return;
+	        }
+	        this._accountService.changePassword(editedAccount)
+	            .subscribe(function (response) {
+	            me._router.navigate(['/success/success-rest-password']);
+	        }, function (errr) {
+	            _this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5);
+	        });
 	    };
 	    AccountEditPage.prototype.saveEditedAccount = function (editedAccount) {
+	        var _this = this;
 	        var me = this;
+	        if (!editedAccount) {
+	            this._notificationService.emitWarningNotificationToRootComponent('Complectati toate datele inainte sa salvati contul!', 5);
+	            return;
+	        }
 	        this._accountService.saveEditedAccount(editedAccount)
 	            .subscribe(function (response) {
 	            me._account = response;
 	        }, function (errr) {
+	            _this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5);
 	        });
 	    };
 	    AccountEditPage.prototype.getCityList = function () {
@@ -77888,7 +77919,7 @@
 	            templateUrl: applicationPath + '/accountEditPage.html',
 	            directives: [accountEditComponent_1.AccountEditComponent]
 	        }), 
-	        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService])
+	        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService, notificationService_1.NotificationService, router_1.Router])
 	    ], AccountEditPage);
 	    return AccountEditPage;
 	})();
@@ -77913,29 +77944,35 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
-	var accountDto_1 = __webpack_require__(590);
 	var selectComponent_1 = __webpack_require__(531);
 	var _ = __webpack_require__(524);
+	var Angular2ExtensionValidators_1 = __webpack_require__(526);
+	var accountUser_1 = __webpack_require__(590);
 	var APPLICATION_PATH = '/app/components/accountComponent/accountEditComponent';
 	var AccountEditComponent = (function () {
 	    function AccountEditComponent(formBuilder) {
 	        this._saveAccountEmitter = new core_1.EventEmitter();
-	        this._accountEditComponentLoaded = new core_1.EventEmitter();
+	        this._changePasswordEmitter = new core_1.EventEmitter();
 	        this._formBuilder = formBuilder;
 	        this._accountFormModel = this._formBuilder.group([{}]);
+	        this._changePasswordFormModel = this._formBuilder.group([{}]);
 	    }
 	    AccountEditComponent.prototype.referenceCitySelectorComponent = function (citySelector) {
 	        this._citySelector = citySelector;
 	    };
 	    AccountEditComponent.prototype.ngOnInit = function () {
 	        this.buildForm();
-	        this._accountEditComponentLoaded.emit(this);
 	    };
 	    AccountEditComponent.prototype.saveEditedAccount = function () {
-	        var accountDto = this.getFormData;
-	        if (accountDto !== null) {
-	            this._saveAccountEmitter.emit(accountDto);
+	        var accout = this.getFormData;
+	        this._saveAccountEmitter.emit(accout);
+	    };
+	    AccountEditComponent.prototype.changePassword = function () {
+	        var account = null;
+	        if (this._changePasswordFormModel.valid) {
+	            account = _.clone(this._accountModel);
 	        }
+	        this._changePasswordEmitter.emit(account);
 	    };
 	    Object.defineProperty(AccountEditComponent.prototype, "getFormData", {
 	        get: function () {
@@ -77950,14 +77987,41 @@
 	        enumerable: true,
 	        configurable: true
 	    });
+	    AccountEditComponent.prototype.checkIfPasswordIsMarked = function (controll) {
+	        switch (controll) {
+	            case 'password':
+	                return this._changePasswordFormModel.controls['passwords']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['password']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['password']['errors']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['password']['errors']['key'] == 'validatePassword';
+	            case 'repeat':
+	                return this._changePasswordFormModel.controls['passwords']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']['errors']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']['errors']['key'] == 'validatePassword';
+	        }
+	    };
 	    AccountEditComponent.prototype.buildForm = function () {
-	        this._accountFormModel.addControl('email', this._formBuilder.control(this._accountModel.email, common_1.Validators.required));
 	        this._accountFormModel.addControl('name', this._formBuilder.control(this._accountModel.name, common_1.Validators.required));
+	        this._accountFormModel.addControl('phone', this._formBuilder.control(this._accountModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber, common_1.Validators.maxLength(12)])));
 	        this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
+	        this._changePasswordFormModel.addControl('lastPassword', this._formBuilder.control(this._accountModel.lastPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
+	        this._changePasswordFormModel.addControl('passwords', this._formBuilder.group({}, { validator: Angular2ExtensionValidators_1.CustomValidators.checkPasswords }));
+	        this._changePasswordFormModel.controls['passwords']['addControl']('password', this._formBuilder.control(this._accountModel.newPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
+	        this._changePasswordFormModel.controls['passwords']['addControl']('repeat', this._formBuilder.control(this._accountModel.confirmNewPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
+	    };
+	    AccountEditComponent.prototype.updateErrorField = function () {
+	        this.showNotMatchPasswordField = this._changePasswordFormModel
+	            && this._changePasswordFormModel.controls['passwords']
+	            && this._changePasswordFormModel.controls['passwords']['errors']
+	            && this._changePasswordFormModel.controls['passwords']['errors']['checkPasswords']
+	            && !this._changePasswordFormModel.controls['passwords']['errors']['checkPasswords']['valid'];
 	    };
 	    __decorate([
 	        core_1.Input('account-form-model'), 
-	        __metadata('design:type', accountDto_1.AccountDto)
+	        __metadata('design:type', accountUser_1.AccountUser)
 	    ], AccountEditComponent.prototype, "_accountModel", void 0);
 	    __decorate([
 	        core_1.Input('city-list'), 
@@ -77972,9 +78036,9 @@
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], AccountEditComponent.prototype, "_saveAccountEmitter", void 0);
 	    __decorate([
-	        core_1.Output('account-edit-loaded'), 
+	        core_1.Output('change-password'), 
 	        __metadata('design:type', core_1.EventEmitter)
-	    ], AccountEditComponent.prototype, "_accountEditComponentLoaded", void 0);
+	    ], AccountEditComponent.prototype, "_changePasswordEmitter", void 0);
 	    AccountEditComponent = __decorate([
 	        core_1.Component({
 	            selector: 'account-edit-component',
@@ -77990,6 +78054,29 @@
 
 /***/ },
 /* 590 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by nick_ on 6/2/2016.
+	 */
+	var AccountUser = (function () {
+	    function AccountUser() {
+	        this.email = '';
+	        this.name = '';
+	        this.phone = '';
+	        this.cityItem = '';
+	        this.lastPassword = '';
+	        this.newPassword = '';
+	        this.confirmNewPassword = '';
+	        this.cityId = -1;
+	    }
+	    return AccountUser;
+	})();
+	exports.AccountUser = AccountUser;
+	//# sourceMappingURL=accountUser.js.map
+
+/***/ },
+/* 591 */
 /***/ function(module, exports) {
 
 	/**
@@ -78024,7 +78111,7 @@
 	//# sourceMappingURL=accountDto.js.map
 
 /***/ },
-/* 591 */
+/* 592 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -78050,7 +78137,15 @@
 	        return this.api.get(this._AccountController + '/user');
 	    };
 	    AccountService.prototype.saveEditedAccount = function (accountDto) {
-	        return this.api.post(this._AccountController + '/edit', JSON.stringify(accountDto));
+	        console.log('edit-request');
+	        return this.api.post(this._AccountController + '/edit', JSON.stringify({ name: accountDto.name, cityId: accountDto.cityId }));
+	    };
+	    AccountService.prototype.changePassword = function (accountDto) {
+	        console.log('changepassword-request');
+	        return this.api.post(this._AccountController + '/changepassword-1', JSON.stringify({ email: accountDto.email,
+	            oldPassword: accountDto.lastPassword,
+	            newPassword: accountDto.newPassword,
+	            newPasswordConfirm: accountDto.confirmNewPassword }));
 	    };
 	    AccountService = __decorate([
 	        core_1.Injectable(), 
@@ -78062,7 +78157,7 @@
 	//# sourceMappingURL=accountService.js.map
 
 /***/ },
-/* 592 */
+/* 593 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -78083,13 +78178,14 @@
 	 * Created by nick_ on 4/26/2016.
 	 */
 	var core_1 = __webpack_require__(32);
-	// import {CanActivate} from "@angular/router-deprecated";
 	var router_1 = __webpack_require__(305);
 	var demandService_1 = __webpack_require__(523);
 	var requestTypeService_1 = __webpack_require__(563);
 	var demandsListPageBase_1 = __webpack_require__(570);
 	var categoriesMenuService_1 = __webpack_require__(497);
 	var localizationService_1 = __webpack_require__(538);
+	var DemandStatus_1 = __webpack_require__(571);
+	var _ = __webpack_require__(524);
 	var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
 	var AccountDemandsPage = (function (_super) {
 	    __extends(AccountDemandsPage, _super);
@@ -78102,9 +78198,35 @@
 	    AccountDemandsPage.prototype.ngOnChanges = function (changes) {
 	    };
 	    AccountDemandsPage.prototype.getDemandsWithFilter = function (filtru) {
+	        var me = this;
 	        this.selectedFilter = filtru;
+	        this._demandService.getUserDemandsWithFilter()
+	            .subscribe(function (response) {
+	            me.backendDemands = response;
+	            me.fatchDemandsUsingFilters();
+	        });
 	    };
-	    AccountDemandsPage.prototype.navigateToDemand = function ($event) {
+	    AccountDemandsPage.prototype.fatchDemandsUsingFilters = function () {
+	        switch (this.selectedFilter) {
+	            case DemandStatus_1.DemandStatus.ACTIVE:
+	                this.filterDemands([DemandStatus_1.DemandStatus.ACTIVE]);
+	                break;
+	            case DemandStatus_1.DemandStatus.PENDING + '&&' + DemandStatus_1.DemandStatus.IN_REVIEW:
+	                this.filterDemands([DemandStatus_1.DemandStatus.PENDING, DemandStatus_1.DemandStatus.IN_REVIEW]);
+	                break;
+	            case DemandStatus_1.DemandStatus.REJECTED + '&&' + DemandStatus_1.DemandStatus.CLOSED:
+	                this.filterDemands([DemandStatus_1.DemandStatus.REJECTED, DemandStatus_1.DemandStatus.CLOSED]);
+	                break;
+	        }
+	    };
+	    AccountDemandsPage.prototype.filterDemands = function (filters) {
+	        var me = this;
+	        var colector = [];
+	        _.each(filters, function (filter) {
+	            var filtredDemands = _.where(me._demandsList, { status: filter });
+	            colector = colector.concat(filtredDemands);
+	        });
+	        this._demandsList = colector;
 	    };
 	    AccountDemandsPage.prototype.getUserDemandsWithFilter = function () {
 	        var me = this;
@@ -78127,7 +78249,7 @@
 	//# sourceMappingURL=accountDemandsPage.js.map
 
 /***/ },
-/* 593 */
+/* 594 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -78177,7 +78299,7 @@
 	//# sourceMappingURL=successPage.js.map
 
 /***/ },
-/* 594 */
+/* 595 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -78255,7 +78377,7 @@
 	//# sourceMappingURL=tokenConfirmPage.js.map
 
 /***/ },
-/* 595 */
+/* 596 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -78274,7 +78396,7 @@
 	var router_1 = __webpack_require__(305);
 	var common_1 = __webpack_require__(206);
 	var _ = __webpack_require__(524);
-	var companieListComponent_1 = __webpack_require__(596);
+	var companieListComponent_1 = __webpack_require__(597);
 	var ng2_bootstrap_1 = __webpack_require__(328);
 	var companiesService_1 = __webpack_require__(575);
 	var notificationService_1 = __webpack_require__(529);
@@ -78340,7 +78462,7 @@
 	//# sourceMappingURL=companiesPage.js.map
 
 /***/ },
-/* 596 */
+/* 597 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -78390,7 +78512,7 @@
 	//# sourceMappingURL=companieListComponent.js.map
 
 /***/ },
-/* 597 */
+/* 598 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -78515,7 +78637,7 @@
 	//# sourceMappingURL=headerComponent.js.map
 
 /***/ },
-/* 598 */
+/* 599 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**

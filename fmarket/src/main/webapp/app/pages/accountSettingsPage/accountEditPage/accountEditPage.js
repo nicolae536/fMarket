@@ -16,29 +16,51 @@ var accountDto_1 = require("../../../models/accountDto");
 var accountService_1 = require("../../../services/accountService");
 var demandService_1 = require("../../../services/demandService");
 var localizationService_1 = require("../../../services/localizationService");
+var notificationService_1 = require("../../../services/notificationService");
+var router_1 = require("@angular/router");
 var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
 var AccountEditPage = (function () {
-    function AccountEditPage(accountService, demandService, localizationService) {
+    function AccountEditPage(accountService, demandService, localizationService, notificationService, router) {
         this._submitLabel = 'Salveaza contul';
         this._cityesList = new Array();
         this._accountService = accountService;
         this._demandService = demandService;
+        this._router = router;
         this._account = accountDto_1.AccountDto.getEmptyInstance();
         this._localizationService = localizationService;
+        this._notificationService = notificationService;
     }
     AccountEditPage.prototype.ngOnInit = function () {
         this.getCityList();
         this.getAccountData();
     };
-    AccountEditPage.prototype.accountEditLoaded = function (accountEditComponent) {
-        this._accountEditComponent = accountEditComponent;
+    AccountEditPage.prototype.changePassword = function (editedAccount) {
+        var _this = this;
+        var me = this;
+        debugger;
+        if (!editedAccount) {
+            this._notificationService.emitWarningNotificationToRootComponent('Complectati corect toate campurile pentru parole inainte de a salva!', 5);
+            return;
+        }
+        this._accountService.changePassword(editedAccount)
+            .subscribe(function (response) {
+            me._router.navigate(['/success/success-rest-password']);
+        }, function (errr) {
+            _this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5);
+        });
     };
     AccountEditPage.prototype.saveEditedAccount = function (editedAccount) {
+        var _this = this;
         var me = this;
+        if (!editedAccount) {
+            this._notificationService.emitWarningNotificationToRootComponent('Complectati toate datele inainte sa salvati contul!', 5);
+            return;
+        }
         this._accountService.saveEditedAccount(editedAccount)
             .subscribe(function (response) {
             me._account = response;
         }, function (errr) {
+            _this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5);
         });
     };
     AccountEditPage.prototype.getCityList = function () {
@@ -64,7 +86,7 @@ var AccountEditPage = (function () {
             templateUrl: applicationPath + '/accountEditPage.html',
             directives: [accountEditComponent_1.AccountEditComponent]
         }), 
-        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService])
+        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService, notificationService_1.NotificationService, router_1.Router])
     ], AccountEditPage);
     return AccountEditPage;
 })();

@@ -29,8 +29,6 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage';
         component: AllDemandsListPage,
     })
 ])
-
-
 export class DemandsPage {
 
     tabPagesList:Array<TabHeader>;

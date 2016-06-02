@@ -1,50 +1,87 @@
 <div class="account-edit-component clearfix">
-    <form *ngIf="_accountFormModel" [ngFormModel]="_accountFormModel" (ngSubmit)="saveEditedAccount()" class="account-form">
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-envelope"></span>
+    <div class="clearfix">
+        <div class="col-md-6 col-xs-12 col-sm-12">
+            <form *ngIf="_accountFormModel" [ngFormModel]="_accountFormModel" (ngSubmit)="saveEditedAccount()"
+                  class="account-form">
+                <span class="h4">Date cont</span>
+                <hr/>
+                <div class="form-group">
+                    <label>Email</label>
+                    <span class="form-control" type="text">{{_accountModel.email}}</span>
                 </div>
-                <input class="form-control" type="text" [ngFormControl]="_accountFormModel.controls['email']" [(ngModel)]="_accountModel.email" placeholder="user@foobar.com"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-user"></span>
+                <div class="form-group">
+                    <label>Nume</label>
+                    <input class="form-control" type="text" placeholder="Adaugati numele la contul tau"
+                           [ngFormControl]="_accountFormModel.controls['name']"
+                           [(ngModel)]="_accountModel.name"/>
                 </div>
-                <input class="form-control" type="text" [ngFormControl]="_accountFormModel.controls['name']" [(ngModel)]="_accountModel.name"/>
-            </div>
+                <div class="form-group">
+                    <label>Telefon</label>
+                    <input class="form-control" type="text" placeholder="Adaugati numarul de telefon la contul tau"
+                           [ngFormControl]="_accountFormModel.controls['phone']"
+                           [(ngModel)]="_accountModel.phone"/>
+                </div>
+                <div>
+                    <label>Oras</label>
+                    <select-component
+                            [select-items]="_cities"
+                            [single-item-selected]="_accountFormModel.controls['cityItem'].value"
+                            [multi-select]="false"
+                            (loaded)="referenceCitySelectorComponent($event)">
+                    </select-component>
+                </div>
+                <div>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary">{{submitLabel}}</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div>
-            <label>Orase</label>
-            <select-component
-                    [select-items]="_cities"
-                    [single-item-selected]="_accountFormModel.controls['cityItem'].value"
-                    [multi-select]="false"
-                    (loaded)="referenceCitySelectorComponent($event)">
-            </select-component>
+
+        <div class="col-md-6 col-xs-12 col-sm-12">
+            <form *ngIf="_accountFormModel" [ngFormModel]="_changePasswordFormModel" (ngSubmit)="changePassword()"
+                  class="account-form">
+
+                <span class="h4">Schimbare parola</span>
+                <hr/>
+                <div class="form-group">
+                    <label>Parola veche</label>
+                    <input type="password" class="form-control"
+                           [class.backend-error]="checkIfPasswordIsMarked('password')"
+                           placeholder="******"
+                           [ngFormControl]="_changePasswordFormModel.controls.lastPassword"
+                           [(ngModel)]="_accountModel.lastPassword"/>
+                </div>
+                <div class="form-group">
+                    <label>Parola noua</label>
+                    <input type="password" class="form-control"
+                           [class.backend-error]="checkIfPasswordIsMarked('password')"
+                           placeholder="******"
+                           [ngFormControl]="_changePasswordFormModel.controls.passwords.controls.password"
+                           [(ngModel)]="_accountModel.newPassword"
+                           (ngModelChange)="updateErrorField()"/>
+                </div>
+                <div class="form-group">
+                    <label>Confirma parola noua</label>
+                    <input type="password" class="form-control"
+                           [class.backend-error]="checkIfPasswordIsMarked('password')"
+                           placeholder="******"
+                           [ngFormControl]="_changePasswordFormModel.controls.passwords.controls.repeat"
+                           [(ngModel)]="_accountModel.confirmNewPassword"
+                           (ngModelChange)="updateErrorField()"/>
+                </div>
+                <div class="position-relative" *ngIf="showNotMatchPasswordField">
+                    <div class="password-error right-to-middle-effect">
+                        Cele doua parole nu sunt la fel!
+                    </div>
+                </div>
+                <div>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary">Schimba parola</button>
+                    </div>
+                </div>
+            </form>
+
         </div>
-        <div *ngIf="_accountModel.accountType" class="form-group">
-            <label>Tip cont: </label>
-            <span class="form-control label-info" *ngIf="_accountModel.accountType">{{_accountModel.accountType}}</span>
-        </div>
-        <div *ngIf="_accountModel.creationDate" class="form-group">
-            <label>Data in care a fost creeat: </label>
-            <span class="form-control">{{_accountModel.creationDate}}</span>
-        </div>
-        <div *ngIf="_accountModel.activationDate" class="form-group">
-            <label>Data in care a fost activat: </label>
-            <span class="form-control">{{_accountModel.activationDate}}</span>
-        </div>
-        <div *ngIf="_accountModel.lastPasswordChangeDate" class="form-group">
-            <label>Parola a fost schimbata in: </label>
-            <span class="form-control">{{_accountModel.lastPasswordChangeDate}}</span>
-        </div>
-        <div>
-            <div class="pull-right">
-                <button type="submit" class="btn btn-primary">{{submitLabel}}</button>
-            </div>
-        </div>
-    </form>
+    </div>
 </div>

@@ -42,6 +42,14 @@ var NotificationService = (function () {
             timeout: timeout
         });
     };
+    NotificationService.prototype.emitWarningNotificationToRootComponent = function (message, timeout) {
+        this.notificationFlux.next({
+            message: message,
+            type: 'warning',
+            dismisable: true,
+            timeout: timeout
+        });
+    };
     NotificationService.prototype.removeLoading = function () {
         this.firstLoad.next(applicationConstansts_1.ApplicationConstants.FIRST_LOAD);
     };

@@ -115,7 +115,7 @@
 
 .blue_arrow_box_top:after {
     border-color: rgba(255, 255, 255, 0);
-    border-bottom-color: #ffffff;
+    border-bottom-color: #00ccae;
     border-width: 10px;
     margin-left: -10px;
 }
@@ -666,6 +666,18 @@
     padding-top: 0px;
 }
 
+
+.thead-inverse {
+    background-color: #00a6da;
+    color: white;
+}
+
+.password-error{
+    color: #ab2424;
+    padding: 5px 0 5px 0;
+    font-size: 12px;
+    margin-top: -15px;
+}
 
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}

@@ -2,14 +2,15 @@
  * Created by nick_ on 4/26/2016.
  */
 import {Component, OnInit, OnChanges} from "@angular/core";
-// import {CanActivate} from "@angular/router-deprecated";
 import {Router} from "@angular/router";
-import {AuthorizationService} from "../../../services/authorizationService";
 import {DemandService} from "../../../services/demandService";
 import {RequestTypeService} from "../../../services/requestTypeService";
 import {DemandsListPageBase} from "../../adminPage/demandsPage/demandsListPage/demandsListPageBase";
 import {CategoriesMenuService} from "../../../services/categoriesMenuService";
 import {LocalizationService} from "../../../services/localizationService";
+import {DemandStatus} from "../../../models/DemandStatus";
+
+import * as _ from 'underscore';
 
 var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage';
 
@@ -19,6 +20,7 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage'
 })
 export class AccountDemandsPage extends DemandsListPageBase implements OnInit, OnChanges {
     selectedFilter:string;
+    backendDemands:Array<Object>;
 
     constructor(router:Router,
                 _categoriesMenuService:CategoriesMenuService,
@@ -37,11 +39,41 @@ export class AccountDemandsPage extends DemandsListPageBase implements OnInit, O
     }
 
     getDemandsWithFilter(filtru){
+        let me=this;
         this.selectedFilter = filtru;
+
+        this._demandService.getUserDemandsWithFilter()
+            .subscribe(
+                response=>{
+                    me.backendDemands = response;
+                    me.fatchDemandsUsingFilters();
+                }
+            )
     }
 
-    navigateToDemand($event){
-        
+    fatchDemandsUsingFilters(){
+        switch(this.selectedFilter){
+            case DemandStatus.ACTIVE:
+                this.filterDemands([DemandStatus.ACTIVE]);
+                break;
+            case DemandStatus.PENDING + '&&' +DemandStatus.IN_REVIEW:
+                this.filterDemands([DemandStatus.PENDING, DemandStatus.IN_REVIEW]);
+                break;
+            case DemandStatus.REJECTED + '&&' +DemandStatus.CLOSED:
+                this.filterDemands([DemandStatus.REJECTED, DemandStatus.CLOSED]);
+                break;
+        }
+    }
+
+    filterDemands(filters:Array<string>){
+        let me=this;
+        let colector=[];
+        _.each(filters, (filter)=>{
+            let filtredDemands = _.where(me._demandsList, {status: filter});
+            colector = colector.concat(filtredDemands);
+        });
+
+        this._demandsList = colector;
     }
 
     private getUserDemandsWithFilter() {

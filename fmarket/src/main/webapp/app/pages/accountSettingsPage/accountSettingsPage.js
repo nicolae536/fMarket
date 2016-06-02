@@ -32,7 +32,7 @@ var AccountSettingsPage = (function () {
     AccountSettingsPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
         if (!(authorizationService_1.AuthorizationService.isLoggedIn() && !authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN))) {
             this.router.navigate(['/login']);
-            this._notificationService.emitErrorNotificationToRootComponent("Nu aveti access la acest modul !!!", 5);
+            this._notificationService.e("Nu aveti access la acest modul !!!", 5);
         }
     };
     AccountSettingsPage = __decorate([

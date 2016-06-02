@@ -9,7 +9,6 @@ import {RegistrationComponent} from "../../components/registrationComponent/regi
 import {RegistrationService} from "../../services/registrationService";
 import {RegisterAccount} from "../../models/registerAccount";
 import {NotificationService} from "../../services/notificationService";
-import {ApplicationConstants} from "../../models/applicationConstansts";
 import {JqueryService} from "../../services/jqueryService";
 
 const folderPath = '/app/pages/registrationPage';

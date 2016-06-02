@@ -22,6 +22,7 @@ var jqueryService_1 = require("../../../services/jqueryService");
 var applicationStateService_1 = require("../../../services/applicationStateService");
 var folderPath = '/app/pages/registrationPage';
 var LoginPage = (function () {
+    //</editor-fold>
     function LoginPage(router, registrationService, ntificationService, applicationStateService) {
         this._router = router;
         this._registrationService = registrationService;
@@ -54,7 +55,7 @@ var LoginPage = (function () {
             me._applicationStateService.setApplicationSessionState(response);
             me._router.navigate(['/']);
         }, function (error) {
-            me._notificationService.emitNotificationToRootComponent({ type: "danger", dismisable: true, message: "Date de autentificare incorecte!", timeout: 5 });
+            me._notificationService.emitErrorNotificationToRootComponent("Date de autentificare incorecte!", 5);
             me._registrationComponent.markAllFieldsAsErrors({ email: true, password: true });
         });
     };

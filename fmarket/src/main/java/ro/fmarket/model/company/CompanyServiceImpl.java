@@ -43,7 +43,7 @@ public class CompanyServiceImpl implements CompanyService {
 		Map<String, List<CompanyNameDTO>> groups = new LinkedHashMap<>();
 
 		for (Company company : sortedCompanies) {
-			CompanyNameDTO dto = new CompanyNameDTO(company.getId(), company.getName(), "src"); // TODO
+			CompanyNameDTO dto = new CompanyNameDTO(company.getId(), company.getName(), company.getLogoSrc()); // TODO
 			String domain = company.getDomain().getName();
 			if (groups.containsKey(domain)) {
 				groups.get(domain).add(dto);

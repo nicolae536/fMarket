@@ -16,13 +16,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/26/2016.
  */
 var core_1 = require("@angular/core");
-// import {CanActivate} from "@angular/router-deprecated";
 var router_1 = require("@angular/router");
 var demandService_1 = require("../../../services/demandService");
 var requestTypeService_1 = require("../../../services/requestTypeService");
 var demandsListPageBase_1 = require("../../adminPage/demandsPage/demandsListPage/demandsListPageBase");
 var categoriesMenuService_1 = require("../../../services/categoriesMenuService");
 var localizationService_1 = require("../../../services/localizationService");
+var DemandStatus_1 = require("../../../models/DemandStatus");
+var _ = require('underscore');
 var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
 var AccountDemandsPage = (function (_super) {
     __extends(AccountDemandsPage, _super);
@@ -35,9 +36,35 @@ var AccountDemandsPage = (function (_super) {
     AccountDemandsPage.prototype.ngOnChanges = function (changes) {
     };
     AccountDemandsPage.prototype.getDemandsWithFilter = function (filtru) {
+        var me = this;
         this.selectedFilter = filtru;
+        this._demandService.getUserDemandsWithFilter()
+            .subscribe(function (response) {
+            me.backendDemands = response;
+            me.fatchDemandsUsingFilters();
+        });
     };
-    AccountDemandsPage.prototype.navigateToDemand = function ($event) {
+    AccountDemandsPage.prototype.fatchDemandsUsingFilters = function () {
+        switch (this.selectedFilter) {
+            case DemandStatus_1.DemandStatus.ACTIVE:
+                this.filterDemands([DemandStatus_1.DemandStatus.ACTIVE]);
+                break;
+            case DemandStatus_1.DemandStatus.PENDING + '&&' + DemandStatus_1.DemandStatus.IN_REVIEW:
+                this.filterDemands([DemandStatus_1.DemandStatus.PENDING, DemandStatus_1.DemandStatus.IN_REVIEW]);
+                break;
+            case DemandStatus_1.DemandStatus.REJECTED + '&&' + DemandStatus_1.DemandStatus.CLOSED:
+                this.filterDemands([DemandStatus_1.DemandStatus.REJECTED, DemandStatus_1.DemandStatus.CLOSED]);
+                break;
+        }
+    };
+    AccountDemandsPage.prototype.filterDemands = function (filters) {
+        var me = this;
+        var colector = [];
+        _.each(filters, function (filter) {
+            var filtredDemands = _.where(me._demandsList, { status: filter });
+            colector = colector.concat(filtredDemands);
+        });
+        this._demandsList = colector;
     };
     AccountDemandsPage.prototype.getUserDemandsWithFilter = function () {
         var me = this;

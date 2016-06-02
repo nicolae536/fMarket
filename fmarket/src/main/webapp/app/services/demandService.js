@@ -30,7 +30,7 @@ var DemandService = (function () {
         var searchObj = this.getSearchObj(search);
         return this.api.post(this._DemandController + '/search', JSON.stringify(searchObj));
     };
-    DemandService.prototype.getUserDemandsWithFilter = function (search) {
+    DemandService.prototype.getUserDemandsWithFilter = function () {
         return this.api.get('/demands');
     };
     DemandService.prototype.getNewDemands = function () {

@@ -29,6 +29,7 @@ export class LoginPage implements OnInit, AfterViewChecked {
     @ViewChild('registrationPageRef') _registrationPageRef:ElementRef;
     private _formTitle:string;
 
+    //<editor-fold desc="Variables">
     private _formButtonLabel:string;
     private _showNewsletterField:boolean;
     private _passwordLabel:string;
@@ -42,6 +43,7 @@ export class LoginPage implements OnInit, AfterViewChecked {
     private _registrationComponent:RegistrationComponent;
     private _loginPage;
     private _applicationStateService:ApplicationStateService;
+    //</editor-fold>
 
     constructor(router:Router,
                 registrationService:RegistrationService,
@@ -86,7 +88,7 @@ export class LoginPage implements OnInit, AfterViewChecked {
                     me._router.navigate(['/'])
                 },
                 error => {
-                    me._notificationService.emitNotificationToRootComponent({type:"danger", dismisable:true, message:"Date de autentificare incorecte!", timeout:5});
+                    me._notificationService.emitErrorNotificationToRootComponent("Date de autentificare incorecte!", 5);
                     me._registrationComponent.markAllFieldsAsErrors({email:true, password:true});
                 }
             )
