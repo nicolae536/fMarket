@@ -49,7 +49,7 @@ public class DemandServiceAdminImpl implements DemandServiceAdmin {
 	@Override
 	public void acceptDemand(int id) {
 		final Demand demand = demandDao.get(id);
-		if (demand != null && (demand.getStatus().equals(DemandStatus.IN_REVIEW))) {
+		if (demand != null && (DemandStatus.IN_REVIEW.equals(demand.getStatus()))) {
 			demand.setStatus(DemandStatus.ACTIVE);
 			demand.setActivationDate(DateUtils.now());
 			demandDao.save(demand);

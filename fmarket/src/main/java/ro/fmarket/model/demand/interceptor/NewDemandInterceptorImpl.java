@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import ro.fmarket.mail.MailService;
@@ -21,6 +22,7 @@ public class NewDemandInterceptorImpl implements NewDemandInterceptor {
 	private CompanyDao companyDao;
 	
 	@Override
+	@Async
 	public void intercept(Demand demand) {
 		System.out.println("INTERCEPTING NEW DEMAND");
 		Boolean allCities = demand.getAllCities();

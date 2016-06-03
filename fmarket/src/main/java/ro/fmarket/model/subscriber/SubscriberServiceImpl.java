@@ -23,6 +23,7 @@ public class SubscriberServiceImpl implements SubscriberService {
 		} else { // activate subscriber
 			subscriber.setUnsubscribeDate(null);
 			subscriber.setSubscribeDate(DateUtils.now());
+			subscriber.setUnsubscribeToken(TokenUtils.generateToken());
 			dao.save(subscriber);
 		}
 	}
@@ -42,6 +43,15 @@ public class SubscriberServiceImpl implements SubscriberService {
 		subscriber.setUnsubscribeToken(TokenUtils.generateToken());
 		subscriber.setSubscribeDate(DateUtils.now());
 		return subscriber;
+	}
+
+	@Override
+	public void unsubscribeEmail(String email) {
+		Subscriber subscriber = dao.getByEmail(email);
+		if (subscriber != null) {
+			subscriber.setUnsubscribeDate(DateUtils.now());
+			dao.save(subscriber);
+		}
 	}
 
 }

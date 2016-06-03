@@ -3,6 +3,7 @@ package ro.fmarket.model.account;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,12 +13,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ro.fmarket.core.exception.ForbiddenException;
 import ro.fmarket.core.exception.NotFoundException;
 import ro.fmarket.core.utils.AccountUtils;
 import ro.fmarket.core.utils.DateUtils;
 import ro.fmarket.core.utils.TokenUtils;
 import ro.fmarket.mail.MailService;
 import ro.fmarket.model.account.consts.AccountStatus;
+import ro.fmarket.model.account.details.AccountDetails;
+import ro.fmarket.model.geographical.city.CityDao;
+import ro.fmarket.model.subscriber.Subscriber;
+import ro.fmarket.model.subscriber.SubscriberService;
 import ro.fmarket.model.token.PasswordChangeToken;
 import ro.fmarket.model.token.dao.PasswordChangeTokenDao;
 import ro.fmarket.security.FMarketPrincipal;
@@ -26,11 +32,19 @@ import ro.fmarket.security.FMarketPrincipal;
 @Transactional
 public class AccountServiceImpl implements AccountService {
 
+	private static final Logger LOG = Logger.getLogger(AccountServiceImpl.class);
+
+	@Autowired
+	private CityDao cityDao;
+
 	@Autowired
 	private AccountDao accountDao;
 
 	@Autowired
 	private PasswordChangeTokenDao tokenDao;
+
+	@Autowired
+	private SubscriberService subscriberService;
 
 	@Autowired
 	private MailService mailService;
@@ -112,6 +126,40 @@ public class AccountServiceImpl implements AccountService {
 		}
 		result.setToken(token);
 		return result;
+	}
+
+	@Override
+	public void changePasswordForAuthenticatedUser(String email, String oldPassword, String newPassword) {
+		Account account = accountDao.getByEmail(email);
+		if (!passwordEncoder.matches(oldPassword, account.getPassword())) {
+			throw new ForbiddenException();
+		} else {
+			account.setPassword(passwordEncoder.encode(newPassword));
+			account.getHistoricalInfo().setLastPasswordChangeDate(DateUtils.now());
+			accountDao.save(account);
+		}
+	}
+
+	@Override
+	public void setSubscription(String email, boolean subscribe) {
+		if (subscribe) {
+			subscriberService.subscribeEmail(email);
+		} else {
+			subscriberService.unsubscribeEmail(email);
+		}
+
+	}
+
+	@Override
+	public void updateAccount(int accountId, UpdateAccountRequest request) {
+		Account account = accountDao.get(accountId);
+		AccountDetails details = account.getAccountDetails();
+		if (request.getCityId() != null) {
+			details.setCity(cityDao.load(request.getCityId()));
+		}
+		details.setName(request.getName());
+		details.setPhone(request.getPhone());
+
 	}
 
 }

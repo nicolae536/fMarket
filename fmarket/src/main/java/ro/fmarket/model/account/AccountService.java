@@ -10,4 +10,10 @@ public interface AccountService extends UserDetailsService {
 	void requestPasswordChange(Account account, String newPassword);
 	
 	UserDetails getUserDetails(String email);
+	
+	void changePasswordForAuthenticatedUser(String email, String oldPassword, String newPassword);
+	
+	void setSubscription(String email, boolean subscription);
+	
+	void updateAccount(int accountId, UpdateAccountRequest request);
 }
