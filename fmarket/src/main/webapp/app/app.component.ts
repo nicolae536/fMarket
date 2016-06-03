@@ -1,21 +1,27 @@
+import * as _ from "underscore";
+
 import {Component, OnInit} from "@angular/core";
 import {Routes, Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {Location, CORE_DIRECTIVES} from "@angular/common";
+
 import {AlertComponent} from "ng2-bootstrap/ng2-bootstrap";
+
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/interval";
+import {Subject} from "rxjs/Rx";
+
 import {AuthorizationService} from "./services/authorizationService";
-import {HeaderComponent} from "./components/headerComponent/headerComponent";
 import {NotificationService} from "./services/notificationService";
 import {ApplicationConstants} from "./models/applicationConstansts";
 import {LocalStorageService} from "./services/localStorageService";
-import {FooterComponent} from "./components/footerComponent/footerComponent";
 import {RegistrationService} from "./services/registrationService";
-import {Role} from "./models/Roles";
 import {JqueryService} from "./services/jqueryService";
-import * as _ from "underscore";
 import {ApplicationStateService} from "./services/applicationStateService";
-import {Subject} from "rxjs/Rx";
+
+import {HeaderComponent} from "./components/headerComponent/headerComponent";
+import {FooterComponent} from "./components/footerComponent/footerComponent";
+
+import {Role} from "./models/Roles";
 
 @Component({
     selector: 'my-app',
@@ -43,16 +49,22 @@ import {Subject} from "rxjs/Rx";
 @Routes(AuthorizationService.getApplicationRootRoutes())
 
 export class AppComponent implements OnInit {
+
+    //<editor-fold desc="Services">
     private router:Router;
     private location:Location;
-    private _notifications:IAlert [];
     private _notificationService:NotificationService;
     private _registrationService:RegistrationService;
-    private addItem:boolean = true;
     private _applicationStateService:ApplicationStateService;
     private _localeStorageService:LocalStorageService;
+    //</editor-fold>
+
+    //<editor-fold desc="Internal variables">
+    private _notifications:IAlert [];
+    private addItem:boolean = true;
     private adminDemandsWatcher;
     private rsSubject:Subject;
+    //</editor-fold>
 
     constructor(router:Router,
                 location:Location,
@@ -60,13 +72,15 @@ export class AppComponent implements OnInit {
                 registrationService:RegistrationService,
                 applicationStateService:ApplicationStateService,
                 localeStorageService:LocalStorageService) {
+
+        //<editor-fold desc="Services initialization">
         this._registrationService = registrationService;
         this._notificationService = notificationService;
+        this._localeStorageService = localeStorageService;
         this._applicationStateService = applicationStateService;
-
         this.router = router;
         this.location = location;
-        this._localeStorageService = localeStorageService;
+        //</editor-fold>
 
         this._notifications = new Array<IAlert>();
         this.rsSubject = new Subject();
@@ -104,15 +118,6 @@ export class AppComponent implements OnInit {
                 JqueryService.removeElementWithAnimation(element);
             }
         });
-
-        // this._localeStorageService.storageStateChange.subscribe(
-        //     event=>{
-        //             this.rsSubject.next(true);
-        //             return;
-        //         }
-        //         this.rsSubject.next(false);
-        //     }
-        // )
     }
 
     private startDemadsWatcher() {
@@ -122,7 +127,6 @@ export class AppComponent implements OnInit {
         this.adminDemandsWatcher = Observable.interval(15 * ApplicationConstants.SECOND).subscribe(
             success => {
                 if (AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN)) {
-
                     me._notificationService.getStatus()
                         .subscribe(
                             response => {

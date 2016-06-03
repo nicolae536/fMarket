@@ -1,6 +1,11 @@
 import {Component, AfterViewChecked, ViewChild} from "@angular/core";
 import {Routes, Router, ROUTER_DIRECTIVES, Route, OnActivate, RouteSegment, RouteTree } from "@angular/router";
 import {Location} from "@angular/common";
+
+import {JqueryService} from "../../services/jqueryService";
+import {AuthorizationService} from "../../services/authorizationService";
+import {NotificationService} from "../../services/notificationService";
+
 import {UsersPage} from "./usersPage/usersPage";
 import {SubscribersPage} from "./subscribersPage/subscribersPage";
 import {CategoriesPage} from "./categoriesPage/categoriesPage";
@@ -8,12 +13,9 @@ import {DemandsPage} from "./demandsPage/demandsPage";
 import {CompaniesPage} from "./companiesPage/companiesPage";
 import {CompaniesEditPage} from "./companiesPage/companiesEditPage/companiesEditPage";
 import {DemandsEditPage} from "./demandsPage/demandsEditPage/demandsEditPage";
-import {JqueryService} from "../../services/jqueryService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
-import {NotificationService} from "../../services/notificationService";
-import {AuthorizationService} from "../../services/authorizationService";
-import {Role} from "../../models/Roles";
 import {CompanieCreatePage} from "./companiesPage/companiesEditPage/companiesCreatePage";
+import {Role} from "../../models/Roles";
 
 var applicationPath:string = '/app/pages/adminPage';
 
@@ -58,13 +60,16 @@ var applicationPath:string = '/app/pages/adminPage';
     })
 ])
 export class AdminPage implements AfterViewChecked, OnActivate{
+    //<editor-fold="Services">
+    router:Router;
+    location:Location;
+    private _notificationService:NotificationService;
+    //</editor-fold>
 
+    //<editor-fold="Variables">
     @ViewChild('leftMenu') leftMenu;
     @ViewChild('rightMenu') rightMenu;
-    location:Location;
-
-    router:Router;
-    private _notificationService:NotificationService;
+    //</editor-fold>
 
     constructor(location:Location, router:Router, notificationService:NotificationService) {
         this.location = location;

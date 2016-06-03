@@ -4,13 +4,15 @@
 
 import {Component} from "@angular/core";
 import {ROUTER_DIRECTIVES, Routes, Route, Router, OnActivate, RouteSegment, RouteTree} from "@angular/router";
+
+import {NotificationService} from "../../services/notificationService";
+import {JqueryService} from "../../services/jqueryService";
+
 import {AccountEditPage} from "./accountEditPage/accountEditPage";
 import {AccountDemandsPage} from "./accountDemandsPage/accountDemandsPage";
 import {AuthorizationService} from "../../services/authorizationService";
-import {JqueryService} from "../../services/jqueryService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
 import {TabsRoutingComponent} from "../../components/tabsComponent/tabsRoutingComponent";
-import {NotificationService} from "../../services/notificationService";
 import {Role} from "../../models/Roles";
 var applicationPath:string = '/app/pages/accountSettingsPage';
 
@@ -31,9 +33,16 @@ var applicationPath:string = '/app/pages/accountSettingsPage';
     })
 ])
 export class AccountSettingsPage implements OnActivate{
+
+    //<editor-fold desc="Services">
     router:Router;
     _notificationService:NotificationService;
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
     private tabPagesList;
+    //</editor-fold>
+
     constructor(router:Router, notificationService:NotificationService) {
         this.router = router;
         this.tabPagesList = [{name: 'Contul meu', link: '/account/details', enableMarker:false, markerContent: ""},

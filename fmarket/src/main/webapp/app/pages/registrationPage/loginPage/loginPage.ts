@@ -1,21 +1,19 @@
 /**
  * Created by nick_ on 4/26/2016.
  */
-/**
- * Created by nick_ on 4/17/2016.
- */
+
 
 import {Component, OnInit, ViewChild, AfterViewChecked, ElementRef} from "@angular/core";
 import {Router} from "@angular/router";
 
-import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
+import {ApplicationStateService} from "../../../services/applicationStateService";
 import {RegistrationService} from "../../../services/registrationService";
-import {RegisterAccount} from "../../../models/registerAccount";
-import {ApplicationConstants} from "../../../models/applicationConstansts";
-import {LocalStorageService} from "../../../services/localStorageService";
 import {NotificationService} from "../../../services/notificationService";
 import {JqueryService} from "../../../services/jqueryService";
-import {ApplicationStateService} from "../../../services/applicationStateService";
+
+import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
+
+import {RegisterAccount} from "../../../models/registerAccount";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -25,12 +23,18 @@ const folderPath = '/app/pages/registrationPage';
     directives: [RegistrationComponent]
 })
 export class LoginPage implements OnInit, AfterViewChecked {
+    //<editor-fold desc="Services">
     private _registrationService:RegistrationService;
-    @ViewChild('registrationPageRef') _registrationPageRef:ElementRef;
-    private _formTitle:string;
+    private _notificationService:NotificationService;
+    private _registrationComponent:RegistrationComponent;
+    private _applicationStateService:ApplicationStateService;
+    private _router:Router;
+    //</editor-fold>
 
     //<editor-fold desc="Variables">
     private _formButtonLabel:string;
+    @ViewChild('registrationPageRef') _registrationPageRef:ElementRef;
+    private _formTitle:string;
     private _showNewsletterField:boolean;
     private _passwordLabel:string;
     private _showForgetPasswordLink:boolean;
@@ -38,11 +42,7 @@ export class LoginPage implements OnInit, AfterViewChecked {
     private _forgetPasswordLabel:string;
     private _showRememberMeLink:boolean;
     private _showLoginLink:boolean;
-    private _router:Router;
-    private _notificationService:NotificationService;
-    private _registrationComponent:RegistrationComponent;
     private _loginPage;
-    private _applicationStateService:ApplicationStateService;
     //</editor-fold>
 
     constructor(router:Router,

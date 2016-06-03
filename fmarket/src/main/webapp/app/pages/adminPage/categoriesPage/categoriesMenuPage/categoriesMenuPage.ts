@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {Response} from "@angular/http";
+
+import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
 
 import {MenuTreeComponent} from "../../../../components/menuComponent/menuTreeComponent";
-import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
 import {MenuItemDialog} from "../../../../components/menuComponent/menuItemDialog/menuItemDialog";
 import {Select2Item, SelectComponent} from "../../../../components/selectComponent/selectComponent";
 import {IModal} from "../../../../models/interfaces/iModal";
@@ -20,13 +20,19 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenu
     directives: [MenuTreeComponent, MenuItemDialog, SelectComponent],
 })
 export class CategoriesMenuPage implements OnInit {
-    menuDictionary:Array<Object> = [];
+
+    //<editor-fold desc="Services">
     private _categoriesMenuService:CategoriesMenuService;
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
+    menuDictionary:Array<Object> = [];
     private _menuItemModal:MenuItemDialog;
     private _modalInterface:IModal;
     _domains:Array<Select2Item>;
     isAdminUser = AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);
     foobarItems:Array<Select2Item>;
+    //</editor-fold>
 
     constructor(_categoriesMenuService:CategoriesMenuService) {
         this._categoriesMenuService = _categoriesMenuService;

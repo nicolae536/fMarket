@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
-import {Response} from "@angular/http";
 import {FormBuilder, Validators} from "@angular/common";
 
-import {CompanieType} from "../../../../models/companieType";
 import {CompanieTypeService} from "../../../../services/companieTypesService";
+
+import {CompanieType} from "../../../../models/companieType";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage';
 
@@ -14,13 +14,18 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage'
 })
 
 export class CompaniesPage implements OnInit {
+    //<editor-fold desc="Services">
+    _companieTypeService:CompanieTypeService;
+    private _formBuilder:FormBuilder;
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
     companieTypes:Array<CompanieType> = [new CompanieType("", "test", 1), new CompanieType("", "test", 3), new CompanieType("", "test", 2)];
     searchQuery:string = "";
     newDomain:string;
     showAddCompanieDomainRow:boolean;
-    _companieTypeService:CompanieTypeService;
     _newDomainForm;
-    private _formBuilder:FormBuilder;
+    //</editor-fold>
 
     constructor(companieTypeService:CompanieTypeService, formBuilder:FormBuilder) {
         this._companieTypeService = companieTypeService;

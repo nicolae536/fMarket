@@ -12,14 +12,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-// import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 var registrationService_1 = require("../../../services/registrationService");
 var notificationService_1 = require("../../../services/notificationService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
 var jqueryService_1 = require("../../../services/jqueryService");
 var applicationStateService_1 = require("../../../services/applicationStateService");
 var TokenConfirmPage = (function () {
+    //</editor-fold>
     function TokenConfirmPage(router, registrationService, notificationService, applicationStateService) {
+        //</editor-fold>
+        //<editor-fold desc="Internal variables">
         this.showTokenError = false;
         this._router = router;
         this._registrationService = registrationService;
@@ -47,8 +49,8 @@ var TokenConfirmPage = (function () {
             me.showTokenError = true;
         });
     };
+    ///Parse the url and returns the parametre with name, using query string notation
     TokenConfirmPage.prototype.getParameterByName = function (name, url) {
-        debugger;
         if (!url)
             url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");

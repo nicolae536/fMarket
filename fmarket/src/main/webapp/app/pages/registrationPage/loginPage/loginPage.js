@@ -1,9 +1,6 @@
 /**
  * Created by nick_ on 4/26/2016.
  */
-/**
- * Created by nick_ on 4/17/2016.
- */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,11 +12,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var registrationComponent_1 = require("../../../components/registrationComponent/registrationComponent");
+var applicationStateService_1 = require("../../../services/applicationStateService");
 var registrationService_1 = require("../../../services/registrationService");
 var notificationService_1 = require("../../../services/notificationService");
 var jqueryService_1 = require("../../../services/jqueryService");
-var applicationStateService_1 = require("../../../services/applicationStateService");
+var registrationComponent_1 = require("../../../components/registrationComponent/registrationComponent");
 var folderPath = '/app/pages/registrationPage';
 var LoginPage = (function () {
     //</editor-fold>

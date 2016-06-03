@@ -6,7 +6,6 @@ import {Component} from "@angular/core";
 import {Router, ROUTER_DIRECTIVES, OnActivate, RouteSegment, RouteTree} from "@angular/router";
 import {JqueryService} from "../../../services/jqueryService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
-// import {RouteParams} from "@angular/common";
 
 @Component({
     selector:'success-register-page',
@@ -14,9 +13,14 @@ import {ApplicationConstants} from "../../../models/applicationConstansts";
     directives:[ROUTER_DIRECTIVES]
 })
 export class SuccessPage implements OnActivate{
+    //<editor-fold desc="Services">
     private _router:Router;
+    //</editor-fold>
+
+    //<editor-fold desc="Internal variables">
     private message;
     private title;
+    //</editor-fold>
 
     constructor(router:Router){
         this._router = router;

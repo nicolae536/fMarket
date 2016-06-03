@@ -10,6 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
+var jqueryService_1 = require("../../services/jqueryService");
+var authorizationService_1 = require("../../services/authorizationService");
+var notificationService_1 = require("../../services/notificationService");
 var usersPage_1 = require("./usersPage/usersPage");
 var subscribersPage_1 = require("./subscribersPage/subscribersPage");
 var categoriesPage_1 = require("./categoriesPage/categoriesPage");
@@ -17,14 +20,12 @@ var demandsPage_1 = require("./demandsPage/demandsPage");
 var companiesPage_1 = require("./companiesPage/companiesPage");
 var companiesEditPage_1 = require("./companiesPage/companiesEditPage/companiesEditPage");
 var demandsEditPage_1 = require("./demandsPage/demandsEditPage/demandsEditPage");
-var jqueryService_1 = require("../../services/jqueryService");
 var applicationConstansts_1 = require("../../models/applicationConstansts");
-var notificationService_1 = require("../../services/notificationService");
-var authorizationService_1 = require("../../services/authorizationService");
-var Roles_1 = require("../../models/Roles");
 var companiesCreatePage_1 = require("./companiesPage/companiesEditPage/companiesCreatePage");
+var Roles_1 = require("../../models/Roles");
 var applicationPath = '/app/pages/adminPage';
 var AdminPage = (function () {
+    //</editor-fold>
     function AdminPage(location, router, notificationService) {
         this.location = location;
         this.router = router;

@@ -13,9 +13,9 @@ import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 
 export class CreateSubscriberDialog extends ModalDialog {
     modaleMode:string = "newSubscriber";
-    @Input('title') title:string = "Add new user";
+    @Input('title') title:string = "Adauga abonat nou";
     @Input('cancel-label') cancelLabel:string = 'Cancel';
-    @Input('positive-label') positiveLabel:string = 'Create User';
+    @Input('positive-label') positiveLabel:string = 'Creeaza abonat';
     @Output('loaded') loadedEmitter:EventEmitter<CreateSubscriberDialog> = new EventEmitter<CreateSubscriberDialog>();
     @Output('create-subscriber') createEmitter:EventEmitter<Object> = new EventEmitter<Object>();
 

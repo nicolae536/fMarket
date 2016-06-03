@@ -11,15 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/26/2016.
  */
 var core_1 = require("@angular/core");
-var accountEditComponent_1 = require("../../../components/accountComponent/accountEditComponent/accountEditComponent");
-var accountDto_1 = require("../../../models/accountDto");
+var router_1 = require("@angular/router");
 var accountService_1 = require("../../../services/accountService");
 var demandService_1 = require("../../../services/demandService");
 var localizationService_1 = require("../../../services/localizationService");
 var notificationService_1 = require("../../../services/notificationService");
-var router_1 = require("@angular/router");
+var accountEditComponent_1 = require("../../../components/accountComponent/accountEditComponent/accountEditComponent");
+var accountDto_1 = require("../../../models/accountDto");
 var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
 var AccountEditPage = (function () {
+    //</editor-fold>
     function AccountEditPage(accountService, demandService, localizationService, notificationService, router) {
         this._submitLabel = 'Salveaza contul';
         this._cityesList = new Array();

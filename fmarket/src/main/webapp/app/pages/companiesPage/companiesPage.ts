@@ -19,13 +19,17 @@ let applicationPath = '/app/pages/companiesPage'
     directives: [CompanieListComponent, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class CompaniesPage implements OnInit {
+    //<editor-fold desc="Services">
     private _notificationService:NotificationService;
     private _companiesService:CompaniesService;
-
-    private _companiesList:Array<Object>;
-
-    private searchFilter:string = "";
     private _router:Router;
+
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
+    private _companiesList:Array<Object>;
+    private searchFilter:string = "";
+    //</editor-fold">
 
     constructor(router:Router, companiesService:CompaniesService, notificationService:NotificationService) {
         this._router = router;

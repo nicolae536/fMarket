@@ -4,15 +4,15 @@
 import {Component, OnInit, OnChanges} from "@angular/core";
 import {Router} from "@angular/router";
 
-import {DemandListBaseComponent} from "../../../../components/demandComponent/demandListBase/demandListBase";
 import {DemandService} from "../../../../services/demandService";
-import {RequestTypeService} from "../../../../services/requestTypeService";
-import {DemandsListPageBase} from "./demandsListPageBase";
-import {Role} from "../../../../models/Roles";
-import {AuthorizationService} from "../../../../services/authorizationService";
-import {MenuTreeDialog} from "../../../../components/menuComponent/menuTreeDialog/menuTreeDialog";
 import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
 import {LocalizationService} from "../../../../services/localizationService";
+import {NotificationService} from "../../../../services/notificationService";
+
+import {DemandListBaseComponent} from "../../../../components/demandComponent/demandListBase/demandListBase";
+import {RequestTypeService} from "../../../../services/requestTypeService";
+import {DemandsListPageBase} from "./demandsListPageBase";
+import {MenuTreeDialog} from "../../../../components/menuComponent/menuTreeDialog/menuTreeDialog";
 
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
 
@@ -29,8 +29,9 @@ export class AllDemandsListPage extends DemandsListPageBase implements OnInit, O
                 _categoriesMenuService:CategoriesMenuService,
                 _demandService:DemandService,
                 _requestTypeService:RequestTypeService,
-                _localizationService:LocalizationService) {
-        super(router,_categoriesMenuService, _demandService, _requestTypeService, _localizationService);
+                _localizationService:LocalizationService,
+                _notificationService:NotificationService) {
+        super(router,_categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService);
     }
 
     public ngOnInit():any {

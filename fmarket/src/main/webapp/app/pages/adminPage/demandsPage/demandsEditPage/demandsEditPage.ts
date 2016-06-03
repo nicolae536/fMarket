@@ -9,10 +9,11 @@ import {Location} from '@angular/common'
 import {DemandService} from "../../../../services/demandService";
 import {RequestTypeService} from "../../../../services/requestTypeService";
 import {DemandEditComponent} from "../../../../components/demandComponent/demandEdit/demandEdit";
-import {Demand} from "../../../../models/demand";
-import * as _ from 'underscore';
 import {NotificationService} from "../../../../services/notificationService";
+
+import {Demand} from "../../../../models/demand";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";
+
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
 
 @Component({

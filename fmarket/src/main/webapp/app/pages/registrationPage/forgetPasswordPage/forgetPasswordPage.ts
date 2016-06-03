@@ -9,7 +9,6 @@ import {RegistrationComponent} from "../../../components/registrationComponent/r
 import {RegistrationService} from "../../../services/registrationService";
 import {RegisterAccount} from "../../../models/registerAccount";
 import {NotificationService} from "../../../services/notificationService";
-import {ApplicationConstants} from "../../../models/applicationConstansts";
 import {JqueryService} from "../../../services/jqueryService";
 
 const folderPath = '/app/pages/registrationPage';
@@ -25,10 +24,16 @@ const folderPath = '/app/pages/registrationPage';
     directives: [RegistrationComponent]
 })
 export class ForgetPasswordPage implements OnInit, AfterViewChecked {
+    //<editor-fold desc="Services">
     private _registrationService:RegistrationService;
+    private _router:Router;
+    private _registrationComponent:RegistrationComponent;
+    private _notificationService:NotificationService;
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
     @ViewChild('registrationPageRef') _registrationPageRef:ElementRef;
     private _formTitle:string;
-
     private _formButtonLabel:string;
     private _showNewsletterField:boolean;
     private _passwordLabel:string;
@@ -37,10 +42,9 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
     private _forgetPasswordLabel;
     private _showRememberMeLink;
     private _showLoginLink;
-    private _router:Router;
-    private _registrationComponent:RegistrationComponent;
-    private _notificationService:NotificationService;
     private _loginPage;
+    //</editor-fold>
+
     constructor(router:Router, registrationService:RegistrationService, notificationService:NotificationService) {
         this._router = router;
         this._registrationService = registrationService;

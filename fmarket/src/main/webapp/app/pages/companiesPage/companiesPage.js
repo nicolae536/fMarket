@@ -20,6 +20,7 @@ var companiesService_1 = require("../../services/companiesService");
 var notificationService_1 = require("../../services/notificationService");
 var applicationPath = '/app/pages/companiesPage';
 var CompaniesPage = (function () {
+    //</editor-fold">
     function CompaniesPage(router, companiesService, notificationService) {
         this.searchFilter = "";
         this._router = router;

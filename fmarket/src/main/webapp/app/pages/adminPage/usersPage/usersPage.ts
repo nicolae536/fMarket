@@ -1,20 +1,22 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {NgForm, CORE_DIRECTIVES} from '@angular/common';
-import * as _ from 'underscore';
-//import operators
-import 'rxjs/add/operator/map';//-map
+import * as _ from "underscore";
 
-import {CreateUserDialog} from '../../../components/createUserDialog/createUserDialog';
-import {ActionDialog} from '../../../components/actionDialog/actionDialog';
-import {UserService} from '../../../services/usersService';
-import {User} from '../../../models/user';
+import {Component, OnInit, ViewEncapsulation} from "@angular/core";
+import {NgForm, CORE_DIRECTIVES} from "@angular/common";
 
-//import mocks
-import {STATUS} from '../../../services/mock-providers/mock-Status';
-import {AccountStatus} from "../../../models/accountStatus";
+import "rxjs/add/operator/map";
+
+import {PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
+
 import {NotificationService} from "../../../services/notificationService";
 import {LocalizationService} from "../../../services/localizationService";
-import {PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
+import {UserService} from "../../../services/usersService";
+
+import {CreateUserDialog} from "../../../components/createUserDialog/createUserDialog";
+import {ActionDialog} from "../../../components/actionDialog/actionDialog";
+import {User} from "../../../models/user";
+import {STATUS} from "../../../services/mock-providers/mock-Status";
+import {AccountStatus} from "../../../models/accountStatus";
+
 
 var applicationPath:string = '/app/pages/adminPage/usersPage';
 
@@ -26,25 +28,30 @@ var applicationPath:string = '/app/pages/adminPage/usersPage';
     directives: [ActionDialog, CreateUserDialog, NgForm, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class UsersPage implements OnInit {
+
+    //<editor-fold desc="Services">
+    private _notificationService:NotificationService;
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
+    private _localizationService:LocalizationService;
     usersList:User[];
     userDialog:CreateUserDialog;
     actionDialog:ActionDialog;
+
     userBackup:User;
-
     cityList:Array<Object>;
-    statusList:Array<Object> = STATUS;
 
+    statusList:Array<Object> = STATUS;
     usersPerPage:number = 10;
     emailFilter:string = "";
     nameFilter:string = "";
     idFilter:number;
     cityId = -1;
-    selectedStatusFilter:AccountStatus = null;
-    private _notificationService:NotificationService;
-    private _localizationService:LocalizationService;
-    
-    private pagination:Object = {totalItems:1, currentPage:1, maxSize:7};
 
+    selectedStatusFilter:AccountStatus = null;
+    private pagination:Object = {totalItems:1, currentPage:1, maxSize:7};
+    //</editor-fold>
 
     constructor(
         private _userService:UserService,
@@ -76,11 +83,9 @@ export class UsersPage implements OnInit {
                     me.usersList = response['data'];
                     me.pagination['totalItems']=response['totalPages'];
                     me.pagination['currentPage']=response['page'];
-                    console.log(response);
                 },
                 error => {
-                    console.log(error);
-                    //todo handler
+                    me._notificationService.emitErrorNotificationToRootComponent('A aparut o eroare, utilizatori nu pot fi afisati.',5);
                 });
     }
 
@@ -118,7 +123,7 @@ export class UsersPage implements OnInit {
                     }
                 },
                 error=> {
-                    //display be message
+                    me._notificationService.emitErrorNotificationToRootComponent('Utilizatorul nu pote fi sters.',5);
                 });
     }
 
@@ -162,7 +167,7 @@ export class UsersPage implements OnInit {
             me.userDialog.hide();
             me.getUsers();
         }, error => {
-            //display message
+            me._notificationService.emitErrorNotificationToRootComponent('Utilizatorul nu pote fi creat.',5);
         });
     }
 

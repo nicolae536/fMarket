@@ -27,9 +27,6 @@ var DemandEditComponent = (function () {
     DemandEditComponent.prototype.rejectDemand = function () {
         this.rejectDemandEvent.emit(Number(this._demand.id));
     };
-    DemandEditComponent.prototype.toggleEditMode = function () {
-        this._demand.isInEditMode = true;
-    };
     DemandEditComponent.prototype.referenceDemandsComponent = function ($event) {
         this.selectDemandComponent = $event;
     };

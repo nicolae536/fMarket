@@ -18,6 +18,7 @@ var notificationService_1 = require("../../../services/notificationService");
 var jqueryService_1 = require("../../../services/jqueryService");
 var folderPath = '/app/pages/registrationPage';
 var ForgetPasswordPage = (function () {
+    //</editor-fold>
     function ForgetPasswordPage(router, registrationService, notificationService) {
         this._router = router;
         this._registrationService = registrationService;

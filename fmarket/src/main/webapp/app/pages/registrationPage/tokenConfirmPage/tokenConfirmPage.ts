@@ -4,11 +4,9 @@
 import {Component} from "@angular/core";
 import {Router, ROUTER_DIRECTIVES, OnActivate, RouteSegment, RouteTree} from "@angular/router";
 
-// import {RouteParams, Router, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {RegistrationService} from "../../../services/registrationService";
 import {NotificationService} from "../../../services/notificationService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
-import {Role} from "../../../models/Roles";
 import {JqueryService} from "../../../services/jqueryService";
 import {ApplicationStateService} from "../../../services/applicationStateService";
 
@@ -19,11 +17,16 @@ import {ApplicationStateService} from "../../../services/applicationStateService
 })
 
 export class TokenConfirmPage implements OnActivate{
+    //<editor-fold desc="Services">
     private _registrationService:RegistrationService;
     private _router:Router;
     private _notificationService:NotificationService;
     private _applicationStateService:ApplicationStateService;
+    //</editor-fold>
+
+    //<editor-fold desc="Internal variables">
     private showTokenError:boolean = false;
+    //</editor-fold>
 
     constructor(router:Router, registrationService:RegistrationService, notificationService:NotificationService, applicationStateService:ApplicationStateService) {
         this._router = router;
@@ -61,8 +64,8 @@ export class TokenConfirmPage implements OnActivate{
             )
     }
 
+    ///Parse the url and returns the parametre with name, using query string notation
     getParameterByName(name, url) {
-        debugger;
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
         var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),

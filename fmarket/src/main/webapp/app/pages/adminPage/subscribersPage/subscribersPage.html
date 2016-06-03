@@ -154,7 +154,7 @@
                                 <td colspan="8" class="navigation-column">
                                     <pagination [totalItems]="pagination.totalItems"
                                                 [(ngModel)]="pagination.currentPage"
-                                                (ngModelChange)="getUsers()" [maxSize]="pagination.maxSize"
+                                                (ngModelChange)="getSubscribersWithFilters()" [maxSize]="pagination.maxSize"
                                                 class="pagination-sm"
                                                 [boundaryLinks]="true" [rotate]="false"
                                                 (numPages)="numPages = $event"></pagination>

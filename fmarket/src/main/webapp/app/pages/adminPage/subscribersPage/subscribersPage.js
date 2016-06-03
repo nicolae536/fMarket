@@ -10,16 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
-require("rxjs/add/operator/map");
-var subscriber_1 = require("../../../models/subscriber");
-var actionDialog_1 = require("../../../components/actionDialog/actionDialog");
 var subscribersService_1 = require("../../../services/subscribersService");
+var localizationService_1 = require("../../../services/localizationService");
+var notificationService_1 = require("../../../services/notificationService");
+require("rxjs/add/operator/map");
+var actionDialog_1 = require("../../../components/actionDialog/actionDialog");
 var createSubscriberDialog_1 = require("../../../components/createSubscriberDialog/createSubscriberDialog");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
-var localizationService_1 = require("../../../services/localizationService");
+var subscriber_1 = require("../../../models/subscriber");
 var applicationPath = '/app/pages/adminPage/subscribersPage';
 var SubscribersPage = (function () {
-    function SubscribersPage(subscribersService, localizationService) {
+    //</editor-fold>
+    function SubscribersPage(subscribersService, localizationService, _notificationService) {
         this.subscribeDatePicker = { state: false };
         this.unSubscribeDatePicker = { state: false };
         this.orderList = [{ value: -1, text: "Chose..." },
@@ -27,7 +29,6 @@ var SubscribersPage = (function () {
             { value: 2, text: "Descending" }];
         this.sortKey = "EMAIL";
         this.sortOrder = true;
-        //sortOrder true -> ascending
         this.sortkeyAndFilter = [];
         this.emailFilter = "";
         this.subscribeDateFilter = new Date();
@@ -36,6 +37,7 @@ var SubscribersPage = (function () {
         this.pagination = { totalItems: 1, currentPage: 1, maxSize: 7 };
         this.subscribersList = [];
         this.deleteMessage = "Are you sure that you want to delete this subscriber ?";
+        this._notificationService = _notificationService;
         this.sortkeyAndFilter["EMAIL"] = true;
         this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
         this.sortkeyAndFilter["UNSUBSCRIBE_DATE"] = true;
@@ -61,7 +63,9 @@ var SubscribersPage = (function () {
         this._subscribersService.subscribe(subscriberValue.email)
             .subscribe(function (response) {
             me.getSubscribersWithFilters();
+            me.createSubscriberDialog.hide();
         }, function (error) {
+            me._notificationService.emitErrorNotificationToRootComponent('Abonatul nu a putut fi adaugat', 5);
         });
     };
     SubscribersPage.prototype.getSubscribersWithFilters = function () {
@@ -75,15 +79,20 @@ var SubscribersPage = (function () {
         });
     };
     SubscribersPage.prototype.subscribe = function (subscriber) {
+        var me = this;
         this._subscribersService.subscribe(subscriber.email)
             .subscribe(function (response) {
+            me.getSubscribersWithFilters();
         }, function (error) {
+            me._notificationService.emitErrorNotificationToRootComponent('Userul nu se poate abona.', 5);
         });
     };
     SubscribersPage.prototype.unsubscribe = function (subscriber) {
+        var me = this;
         this._subscribersService.unsubscribe(subscriber.id)
             .subscribe(function (response) {
         }, function (error) {
+            me._notificationService.emitErrorNotificationToRootComponent('Userul nu se poate dezabona.', 5);
         });
     };
     SubscribersPage.prototype.actionDialogConfirmDelete = function (subscriber) {
@@ -96,6 +105,7 @@ var SubscribersPage = (function () {
                 me.subscribersList.splice(subscriberIndex, 1);
             }
         }, function (error) {
+            me._notificationService.emitErrorNotificationToRootComponent('Abonatul nu poate fi sters.', 5);
         });
     };
     SubscribersPage.prototype.getClassForSorting = function (columnName) {
@@ -169,7 +179,7 @@ var SubscribersPage = (function () {
             encapsulation: core_1.ViewEncapsulation.None,
             directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [subscribersService_1.SubscribersService, localizationService_1.LocalizationService])
+        __metadata('design:paramtypes', [subscribersService_1.SubscribersService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
     ], SubscribersPage);
     return SubscribersPage;
 })();

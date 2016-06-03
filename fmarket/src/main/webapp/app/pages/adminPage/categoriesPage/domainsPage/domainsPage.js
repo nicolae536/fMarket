@@ -7,15 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var requestType_1 = require('../../../../models/requestType');
-var requestTypeService_1 = require('../../../../services/requestTypeService');
+var requestTypeService_1 = require("../../../../services/requestTypeService");
+var requestType_1 = require("../../../../models/requestType");
 var applicationPath = '/app/pages/adminPage/categoriesPage/domainsPage';
 var DomainsPage = (function () {
+    //</editor-fold>
     function DomainsPage(requestTypeService, formBuilder) {
-        this.domainsTypes = [new requestType_1.RequestType("", "test", 1), new requestType_1.RequestType("", "test", 3), new requestType_1.RequestType("", "test", 2)];
+        //</editor-fold>
+        //<editor-fold desc="Variables">
         this.searchQuery = "";
+        this.domainsTypes = [new requestType_1.RequestType("", "test", 1), new requestType_1.RequestType("", "test", 3), new requestType_1.RequestType("", "test", 2)];
         this._requestTypeService = requestTypeService;
         this._formBuilder = formBuilder;
     }

@@ -14,8 +14,8 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var jqueryService_1 = require("../../../services/jqueryService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
-// import {RouteParams} from "@angular/common";
 var SuccessPage = (function () {
+    //</editor-fold>
     function SuccessPage(router) {
         this._router = router;
         jqueryService_1.JqueryService.removeElementWithAnimation('#' + applicationConstansts_1.ApplicationConstants.LOADING_SPINNER);

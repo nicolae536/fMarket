@@ -23,9 +23,9 @@ var CreateUserDialog = (function (_super) {
     function CreateUserDialog(formBuilder) {
         _super.call(this);
         this.modaleMode = "newUser";
-        this.title = "Add new user";
+        this.title = "Adauga utilizator nou";
         this.cancelLabel = 'Cancel';
-        this.positiveLabel = 'Create User';
+        this.positiveLabel = 'Creeaza utilizator';
         this.loadedEmitter = new core_1.EventEmitter();
         this.createUser = new core_1.EventEmitter();
         this._formBuilder = formBuilder;

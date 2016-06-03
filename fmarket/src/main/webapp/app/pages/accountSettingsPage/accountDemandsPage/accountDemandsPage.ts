@@ -1,16 +1,20 @@
 /**
  * Created by nick_ on 4/26/2016.
  */
+import * as _ from 'underscore';
+
 import {Component, OnInit, OnChanges} from "@angular/core";
 import {Router} from "@angular/router";
+
 import {DemandService} from "../../../services/demandService";
 import {RequestTypeService} from "../../../services/requestTypeService";
-import {DemandsListPageBase} from "../../adminPage/demandsPage/demandsListPage/demandsListPageBase";
 import {CategoriesMenuService} from "../../../services/categoriesMenuService";
 import {LocalizationService} from "../../../services/localizationService";
+import {NotificationService} from "../../../services/notificationService";
+
+import {DemandsListPageBase} from "../../adminPage/demandsPage/demandsListPage/demandsListPageBase";
 import {DemandStatus} from "../../../models/DemandStatus";
 
-import * as _ from 'underscore';
 
 var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage';
 
@@ -19,15 +23,19 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage'
     templateUrl: applicationPath + '/accountDemandsPage.html'
 })
 export class AccountDemandsPage extends DemandsListPageBase implements OnInit, OnChanges {
+
+    //<editor-fold desc="Variables">
     selectedFilter:string;
     backendDemands:Array<Object>;
+    //</editor-fold>
 
     constructor(router:Router,
                 _categoriesMenuService:CategoriesMenuService,
                 _demandService:DemandService,
                 _requestTypeService:RequestTypeService,
-                localizationService:LocalizationService) {
-        super(router, _categoriesMenuService, _demandService, _requestTypeService, localizationService);
+                localizationService:LocalizationService,
+                _notificationService:NotificationService) {
+        super(router, _categoriesMenuService, _demandService, _requestTypeService, localizationService, _notificationService);
     }
 
     ngOnInit():any {

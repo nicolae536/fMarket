@@ -13,9 +13,9 @@ import * as _ from 'underscore';
 
 export class CreateUserDialog extends ModalDialog implements OnInit {
     modaleMode:string = "newUser";
-    @Input('title') title:string = "Add new user";
+    @Input('title') title:string = "Adauga utilizator nou";
     @Input('cancel-label') cancelLabel:string = 'Cancel';
-    @Input('positive-label') positiveLabel:string = 'Create User';
+    @Input('positive-label') positiveLabel:string = 'Creeaza utilizator';
     @Input('status-list') statusList:Array<Object>;
     @Input('city-list') cityList:Array<Object>;
     @Output('loaded') loadedEmitter:EventEmitter<CreateUserDialog> = new EventEmitter<CreateUserDialog>();

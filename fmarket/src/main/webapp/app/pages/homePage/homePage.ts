@@ -2,18 +2,19 @@
  * Created by nick_ on 4/12/2016.
  */
 import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit} from "@angular/core";
-import {Response} from "@angular/http";
 import {Router} from "@angular/router"
 import {FormBuilder, Validators} from "@angular/common";
+
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
 import {DemandService} from "../../services/demandService";
-import {Demand} from "../../models/demand";
 import {JqueryService} from "../../services/jqueryService";
-import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 import {SubscribersService} from "../../services/subscribersService";
 import {NotificationService} from "../../services/notificationService";
-import {DemandComponent} from "../../components/demandComponent/demandComponent";
 import {LocalizationService} from "../../services/localizationService";
+
+import {CustomValidators} from "../../models/Angular2ExtensionValidators";
+import {DemandComponent} from "../../components/demandComponent/demandComponent";
+import {Demand} from "../../models/demand";
 
 const folderPath = '/app/pages/homePage';
 
@@ -23,27 +24,27 @@ const folderPath = '/app/pages/homePage';
     directives: [DemandComponent]
 })
 export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
-    //components
+    //<editor-fold desc="Services">
+    private _categoriesMenuService:CategoriesMenuService;
+    private _demandService:DemandService;
+    private _formBuilder:FormBuilder;
+    private _subscribersService:SubscribersService;
+    private _notificationService:NotificationService;
+    private _router:Router;
+    private _localizationService:LocalizationService;
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
     @ViewChild('createDemandComponent') private createDemamdViewRef:ElementRef;
     @ViewChild('howWeWork') private howWeWorkRef:ElementRef;
     @ViewChild('videoContainer') private videoContainer:ElementRef;
     @ViewChild('videoRightContainer') private videoRightContainer:ElementRef;
     private _demandDialog:DemandComponent;
     scrollProperty:string = 'scrollY';
-
-    //services
-    private _categoriesMenuService:CategoriesMenuService;
-
-    private _demandService:DemandService;
-    //data
     private _cityes;
-    private _formBuilder:FormBuilder;
     private _subscribeForm;
-    private _subscribersService:SubscribersService;
-    private _notificationService:NotificationService;
     menuDictionary;
-    private _router:Router;
-    private _localizationService:LocalizationService;
+    //</editor-fold>
 
     constructor(_categoriesMenuService:CategoriesMenuService,
                 router:Router,

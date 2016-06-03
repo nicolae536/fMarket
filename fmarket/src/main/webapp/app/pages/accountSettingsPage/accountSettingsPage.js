@@ -12,16 +12,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var notificationService_1 = require("../../services/notificationService");
+var jqueryService_1 = require("../../services/jqueryService");
 var accountEditPage_1 = require("./accountEditPage/accountEditPage");
 var accountDemandsPage_1 = require("./accountDemandsPage/accountDemandsPage");
 var authorizationService_1 = require("../../services/authorizationService");
-var jqueryService_1 = require("../../services/jqueryService");
 var applicationConstansts_1 = require("../../models/applicationConstansts");
 var tabsRoutingComponent_1 = require("../../components/tabsComponent/tabsRoutingComponent");
-var notificationService_1 = require("../../services/notificationService");
 var Roles_1 = require("../../models/Roles");
 var applicationPath = '/app/pages/accountSettingsPage';
 var AccountSettingsPage = (function () {
+    //</editor-fold>
     function AccountSettingsPage(router, notificationService) {
         this.router = router;
         this.tabPagesList = [{ name: 'Contul meu', link: '/account/details', enableMarker: false, markerContent: "" },

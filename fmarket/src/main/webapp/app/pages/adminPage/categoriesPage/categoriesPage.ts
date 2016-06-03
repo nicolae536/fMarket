@@ -1,13 +1,11 @@
-import {Component} from '@angular/core';
-import {Routes, Router, ROUTER_DIRECTIVES, Route} from "@angular/router";
+import {Component} from "@angular/core";
+import {Routes, ROUTER_DIRECTIVES, Route} from "@angular/router";
 
 import {CompaniesPage} from "./companiesPage/companiesPage";
 import {DomainsPage} from "./domainsPage/domainsPage";
 import {CategoriesMenuPage} from "./categoriesMenuPage/categoriesMenuPage";
 import {TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
 import {TabHeader} from "../../../models/TabHeader";
-import {Role} from "../../../models/Roles";
-import {AuthorizationService} from "../../../services/authorizationService";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage';
 

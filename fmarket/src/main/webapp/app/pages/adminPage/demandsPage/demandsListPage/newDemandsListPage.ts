@@ -5,13 +5,15 @@
 import {Component, OnChanges, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 
+import {RequestTypeService} from "../../../../services/requestTypeService";
+import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
+import {LocalizationService} from "../../../../services/localizationService";
+
 import {DemandListBaseComponent} from "../../../../components/demandComponent/demandListBase/demandListBase";
 import {DemandService} from "../../../../services/demandService";
-import {RequestTypeService} from "../../../../services/requestTypeService";
 import {DemandsListPageBase} from "./demandsListPageBase";
-import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
 import {MenuTreeDialog} from "../../../../components/menuComponent/menuTreeDialog/menuTreeDialog";
-import {LocalizationService} from "../../../../services/localizationService";
+import {NotificationService} from "../../../../services/notificationService";
 
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
 
@@ -27,8 +29,9 @@ export class NewDemandsListPage extends DemandsListPageBase implements OnInit, O
                 _categoriesMenuService:CategoriesMenuService,
                 _demandService:DemandService,
                 _requestTypeService:RequestTypeService,
-                _localizationService:LocalizationService){
-        super(router,_categoriesMenuService, _demandService,_requestTypeService, _localizationService);
+                _localizationService:LocalizationService,
+                _notificationService:NotificationService){
+        super(router,_categoriesMenuService, _demandService,_requestTypeService, _localizationService, _notificationService);
         this._demandsRoute = '/new';
     }
 

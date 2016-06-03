@@ -5,11 +5,13 @@
 import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked} from "@angular/core";
 import {Router} from "@angular/router";
 
-import {RegistrationComponent} from "../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../services/registrationService";
-import {RegisterAccount} from "../../models/registerAccount";
 import {NotificationService} from "../../services/notificationService";
 import {JqueryService} from "../../services/jqueryService";
+
+import {RegistrationComponent} from "../../components/registrationComponent/registrationComponent";
+
+import {RegisterAccount} from "../../models/registerAccount";
 
 const folderPath = '/app/pages/registrationPage';
 
@@ -19,11 +21,16 @@ const folderPath = '/app/pages/registrationPage';
     directives: [RegistrationComponent]
 })
 export class RegistrationPage implements OnInit, AfterViewChecked {
+    //<editor-fold desc="Services">
     private _registrationService:RegistrationService;
+    private _registrationComponent:RegistrationComponent;
+    private _notificationService:NotificationService;
+    private _router:Router;
+    //</editor-fold>
+
+    //<editor-fold desc="Internal variables">
     @ViewChild('registrationPageRef') _registrationPageRef:ElementRef;
     private _formTitle:string;
-
-
     private _formButtonLabel:string;
     private _showNewsletterField:boolean;
     private _passwordLabel:string;
@@ -32,10 +39,8 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     private _showRegisterLink:boolean;
     private _showRememberMeLink:boolean;
     private _showLoginLink:boolean;
-    private _router:Router;
-    private _registrationComponent:RegistrationComponent;
-    private _notificationService:NotificationService;
     private _loginPage;
+    //</editor-fold>
 
     constructor(router:Router,registrationService:RegistrationService, notificationService:NotificationService) {
         this._router = router;

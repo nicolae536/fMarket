@@ -12,12 +12,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var registrationComponent_1 = require("../../components/registrationComponent/registrationComponent");
 var registrationService_1 = require("../../services/registrationService");
 var notificationService_1 = require("../../services/notificationService");
 var jqueryService_1 = require("../../services/jqueryService");
+var registrationComponent_1 = require("../../components/registrationComponent/registrationComponent");
 var folderPath = '/app/pages/registrationPage';
 var RegistrationPage = (function () {
+    //</editor-fold>
     function RegistrationPage(router, registrationService, notificationService) {
         this._router = router;
         this._registrationService = registrationService;

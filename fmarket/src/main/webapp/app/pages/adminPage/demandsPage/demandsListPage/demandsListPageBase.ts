@@ -1,32 +1,36 @@
 /**
  * Created by nick_ on 4/22/2016.
  */
-import {Router} from '@angular/router';
-import {Response} from "@angular/http";
-import {DemandService} from "../../../../services/demandService";
-import {Select2Item} from "../../../../components/selectComponent/selectComponent";
-import {RequestTypeService} from "../../../../services/requestTypeService";
-import {DemandAdminDto} from "../../../../models/demandAdminDto";
 import * as _ from 'underscore';
+
+import {Router} from '@angular/router';
+
+import {DemandService} from "../../../../services/demandService";
+import {RequestTypeService} from "../../../../services/requestTypeService";
+import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
+import {LocalizationService} from "../../../../services/localizationService";
+
+import {NotificationService} from "../../../../services/notificationService";
+import {Select2Item} from "../../../../components/selectComponent/selectComponent";
+import {DemandAdminDto} from "../../../../models/demandAdminDto";
 import {DemandStatus} from "../../../../models/DemandStatus";
 import {IMenuItem} from "../../../../models/interfaces/iMenuItem";
 import {MenuTreeDialog} from "../../../../components/menuComponent/menuTreeDialog/menuTreeDialog";
-import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
 import {DemandSearchObject} from "../../../../models/DemandSearchObject";
-import {LocalizationService} from "../../../../services/localizationService";
 
 export class DemandsListPageBase {
-    //components
-    private _menuTreeDialog:MenuTreeDialog;
 
-    //services
+    //<editor-fold desc="Services">
     public _demandService:DemandService;
     public _requestTypeService:RequestTypeService;
     private _categoriesMenuService:CategoriesMenuService;
     private _localizationService:LocalizationService;
-
+    private _notificationService:NotificationService;
     private _router:Router;
-    // containers
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
+    private _menuTreeDialog:MenuTreeDialog;
     public _demandsList:Array<DemandAdminDto>;
     public _domainsList:Array<Select2Item>;
     public _citiesList:Array<Select2Item>;
@@ -40,12 +44,18 @@ export class DemandsListPageBase {
         {status:DemandStatus.PENDING, displayName:DemandStatus.PENDING},
         {status:DemandStatus.REJECTED, displayName:DemandStatus.REJECTED},
         {status:DemandStatus.WAITING_FOR_REVIEW, displayName:DemandStatus.WAITING_FOR_REVIEW}];
+    //</editor-fold>
 
-    constructor(router:Router ,_categoriesMenuService:CategoriesMenuService, _demandService:DemandService,
-                _requestTypeService:RequestTypeService, _localizationService:LocalizationService) {
+    constructor(router:Router ,
+                _categoriesMenuService:CategoriesMenuService,
+                _demandService:DemandService,
+                _requestTypeService:RequestTypeService,
+                _localizationService:LocalizationService,
+                _notificationService:NotificationService) {
         this._categoriesMenuService = _categoriesMenuService;
         this._demandService = _demandService;
         this._requestTypeService = _requestTypeService;
+        this._notificationService = _notificationService;
         this._demandsRoute = "";
         this._searchObject = new DemandSearchObject('', 1, DemandStatus.WAITING_FOR_REVIEW, -1);
         this._searchObject.domainName = "Alege domeniu...";

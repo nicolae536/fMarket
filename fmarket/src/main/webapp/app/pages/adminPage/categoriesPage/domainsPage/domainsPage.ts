@@ -1,13 +1,9 @@
-import {Component, OnInit, Injectable} from '@angular/core';
-import {Response} from "@angular/http";
+import {Component, OnInit} from "@angular/core";
 import {FORM_DIRECTIVES, FormBuilder, Validators} from "@angular/common";
 
-import {RequestType} from '../../../../models/requestType';
-import {RequestTypeService} from '../../../../services/requestTypeService';
+import {RequestTypeService} from "../../../../services/requestTypeService";
 
-import {AuthorizationService} from "../../../../services/authorizationService";
-import {Role} from "../../../../models/Roles";
-
+import {RequestType} from "../../../../models/requestType";
 
 let applicationPath:string = '/app/pages/adminPage/categoriesPage/domainsPage';
 
@@ -19,14 +15,20 @@ let applicationPath:string = '/app/pages/adminPage/categoriesPage/domainsPage';
 })
 
 export class DomainsPage implements OnInit {
-    domainsTypes:Array<RequestType> = [new RequestType("", "test", 1), new RequestType("", "test", 3), new RequestType("", "test", 2)];
-    searchQuery:string = "";
-    showAddRequestRow:boolean;
-    newRequestType:string;
 
+    //<editor-fold desc="Services">
     _requestTypeService:RequestTypeService;
     private _formBuilder:FormBuilder;
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
+    searchQuery:string = "";
+    domainsTypes:Array<RequestType> = [new RequestType("", "test", 1), new RequestType("", "test", 3), new RequestType("", "test", 2)];
+
+    showAddRequestRow:boolean;
+    newRequestType:string;
     private _newDomainForm;
+    //</editor-fold>
 
     constructor(requestTypeService:RequestTypeService, formBuilder:FormBuilder) {
         this._requestTypeService = requestTypeService;

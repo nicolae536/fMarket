@@ -2,15 +2,18 @@
  * Created by nick_ on 4/26/2016.
  */
 import {Component, OnInit} from "@angular/core";
-import {AccountEditComponent} from "../../../components/accountComponent/accountEditComponent/accountEditComponent";
-import {AccountDto} from "../../../models/accountDto";
+import {Router} from "@angular/router";
+
 import {AccountService} from "../../../services/accountService";
 import {DemandService} from "../../../services/demandService";
-import {Select2Item} from "../../../components/selectComponent/selectComponent";
 import {LocalizationService} from "../../../services/localizationService";
-import {AccountUser} from "../../../models/accountUser";
 import {NotificationService} from "../../../services/notificationService";
-import {Router} from "@angular/router";
+
+import {AccountEditComponent} from "../../../components/accountComponent/accountEditComponent/accountEditComponent";
+import {AccountDto} from "../../../models/accountDto";
+import {Select2Item} from "../../../components/selectComponent/selectComponent";
+import {AccountUser} from "../../../models/accountUser";
+
 var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
 
 @Component({
@@ -19,17 +22,20 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
     directives: [AccountEditComponent]
 })
 export class AccountEditPage implements OnInit {
-    private _accountEditComponent;
 
+    //<editor-fold desc="Services">
     private _accountService:AccountService;
     private _demandService:DemandService;
-
-    private _account:AccountDto;
-    private _submitLabel:string = 'Salveaza contul';
-    private _cityesList:Array<Select2Item> = new Array<Select2Item>();
     private _localizationService:LocalizationService;
     private _notificationService:NotificationService;
     private _router:Router;
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
+    private _account:AccountDto;
+    private _submitLabel:string = 'Salveaza contul';
+    private _cityesList:Array<Select2Item> = new Array<Select2Item>();
+    //</editor-fold>
 
     constructor(accountService:AccountService,
                 demandService:DemandService,

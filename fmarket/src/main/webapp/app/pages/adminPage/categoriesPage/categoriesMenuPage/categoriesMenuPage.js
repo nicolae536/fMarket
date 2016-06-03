@@ -8,15 +8,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var menuTreeComponent_1 = require("../../../../components/menuComponent/menuTreeComponent");
 var categoriesMenuService_1 = require("../../../../services/categoriesMenuService");
+var menuTreeComponent_1 = require("../../../../components/menuComponent/menuTreeComponent");
 var menuItemDialog_1 = require("../../../../components/menuComponent/menuItemDialog/menuItemDialog");
 var selectComponent_1 = require("../../../../components/selectComponent/selectComponent");
 var authorizationService_1 = require("../../../../services/authorizationService");
 var Roles_1 = require("../../../../models/Roles");
 var applicationPath = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
 var CategoriesMenuPage = (function () {
+    //</editor-fold>
     function CategoriesMenuPage(_categoriesMenuService) {
+        //</editor-fold>
+        //<editor-fold desc="Variables">
         this.menuDictionary = [];
         this.isAdminUser = authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
         this._categoriesMenuService = _categoriesMenuService;

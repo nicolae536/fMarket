@@ -16,13 +16,14 @@ var common_1 = require("@angular/common");
 var categoriesMenuService_1 = require("../../services/categoriesMenuService");
 var demandService_1 = require("../../services/demandService");
 var jqueryService_1 = require("../../services/jqueryService");
-var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
 var subscribersService_1 = require("../../services/subscribersService");
 var notificationService_1 = require("../../services/notificationService");
-var demandComponent_1 = require("../../components/demandComponent/demandComponent");
 var localizationService_1 = require("../../services/localizationService");
+var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
+var demandComponent_1 = require("../../components/demandComponent/demandComponent");
 var folderPath = '/app/pages/homePage';
 var HomePage = (function () {
+    //</editor-fold>
     function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService, _localizationService) {
         this.scrollProperty = 'scrollY';
         this._categoriesMenuService = _categoriesMenuService;

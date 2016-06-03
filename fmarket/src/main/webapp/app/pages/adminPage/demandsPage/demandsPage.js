@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by nick_ on 4/21/2016.
  */
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var tabsRoutingComponent_1 = require("../../../components/tabsComponent/tabsRoutingComponent");
 var newDemandsListPage_1 = require("./demandsListPage/newDemandsListPage");
@@ -19,7 +19,7 @@ var applicationPath = '/app/pages/adminPage/demandsPage';
 var DemandsPage = (function () {
     function DemandsPage() {
         this.tabPagesList = [{ name: 'Cereri noi', link: '/admin/cereri/newDemands', enableMarker: false, markerContent: "" },
-            { name: 'Cereri', link: '/admin/cereri/lista', enableMarker: true, markerContent: "" },
+            { name: 'Cereri', link: '/admin/cereri/lista', enableMarker: true, markerContent: "" }
         ];
     }
     DemandsPage = __decorate([

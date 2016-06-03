@@ -9,11 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var companieType_1 = require("../../../../models/companieType");
 var companieTypesService_1 = require("../../../../services/companieTypesService");
+var companieType_1 = require("../../../../models/companieType");
 var applicationPath = '/app/pages/adminPage/categoriesPage/companiesPage';
 var CompaniesPage = (function () {
+    //</editor-fold>
     function CompaniesPage(companieTypeService, formBuilder) {
+        //</editor-fold>
+        //<editor-fold desc="Variables">
         this.companieTypes = [new companieType_1.CompanieType("", "test", 1), new companieType_1.CompanieType("", "test", 3), new companieType_1.CompanieType("", "test", 2)];
         this.searchQuery = "";
         this._companieTypeService = companieTypeService;

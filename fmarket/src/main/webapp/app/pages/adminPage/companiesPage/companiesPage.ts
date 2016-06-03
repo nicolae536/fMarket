@@ -4,14 +4,15 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {CORE_DIRECTIVES} from "@angular/common";
-import * as _ from "underscore";
 
-import {CreateCompanieDialog} from "../../../components/companieComponent/createCompanieDialog/createCompanieDialog";
+import {PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
+
 import {CompaniesService} from "../../../services/companiesService";
 import {NotificationService} from "../../../services/notificationService";
+import {CreateCompanieDialog} from "../../../components/companieComponent/createCompanieDialog/createCompanieDialog";
+
 import {DomainCompanieDto} from "../../../models/domainCompanieDto";
 import {Select2Item, SelectComponent} from "../../../components/selectComponent/selectComponent";
-import {PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import {CompanieAdmminListComponent} from "../../../components/companieComponent/companieListComponent/companiesAdminListComponent";
 import {CompanySearchObject} from "../../../models/companySearchObject";
 import {Ng2Pagination} from "../../../models/Ng2Pagination";
@@ -25,11 +26,14 @@ let applicationPath = '/app/pages/adminPage/companiesPage'
     directives: [CompanieAdmminListComponent, SelectComponent, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class CompaniesPage implements OnInit {
-    private _createCompanieDialog:CreateCompanieDialog;
 
+    //<editor-fold desc="Services">
     private _notificationService:NotificationService;
     private _companiesService:CompaniesService;
+    //</editor-fold>
 
+    //<editor-fold desc="Variables">
+    private _createCompanieDialog:CreateCompanieDialog;
     private selectCompanieDomain:SelectComponent;
     private selectDomain:SelectComponent;
 
@@ -40,7 +44,8 @@ export class CompaniesPage implements OnInit {
     private _router:Router;
     private companieDomains:Array<Select2Item>;
     private domains:Array<Select2Item>;
-
+    //</editor-fold>
+    
     constructor(router:Router, companiesService:CompaniesService, notificationService:NotificationService) {
         this._router = router;
         this._companiesService = companiesService;

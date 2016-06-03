@@ -1,8 +1,12 @@
+/**
+ * Created by nick_ on 4/22/2016.
+ */
 var _ = require('underscore');
 var DemandStatus_1 = require("../../../../models/DemandStatus");
 var DemandSearchObject_1 = require("../../../../models/DemandSearchObject");
 var DemandsListPageBase = (function () {
-    function DemandsListPageBase(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService) {
+    //</editor-fold>
+    function DemandsListPageBase(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService) {
         this.statusList = [{ status: DemandStatus_1.DemandStatus.ACTIVE, displayName: DemandStatus_1.DemandStatus.ACTIVE },
             { status: DemandStatus_1.DemandStatus.CLOSED, displayName: DemandStatus_1.DemandStatus.CLOSED },
             { status: DemandStatus_1.DemandStatus.IN_REVIEW, displayName: DemandStatus_1.DemandStatus.IN_REVIEW },
@@ -12,6 +16,7 @@ var DemandsListPageBase = (function () {
         this._categoriesMenuService = _categoriesMenuService;
         this._demandService = _demandService;
         this._requestTypeService = _requestTypeService;
+        this._notificationService = _notificationService;
         this._demandsRoute = "";
         this._searchObject = new DemandSearchObject_1.DemandSearchObject('', 1, DemandStatus_1.DemandStatus.WAITING_FOR_REVIEW, -1);
         this._searchObject.domainName = "Alege domeniu...";

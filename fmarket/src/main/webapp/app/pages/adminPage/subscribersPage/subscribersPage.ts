@@ -1,13 +1,17 @@
 import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 import {NgForm, CORE_DIRECTIVES} from "@angular/common";
+
 import {DROPDOWN_DIRECTIVES, DATEPICKER_DIRECTIVES, PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
-import "rxjs/add/operator/map";
-import {Subscriber} from "../../../models/subscriber";
-import {ActionDialog} from "../../../components/actionDialog/actionDialog";
+
 import {SubscribersService} from "../../../services/subscribersService";
+import {LocalizationService} from "../../../services/localizationService";
+import {NotificationService} from "../../../services/notificationService";
+
+import "rxjs/add/operator/map";
+import {ActionDialog} from "../../../components/actionDialog/actionDialog";
 import {CreateSubscriberDialog} from "../../../components/createSubscriberDialog/createSubscriberDialog";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
-import {LocalizationService} from "../../../services/localizationService";
+import {Subscriber} from "../../../models/subscriber";
 
 var applicationPath:string = '/app/pages/adminPage/subscribersPage';
 
@@ -19,8 +23,16 @@ var applicationPath:string = '/app/pages/adminPage/subscribersPage';
     directives: [CreateSubscriberDialog, ActionDialog, NgForm, DATEPICKER_DIRECTIVES, DROPDOWN_DIRECTIVES, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class SubscribersPage implements OnInit {
+    //<editor-fold desc="Services">
     _subscribersService:SubscribersService;
+    private _notificationService:NotificationService;
+    private _localizationService:LocalizationService;
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
     actionDialog:ActionDialog;
+    createSubscriberDialog:CreateSubscriberDialog;
+
     subscribeDatePicker = {state: false};
     unSubscribeDatePicker = {state: false};
 
@@ -31,26 +43,24 @@ export class SubscribersPage implements OnInit {
     cityList:Array<Object>;
 
     sortKey = "EMAIL";
+
     sortOrder = true;
-
-    //sortOrder true -> ascending
     sortkeyAndFilter = [];
-
     emailFilter = "";
+
     subscribeDateFilter = new Date();
     unsubscribeDateFilter = new Date();
-
     dateTimePlaceHolder:string = ApplicationConstants.getLocaleDateString();
     subscriberFormatedDate:string;
-    unsubscriberFormatedDate:string;
-    private pagination:Object = {totalItems:1, currentPage:1, maxSize:7};
 
-    createSubscriberDialog:CreateSubscriberDialog;
+    unsubscriberFormatedDate:string;
+    private pagination:Object = {totalItems: 1, currentPage: 1, maxSize: 7};
     subscribersList:Array<Subscriber> = [];
     private deleteMessage = "Are you sure that you want to delete this subscriber ?";
-    private _localizationService:LocalizationService;
+    //</editor-fold>
 
-    constructor(subscribersService:SubscribersService, localizationService:LocalizationService) {
+    constructor(subscribersService:SubscribersService, localizationService:LocalizationService, _notificationService:NotificationService) {
+        this._notificationService = _notificationService;
         this.sortkeyAndFilter["EMAIL"] = true;
         this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
         this.sortkeyAndFilter["UNSUBSCRIBE_DATE"] = true;
@@ -83,8 +93,10 @@ export class SubscribersPage implements OnInit {
             .subscribe(
                 response => {
                     me.getSubscribersWithFilters();
+                    me.createSubscriberDialog.hide();
                 },
                 error => {
+                    me._notificationService.emitErrorNotificationToRootComponent('Abonatul nu a putut fi adaugat', 5);
                 }
             );
     }
@@ -104,20 +116,23 @@ export class SubscribersPage implements OnInit {
     }
 
     subscribe(subscriber:Subscriber) {
+        let me = this;
         this._subscribersService.subscribe(subscriber.email)
             .subscribe(
                 response => {
+                    me.getSubscribersWithFilters();
                 }, error=> {
-
+                    me._notificationService.emitErrorNotificationToRootComponent('Userul nu se poate abona.', 5)
                 })
     }
 
     unsubscribe(subscriber:Subscriber) {
+        let me = this;
         this._subscribersService.unsubscribe(subscriber.id)
             .subscribe(
                 response => {
                 }, error=> {
-
+                    me._notificationService.emitErrorNotificationToRootComponent('Userul nu se poate dezabona.', 5)
                 });
     }
 
@@ -133,7 +148,7 @@ export class SubscribersPage implements OnInit {
                         me.subscribersList.splice(subscriberIndex, 1);
                     }
                 }, error=> {
-
+                    me._notificationService.emitErrorNotificationToRootComponent('Abonatul nu poate fi sters.', 5)
                 });
     }
 
@@ -182,11 +197,11 @@ export class SubscribersPage implements OnInit {
         this.unSubscribeDatePicker.state = true;
         this.unsubscriberFormatedDate = this.unsubscribeDateFilter.toLocaleDateString();
     }
-    
-    updateSubscribeDatePicker(){
+
+    updateSubscribeDatePicker() {
         let dateString = ApplicationConstants.getLocaleDateString();
 
-        if(! ApplicationConstants.getLocaleDateRegex().test(this.subscriberFormatedDate)){
+        if (!ApplicationConstants.getLocaleDateRegex().test(this.subscriberFormatedDate)) {
             this.subscriberFormatedDate = '';
             return;
         }
@@ -194,10 +209,10 @@ export class SubscribersPage implements OnInit {
         this.subscribeDateFilter = new Date(this.subscriberFormatedDate);
     }
 
-    updateunSubscribeDatePicker(){
+    updateunSubscribeDatePicker() {
         let dateString = ApplicationConstants.getLocaleDateString();
 
-        if(! ApplicationConstants.getLocaleDateRegex().test(this.unsubscriberFormatedDate)){
+        if (!ApplicationConstants.getLocaleDateRegex().test(this.unsubscriberFormatedDate)) {
             this.unsubscriberFormatedDate = '';
             return;
         }
@@ -209,11 +224,11 @@ export class SubscribersPage implements OnInit {
         let me = this;
         me._localizationService.getCityList()
             .subscribe(
-                succesR=>{
-                    me.cityList=succesR;
+                succesR=> {
+                    me.cityList = succesR;
                 },
-                error=>{
-                    me.cityList=[];
+                error=> {
+                    me.cityList = [];
                 }
             )
     }

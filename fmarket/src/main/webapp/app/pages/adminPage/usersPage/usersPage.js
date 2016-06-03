@@ -7,22 +7,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
-var _ = require('underscore');
-//import operators
-require('rxjs/add/operator/map'); //-map
-var createUserDialog_1 = require('../../../components/createUserDialog/createUserDialog');
-var actionDialog_1 = require('../../../components/actionDialog/actionDialog');
-var usersService_1 = require('../../../services/usersService');
-var user_1 = require('../../../models/user');
-//import mocks
-var mock_Status_1 = require('../../../services/mock-providers/mock-Status');
+var _ = require("underscore");
+var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
+require("rxjs/add/operator/map");
+var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var notificationService_1 = require("../../../services/notificationService");
 var localizationService_1 = require("../../../services/localizationService");
-var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
+var usersService_1 = require("../../../services/usersService");
+var createUserDialog_1 = require("../../../components/createUserDialog/createUserDialog");
+var actionDialog_1 = require("../../../components/actionDialog/actionDialog");
+var user_1 = require("../../../models/user");
+var mock_Status_1 = require("../../../services/mock-providers/mock-Status");
 var applicationPath = '/app/pages/adminPage/usersPage';
 var UsersPage = (function () {
+    //</editor-fold>
     function UsersPage(_userService, _notificationService, _localizationService) {
         this._userService = _userService;
         this._notificationService = _notificationService;
@@ -54,10 +53,8 @@ var UsersPage = (function () {
             me.usersList = response['data'];
             me.pagination['totalItems'] = response['totalPages'];
             me.pagination['currentPage'] = response['page'];
-            console.log(response);
         }, function (error) {
-            console.log(error);
-            //todo handler
+            me._notificationService.emitErrorNotificationToRootComponent('A aparut o eroare, utilizatori nu pot fi afisati.', 5);
         });
     };
     //user actions
@@ -87,7 +84,7 @@ var UsersPage = (function () {
                 me.usersList.splice(userIndex, 1);
             }
         }, function (error) {
-            //display be message
+            me._notificationService.emitErrorNotificationToRootComponent('Utilizatorul nu pote fi sters.', 5);
         });
     };
     UsersPage.prototype.saveEditedUser = function (user) {
@@ -124,7 +121,7 @@ var UsersPage = (function () {
             me.userDialog.hide();
             me.getUsers();
         }, function (error) {
-            //display message
+            me._notificationService.emitErrorNotificationToRootComponent('Utilizatorul nu pote fi creat.', 5);
         });
     };
     UsersPage.prototype.applyFilters = function () {

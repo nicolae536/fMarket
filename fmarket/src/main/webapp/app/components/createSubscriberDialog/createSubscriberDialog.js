@@ -22,9 +22,9 @@ var CreateSubscriberDialog = (function (_super) {
     function CreateSubscriberDialog(formBuilder) {
         _super.call(this);
         this.modaleMode = "newSubscriber";
-        this.title = "Add new user";
+        this.title = "Adauga abonat nou";
         this.cancelLabel = 'Cancel';
-        this.positiveLabel = 'Create User';
+        this.positiveLabel = 'Creeaza abonat';
         this.loadedEmitter = new core_1.EventEmitter();
         this.createEmitter = new core_1.EventEmitter();
         this._formBuilder = formBuilder;

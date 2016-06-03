@@ -13,15 +13,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
+var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var companiesService_1 = require("../../../services/companiesService");
 var notificationService_1 = require("../../../services/notificationService");
 var selectComponent_1 = require("../../../components/selectComponent/selectComponent");
-var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var companiesAdminListComponent_1 = require("../../../components/companieComponent/companieListComponent/companiesAdminListComponent");
 var companySearchObject_1 = require("../../../models/companySearchObject");
 var Ng2Pagination_1 = require("../../../models/Ng2Pagination");
 var applicationPath = '/app/pages/adminPage/companiesPage';
 var CompaniesPage = (function () {
+    //</editor-fold>
     function CompaniesPage(router, companiesService, notificationService) {
         this.searchFilter = new companySearchObject_1.CompanySearchObject();
         this.pagination = new Ng2Pagination_1.Ng2Pagination();

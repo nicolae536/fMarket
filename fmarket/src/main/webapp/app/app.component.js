@@ -7,33 +7,36 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _ = require("underscore");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/interval");
+var Rx_1 = require("rxjs/Rx");
 var authorizationService_1 = require("./services/authorizationService");
-var headerComponent_1 = require("./components/headerComponent/headerComponent");
 var notificationService_1 = require("./services/notificationService");
 var applicationConstansts_1 = require("./models/applicationConstansts");
 var localStorageService_1 = require("./services/localStorageService");
-var footerComponent_1 = require("./components/footerComponent/footerComponent");
 var registrationService_1 = require("./services/registrationService");
-var Roles_1 = require("./models/Roles");
 var jqueryService_1 = require("./services/jqueryService");
-var _ = require("underscore");
 var applicationStateService_1 = require("./services/applicationStateService");
-var Rx_1 = require("rxjs/Rx");
+var headerComponent_1 = require("./components/headerComponent/headerComponent");
+var footerComponent_1 = require("./components/footerComponent/footerComponent");
+var Roles_1 = require("./models/Roles");
 var AppComponent = (function () {
+    //</editor-fold>
     function AppComponent(router, location, notificationService, registrationService, applicationStateService, localeStorageService) {
         this.addItem = true;
+        //<editor-fold desc="Services initialization">
         this._registrationService = registrationService;
         this._notificationService = notificationService;
+        this._localeStorageService = localeStorageService;
         this._applicationStateService = applicationStateService;
         this.router = router;
         this.location = location;
-        this._localeStorageService = localeStorageService;
+        //</editor-fold>
         this._notifications = new Array();
         this.rsSubject = new Rx_1.Subject();
         this.startDemadsWatcher();
@@ -63,14 +66,6 @@ var AppComponent = (function () {
                 jqueryService_1.JqueryService.removeElementWithAnimation(element);
             }
         });
-        // this._localeStorageService.storageStateChange.subscribe(
-        //     event=>{
-        //             this.rsSubject.next(true);
-        //             return;
-        //         }
-        //         this.rsSubject.next(false);
-        //     }
-        // )
     };
     AppComponent.prototype.startDemadsWatcher = function () {
         var me = this;
