@@ -48305,7 +48305,6 @@
 	                me.showDissmisableNotification(event, event.timeout);
 	            }
 	            else {
-	                console.log(event);
 	                me._notifications.push(event);
 	            }
 	            setTimeout(function () {
@@ -48341,7 +48340,6 @@
 	                        me._notifications.push(alertMessage);
 	                    }
 	                }, function (error) {
-	                    console.log(1);
 	                });
 	            }
 	        }, function (error) {
@@ -85942,7 +85940,6 @@
 	    };
 	    SelectComponent.prototype.ngOnChanges = function (changes) {
 	        if (changes.hasOwnProperty('_selectedItem')) {
-	            console.log('selected item change', this._selectedItem);
 	        }
 	    };
 	    SelectComponent.prototype.ngDoCheck = function () {
@@ -88462,7 +88459,6 @@
 	            .subscribe(function (response) {
 	            me._domains = response;
 	        }, function (error) {
-	            console.log(me._domains);
 	            me._domains = [];
 	        });
 	    };

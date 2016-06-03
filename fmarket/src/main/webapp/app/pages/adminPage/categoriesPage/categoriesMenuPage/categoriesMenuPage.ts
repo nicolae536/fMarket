@@ -127,7 +127,6 @@ export class CategoriesMenuPage implements OnInit {
                     me._domains = response;
                 },
                 error => {
-                    console.log(me._domains);
                     me._domains = [];
                 }
         )

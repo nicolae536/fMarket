@@ -67,7 +67,7 @@ export class SelectComponent implements OnInit, OnChanges, DoCheck {
 
     ngOnChanges(changes:{}):any {
         if (changes.hasOwnProperty('_selectedItem')) {
-            console.log('selected item change', this._selectedItem);
+            //console.log('selected item change', this._selectedItem);
         }
     }
 

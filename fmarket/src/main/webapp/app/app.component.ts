@@ -100,7 +100,6 @@ export class AppComponent implements OnInit {
                 me.showDissmisableNotification(event, event.timeout);
             }
             else {
-                console.log(event);
                 me._notifications.push(event);
             }
             setTimeout(()=> {
@@ -144,7 +143,6 @@ export class AppComponent implements OnInit {
                                 }
                             },
                             error => {
-                                console.log(1);
                             }
                         );
                 }

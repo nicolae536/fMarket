@@ -50,7 +50,6 @@ var AppComponent = (function () {
                 me.showDissmisableNotification(event, event.timeout);
             }
             else {
-                console.log(event);
                 me._notifications.push(event);
             }
             setTimeout(function () {
@@ -86,7 +85,6 @@ var AppComponent = (function () {
                         me._notifications.push(alertMessage);
                     }
                 }, function (error) {
-                    console.log(1);
                 });
             }
         }, function (error) {

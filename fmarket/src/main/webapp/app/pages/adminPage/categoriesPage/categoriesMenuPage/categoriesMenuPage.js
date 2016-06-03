@@ -90,7 +90,6 @@ var CategoriesMenuPage = (function () {
             .subscribe(function (response) {
             me._domains = response;
         }, function (error) {
-            console.log(me._domains);
             me._domains = [];
         });
     };

@@ -27,7 +27,6 @@ var SelectComponent = (function () {
     };
     SelectComponent.prototype.ngOnChanges = function (changes) {
         if (changes.hasOwnProperty('_selectedItem')) {
-            console.log('selected item change', this._selectedItem);
         }
     };
     SelectComponent.prototype.ngDoCheck = function () {
