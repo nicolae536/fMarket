@@ -21,8 +21,10 @@ import ro.fmarket.core.utils.TokenUtils;
 import ro.fmarket.mail.MailService;
 import ro.fmarket.model.account.consts.AccountStatus;
 import ro.fmarket.model.account.details.AccountDetails;
+import ro.fmarket.model.account.details.AccountDetailsDTO;
 import ro.fmarket.model.geographical.city.CityDao;
 import ro.fmarket.model.subscriber.Subscriber;
+import ro.fmarket.model.subscriber.SubscriberDao;
 import ro.fmarket.model.subscriber.SubscriberService;
 import ro.fmarket.model.token.PasswordChangeToken;
 import ro.fmarket.model.token.dao.PasswordChangeTokenDao;
@@ -34,6 +36,9 @@ public class AccountServiceImpl implements AccountService {
 
 	private static final Logger LOG = Logger.getLogger(AccountServiceImpl.class);
 
+	@Autowired
+	private SubscriberDao subscriberDao;
+	
 	@Autowired
 	private CityDao cityDao;
 
@@ -160,6 +165,18 @@ public class AccountServiceImpl implements AccountService {
 		details.setName(request.getName());
 		details.setPhone(request.getPhone());
 
+	}
+
+	@Override
+	public AccountDetailsDTO getAccountDetails(int accountId) {
+		Account account = accountDao.get(accountId);
+		AccountDetails accountDetails = account.getAccountDetails();
+		Subscriber subscriber = subscriberDao.getByEmail(account.getEmail());
+		AccountDetailsDTO result = new AccountDetailsDTO();
+		result.setSubscribed(subscriber != null && subscriber.getUnsubscribeDate() == null);
+		result.setCity(accountDetails.getCity().getName());
+		result.setPhone(accountDetails.getPhone());
+		return result;
 	}
 
 }

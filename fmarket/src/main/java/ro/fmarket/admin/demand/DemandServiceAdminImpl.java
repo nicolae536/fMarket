@@ -1,6 +1,6 @@
 package ro.fmarket.admin.demand;
 
-import static ro.fmarket.core.constants.PaginationConstants.*;
+import static ro.fmarket.core.constants.PaginationConstants.DEMANDS_PAGE_SIZE;
 
 import java.util.List;
 
@@ -72,7 +72,7 @@ public class DemandServiceAdminImpl implements DemandServiceAdmin {
 		demand.setStatus(DemandStatus.REJECTED);
 		demand.setClosedDate(DateUtils.now());
 		demandDao.update(demand);
-		// mailService.sendMailForRejectedDemand(account.getEmail(), request.getMessage());
+		 mailService.sendMailForRejectedDemand(account.getEmail(), demand, request.getMessage());
 
 	}
 

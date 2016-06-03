@@ -2,9 +2,7 @@ package ro.fmarket.model.company;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -23,7 +21,11 @@ public class CompanyDao extends BaseDao<Company> {
 	@SuppressWarnings("unchecked")
 	public List<String> getByDomainFromAllCities(int demandDomainId) {
 		Criteria criteria = getCriteria();
-		criteria.add(Restrictions.eq("", demandDomainId));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		criteria.createAlias("demandDomains", "dd");
+		criteria.add(Restrictions.eq("dd.id", demandDomainId));
+		criteria.createAlias("contactInfo", "cc");
+		criteria.setProjection(Projections.property("cc.email"));
 		return criteria.list();
 	}
 	
@@ -34,7 +36,10 @@ public class CompanyDao extends BaseDao<Company> {
 		criteria.createAlias("demandDomains", "dd");
 		criteria.add(Restrictions.eq("dd.id", demandDomainId));
 		criteria.createAlias("contactInfo", "cc");
-		criteria.setProjection(Projections.property("ci.email"));
+		criteria.createAlias("cc.city", "ccc");
+		criteria.add(Restrictions.in("ccc.id", cityIds));
+		criteria.setProjection(Projections.property("cc.email"));
+		
 		return criteria.list();
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ro.fmarket.core.rest.LoginResponse;
+import ro.fmarket.model.account.details.AccountDetailsDTO;
 import ro.fmarket.security.FMarketPrincipal;
 
 @RestController
@@ -56,6 +57,11 @@ public class AccountController {
 	@RequestMapping(value = "/self/update", method = RequestMethod.PUT)
 	public void updateAccount(@Valid @RequestBody UpdateAccountRequest request, @AuthenticationPrincipal FMarketPrincipal principal) {
 		accountService.updateAccount(principal.getAccountId(), request);
+	}
+	
+	@RequestMapping(value = "/self/details", method = RequestMethod.GET)
+	public AccountDetailsDTO getUserDetails(@AuthenticationPrincipal FMarketPrincipal principal) {
+		return accountService.getAccountDetails(principal.getAccountId());
 	}
 
 }

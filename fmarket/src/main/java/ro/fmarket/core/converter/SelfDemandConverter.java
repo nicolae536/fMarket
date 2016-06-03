@@ -11,7 +11,11 @@ public class SelfDemandConverter {
 	public static SelfDemandDTO toDTO(Demand demand) {
 		final SelfDemandDTO dto = new SelfDemandDTO();
 		dto.setId(demand.getId());
-		//TODO
+		dto.setCreationDate(demand.getCreationDate());
+		dto.setMessage(demand.getMessage());
+		dto.setDomain(demand.getDomain().getName());
+		dto.setStatus(demand.getStatus());
+		dto.setTitle(demand.getTitle());
 		return dto;
 	}
 	

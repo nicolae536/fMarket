@@ -4,11 +4,9 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.SimpleExpression;
 import org.springframework.stereotype.Repository;
 
 import ro.fmarket.admin.demand.DemandSearchObject;
@@ -26,10 +24,8 @@ public class DemandDao extends BaseDao<Demand> {
 	@SuppressWarnings("unchecked")
 	public List<Demand> getDemandsForAccount(int accountId) {
 		final Criteria criteria = getCriteria();
-//		criteria.createAlias("account", "acc");
 		criteria.add(Restrictions.eq("acc.id", accountId));
 		criteria.addOrder(Order.desc("creationDate"));
-
 		return criteria.list();
 	}
 
@@ -60,11 +56,9 @@ public class DemandDao extends BaseDao<Demand> {
 	public Criteria createCriteriaForDemands(DemandSearchObject searchObject) {
 		Criteria criteria = getCriteria();
 		if (searchObject.getAccountId() != null) {
-			// criteria.createAlias("account", "acc"); // TODO check if works
 			criteria.add(Restrictions.eq("account.id", searchObject.getAccountId()));
 		}
 		if (searchObject.getDomainId() != null) {
-			// criteria.createAlias("demand", "dem");
 			criteria.add(Restrictions.eq("demand.id", searchObject.getDomainId()));
 		}
 		if (searchObject.getStatus() != null) {
