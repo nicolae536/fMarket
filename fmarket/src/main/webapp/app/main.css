@@ -126,26 +126,32 @@
 /*for error style*/
 .ng-dirty.ng-invalid.ng-touched {
     border-color: #ab2424;
+    background-color: #ffecec;
 }
 
 .ng-untouched.ng-pristine.ng-invalid.backend-error {
     border-color: #ab2424;
+    background-color: #ffecec;
 }
 
 .ng-pristine.ng-invalid.backend-error.ng-touched {
     border-color: #ab2424;
+    background-color: #ffecec;
 }
 
 .ng-pristine.ng-invalid.backend-error.ng-touched:focus {
     border-color: #ab2424;
+    background-color: #ffecec;
 }
 
 .ng-dirty.ng-invalid.ng-touched:focus {
     border-color: #ab2424;
+    background-color: #ffecec;
 }
 
 .ng-untouched.ng-pristine.ng-invalid.backend-error:focus {
     border-color: #ab2424;
+    background-color: #ffecec;
 }
 
 /*slide down animation*/
