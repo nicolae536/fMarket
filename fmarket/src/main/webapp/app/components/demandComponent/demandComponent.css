@@ -42,14 +42,16 @@
 /*}*/
 
 .demand-component-container .demand-component .horizontal-marker{
-    border-top: 3px solid #00ccae;
+    border-top: 3px solid #ffc299;
 }
 
+/*
 .checkbox-label{
     color: #978787;
     position: absolute;
     margin-left: 5px;
 }
+*/
 
 .no-resize{
     resize: none;

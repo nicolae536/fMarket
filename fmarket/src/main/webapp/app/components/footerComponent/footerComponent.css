@@ -1,5 +1,5 @@
 .footer {
-    background-color: #f8f8f8;
+    background-color: #ffffff;
     position: absolute;
     /*left: 0;*/
     bottom: 0;
@@ -44,7 +44,7 @@
 }
 
 .footer .rights-reserved {
-    background-color: #e7e7e7;
+    background-color: #ffffff;
 }
 
 .footer .footer-wrapper .col-sm-12.col-md-push-4.col-md-2 {
