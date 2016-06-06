@@ -24,6 +24,9 @@ var LocalStorageService = (function () {
         localStorage.removeItem(key);
         this.notifyObservers(key);
     };
+    LocalStorageService.prototype.removeItemWithoutNotification = function (key) {
+        localStorage.removeItem(key);
+    };
     return LocalStorageService;
 })();
 exports.LocalStorageService = LocalStorageService;

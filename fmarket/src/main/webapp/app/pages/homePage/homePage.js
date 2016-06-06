@@ -21,11 +21,14 @@ var notificationService_1 = require("../../services/notificationService");
 var localizationService_1 = require("../../services/localizationService");
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
 var demandComponent_1 = require("../../components/demandComponent/demandComponent");
+var localStorageService_1 = require("../../services/localStorageService");
+var applicationConstansts_1 = require("../../models/applicationConstansts");
 var folderPath = '/app/pages/homePage';
 var HomePage = (function () {
     //</editor-fold>
-    function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService, _localizationService) {
+    function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService, _localizationService, localeStorageService) {
         this.scrollProperty = 'scrollY';
+        this.viewInitialized = false;
         this._categoriesMenuService = _categoriesMenuService;
         this._router = router;
         this._demandService = _demandService;
@@ -33,6 +36,7 @@ var HomePage = (function () {
         this._formBuilder = formBuilder;
         this._notificationService = notificationService;
         this._localizationService = _localizationService;
+        this._localeStorageService = localeStorageService;
     }
     HomePage.prototype.ngOnInit = function () {
         this.getCities();
@@ -40,11 +44,43 @@ var HomePage = (function () {
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
         this._notificationService.removeLoading();
+        var me = this;
+        this.navigateToCreateDemandResolver();
+        this._localeStorageService.storageStateChange.subscribe(function (storageItem) {
+            switch (storageItem['keyChanged']) {
+                case applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND:
+                    me.navigateToCreateDemandResolver();
+                    break;
+            }
+        });
+    };
+    HomePage.prototype.ngOnDestroy = function () {
+    };
+    HomePage.prototype.navigateToCreateDemandResolver = function () {
+        var me = this;
+        var navigationProperty = this._localeStorageService.getItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND);
+        if (navigationProperty && navigationProperty['navigate']) {
+            var interval = setInterval(function () {
+                if (me.viewInitialized) {
+                    jqueryService_1.JqueryService.animateScroll({ nativeElement: '#createDemandComponent' }, 'easeInQuad', 500);
+                    window.clearInterval(interval);
+                }
+            }, 10);
+            localStorage.removeItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND);
+        }
     };
     HomePage.prototype.ngAfterViewInit = function () {
+        var me = this;
         this._notificationService.removeLoading();
+        setTimeout(function () {
+            me.viewInitialized = true;
+        }, 50);
     };
     HomePage.prototype.ngAfterViewChecked = function () {
+        var me = this;
+        setTimeout(function () {
+            me.viewInitialized = true;
+        }, 50);
         this.rematchElementsOnView(null);
     };
     HomePage.prototype.referenceDemandDialog = function (demandDialog) {
@@ -130,7 +166,7 @@ var HomePage = (function () {
             templateUrl: folderPath + '/homePage.html',
             directives: [demandComponent_1.DemandComponent]
         }), 
-        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService])
+        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService, localStorageService_1.LocalStorageService])
     ], HomePage);
     return HomePage;
 })();

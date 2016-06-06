@@ -12,7 +12,7 @@
             </div>
             <div class="demand-action">
                 <div class="action-button covered-button">
-                    <a class="btn btn-success btn-lg" (click)="goToCreateDemand()">Creeaza cerere</a>
+                    <a #goCreateDemandBtn class="btn btn-success btn-lg" (click)="goToCreateDemand()">Creeaza cerere</a>
                 </div>
 
             </div>
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div #createDemandComponent class="home-page-second clearfix">
+    <div #createDemandComponent class="home-page-second clearfix" id="createDemandComponent">
         <demand-component
                 [menu-tree-data]="menuDictionary"
                 [title]="'Creeaza cerere.'"

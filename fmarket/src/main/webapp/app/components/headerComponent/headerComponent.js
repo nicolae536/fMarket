@@ -16,6 +16,7 @@ var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var authorizationService_1 = require("../../services/authorizationService");
 var Roles_1 = require("../../models/Roles");
 var localStorageService_1 = require("../../services/localStorageService");
+var applicationConstansts_1 = require("../../models/applicationConstansts");
 var registrationService_1 = require("../../services/registrationService");
 var notificationService_1 = require("../../services/notificationService");
 var applicationStateService_1 = require("../../services/applicationStateService");
@@ -30,9 +31,7 @@ var HeaderComponent = (function () {
         this._myAccountLabel = 'Contul meu';
     }
     HeaderComponent.prototype.ngOnInit = function () {
-        this._usersApplicationPages = [
-            { link: '/', name: 'Home' },
-        ];
+        this._usersApplicationPages = [];
         this.setUserRoutes();
         this.setAdminRoutes();
         var me = this;
@@ -104,6 +103,10 @@ var HeaderComponent = (function () {
         }, function (error) {
             me._notificationService.emitErrorNotificationToRootComponent('Erroare la logout!', 5);
         });
+    };
+    HeaderComponent.prototype.addDemand = function () {
+        this._router.navigate(['/']);
+        this._localStorageService.setItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND, { navigate: true });
     };
     HeaderComponent = __decorate([
         core_1.Component({

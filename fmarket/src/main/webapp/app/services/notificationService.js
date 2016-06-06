@@ -18,6 +18,7 @@ var NotificationService = (function () {
     function NotificationService(api) {
         this.notificationFlux = new Subject_1.Subject();
         this.firstLoad = new Subject_1.Subject();
+        this.homePageNotifications = new Subject_1.Subject();
         this.api = api;
     }
     NotificationService.prototype.getStatus = function () {

@@ -27,4 +27,8 @@ export class LocalStorageService {
         localStorage.removeItem(key);
         this.notifyObservers(key);
     }
+
+    removeItemWithoutNotification(key){
+        localStorage.removeItem(key);
+    }
 }

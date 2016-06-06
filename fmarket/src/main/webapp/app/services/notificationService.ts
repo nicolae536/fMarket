@@ -14,6 +14,8 @@ export class NotificationService {
     private api:FMarketApi;
     public notificationFlux:Subject<any> = new Subject();
     public firstLoad:Subject<any> = new Subject();
+
+    public homePageNotifications:Subject<any> = new Subject();
     
     constructor(api:FMarketApi) {
         this.api = api;

@@ -12,6 +12,7 @@ import {ApplicationConstants} from "../../models/applicationConstansts";
 import {RegistrationService} from "../../services/registrationService";
 import {NotificationService} from "../../services/notificationService";
 import {ApplicationStateService} from "../../services/applicationStateService";
+import * as _ from 'underscore';
 
 let directoryPath = '/app/components/headerComponent';
 @Component({
@@ -50,7 +51,7 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit():any {
         this._usersApplicationPages = [
-            {link: '/', name: 'Home'},
+            // {link: '/', name: 'Home'},
         ];
 
         this.setUserRoutes();
@@ -139,5 +140,10 @@ export class HeaderComponent implements OnInit {
                 }
             )
 
+    }
+
+    addDemand(){
+        this._router.navigate(['/']);
+        this._localStorageService.setItem(ApplicationConstants.NAVIGATE_CREATE_DEMAND,{navigate:true});
     }
 }

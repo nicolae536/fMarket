@@ -1,20 +1,20 @@
 /**
  * Created by nick_ on 4/12/2016.
  */
-import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit} from "@angular/core";
-import {Router} from "@angular/router"
+import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit, OnDestroy} from "@angular/core";
+import {Router} from "@angular/router";
 import {FormBuilder, Validators} from "@angular/common";
-
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
 import {DemandService} from "../../services/demandService";
 import {JqueryService} from "../../services/jqueryService";
 import {SubscribersService} from "../../services/subscribersService";
 import {NotificationService} from "../../services/notificationService";
 import {LocalizationService} from "../../services/localizationService";
-
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 import {DemandComponent} from "../../components/demandComponent/demandComponent";
 import {Demand} from "../../models/demand";
+import {LocalStorageService} from "../../services/localStorageService";
+import {ApplicationConstants} from "../../models/applicationConstansts";
 
 const folderPath = '/app/pages/homePage';
 
@@ -23,7 +23,8 @@ const folderPath = '/app/pages/homePage';
     templateUrl: folderPath + '/homePage.html',
     directives: [DemandComponent]
 })
-export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
+export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
+
     //<editor-fold desc="Services">
     private _categoriesMenuService:CategoriesMenuService;
     private _demandService:DemandService;
@@ -32,6 +33,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     private _notificationService:NotificationService;
     private _router:Router;
     private _localizationService:LocalizationService;
+    private _localeStorageService:LocalStorageService;
     //</editor-fold>
 
     //<editor-fold desc="Variables">
@@ -44,6 +46,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
     private _cityes;
     private _subscribeForm;
     menuDictionary;
+    private viewInitialized:boolean = false;
     //</editor-fold>
 
     constructor(_categoriesMenuService:CategoriesMenuService,
@@ -52,7 +55,8 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
                 subscribersService:SubscribersService,
                 formBuilder:FormBuilder,
                 notificationService:NotificationService,
-                _localizationService:LocalizationService) {
+                _localizationService:LocalizationService,
+                localeStorageService:LocalStorageService) {
         this._categoriesMenuService = _categoriesMenuService;
         this._router = router;
         this._demandService = _demandService;
@@ -60,20 +64,63 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
         this._formBuilder = formBuilder;
         this._notificationService = notificationService;
         this._localizationService = _localizationService;
+        this._localeStorageService = localeStorageService;
+
+
     }
+
     ngOnInit():any {
         this.getCities();
         this.getMenuDictionary();
         this._subscribeForm = this._formBuilder.group([]);
         this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
         this._notificationService.removeLoading();
+
+        let me = this;
+        this.navigateToCreateDemandResolver();
+
+        this._localeStorageService.storageStateChange.subscribe(
+            storageItem => {
+                switch (storageItem ['keyChanged']) {
+                    case ApplicationConstants.NAVIGATE_CREATE_DEMAND:
+                        me.navigateToCreateDemandResolver();
+                        break;
+                }
+            }
+        );
+    }
+
+    ngOnDestroy():any {
+
+    }
+
+    navigateToCreateDemandResolver() {
+        let me = this;
+        let navigationProperty = this._localeStorageService.getItem(ApplicationConstants.NAVIGATE_CREATE_DEMAND);
+        if (navigationProperty && navigationProperty['navigate']) {
+            let interval = setInterval(()=> {
+                if (me.viewInitialized) {
+                    JqueryService.animateScroll({nativeElement: '#createDemandComponent'}, 'easeInQuad', 500);
+                    window.clearInterval(interval);
+                }
+            }, 10)
+            localStorage.removeItem(ApplicationConstants.NAVIGATE_CREATE_DEMAND);
+        }
     }
 
     ngAfterViewInit():any {
+        let me=this;
         this._notificationService.removeLoading();
+        setTimeout(()=> {
+            me.viewInitialized = true;
+        }, 50);
     }
 
     ngAfterViewChecked():any {
+        let me=this;
+        setTimeout(()=> {
+            me.viewInitialized = true;
+        }, 50);
         this.rematchElementsOnView(null);
     }
 
@@ -92,10 +139,10 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
                 success=> {
                     me._subscribeForm.removeControl('email');
                     this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
-                    me._notificationService.emitSuccessNotificationToRootComponent('Te-ai inscris cu success!',5);
+                    me._notificationService.emitSuccessNotificationToRootComponent('Te-ai inscris cu success!', 5);
                 },
                 error=> {
-                    me._notificationService.emitErrorNotificationToRootComponent(error.message,5);
+                    me._notificationService.emitErrorNotificationToRootComponent(error.message, 5);
                 }
             )
     }
@@ -122,9 +169,9 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
                     me._router.navigate(['/success/create-demand'])
                 },
                 error=> {
-                    this._notificationService.emitErrorNotificationToRootComponent('Cererea nu a putut fi creata',5);
+                    this._notificationService.emitErrorNotificationToRootComponent('Cererea nu a putut fi creata', 5);
                 }
-        )
+            )
     }
 
     private getMenuDictionary():void {
@@ -153,8 +200,8 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit {
             )
     }
 
-    rematchElementsOnView($event){
-        JqueryService.makeElementsOfSameHeight(this.videoContainer.nativeElement,[this.videoRightContainer.nativeElement]);
+    rematchElementsOnView($event) {
+        JqueryService.makeElementsOfSameHeight(this.videoContainer.nativeElement, [this.videoRightContainer.nativeElement]);
         JqueryService.fitChildItemsInContainer(this.videoRightContainer.nativeElement)
     }
 }

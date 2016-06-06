@@ -25,6 +25,10 @@ var DemandListBaseComponent = (function () {
         __metadata('design:type', Array)
     ], DemandListBaseComponent.prototype, "demandList", void 0);
     __decorate([
+        core_1.Input('hide-operation'), 
+        __metadata('design:type', Boolean)
+    ], DemandListBaseComponent.prototype, "hideOperation", void 0);
+    __decorate([
         core_1.Output('demand-selected'), 
         __metadata('design:type', core_1.EventEmitter)
     ], DemandListBaseComponent.prototype, "selectDemandEmitter", void 0);

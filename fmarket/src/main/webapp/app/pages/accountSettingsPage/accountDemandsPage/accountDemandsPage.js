@@ -25,6 +25,7 @@ var localizationService_1 = require("../../../services/localizationService");
 var notificationService_1 = require("../../../services/notificationService");
 var demandsListPageBase_1 = require("../../adminPage/demandsPage/demandsListPage/demandsListPageBase");
 var DemandStatus_1 = require("../../../models/DemandStatus");
+var demandListBase_1 = require("../../../components/demandComponent/demandListBase/demandListBase");
 var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
 var AccountDemandsPage = (function (_super) {
     __extends(AccountDemandsPage, _super);
@@ -33,7 +34,7 @@ var AccountDemandsPage = (function (_super) {
         _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, localizationService, _notificationService);
     }
     AccountDemandsPage.prototype.ngOnInit = function () {
-        this.getUserDemandsWithFilter();
+        this.getDemandsWithFilter(DemandStatus_1.DemandStatus.ACTIVE);
     };
     AccountDemandsPage.prototype.ngOnChanges = function (changes) {
     };
@@ -64,23 +65,16 @@ var AccountDemandsPage = (function (_super) {
         var me = this;
         var colector = [];
         _.each(filters, function (filter) {
-            var filtredDemands = _.where(me._demandsList, { status: filter });
+            var filtredDemands = _.where(me.backendDemands, { status: filter });
             colector = colector.concat(filtredDemands);
         });
         this._demandsList = colector;
     };
-    AccountDemandsPage.prototype.getUserDemandsWithFilter = function () {
-        var me = this;
-        this._demandService.getUserDemandsWithFilter()
-            .subscribe(function (response) {
-            me._demandsList = response;
-        }, function (error) {
-        });
-    };
     AccountDemandsPage = __decorate([
         core_1.Component({
             selector: 'account-demands-Page',
-            templateUrl: applicationPath + '/accountDemandsPage.html'
+            templateUrl: applicationPath + '/accountDemandsPage.html',
+            directives: [demandListBase_1.DemandListBaseComponent]
         }), 
         __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
     ], AccountDemandsPage);

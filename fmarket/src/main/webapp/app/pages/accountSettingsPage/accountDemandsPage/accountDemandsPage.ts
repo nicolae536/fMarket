@@ -14,13 +14,15 @@ import {NotificationService} from "../../../services/notificationService";
 
 import {DemandsListPageBase} from "../../adminPage/demandsPage/demandsListPage/demandsListPageBase";
 import {DemandStatus} from "../../../models/DemandStatus";
+import {DemandListBaseComponent} from "../../../components/demandComponent/demandListBase/demandListBase";
 
 
 var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage';
 
 @Component({
     selector: 'account-demands-Page',
-    templateUrl: applicationPath + '/accountDemandsPage.html'
+    templateUrl: applicationPath + '/accountDemandsPage.html',
+    directives:[DemandListBaseComponent]
 })
 export class AccountDemandsPage extends DemandsListPageBase implements OnInit, OnChanges {
 
@@ -39,7 +41,7 @@ export class AccountDemandsPage extends DemandsListPageBase implements OnInit, O
     }
 
     ngOnInit():any {
-        this.getUserDemandsWithFilter();
+        this.getDemandsWithFilter(DemandStatus.ACTIVE);
     }
 
     ngOnChanges(changes:{}):any {
@@ -80,23 +82,23 @@ export class AccountDemandsPage extends DemandsListPageBase implements OnInit, O
         let me=this;
         let colector=[];
         _.each(filters, (filter)=>{
-            let filtredDemands = _.where(me._demandsList, {status: filter});
+            let filtredDemands = _.where(me.backendDemands, {status: filter});
             colector = colector.concat(filtredDemands);
         });
 
         this._demandsList = colector;
     }
 
-    private getUserDemandsWithFilter() {
-        let me = this;
-        this._demandService.getUserDemandsWithFilter()
-            .subscribe(
-                response=> {
-                    me._demandsList = response;
-                },
-                error=> {
-
-                }
-            )
-    }
+    // private getUserDemandsWithFilter() {
+    //     let me = this;
+    //     this._demandService.getUserDemandsWithFilter()
+    //         .subscribe(
+    //             response=> {
+    //                 me._demandsList = response;
+    //             },
+    //             error=> {
+    //
+    //             }
+    //         )
+    // }
 }

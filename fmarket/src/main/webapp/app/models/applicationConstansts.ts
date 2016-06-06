@@ -9,6 +9,7 @@ export class ApplicationConstants{
 
     static FIRST_LOAD ='first-load';
     static LOADING_SPINNER ='loadingSpinnerComponent';
+    static NAVIGATE_CREATE_DEMAND='NAVIGATE-CREATE-DEMAND';
 
     public static  getLocaleDateString(){
 

@@ -13,6 +13,7 @@ const APPLICATION_PATH:string = '/app/components/demandComponent/demandListBase'
 })
 export class DemandListBaseComponent {
     @Input('demand-list') demandList:Array<DemandAdminDto> = new Array<DemandAdminDto>();
+    @Input('hide-operation') hideOperation:boolean;
 
     @Output('demand-selected') selectDemandEmitter:EventEmitter<DemandAdminDto> = new EventEmitter<DemandAdminDto>();
 

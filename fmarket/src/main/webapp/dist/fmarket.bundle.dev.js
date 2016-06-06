@@ -82217,6 +82217,7 @@
 	    ApplicationConstants.HOUR = 3600000;
 	    ApplicationConstants.FIRST_LOAD = 'first-load';
 	    ApplicationConstants.LOADING_SPINNER = 'loadingSpinnerComponent';
+	    ApplicationConstants.NAVIGATE_CREATE_DEMAND = 'NAVIGATE-CREATE-DEMAND';
 	    return ApplicationConstants;
 	})();
 	exports.ApplicationConstants = ApplicationConstants;
@@ -82249,11 +82250,14 @@
 	var localizationService_1 = __webpack_require__(775);
 	var Angular2ExtensionValidators_1 = __webpack_require__(776);
 	var demandComponent_1 = __webpack_require__(778);
+	var localStorageService_1 = __webpack_require__(769);
+	var applicationConstansts_1 = __webpack_require__(743);
 	var folderPath = '/app/pages/homePage';
 	var HomePage = (function () {
 	    //</editor-fold>
-	    function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService, _localizationService) {
+	    function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService, _localizationService, localeStorageService) {
 	        this.scrollProperty = 'scrollY';
+	        this.viewInitialized = false;
 	        this._categoriesMenuService = _categoriesMenuService;
 	        this._router = router;
 	        this._demandService = _demandService;
@@ -82261,6 +82265,7 @@
 	        this._formBuilder = formBuilder;
 	        this._notificationService = notificationService;
 	        this._localizationService = _localizationService;
+	        this._localeStorageService = localeStorageService;
 	    }
 	    HomePage.prototype.ngOnInit = function () {
 	        this.getCities();
@@ -82268,11 +82273,43 @@
 	        this._subscribeForm = this._formBuilder.group([]);
 	        this._subscribeForm.addControl('email', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
 	        this._notificationService.removeLoading();
+	        var me = this;
+	        this.navigateToCreateDemandResolver();
+	        this._localeStorageService.storageStateChange.subscribe(function (storageItem) {
+	            switch (storageItem['keyChanged']) {
+	                case applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND:
+	                    me.navigateToCreateDemandResolver();
+	                    break;
+	            }
+	        });
+	    };
+	    HomePage.prototype.ngOnDestroy = function () {
+	    };
+	    HomePage.prototype.navigateToCreateDemandResolver = function () {
+	        var me = this;
+	        var navigationProperty = this._localeStorageService.getItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND);
+	        if (navigationProperty && navigationProperty['navigate']) {
+	            var interval = setInterval(function () {
+	                if (me.viewInitialized) {
+	                    jqueryService_1.JqueryService.animateScroll({ nativeElement: '#createDemandComponent' }, 'easeInQuad', 500);
+	                    window.clearInterval(interval);
+	                }
+	            }, 10);
+	            localStorage.removeItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND);
+	        }
 	    };
 	    HomePage.prototype.ngAfterViewInit = function () {
+	        var me = this;
 	        this._notificationService.removeLoading();
+	        setTimeout(function () {
+	            me.viewInitialized = true;
+	        }, 50);
 	    };
 	    HomePage.prototype.ngAfterViewChecked = function () {
+	        var me = this;
+	        setTimeout(function () {
+	            me.viewInitialized = true;
+	        }, 50);
 	        this.rematchElementsOnView(null);
 	    };
 	    HomePage.prototype.referenceDemandDialog = function (demandDialog) {
@@ -82358,7 +82395,7 @@
 	            templateUrl: folderPath + '/homePage.html',
 	            directives: [demandComponent_1.DemandComponent]
 	        }), 
-	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService])
+	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService, localStorageService_1.LocalStorageService])
 	    ], HomePage);
 	    return HomePage;
 	})();
@@ -85232,6 +85269,9 @@
 	        localStorage.removeItem(key);
 	        this.notifyObservers(key);
 	    };
+	    LocalStorageService.prototype.removeItemWithoutNotification = function (key) {
+	        localStorage.removeItem(key);
+	    };
 	    return LocalStorageService;
 	})();
 	exports.LocalStorageService = LocalStorageService;
@@ -85531,6 +85571,7 @@
 	    function NotificationService(api) {
 	        this.notificationFlux = new Subject_1.Subject();
 	        this.firstLoad = new Subject_1.Subject();
+	        this.homePageNotifications = new Subject_1.Subject();
 	        this.api = api;
 	    }
 	    NotificationService.prototype.getStatus = function () {
@@ -88813,6 +88854,10 @@
 	        __metadata('design:type', Array)
 	    ], DemandListBaseComponent.prototype, "demandList", void 0);
 	    __decorate([
+	        core_1.Input('hide-operation'), 
+	        __metadata('design:type', Boolean)
+	    ], DemandListBaseComponent.prototype, "hideOperation", void 0);
+	    __decorate([
 	        core_1.Output('demand-selected'), 
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], DemandListBaseComponent.prototype, "selectDemandEmitter", void 0);
@@ -90365,6 +90410,7 @@
 	var notificationService_1 = __webpack_require__(774);
 	var demandsListPageBase_1 = __webpack_require__(815);
 	var DemandStatus_1 = __webpack_require__(816);
+	var demandListBase_1 = __webpack_require__(814);
 	var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
 	var AccountDemandsPage = (function (_super) {
 	    __extends(AccountDemandsPage, _super);
@@ -90373,7 +90419,7 @@
 	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, localizationService, _notificationService);
 	    }
 	    AccountDemandsPage.prototype.ngOnInit = function () {
-	        this.getUserDemandsWithFilter();
+	        this.getDemandsWithFilter(DemandStatus_1.DemandStatus.ACTIVE);
 	    };
 	    AccountDemandsPage.prototype.ngOnChanges = function (changes) {
 	    };
@@ -90404,23 +90450,16 @@
 	        var me = this;
 	        var colector = [];
 	        _.each(filters, function (filter) {
-	            var filtredDemands = _.where(me._demandsList, { status: filter });
+	            var filtredDemands = _.where(me.backendDemands, { status: filter });
 	            colector = colector.concat(filtredDemands);
 	        });
 	        this._demandsList = colector;
 	    };
-	    AccountDemandsPage.prototype.getUserDemandsWithFilter = function () {
-	        var me = this;
-	        this._demandService.getUserDemandsWithFilter()
-	            .subscribe(function (response) {
-	            me._demandsList = response;
-	        }, function (error) {
-	        });
-	    };
 	    AccountDemandsPage = __decorate([
 	        core_1.Component({
 	            selector: 'account-demands-Page',
-	            templateUrl: applicationPath + '/accountDemandsPage.html'
+	            templateUrl: applicationPath + '/accountDemandsPage.html',
+	            directives: [demandListBase_1.DemandListBaseComponent]
 	        }), 
 	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
 	    ], AccountDemandsPage);
@@ -90723,6 +90762,7 @@
 	var authorizationService_1 = __webpack_require__(742);
 	var Roles_1 = __webpack_require__(770);
 	var localStorageService_1 = __webpack_require__(769);
+	var applicationConstansts_1 = __webpack_require__(743);
 	var registrationService_1 = __webpack_require__(787);
 	var notificationService_1 = __webpack_require__(774);
 	var applicationStateService_1 = __webpack_require__(768);
@@ -90737,9 +90777,7 @@
 	        this._myAccountLabel = 'Contul meu';
 	    }
 	    HeaderComponent.prototype.ngOnInit = function () {
-	        this._usersApplicationPages = [
-	            { link: '/', name: 'Home' },
-	        ];
+	        this._usersApplicationPages = [];
 	        this.setUserRoutes();
 	        this.setAdminRoutes();
 	        var me = this;
@@ -90811,6 +90849,10 @@
 	        }, function (error) {
 	            me._notificationService.emitErrorNotificationToRootComponent('Erroare la logout!', 5);
 	        });
+	    };
+	    HeaderComponent.prototype.addDemand = function () {
+	        this._router.navigate(['/']);
+	        this._localStorageService.setItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND, { navigate: true });
 	    };
 	    HeaderComponent = __decorate([
 	        core_1.Component({

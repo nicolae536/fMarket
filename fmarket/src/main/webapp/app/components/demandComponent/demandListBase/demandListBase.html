@@ -9,7 +9,7 @@
                 <th class="hidden-xs hidden-sm text-left vertical-align">Data creeri</th>
                 <th class="vertical-align">Status</th>
                 <th class="vertical-align">Domeniu</th>
-                <th class="vertical-align" colspan="2">Actiuni</th>
+                <th *ngIf="!hideOperation" class="vertical-align" colspan="2">Actiuni</th>
             </tr>
             </thead>
             <tbody class="table-body">
@@ -20,12 +20,12 @@
                 <td class="hidden-xs hidden-sm text-left">{{demand.email}}</td>
                 <td>{{demand.creationDate}}</td>
                 <td>{{demand.status}}</td>
-                <td [title]="'Editeaza compania '+demand.title">
+                <td [title]="'Editeaza compania '+demand.title" *ngIf="!hideOperation" >
                     <a class="action"   (click)="selectDemand(demand)">
                         <span class="glyphicon glyphicon-cog"></span>
                     </a>
                 </td>
-                <td [title]="'Sterge compania '+demand.title">
+                <td [title]="'Sterge compania '+demand.title" *ngIf="!hideOperation" >
                     <a class="action" (click)="removeDemand($event, companie)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>

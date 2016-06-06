@@ -16,6 +16,10 @@
     background-color: #ece6e6;
 }
 
+.pull-down-10{
+    padding-top: 10px;
+}
+
 @media (max-width: 990px){
     .user-demands-list-page .filter-demand{
         border-right: none;

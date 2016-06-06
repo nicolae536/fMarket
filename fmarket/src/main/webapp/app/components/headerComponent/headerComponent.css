@@ -5,6 +5,10 @@
     border-bottom: 1px solid #dddddd;
 }
 
+.navbar-bottons{
+    padding-top: 7px;
+    padding-right: 5px;
+}
 
 .navbar.navbar-default.navbar-fixed-top .container-fluid{
     transition: margin-left .5s;

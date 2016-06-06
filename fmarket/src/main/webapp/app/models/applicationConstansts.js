@@ -281,6 +281,7 @@ var ApplicationConstants = (function () {
     ApplicationConstants.HOUR = 3600000;
     ApplicationConstants.FIRST_LOAD = 'first-load';
     ApplicationConstants.LOADING_SPINNER = 'loadingSpinnerComponent';
+    ApplicationConstants.NAVIGATE_CREATE_DEMAND = 'NAVIGATE-CREATE-DEMAND';
     return ApplicationConstants;
 })();
 exports.ApplicationConstants = ApplicationConstants;
