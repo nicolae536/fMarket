@@ -143,7 +143,7 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 	@Override
 	public CompanyDetailsAdminDTO getCompanyDetails(int id) {
 		Company company = companyDao.get(id);
-		return null;
+		return CompanyAdminConverter.toDetails(company);
 	}
 
 }

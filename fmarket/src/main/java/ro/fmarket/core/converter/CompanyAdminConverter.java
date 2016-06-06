@@ -28,7 +28,7 @@ public class CompanyAdminConverter {
 		return result;
 	}
 	
-	public CompanyDetailsAdminDTO toDetails(Company company) {
+	public static CompanyDetailsAdminDTO toDetails(Company company) {
 		CompanyDetailsAdminDTO result = new CompanyDetailsAdminDTO();
 		
 		CompanyContactInfo contactInfo = company.getContactInfo();
