@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import ro.fmarket.core.base.BaseDao;
 
+@Repository
 public class CompanyLogoDao extends BaseDao<CompanyLogo> {
 
 	public CompanyLogoDao() {

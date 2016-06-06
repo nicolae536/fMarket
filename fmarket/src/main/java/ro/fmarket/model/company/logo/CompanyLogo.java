@@ -2,6 +2,7 @@ package ro.fmarket.model.company.logo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
@@ -13,7 +14,7 @@ import ro.fmarket.model.company.Company;
 public class CompanyLogo extends BaseEntity {
 
 	@OneToOne(optional = false)
-	@Column(unique = true)
+	@JoinColumn(unique = true)
 	private Company company;
 	
 	@Column(nullable = false, length = 30)
