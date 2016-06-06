@@ -9,11 +9,8 @@ public class CompanyNameDTO {
 
 	private String name;
 
-	private String logoSrc;
-
-	public CompanyNameDTO(int id, String name, String logoSrc) {
+	public CompanyNameDTO(int id, String name) {
 		this.id = id;
 		this.name = name;
-		this.logoSrc = logoSrc;
 	}
 }

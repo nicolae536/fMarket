@@ -37,8 +37,4 @@ public class AppConfig {
 //	@PersistenceContext
 //	private EntityManager manager;
 //	
-	public StandardServletMultipartResolver multipartBean() {
-		StandardServletMultipartResolver resolver = new StandardServletMultipartResolver();
-		return resolver;
-	}
 }
