@@ -1,10 +1,13 @@
 package ro.fmarket.model.company;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +24,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	private CompanyDao companyDao;
-	
+
 	@Autowired
 	private CompanyLogoDao companyLogoDao;
 
@@ -68,7 +71,12 @@ public class CompanyServiceImpl implements CompanyService {
 	public byte[] getLogo(int companyId) {
 		CompanyLogo logo = companyLogoDao.getByCompany(companyId);
 		if (logo == null) {
-			return null;
+			InputStream in = getClass().getResourceAsStream("/no_logo.jpg");
+			try {
+				return IOUtils.toByteArray(in);
+			} catch (IOException e) {
+				throw new RuntimeException("An error occurred");
+			}
 		} else {
 			return logo.getFile();
 		}

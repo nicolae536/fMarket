@@ -32,6 +32,7 @@ public class CompanyAdminConverter {
 		CompanyDetailsAdminDTO result = new CompanyDetailsAdminDTO();
 		
 		CompanyContactInfo contactInfo = company.getContactInfo();
+		result.setEmail(contactInfo.getEmail());
 		result.setPhone(contactInfo.getPhone());
 		result.setAddress(contactInfo.getAddress());
 		result.setContactPerson(contactInfo.getContactPerson());
