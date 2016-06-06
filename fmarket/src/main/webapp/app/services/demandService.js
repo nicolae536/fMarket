@@ -48,8 +48,8 @@ var DemandService = (function () {
     DemandService.prototype.acceptDemand = function (demand) {
         return this.api.post(this._DemandController + ("/accept/" + demand.id), JSON.stringify(''));
     };
-    DemandService.prototype.declineDemand = function (id) {
-        return this.api.post(this._DemandController + ("/decline/" + id), JSON.stringify(''));
+    DemandService.prototype.declineDemand = function (requestReject) {
+        return this.api.post(this._DemandController + ("/decline/" + requestReject['id']), JSON.stringify(requestReject));
     };
     DemandService.prototype.saveDemand = function (demand) {
         return this.api.put(this._DemandController, JSON.stringify(demand));

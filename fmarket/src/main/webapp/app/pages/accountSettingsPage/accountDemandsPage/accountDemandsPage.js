@@ -44,6 +44,7 @@ var AccountDemandsPage = (function (_super) {
             .subscribe(function (response) {
             me.backendDemands = response;
             me.fatchDemandsUsingFilters();
+        }, function (reject) {
         });
     };
     AccountDemandsPage.prototype.fatchDemandsUsingFilters = function () {
@@ -70,7 +71,7 @@ var AccountDemandsPage = (function (_super) {
     };
     AccountDemandsPage.prototype.getUserDemandsWithFilter = function () {
         var me = this;
-        this._demandService.getUserDemandsWithFilter(this._searchObject)
+        this._demandService.getUserDemandsWithFilter()
             .subscribe(function (response) {
             me._demandsList = response;
         }, function (error) {

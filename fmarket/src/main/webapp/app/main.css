@@ -11,6 +11,7 @@
 @import "/app/components/loadingComponent/loadingComponentStyle.css";
 @import "/app/components/companieComponent/companieListComponent/companieListComponent.css";
 @import "/app/components/selectComponent/selectComponent.css";
+@import "/app/components/demandComponent/rejectDemandDialogComponent/rejectDemandDialogComponent.css";
 @import "/app/components/companieComponent/companieListComponent/companiesAdminListComponent.css";
 /*pages styles*/
 @import "/app/pages/accountSettingsPage/accountSettingsPage.css";

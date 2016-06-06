@@ -17,8 +17,10 @@ var demandService_1 = require("../../../../services/demandService");
 var requestTypeService_1 = require("../../../../services/requestTypeService");
 var demandEdit_1 = require("../../../../components/demandComponent/demandEdit/demandEdit");
 var notificationService_1 = require("../../../../services/notificationService");
+var rejectDemandDialogComponent_1 = require("../../../../components/demandComponent/rejectDemandDialogComponent/rejectDemandDialogComponent");
 var applicationPath = '/app/pages/adminPage/demandsPage/demandsEditPage';
 var DemandsEditPage = (function () {
+    //</editor-fold>
     function DemandsEditPage(router, _location, demandService, requestTypeService, notificationService) {
         this._location = _location;
         this._notificationService = notificationService;
@@ -31,6 +33,9 @@ var DemandsEditPage = (function () {
     };
     DemandsEditPage.prototype.ngOnInit = function () {
         this.getDomains();
+    };
+    DemandsEditPage.prototype.rejectDemandDialogLoaded = function ($event) {
+        this.rejectDemandDialog = $event;
     };
     DemandsEditPage.prototype.getDemand = function () {
         var me = this;
@@ -74,10 +79,15 @@ var DemandsEditPage = (function () {
             me._notificationService.emitErrorNotificationToRootComponent('Cerere nu a putut fi activata !', 3);
         });
     };
-    DemandsEditPage.prototype.rejectDemand = function (id) {
+    DemandsEditPage.prototype.showRejectDemandDialog = function () {
+        this.rejectDemandDialog.show();
+    };
+    DemandsEditPage.prototype.rejectDemand = function (response) {
         var me = this;
-        this._demandService.declineDemand(id)
+        response['id'] = this._demand.id;
+        this._demandService.declineDemand(response)
             .subscribe(function (response) {
+            me.rejectDemandDialog.hide();
             me._location.back();
         }, function (error) {
             me._notificationService.emitErrorNotificationToRootComponent('Erroare de server cererea nu poate fi refuzata !', 3);
@@ -97,7 +107,7 @@ var DemandsEditPage = (function () {
             selector: 'demands-edit-page',
             templateUrl: applicationPath + '/demandsEditPage.html',
             styleUrls: [applicationPath + '/demandsEditPage.css'],
-            directives: [demandEdit_1.DemandEditComponent]
+            directives: [demandEdit_1.DemandEditComponent, rejectDemandDialogComponent_1.RejectDemandDialogComponent]
         }), 
         __metadata('design:paramtypes', [router_1.Router, common_1.Location, demandService_1.DemandService, requestTypeService_1.RequestTypeService, notificationService_1.NotificationService])
     ], DemandsEditPage);

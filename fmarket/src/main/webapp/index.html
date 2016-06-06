@@ -18,13 +18,27 @@
             flex-direction: column;
             min-width: 100%;
             min-height: 100%;
+        }
+
+        .app-layout:after {
+            content: "";
+            display: block;
+            position: fixed;
+            top: -46px;
+            bottom: -46px;
+            left: 0;
+            width: 100%;
             background: url("/staticResorces/homeBackground.jpg");
+            background-repeat: no-repeat;
+            background-repeat-x: no-repeat;
+            background-repeat-y: no-repeat;
             background-size: cover;
+            background-position: center top;
         }
     </style>
 </head>
 
-<body class="app-layout">
+<body>
 <div id="loadingSpinnerComponent" class="spinner-absolute-center">
     <div class="sk-circle">
         <div class="sk-circle1 sk-child"></div>
@@ -49,9 +63,9 @@
 <script src="/node_modules/jQueryLibs/animatescroll.min.js"></script>
 
 <!--dev-->
-<!--<script src="/dist/fmarket.bundle.dev.js"></script>-->
+<script src="/dist/fmarket.bundle.dev.js"></script>
 
 <!--prod-->
-<script src="/dist/fmarket.release.js"></script>
+<!--<script src="/dist/fmarket.release.js"></script>-->
 </body>
 </html>

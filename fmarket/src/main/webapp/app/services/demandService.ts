@@ -56,8 +56,8 @@ export class DemandService {
         return this.api.post(this._DemandController + `/accept/${demand.id}`, JSON.stringify(''));
     }
 
-    declineDemand(id:number) {
-        return this.api.post(this._DemandController + `/decline/${id}`, JSON.stringify(''));
+    declineDemand(requestReject) {
+        return this.api.post(this._DemandController + `/decline/${requestReject['id']}`, JSON.stringify(requestReject));
     }
 
     saveDemand(demand:Demand) {

@@ -52,7 +52,7 @@
 	var core_1 = __webpack_require__(32);
 	var common_1 = __webpack_require__(206);
 	var http_1 = __webpack_require__(747);
-	var accountService_1 = __webpack_require__(834);
+	var accountService_1 = __webpack_require__(835);
 	var categoriesMenuService_1 = __webpack_require__(745);
 	var companieTypesService_1 = __webpack_require__(804);
 	var demandService_1 = __webpack_require__(771);
@@ -48277,8 +48277,8 @@
 	var registrationService_1 = __webpack_require__(787);
 	var jqueryService_1 = __webpack_require__(772);
 	var applicationStateService_1 = __webpack_require__(768);
-	var headerComponent_1 = __webpack_require__(843);
-	var footerComponent_1 = __webpack_require__(844);
+	var headerComponent_1 = __webpack_require__(844);
+	var footerComponent_1 = __webpack_require__(845);
 	var Roles_1 = __webpack_require__(770);
 	var AppComponent = (function () {
 	    //</editor-fold>
@@ -81841,10 +81841,10 @@
 	var loginPage_1 = __webpack_require__(790);
 	var forgetPasswordPage_1 = __webpack_require__(791);
 	var adminPage_1 = __webpack_require__(792);
-	var accountSettingsPage_1 = __webpack_require__(832);
-	var successPage_1 = __webpack_require__(839);
-	var tokenConfirmPage_1 = __webpack_require__(840);
-	var companiesPage_1 = __webpack_require__(841);
+	var accountSettingsPage_1 = __webpack_require__(833);
+	var successPage_1 = __webpack_require__(840);
+	var tokenConfirmPage_1 = __webpack_require__(841);
+	var companiesPage_1 = __webpack_require__(842);
 	var AuthorizationService = (function () {
 	    function AuthorizationService() {
 	    }
@@ -85309,8 +85309,8 @@
 	    DemandService.prototype.acceptDemand = function (demand) {
 	        return this.api.post(this._DemandController + ("/accept/" + demand.id), JSON.stringify(''));
 	    };
-	    DemandService.prototype.declineDemand = function (id) {
-	        return this.api.post(this._DemandController + ("/decline/" + id), JSON.stringify(''));
+	    DemandService.prototype.declineDemand = function (requestReject) {
+	        return this.api.post(this._DemandController + ("/decline/" + requestReject['id']), JSON.stringify(requestReject));
 	    };
 	    DemandService.prototype.saveDemand = function (demand) {
 	        return this.api.put(this._DemandController, JSON.stringify(demand));
@@ -85764,19 +85764,6 @@
 	        this._formBuilder = _formBuilder;
 	        this._demandForm = this._formBuilder.group([]);
 	        this.title = 'Adauga cerere';
-	        this.foobarItems = [
-	            {
-	                displayName: 'name',
-	                boundItem: null
-	            },
-	            {
-	                displayName: 'name1',
-	                boundItem: null
-	            },
-	            {
-	                displayName: 'name2',
-	                boundItem: null
-	            }];
 	    }
 	    DemandComponent.prototype.ngOnInit = function () {
 	        this.fetchUserEmail();
@@ -87099,7 +87086,7 @@
 	var companiesEditPage_1 = __webpack_require__(824);
 	var demandsEditPage_1 = __webpack_require__(828);
 	var applicationConstansts_1 = __webpack_require__(743);
-	var companiesCreatePage_1 = __webpack_require__(831);
+	var companiesCreatePage_1 = __webpack_require__(832);
 	var Roles_1 = __webpack_require__(770);
 	var applicationPath = '/app/pages/adminPage';
 	var AdminPage = (function () {
@@ -89621,8 +89608,10 @@
 	var requestTypeService_1 = __webpack_require__(807);
 	var demandEdit_1 = __webpack_require__(829);
 	var notificationService_1 = __webpack_require__(774);
+	var rejectDemandDialogComponent_1 = __webpack_require__(831);
 	var applicationPath = '/app/pages/adminPage/demandsPage/demandsEditPage';
 	var DemandsEditPage = (function () {
+	    //</editor-fold>
 	    function DemandsEditPage(router, _location, demandService, requestTypeService, notificationService) {
 	        this._location = _location;
 	        this._notificationService = notificationService;
@@ -89635,6 +89624,9 @@
 	    };
 	    DemandsEditPage.prototype.ngOnInit = function () {
 	        this.getDomains();
+	    };
+	    DemandsEditPage.prototype.rejectDemandDialogLoaded = function ($event) {
+	        this.rejectDemandDialog = $event;
 	    };
 	    DemandsEditPage.prototype.getDemand = function () {
 	        var me = this;
@@ -89678,10 +89670,15 @@
 	            me._notificationService.emitErrorNotificationToRootComponent('Cerere nu a putut fi activata !', 3);
 	        });
 	    };
-	    DemandsEditPage.prototype.rejectDemand = function (id) {
+	    DemandsEditPage.prototype.showRejectDemandDialog = function () {
+	        this.rejectDemandDialog.show();
+	    };
+	    DemandsEditPage.prototype.rejectDemand = function (response) {
 	        var me = this;
-	        this._demandService.declineDemand(id)
+	        response['id'] = this._demand.id;
+	        this._demandService.declineDemand(response)
 	            .subscribe(function (response) {
+	            me.rejectDemandDialog.hide();
 	            me._location.back();
 	        }, function (error) {
 	            me._notificationService.emitErrorNotificationToRootComponent('Erroare de server cererea nu poate fi refuzata !', 3);
@@ -89701,7 +89698,7 @@
 	            selector: 'demands-edit-page',
 	            templateUrl: applicationPath + '/demandsEditPage.html',
 	            styleUrls: [applicationPath + '/demandsEditPage.css'],
-	            directives: [demandEdit_1.DemandEditComponent]
+	            directives: [demandEdit_1.DemandEditComponent, rejectDemandDialogComponent_1.RejectDemandDialogComponent]
 	        }), 
 	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, demandService_1.DemandService, requestTypeService_1.RequestTypeService, notificationService_1.NotificationService])
 	    ], DemandsEditPage);
@@ -89811,6 +89808,80 @@
 /* 831 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(32);
+	var common_1 = __webpack_require__(206);
+	var modalDialog_1 = __webpack_require__(783);
+	var RejectDemandDialogComponent = (function (_super) {
+	    __extends(RejectDemandDialogComponent, _super);
+	    function RejectDemandDialogComponent(_formBuilder) {
+	        this.title = 'Mesaj';
+	        this.positiveLabel = 'Refuza';
+	        this.cancelLabel = 'Cancel';
+	        this.loadedEmitter = new core_1.EventEmitter();
+	        this.rejectAction = new core_1.EventEmitter();
+	        this._formBuilder = _formBuilder;
+	        this.rejectDemand = this._formBuilder.group([]);
+	        _super.call(this);
+	    }
+	    RejectDemandDialogComponent.prototype.ngOnInit = function () {
+	        this.rejectDemand.addControl('message', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.minLength(5), common_1.Validators.required])));
+	        this.loadedEmitter.emit(this);
+	    };
+	    RejectDemandDialogComponent.prototype.rejectDemandSubmit = function () {
+	        if (this.rejectDemand.valid) {
+	            this.rejectAction.emit(this.rejectDemand.value);
+	        }
+	    };
+	    __decorate([
+	        core_1.Input('title'), 
+	        __metadata('design:type', String)
+	    ], RejectDemandDialogComponent.prototype, "title", void 0);
+	    __decorate([
+	        core_1.Input('positive-label'), 
+	        __metadata('design:type', String)
+	    ], RejectDemandDialogComponent.prototype, "positiveLabel", void 0);
+	    __decorate([
+	        core_1.Input('cancel-label'), 
+	        __metadata('design:type', String)
+	    ], RejectDemandDialogComponent.prototype, "cancelLabel", void 0);
+	    __decorate([
+	        core_1.Output('loaded'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], RejectDemandDialogComponent.prototype, "loadedEmitter", void 0);
+	    __decorate([
+	        core_1.Output('request-reject'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], RejectDemandDialogComponent.prototype, "rejectAction", void 0);
+	    RejectDemandDialogComponent = __decorate([
+	        core_1.Component({
+	            selector: 'reject-demand-dialog',
+	            templateUrl: 'app/components/demandComponent/rejectDemandDialogComponent/rejectDemandDialogComponent.html'
+	        }), 
+	        __metadata('design:paramtypes', [common_1.FormBuilder])
+	    ], RejectDemandDialogComponent);
+	    return RejectDemandDialogComponent;
+	})(modalDialog_1.ModalDialog);
+	exports.RejectDemandDialogComponent = RejectDemandDialogComponent;
+	//# sourceMappingURL=rejectDemandDialogComponent.js.map
+
+/***/ },
+/* 832 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/**
 	 * Created by nick_ on 5/6/2016.
 	 */
@@ -89869,7 +89940,7 @@
 	//# sourceMappingURL=companiesCreatePage.js.map
 
 /***/ },
-/* 832 */
+/* 833 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -89888,8 +89959,8 @@
 	var router_1 = __webpack_require__(305);
 	var notificationService_1 = __webpack_require__(774);
 	var jqueryService_1 = __webpack_require__(772);
-	var accountEditPage_1 = __webpack_require__(833);
-	var accountDemandsPage_1 = __webpack_require__(838);
+	var accountEditPage_1 = __webpack_require__(834);
+	var accountDemandsPage_1 = __webpack_require__(839);
 	var authorizationService_1 = __webpack_require__(742);
 	var applicationConstansts_1 = __webpack_require__(743);
 	var tabsRoutingComponent_1 = __webpack_require__(811);
@@ -89934,7 +90005,7 @@
 	//# sourceMappingURL=accountSettingsPage.js.map
 
 /***/ },
-/* 833 */
+/* 834 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -89951,12 +90022,12 @@
 	 */
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var accountService_1 = __webpack_require__(834);
+	var accountService_1 = __webpack_require__(835);
 	var demandService_1 = __webpack_require__(771);
 	var localizationService_1 = __webpack_require__(775);
 	var notificationService_1 = __webpack_require__(774);
-	var accountEditComponent_1 = __webpack_require__(835);
-	var accountDto_1 = __webpack_require__(837);
+	var accountEditComponent_1 = __webpack_require__(836);
+	var accountDto_1 = __webpack_require__(838);
 	var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
 	var AccountEditPage = (function () {
 	    //</editor-fold>
@@ -90034,7 +90105,7 @@
 	//# sourceMappingURL=accountEditPage.js.map
 
 /***/ },
-/* 834 */
+/* 835 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -90080,7 +90151,7 @@
 	//# sourceMappingURL=accountService.js.map
 
 /***/ },
-/* 835 */
+/* 836 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -90100,7 +90171,7 @@
 	var selectComponent_1 = __webpack_require__(779);
 	var _ = __webpack_require__(328);
 	var Angular2ExtensionValidators_1 = __webpack_require__(776);
-	var accountUser_1 = __webpack_require__(836);
+	var accountUser_1 = __webpack_require__(837);
 	var APPLICATION_PATH = '/app/components/accountComponent/accountEditComponent';
 	var AccountEditComponent = (function () {
 	    function AccountEditComponent(formBuilder) {
@@ -90206,7 +90277,7 @@
 	//# sourceMappingURL=accountEditComponent.js.map
 
 /***/ },
-/* 836 */
+/* 837 */
 /***/ function(module, exports) {
 
 	/**
@@ -90229,7 +90300,7 @@
 	//# sourceMappingURL=accountUser.js.map
 
 /***/ },
-/* 837 */
+/* 838 */
 /***/ function(module, exports) {
 
 	/**
@@ -90264,7 +90335,7 @@
 	//# sourceMappingURL=accountDto.js.map
 
 /***/ },
-/* 838 */
+/* 839 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -90313,6 +90384,7 @@
 	            .subscribe(function (response) {
 	            me.backendDemands = response;
 	            me.fatchDemandsUsingFilters();
+	        }, function (reject) {
 	        });
 	    };
 	    AccountDemandsPage.prototype.fatchDemandsUsingFilters = function () {
@@ -90339,7 +90411,7 @@
 	    };
 	    AccountDemandsPage.prototype.getUserDemandsWithFilter = function () {
 	        var me = this;
-	        this._demandService.getUserDemandsWithFilter(this._searchObject)
+	        this._demandService.getUserDemandsWithFilter()
 	            .subscribe(function (response) {
 	            me._demandsList = response;
 	        }, function (error) {
@@ -90358,7 +90430,7 @@
 	//# sourceMappingURL=accountDemandsPage.js.map
 
 /***/ },
-/* 839 */
+/* 840 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -90414,7 +90486,7 @@
 	//# sourceMappingURL=successPage.js.map
 
 /***/ },
-/* 840 */
+/* 841 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -90494,7 +90566,7 @@
 	//# sourceMappingURL=tokenConfirmPage.js.map
 
 /***/ },
-/* 841 */
+/* 842 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -90513,7 +90585,7 @@
 	var router_1 = __webpack_require__(305);
 	var common_1 = __webpack_require__(206);
 	var _ = __webpack_require__(328);
-	var companieListComponent_1 = __webpack_require__(842);
+	var companieListComponent_1 = __webpack_require__(843);
 	var ng2_bootstrap_1 = __webpack_require__(329);
 	var companiesService_1 = __webpack_require__(820);
 	var notificationService_1 = __webpack_require__(774);
@@ -90580,7 +90652,7 @@
 	//# sourceMappingURL=companiesPage.js.map
 
 /***/ },
-/* 842 */
+/* 843 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -90630,7 +90702,7 @@
 	//# sourceMappingURL=companieListComponent.js.map
 
 /***/ },
-/* 843 */
+/* 844 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -90754,7 +90826,7 @@
 	//# sourceMappingURL=headerComponent.js.map
 
 /***/ },
-/* 844 */
+/* 845 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**

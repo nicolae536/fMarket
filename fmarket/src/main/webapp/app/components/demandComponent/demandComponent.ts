@@ -45,20 +45,6 @@ export class DemandComponent implements OnInit, OnChanges {
         this._formBuilder = _formBuilder;
         this._demandForm = this._formBuilder.group([]);
         this.title = 'Adauga cerere';
-
-        this.foobarItems = [
-            {
-                displayName: 'name',
-                boundItem: null
-            },
-            {
-                displayName: 'name1',
-                boundItem: null
-            },
-            {
-                displayName: 'name2',
-                boundItem: null
-            }];
     }
 
     ngOnInit():any {

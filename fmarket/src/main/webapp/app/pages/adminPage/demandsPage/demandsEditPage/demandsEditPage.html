@@ -1,8 +1,12 @@
 <div class="demand-edit-page clearfix">
+    <reject-demand-dialog
+        (loaded)="rejectDemandDialogLoaded($event)"
+        (request-reject)="rejectDemand($event)">
+    </reject-demand-dialog>
     <demand-edit-component
         [demand]="_demand"
         [demand-domains]="_demandDomains"
-        (reject-demand)="rejectDemand($event)"
+        (reject-demand)="showRejectDemandDialog($event)"
         (accept-demand)="acceptDemand($event)"
         (save-demand)="saveEditedDemand($event)"
         (go-to-List)="navigateToList($event)">

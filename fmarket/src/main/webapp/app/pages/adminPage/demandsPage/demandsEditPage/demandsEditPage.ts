@@ -13,6 +13,7 @@ import {NotificationService} from "../../../../services/notificationService";
 
 import {Demand} from "../../../../models/demand";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";
+import {RejectDemandDialogComponent} from "../../../../components/demandComponent/rejectDemandDialogComponent/rejectDemandDialogComponent";
 
 let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
 
@@ -20,19 +21,25 @@ let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
     selector: 'demands-edit-page',
     templateUrl: applicationPath + '/demandsEditPage.html',
     styleUrls: [applicationPath + '/demandsEditPage.css'],
-    directives: [DemandEditComponent]
+    directives: [DemandEditComponent, RejectDemandDialogComponent]
 })
 // @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
 export class DemandsEditPage implements OnInit, OnActivate {
+    //<editor-fold desc="Services">
     private _router:Router;
     private _demandService:DemandService;
     private _notificationService:NotificationService;
     private _requestTypeService:RequestTypeService;
     private _location:Location;
+    //</editor-fold>
+
+    //<editor-fold desc="Variables">
     private _demandId:number;
     private _demandDomains:Array<Select2Item>;
-
+    private rejectDemandDialog:RejectDemandDialogComponent;
     _demand;
+    //</editor-fold>
+
     constructor(router:Router, _location: Location, demandService:DemandService, requestTypeService:RequestTypeService,
                 notificationService:NotificationService)
     {
@@ -49,6 +56,10 @@ export class DemandsEditPage implements OnInit, OnActivate {
 
     ngOnInit():any {
         this.getDomains();
+    }
+
+    private rejectDemandDialogLoaded($event:RejectDemandDialogComponent){
+        this.rejectDemandDialog = $event;
     }
 
     private getDemand() {
@@ -90,7 +101,7 @@ export class DemandsEditPage implements OnInit, OnActivate {
         return null;
     }
 
-    navigateToList($event){
+    private navigateToList($event){
         this._location.back();
     }
 
@@ -109,12 +120,18 @@ export class DemandsEditPage implements OnInit, OnActivate {
             );
     }
 
-    private rejectDemand(id:number){
-        let me=this;
+    private showRejectDemandDialog(){
+        this.rejectDemandDialog.show();
+    }
 
-        this._demandService.declineDemand(id)
+    private rejectDemand(response:Object){
+        let me=this;
+        response['id']=this._demand.id;
+
+        this._demandService.declineDemand(response)
             .subscribe(
                 response =>{
+                    me.rejectDemandDialog.hide();
                     me._location.back();
                 },
                 error =>{
