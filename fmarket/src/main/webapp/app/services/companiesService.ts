@@ -9,6 +9,7 @@ import {NewCompanyRequest} from "../models/newCompanyRequest";
 import {CompanySearchObject} from "../models/companySearchObject";
 import {Select2Item} from "../components/selectComponent/selectComponent";
 import * as _ from "underscore";
+import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class CompaniesService{
@@ -38,6 +39,39 @@ export class CompaniesService{
 
     createCompany(newCompanyRequest:NewCompanyRequest){
         return this.api.post(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(newCompanyRequest));
+    }
+
+    uploadCompanyLogo(id, logoImage){
+        return Observable.create(observer => {
+            let formData: FormData = new FormData(),
+                xhr: XMLHttpRequest = new XMLHttpRequest();
+
+            // for (let i = 0; i < logoImage.length; i++) {
+            //     formData.append("uploads[]", logoImage[i], logoImage[i].name);
+            // }
+
+            formData.append("logo", logoImage[0], logoImage[0].name);
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        observer.next(JSON.parse(xhr.response));
+                        observer.complete();
+                    } else {
+                        observer.error(xhr.response);
+                    }
+                }
+            };
+
+            // xhr.upload.onprogress = (event) => {
+            //     this.progress = Math.round(event.loaded / event.total * 100);
+            //
+            //     this.progressObserver.next(this.progress);
+            // };
+
+            xhr.open('POST', `/admin/companies/logo/${id}`, true);
+            xhr.send(formData);
+        });
     }
 
     getCompanyWithFilters(searchObject:CompanySearchObject){

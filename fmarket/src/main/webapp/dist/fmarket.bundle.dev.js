@@ -82303,13 +82303,13 @@
 	        this._notificationService.removeLoading();
 	        setTimeout(function () {
 	            me.viewInitialized = true;
-	        }, 50);
+	        }, 100);
 	    };
 	    HomePage.prototype.ngAfterViewChecked = function () {
 	        var me = this;
 	        setTimeout(function () {
 	            me.viewInitialized = true;
-	        }, 50);
+	        }, 100);
 	        this.rematchElementsOnView(null);
 	    };
 	    HomePage.prototype.referenceDemandDialog = function (demandDialog) {
@@ -89206,6 +89206,7 @@
 	var core_1 = __webpack_require__(32);
 	var fMarketApi_1 = __webpack_require__(746);
 	var _ = __webpack_require__(328);
+	var Rx_1 = __webpack_require__(495);
 	var CompaniesService = (function () {
 	    function CompaniesService(api) {
 	        this.COMPANIE_CONTROLLER = '/companies';
@@ -89226,6 +89227,33 @@
 	    };
 	    CompaniesService.prototype.createCompany = function (newCompanyRequest) {
 	        return this.api.post(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(newCompanyRequest));
+	    };
+	    CompaniesService.prototype.uploadCompanyLogo = function (id, logoImage) {
+	        return Rx_1.Observable.create(function (observer) {
+	            var formData = new FormData(), xhr = new XMLHttpRequest();
+	            // for (let i = 0; i < logoImage.length; i++) {
+	            //     formData.append("uploads[]", logoImage[i], logoImage[i].name);
+	            // }
+	            formData.append("logo", logoImage[0], logoImage[0].name);
+	            xhr.onreadystatechange = function () {
+	                if (xhr.readyState === 4) {
+	                    if (xhr.status === 200) {
+	                        observer.next(JSON.parse(xhr.response));
+	                        observer.complete();
+	                    }
+	                    else {
+	                        observer.error(xhr.response);
+	                    }
+	                }
+	            };
+	            // xhr.upload.onprogress = (event) => {
+	            //     this.progress = Math.round(event.loaded / event.total * 100);
+	            //
+	            //     this.progressObserver.next(this.progress);
+	            // };
+	            xhr.open('POST', "/admin/companies/logo/" + id, true);
+	            xhr.send(formData);
+	        });
 	    };
 	    CompaniesService.prototype.getCompanyWithFilters = function (searchObject) {
 	        return this.api.post(this.ADMIN_COMPANIE_CONTROLLER + '/search', JSON.stringify(searchObject));
@@ -89404,6 +89432,18 @@
 	        var me = this;
 	        this._companiesService.editCompany(companieDto)
 	            .subscribe(function (success) {
+	            if (companieDto['logoFile']) {
+	                me.uploadCompanyLogo(companieDto['id'], companieDto['logoFile']);
+	                return;
+	            }
+	            me._location.back();
+	        }, function (error) {
+	        });
+	    };
+	    CompaniesEditPage.prototype.uploadCompanyLogo = function (id, logoImage) {
+	        var me = this;
+	        this._companiesService.uploadCompanyLogo(id, logoImage)
+	            .subscribe(function (success) {
 	            me._location.back();
 	        }, function (error) {
 	        });
@@ -89482,6 +89522,9 @@
 	        });
 	        return colector;
 	    };
+	    CompaniesEditComponent.prototype.saveFile = function ($event) {
+	        this.fileUpload = $event.srcElement.files;
+	    };
 	    CompaniesEditComponent.prototype.saveEditedCompanie = function () {
 	        if (!this._companieEditForm.valid) {
 	            return;
@@ -89490,6 +89533,7 @@
 	        requestObject.cityId = this.selectCity && this.selectCity._selectedItem && this.selectCity._selectedItem.boundItem ? this.selectCity._selectedItem.boundItem['id'] : null;
 	        requestObject.companyDomainId = this.selectCompanyDomain && this.selectCompanyDomain._selectedItem && this.selectCompanyDomain._selectedItem.boundItem ? this.selectCompanyDomain._selectedItem.boundItem['id'] : null;
 	        requestObject.demandDomains = this.selectDemandDomain && this.selectDemandDomain._selectedItem && this.selectDemandDomain._selectedItem.boundItem ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
+	        requestObject['logoFile'] = this.fileUpload;
 	        this.saveCompanieEmitter.emit(requestObject);
 	    };
 	    CompaniesEditComponent.prototype.referenceSelectCityComponent = function ($event) {
@@ -89966,9 +90010,21 @@
 	        var me = this;
 	        this._companiesService.createCompany(companieDto)
 	            .subscribe(function (succes) {
+	            if (companieDto['logoFile']) {
+	                me.uploadLogoFile(succes, companieDto['logoFile']);
+	                return;
+	            }
 	            me._location.back();
 	        }, function (error) {
 	            //me.
+	        });
+	    };
+	    CompanieCreatePage.prototype.uploadLogoFile = function (id, logoFile) {
+	        var me = this;
+	        this._companiesService.uploadCompanyLogo(id, logoFile)
+	            .subscribe(function (succes) {
+	            me._location.back();
+	        }, function (error) {
 	        });
 	    };
 	    CompanieCreatePage = __decorate([
@@ -90383,11 +90439,6 @@
 /* 839 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -90402,21 +90453,14 @@
 	 */
 	var _ = __webpack_require__(328);
 	var core_1 = __webpack_require__(32);
-	var router_1 = __webpack_require__(305);
 	var demandService_1 = __webpack_require__(771);
-	var requestTypeService_1 = __webpack_require__(807);
-	var categoriesMenuService_1 = __webpack_require__(745);
-	var localizationService_1 = __webpack_require__(775);
-	var notificationService_1 = __webpack_require__(774);
-	var demandsListPageBase_1 = __webpack_require__(815);
 	var DemandStatus_1 = __webpack_require__(816);
 	var demandListBase_1 = __webpack_require__(814);
 	var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
-	var AccountDemandsPage = (function (_super) {
-	    __extends(AccountDemandsPage, _super);
+	var AccountDemandsPage = (function () {
 	    //</editor-fold>
-	    function AccountDemandsPage(router, _categoriesMenuService, _demandService, _requestTypeService, localizationService, _notificationService) {
-	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, localizationService, _notificationService);
+	    function AccountDemandsPage(_demandService) {
+	        this._demandService = _demandService;
 	    }
 	    AccountDemandsPage.prototype.ngOnInit = function () {
 	        this.getDemandsWithFilter(DemandStatus_1.DemandStatus.ACTIVE);
@@ -90461,10 +90505,10 @@
 	            templateUrl: applicationPath + '/accountDemandsPage.html',
 	            directives: [demandListBase_1.DemandListBaseComponent]
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
+	        __metadata('design:paramtypes', [demandService_1.DemandService])
 	    ], AccountDemandsPage);
 	    return AccountDemandsPage;
-	})(demandsListPageBase_1.DemandsListPageBase);
+	})();
 	exports.AccountDemandsPage = AccountDemandsPage;
 	//# sourceMappingURL=accountDemandsPage.js.map
 

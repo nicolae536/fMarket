@@ -24,20 +24,18 @@ var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage'
     templateUrl: applicationPath + '/accountDemandsPage.html',
     directives:[DemandListBaseComponent]
 })
-export class AccountDemandsPage extends DemandsListPageBase implements OnInit, OnChanges {
+export class AccountDemandsPage implements OnInit, OnChanges {
+    private _demandService:DemandService;
+
 
     //<editor-fold desc="Variables">
     selectedFilter:string;
     backendDemands:Array<Object>;
+    _demandsList
     //</editor-fold>
 
-    constructor(router:Router,
-                _categoriesMenuService:CategoriesMenuService,
-                _demandService:DemandService,
-                _requestTypeService:RequestTypeService,
-                localizationService:LocalizationService,
-                _notificationService:NotificationService) {
-        super(router, _categoriesMenuService, _demandService, _requestTypeService, localizationService, _notificationService);
+    constructor(_demandService:DemandService) {
+        this._demandService =_demandService;
     }
 
     ngOnInit():any {

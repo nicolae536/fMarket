@@ -74,13 +74,13 @@ var HomePage = (function () {
         this._notificationService.removeLoading();
         setTimeout(function () {
             me.viewInitialized = true;
-        }, 50);
+        }, 100);
     };
     HomePage.prototype.ngAfterViewChecked = function () {
         var me = this;
         setTimeout(function () {
             me.viewInitialized = true;
-        }, 50);
+        }, 100);
         this.rematchElementsOnView(null);
     };
     HomePage.prototype.referenceDemandDialog = function (demandDialog) {

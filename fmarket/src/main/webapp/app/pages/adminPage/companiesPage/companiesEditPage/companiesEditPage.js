@@ -45,6 +45,18 @@ var CompaniesEditPage = (function (_super) {
         var me = this;
         this._companiesService.editCompany(companieDto)
             .subscribe(function (success) {
+            if (companieDto['logoFile']) {
+                me.uploadCompanyLogo(companieDto['id'], companieDto['logoFile']);
+                return;
+            }
+            me._location.back();
+        }, function (error) {
+        });
+    };
+    CompaniesEditPage.prototype.uploadCompanyLogo = function (id, logoImage) {
+        var me = this;
+        this._companiesService.uploadCompanyLogo(id, logoImage)
+            .subscribe(function (success) {
             me._location.back();
         }, function (error) {
         });

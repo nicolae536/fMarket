@@ -38,10 +38,28 @@ export class CompanieCreatePage extends CompaniesEditBase implements OnInit {
         this._companiesService.createCompany(companieDto)
             .subscribe(
                 succes=>{
+                    if(companieDto['logoFile']){
+                        me.uploadLogoFile(succes, companieDto['logoFile']);
+                        return;
+                    }
                     me._location.back();
                 },
                 error=>{
                     //me.
+                }
+            );
+    }
+
+    uploadLogoFile(id, logoFile){
+        let me = this;
+
+        this._companiesService.uploadCompanyLogo(id, logoFile)
+            .subscribe(
+                succes=>{
+                    me._location.back();
+                },
+                error=>{
+                    
                 }
             );
     }

@@ -37,9 +37,21 @@ var CompanieCreatePage = (function (_super) {
         var me = this;
         this._companiesService.createCompany(companieDto)
             .subscribe(function (succes) {
+            if (companieDto['logoFile']) {
+                me.uploadLogoFile(succes, companieDto['logoFile']);
+                return;
+            }
             me._location.back();
         }, function (error) {
             //me.
+        });
+    };
+    CompanieCreatePage.prototype.uploadLogoFile = function (id, logoFile) {
+        var me = this;
+        this._companiesService.uploadCompanyLogo(id, logoFile)
+            .subscribe(function (succes) {
+            me._location.back();
+        }, function (error) {
         });
     };
     CompanieCreatePage = __decorate([

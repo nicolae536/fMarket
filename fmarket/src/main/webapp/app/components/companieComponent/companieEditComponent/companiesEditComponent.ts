@@ -27,6 +27,7 @@ export class CompaniesEditComponent implements OnInit {
     private selectCompanyDomain:SelectComponent;
     private selectDemandDomain:SelectComponent;
     private _companieEditForm;
+    private fileUpload;
 
     constructor(formBuilder:FormBuilder) {
         this._formBuilder = formBuilder;
@@ -80,6 +81,10 @@ export class CompaniesEditComponent implements OnInit {
         return colector;
     }
 
+    saveFile($event){
+        this.fileUpload = $event.srcElement.files;
+    }
+
     saveEditedCompanie() {
         if (!this._companieEditForm.valid) {
             return;
@@ -89,6 +94,7 @@ export class CompaniesEditComponent implements OnInit {
         requestObject.cityId = this.selectCity && this.selectCity._selectedItem && this.selectCity._selectedItem.boundItem ? this.selectCity._selectedItem.boundItem['id'] : null;
         requestObject.companyDomainId = this.selectCompanyDomain && this.selectCompanyDomain._selectedItem && this.selectCompanyDomain._selectedItem.boundItem ? this.selectCompanyDomain._selectedItem.boundItem['id'] : null;
         requestObject.demandDomains = this.selectDemandDomain && this.selectDemandDomain._selectedItem && this.selectDemandDomain._selectedItem.boundItem ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
+        requestObject['logoFile'] = this.fileUpload;
 
         this.saveCompanieEmitter.emit(requestObject);
     }

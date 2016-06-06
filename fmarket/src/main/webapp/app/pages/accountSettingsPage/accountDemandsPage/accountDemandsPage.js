@@ -1,8 +1,3 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -17,21 +12,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var _ = require('underscore');
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
 var demandService_1 = require("../../../services/demandService");
-var requestTypeService_1 = require("../../../services/requestTypeService");
-var categoriesMenuService_1 = require("../../../services/categoriesMenuService");
-var localizationService_1 = require("../../../services/localizationService");
-var notificationService_1 = require("../../../services/notificationService");
-var demandsListPageBase_1 = require("../../adminPage/demandsPage/demandsListPage/demandsListPageBase");
 var DemandStatus_1 = require("../../../models/DemandStatus");
 var demandListBase_1 = require("../../../components/demandComponent/demandListBase/demandListBase");
 var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
-var AccountDemandsPage = (function (_super) {
-    __extends(AccountDemandsPage, _super);
+var AccountDemandsPage = (function () {
     //</editor-fold>
-    function AccountDemandsPage(router, _categoriesMenuService, _demandService, _requestTypeService, localizationService, _notificationService) {
-        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, localizationService, _notificationService);
+    function AccountDemandsPage(_demandService) {
+        this._demandService = _demandService;
     }
     AccountDemandsPage.prototype.ngOnInit = function () {
         this.getDemandsWithFilter(DemandStatus_1.DemandStatus.ACTIVE);
@@ -76,9 +64,9 @@ var AccountDemandsPage = (function (_super) {
             templateUrl: applicationPath + '/accountDemandsPage.html',
             directives: [demandListBase_1.DemandListBaseComponent]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
+        __metadata('design:paramtypes', [demandService_1.DemandService])
     ], AccountDemandsPage);
     return AccountDemandsPage;
-})(demandsListPageBase_1.DemandsListPageBase);
+})();
 exports.AccountDemandsPage = AccountDemandsPage;
 //# sourceMappingURL=accountDemandsPage.js.map

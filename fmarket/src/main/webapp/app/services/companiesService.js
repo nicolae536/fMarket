@@ -13,6 +13,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var fMarketApi_1 = require("./fMarketApi");
 var _ = require("underscore");
+var Rx_1 = require("rxjs/Rx");
 var CompaniesService = (function () {
     function CompaniesService(api) {
         this.COMPANIE_CONTROLLER = '/companies';
@@ -33,6 +34,33 @@ var CompaniesService = (function () {
     };
     CompaniesService.prototype.createCompany = function (newCompanyRequest) {
         return this.api.post(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(newCompanyRequest));
+    };
+    CompaniesService.prototype.uploadCompanyLogo = function (id, logoImage) {
+        return Rx_1.Observable.create(function (observer) {
+            var formData = new FormData(), xhr = new XMLHttpRequest();
+            // for (let i = 0; i < logoImage.length; i++) {
+            //     formData.append("uploads[]", logoImage[i], logoImage[i].name);
+            // }
+            formData.append("logo", logoImage[0], logoImage[0].name);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        observer.next(JSON.parse(xhr.response));
+                        observer.complete();
+                    }
+                    else {
+                        observer.error(xhr.response);
+                    }
+                }
+            };
+            // xhr.upload.onprogress = (event) => {
+            //     this.progress = Math.round(event.loaded / event.total * 100);
+            //
+            //     this.progressObserver.next(this.progress);
+            // };
+            xhr.open('POST', "/admin/companies/logo/" + id, true);
+            xhr.send(formData);
+        });
     };
     CompaniesService.prototype.getCompanyWithFilters = function (searchObject) {
         return this.api.post(this.ADMIN_COMPANIE_CONTROLLER + '/search', JSON.stringify(searchObject));

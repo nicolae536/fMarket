@@ -113,14 +113,14 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
         this._notificationService.removeLoading();
         setTimeout(()=> {
             me.viewInitialized = true;
-        }, 50);
+        }, 100);
     }
 
     ngAfterViewChecked():any {
         let me=this;
         setTimeout(()=> {
             me.viewInitialized = true;
-        }, 50);
+        }, 100);
         this.rematchElementsOnView(null);
     }
 

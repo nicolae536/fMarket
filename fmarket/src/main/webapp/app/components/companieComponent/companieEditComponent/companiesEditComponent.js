@@ -55,6 +55,9 @@ var CompaniesEditComponent = (function () {
         });
         return colector;
     };
+    CompaniesEditComponent.prototype.saveFile = function ($event) {
+        this.fileUpload = $event.srcElement.files;
+    };
     CompaniesEditComponent.prototype.saveEditedCompanie = function () {
         if (!this._companieEditForm.valid) {
             return;
@@ -63,6 +66,7 @@ var CompaniesEditComponent = (function () {
         requestObject.cityId = this.selectCity && this.selectCity._selectedItem && this.selectCity._selectedItem.boundItem ? this.selectCity._selectedItem.boundItem['id'] : null;
         requestObject.companyDomainId = this.selectCompanyDomain && this.selectCompanyDomain._selectedItem && this.selectCompanyDomain._selectedItem.boundItem ? this.selectCompanyDomain._selectedItem.boundItem['id'] : null;
         requestObject.demandDomains = this.selectDemandDomain && this.selectDemandDomain._selectedItem && this.selectDemandDomain._selectedItem.boundItem ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
+        requestObject['logoFile'] = this.fileUpload;
         this.saveCompanieEmitter.emit(requestObject);
     };
     CompaniesEditComponent.prototype.referenceSelectCityComponent = function ($event) {
