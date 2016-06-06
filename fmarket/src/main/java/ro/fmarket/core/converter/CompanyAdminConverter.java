@@ -3,8 +3,10 @@ package ro.fmarket.core.converter;
 import java.util.ArrayList;
 import java.util.List;
 
+import ro.fmarket.admin.account.company.CompanyDetailsAdminDTO;
 import ro.fmarket.admin.account.company.CompanyListItemAdmin;
 import ro.fmarket.model.company.Company;
+import ro.fmarket.model.company.rating.CompanyContactInfo;
 
 public class CompanyAdminConverter {
 
@@ -23,6 +25,20 @@ public class CompanyAdminConverter {
 		for (Company c : companies) {
 			result.add(toListItem(c));
 		}
+		return result;
+	}
+	
+	public CompanyDetailsAdminDTO toDetails(Company company) {
+		CompanyDetailsAdminDTO result = new CompanyDetailsAdminDTO();
+		
+		CompanyContactInfo contactInfo = company.getContactInfo();
+		result.setPhone(contactInfo.getPhone());
+		result.setAddress(contactInfo.getAddress());
+		result.setContactPerson(contactInfo.getContactPerson());
+		result.setCity(contactInfo.getCity().getName());
+		result.setCreationDate(result.getCreationDate());
+		result.setCompanyDomain(company.getDomain().getName());
+		result.setName(company.getName());
 		return result;
 	}
 	

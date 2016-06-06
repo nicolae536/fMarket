@@ -1,7 +1,6 @@
 package ro.fmarket.model.company;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ro.fmarket.admin.account.company.CompanyDetailsAdminDTO;
+import ro.fmarket.model.company.logo.CompanyLogo;
+import ro.fmarket.model.company.logo.CompanyLogoDao;
 import ro.fmarket.model.company.review.NewCompanyMessageReview;
 import ro.fmarket.model.company.review.NewCompanyStarsReview;
 
@@ -19,9 +21,12 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	private CompanyDao companyDao;
+	
+	@Autowired
+	private CompanyLogoDao companyLogoDao;
 
 	@Override
-	public CompanyDetailsDTO getCompanyDetails(Integer id) {
+	public CompanyDetailsAdminDTO getCompanyDetails(int id) {
 		return null;
 	}
 
@@ -57,5 +62,15 @@ public class CompanyServiceImpl implements CompanyService {
 			resultList.add(new FullDomainDTO(entry.getKey(), entry.getValue()));
 		}
 		return resultList;
+	}
+
+	@Override
+	public byte[] getLogo(int companyId) {
+		CompanyLogo logo = companyLogoDao.getByCompany(companyId);
+		if (logo == null) {
+			return null;
+		} else {
+			return logo.getFile();
+		}
 	}
 }

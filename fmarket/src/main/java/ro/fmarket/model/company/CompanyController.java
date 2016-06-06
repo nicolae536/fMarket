@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ro.fmarket.admin.account.company.CompanyDetailsAdminDTO;
 import ro.fmarket.model.company.review.NewCompanyMessageReview;
 import ro.fmarket.model.company.review.NewCompanyStarsReview;
 import ro.fmarket.security.FMarketPrincipal;
@@ -25,7 +27,7 @@ public class CompanyController {
 	private CompanyService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public CompanyDetailsDTO getCompanyDetails(@PathVariable("id") Integer id) {
+	public CompanyDetailsAdminDTO getCompanyDetails(@PathVariable("id") Integer id) {
 		return service.getCompanyDetails(id);
 	}
 
@@ -42,6 +44,11 @@ public class CompanyController {
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public List<FullDomainDTO> getCompaniesGroupedByDomain(@RequestParam("p") String domainName) {
 		return service.getCompaniesGroupedByDomain(domainName);
+	}
+	
+	@RequestMapping(value = "/logo/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+	public byte[] getCompanyLogo(@PathVariable("id") Integer id) {
+		return service.getLogo(id);
 	}
 
 }

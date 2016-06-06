@@ -21,6 +21,7 @@ import org.joda.time.DateTime;
 import lombok.Data;
 import ro.fmarket.core.base.BaseEntity;
 import ro.fmarket.model.account.Account;
+import ro.fmarket.model.company.logo.CompanyLogo;
 import ro.fmarket.model.company.rating.CompanyContactInfo;
 import ro.fmarket.model.company.rating.CompanyRating;
 import ro.fmarket.model.company.review.CompanyMessageReview;
@@ -37,9 +38,6 @@ public class Company extends BaseEntity {
 	@Column(nullable = false)
 	private String name;
 	
-	@Column(length = 50, unique = true)
-	private String logoSrc;
-
 	@ManyToOne(optional = false)
 	private CompanyDomain domain;
 
@@ -60,5 +58,8 @@ public class Company extends BaseEntity {
 	@JoinTable(name = "domain_to_company", joinColumns = { @JoinColumn(name = "company_id", nullable = false) }, inverseJoinColumns = {
 			@JoinColumn(name = "demand_domain_id", nullable = false) })
 	private Set<DemandDomain> demandDomains = new HashSet<>();
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	private CompanyLogo logo;
 
 }
