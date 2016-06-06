@@ -82,6 +82,7 @@
 .home-page .home-page-subscriber {
     padding: 2% 18% 2% 0;
     color: #ffffff;
+    background-color: #12192B;
 }
 
 .home-page .home-page-subscriber .align-input{
@@ -111,7 +112,7 @@
 
 .home-page .how-we-work {
     padding: 0 5% 3% 7%;
-    background-color: #ffffff;
+    background-color: #f5f5f5;
 }
 
 .home-page .how-we-work .text-center {
