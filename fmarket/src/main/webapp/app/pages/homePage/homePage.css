@@ -1,7 +1,6 @@
 .home-page .home-page-first {
     text-align: center;
     margin-top: -50px;
-    background-image: url("/staticResorces/homeBackground.jpg");
     height: 100vh;
     max-height: 100vh;
     background-size: cover;
