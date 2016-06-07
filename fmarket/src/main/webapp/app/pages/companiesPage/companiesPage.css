@@ -18,3 +18,10 @@
 .user-companies-page .sub-container .user-companies-page-container .companies-grid-view{
     padding-top: 2%;
 }
+
+
+@media (max-width: 990px) {
+    .user-companies-page{
+        padding: 0;
+    }
+}

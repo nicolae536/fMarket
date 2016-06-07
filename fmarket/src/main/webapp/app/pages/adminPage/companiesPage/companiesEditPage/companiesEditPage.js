@@ -49,10 +49,12 @@ var CompaniesEditPage = (function (_super) {
     };
     CompaniesEditPage.prototype.saveCompanie = function (companieDto) {
         var me = this;
+        var logoFile = companieDto['logoFile'];
+        companieDto['logoFile'] = null;
         this._companiesService.editCompany(companieDto)
             .subscribe(function (success) {
-            if (companieDto['logoFile']) {
-                me.uploadCompanyLogo(companieDto['id'], companieDto['logoFile']);
+            if (logoFile) {
+                me.uploadCompanyLogo(companieDto['id'], logoFile);
                 return;
             }
             me._location.back();

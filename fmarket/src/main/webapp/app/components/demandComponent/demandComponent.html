@@ -63,7 +63,7 @@
                                     <label>E-mail</label>
                                 </div>
                                 <div class="col-md-10 col-xs-9">
-                                    <span *ngIf="!isUserLoggedIn && _demandData.email.length>0" class="glyphicon glyphicon-remove pointer-cursor remove-icon"
+                                    <span *ngIf="!isUserLoggedIn && _demandData.email && _demandData.email.length>0" class="glyphicon glyphicon-remove pointer-cursor remove-icon"
                                           (click)="removeProperty('email')"></span>
                                     <input type="text" [disabled]="isUserLoggedIn" class="form-control"
                                            [(ngModel)]="_demandData.email"

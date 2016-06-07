@@ -143,7 +143,7 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 		company.setDomain(companyDomainDao.load(request.getCompanyDomainId()));
 		
 		Set<DemandDomain> oldDemandDomains = company.getDemandDomains();
-		Set<Integer> newDemandDomains = request.getDemandDomainIds();
+		Set<Integer> newDemandDomains = request.getDemandDomainIds(); 
 		
 		Iterator<DemandDomain> iterator = oldDemandDomains.iterator();
 		

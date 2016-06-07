@@ -57,11 +57,14 @@ export class CompaniesEditPage extends CompaniesEditBase implements OnInit, OnAc
     saveCompanie(companieDto:NewCompanyRequest) {
         let me = this;
 
+        let logoFile = companieDto['logoFile'];
+        companieDto['logoFile'] = null;
+
         this._companiesService.editCompany(companieDto)
             .subscribe(
                 success => {
-                    if (companieDto['logoFile']) {
-                        me.uploadCompanyLogo(companieDto['id'], companieDto['logoFile']);
+                    if (logoFile) {
+                        me.uploadCompanyLogo(companieDto['id'], logoFile);
                         return;
                     }
                     me._location.back();

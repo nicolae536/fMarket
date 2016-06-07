@@ -2,7 +2,6 @@
 @import "/app/components/companieComponent/createCompanieDialog/createCompanieDialog.css";
 @import "/app/components/createUserDialog/createUserDialog.css";
 @import "/app/components/demandComponent/demandComponent.css";
-@import "/app/components/demandComponent/demandDialogComponent/demandBaseComponent.css";
 @import "/app/components/demandComponent/demandEdit/demandEdit.css";
 @import "/app/components/demandComponent/demandListBase/demandListBase.css";
 @import "/app/components/footerComponent/footerComponent.css";
@@ -660,7 +659,7 @@
         padding: 8px 8px 8px 32px;
         text-decoration: none;
         font-size: 25px;
-        color: #818181;
+        color: white;
         display: block;
         transition: 0.3s
     }

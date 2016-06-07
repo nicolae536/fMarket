@@ -47,7 +47,7 @@ var CompaniesService = (function () {
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {
-                            observer.next(JSON.parse(xhr.response));
+                            observer.next(xhr.response.length > 0 ? JSON.parse(xhr.response) : '');
                             observer.complete();
                         }
                         else {

@@ -66,7 +66,8 @@ var CompaniesEditComponent = (function () {
         var requestObject = _.clone(this._companieEditFormModel);
         requestObject.cityId = this.selectCity && this.selectCity._selectedItem && this.selectCity._selectedItem.boundItem ? this.selectCity._selectedItem.boundItem['id'] : null;
         requestObject.companyDomainId = this.selectCompanyDomain && this.selectCompanyDomain._selectedItem && this.selectCompanyDomain._selectedItem.boundItem ? this.selectCompanyDomain._selectedItem.boundItem['id'] : null;
-        requestObject.demandDomains = this.selectDemandDomain && this.selectDemandDomain._selectedItem && this.selectDemandDomain._selectedItem.boundItem ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
+        requestObject.demandDomains = this.selectDemandDomain && this.selectDemandDomain._selectedItems && this.selectDemandDomain._selectedItems.length > 0 ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
+        requestObject['demandDomainIds'] = this.selectDemandDomain && this.selectDemandDomain._selectedItems && this.selectDemandDomain._selectedItems.length > 0 ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
         requestObject['logoFile'] = this.fileUpload;
         this.saveCompanieEmitter.emit(requestObject);
     };
@@ -126,7 +127,7 @@ var CompaniesEditComponent = (function () {
             selector: 'companies-edit-componet',
             templateUrl: '/app/components/companieComponent/companieEditComponent/companieEditComponent.html',
             directives: [selectComponent_1.SelectComponent, common_1.NgIf],
-            styles: ["\n        @media (max-width: 990px) {\n            .actions .btn{\n                margin: 5px 0;\n                width: 100%;\n            }\n        }\n    "]
+            styles: ["\n        @media (max-width: 990px) {\n            .actions {\n                pa\n            } \n            \n            .actions .btn{\n                width: 100%;\n            }\n        }\n    "]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], CompaniesEditComponent);

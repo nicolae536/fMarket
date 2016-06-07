@@ -1,8 +1,4 @@
 var _ = require('underscore');
-// import * as $ from 'jquery';
-// import * as animateScroll from 'animateScroll';
-// console.log(animateScroll);
-// _.extend($, {animateScroll: animateScroll});
 var JqueryService = (function () {
     function JqueryService() {
     }
