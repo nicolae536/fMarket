@@ -32,8 +32,11 @@ var AccountEditComponent = (function () {
         this.buildForm();
     };
     AccountEditComponent.prototype.saveEditedAccount = function () {
-        var accout = this.getFormData;
-        this._saveAccountEmitter.emit(accout);
+        var account = null;
+        if (this._accountFormModel.valid) {
+            account = _.clone(this._accountModel);
+        }
+        this._saveAccountEmitter.emit(account);
     };
     AccountEditComponent.prototype.changePassword = function () {
         var account = null;
@@ -74,7 +77,7 @@ var AccountEditComponent = (function () {
     AccountEditComponent.prototype.buildForm = function () {
         this._accountFormModel.addControl('name', this._formBuilder.control(this._accountModel.name, common_1.Validators.required));
         this._accountFormModel.addControl('phone', this._formBuilder.control(this._accountModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber, common_1.Validators.maxLength(12)])));
-        this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
+        // this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
         this._changePasswordFormModel.addControl('lastPassword', this._formBuilder.control(this._accountModel.lastPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
         this._changePasswordFormModel.addControl('passwords', this._formBuilder.group({}, { validator: Angular2ExtensionValidators_1.CustomValidators.checkPasswords }));
         this._changePasswordFormModel.controls['passwords']['addControl']('password', this._formBuilder.control(this._accountModel.newPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));

@@ -9,8 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 /**
  * Created by nick_ on 4/24/2016.
-*/
-var core_1 = require('@angular/core');
+ */
+var core_1 = require("@angular/core");
 var fMarketApi_1 = require("./fMarketApi");
 var AccountService = (function () {
     function AccountService(api) {
@@ -22,14 +22,23 @@ var AccountService = (function () {
     };
     AccountService.prototype.saveEditedAccount = function (accountDto) {
         console.log('edit-request');
-        return this.api.post(this._AccountController + '/edit', JSON.stringify({ name: accountDto.name, cityId: accountDto.cityId }));
+        return this.api.put(this._AccountController + '/self/update', JSON.stringify({
+            name: accountDto.name,
+            cityId: accountDto.cityId,
+            phone: accountDto.phone
+        }));
     };
     AccountService.prototype.changePassword = function (accountDto) {
         console.log('changepassword-request');
-        return this.api.post(this._AccountController + '/changepassword-1', JSON.stringify({ email: accountDto.email,
+        return this.api.post(this._AccountController + '/changepassword-1', JSON.stringify({
+            email: accountDto.email,
             oldPassword: accountDto.lastPassword,
             newPassword: accountDto.newPassword,
-            newPasswordConfirm: accountDto.confirmNewPassword }));
+            newPasswordConfirm: accountDto.confirmNewPassword
+        }));
+    };
+    AccountService.prototype.getAccountDetails = function () {
+        return this.api.get(this._AccountController + '/self/details');
     };
     AccountService = __decorate([
         core_1.Injectable(), 

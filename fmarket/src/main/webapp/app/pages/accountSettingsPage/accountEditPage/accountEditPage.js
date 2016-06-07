@@ -18,6 +18,7 @@ var localizationService_1 = require("../../../services/localizationService");
 var notificationService_1 = require("../../../services/notificationService");
 var accountEditComponent_1 = require("../../../components/accountComponent/accountEditComponent/accountEditComponent");
 var accountDto_1 = require("../../../models/accountDto");
+var authorizationService_1 = require("../../../services/authorizationService");
 var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
 var AccountEditPage = (function () {
     //</editor-fold>
@@ -59,7 +60,7 @@ var AccountEditPage = (function () {
         }
         this._accountService.saveEditedAccount(editedAccount)
             .subscribe(function (response) {
-            me._account = response;
+            me.getAccountData();
         }, function (errr) {
             _this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5);
         });
@@ -68,14 +69,20 @@ var AccountEditPage = (function () {
         var me = this;
         this._localizationService.getCityList()
             .subscribe(function (response) {
-            me._cityesList = me._localizationService.mapNameToSelect2Item(response);
+            me._cityesList = me._localizationService.extractNameToSelect2Item(response);
         }, function (error) {
         });
     };
     AccountEditPage.prototype.getAccountData = function () {
         var me = this;
-        this._accountService.getAccount()
+        this._accountService.getAccountDetails()
             .subscribe(function (success) {
+            success['cityItem'] = { displayName: success['cityName'],
+                boundItem: {
+                    id: success['cityId'],
+                    name: success['cityName'],
+                } };
+            success['email'] = authorizationService_1.AuthorizationService.getUserEmail();
             me._account = success;
         }, function (error) {
             me._account = accountDto_1.AccountDto.getEmptyInstance();

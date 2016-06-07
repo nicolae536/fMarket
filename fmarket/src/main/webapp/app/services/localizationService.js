@@ -28,6 +28,17 @@ var LocalizationService = (function () {
             };
         });
     };
+    LocalizationService.prototype.extractNameToSelect2Item = function (array) {
+        return _.map(array, function (item) {
+            return {
+                displayName: item['name'],
+                boundItem: {
+                    id: item['id'],
+                    name: item['name']
+                }
+            };
+        });
+    };
     LocalizationService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])

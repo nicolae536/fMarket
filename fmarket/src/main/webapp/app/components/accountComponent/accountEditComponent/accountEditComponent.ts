@@ -45,8 +45,11 @@ export class AccountEditComponent implements OnInit {
     }
 
     saveEditedAccount() {
-        let accout = this.getFormData as AccountUser;
-        this._saveAccountEmitter.emit(accout);
+        let account = null;
+        if (this._accountFormModel.valid) {
+            account = _.clone(this._accountModel);
+        }
+        this._saveAccountEmitter.emit(account);
     }
 
     changePassword() {
@@ -89,7 +92,7 @@ export class AccountEditComponent implements OnInit {
     private buildForm() {
         this._accountFormModel.addControl('name', this._formBuilder.control(this._accountModel.name, Validators.required));
         this._accountFormModel.addControl('phone', this._formBuilder.control(this._accountModel.phone, Validators.compose([Validators.required, CustomValidators.validatePhoneNumber, Validators.maxLength(12)])));
-        this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
+        // this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
 
         this._changePasswordFormModel.addControl('lastPassword',
             this._formBuilder.control(this._accountModel.lastPassword, Validators.compose([Validators.required, CustomValidators.validatePassword, Validators.minLength(6)])));

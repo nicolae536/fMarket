@@ -13,6 +13,7 @@ import {AccountEditComponent} from "../../../components/accountComponent/account
 import {AccountDto} from "../../../models/accountDto";
 import {Select2Item} from "../../../components/selectComponent/selectComponent";
 import {AccountUser} from "../../../models/accountUser";
+import {AuthorizationService} from "../../../services/authorizationService";
 
 var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
 
@@ -84,7 +85,7 @@ export class AccountEditPage implements OnInit {
         this._accountService.saveEditedAccount(editedAccount)
             .subscribe(
                 response => {
-                    me._account = response;
+                    me.getAccountData();
                 },
                 errr => {
                     this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5)
@@ -97,7 +98,7 @@ export class AccountEditPage implements OnInit {
         this._localizationService.getCityList()
             .subscribe(
                 response => {
-                    me._cityesList = me._localizationService.mapNameToSelect2Item(response);
+                    me._cityesList = me._localizationService.extractNameToSelect2Item(response);
                 },
                 error => {
 
@@ -108,9 +109,15 @@ export class AccountEditPage implements OnInit {
     private getAccountData() {
         let me = this;
         
-        this._accountService.getAccount()
+        this._accountService.getAccountDetails()
             .subscribe(
                 success=> {
+                    success['cityItem'] = {displayName: success['cityName'],
+                                            boundItem:{
+                                                id:success['cityId'],
+                                                name:success['cityName'],
+                                            }};
+                    success['email']= AuthorizationService.getUserEmail();
                     me._account = success;
                 },
                 error=> {

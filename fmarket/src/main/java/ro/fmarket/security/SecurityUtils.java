@@ -42,10 +42,11 @@ public class SecurityUtils {
 		return null;
 	}
 
-	public LoginResponse authenticateUser(String email, String role) {
+	public LoginResponse authenticateUser(int accountId, String email, String role) {
 		final SecurityContext context = SecurityContextHolder.getContext();
 		if (context.getAuthentication() instanceof AnonymousAuthenticationToken) {
-			final UserDetails userDetails = new FMarketPrincipal(email, "", createAuthorities(role));
+			final FMarketPrincipal userDetails = new FMarketPrincipal(email, "", createAuthorities(role));
+			userDetails.setAccountId(accountId);
 			final Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 			context.setAuthentication(authentication);
 			LoginResponse response = new LoginResponse();

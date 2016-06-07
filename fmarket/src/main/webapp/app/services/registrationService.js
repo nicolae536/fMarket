@@ -41,6 +41,12 @@ var RegistrationService = (function () {
     RegistrationService.prototype.validateToken = function (token) {
         return this.api.get('/confirm' + this.REGISTRATION_CONTROLLER + ("?token=" + token));
     };
+    RegistrationService.prototype.confirmPasswordChangeToken = function (token) {
+        return this.api.get('/confirm/passwordchange' + ("?token=" + token));
+    };
+    RegistrationService.prototype.confirmDemandChangeToken = function (token) {
+        return this.api.get('/confirm/demand' + ("?token=" + token));
+    };
     RegistrationService.prototype.checkIfLoggedIn = function () {
         return this.api.get('/accounts/user');
     };

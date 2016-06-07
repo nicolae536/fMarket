@@ -32,6 +32,8 @@ public class DemandController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<SelfDemandDTO> getSelfDemands(@AuthenticationPrincipal FMarketPrincipal principal) {
+		System.out.println(principal);
+		System.out.println(principal.getAccountId());
 		return service.getAccountDemands(principal.getAccountId());
 	}
 

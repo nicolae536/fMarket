@@ -27,4 +27,16 @@ export class LocalizationService {
             }
         })
     }
+
+    extractNameToSelect2Item(array):Array<Select2Item>{
+        return _.map(array,(item)=>{
+            return {
+                displayName:item['name'],
+                boundItem:{
+                    id:item['id'],
+                    name:item['name']
+                }
+            }
+        })
+    }
 }

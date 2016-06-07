@@ -75,7 +75,7 @@ public class DemandServiceImpl implements DemandService {
 
 	@Override
 	@Transactional
-	public void closeDemand(Integer accountId, CancelDemandRequest request) {
+	public void closeDemand(int accountId, CancelDemandRequest request) {
 		final Demand demand = demandDao.get(request.getDemandId());
 		if (demand != null && demand.getAccount().getId().equals(accountId)) {
 			demand.setClosedDate(DateUtils.now());
@@ -88,7 +88,7 @@ public class DemandServiceImpl implements DemandService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<SelfDemandDTO> getAccountDemands(Integer accountId) {
+	public List<SelfDemandDTO> getAccountDemands(int accountId) {
 		return SelfDemandConverter.toDTOList(demandDao.getDemandsForAccount(accountId));
 	}
 

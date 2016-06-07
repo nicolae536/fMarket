@@ -22,6 +22,7 @@ import ro.fmarket.mail.MailService;
 import ro.fmarket.model.account.consts.AccountStatus;
 import ro.fmarket.model.account.details.AccountDetails;
 import ro.fmarket.model.account.details.AccountDetailsDTO;
+import ro.fmarket.model.geographical.city.City;
 import ro.fmarket.model.geographical.city.CityDao;
 import ro.fmarket.model.subscriber.Subscriber;
 import ro.fmarket.model.subscriber.SubscriberDao;
@@ -38,7 +39,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private SubscriberDao subscriberDao;
-	
+
 	@Autowired
 	private CityDao cityDao;
 
@@ -68,19 +69,13 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void requestPasswordChange(String email, String newPassword, boolean isLoggedIn) {
+	public void requestPasswordChange(String email, String newPassword) {
 		final Account account = accountDao.getByEmail(email);
 		if (account == null) {
 			throw new NotFoundException("Account");
 		}
-		if (isLoggedIn) {
-			account.setPassword(passwordEncoder.encode(newPassword));
-			account.getHistoricalInfo().setLastPasswordChangeDate(DateUtils.now());
-			accountDao.save(account);
-		} else {
-			AccountUtils.validateAccountIsNotClosed(account);
-			requestPasswordChangeForAccount(account, newPassword);
-		}
+		AccountUtils.validateAccountIsNotClosed(account);
+		requestPasswordChangeForAccount(account, newPassword);
 	}
 
 	@Override
@@ -89,7 +84,8 @@ public class AccountServiceImpl implements AccountService {
 		if (account == null) {
 			throw new NotFoundException("Account");
 		}
-		UserDetails userDetails = new FMarketPrincipal(account.getEmail(), "", createAuthorities(account.getType().name()));
+		UserDetails userDetails = new FMarketPrincipal(account.getEmail(), "",
+				createAuthorities(account.getType().name()));
 		return userDetails;
 	}
 
@@ -123,7 +119,7 @@ public class AccountServiceImpl implements AccountService {
 	private PasswordChangeToken createPasswordChangeToken(Account account, String newPassword) {
 		final PasswordChangeToken result = new PasswordChangeToken();
 		result.setAccount(account);
-		result.setNewPassword(newPassword);
+		result.setNewPassword(passwordEncoder.encode(newPassword));
 		result.setCreationDate(DateUtils.now());
 		String token = TokenUtils.generateToken();
 		while (tokenDao.getByToken(token) != null) {
@@ -174,7 +170,9 @@ public class AccountServiceImpl implements AccountService {
 		Subscriber subscriber = subscriberDao.getByEmail(account.getEmail());
 		AccountDetailsDTO result = new AccountDetailsDTO();
 		result.setSubscribed(subscriber != null && subscriber.getUnsubscribeDate() == null);
-		result.setCity(accountDetails.getCity().getName());
+		City city = accountDetails.getCity();
+		result.setCityName(city.getName());
+		result.setCityId(city.getId());
 		result.setPhone(accountDetails.getPhone());
 		return result;
 	}

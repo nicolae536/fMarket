@@ -26,6 +26,7 @@ export class TokenConfirmPage implements OnActivate{
 
     //<editor-fold desc="Internal variables">
     private showTokenError:boolean = false;
+    private errorMessage:string = 'Linkul este invalid sau a expirat.';
     //</editor-fold>
 
     constructor(router:Router, registrationService:RegistrationService, notificationService:NotificationService, applicationStateService:ApplicationStateService) {
@@ -39,11 +40,23 @@ export class TokenConfirmPage implements OnActivate{
     routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
         let token = this.getParameterByName('token', location.href);
 
-        this.validateToken(token);
+        if(location.href.indexOf('/registration?token') !== -1){
+            this.confirmRegistrationToken(token);
+        }
+
+        if(location.href.indexOf('/passwordchange?token') !== -1){
+            this.confirmPasswordChangeToken(token);
+        }
+
+        if(location.href.indexOf('/demand?token') !== -1){
+            this.confirmDemandChangeToken(token);
+        }
+
+
         JqueryService.removeElementWithAnimation('#'+ApplicationConstants.LOADING_SPINNER);
     }
 
-    private validateToken(token:string) {
+    private confirmRegistrationToken(token:string) {
         let me = this;
         this._registrationService.validateToken(token)
             .subscribe(
@@ -63,6 +76,50 @@ export class TokenConfirmPage implements OnActivate{
                 }
             )
     }
+
+
+    private confirmPasswordChangeToken(token:string) {
+        let me = this;
+        this._registrationService.confirmPasswordChangeToken(token)
+            .subscribe(
+                response=> {
+                    if (!response) {
+                        me._notificationService.emitErrorNotificationToRootComponent('Serverul nu a returnat userul autentificat!', 5);
+                        me._applicationStateService.removeUserSession();
+                        return;
+                    }
+
+                    me._applicationStateService.setApplicationSessionState(response);
+                    me._notificationService.emitSuccessNotificationToRootComponent('Parola a fost schimbata cu succes.', 5);
+                    me._router.navigate(['/']);
+                },
+                error=> {
+                    me.showTokenError = true;
+                }
+            )
+    }
+
+    private confirmDemandChangeToken(token:string) {
+        let me = this;
+        this._registrationService.confirmDemandChangeToken(token)
+            .subscribe(
+                response=> {
+                    if (!response) {
+                        me._notificationService.emitErrorNotificationToRootComponent('Serverul nu a returnat userul autentificat!', 5);
+                        me._applicationStateService.removeUserSession();
+                        return;
+                    }
+
+                    me._applicationStateService.setApplicationSessionState(response);
+                    me._notificationService.emitSuccessNotificationToRootComponent('Cererea a fost confirmata cu succes.', 5);
+                    me._router.navigate(['/']);
+                },
+                error=> {
+                    me.showTokenError = true;
+                }
+            )
+    }
+
 
     ///Parse the url and returns the parametre with name, using query string notation
     getParameterByName(name, url) {

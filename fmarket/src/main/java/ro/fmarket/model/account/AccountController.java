@@ -35,13 +35,8 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/changepassword", method = RequestMethod.POST)
-	public void changePassword(@Valid @RequestBody ChangePasswordRequest request, @AuthenticationPrincipal FMarketPrincipal principal) {
-		boolean isLoggedIn = false;
-		if (principal != null) {
-			isLoggedIn = true;
-			request.setEmail(principal.getUsername());
-		}
-		accountService.requestPasswordChange(request.getEmail(), request.getNewPassword(), isLoggedIn);
+	public void changePassword(@Valid @RequestBody ChangePasswordRequest request) {
+		accountService.requestPasswordChange(request.getEmail(), request.getNewPassword());
 	}
 
 	@RequestMapping(value = "/self/changepassword", method = RequestMethod.POST)

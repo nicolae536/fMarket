@@ -1,5 +1,6 @@
 package ro.fmarket.model.registration;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 				account.getHistoricalInfo().setActivationDate(DateUtils.now());
 				accountDao.save(account);
 			}
-			accountService.requestPasswordChange(account.getEmail(), request.getPassword(), false);
+			accountService.requestPasswordChange(account.getEmail(), request.getPassword());
 		}
 		if (request.getSubscribe()) {
 			subscriberService.subscribeEmail(request.getEmail());
@@ -90,7 +91,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 	private Account createAutoAccount(String email) {
 		final Account account = new Account();
 		account.setEmail(email);
-		account.setPassword("auto");
+		account.setPassword(encoder.encode(RandomStringUtils.randomAlphanumeric(20)));
 
 		final AccountDetails details = new AccountDetails();
 		final AccountHistoricalInfo historicalInfo = new AccountHistoricalInfo();

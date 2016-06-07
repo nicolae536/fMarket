@@ -85646,6 +85646,17 @@
 	            };
 	        });
 	    };
+	    LocalizationService.prototype.extractNameToSelect2Item = function (array) {
+	        return _.map(array, function (item) {
+	            return {
+	                displayName: item['name'],
+	                boundItem: {
+	                    id: item['id'],
+	                    name: item['name']
+	                }
+	            };
+	        });
+	    };
 	    LocalizationService = __decorate([
 	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
@@ -86778,6 +86789,12 @@
 	    };
 	    RegistrationService.prototype.validateToken = function (token) {
 	        return this.api.get('/confirm' + this.REGISTRATION_CONTROLLER + ("?token=" + token));
+	    };
+	    RegistrationService.prototype.confirmPasswordChangeToken = function (token) {
+	        return this.api.get('/confirm/passwordchange' + ("?token=" + token));
+	    };
+	    RegistrationService.prototype.confirmDemandChangeToken = function (token) {
+	        return this.api.get('/confirm/demand' + ("?token=" + token));
 	    };
 	    RegistrationService.prototype.checkIfLoggedIn = function () {
 	        return this.api.get('/accounts/user');
@@ -90191,6 +90208,7 @@
 	var notificationService_1 = __webpack_require__(774);
 	var accountEditComponent_1 = __webpack_require__(836);
 	var accountDto_1 = __webpack_require__(838);
+	var authorizationService_1 = __webpack_require__(742);
 	var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
 	var AccountEditPage = (function () {
 	    //</editor-fold>
@@ -90232,7 +90250,7 @@
 	        }
 	        this._accountService.saveEditedAccount(editedAccount)
 	            .subscribe(function (response) {
-	            me._account = response;
+	            me.getAccountData();
 	        }, function (errr) {
 	            _this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5);
 	        });
@@ -90241,14 +90259,20 @@
 	        var me = this;
 	        this._localizationService.getCityList()
 	            .subscribe(function (response) {
-	            me._cityesList = me._localizationService.mapNameToSelect2Item(response);
+	            me._cityesList = me._localizationService.extractNameToSelect2Item(response);
 	        }, function (error) {
 	        });
 	    };
 	    AccountEditPage.prototype.getAccountData = function () {
 	        var me = this;
-	        this._accountService.getAccount()
+	        this._accountService.getAccountDetails()
 	            .subscribe(function (success) {
+	            success['cityItem'] = { displayName: success['cityName'],
+	                boundItem: {
+	                    id: success['cityId'],
+	                    name: success['cityName'],
+	                } };
+	            success['email'] = authorizationService_1.AuthorizationService.getUserEmail();
 	            me._account = success;
 	        }, function (error) {
 	            me._account = accountDto_1.AccountDto.getEmptyInstance();
@@ -90282,7 +90306,7 @@
 	};
 	/**
 	 * Created by nick_ on 4/24/2016.
-	*/
+	 */
 	var core_1 = __webpack_require__(32);
 	var fMarketApi_1 = __webpack_require__(746);
 	var AccountService = (function () {
@@ -90295,14 +90319,23 @@
 	    };
 	    AccountService.prototype.saveEditedAccount = function (accountDto) {
 	        console.log('edit-request');
-	        return this.api.post(this._AccountController + '/edit', JSON.stringify({ name: accountDto.name, cityId: accountDto.cityId }));
+	        return this.api.put(this._AccountController + '/self/update', JSON.stringify({
+	            name: accountDto.name,
+	            cityId: accountDto.cityId,
+	            phone: accountDto.phone
+	        }));
 	    };
 	    AccountService.prototype.changePassword = function (accountDto) {
 	        console.log('changepassword-request');
-	        return this.api.post(this._AccountController + '/changepassword-1', JSON.stringify({ email: accountDto.email,
+	        return this.api.post(this._AccountController + '/changepassword-1', JSON.stringify({
+	            email: accountDto.email,
 	            oldPassword: accountDto.lastPassword,
 	            newPassword: accountDto.newPassword,
-	            newPasswordConfirm: accountDto.confirmNewPassword }));
+	            newPasswordConfirm: accountDto.confirmNewPassword
+	        }));
+	    };
+	    AccountService.prototype.getAccountDetails = function () {
+	        return this.api.get(this._AccountController + '/self/details');
 	    };
 	    AccountService = __decorate([
 	        core_1.Injectable(), 
@@ -90351,8 +90384,11 @@
 	        this.buildForm();
 	    };
 	    AccountEditComponent.prototype.saveEditedAccount = function () {
-	        var accout = this.getFormData;
-	        this._saveAccountEmitter.emit(accout);
+	        var account = null;
+	        if (this._accountFormModel.valid) {
+	            account = _.clone(this._accountModel);
+	        }
+	        this._saveAccountEmitter.emit(account);
 	    };
 	    AccountEditComponent.prototype.changePassword = function () {
 	        var account = null;
@@ -90393,7 +90429,7 @@
 	    AccountEditComponent.prototype.buildForm = function () {
 	        this._accountFormModel.addControl('name', this._formBuilder.control(this._accountModel.name, common_1.Validators.required));
 	        this._accountFormModel.addControl('phone', this._formBuilder.control(this._accountModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber, common_1.Validators.maxLength(12)])));
-	        this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
+	        // this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
 	        this._changePasswordFormModel.addControl('lastPassword', this._formBuilder.control(this._accountModel.lastPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
 	        this._changePasswordFormModel.addControl('passwords', this._formBuilder.group({}, { validator: Angular2ExtensionValidators_1.CustomValidators.checkPasswords }));
 	        this._changePasswordFormModel.controls['passwords']['addControl']('password', this._formBuilder.control(this._accountModel.newPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
@@ -90659,18 +90695,26 @@
 	        //</editor-fold>
 	        //<editor-fold desc="Internal variables">
 	        this.showTokenError = false;
+	        this.errorMessage = 'Linkul este invalid sau a expirat.';
 	        this._router = router;
 	        this._registrationService = registrationService;
 	        this._notificationService = notificationService;
 	        this._applicationStateService = applicationStateService;
 	    }
 	    TokenConfirmPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
-	        debugger;
 	        var token = this.getParameterByName('token', location.href);
-	        this.validateToken(token);
+	        if (location.href.indexOf('/registration?token') !== -1) {
+	            this.confirmRegistrationToken(token);
+	        }
+	        if (location.href.indexOf('/passwordchange?token') !== -1) {
+	            this.confirmPasswordChangeToken(token);
+	        }
+	        if (location.href.indexOf('/demand?token') !== -1) {
+	            this.confirmDemandChangeToken(token);
+	        }
 	        jqueryService_1.JqueryService.removeElementWithAnimation('#' + applicationConstansts_1.ApplicationConstants.LOADING_SPINNER);
 	    };
-	    TokenConfirmPage.prototype.validateToken = function (token) {
+	    TokenConfirmPage.prototype.confirmRegistrationToken = function (token) {
 	        var me = this;
 	        this._registrationService.validateToken(token)
 	            .subscribe(function (response) {
@@ -90681,6 +90725,38 @@
 	            }
 	            me._applicationStateService.setApplicationSessionState(response);
 	            me._notificationService.emitSuccessNotificationToRootComponent('Cont activat cu succes.', 5);
+	            me._router.navigate(['/']);
+	        }, function (error) {
+	            me.showTokenError = true;
+	        });
+	    };
+	    TokenConfirmPage.prototype.confirmPasswordChangeToken = function (token) {
+	        var me = this;
+	        this._registrationService.confirmPasswordChangeToken(token)
+	            .subscribe(function (response) {
+	            if (!response) {
+	                me._notificationService.emitErrorNotificationToRootComponent('Serverul nu a returnat userul autentificat!', 5);
+	                me._applicationStateService.removeUserSession();
+	                return;
+	            }
+	            me._applicationStateService.setApplicationSessionState(response);
+	            me._notificationService.emitSuccessNotificationToRootComponent('Parola a fost schimbata cu succes.', 5);
+	            me._router.navigate(['/']);
+	        }, function (error) {
+	            me.showTokenError = true;
+	        });
+	    };
+	    TokenConfirmPage.prototype.confirmDemandChangeToken = function (token) {
+	        var me = this;
+	        this._registrationService.confirmDemandChangeToken(token)
+	            .subscribe(function (response) {
+	            if (!response) {
+	                me._notificationService.emitErrorNotificationToRootComponent('Serverul nu a returnat userul autentificat!', 5);
+	                me._applicationStateService.removeUserSession();
+	                return;
+	            }
+	            me._applicationStateService.setApplicationSessionState(response);
+	            me._notificationService.emitSuccessNotificationToRootComponent('Cererea a fost confirmata cu succes.', 5);
 	            me._router.navigate(['/']);
 	        }, function (error) {
 	            me.showTokenError = true;

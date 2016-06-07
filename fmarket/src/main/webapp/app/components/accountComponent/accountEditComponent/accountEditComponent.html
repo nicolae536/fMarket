@@ -25,7 +25,7 @@
                     <label>Oras</label>
                     <select-component
                             [select-items]="_cities"
-                            [single-item-selected]="_accountFormModel.controls['cityItem'].value"
+                            [single-item-selected]="_accountModel.cityItem"
                             [multi-select]="false"
                             (loaded)="referenceCitySelectorComponent($event)">
                     </select-component>

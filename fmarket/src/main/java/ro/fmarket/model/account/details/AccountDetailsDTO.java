@@ -7,7 +7,9 @@ public class AccountDetailsDTO {
 
 	private String name;
 	
-	private String city;
+	private String cityName;
+	
+	private Integer cityId;
 	
 	private String phone;
 	

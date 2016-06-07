@@ -7,7 +7,7 @@ import ro.fmarket.model.account.details.AccountDetailsDTO;
 
 public interface AccountService extends UserDetailsService {
 	
-	void requestPasswordChange(String email, String newPassword, boolean isLoggedIn);
+	void requestPasswordChange(String email, String newPassword);
 	
 	void requestPasswordChange(Account account, String newPassword);
 	

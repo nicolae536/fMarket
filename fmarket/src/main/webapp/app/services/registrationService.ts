@@ -47,6 +47,14 @@ export class RegistrationService {
         return this.api.get('/confirm' + this.REGISTRATION_CONTROLLER + `?token=${token}`);
     }
 
+    confirmPasswordChangeToken(token){
+        return this.api.get('/confirm/passwordchange' + `?token=${token}`);
+    }
+
+    confirmDemandChangeToken(token){
+        return this.api.get('/confirm/demand' + `?token=${token}`);
+    }
+
     checkIfLoggedIn() {
         return this.api.get('/accounts/user');
     }

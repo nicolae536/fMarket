@@ -59,7 +59,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		account.setStatus(AccountStatus.ACTIVE);
 		accountDao.save(account);
 		registrationTokenDao.deleteAllTokensForAccount(account.getId());
-		return securityUtils.authenticateUser(account.getEmail(), account.getType().name());
+		return securityUtils.authenticateUser(account.getId(), account.getEmail(), account.getType().name());
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		accountDao.save(account);
 
 		passwordChangeTokenDao.deleteAllTokensForAccount(account.getId());
-		return securityUtils.authenticateUser(account.getEmail(), account.getType().name());
+		return securityUtils.authenticateUser(account.getId(), account.getEmail(), account.getType().name());
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		demandDao.save(demand);
 		
 		demandTokenDao.deleteById(demandToken.getId());
-		return securityUtils.authenticateUser(account.getEmail(), account.getType().name());
+		return securityUtils.authenticateUser(account.getId(), account.getEmail(), account.getType().name());
 	}
 
 	private void notNullValidation(TokenEntity token) throws InvalidTokenException {

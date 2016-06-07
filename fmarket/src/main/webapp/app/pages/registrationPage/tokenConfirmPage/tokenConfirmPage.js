@@ -23,6 +23,7 @@ var TokenConfirmPage = (function () {
         //</editor-fold>
         //<editor-fold desc="Internal variables">
         this.showTokenError = false;
+        this.errorMessage = 'Linkul este invalid sau a expirat.';
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
@@ -30,10 +31,18 @@ var TokenConfirmPage = (function () {
     }
     TokenConfirmPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
         var token = this.getParameterByName('token', location.href);
-        this.validateToken(token);
+        if (location.href.indexOf('/registration?token') !== -1) {
+            this.confirmRegistrationToken(token);
+        }
+        if (location.href.indexOf('/passwordchange?token') !== -1) {
+            this.confirmPasswordChangeToken(token);
+        }
+        if (location.href.indexOf('/demand?token') !== -1) {
+            this.confirmDemandChangeToken(token);
+        }
         jqueryService_1.JqueryService.removeElementWithAnimation('#' + applicationConstansts_1.ApplicationConstants.LOADING_SPINNER);
     };
-    TokenConfirmPage.prototype.validateToken = function (token) {
+    TokenConfirmPage.prototype.confirmRegistrationToken = function (token) {
         var me = this;
         this._registrationService.validateToken(token)
             .subscribe(function (response) {
@@ -44,6 +53,38 @@ var TokenConfirmPage = (function () {
             }
             me._applicationStateService.setApplicationSessionState(response);
             me._notificationService.emitSuccessNotificationToRootComponent('Cont activat cu succes.', 5);
+            me._router.navigate(['/']);
+        }, function (error) {
+            me.showTokenError = true;
+        });
+    };
+    TokenConfirmPage.prototype.confirmPasswordChangeToken = function (token) {
+        var me = this;
+        this._registrationService.confirmPasswordChangeToken(token)
+            .subscribe(function (response) {
+            if (!response) {
+                me._notificationService.emitErrorNotificationToRootComponent('Serverul nu a returnat userul autentificat!', 5);
+                me._applicationStateService.removeUserSession();
+                return;
+            }
+            me._applicationStateService.setApplicationSessionState(response);
+            me._notificationService.emitSuccessNotificationToRootComponent('Parola a fost schimbata cu succes.', 5);
+            me._router.navigate(['/']);
+        }, function (error) {
+            me.showTokenError = true;
+        });
+    };
+    TokenConfirmPage.prototype.confirmDemandChangeToken = function (token) {
+        var me = this;
+        this._registrationService.confirmDemandChangeToken(token)
+            .subscribe(function (response) {
+            if (!response) {
+                me._notificationService.emitErrorNotificationToRootComponent('Serverul nu a returnat userul autentificat!', 5);
+                me._applicationStateService.removeUserSession();
+                return;
+            }
+            me._applicationStateService.setApplicationSessionState(response);
+            me._notificationService.emitSuccessNotificationToRootComponent('Cererea a fost confirmata cu succes.', 5);
             me._router.navigate(['/']);
         }, function (error) {
             me.showTokenError = true;
