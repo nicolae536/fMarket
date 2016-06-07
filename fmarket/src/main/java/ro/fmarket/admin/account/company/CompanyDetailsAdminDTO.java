@@ -5,6 +5,9 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import lombok.Data;
+import ro.fmarket.model.domain.company.CompanyDomain;
+import ro.fmarket.model.domain.demand.DemandDomain;
+import ro.fmarket.model.geographical.city.City;
 
 @Data
 public class CompanyDetailsAdminDTO {
@@ -17,9 +20,9 @@ public class CompanyDetailsAdminDTO {
 	private int id;
 	
 	private String name;
-	private String companyDomain;
-	private List<String> demandDomains;
-	private String city;
+	private CompanyDomain companyDomain;
+	private List<DemandDomain> demandDomains;
+	private City city;
 	
 	private DateTime creationDate;
 }
