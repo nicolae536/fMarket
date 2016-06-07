@@ -174,6 +174,7 @@ public class AccountServiceImpl implements AccountService {
 		result.setCityName(city.getName());
 		result.setCityId(city.getId());
 		result.setPhone(accountDetails.getPhone());
+		result.setName(accountDetails.getName());
 		return result;
 	}
 
