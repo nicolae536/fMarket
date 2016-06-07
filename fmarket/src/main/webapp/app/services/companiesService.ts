@@ -12,97 +12,99 @@ import * as _ from "underscore";
 import {Observable} from "rxjs/Rx";
 
 @Injectable()
-export class CompaniesService{
+export class CompaniesService {
     private api:FMarketApi;
     private COMPANIE_CONTROLLER = '/companies'
-    private ADMIN_COMPANIE_CONTROLLER = '/admin'+this.COMPANIE_CONTROLLER;
+    private ADMIN_COMPANIE_CONTROLLER = '/admin' + this.COMPANIE_CONTROLLER;
 
-    constructor(api:FMarketApi){
+    constructor(api:FMarketApi) {
         this.api = api;
     }
 
-    getCompaniesForUsers(searchQuery){
+    getCompaniesForUsers(searchQuery) {
         return this.api.get(this.COMPANIE_CONTROLLER + `/all?p=${searchQuery}`);
     }
 
-    getCompanieDetailsForUsers(id:number){
-        return this.api.get(this.COMPANIE_CONTROLLER +`/details/${id}`);
+    getCompanieDetailsForUsers(id:number) {
+        return this.api.get(this.COMPANIE_CONTROLLER + `/details/${id}`);
     }
 
-    addStarsReviewForUsers(review:IStarReview){
-        return this.api.post(this.COMPANIE_CONTROLLER +'/review/stars', JSON.stringify(review));
+    addStarsReviewForUsers(review:IStarReview) {
+        return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
     }
 
-    addMessageReviewForUsers(review:IMessageReview){
-        return this.api.post(this.COMPANIE_CONTROLLER +'/review/stars', JSON.stringify(review));
+    addMessageReviewForUsers(review:IMessageReview) {
+        return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
     }
 
-    createCompany(newCompanyRequest:NewCompanyRequest){
+    createCompany(newCompanyRequest:NewCompanyRequest) {
         return this.api.post(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(newCompanyRequest));
     }
 
-    uploadCompanyLogo(id, logoImage){
+    uploadCompanyLogo(id, logoImage) {
         return Observable.create(observer => {
-            let formData: FormData = new FormData(),
-                xhr: XMLHttpRequest = new XMLHttpRequest();
+            let formData:FormData = new FormData(),
+                xhr:XMLHttpRequest = new XMLHttpRequest();
 
             // for (let i = 0; i < logoImage.length; i++) {
             //     formData.append("uploads[]", logoImage[i], logoImage[i].name);
             // }
+            if (logoImage.length > 0) {
 
-            formData.append("logo", logoImage[0], logoImage[0].name);
+                formData.append("logo", logoImage[0], logoImage[0].name);
 
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        observer.next(JSON.parse(xhr.response));
-                        observer.complete();
-                    } else {
-                        observer.error(xhr.response);
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            observer.next(JSON.parse(xhr.response));
+                            observer.complete();
+                        } else {
+                            observer.error(xhr.response);
+                        }
                     }
-                }
-            };
+                };
 
-            // xhr.upload.onprogress = (event) => {
-            //     this.progress = Math.round(event.loaded / event.total * 100);
-            //
-            //     this.progressObserver.next(this.progress);
-            // };
+                // xhr.upload.onprogress = (event) => {
+                //     this.progress = Math.round(event.loaded / event.total * 100);
+                //
+                //     this.progressObserver.next(this.progress);
+                // };
 
-            xhr.open('POST', `/admin/companies/logo/${id}`, true);
-            xhr.send(formData);
+                xhr.open('POST', `/admin/companies/logo/${id}`, true);
+                xhr.send(formData);
+            }
         });
     }
 
-    getCompanyWithFilters(searchObject:CompanySearchObject){
-        return this.api.post(this.ADMIN_COMPANIE_CONTROLLER+'/search', JSON.stringify(searchObject));
+    getCompanyWithFilters(searchObject:CompanySearchObject) {
+        return this.api.post(this.ADMIN_COMPANIE_CONTROLLER + '/search', JSON.stringify(searchObject));
     }
 
-    getCompanyDetails(companyId:number){
-        return this.api.get(this.ADMIN_COMPANIE_CONTROLLER+`/${companyId}`);
+    getCompanyDetails(companyId:number) {
+        return this.api.get(this.ADMIN_COMPANIE_CONTROLLER + `/${companyId}`);
     }
 
-    editCompany(updatedCompany:NewCompanyRequest){
+    editCompany(updatedCompany:NewCompanyRequest) {
         return this.api.put(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(updatedCompany));
     }
 
-    deleteCompany(id:number){
-        return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER +`/${id}`)
+    deleteCompany(id:number) {
+        return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER + `/${id}`)
     }
 
     getCompanieDomains() {
         return this.api.get('/company/domains');
     }
 
-    getDemandDomanins(){
+    getDemandDomanins() {
         return this.api.get('/demand/domains');
     }
 
-    mapNameToSelect2Item(array):Array<Select2Item>{
-        return _.map(array,(item)=>{
+    mapNameToSelect2Item(array):Array<Select2Item> {
+        return _.map(array, (item)=> {
             return {
-                displayName:item['name'],
-                boundItem:item
+                displayName: item['name'],
+                boundItem: item
             }
         })
     }

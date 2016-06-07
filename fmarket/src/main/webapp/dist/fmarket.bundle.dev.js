@@ -89260,25 +89260,27 @@
 	            // for (let i = 0; i < logoImage.length; i++) {
 	            //     formData.append("uploads[]", logoImage[i], logoImage[i].name);
 	            // }
-	            formData.append("logo", logoImage[0], logoImage[0].name);
-	            xhr.onreadystatechange = function () {
-	                if (xhr.readyState === 4) {
-	                    if (xhr.status === 200) {
-	                        observer.next(JSON.parse(xhr.response));
-	                        observer.complete();
+	            if (logoImage.length > 0) {
+	                formData.append("logo", logoImage[0], logoImage[0].name);
+	                xhr.onreadystatechange = function () {
+	                    if (xhr.readyState === 4) {
+	                        if (xhr.status === 200) {
+	                            observer.next(JSON.parse(xhr.response));
+	                            observer.complete();
+	                        }
+	                        else {
+	                            observer.error(xhr.response);
+	                        }
 	                    }
-	                    else {
-	                        observer.error(xhr.response);
-	                    }
-	                }
-	            };
-	            // xhr.upload.onprogress = (event) => {
-	            //     this.progress = Math.round(event.loaded / event.total * 100);
-	            //
-	            //     this.progressObserver.next(this.progress);
-	            // };
-	            xhr.open('POST', "/admin/companies/logo/" + id, true);
-	            xhr.send(formData);
+	                };
+	                // xhr.upload.onprogress = (event) => {
+	                //     this.progress = Math.round(event.loaded / event.total * 100);
+	                //
+	                //     this.progressObserver.next(this.progress);
+	                // };
+	                xhr.open('POST', "/admin/companies/logo/" + id, true);
+	                xhr.send(formData);
+	            }
 	        });
 	    };
 	    CompaniesService.prototype.getCompanyWithFilters = function (searchObject) {
