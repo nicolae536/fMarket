@@ -57,11 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.authorizeRequests()             //TODO -> change this to restrict everything for production since the script will be only one file
-				.antMatchers("/test/**").permitAll()
-		        .antMatchers("/**/*.js").permitAll()
-				.antMatchers("/admin/**").hasAuthority("ADMIN")
-		        .antMatchers("/app/pages/accountSettingsPage/**").hasAuthority("USER")
-		        .antMatchers("/app/**", "/", "/login", "/accounts/user").permitAll()		        
+//				.antMatchers("/test/**").permitAll()
+//		        .antMatchers("/**/*.js").permitAll()
+//				.antMatchers("/admin/**").hasAuthority("ADMIN")
+//		        .antMatchers("/app/pages/accountSettingsPage/**").hasAuthority("USER")
+//		        .antMatchers("/app/**", "/", "/login", "/accounts/user").permitAll()		        
 				.anyRequest().permitAll()
 				.and()
 			.formLogin()
