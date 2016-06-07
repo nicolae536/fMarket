@@ -90858,7 +90858,9 @@
 	        this._myAccountLabel = 'Contul meu';
 	    }
 	    HeaderComponent.prototype.ngOnInit = function () {
-	        this._usersApplicationPages = [];
+	        this._usersApplicationPages = [
+	            { link: '/firme', name: 'Firme' },
+	        ];
 	        this.setUserRoutes();
 	        this.setAdminRoutes();
 	        var me = this;

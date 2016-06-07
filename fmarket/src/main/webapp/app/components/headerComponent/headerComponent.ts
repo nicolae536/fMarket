@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit():any {
         this._usersApplicationPages = [
-            // {link: '/', name: 'Home'},
+            {link: '/firme', name: 'Firme'},
         ];
 
         this.setUserRoutes();
