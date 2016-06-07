@@ -62,7 +62,7 @@ var HomePage = (function () {
         if (navigationProperty && navigationProperty['navigate']) {
             var interval = setInterval(function () {
                 if (me.viewInitialized) {
-                    jqueryService_1.JqueryService.animateScroll({ nativeElement: '#createDemandComponent' }, 'easeInQuad', 500);
+                    jqueryService_1.JqueryService.scrollToElemet({ nativeElement: '#createDemandComponent' });
                     window.clearInterval(interval);
                 }
             }, 10);

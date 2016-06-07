@@ -82291,7 +82291,7 @@
 	        if (navigationProperty && navigationProperty['navigate']) {
 	            var interval = setInterval(function () {
 	                if (me.viewInitialized) {
-	                    jqueryService_1.JqueryService.animateScroll({ nativeElement: '#createDemandComponent' }, 'easeInQuad', 500);
+	                    jqueryService_1.JqueryService.scrollToElemet({ nativeElement: '#createDemandComponent' });
 	                    window.clearInterval(interval);
 	                }
 	            }, 10);
@@ -85441,6 +85441,9 @@
 	        }
 	        var pageHeight = height - 50 - 98;
 	        $(nativeElement).height(pageHeight);
+	    };
+	    JqueryService.scrollToElemet = function (element) {
+	        $(element.nativeElement).get(0).scrollIntoView();
 	    };
 	    JqueryService.fitChildItemsInContainer = function (nativeElement) {
 	        var height = $(nativeElement).height();
@@ -90234,7 +90237,7 @@
 	            this._notificationService.emitWarningNotificationToRootComponent('Complectati corect toate campurile pentru parole inainte de a salva!', 5);
 	            return;
 	        }
-	        this._accountService.changePassword(editedAccount)
+	        this._accountService.changeSelfPassword(editedAccount)
 	            .subscribe(function (response) {
 	            me._router.navigate(['/success/success-rest-password']);
 	        }, function (errr) {
@@ -90332,6 +90335,12 @@
 	            oldPassword: accountDto.lastPassword,
 	            newPassword: accountDto.newPassword,
 	            newPasswordConfirm: accountDto.confirmNewPassword
+	        }));
+	    };
+	    AccountService.prototype.changeSelfPassword = function (accountDto) {
+	        return this.api.post(this._AccountController + '/self/changepassword', JSON.stringify({
+	            oldPassword: accountDto.lastPassword,
+	            newPassword: accountDto.newPassword,
 	        }));
 	    };
 	    AccountService.prototype.getAccountDetails = function () {

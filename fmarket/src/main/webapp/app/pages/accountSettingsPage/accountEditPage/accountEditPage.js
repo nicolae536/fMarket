@@ -44,7 +44,7 @@ var AccountEditPage = (function () {
             this._notificationService.emitWarningNotificationToRootComponent('Complectati corect toate campurile pentru parole inainte de a salva!', 5);
             return;
         }
-        this._accountService.changePassword(editedAccount)
+        this._accountService.changeSelfPassword(editedAccount)
             .subscribe(function (response) {
             me._router.navigate(['/success/success-rest-password']);
         }, function (errr) {

@@ -100,7 +100,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
         if (navigationProperty && navigationProperty['navigate']) {
             let interval = setInterval(()=> {
                 if (me.viewInitialized) {
-                    JqueryService.animateScroll({nativeElement: '#createDemandComponent'}, 'easeInQuad', 500);
+                    JqueryService.scrollToElemet({nativeElement: '#createDemandComponent'});
                     window.clearInterval(interval);
                 }
             }, 10)

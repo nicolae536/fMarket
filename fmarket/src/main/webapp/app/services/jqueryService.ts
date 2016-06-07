@@ -37,6 +37,10 @@ export class JqueryService {
         $(nativeElement).height(pageHeight);
     }
 
+    static scrollToElemet(element:ElementRef){
+        $(element.nativeElement).get(0).scrollIntoView();
+    }
+
     static fitChildItemsInContainer(nativeElement:any) {
         let height = $(nativeElement).height();
 

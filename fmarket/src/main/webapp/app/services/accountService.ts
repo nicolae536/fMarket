@@ -39,6 +39,14 @@ export class AccountService {
             }));
     }
 
+    changeSelfPassword(accountDto:AccountUser){
+        return this.api.post(this._AccountController + '/self/changepassword',
+            JSON.stringify({
+                oldPassword: accountDto.lastPassword,
+                newPassword: accountDto.newPassword,
+            }));
+    }
+
     getAccountDetails() {
         return this.api.get(this._AccountController + '/self/details');
     }

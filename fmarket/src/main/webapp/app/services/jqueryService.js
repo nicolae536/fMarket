@@ -26,6 +26,9 @@ var JqueryService = (function () {
         var pageHeight = height - 50 - 98;
         $(nativeElement).height(pageHeight);
     };
+    JqueryService.scrollToElemet = function (element) {
+        $(element.nativeElement).get(0).scrollIntoView();
+    };
     JqueryService.fitChildItemsInContainer = function (nativeElement) {
         var height = $(nativeElement).height();
         var childrens = $(nativeElement).children();

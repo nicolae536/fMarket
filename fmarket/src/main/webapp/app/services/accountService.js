@@ -37,6 +37,12 @@ var AccountService = (function () {
             newPasswordConfirm: accountDto.confirmNewPassword
         }));
     };
+    AccountService.prototype.changeSelfPassword = function (accountDto) {
+        return this.api.post(this._AccountController + '/self/changepassword', JSON.stringify({
+            oldPassword: accountDto.lastPassword,
+            newPassword: accountDto.newPassword,
+        }));
+    };
     AccountService.prototype.getAccountDetails = function () {
         return this.api.get(this._AccountController + '/self/details');
     };

@@ -64,7 +64,7 @@ export class AccountEditPage implements OnInit {
             return;
         }
 
-        this._accountService.changePassword(editedAccount)
+        this._accountService.changeSelfPassword(editedAccount)
             .subscribe(
                 response => {
                     me._router.navigate(['/success/success-rest-password']);
