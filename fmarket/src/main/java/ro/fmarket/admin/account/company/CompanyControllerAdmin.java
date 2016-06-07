@@ -31,14 +31,14 @@ public class CompanyControllerAdmin {
 		service.createCompany(request);
 	}
 	
-	@RequestMapping(value ="/{id}", method = RequestMethod.GET)
-	public CompanyDetailsAdminDTO getCompanyDetails(@PathVariable("id") Integer id) {
-		return service.getCompanyDetails(id);
-	}
-
 	@RequestMapping(method = RequestMethod.PUT)
 	public void editCompany(@Valid @RequestBody UpdateCompanyRequest request) {
 		service.updateCompany(request);
+	}
+	
+	@RequestMapping(value ="/{id}", method = RequestMethod.GET)
+	public CompanyDetailsAdminDTO getCompanyDetails(@PathVariable("id") Integer id) {
+		return service.getCompanyDetails(id);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

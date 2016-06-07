@@ -52,7 +52,7 @@ public class Company extends BaseEntity {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dateInserted;
 
-	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<CompanyMessageReview> reviews = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

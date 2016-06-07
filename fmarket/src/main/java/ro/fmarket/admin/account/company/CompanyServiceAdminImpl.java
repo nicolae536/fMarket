@@ -1,6 +1,8 @@
 package ro.fmarket.admin.account.company;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -25,6 +27,7 @@ import ro.fmarket.model.company.NewCompanyRequest;
 import ro.fmarket.model.company.rating.CompanyContactInfo;
 import ro.fmarket.model.company.rating.CompanyRating;
 import ro.fmarket.model.domain.company.CompanyDomainDao;
+import ro.fmarket.model.domain.demand.DemandDomain;
 import ro.fmarket.model.domain.demand.DemandDomainDao;
 import ro.fmarket.model.geographical.city.CityDao;
 
@@ -89,12 +92,6 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 		companyDao.deleteById(id);
 	}
 
-//	@Override
-//	public CompanyAdminDTO getCompanyDetails(int id) {
-//		final Company company = companyDao.get(id);
-//		return CompanyAdminConverter.toDTO(company);
-//	}
-
 	private Company createNewCompany(NewCompanyRequest request, Account account) {
 		Company company = new Company();
 		company.setDateInserted(DateUtils.now());
@@ -137,7 +134,42 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 	}
 
 	private void updateCompany(Company company, UpdateCompanyRequest request) {
+		CompanyContactInfo contactInfo = company.getContactInfo();
+		contactInfo.setAddress(request.getAddress());
+		contactInfo.setPhone(request.getPhone());
+		contactInfo.setContactPerson(request.getContactPerson());
+		contactInfo.setCity(cityDao.load(request.getCityId()));
+		company.setName(request.getName());
+		company.setDomain(companyDomainDao.load(request.getCompanyDomainId()));
 		
+		Set<DemandDomain> oldDemandDomains = company.getDemandDomains();
+		Set<Integer> newDemandDomains = request.getDemandDomainIds();
+		
+		Iterator<DemandDomain> iterator = oldDemandDomains.iterator();
+		
+		while (iterator.hasNext()) { // delete
+			DemandDomain domain = iterator.next();
+			if (!newDemandDomains.contains(domain.getId())) {
+				iterator.remove();
+			}
+		}
+		
+		for (Integer newDomainId : newDemandDomains) { // add
+			DemandDomain foundDomain = getDemandDomainById(newDomainId, oldDemandDomains);
+			if (foundDomain == null) {
+				oldDemandDomains.add(demandDomainDao.load(newDomainId));
+			}
+		}
+		
+	}
+	
+	private DemandDomain getDemandDomainById(int id, Set<DemandDomain> demandDomains) {
+		for (DemandDomain domain : demandDomains) {
+			if (domain.getId() == id) {
+				return domain;
+			}
+		}
+		return null;
 	}
 
 	@Override
