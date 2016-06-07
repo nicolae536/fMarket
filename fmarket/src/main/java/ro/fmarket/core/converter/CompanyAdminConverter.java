@@ -38,9 +38,10 @@ public class CompanyAdminConverter {
 		result.setContactPerson(contactInfo.getContactPerson());
 		result.setCity(contactInfo.getCity());
 		result.setCreationDate(result.getCreationDate());
-//		result.setCompanyDomain(CompanyDomainConverter.toDTO(company.getDomain()));
+		result.setCompanyDomain(CompanyDomainConverter.toDTO(company.getDomain()));
 		result.setDemandDomains(new ArrayList<>(company.getDemandDomains()));
 		result.setName(company.getName());
+		result.setId(company.getId());
 		return result;
 	}
 	

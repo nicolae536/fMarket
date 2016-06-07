@@ -15,4 +15,6 @@ public interface CompanyServiceAdmin {
 	
 	CompanyDetailsAdminDTO getCompanyDetails(int id);
 	
+	void updateCompanyLogo(String fileName, int size, byte[] photo);
+	
 }

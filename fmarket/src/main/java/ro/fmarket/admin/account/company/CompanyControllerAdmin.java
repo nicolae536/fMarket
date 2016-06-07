@@ -1,5 +1,7 @@
 package ro.fmarket.admin.account.company;
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import ro.fmarket.core.exception.InternalErrorException;
 import ro.fmarket.core.rest.PaginatedResponse;
 import ro.fmarket.model.company.NewCompanyRequest;
 
@@ -48,7 +51,15 @@ public class CompanyControllerAdmin {
 	
 	@RequestMapping(value = "/logo/{id}", method = RequestMethod.POST)
 	public void changeCompanyLogo(@PathVariable("id") Integer id, @RequestParam("logo") MultipartFile file) {
-		System.out.println("NAME: " + file.getName());
+		System.out.println("NAME: " + file.getOriginalFilename());
+		file.getName();
+		try {
+			file.getBytes();
+		} catch (IOException e) {
+			throw new InternalErrorException();
+		}
+		file.getOriginalFilename();
+		
 	}
 
 }

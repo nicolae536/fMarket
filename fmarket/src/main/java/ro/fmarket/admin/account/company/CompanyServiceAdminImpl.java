@@ -178,4 +178,10 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 		return CompanyAdminConverter.toDetails(company);
 	}
 
+	@Override
+	public void updateCompanyLogo(String fileName, int size, byte[] photo) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
