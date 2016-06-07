@@ -51,14 +51,17 @@ public class CompanyControllerAdmin {
 	
 	@RequestMapping(value = "/logo/{id}", method = RequestMethod.POST)
 	public void changeCompanyLogo(@PathVariable("id") Integer id, @RequestParam("logo") MultipartFile file) {
-		System.out.println("NAME: " + file.getOriginalFilename());
-		file.getName();
+		byte[] data = null;
 		try {
-			file.getBytes();
+			data = file.getBytes();
 		} catch (IOException e) {
 			throw new InternalErrorException();
 		}
-		file.getOriginalFilename();
+		String filename = file.getOriginalFilename();
+		int size = (int) file.getSize();
+		service.updateCompanyLogo(id, filename, size, data);
+		
+		System.out.println("NAME: " + filename);
 		
 	}
 
