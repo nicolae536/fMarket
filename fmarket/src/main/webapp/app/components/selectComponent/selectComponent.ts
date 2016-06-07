@@ -11,7 +11,7 @@ import {FilterPipe} from "./filterPipe";
             <div dropdown [(isOpen)]="_dropdownStatus.isopen" [class.dropUp]="dropUp" [class.dropdown]="!dropUp" class="bs-ui-select-2 clearfix">
                 <span #simpleSelectRef *ngIf="!muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [disabled]="checkItems()" 
                     class="btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span *ngIf="!_selectedItem">Choose...</span>
+                        <span *ngIf="!_selectedItem">Alege...</span>
                         <span *ngIf="_selectedItem && _selectedItem.displayName">{{_selectedItem.displayName}}</span>
                         <span [class]="getCarretClass()"></span>
                         <span class="glyphicon glyphicon-remove pull-right simple-dropdown" *ngIf="_selectedItem !== _chooseItemValue"(click)="removeSelection($event)"></span>
@@ -20,7 +20,7 @@ import {FilterPipe} from "./filterPipe";
                 <button #multiSelectRef *ngIf="muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [disabled]="checkItems()" 
                     class="btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
                     <div class="pull-left clearfix remove-right-padding">
-                        <span *ngIf="_selectedItems.length < 1">Choose...</span>
+                        <span *ngIf="_selectedItems && _selectedItems.length < 1">Alege...</span>
                         <span class="label label-info pull-left" *ngFor="let item of _selectedItems">{{item.displayName}} <span class="remove-selected" (click)="removeItemFromSelection($event,item)">&times;</span></span>
                     </div>
                     <div style="margin-top: 7px;" class="pull-right remove-left-padding">

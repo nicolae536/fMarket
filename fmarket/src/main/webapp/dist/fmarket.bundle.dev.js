@@ -86089,7 +86089,7 @@
 	    SelectComponent = __decorate([
 	        core_1.Component({
 	            selector: 'select-component',
-	            template: "\n            <div dropdown [(isOpen)]=\"_dropdownStatus.isopen\" [class.dropUp]=\"dropUp\" [class.dropdown]=\"!dropUp\" class=\"bs-ui-select-2 clearfix\">\n                <span #simpleSelectRef *ngIf=\"!muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <span *ngIf=\"!_selectedItem\">Choose...</span>\n                        <span *ngIf=\"_selectedItem && _selectedItem.displayName\">{{_selectedItem.displayName}}</span>\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span class=\"glyphicon glyphicon-remove pull-right simple-dropdown\" *ngIf=\"_selectedItem !== _chooseItemValue\"(click)=\"removeSelection($event)\"></span>\n                </span>\n                \n                <button #multiSelectRef *ngIf=\"muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    <div class=\"pull-left clearfix remove-right-padding\">\n                        <span *ngIf=\"_selectedItems.length < 1\">Choose...</span>\n                        <span class=\"label label-info pull-left\" *ngFor=\"let item of _selectedItems\">{{item.displayName}} <span class=\"remove-selected\" (click)=\"removeItemFromSelection($event,item)\">&times;</span></span>\n                    </div>\n                    <div style=\"margin-top: 7px;\" class=\"pull-right remove-left-padding\">\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span *ngIf=\"_selectedItems.length > 0\" class=\"glyphicon glyphicon-remove pull-right\" (click)=\"removeSelection($event)\"></span>\n                    </div>\n                </button>\n                <div dropdownMenu class=\"ui-select2-list-container dropdown-menu\" [class.dropdown-open]=\"_dropdownStatus.isopen\">\n                        <div class=\"ui-select2-search\">\n                            <div *ngIf=\"searchQuery.length > 0\" class=\"ui-select2-search-right-icon\">\n                                <span class=\"glyphicon glyphicon-remove\" (click)=\"removeSearchQuery()\"></span>\n                            </div>\n                            <input class=\"form-control\" [(ngModel)]=\"searchQuery\" placeholder=\"Search..\"/>\n                        </div>\n                        <div class=\"ui-select2-list\">\n                            <div *ngIf=\"!muliSelect\" class=\"ui-select2-list-item\" (click)=\"selectItem(_chooseItemValue)\">{{_chooseItemValue.displayName}}</div>\n                            <div class=\"ui-select2-list-item\" *ngFor=\"let i of items|filterItems:searchQuery\" (click)=\"selectItem(i)\">{{i.displayName}}</div>\n                        </div>\n                </div>\n            </div>\n    ",
+	            template: "\n            <div dropdown [(isOpen)]=\"_dropdownStatus.isopen\" [class.dropUp]=\"dropUp\" [class.dropdown]=\"!dropUp\" class=\"bs-ui-select-2 clearfix\">\n                <span #simpleSelectRef *ngIf=\"!muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <span *ngIf=\"!_selectedItem\">Alege...</span>\n                        <span *ngIf=\"_selectedItem && _selectedItem.displayName\">{{_selectedItem.displayName}}</span>\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span class=\"glyphicon glyphicon-remove pull-right simple-dropdown\" *ngIf=\"_selectedItem !== _chooseItemValue\"(click)=\"removeSelection($event)\"></span>\n                </span>\n                \n                <button #multiSelectRef *ngIf=\"muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    <div class=\"pull-left clearfix remove-right-padding\">\n                        <span *ngIf=\"_selectedItems && _selectedItems.length < 1\">Alege...</span>\n                        <span class=\"label label-info pull-left\" *ngFor=\"let item of _selectedItems\">{{item.displayName}} <span class=\"remove-selected\" (click)=\"removeItemFromSelection($event,item)\">&times;</span></span>\n                    </div>\n                    <div style=\"margin-top: 7px;\" class=\"pull-right remove-left-padding\">\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span *ngIf=\"_selectedItems.length > 0\" class=\"glyphicon glyphicon-remove pull-right\" (click)=\"removeSelection($event)\"></span>\n                    </div>\n                </button>\n                <div dropdownMenu class=\"ui-select2-list-container dropdown-menu\" [class.dropdown-open]=\"_dropdownStatus.isopen\">\n                        <div class=\"ui-select2-search\">\n                            <div *ngIf=\"searchQuery.length > 0\" class=\"ui-select2-search-right-icon\">\n                                <span class=\"glyphicon glyphicon-remove\" (click)=\"removeSearchQuery()\"></span>\n                            </div>\n                            <input class=\"form-control\" [(ngModel)]=\"searchQuery\" placeholder=\"Search..\"/>\n                        </div>\n                        <div class=\"ui-select2-list\">\n                            <div *ngIf=\"!muliSelect\" class=\"ui-select2-list-item\" (click)=\"selectItem(_chooseItemValue)\">{{_chooseItemValue.displayName}}</div>\n                            <div class=\"ui-select2-list-item\" *ngFor=\"let i of items|filterItems:searchQuery\" (click)=\"selectItem(i)\">{{i.displayName}}</div>\n                        </div>\n                </div>\n            </div>\n    ",
 	            pipes: [filterPipe_1.FilterPipe],
 	            directives: [ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
 	        }), 
@@ -89419,9 +89419,15 @@
 	        this.companieId = curr.getParam('id');
 	    };
 	    CompaniesEditPage.prototype.ngOnInit = function () {
+	        this.getCities();
+	        this.getCompanieDomains();
+	        this.getDomains();
 	        var me = this;
 	        this._companiesService.getCompanyDetails(parseInt(this.companieId))
 	            .subscribe(function (response) {
+	            response.city = { displayName: response.city, boundItem: response.city };
+	            response.companyDomain = { displayName: response.companyDomain, boundItem: response.companyDomain };
+	            response.demandDomains = [{ displayName: response.demandDomains, boundItem: response.demandDomains }];
 	            me._companie = response;
 	        }, function (error) {
 	            me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!', 5);
@@ -89507,7 +89513,8 @@
 	    CompaniesEditComponent.prototype.buildCompanieEditForm = function () {
 	        this._companieEditForm.addControl('name', this._formBuilder.control(this._companieEditFormModel.name, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
 	        this._companieEditForm.addControl('email', this._formBuilder.control(this._companieEditFormModel.email, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
-	        this._companieEditForm.addControl('password', this._formBuilder.control(this._companieEditFormModel.password, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword])));
+	        var passwordValidators = this.editMode ? [Angular2ExtensionValidators_1.CustomValidators.validatePassword] : [common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword];
+	        this._companieEditForm.addControl('password', this._formBuilder.control(this._companieEditFormModel.password, common_1.Validators.compose()));
 	        this._companieEditForm.addControl('phone', this._formBuilder.control(this._companieEditFormModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber])));
 	        this._companieEditForm.addControl('contactPerson', this._formBuilder.control(this._companieEditFormModel.contactPerson, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
 	        this._companieEditForm.addControl('address', this._formBuilder.control(this._companieEditFormModel.address, common_1.Validators.required));
@@ -89572,6 +89579,10 @@
 	        __metadata('design:type', Array)
 	    ], CompaniesEditComponent.prototype, "_domains", void 0);
 	    __decorate([
+	        core_1.Input('edit-mode'), 
+	        __metadata('design:type', Boolean)
+	    ], CompaniesEditComponent.prototype, "editMode", void 0);
+	    __decorate([
 	        core_1.Output('save-edited-companie'), 
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], CompaniesEditComponent.prototype, "saveCompanieEmitter", void 0);
@@ -89587,7 +89598,7 @@
 	        core_1.Component({
 	            selector: 'companies-edit-componet',
 	            templateUrl: '/app/components/companieComponent/companieEditComponent/companieEditComponent.html',
-	            directives: [selectComponent_1.SelectComponent]
+	            directives: [selectComponent_1.SelectComponent, common_1.NgIf]
 	        }), 
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], CompaniesEditComponent);

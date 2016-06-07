@@ -32,9 +32,15 @@ var CompaniesEditPage = (function (_super) {
         this.companieId = curr.getParam('id');
     };
     CompaniesEditPage.prototype.ngOnInit = function () {
+        this.getCities();
+        this.getCompanieDomains();
+        this.getDomains();
         var me = this;
         this._companiesService.getCompanyDetails(parseInt(this.companieId))
             .subscribe(function (response) {
+            response.city = { displayName: response.city, boundItem: response.city };
+            response.companyDomain = { displayName: response.companyDomain, boundItem: response.companyDomain };
+            response.demandDomains = [{ displayName: response.demandDomains, boundItem: response.demandDomains }];
             me._companie = response;
         }, function (error) {
             me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!', 5);

@@ -40,7 +40,8 @@ var CompaniesEditComponent = (function () {
     CompaniesEditComponent.prototype.buildCompanieEditForm = function () {
         this._companieEditForm.addControl('name', this._formBuilder.control(this._companieEditFormModel.name, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
         this._companieEditForm.addControl('email', this._formBuilder.control(this._companieEditFormModel.email, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
-        this._companieEditForm.addControl('password', this._formBuilder.control(this._companieEditFormModel.password, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword])));
+        var passwordValidators = this.editMode ? [Angular2ExtensionValidators_1.CustomValidators.validatePassword] : [common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword];
+        this._companieEditForm.addControl('password', this._formBuilder.control(this._companieEditFormModel.password, common_1.Validators.compose()));
         this._companieEditForm.addControl('phone', this._formBuilder.control(this._companieEditFormModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber])));
         this._companieEditForm.addControl('contactPerson', this._formBuilder.control(this._companieEditFormModel.contactPerson, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
         this._companieEditForm.addControl('address', this._formBuilder.control(this._companieEditFormModel.address, common_1.Validators.required));
@@ -105,6 +106,10 @@ var CompaniesEditComponent = (function () {
         __metadata('design:type', Array)
     ], CompaniesEditComponent.prototype, "_domains", void 0);
     __decorate([
+        core_1.Input('edit-mode'), 
+        __metadata('design:type', Boolean)
+    ], CompaniesEditComponent.prototype, "editMode", void 0);
+    __decorate([
         core_1.Output('save-edited-companie'), 
         __metadata('design:type', core_1.EventEmitter)
     ], CompaniesEditComponent.prototype, "saveCompanieEmitter", void 0);
@@ -120,7 +125,7 @@ var CompaniesEditComponent = (function () {
         core_1.Component({
             selector: 'companies-edit-componet',
             templateUrl: '/app/components/companieComponent/companieEditComponent/companieEditComponent.html',
-            directives: [selectComponent_1.SelectComponent]
+            directives: [selectComponent_1.SelectComponent, common_1.NgIf]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], CompaniesEditComponent);

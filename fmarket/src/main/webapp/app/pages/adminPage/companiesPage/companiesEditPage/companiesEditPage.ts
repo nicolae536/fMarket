@@ -5,7 +5,6 @@
 import {OnInit, Component} from "@angular/core";
 import {Router, OnActivate, RouteSegment, RouteTree} from "@angular/router";
 import {Location} from "@angular/common";
-
 import {CompaniesService} from "../../../../services/companiesService";
 import {NotificationService} from "../../../../services/notificationService";
 import {CompaniesEditComponent} from "../../../../components/companieComponent/companieEditComponent/companiesEditComponent";
@@ -14,9 +13,9 @@ import {NewCompanyRequest} from "../../../../models/newCompanyRequest";
 import {LocalizationService} from "../../../../services/localizationService";
 
 @Component({
-    selector:'companies-edit-page',
-    templateUrl:'/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
-    directives:[CompaniesEditComponent]
+    selector: 'companies-edit-page',
+    templateUrl: '/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
+    directives: [CompaniesEditComponent]
 })
 
 export class CompaniesEditPage extends CompaniesEditBase implements OnInit, OnActivate {
@@ -35,46 +34,53 @@ export class CompaniesEditPage extends CompaniesEditBase implements OnInit, OnAc
     }
 
     ngOnInit() {
-        let me=this;
+        this.getCities();
+        this.getCompanieDomains();
+        this.getDomains();
+
+        let me = this;
         this._companiesService.getCompanyDetails(parseInt(this.companieId))
             .subscribe(
-                response=>{
+                response=> {
+                    response.city = {displayName: response.city, boundItem: response.city};
+                    response.companyDomain = {displayName: response.companyDomain, boundItem: response.companyDomain};
+                    response.demandDomains = [{displayName: response.demandDomains, boundItem: response.demandDomains}];
                     me._companie = response;
                 },
-                error=>{
-                    me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!',5);
+                error=> {
+                    me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!', 5);
                     me._location.back();
                 }
             );
     }
 
-    saveCompanie(companieDto:NewCompanyRequest){
-        let me=this;
+    saveCompanie(companieDto:NewCompanyRequest) {
+        let me = this;
 
         this._companiesService.editCompany(companieDto)
             .subscribe(
-                success =>{
-                    if(companieDto['logoFile']){
+                success => {
+                    if (companieDto['logoFile']) {
                         me.uploadCompanyLogo(companieDto['id'], companieDto['logoFile']);
                         return;
                     }
                     me._location.back();
                 },
-                error =>{
+                error => {
 
                 }
             );
     }
 
-    uploadCompanyLogo(id, logoImage){
-        let me =this;
+    uploadCompanyLogo(id, logoImage) {
+        let me = this;
 
         this._companiesService.uploadCompanyLogo(id, logoImage)
             .subscribe(
-                success =>{
+                success => {
                     me._location.back();
                 },
-                error =>{
+                error => {
 
                 }
             );

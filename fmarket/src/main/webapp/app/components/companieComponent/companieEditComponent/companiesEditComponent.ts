@@ -3,20 +3,21 @@
  */
 import * as _ from "underscore";
 import {Component, Input, Output, EventEmitter, OnInit} from "@angular/core";
-import {FormBuilder, Control, Validators} from "@angular/common";
+import {FormBuilder, Control, Validators, NgIf} from "@angular/common";
 import {NewCompanyRequest} from "../../../models/newCompanyRequest";
 import {CustomValidators} from "../../../models/Angular2ExtensionValidators";
 import {SelectComponent, Select2Item} from "../../selectComponent/selectComponent";
 @Component({
     selector: 'companies-edit-componet',
     templateUrl: '/app/components/companieComponent/companieEditComponent/companieEditComponent.html',
-    directives: [SelectComponent]
+    directives: [SelectComponent, NgIf]
 })
 export class CompaniesEditComponent implements OnInit {
     @Input('companie-model') _companieEditFormModel:NewCompanyRequest;
     @Input('company-domains') _companyDomains:Array<Select2Item>;
     @Input('cities') _cities:Array<Select2Item>;
     @Input('domains') _domains:Array<Select2Item>;
+    @Input('edit-mode') editMode:boolean;
 
     @Output('save-edited-companie') saveCompanieEmitter:EventEmitter<NewCompanyRequest> = new EventEmitter<NewCompanyRequest>();
     @Output('reference-companie-edit-component') loaded:EventEmitter<CompaniesEditComponent> = new EventEmitter<CompaniesEditComponent>();
@@ -55,8 +56,10 @@ export class CompaniesEditComponent implements OnInit {
             this._companieEditFormModel.name, Validators.compose([Validators.required, Validators.minLength(3)])));
         this._companieEditForm.addControl('email', this._formBuilder.control(
             this._companieEditFormModel.email, Validators.compose([Validators.required, CustomValidators.validateEmail])));
+
+        let passwordValidators = this.editMode ? [CustomValidators.validatePassword] : [Validators.required, CustomValidators.validatePassword];
         this._companieEditForm.addControl('password', this._formBuilder.control(
-            this._companieEditFormModel.password, Validators.compose([Validators.required, CustomValidators.validatePassword])));
+            this._companieEditFormModel.password, Validators.compose()));
         this._companieEditForm.addControl('phone', this._formBuilder.control(
             this._companieEditFormModel.phone, Validators.compose([Validators.required, CustomValidators.validatePhoneNumber])));
         this._companieEditForm.addControl('contactPerson', this._formBuilder.control(
@@ -81,7 +84,7 @@ export class CompaniesEditComponent implements OnInit {
         return colector;
     }
 
-    saveFile($event){
+    saveFile($event) {
         this.fileUpload = $event.srcElement.files;
     }
 
