@@ -8,15 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ro.fmarket.core.base.BaseEntity;
 import ro.fmarket.model.company.Company;
-import ro.fmarket.model.domain.company.CompanyDomain;
 
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = false, exclude = "companies")
+@JsonIgnoreProperties({"companies"})
 public class DemandDomain extends BaseEntity {
 
 	@Column(length = 30, nullable = false)

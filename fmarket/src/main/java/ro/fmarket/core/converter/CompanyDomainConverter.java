@@ -12,7 +12,6 @@ public class CompanyDomainConverter {
 		final CompanyDomainDTO result = new CompanyDomainDTO();
 		result.setId(domain.getId());
 		result.setName(domain.getName());
-		//TODO
 		return result;
 	}
 

@@ -3,7 +3,6 @@ package ro.fmarket.model.geographical.city;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
@@ -17,6 +16,6 @@ public class City extends BaseEntity {
 	@Column(nullable = false, length = 30, unique = true)
 	private String name;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	private County county;
 }

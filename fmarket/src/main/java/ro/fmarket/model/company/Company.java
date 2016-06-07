@@ -13,12 +13,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import ro.fmarket.core.base.BaseEntity;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.company.logo.CompanyLogo;
@@ -30,6 +30,7 @@ import ro.fmarket.model.domain.demand.DemandDomain;
 
 @Data
 @Entity
+//@EqualsAndHashCode(callSuper = false, exclude = {"reviews", "demandDomains", "domain"})
 public class Company extends BaseEntity {
 
 	@OneToOne(optional = false, cascade = CascadeType.ALL)

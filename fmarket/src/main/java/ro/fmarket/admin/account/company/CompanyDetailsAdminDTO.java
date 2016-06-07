@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 
 import lombok.Data;
 import ro.fmarket.model.domain.company.CompanyDomain;
+import ro.fmarket.model.domain.company.CompanyDomainDTO;
 import ro.fmarket.model.domain.demand.DemandDomain;
 import ro.fmarket.model.geographical.city.City;
 
@@ -20,7 +21,7 @@ public class CompanyDetailsAdminDTO {
 	private int id;
 	
 	private String name;
-	private CompanyDomain companyDomain;
+	private CompanyDomainDTO companyDomain;
 	private List<DemandDomain> demandDomains;
 	private City city;
 	
