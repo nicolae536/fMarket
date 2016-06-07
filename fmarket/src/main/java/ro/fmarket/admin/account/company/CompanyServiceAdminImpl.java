@@ -193,7 +193,7 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 		logo.setName(fileName);
 		logo.setFile(photo);
 		logo.setSize(size);
-		companyLogoDao.update(logo);
+		companyLogoDao.saveOrUpdate(logo);
 		
 	}
 
