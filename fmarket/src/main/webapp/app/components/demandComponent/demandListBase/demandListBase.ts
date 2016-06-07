@@ -16,10 +16,15 @@ export class DemandListBaseComponent {
     @Input('hide-operation') hideOperation:boolean;
 
     @Output('demand-selected') selectDemandEmitter:EventEmitter<DemandAdminDto> = new EventEmitter<DemandAdminDto>();
+    @Output('remove-demand') removeDemanddEmitter:EventEmitter<DemandAdminDto> = new EventEmitter<DemandAdminDto>();
 
     constructor(){}
 
     selectDemand(demand){
         this.selectDemandEmitter.emit(demand);
+    }
+
+    removeDemand($event, companie){
+        this.removeDemanddEmitter.emit(companie);
     }
 }

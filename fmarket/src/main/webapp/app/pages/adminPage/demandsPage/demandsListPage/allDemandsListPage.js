@@ -37,6 +37,15 @@ var AllDemandsListPage = (function (_super) {
         this.getAllDemandsList();
         this.getMenuDictionary();
     };
+    AllDemandsListPage.prototype.removeDemand = function (demand) {
+        var me = this;
+        this._demandService.declineDemand(demand)
+            .subscribe(function (response) {
+            me.getAllDemandsList();
+        }, function (error) {
+            me.getAllDemandsList();
+        });
+    };
     AllDemandsListPage.prototype.ngOnChanges = function (changes) {
         // if(changes && changes['_demandsList']){
         //     this.getDomains();

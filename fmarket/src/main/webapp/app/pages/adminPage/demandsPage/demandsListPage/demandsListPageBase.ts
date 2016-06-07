@@ -1,15 +1,12 @@
 /**
  * Created by nick_ on 4/22/2016.
  */
-import * as _ from 'underscore';
-
-import {Router} from '@angular/router';
-
+import * as _ from "underscore";
+import {Router} from "@angular/router";
 import {DemandService} from "../../../../services/demandService";
 import {RequestTypeService} from "../../../../services/requestTypeService";
 import {CategoriesMenuService} from "../../../../services/categoriesMenuService";
 import {LocalizationService} from "../../../../services/localizationService";
-
 import {NotificationService} from "../../../../services/notificationService";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";
 import {DemandAdminDto} from "../../../../models/demandAdminDto";
@@ -38,15 +35,15 @@ export class DemandsListPageBase {
     public _searchObject:DemandSearchObject;
     public totalPages:number;
     public menuDictionary;
-    public statusList = [{status:DemandStatus.ACTIVE, displayName:DemandStatus.ACTIVE},
-        {status:DemandStatus.CLOSED, displayName:DemandStatus.CLOSED},
-        {status:DemandStatus.IN_REVIEW, displayName:DemandStatus.IN_REVIEW},
-        {status:DemandStatus.PENDING, displayName:DemandStatus.PENDING},
-        {status:DemandStatus.REJECTED, displayName:DemandStatus.REJECTED},
-        {status:DemandStatus.WAITING_FOR_REVIEW, displayName:DemandStatus.WAITING_FOR_REVIEW}];
+    public statusList = [{status: DemandStatus.ACTIVE, displayName: DemandStatus.ACTIVE},
+        {status: DemandStatus.CLOSED, displayName: DemandStatus.CLOSED},
+        {status: DemandStatus.IN_REVIEW, displayName: DemandStatus.IN_REVIEW},
+        {status: DemandStatus.PENDING, displayName: DemandStatus.PENDING},
+        {status: DemandStatus.REJECTED, displayName: DemandStatus.REJECTED},
+        {status: DemandStatus.WAITING_FOR_REVIEW, displayName: DemandStatus.WAITING_FOR_REVIEW}];
     //</editor-fold>
 
-    constructor(router:Router ,
+    constructor(router:Router,
                 _categoriesMenuService:CategoriesMenuService,
                 _demandService:DemandService,
                 _requestTypeService:RequestTypeService,
@@ -60,10 +57,10 @@ export class DemandsListPageBase {
         this._searchObject = new DemandSearchObject('', 1, DemandStatus.WAITING_FOR_REVIEW, -1);
         this._searchObject.domainName = "Alege domeniu...";
         this._router = router;
-        this._localizationService=_localizationService;
+        this._localizationService = _localizationService;
     }
 
-    showDomainsDialog(){
+    showDomainsDialog() {
         this._menuTreeDialog.showMenuTreeDialog();
     }
 
@@ -107,11 +104,11 @@ export class DemandsListPageBase {
             )
     }
 
-    referenceDialogInDemandComponent(menuItemsModal){
+    referenceDialogInDemandComponent(menuItemsModal) {
         this._menuTreeDialog = menuItemsModal;
     }
 
-    selectItemUsingMenu(item:IMenuItem){
+    selectItemUsingMenu(item:IMenuItem) {
         this._searchObject.domainName = item.name;
         this._searchObject.domainId = item.domainId;
     }
@@ -147,7 +144,7 @@ export class DemandsListPageBase {
             )
     }
 
-    navigateToDemand(demand:DemandAdminDto){
+    navigateToDemand(demand:DemandAdminDto) {
         this._router.navigate([`/admin/cerere-detalii/${demand.id}`]);
     }
 }

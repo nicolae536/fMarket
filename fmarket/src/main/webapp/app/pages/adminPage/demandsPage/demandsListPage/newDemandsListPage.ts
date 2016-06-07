@@ -40,6 +40,19 @@ export class NewDemandsListPage extends DemandsListPageBase implements OnInit, O
         this.getNewDemandsList();
     }
 
+    removeDemand(demand){
+        let me =this;
+        this._demandService.declineDemand(demand)
+            .subscribe(
+                response => {
+                    me.getNewDemandsList();
+                },
+                error => {
+                    me.getNewDemandsList();
+                }
+            )
+    }
+
     public ngOnChanges(changes:{}):any {
         /*if(changes && changes['_demandsList']){
             this.getDomains();

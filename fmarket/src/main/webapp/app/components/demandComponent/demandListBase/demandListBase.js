@@ -16,9 +16,13 @@ var DemandListBaseComponent = (function () {
     function DemandListBaseComponent() {
         this.demandList = new Array();
         this.selectDemandEmitter = new core_1.EventEmitter();
+        this.removeDemanddEmitter = new core_1.EventEmitter();
     }
     DemandListBaseComponent.prototype.selectDemand = function (demand) {
         this.selectDemandEmitter.emit(demand);
+    };
+    DemandListBaseComponent.prototype.removeDemand = function ($event, companie) {
+        this.removeDemanddEmitter.emit(companie);
     };
     __decorate([
         core_1.Input('demand-list'), 
@@ -32,6 +36,10 @@ var DemandListBaseComponent = (function () {
         core_1.Output('demand-selected'), 
         __metadata('design:type', core_1.EventEmitter)
     ], DemandListBaseComponent.prototype, "selectDemandEmitter", void 0);
+    __decorate([
+        core_1.Output('remove-demand'), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], DemandListBaseComponent.prototype, "removeDemanddEmitter", void 0);
     DemandListBaseComponent = __decorate([
         core_1.Component({
             selector: 'demand-list-component',

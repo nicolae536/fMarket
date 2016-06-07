@@ -40,6 +40,19 @@ export class AllDemandsListPage extends DemandsListPageBase implements OnInit, O
         this.getMenuDictionary();
     }
 
+    removeDemand(demand){
+        let me =this;
+        this._demandService.declineDemand(demand)
+            .subscribe(
+                response => {
+                    me.getAllDemandsList();
+                },
+                error => {
+                    me.getAllDemandsList();
+                }
+            )
+    }
+
     public ngOnChanges(changes:{}):any {
         // if(changes && changes['_demandsList']){
         //     this.getDomains();

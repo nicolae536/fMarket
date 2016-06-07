@@ -58,7 +58,7 @@ var DomainsPage = (function () {
             me.domainsTypes = response;
             me.getRequestTypesWithFilters();
         }, function (error) {
-            me.domainsTypes = [];
+            me.getRequestTypesWithFilters();
         });
     };
     DomainsPage.prototype.editRequestType = function (requestType) {

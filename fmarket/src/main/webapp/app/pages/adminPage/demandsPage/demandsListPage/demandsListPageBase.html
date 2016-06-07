@@ -30,7 +30,8 @@
     <div class="demand-list-container clearfix">
         <demand-list-component
                 [demand-list]="_demandsList"
-                (demand-selected)="navigateToDemand($event)">
+                (demand-selected)="navigateToDemand($event)"
+                (remove-demand)="removeDemand($event)">
         </demand-list-component>
     </div>
 </div>

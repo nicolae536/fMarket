@@ -84,7 +84,7 @@ export class DomainsPage implements OnInit {
                     me.getRequestTypesWithFilters();
                 },
                 error => {
-                    me.domainsTypes = [];
+                    me.getRequestTypesWithFilters();
                 });
 
     }

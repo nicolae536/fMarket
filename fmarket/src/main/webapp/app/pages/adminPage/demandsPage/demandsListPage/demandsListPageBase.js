@@ -1,7 +1,7 @@
 /**
  * Created by nick_ on 4/22/2016.
  */
-var _ = require('underscore');
+var _ = require("underscore");
 var DemandStatus_1 = require("../../../../models/DemandStatus");
 var DemandSearchObject_1 = require("../../../../models/DemandSearchObject");
 var DemandsListPageBase = (function () {
