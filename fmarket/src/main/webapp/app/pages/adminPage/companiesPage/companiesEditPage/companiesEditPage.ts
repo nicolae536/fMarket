@@ -42,9 +42,9 @@ export class CompaniesEditPage extends CompaniesEditBase implements OnInit, OnAc
         this._companiesService.getCompanyDetails(parseInt(this.companieId))
             .subscribe(
                 response=> {
-                    response.city = {displayName: response.city, boundItem: response.city};
-                    response.companyDomain = {displayName: response.companyDomain, boundItem: response.companyDomain};
-                    response.demandDomains = [{displayName: response.demandDomains, boundItem: response.demandDomains}];
+                    response['city'] = response['city'] ? {displayName: response['city']['name'], boundItem: response['city']} : null;
+                    response['companyDomain'] = response['companyDomain'] ? {displayName: response['companyDomain']['name'], boundItem: response['companyDomain']} : null;
+                    response['demandDomains'] =  me._localizationService.mapNameToSelect2Item(response['demandDomains']);
                     me._companie = response;
                 },
                 error=> {

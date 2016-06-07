@@ -51,9 +51,9 @@ import {IMenuItem} from "../../../models/interfaces/iMenuItem";
         
         .base-menu-component .base-menu-container .menu-title .glyphicon.glyphicon-triangle-right{
             position: absolute;
-            font-size: 54px;
+            font-size: 48px;
             top: -1px;
-            right: -39px;
+            right: -35px;
             z-index: 10;
             color: #f1f1f1;
         }      

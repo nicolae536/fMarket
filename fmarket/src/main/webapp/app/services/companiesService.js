@@ -36,6 +36,7 @@ var CompaniesService = (function () {
         return this.api.post(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(newCompanyRequest));
     };
     CompaniesService.prototype.uploadCompanyLogo = function (id, logoImage) {
+        var _this = this;
         return Rx_1.Observable.create(function (observer) {
             var formData = new FormData(), xhr = new XMLHttpRequest();
             // for (let i = 0; i < logoImage.length; i++) {
@@ -59,7 +60,7 @@ var CompaniesService = (function () {
                 //
                 //     this.progressObserver.next(this.progress);
                 // };
-                xhr.open('POST', "/admin/companies/logo/" + id, true);
+                xhr.open('POST', _this.ADMIN_COMPANIE_CONTROLLER + ("/logo/" + id), true);
                 xhr.send(formData);
             }
         });

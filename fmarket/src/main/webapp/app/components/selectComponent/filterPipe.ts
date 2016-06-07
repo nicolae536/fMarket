@@ -10,14 +10,14 @@ import {Select2Item} from "./selectComponent";
 })
 export class FilterPipe implements PipeTransform {
     transform(value:Select2Item[], args:any[]):any {
-        if (!args[0] || args[0].length < 1) {
+        if (!args || args.length < 1) {
             return value;
         } else if (value) {
-            args[0] = args[0].toLowerCase();
+            args = args.toLowerCase();
             return value.filter(item => {
                 for (let key in item) {
                     if ((typeof item[key] === 'string' || item[key] instanceof String) &&
-                        (item[key].toLowerCase().indexOf(args[0]) !== -1)) {
+                        (item[key].toLowerCase().indexOf(args) !== -1)) {
                         return true;
                     }
                 }

@@ -34,7 +34,15 @@ export class DemandComponent implements OnInit, OnChanges {
     private _demandForm:ControlGroup;
     private _treeDictionary;
     private _selectCityCompnent:SelectComponent;
-    private _selectedDomain:IMenuItem = {id:-1, name:'Alege domeniu...', level:-1, parentId:-1, orderNr:-1, domainId:-1, hasChildrens:false};
+    private _selectedDomain:IMenuItem = {
+        id: -1,
+        name: 'Alege domeniu...',
+        level: -1,
+        parentId: -1,
+        orderNr: -1,
+        domainId: -1,
+        hasChildrens: false
+    };
 
     foobarItems;
     private isUserLoggedIn;
@@ -58,20 +66,36 @@ export class DemandComponent implements OnInit, OnChanges {
             this.fetchUserEmail();
         }
 
-        if(changes.hasOwnProperty('menuDictionary')){
+        if (changes.hasOwnProperty('menuDictionary')) {
             this._treeDictionary = this.menuDictionary;
         }
     }
 
-    public showDomainsDialog(){
+    removeSelectedDomain(){
+        this._selectedDomain = {
+            id: -1,
+            name: 'Alege domeniu...',
+            level: -1,
+            parentId: -1,
+            orderNr: -1,
+            domainId: -1,
+            hasChildrens: false
+        };
+    }
+
+    public showDomainsDialog() {
         this._menuTreeDialog.showMenuTreeDialog();
+    }
+
+    private removeProperty(property) {
+        this._demandData[property] = '';
     }
 
     private fetchUserEmail() {
         let user = AuthorizationService.getActiveUserState();
         this.isUserLoggedIn = false;
 
-        if(user){
+        if (user) {
             this.isUserLoggedIn = user.loggedIn;
             this._demandData.email = user.email;
         }
@@ -91,7 +115,7 @@ export class DemandComponent implements OnInit, OnChanges {
         this._demandForm.addControl('allCities', this._formBuilder.control(this._demandData.allCities));
     }
 
-    private removeDemandControls(){
+    private removeDemandControls() {
         this._demandForm.removeControl('title');
         this._demandForm.removeControl('message');
         this._demandForm.removeControl('email');
@@ -144,11 +168,11 @@ export class DemandComponent implements OnInit, OnChanges {
 
     }
 
-    referenceDialogInDemandComponent(menuItemsModal){
+    referenceDialogInDemandComponent(menuItemsModal) {
         this._menuTreeDialog = menuItemsModal;
     }
 
-    selectItemUsingMenu(item:IMenuItem){
+    selectItemUsingMenu(item:IMenuItem) {
         this._selectedDomain = item;
     }
 }

@@ -125,7 +125,8 @@ var CompaniesEditComponent = (function () {
         core_1.Component({
             selector: 'companies-edit-componet',
             templateUrl: '/app/components/companieComponent/companieEditComponent/companieEditComponent.html',
-            directives: [selectComponent_1.SelectComponent, common_1.NgIf]
+            directives: [selectComponent_1.SelectComponent, common_1.NgIf],
+            styles: ["\n        @media (max-width: 990px) {\n            .actions .btn{\n                margin: 5px 0;\n                width: 100%;\n            }\n        }\n    "]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], CompaniesEditComponent);

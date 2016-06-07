@@ -18,7 +18,12 @@
 @media (max-width: 990px){
     .companies-page .operations{
         width: 100%;
-        padding: 2% 15px;
+        padding: 2% 0px;
+    }
+
+    .companies-page .filter .col-xs-12 {
+        padding-left:0px;
+        padding-right:0px;
     }
 
     .companies-page .operations .inline-with-row{
@@ -27,5 +32,9 @@
 
     .companies-page .operations .btn{
         width: 100%;
+    }
+
+    .companies-page .companies-grid-view{
+        padding-left: 0px;
     }
 }

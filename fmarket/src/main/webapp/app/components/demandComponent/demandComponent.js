@@ -24,7 +24,15 @@ var DemandComponent = (function () {
         this.positiveLabel = 'Creaza cerere';
         this._componentLoaded = new core_1.EventEmitter();
         this._demandFormSubmit = new core_1.EventEmitter();
-        this._selectedDomain = { id: -1, name: 'Alege domeniu...', level: -1, parentId: -1, orderNr: -1, domainId: -1, hasChildrens: false };
+        this._selectedDomain = {
+            id: -1,
+            name: 'Alege domeniu...',
+            level: -1,
+            parentId: -1,
+            orderNr: -1,
+            domainId: -1,
+            hasChildrens: false
+        };
         this._formBuilder = _formBuilder;
         this._demandForm = this._formBuilder.group([]);
         this.title = 'Adauga cerere';
@@ -42,8 +50,22 @@ var DemandComponent = (function () {
             this._treeDictionary = this.menuDictionary;
         }
     };
+    DemandComponent.prototype.removeSelectedDomain = function () {
+        this._selectedDomain = {
+            id: -1,
+            name: 'Alege domeniu...',
+            level: -1,
+            parentId: -1,
+            orderNr: -1,
+            domainId: -1,
+            hasChildrens: false
+        };
+    };
     DemandComponent.prototype.showDomainsDialog = function () {
         this._menuTreeDialog.showMenuTreeDialog();
+    };
+    DemandComponent.prototype.removeProperty = function (property) {
+        this._demandData[property] = '';
     };
     DemandComponent.prototype.fetchUserEmail = function () {
         var user = authorizationService_1.AuthorizationService.getActiveUserState();

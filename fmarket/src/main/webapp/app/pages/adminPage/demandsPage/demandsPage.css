@@ -19,4 +19,14 @@
     .demand-list-base .list-group .list-group-item .label.label-success {
         margin-left: 2px;
     }
+
+
+    .demands-list-page .filters .btn-full-width .btn {
+        width: 100%;
+    }
+
+    .demands-list-page .filters .btn-full-width {
+        padding: 5px 0;
+        width: 100%;
+    }
 }

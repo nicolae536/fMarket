@@ -127,6 +127,11 @@ export class HeaderComponent implements OnInit {
         return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);
     }
 
+    logoutFromSideMenu() {
+        this.logout();
+        this.closeNav();
+    }
+
     logout() {
         let me = this;
         this.closeNav();
@@ -145,5 +150,11 @@ export class HeaderComponent implements OnInit {
     addDemand(){
         this._router.navigate(['/']);
         this._localStorageService.setItem(ApplicationConstants.NAVIGATE_CREATE_DEMAND,{navigate:true});
+    }
+
+    addDemandFromMobile(){
+        this._router.navigate(['/']);
+        this._localStorageService.setItem(ApplicationConstants.NAVIGATE_CREATE_DEMAND,{navigate:true});
+        this.closeNav();
     }
 }

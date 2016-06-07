@@ -71,13 +71,17 @@
 
 
 @media (max-width: 990px) {
-    .users-page .page-content .row .filters .filter-container .secondary{
-        padding: 5px 15px;
-        padding: 5px 15px;
+    .users-page .page-content .row .filters .filter-container .btn-container{
+        padding: 5px 0px;
         width: 100%;
     }
 
-    .users-page .page-content .row .filters .filter-container .secondary .btn{
+    .users-page .page-content .row .filters .filter-container .col-xs-12{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .users-page .page-content .row .filters .filter-container .btn-container .btn{
         width: 100%;
     }
 

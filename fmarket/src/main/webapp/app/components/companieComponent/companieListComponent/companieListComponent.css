@@ -1,21 +1,55 @@
+.companie-list-component .companies-grid{
+    padding-top: 14px;
+}
+
 .companie-list-component .companies-grid:before {
     content: '';
+}
+
+.companie-list-component .companies-grid .domain-companies-container {
+    border: 3px dashed #ff944d;
+    padding-bottom: 15px;
+    margin-left: 10px;
+    margin-bottom: 20px;
 }
 
 .companie-list-component .companies-grid .title-label {
     padding: 5px;
 }
 
-.companie-list-component .companies-grid .companies-list .companie-list-item{
+.companie-list-component .companies-grid .companies-list {
+    padding: 0 10px;
+}
+
+.companie-list-component .companies-grid .companies-list .companie-list-item {
     position: relative;
+    height: 32px;
+    padding-top: 5px;
+    border-bottom: 1px solid #D2DFF3;
+    cursor: pointer;
+}
+
+.companie-list-component .companies-grid .companies-list .companie-list-item:hover {
+    color: #3973CE;
+    background-color: #D2DFF3;
+    transition: .2s;
 }
 
 .companie-list-component .companies-grid .companies-list .companie-list-item a {
     display: inline-block;
     cursor: pointer;
+    padding-left: 10px;
+    text-decoration: none;
+    color: #39739d;
+}
+
+.companie-list-component .companies-grid .companies-list .companie-list-item a:hover {
+    color: #3973CE;
+    transition: .2s;
 }
 
 .companie-list-component .companies-grid .title-wrapper {
+    margin-top: -7px;
     padding-bottom: 10px;
 }
 
@@ -34,7 +68,7 @@
     transition: .2s;
 }
 
-.companie-list-component .companies-grid .companies-list .companie-list-item .logo-item{
+.companie-list-component .companies-grid .companies-list .companie-list-item .logo-item {
     max-height: 0px;
     transition: .5s;
     width: auto;
@@ -48,26 +82,35 @@
 .companie-list-component .companies-grid .companies-list .companie-list-item a[title]:hover {
     max-height: 50px;
     width: auto;
+    z-index: 10;
 }
 
-.tooltip-container{
+.tooltip-container {
     position: absolute;
     width: 100%;
     margin-top: 4px;
     margin-top: 10px;
 }
 
-.tooltip-container .inner-tooltip-container{
+.tooltip-container .inner-tooltip-container {
     display: inline-block;
     opacity: 0;
-    /*overflow: hidden;*/
     transition: .3s;
+    height: 0px;
     max-width: 0px;
     max-height: 0px;
 }
 
-.tooltip-container .inner-tooltip-container.open{
+.tooltip-container .inner-tooltip-container.open {
     max-width: 100%;
     max-height: 60px;
     opacity: 1;
+    height: auto;
+    z-index: 10;
+}
+
+@media (min-width: 992px) {
+    .companie-list-component .companies-grid .domain-companies-container {
+        width: 24%;
+    }
 }

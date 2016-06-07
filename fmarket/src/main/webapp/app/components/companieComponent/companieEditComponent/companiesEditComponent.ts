@@ -10,7 +10,15 @@ import {SelectComponent, Select2Item} from "../../selectComponent/selectComponen
 @Component({
     selector: 'companies-edit-componet',
     templateUrl: '/app/components/companieComponent/companieEditComponent/companieEditComponent.html',
-    directives: [SelectComponent, NgIf]
+    directives: [SelectComponent, NgIf],
+    styles:[`
+        @media (max-width: 990px) {
+            .actions .btn{
+                margin: 5px 0;
+                width: 100%;
+            }            
+        }
+    `]
 })
 export class CompaniesEditComponent implements OnInit {
     @Input('companie-model') _companieEditFormModel:NewCompanyRequest;

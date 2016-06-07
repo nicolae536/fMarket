@@ -23,14 +23,14 @@
                 <div class="filters">
 
                     <div class="clearfix filter-container">
-                        <div class="col-lg-3 remove-left-padding">
+                        <div class="col-lg-3 col-xs-12 remove-left-padding">
                             <div class="form-group">
                                 <label>Email:</label>
                                 <input type="text" [(ngModel)]="emailFilter" placeholder="email@domain.com"
                                        class="form-control"/>
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-3 col-xs-12">
                             <div class="form-group">
                                 <label>Data abonarii:</label>
                                 <div class="input-group">
@@ -55,7 +55,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3">
+                        <div class="col-lg-3 col-xs-12">
                             <div class="form-group">
                                 <label>Data dezabonarii:</label>
                                 <div class="input-group">
@@ -78,12 +78,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 no-right-p padding-top-25 remove-right-padding">
-                            <div class="pull-right">
+                        <div class="col-lg-3 col-xs-12 no-right-p padding-top-25 remove-right-padding">
+                            <div class="pull-right btn-full-width">
                                 <input type="button" class="btn btn-primary" (click)="showSubscriberDialog()"
                                        value="Adauga abonat"/>
                             </div>
-                            <div class="pull-left">
+                            <div class="pull-left btn-full-width">
                                 <input type="button" class="btn btn-success" (click)="getSubscribersWithFilters()"
                                        value="Aplica filtre"/>
                             </div>

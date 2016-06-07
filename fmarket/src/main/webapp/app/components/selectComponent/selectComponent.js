@@ -16,7 +16,7 @@ var filterPipe_1 = require("./filterPipe");
 var SelectComponent = (function () {
     function SelectComponent() {
         this.loadedSelect = new core_1.EventEmitter();
-        this._chooseItemValue = { displayName: 'Choose...', boundItem: null };
+        this._chooseItemValue = { displayName: 'Alege...', boundItem: null };
         this.searchQuery = "";
         this._dropdownStatus = { isopen: false };
     }

@@ -95,6 +95,10 @@ var HeaderComponent = (function () {
     HeaderComponent.prototype.isAdminUser = function () {
         return authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
     };
+    HeaderComponent.prototype.logoutFromSideMenu = function () {
+        this.logout();
+        this.closeNav();
+    };
     HeaderComponent.prototype.logout = function () {
         var me = this;
         this.closeNav();
@@ -109,6 +113,11 @@ var HeaderComponent = (function () {
     HeaderComponent.prototype.addDemand = function () {
         this._router.navigate(['/']);
         this._localStorageService.setItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND, { navigate: true });
+    };
+    HeaderComponent.prototype.addDemandFromMobile = function () {
+        this._router.navigate(['/']);
+        this._localStorageService.setItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND, { navigate: true });
+        this.closeNav();
     };
     HeaderComponent = __decorate([
         core_1.Component({

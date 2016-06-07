@@ -1,7 +1,7 @@
 <div class="companie-list-component clearfix">
     <div class="companies-grid clearfix">
         <div *ngFor="let container of _companieList; let i=index">
-            <div *ngIf="container && container.length >0" class="col-md-3 col-xs-12">
+            <div *ngIf="container && container.length >0" class="col-md-3 col-xs-12 domain-companies-container">
                 <div *ngFor="let cellWrapper of container">
                     <div class="title-wrapper">
                         <span class="h4 cell-tag-label">
@@ -9,9 +9,9 @@
                         </span>
                     </div>
                     <div class="companies-list">
-                        <div *ngFor="let companie of cellWrapper.companies" class="companie-list-item">
-                            <a click="selectCompanie(companie)" (mouseover)="companie.tooltipVisible=true"
-                               (mouseleave)="companie.tooltipVisible=false">
+                        <div *ngFor="let companie of cellWrapper.companies" class="companie-list-item"  (mouseover)="companie.tooltipVisible=true"
+                             (mouseleave)="companie.tooltipVisible=false">
+                            <a click="selectCompanie(companie)">
                                 <span>
                                 {{companie.name}}
                                     </span><!--<img [src]=""/>-->
@@ -25,7 +25,6 @@
                                 </div>
                             </a>
                         </div>
-                        <hr/>
                     </div>
                 </div>
             </div>

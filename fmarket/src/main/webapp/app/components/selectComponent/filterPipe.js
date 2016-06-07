@@ -15,15 +15,15 @@ var FilterPipe = (function () {
     function FilterPipe() {
     }
     FilterPipe.prototype.transform = function (value, args) {
-        if (!args[0] || args[0].length < 1) {
+        if (!args || args.length < 1) {
             return value;
         }
         else if (value) {
-            args[0] = args[0].toLowerCase();
+            args = args.toLowerCase();
             return value.filter(function (item) {
                 for (var key in item) {
                     if ((typeof item[key] === 'string' || item[key] instanceof String) &&
-                        (item[key].toLowerCase().indexOf(args[0]) !== -1)) {
+                        (item[key].toLowerCase().indexOf(args) !== -1)) {
                         return true;
                     }
                 }

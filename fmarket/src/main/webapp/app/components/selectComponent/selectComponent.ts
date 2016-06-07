@@ -53,7 +53,7 @@ export class SelectComponent implements OnInit, OnChanges, DoCheck {
     @Input('selected-items') _selectedItems:Array<Select2Item>;
     @Input('multi-select') muliSelect:boolean;
     @Output('loaded') loadedSelect:EventEmitter<SelectComponent> = new EventEmitter<SelectComponent>();
-    _chooseItemValue = {displayName: 'Choose...', boundItem: null};
+    _chooseItemValue = {displayName: 'Alege...', boundItem: null};
 
     private dropUp:boolean;
     private searchQuery = "";

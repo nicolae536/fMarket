@@ -46,9 +46,9 @@ var CompaniesPage = (function () {
     };
     CompaniesPage.prototype.splitViewInPiecesUsingScreen = function (mockArray) {
         var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0]['clientWidth'];
-        if (screenWidth <= 767) {
-            return [mockArray];
-        }
+        // if (screenWidth <= 767) {
+        //     return [mockArray]
+        // }
         var index = 0;
         var realIndex = 0;
         var collector = [];

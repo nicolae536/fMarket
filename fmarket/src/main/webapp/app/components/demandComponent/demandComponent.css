@@ -9,6 +9,12 @@
     height: 42px;
 }
 
+.demand-dialog-component .demand-component-container .demand-component .remove-icon{
+    position: absolute;
+    right: 25px;
+    top: 8px;
+}
+
 .demand-dialog-component .demand-component-container .demand-component .col-md-10.col-xs-9 .select-domain{
     cursor: pointer;
 }

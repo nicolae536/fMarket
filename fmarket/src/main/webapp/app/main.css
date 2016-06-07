@@ -95,8 +95,8 @@
 
 .blue_arrow_box_top {
     position: relative;
-    background: #ffffff;
-    border: 4px solid #00ccae;
+    background: #39739d;
+    border: 4px solid #39739d;
 }
 
 .blue_arrow_box_top:after, .blue_arrow_box_top:before {
@@ -112,14 +112,14 @@
 
 .blue_arrow_box_top:after {
     border-color: rgba(255, 255, 255, 0);
-    border-bottom-color: #00ccae;
+    border-bottom-color:#39739d;
     border-width: 10px;
     margin-left: -10px;
 }
 
 .blue_arrow_box_top:before {
     border-color: rgba(0, 166, 218, 0);
-    border-bottom-color: #00ccae;
+    border-bottom-color:#39739d;
     border-width: 16px;
     margin-left: -16px;
 }
@@ -634,7 +634,7 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 967px) {
     .modal-dialog.modal-dialog-very-sm {
         width: 383px;
         margin: 30px auto;

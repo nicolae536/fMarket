@@ -64,14 +64,15 @@ export class CompaniesPage implements OnInit {
     splitViewInPiecesUsingScreen(mockArray:Array<Object>) {
         let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0]['clientWidth'];
 
-        if (screenWidth <= 767) {
-            return [mockArray]
-        }
+        // if (screenWidth <= 767) {
+        //     return [mockArray]
+        // }
 
         let index = 0;
         let realIndex = 0;
         let collector = [];
         let columns = Math.round(mockArray.length / 4);
+
         _.each(mockArray, (value, name)=> {
             if (realIndex == columns) {
                 index++;

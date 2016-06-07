@@ -70,7 +70,7 @@ export class CompaniesService {
                 //     this.progressObserver.next(this.progress);
                 // };
 
-                xhr.open('POST', `/admin/companies/logo/${id}`, true);
+                xhr.open('POST', this.ADMIN_COMPANIE_CONTROLLER + `/logo/${id}`, true);
                 xhr.send(formData);
             }
         });
