@@ -90665,6 +90665,7 @@
 	        this._applicationStateService = applicationStateService;
 	    }
 	    TokenConfirmPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
+	        debugger;
 	        var token = this.getParameterByName('token', location.href);
 	        this.validateToken(token);
 	        jqueryService_1.JqueryService.removeElementWithAnimation('#' + applicationConstansts_1.ApplicationConstants.LOADING_SPINNER);
