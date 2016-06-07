@@ -24,6 +24,8 @@ import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
 import ro.fmarket.model.company.Company;
 import ro.fmarket.model.company.CompanyDao;
 import ro.fmarket.model.company.NewCompanyRequest;
+import ro.fmarket.model.company.logo.CompanyLogo;
+import ro.fmarket.model.company.logo.CompanyLogoDao;
 import ro.fmarket.model.company.rating.CompanyContactInfo;
 import ro.fmarket.model.company.rating.CompanyRating;
 import ro.fmarket.model.domain.company.CompanyDomainDao;
@@ -49,6 +51,9 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 	@Autowired
 	private DemandDomainDao demandDomainDao;
 
+	@Autowired
+	private CompanyLogoDao companyLogoDao;
+	
 	@Autowired
 	private CityDao cityDao;
 
@@ -179,8 +184,16 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 	}
 
 	@Override
-	public void updateCompanyLogo(String fileName, int size, byte[] photo) {
-		// TODO Auto-generated method stub
+	public void updateCompanyLogo(int companyId, String fileName, int size, byte[] photo) {
+		CompanyLogo logo = companyLogoDao.getByCompany(companyId);
+		if (logo == null) {
+			logo = new CompanyLogo();
+			logo.setCompany(companyDao.load(companyId));
+		}
+		logo.setName(fileName);
+		logo.setFile(photo);
+		logo.setSize(size);
+		companyLogoDao.update(logo);
 		
 	}
 
