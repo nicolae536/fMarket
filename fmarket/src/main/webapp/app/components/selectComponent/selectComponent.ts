@@ -23,7 +23,7 @@ import {FilterPipe} from "./filterPipe";
                         <div *ngIf="_selectedItems && _selectedItems.length < 1" style="margin-top: 4px;">
                             <span>Alege...</span>
                         </div>                    
-                        <span class="label label-info pull-left" *ngFor="let item of _selectedItems">{{item.displayName}} <span class="remove-selected" (click)="removeItemFromSelection($event,item)">&times;</span></span>
+                        <span class="label label-info pull-left" *ngFor="let item of _selectedItems">{{item.displayName}} <span class="remove-selected glyphicon glyphicon-remove" (click)="removeItemFromSelection($event,item)"></span></span>
                     </div>
                     <div class="options-container">
                         <span [class]="getCarretClass()"></span>
