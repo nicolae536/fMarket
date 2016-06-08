@@ -17,7 +17,7 @@ var demand_1 = require("../../models/demand");
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
 var authorizationService_1 = require("../../services/authorizationService");
 var menuTreeDialog_1 = require("../menuComponent/menuTreeDialog/menuTreeDialog");
-var APPLICATION_PATH = '/app/components/demandComponent';
+var template = require('./demandComponent.html');
 var DemandComponent = (function () {
     function DemandComponent(_formBuilder) {
         this._demandData = new demand_1.Demand();
@@ -170,7 +170,7 @@ var DemandComponent = (function () {
     DemandComponent = __decorate([
         core_1.Component({
             selector: 'demand-component',
-            templateUrl: APPLICATION_PATH + '/demandComponent.html',
+            template: template,
             directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent, menuTreeDialog_1.MenuTreeDialog]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])

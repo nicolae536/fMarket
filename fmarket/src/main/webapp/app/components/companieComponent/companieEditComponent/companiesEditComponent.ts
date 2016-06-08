@@ -7,9 +7,12 @@ import {FormBuilder, Control, Validators, NgIf} from "@angular/common";
 import {NewCompanyRequest} from "../../../models/newCompanyRequest";
 import {CustomValidators} from "../../../models/Angular2ExtensionValidators";
 import {SelectComponent, Select2Item} from "../../selectComponent/selectComponent";
+
+let template = require('./companieEditComponent.html');
+
 @Component({
     selector: 'companies-edit-componet',
-    templateUrl: '/app/components/companieComponent/companieEditComponent/companieEditComponent.html',
+    template:template,
     directives: [SelectComponent, NgIf],
     styles:[`
         @media (max-width: 990px) {

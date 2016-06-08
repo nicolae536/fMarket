@@ -23,6 +23,7 @@ var notificationService_1 = require("../../../../services/notificationService");
 var companiesEditComponent_1 = require("../../../../components/companieComponent/companieEditComponent/companiesEditComponent");
 var companiesEditBase_1 = require("./companiesEditBase");
 var localizationService_1 = require("../../../../services/localizationService");
+var template = require('./companiesEditPage.html');
 var CompaniesEditPage = (function (_super) {
     __extends(CompaniesEditPage, _super);
     function CompaniesEditPage(location, router, companiesService, notificationService, localizationService) {
@@ -72,7 +73,7 @@ var CompaniesEditPage = (function (_super) {
     CompaniesEditPage = __decorate([
         core_1.Component({
             selector: 'companies-edit-page',
-            templateUrl: '/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
+            template: template,
             directives: [companiesEditComponent_1.CompaniesEditComponent]
         }), 
         __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])

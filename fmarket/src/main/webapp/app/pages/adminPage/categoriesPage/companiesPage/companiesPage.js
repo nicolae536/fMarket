@@ -11,7 +11,7 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var companieTypesService_1 = require("../../../../services/companieTypesService");
 var companieType_1 = require("../../../../models/companieType");
-var applicationPath = '/app/pages/adminPage/categoriesPage/companiesPage';
+var template = require('./companiesPage.html');
 var CompaniesPage = (function () {
     //</editor-fold>
     function CompaniesPage(companieTypeService, formBuilder) {
@@ -98,8 +98,7 @@ var CompaniesPage = (function () {
     CompaniesPage = __decorate([
         core_1.Component({
             selector: 'companies-Page',
-            templateUrl: applicationPath + '/companiesPage.html',
-            styleUrls: [applicationPath + '/companiesPage.css'],
+            template: template,
         }), 
         __metadata('design:paramtypes', [companieTypesService_1.CompanieTypeService, common_1.FormBuilder])
     ], CompaniesPage);

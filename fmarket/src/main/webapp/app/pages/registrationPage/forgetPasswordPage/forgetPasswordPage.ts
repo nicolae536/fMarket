@@ -11,11 +11,11 @@ import {RegisterAccount} from "../../../models/registerAccount";
 import {NotificationService} from "../../../services/notificationService";
 import {JqueryService} from "../../../services/jqueryService";
 
-const folderPath = '/app/pages/registrationPage';
+let template = require('../registrationPage.html');
 
 @Component({
     selector: 'forget=password-page',
-    templateUrl: folderPath + '/registrationPage.html',
+    template: template,
     styles: [`
     .forget-password-page{
         padding-top: 14vh;

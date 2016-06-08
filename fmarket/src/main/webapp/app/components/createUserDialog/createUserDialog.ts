@@ -1,14 +1,14 @@
 import {Component, Input, Output, OnInit, EventEmitter} from "@angular/core";
 import {FormBuilder, Validators, FORM_DIRECTIVES} from "@angular/common";
-
 import {ModalDialog} from "../modalDialog/modalDialog";
 import {User} from "../../models/user";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
-import * as _ from 'underscore';
+import * as _ from "underscore";
+let template = require('./createUserDialog.html');
 @Component({
     selector: 'create-user-dialog',
-    templateUrl: 'app/components/createUserDialog/createUserDialog.html',
-    directives:[FORM_DIRECTIVES]
+    template: template,
+    directives: [FORM_DIRECTIVES]
 })
 
 export class CreateUserDialog extends ModalDialog implements OnInit {
@@ -56,27 +56,27 @@ export class CreateUserDialog extends ModalDialog implements OnInit {
         return this.responseObject as User;
     }
 
-    submitNewUser(){
-        if(!this._userForm.valid){
+    submitNewUser() {
+        if (!this._userForm.valid) {
             return
         }
 
         this.createUser.emit(this.getValue());
     }
 
-    cancelFormAction(){
+    cancelFormAction() {
         this.rebuildForm();
         this.cancelAction();
     }
 
-    rebuildForm(){
-        let me=this;
+    rebuildForm() {
+        let me = this;
         this.responseObject = new User();
-        let controls=[];
-        _.each(this._userForm, (control,name)=>{
-            controls[name]=name;
+        let controls = [];
+        _.each(this._userForm, (control, name)=> {
+            controls[name] = name;
         });
-        _.each(controls, (control,name)=>{
+        _.each(controls, (control, name)=> {
             me._userForm.removeControl(name);
         });
         this.buildForm();

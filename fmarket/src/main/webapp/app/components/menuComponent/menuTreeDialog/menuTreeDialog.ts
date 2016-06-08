@@ -3,10 +3,11 @@ import {ModalDialog} from "../../modalDialog/modalDialog";
 import {MenuTreeComponent} from "../menuTreeComponent";
 import {IMenuItem} from "../../../models/interfaces/iMenuItem";
 
+let template = require('./menuTreeDialog.html');
 
 @Component({
     selector: 'menu-tree-dialog',
-    templateUrl: '/app/components/menuComponent/menuTreeDialog/menuTreeDialog.html',
+    template:template,
     directives:[MenuTreeComponent]
 })
 

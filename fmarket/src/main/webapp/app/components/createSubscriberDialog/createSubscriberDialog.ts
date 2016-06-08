@@ -5,9 +5,11 @@ import {ModalDialog} from '../modalDialog/modalDialog';
 import {Subscriber} from '../../models/subscriber';
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 
+let template = require('./createSubscriberDialog.html');
+
 @Component({
     selector: 'create-subscriber-dialog',
-    templateUrl: 'app/components/createSubscriberDialog/createSubscriberDialog.html',
+    template:template,
     directives:[FORM_DIRECTIVES]
 })
 

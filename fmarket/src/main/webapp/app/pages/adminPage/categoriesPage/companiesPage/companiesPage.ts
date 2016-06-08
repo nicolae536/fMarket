@@ -5,12 +5,12 @@ import {CompanieTypeService} from "../../../../services/companieTypesService";
 
 import {CompanieType} from "../../../../models/companieType";
 
-let applicationPath:string = '/app/pages/adminPage/categoriesPage/companiesPage';
+let template = require('./companiesPage.html');
 
 @Component({
     selector: 'companies-Page',
-    templateUrl: applicationPath + '/companiesPage.html',
-    styleUrls: [applicationPath + '/companiesPage.css'],
+    template:template,
+    //styleUrls: [applicationPath + '/companiesPage.css'],
 })
 
 export class CompaniesPage implements OnInit {

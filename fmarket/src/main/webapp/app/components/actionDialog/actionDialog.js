@@ -14,6 +14,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var modalDialog_1 = require('../modalDialog/modalDialog');
+var template = require('./actionDialog.html');
 var ActionDialog = (function (_super) {
     __extends(ActionDialog, _super);
     function ActionDialog() {
@@ -49,7 +50,7 @@ var ActionDialog = (function (_super) {
     ActionDialog = __decorate([
         core_1.Component({
             selector: 'action-dialog',
-            templateUrl: 'app/components/actionDialog/actionDialog.html'
+            template: template
         }), 
         __metadata('design:paramtypes', [])
     ], ActionDialog);

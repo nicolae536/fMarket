@@ -16,6 +16,7 @@ var common_1 = require("@angular/common");
 var newCompanyRequest_1 = require("../../../models/newCompanyRequest");
 var Angular2ExtensionValidators_1 = require("../../../models/Angular2ExtensionValidators");
 var selectComponent_1 = require("../../selectComponent/selectComponent");
+var template = require('./companieEditComponent.html');
 var CompaniesEditComponent = (function () {
     function CompaniesEditComponent(formBuilder) {
         this.saveCompanieEmitter = new core_1.EventEmitter();
@@ -125,7 +126,7 @@ var CompaniesEditComponent = (function () {
     CompaniesEditComponent = __decorate([
         core_1.Component({
             selector: 'companies-edit-componet',
-            templateUrl: '/app/components/companieComponent/companieEditComponent/companieEditComponent.html',
+            template: template,
             directives: [selectComponent_1.SelectComponent, common_1.NgIf],
             styles: ["\n        @media (max-width: 990px) {\n            .actions {\n                pa\n            } \n            \n            .actions .btn{\n                width: 100%;\n            }\n        }\n    "]
         }), 

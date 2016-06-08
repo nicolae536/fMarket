@@ -13,11 +13,11 @@ import {RegistrationComponent} from "../../components/registrationComponent/regi
 
 import {RegisterAccount} from "../../models/registerAccount";
 
-const folderPath = '/app/pages/registrationPage';
+let template = require('./registrationPage.html');
 
 @Component({
     selector: 'registration-page',
-    templateUrl: folderPath + '/registrationPage.html',
+    template: template,
     directives: [RegistrationComponent]
 })
 export class RegistrationPage implements OnInit, AfterViewChecked {

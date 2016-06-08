@@ -17,6 +17,7 @@ var common_1 = require("@angular/common");
 var modalDialog_1 = require('../modalDialog/modalDialog');
 var subscriber_1 = require('../../models/subscriber');
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
+var template = require('./createSubscriberDialog.html');
 var CreateSubscriberDialog = (function (_super) {
     __extends(CreateSubscriberDialog, _super);
     function CreateSubscriberDialog(formBuilder) {
@@ -81,7 +82,7 @@ var CreateSubscriberDialog = (function (_super) {
     CreateSubscriberDialog = __decorate([
         core_1.Component({
             selector: 'create-subscriber-dialog',
-            templateUrl: 'app/components/createSubscriberDialog/createSubscriberDialog.html',
+            template: template,
             directives: [common_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])

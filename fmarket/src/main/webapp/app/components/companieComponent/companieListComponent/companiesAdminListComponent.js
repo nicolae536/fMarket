@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 5/6/2016.
  */
 var core_1 = require("@angular/core");
+var template = require('./companiesAdminListComponent.html');
 var CompanieAdmminListComponent = (function () {
     function CompanieAdmminListComponent() {
         this._companieSelectedEmitter = new core_1.EventEmitter();
@@ -38,7 +39,7 @@ var CompanieAdmminListComponent = (function () {
     CompanieAdmminListComponent = __decorate([
         core_1.Component({
             selector: 'companie-admin-list-component',
-            templateUrl: '/app/components/companieComponent/companieListComponent/companiesAdminListComponent.html',
+            template: template,
         }), 
         __metadata('design:paramtypes', [])
     ], CompanieAdmminListComponent);

@@ -2,9 +2,11 @@ import {Component, Output, Input, EventEmitter} from '@angular/core';
 import {FormBuilder, ControlGroup, Validators} from "@angular/common";
 import {ModalDialog} from "../../modalDialog/modalDialog";
 
+let template = require('./rejectDemandDialogComponent.html');
+
 @Component({
     selector: 'reject-demand-dialog',
-    templateUrl: 'app/components/demandComponent/rejectDemandDialogComponent/rejectDemandDialogComponent.html'
+    template:template,
 })
 
 export class RejectDemandDialogComponent extends ModalDialog{

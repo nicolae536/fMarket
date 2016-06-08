@@ -11,11 +11,11 @@ import {AuthorizationService} from "../../services/authorizationService";
 import {MenuTreeDialog} from "../menuComponent/menuTreeDialog/menuTreeDialog";
 import {IMenuItem} from "../../models/interfaces/iMenuItem";
 
-const APPLICATION_PATH:string = '/app/components/demandComponent';
+let template = require('./demandComponent.html');
 
 @Component({
     selector: 'demand-component',
-    templateUrl: APPLICATION_PATH + '/demandComponent.html',
+    template:template,
     directives: [FORM_DIRECTIVES, SelectComponent, MenuTreeDialog]
 })
 export class DemandComponent implements OnInit, OnChanges {

@@ -17,11 +17,11 @@ import {ApplicationConstants} from "../../models/applicationConstansts";
 import {CompanieCreatePage} from "./companiesPage/companiesEditPage/companiesCreatePage";
 import {Role} from "../../models/Roles";
 
-var applicationPath:string = '/app/pages/adminPage';
+let template = require('./adminPage.html');
 
 @Component({
     selector: 'admin-Page',
-    templateUrl: applicationPath + '/adminPage.html',
+    template:template,
     directives: [ROUTER_DIRECTIVES]
 })
 

@@ -12,10 +12,12 @@ import {INewDomainMenuItemRequest} from "../../../models/interfaces/iNewDomainMe
 import {IUpdateDomainMenuItemRequest} from "../../../models/interfaces/iUpdateDomainMenuItemRequest";
 import {CustomValidators} from "../../../models/Angular2ExtensionValidators";
 
+let template = require('./menuItemDialog.html');
+
 //used template to not download the same html multiple times
 @Component({
     selector: 'menu-item-dialog',
-    templateUrl: '/app/components/menuComponent/menuItemDialog/menuItemDialog.html',
+    template:template,
     styles:[`
         .ng-dirty.ng-invalid.ng-touched {
             border-color: #ab2424;

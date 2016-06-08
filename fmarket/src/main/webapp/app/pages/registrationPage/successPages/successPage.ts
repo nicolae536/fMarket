@@ -7,9 +7,11 @@ import {Router, ROUTER_DIRECTIVES, OnActivate, RouteSegment, RouteTree} from "@a
 import {JqueryService} from "../../../services/jqueryService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
 
+let template = require('./successPage.html');
+
 @Component({
     selector:'success-register-page',
-    templateUrl: 'app/pages/registrationPage/successPages/successPage.html',
+    template: template,
     directives:[ROUTER_DIRECTIVES]
 })
 export class SuccessPage implements OnActivate{

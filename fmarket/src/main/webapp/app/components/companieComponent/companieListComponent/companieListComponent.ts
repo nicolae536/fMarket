@@ -6,9 +6,11 @@ import {CompanieDto} from "../../../models/companieDto";
 import {DomainCompanieDto} from "../../../models/domainCompanieDto";
 import {TOOLTIP_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 
+let template = require('./companieListComponent.html');
+
 @Component({
     selector:'companie-list-component',
-    templateUrl:'/app/components/companieComponent/companieListComponent/companieListComponent.html',
+    template:template,
     directives:[TOOLTIP_DIRECTIVES]
 })
 export class CompanieListComponent {

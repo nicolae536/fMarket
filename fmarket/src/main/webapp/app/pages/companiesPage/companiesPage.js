@@ -18,7 +18,7 @@ var companieListComponent_1 = require("../../components/companieComponent/compan
 var ng2_bootstrap_1 = require("ng2-bootstrap/ng2-bootstrap");
 var companiesService_1 = require("../../services/companiesService");
 var notificationService_1 = require("../../services/notificationService");
-var applicationPath = '/app/pages/companiesPage';
+var template = require('./companiesPage.html');
 var CompaniesPage = (function () {
     //</editor-fold">
     function CompaniesPage(router, companiesService, notificationService) {
@@ -69,8 +69,7 @@ var CompaniesPage = (function () {
     CompaniesPage = __decorate([
         core_1.Component({
             selector: 'compnaies-Page',
-            templateUrl: applicationPath + '/companiesPage.html',
-            styleUrls: [applicationPath + '/companiesPage.css'],
+            template: template,
             directives: [companieListComponent_1.CompanieListComponent, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])

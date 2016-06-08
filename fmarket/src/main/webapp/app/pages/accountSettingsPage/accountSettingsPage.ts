@@ -14,11 +14,12 @@ import {AuthorizationService} from "../../services/authorizationService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
 import {TabsRoutingComponent} from "../../components/tabsComponent/tabsRoutingComponent";
 import {Role} from "../../models/Roles";
-var applicationPath:string = '/app/pages/accountSettingsPage';
+let template = require('./accountSettingsPage.html');
+
 
 @Component({
     selector: 'account-settings-Page',
-    templateUrl: applicationPath + '/accountSettingsPage.html',
+    template:template,
     directives: [ROUTER_DIRECTIVES, TabsRoutingComponent]
 })
 

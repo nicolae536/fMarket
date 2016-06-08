@@ -5,11 +5,11 @@ import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {DemandDetailsDTO} from "../../../models/demandDetailsDTO";
 import {SelectComponent, Select2Item} from "../../selectComponent/selectComponent";
 
-const APPLICATION_PATH:string = '/app/components/demandComponent/demandEdit';
+let template = require('./demandEdit.html');
 
 @Component({
     selector: 'demand-edit-component',
-    templateUrl: APPLICATION_PATH + '/demandEdit.html',
+    template:template,
     directives:[SelectComponent]
 })
 export class DemandEditComponent {

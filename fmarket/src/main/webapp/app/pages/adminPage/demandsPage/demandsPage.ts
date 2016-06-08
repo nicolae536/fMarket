@@ -9,12 +9,12 @@ import {NewDemandsListPage} from "./demandsListPage/newDemandsListPage";
 import {AllDemandsListPage} from "./demandsListPage/allDemandsListPage";
 import {TabHeader} from "../../../models/TabHeader";
 
-let applicationPath:string = '/app/pages/adminPage/demandsPage';
+let template = require('./demandsPage.html');
 
 @Component({
     selector: 'demands-page',
-    templateUrl: applicationPath + '/demandsPage.html',
-    styleUrls: [applicationPath + '/demandsPage.css'],
+    template:template,
+    //styleUrls: [applicationPath + '/demandsPage.css'],
     directives: [TabsRoutingComponent, ROUTER_DIRECTIVES]
 })
 @Routes([

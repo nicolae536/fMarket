@@ -11,12 +11,12 @@ import {IUpdateDomainMenuItemRequest} from "../../../../models/interfaces/iUpdat
 import {AuthorizationService} from "../../../../services/authorizationService";
 import {Role} from "../../../../models/Roles";
 
-let applicationPath:string = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
+let template = require('./categoriesMenuPage.html');
 
 @Component({
     selector: 'companies-Page',
-    templateUrl: applicationPath + '/categoriesMenuPage.html',
-    styleUrls: [applicationPath + '/categoriesMenuPage.css'],
+    template:template,
+    //styleUrls: [applicationPath + '/categoriesMenuPage.css'],
     directives: [MenuTreeComponent, MenuItemDialog, SelectComponent],
 })
 export class CategoriesMenuPage implements OnInit {

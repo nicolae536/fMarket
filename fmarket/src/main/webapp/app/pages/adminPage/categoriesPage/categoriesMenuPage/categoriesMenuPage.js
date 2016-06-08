@@ -14,7 +14,7 @@ var menuItemDialog_1 = require("../../../../components/menuComponent/menuItemDia
 var selectComponent_1 = require("../../../../components/selectComponent/selectComponent");
 var authorizationService_1 = require("../../../../services/authorizationService");
 var Roles_1 = require("../../../../models/Roles");
-var applicationPath = '/app/pages/adminPage/categoriesPage/categoriesMenuPage';
+var template = require('./categoriesMenuPage.html');
 var CategoriesMenuPage = (function () {
     //</editor-fold>
     function CategoriesMenuPage(_categoriesMenuService) {
@@ -96,8 +96,8 @@ var CategoriesMenuPage = (function () {
     CategoriesMenuPage = __decorate([
         core_1.Component({
             selector: 'companies-Page',
-            templateUrl: applicationPath + '/categoriesMenuPage.html',
-            styleUrls: [applicationPath + '/categoriesMenuPage.css'],
+            template: template,
+            //styleUrls: [applicationPath + '/categoriesMenuPage.css'],
             directives: [menuTreeComponent_1.MenuTreeComponent, menuItemDialog_1.MenuItemDialog, selectComponent_1.SelectComponent],
         }), 
         __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])

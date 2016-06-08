@@ -14,6 +14,7 @@ var core_1 = require('@angular/core');
 var common_1 = require("@angular/common");
 var selectComponent_1 = require('../../selectComponent/selectComponent');
 var Angular2ExtensionValidators_1 = require("../../../models/Angular2ExtensionValidators");
+var template = require('./menuItemDialog.html');
 //used template to not download the same html multiple times
 var MenuItemDialog = (function () {
     function MenuItemDialog(formBuilder) {
@@ -142,7 +143,7 @@ var MenuItemDialog = (function () {
     MenuItemDialog = __decorate([
         core_1.Component({
             selector: 'menu-item-dialog',
-            templateUrl: '/app/components/menuComponent/menuItemDialog/menuItemDialog.html',
+            template: template,
             styles: ["\n        .ng-dirty.ng-invalid.ng-touched {\n            border-color: #ab2424;\n        \n        }\n        \n        .ng-dirty.ng-invalid.ng-touched:focus {\n            border-color: #ab2424;\n            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #ab2424;\n        }\n    "],
             directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent]
         }), 

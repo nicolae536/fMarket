@@ -15,7 +15,7 @@ var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var registerAccount_1 = require("../../models/registerAccount");
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
-var APPLICATION_PATH = '/app/components/registrationComponent';
+var template = require('./registrationComponent.html');
 var RegistrationComponent = (function () {
     function RegistrationComponent(formBuilder) {
         this.$registrationForm = new core_1.EventEmitter();
@@ -137,7 +137,7 @@ var RegistrationComponent = (function () {
     RegistrationComponent = __decorate([
         core_1.Component({
             selector: 'registration-component',
-            templateUrl: APPLICATION_PATH + '/registrationComponent.html',
+            template: template,
             directives: [common_1.FORM_DIRECTIVES, router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])

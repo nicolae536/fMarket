@@ -5,10 +5,10 @@
 import {Component} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 
-let directoryPath = '/app/components/footerComponent';
+let template = require('./footerComponent.html');
 @Component({
     selector: 'footer-component',
-    templateUrl: directoryPath + '/footerComponent.html',
+    template: template,
     directives: [ROUTER_DIRECTIVES]
 })
 

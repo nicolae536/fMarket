@@ -1,9 +1,9 @@
 import {Component, Output, Input, EventEmitter} from '@angular/core';
 import {ModalDialog} from '../modalDialog/modalDialog';
-
+let template = require('./actionDialog.html');
 @Component({
     selector: 'action-dialog',
-    templateUrl: 'app/components/actionDialog/actionDialog.html'
+    template:template
 })
 
 export class ActionDialog extends ModalDialog{

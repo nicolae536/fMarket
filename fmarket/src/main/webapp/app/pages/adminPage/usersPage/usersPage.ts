@@ -18,12 +18,12 @@ import {STATUS} from "../../../services/mock-providers/mock-Status";
 import {AccountStatus} from "../../../models/accountStatus";
 
 
-var applicationPath:string = '/app/pages/adminPage/usersPage';
+let template = require('./usersPage.html');
 
 @Component({
     selector: 'users-Page',
-    templateUrl: applicationPath + '/usersPage.html',
-    styleUrls: [applicationPath + '/usersPage.css'],
+    template: template,
+    //styleUrls: [applicationPath + '/usersPage.css'],
     encapsulation: ViewEncapsulation.None,
     directives: [ActionDialog, CreateUserDialog, NgForm, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })

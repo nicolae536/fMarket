@@ -12,9 +12,11 @@ import {CompaniesEditBase} from "./companiesEditBase";
 import {NewCompanyRequest} from "../../../../models/newCompanyRequest";
 import {LocalizationService} from "../../../../services/localizationService";
 
+let template = require('./companiesEditPage.html');
+
 @Component({
     selector: 'companies-edit-page',
-    templateUrl: '/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
+    template:template,
     directives: [CompaniesEditComponent]
 })
 

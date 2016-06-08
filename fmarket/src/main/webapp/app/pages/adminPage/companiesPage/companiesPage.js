@@ -20,7 +20,7 @@ var selectComponent_1 = require("../../../components/selectComponent/selectCompo
 var companiesAdminListComponent_1 = require("../../../components/companieComponent/companieListComponent/companiesAdminListComponent");
 var companySearchObject_1 = require("../../../models/companySearchObject");
 var Ng2Pagination_1 = require("../../../models/Ng2Pagination");
-var applicationPath = '/app/pages/adminPage/companiesPage';
+var template = require('./companiesPage.html');
 var CompaniesPage = (function () {
     //</editor-fold>
     function CompaniesPage(router, companiesService, notificationService) {
@@ -100,8 +100,8 @@ var CompaniesPage = (function () {
     CompaniesPage = __decorate([
         core_1.Component({
             selector: 'compnaies-Page',
-            templateUrl: applicationPath + '/companiesPage.html',
-            styleUrls: [applicationPath + '/companiesPage.css'],
+            template: template,
+            //styleUrls: [applicationPath + '/companiesPage.css'],
             directives: [companiesAdminListComponent_1.CompanieAdmminListComponent, selectComponent_1.SelectComponent, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])

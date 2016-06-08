@@ -4,9 +4,11 @@ import {INewDomainMenuItemRequest} from "../../models/interfaces/iNewDomainMenuI
 import {IUpdateDomainMenuItemRequest} from "../../models/interfaces/iUpdateDomainMenuItemRequest";
 import {IMenuItem} from "../../models/interfaces/iMenuItem";
 
+let template = require('./menuTreeComponent.html');
+
 @Component({
     selector: 'menu-component',
-    templateUrl: '/app/components/menuComponent/menuTreeComponent.html',
+    template:template,
     directives: [BaseMenuComponent],
     styles:[`
         .menu-tree{

@@ -15,12 +15,12 @@ import {Demand} from "../../../../models/demand";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";
 import {RejectDemandDialogComponent} from "../../../../components/demandComponent/rejectDemandDialogComponent/rejectDemandDialogComponent";
 
-let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsEditPage';
+let template = require('./demandsEditPage.html');
 
 @Component({
     selector: 'demands-edit-page',
-    templateUrl: applicationPath + '/demandsEditPage.html',
-    styleUrls: [applicationPath + '/demandsEditPage.css'],
+    template: template,
+    //styleUrls: [applicationPath + '/demandsEditPage.css'],
     directives: [DemandEditComponent, RejectDemandDialogComponent]
 })
 // @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})

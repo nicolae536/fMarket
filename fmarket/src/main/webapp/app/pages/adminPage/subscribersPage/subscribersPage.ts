@@ -13,12 +13,12 @@ import {CreateSubscriberDialog} from "../../../components/createSubscriberDialog
 import {ApplicationConstants} from "../../../models/applicationConstansts";
 import {Subscriber} from "../../../models/subscriber";
 
-var applicationPath:string = '/app/pages/adminPage/subscribersPage';
+let template = require('./subscribersPage.html');
 
 @Component({
     selector: 'subscribers-Page',
-    templateUrl: applicationPath + '/subscribersPage.html',
-    styleUrls: [applicationPath + '/subscribersPage.css'],
+    template:template,
+    //styleUrls: [applicationPath + '/subscribersPage.css'],
     encapsulation: ViewEncapsulation.None,
     directives: [CreateSubscriberDialog, ActionDialog, NgForm, DATEPICKER_DIRECTIVES, DROPDOWN_DIRECTIVES, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })

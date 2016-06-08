@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 4/20/2016.
  */
 var core_1 = require("@angular/core");
-var APPLICATION_PATH = '/app/components/demandComponent/demandListBase';
+var template = require('./demandListBase.html');
 var DemandListBaseComponent = (function () {
     function DemandListBaseComponent() {
         this.demandList = new Array();
@@ -43,7 +43,7 @@ var DemandListBaseComponent = (function () {
     DemandListBaseComponent = __decorate([
         core_1.Component({
             selector: 'demand-list-component',
-            templateUrl: APPLICATION_PATH + '/demandListBase.html',
+            template: template,
         }), 
         __metadata('design:paramtypes', [])
     ], DemandListBaseComponent);

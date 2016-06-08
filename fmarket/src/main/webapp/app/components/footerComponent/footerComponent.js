@@ -12,14 +12,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var directoryPath = '/app/components/footerComponent';
+var template = require('./footerComponent.html');
 var FooterComponent = (function () {
     function FooterComponent() {
     }
     FooterComponent = __decorate([
         core_1.Component({
             selector: 'footer-component',
-            templateUrl: directoryPath + '/footerComponent.html',
+            template: template,
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])

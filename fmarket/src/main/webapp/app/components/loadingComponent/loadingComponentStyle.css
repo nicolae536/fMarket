@@ -183,8 +183,8 @@
     transition: opacity .8s ease-in-out;
     top: 35%;
     margin: 0 auto 0 auto;
-    width: 15%;
-    height: 15%;
+    width: 10%;
+    height: 10%;
     position: relative;
     transform: translate(0,35%);
 }

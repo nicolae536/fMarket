@@ -23,7 +23,7 @@ var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValid
 var demandComponent_1 = require("../../components/demandComponent/demandComponent");
 var localStorageService_1 = require("../../services/localStorageService");
 var applicationConstansts_1 = require("../../models/applicationConstansts");
-var folderPath = '/app/pages/homePage';
+var template = require('./homePage.html');
 var HomePage = (function () {
     //</editor-fold>
     function HomePage(_categoriesMenuService, router, _demandService, subscribersService, formBuilder, notificationService, _localizationService, localeStorageService) {
@@ -163,7 +163,7 @@ var HomePage = (function () {
     HomePage = __decorate([
         core_1.Component({
             selector: 'home-page',
-            templateUrl: folderPath + '/homePage.html',
+            template: template,
             directives: [demandComponent_1.DemandComponent]
         }), 
         __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService, localStorageService_1.LocalStorageService])

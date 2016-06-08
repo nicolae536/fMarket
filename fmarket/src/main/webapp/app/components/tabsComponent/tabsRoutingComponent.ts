@@ -6,12 +6,12 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {Location} from "@angular/common";
 import {TabHeader} from "../../models/TabHeader";
 
-let applicationPath:string = '/app/components/tabsComponent';
+let template = require('./tabsComponent.html');
 
 @Component({
     selector: 'tabs-component',
-    templateUrl: applicationPath + '/tabsComponent.html',
-    styleUrls: [applicationPath + '/tabsComponent.css'],
+    template:template,
+    //styleUrls: [applicationPath + '/tabsComponent.css'],
     directives: [ROUTER_DIRECTIVES]
 })
 

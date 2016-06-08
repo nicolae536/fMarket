@@ -11,10 +11,11 @@ import {CompaniesEditComponent} from "../../../../components/companieComponent/c
 import {CompaniesEditBase} from "./companiesEditBase";
 import {LocalizationService} from "../../../../services/localizationService";
 import {NewCompanyRequest} from "../../../../models/newCompanyRequest";
+let template = require('./companiesEditPage.html');
 
 @Component({
     selector:'companies-edit-page',
-    templateUrl:'/app/pages/adminPage/companiesPage/companiesEditPage/companiesEditPage.html',
+    template:template,
     directives:[CompaniesEditComponent]
 })
 export class CompanieCreatePage extends CompaniesEditBase implements OnInit {

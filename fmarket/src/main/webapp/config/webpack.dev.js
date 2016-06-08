@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        'main':"./app/main",
+        'main': "./app/main",
     },
     output: {
         path: __dirname,
@@ -13,7 +13,13 @@ module.exports = {
     },
     module: {
         loaders: [{
-            test: /\.ts/, loaders: ['ts-loader'], exclude:  /node_modules/
+            test: /\.ts/, loaders: ['ts-loader'],
+            exclude: /node_modules/
+        },
+        {
+            test: /\.html$/,
+            loader: "html-loader"
         }]
-    }
+    },
+
 }

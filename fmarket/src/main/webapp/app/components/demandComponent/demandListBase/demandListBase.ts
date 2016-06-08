@@ -1,15 +1,14 @@
 /**
  * Created by nick_ on 4/20/2016.
  */
-import {Component, Input, EventEmitter, Output } from "@angular/core";
-import {Select2Item} from "../../selectComponent/selectComponent";
+import {Component, Input, EventEmitter, Output} from "@angular/core";
 import {DemandAdminDto} from "../../../models/demandAdminDto";
 
-const APPLICATION_PATH:string = '/app/components/demandComponent/demandListBase';
+let template = require('./demandListBase.html');
 
 @Component({
     selector: 'demand-list-component',
-    templateUrl: APPLICATION_PATH + '/demandListBase.html',
+    template: template,
 })
 export class DemandListBaseComponent {
     @Input('demand-list') demandList:Array<DemandAdminDto> = new Array<DemandAdminDto>();
@@ -18,13 +17,14 @@ export class DemandListBaseComponent {
     @Output('demand-selected') selectDemandEmitter:EventEmitter<DemandAdminDto> = new EventEmitter<DemandAdminDto>();
     @Output('remove-demand') removeDemanddEmitter:EventEmitter<DemandAdminDto> = new EventEmitter<DemandAdminDto>();
 
-    constructor(){}
+    constructor() {
+    }
 
-    selectDemand(demand){
+    selectDemand(demand) {
         this.selectDemandEmitter.emit(demand);
     }
 
-    removeDemand($event, companie){
+    removeDemand($event, companie) {
         this.removeDemanddEmitter.emit(companie);
     }
 }

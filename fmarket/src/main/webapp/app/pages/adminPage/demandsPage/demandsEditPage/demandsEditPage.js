@@ -18,7 +18,7 @@ var requestTypeService_1 = require("../../../../services/requestTypeService");
 var demandEdit_1 = require("../../../../components/demandComponent/demandEdit/demandEdit");
 var notificationService_1 = require("../../../../services/notificationService");
 var rejectDemandDialogComponent_1 = require("../../../../components/demandComponent/rejectDemandDialogComponent/rejectDemandDialogComponent");
-var applicationPath = '/app/pages/adminPage/demandsPage/demandsEditPage';
+var template = require('./demandsEditPage.html');
 var DemandsEditPage = (function () {
     //</editor-fold>
     function DemandsEditPage(router, _location, demandService, requestTypeService, notificationService) {
@@ -105,8 +105,8 @@ var DemandsEditPage = (function () {
     DemandsEditPage = __decorate([
         core_1.Component({
             selector: 'demands-edit-page',
-            templateUrl: applicationPath + '/demandsEditPage.html',
-            styleUrls: [applicationPath + '/demandsEditPage.css'],
+            template: template,
+            //styleUrls: [applicationPath + '/demandsEditPage.css'],
             directives: [demandEdit_1.DemandEditComponent, rejectDemandDialogComponent_1.RejectDemandDialogComponent]
         }), 
         __metadata('design:paramtypes', [router_1.Router, common_1.Location, demandService_1.DemandService, requestTypeService_1.RequestTypeService, notificationService_1.NotificationService])

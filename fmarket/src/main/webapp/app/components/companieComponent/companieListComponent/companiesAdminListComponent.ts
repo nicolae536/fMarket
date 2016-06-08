@@ -4,9 +4,11 @@
 import {Input, Component, Output, EventEmitter} from "@angular/core";
 import {CompanieDto} from "../../../models/companieDto";
 
+let template = require('./companiesAdminListComponent.html');
+
 @Component({
     selector:'companie-admin-list-component',
-    templateUrl:'/app/components/companieComponent/companieListComponent/companiesAdminListComponent.html',
+    template:template,
 })
 export class CompanieAdmminListComponent {
     @Input('admin-companies-list') _companieList:Array<Object>;

@@ -15,6 +15,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var common_1 = require("@angular/common");
 var modalDialog_1 = require("../../modalDialog/modalDialog");
+var template = require('./rejectDemandDialogComponent.html');
 var RejectDemandDialogComponent = (function (_super) {
     __extends(RejectDemandDialogComponent, _super);
     function RejectDemandDialogComponent(_formBuilder) {
@@ -59,7 +60,7 @@ var RejectDemandDialogComponent = (function (_super) {
     RejectDemandDialogComponent = __decorate([
         core_1.Component({
             selector: 'reject-demand-dialog',
-            templateUrl: 'app/components/demandComponent/rejectDemandDialogComponent/rejectDemandDialogComponent.html'
+            template: template,
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], RejectDemandDialogComponent);

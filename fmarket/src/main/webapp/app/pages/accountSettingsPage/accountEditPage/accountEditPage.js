@@ -19,7 +19,7 @@ var notificationService_1 = require("../../../services/notificationService");
 var accountEditComponent_1 = require("../../../components/accountComponent/accountEditComponent/accountEditComponent");
 var accountDto_1 = require("../../../models/accountDto");
 var authorizationService_1 = require("../../../services/authorizationService");
-var applicationPath = '/app/pages/accountSettingsPage/accountEditPage';
+var template = require('./accountEditPage.html');
 var AccountEditPage = (function () {
     //</editor-fold>
     function AccountEditPage(accountService, demandService, localizationService, notificationService, router) {
@@ -91,7 +91,7 @@ var AccountEditPage = (function () {
     AccountEditPage = __decorate([
         core_1.Component({
             selector: 'account-edit-Page',
-            templateUrl: applicationPath + '/accountEditPage.html',
+            template: template,
             directives: [accountEditComponent_1.AccountEditComponent]
         }), 
         __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService, notificationService_1.NotificationService, router_1.Router])

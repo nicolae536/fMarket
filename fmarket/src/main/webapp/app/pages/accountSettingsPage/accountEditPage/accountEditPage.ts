@@ -15,11 +15,11 @@ import {Select2Item} from "../../../components/selectComponent/selectComponent";
 import {AccountUser} from "../../../models/accountUser";
 import {AuthorizationService} from "../../../services/authorizationService";
 
-var applicationPath:string = '/app/pages/accountSettingsPage/accountEditPage';
+let template = require('./accountEditPage.html');
 
 @Component({
     selector: 'account-edit-Page',
-    templateUrl: applicationPath + '/accountEditPage.html',
+    template:template,
     directives: [AccountEditComponent]
 })
 export class AccountEditPage implements OnInit {

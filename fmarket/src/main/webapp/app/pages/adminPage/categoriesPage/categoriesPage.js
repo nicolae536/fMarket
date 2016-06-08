@@ -13,7 +13,7 @@ var companiesPage_1 = require("./companiesPage/companiesPage");
 var domainsPage_1 = require("./domainsPage/domainsPage");
 var categoriesMenuPage_1 = require("./categoriesMenuPage/categoriesMenuPage");
 var tabsRoutingComponent_1 = require("../../../components/tabsComponent/tabsRoutingComponent");
-var applicationPath = '/app/pages/adminPage/categoriesPage';
+var template = require('./categoriesPage.html');
 var CategoriesPage = (function () {
     function CategoriesPage() {
         this.tabPagesList = [{ name: 'Meniu', link: '/admin/categorii/meniu', enableMarker: false, markerContent: "" },
@@ -23,8 +23,8 @@ var CategoriesPage = (function () {
     CategoriesPage = __decorate([
         core_1.Component({
             selector: 'categoryes-page',
-            templateUrl: applicationPath + '/categoriesPage.html',
-            styleUrls: [applicationPath + '/categoriesPage.css'],
+            template: template,
+            //styleUrls: [applicationPath + '/categoriesPage.css'],
             directives: [tabsRoutingComponent_1.TabsRoutingComponent, router_1.ROUTER_DIRECTIVES]
         }),
         router_1.Routes([

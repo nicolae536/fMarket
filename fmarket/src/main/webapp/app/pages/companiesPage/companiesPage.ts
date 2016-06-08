@@ -11,11 +11,11 @@ import {CompaniesService} from "../../services/companiesService";
 import {NotificationService} from "../../services/notificationService";
 import {Ng2Pagination} from "../../models/Ng2Pagination";
 
-let applicationPath = '/app/pages/companiesPage'
+let template = require('./companiesPage.html');
+
 @Component({
     selector: 'compnaies-Page',
-    templateUrl: applicationPath + '/companiesPage.html',
-    styleUrls: [applicationPath + '/companiesPage.css'],
+    template:template,
     directives: [CompanieListComponent, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class CompaniesPage implements OnInit {

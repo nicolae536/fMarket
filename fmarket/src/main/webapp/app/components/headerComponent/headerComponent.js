@@ -20,7 +20,7 @@ var applicationConstansts_1 = require("../../models/applicationConstansts");
 var registrationService_1 = require("../../services/registrationService");
 var notificationService_1 = require("../../services/notificationService");
 var applicationStateService_1 = require("../../services/applicationStateService");
-var directoryPath = '/app/components/headerComponent';
+var template = require('./headerComponent.html');
 var HeaderComponent = (function () {
     function HeaderComponent(router, localStorageService, registrationService, notificationService, applicationStateService) {
         this._router = router;
@@ -122,7 +122,7 @@ var HeaderComponent = (function () {
     HeaderComponent = __decorate([
         core_1.Component({
             selector: 'header-component',
-            templateUrl: directoryPath + '/headerComponent.html',
+            template: template,
             directives: [router_1.ROUTER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [router_1.Router, localStorageService_1.LocalStorageService, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])

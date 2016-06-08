@@ -7,12 +7,12 @@ import {CategoriesMenuPage} from "./categoriesMenuPage/categoriesMenuPage";
 import {TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
 import {TabHeader} from "../../../models/TabHeader";
 
-let applicationPath:string = '/app/pages/adminPage/categoriesPage';
+let template = require('./categoriesPage.html');
 
 @Component({
     selector: 'categoryes-page',
-    templateUrl: applicationPath + '/categoriesPage.html',
-    styleUrls: [applicationPath + '/categoriesPage.css'],
+    template:template,
+    //styleUrls: [applicationPath + '/categoriesPage.css'],
     directives: [TabsRoutingComponent, ROUTER_DIRECTIVES]
 })
 @Routes([

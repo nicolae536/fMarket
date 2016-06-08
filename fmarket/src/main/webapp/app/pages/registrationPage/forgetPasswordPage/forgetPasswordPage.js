@@ -16,7 +16,7 @@ var registrationComponent_1 = require("../../../components/registrationComponent
 var registrationService_1 = require("../../../services/registrationService");
 var notificationService_1 = require("../../../services/notificationService");
 var jqueryService_1 = require("../../../services/jqueryService");
-var folderPath = '/app/pages/registrationPage';
+var template = require('../registrationPage.html');
 var ForgetPasswordPage = (function () {
     //</editor-fold>
     function ForgetPasswordPage(router, registrationService, notificationService) {
@@ -60,7 +60,7 @@ var ForgetPasswordPage = (function () {
     ForgetPasswordPage = __decorate([
         core_1.Component({
             selector: 'forget=password-page',
-            templateUrl: folderPath + '/registrationPage.html',
+            template: template,
             styles: ["\n    .forget-password-page{\n        padding-top: 14vh;\n    }\n    "],
             directives: [registrationComponent_1.RegistrationComponent]
         }), 

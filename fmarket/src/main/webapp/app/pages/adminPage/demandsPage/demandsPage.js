@@ -15,7 +15,7 @@ var router_1 = require("@angular/router");
 var tabsRoutingComponent_1 = require("../../../components/tabsComponent/tabsRoutingComponent");
 var newDemandsListPage_1 = require("./demandsListPage/newDemandsListPage");
 var allDemandsListPage_1 = require("./demandsListPage/allDemandsListPage");
-var applicationPath = '/app/pages/adminPage/demandsPage';
+var template = require('./demandsPage.html');
 var DemandsPage = (function () {
     function DemandsPage() {
         this.tabPagesList = [{ name: 'Cereri noi', link: '/admin/cereri/newDemands', enableMarker: false, markerContent: "" },
@@ -25,8 +25,8 @@ var DemandsPage = (function () {
     DemandsPage = __decorate([
         core_1.Component({
             selector: 'demands-page',
-            templateUrl: applicationPath + '/demandsPage.html',
-            styleUrls: [applicationPath + '/demandsPage.css'],
+            template: template,
+            //styleUrls: [applicationPath + '/demandsPage.css'],
             directives: [tabsRoutingComponent_1.TabsRoutingComponent, router_1.ROUTER_DIRECTIVES]
         }),
         router_1.Routes([

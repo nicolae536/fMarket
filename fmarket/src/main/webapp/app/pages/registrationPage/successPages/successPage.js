@@ -14,6 +14,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var jqueryService_1 = require("../../../services/jqueryService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
+var template = require('./successPage.html');
 var SuccessPage = (function () {
     //</editor-fold>
     function SuccessPage(router) {
@@ -40,7 +41,7 @@ var SuccessPage = (function () {
     SuccessPage = __decorate([
         core_1.Component({
             selector: 'success-register-page',
-            templateUrl: 'app/pages/registrationPage/successPages/successPage.html',
+            template: template,
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [router_1.Router])

@@ -15,12 +15,12 @@ import {DemandsListPageBase} from "./demandsListPageBase";
 import {MenuTreeDialog} from "../../../../components/menuComponent/menuTreeDialog/menuTreeDialog";
 import {NotificationService} from "../../../../services/notificationService";
 
-let applicationPath:string = '/app/pages/adminPage/demandsPage/demandsListPage';
+let template = require('./demandsListPageBase.html');
 
 @Component({
     selector: 'new-demands-list-page',
-    templateUrl: applicationPath + '/demandsListPageBase.html',
-    styleUrls: [applicationPath + '/demandsListPageBase.css'],
+    template:template,
+    //styleUrls: [applicationPath + '/demandsListPageBase.css'],
     directives: [DemandListBaseComponent, MenuTreeDialog]
 })
 export class NewDemandsListPage extends DemandsListPageBase implements OnInit, OnChanges{

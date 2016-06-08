@@ -19,7 +19,7 @@ var createUserDialog_1 = require("../../../components/createUserDialog/createUse
 var actionDialog_1 = require("../../../components/actionDialog/actionDialog");
 var user_1 = require("../../../models/user");
 var mock_Status_1 = require("../../../services/mock-providers/mock-Status");
-var applicationPath = '/app/pages/adminPage/usersPage';
+var template = require('./usersPage.html');
 var UsersPage = (function () {
     //</editor-fold>
     function UsersPage(_userService, _notificationService, _localizationService) {
@@ -130,8 +130,8 @@ var UsersPage = (function () {
     UsersPage = __decorate([
         core_1.Component({
             selector: 'users-Page',
-            templateUrl: applicationPath + '/usersPage.html',
-            styleUrls: [applicationPath + '/usersPage.css'],
+            template: template,
+            //styleUrls: [applicationPath + '/usersPage.css'],
             encapsulation: core_1.ViewEncapsulation.None,
             directives: [actionDialog_1.ActionDialog, createUserDialog_1.CreateUserDialog, common_1.NgForm, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
         }), 

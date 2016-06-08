@@ -20,7 +20,7 @@ var authorizationService_1 = require("../../services/authorizationService");
 var applicationConstansts_1 = require("../../models/applicationConstansts");
 var tabsRoutingComponent_1 = require("../../components/tabsComponent/tabsRoutingComponent");
 var Roles_1 = require("../../models/Roles");
-var applicationPath = '/app/pages/accountSettingsPage';
+var template = require('./accountSettingsPage.html');
 var AccountSettingsPage = (function () {
     //</editor-fold>
     function AccountSettingsPage(router, notificationService) {
@@ -39,7 +39,7 @@ var AccountSettingsPage = (function () {
     AccountSettingsPage = __decorate([
         core_1.Component({
             selector: 'account-settings-Page',
-            templateUrl: applicationPath + '/accountSettingsPage.html',
+            template: template,
             directives: [router_1.ROUTER_DIRECTIVES, tabsRoutingComponent_1.TabsRoutingComponent]
         }),
         router_1.Routes([

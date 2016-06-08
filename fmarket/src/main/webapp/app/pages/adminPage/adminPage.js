@@ -23,7 +23,7 @@ var demandsEditPage_1 = require("./demandsPage/demandsEditPage/demandsEditPage")
 var applicationConstansts_1 = require("../../models/applicationConstansts");
 var companiesCreatePage_1 = require("./companiesPage/companiesEditPage/companiesCreatePage");
 var Roles_1 = require("../../models/Roles");
-var applicationPath = '/app/pages/adminPage';
+var template = require('./adminPage.html');
 var AdminPage = (function () {
     //</editor-fold>
     function AdminPage(location, router, notificationService) {
@@ -55,7 +55,7 @@ var AdminPage = (function () {
     AdminPage = __decorate([
         core_1.Component({
             selector: 'admin-Page',
-            templateUrl: applicationPath + '/adminPage.html',
+            template: template,
             directives: [router_1.ROUTER_DIRECTIVES]
         }),
         router_1.Routes([

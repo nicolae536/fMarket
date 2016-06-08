@@ -8,11 +8,11 @@ import * as _ from "underscore";
 import {CustomValidators} from "../../../models/Angular2ExtensionValidators";
 import {AccountUser} from "../../../models/accountUser";
 
-const APPLICATION_PATH:string = '/app/components/accountComponent/accountEditComponent';
+let template = require('./accountEditComponent.html');
 
 @Component({
     selector: 'account-edit-component',
-    templateUrl: APPLICATION_PATH + '/accountEditComponent.html',
+    template:template,
     directives: [FORM_DIRECTIVES, SelectComponent],
 })
 export class AccountEditComponent implements OnInit {

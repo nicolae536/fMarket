@@ -17,7 +17,8 @@ var common_1 = require("@angular/common");
 var modalDialog_1 = require("../modalDialog/modalDialog");
 var user_1 = require("../../models/user");
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
-var _ = require('underscore');
+var _ = require("underscore");
+var template = require('./createUserDialog.html');
 var CreateUserDialog = (function (_super) {
     __extends(CreateUserDialog, _super);
     function CreateUserDialog(formBuilder) {
@@ -113,7 +114,7 @@ var CreateUserDialog = (function (_super) {
     CreateUserDialog = __decorate([
         core_1.Component({
             selector: 'create-user-dialog',
-            templateUrl: 'app/components/createUserDialog/createUserDialog.html',
+            template: template,
             directives: [common_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])

@@ -20,6 +20,7 @@ var common_1 = require("@angular/common");
 var core_1 = require("@angular/core");
 var modalDialog_1 = require("../../modalDialog/modalDialog");
 var companieDto_1 = require("../../../models/companieDto");
+var template = require('./createCompanieDialog.html');
 var CreateCompanieDialog = (function (_super) {
     __extends(CreateCompanieDialog, _super);
     function CreateCompanieDialog(formBuilder) {
@@ -70,7 +71,7 @@ var CreateCompanieDialog = (function (_super) {
     CreateCompanieDialog = __decorate([
         core_1.Component({
             selector: 'create-companie-dialog',
-            templateUrl: 'app/components/companieComponent/createCompanieDialog/createCompanieDialog.html',
+            template: template,
             directives: [common_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])

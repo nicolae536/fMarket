@@ -13,7 +13,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var demandDetailsDTO_1 = require("../../../models/demandDetailsDTO");
 var selectComponent_1 = require("../../selectComponent/selectComponent");
-var APPLICATION_PATH = '/app/components/demandComponent/demandEdit';
+var template = require('./demandEdit.html');
 var DemandEditComponent = (function () {
     function DemandEditComponent() {
         this.rejectDemandEvent = new core_1.EventEmitter();
@@ -64,7 +64,7 @@ var DemandEditComponent = (function () {
     DemandEditComponent = __decorate([
         core_1.Component({
             selector: 'demand-edit-component',
-            templateUrl: APPLICATION_PATH + '/demandEdit.html',
+            template: template,
             directives: [selectComponent_1.SelectComponent]
         }), 
         __metadata('design:paramtypes', [])

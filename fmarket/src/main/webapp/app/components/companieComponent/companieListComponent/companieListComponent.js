@@ -12,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require("@angular/core");
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
+var template = require('./companieListComponent.html');
 var CompanieListComponent = (function () {
     function CompanieListComponent() {
         this._companieSelectedEmitter = new core_1.EventEmitter();
@@ -34,7 +35,7 @@ var CompanieListComponent = (function () {
     CompanieListComponent = __decorate([
         core_1.Component({
             selector: 'companie-list-component',
-            templateUrl: '/app/components/companieComponent/companieListComponent/companieListComponent.html',
+            template: template,
             directives: [ng2_bootstrap_1.TOOLTIP_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])

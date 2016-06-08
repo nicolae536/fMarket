@@ -18,11 +18,12 @@ import {CompanySearchObject} from "../../../models/companySearchObject";
 import {Ng2Pagination} from "../../../models/Ng2Pagination";
 import {CompanieDto} from "../../../models/companieDto";
 
-let applicationPath = '/app/pages/adminPage/companiesPage'
+let template = require('./companiesPage.html');
+
 @Component({
     selector: 'compnaies-Page',
-    templateUrl: applicationPath + '/companiesPage.html',
-    styleUrls: [applicationPath + '/companiesPage.css'],
+    template:template,
+    //styleUrls: [applicationPath + '/companiesPage.css'],
     directives: [CompanieAdmminListComponent, SelectComponent, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class CompaniesPage implements OnInit {

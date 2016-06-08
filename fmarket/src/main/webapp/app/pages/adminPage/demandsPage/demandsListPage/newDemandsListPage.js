@@ -25,7 +25,7 @@ var demandService_1 = require("../../../../services/demandService");
 var demandsListPageBase_1 = require("./demandsListPageBase");
 var menuTreeDialog_1 = require("../../../../components/menuComponent/menuTreeDialog/menuTreeDialog");
 var notificationService_1 = require("../../../../services/notificationService");
-var applicationPath = '/app/pages/adminPage/demandsPage/demandsListPage';
+var template = require('./demandsListPageBase.html');
 var NewDemandsListPage = (function (_super) {
     __extends(NewDemandsListPage, _super);
     function NewDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService) {
@@ -54,8 +54,8 @@ var NewDemandsListPage = (function (_super) {
     NewDemandsListPage = __decorate([
         core_1.Component({
             selector: 'new-demands-list-page',
-            templateUrl: applicationPath + '/demandsListPageBase.html',
-            styleUrls: [applicationPath + '/demandsListPageBase.css'],
+            template: template,
+            //styleUrls: [applicationPath + '/demandsListPageBase.css'],
             directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
         }), 
         __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService, notificationService_1.NotificationService])

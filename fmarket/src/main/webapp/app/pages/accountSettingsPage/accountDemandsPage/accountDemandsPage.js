@@ -15,7 +15,7 @@ var core_1 = require("@angular/core");
 var demandService_1 = require("../../../services/demandService");
 var DemandStatus_1 = require("../../../models/DemandStatus");
 var demandListBase_1 = require("../../../components/demandComponent/demandListBase/demandListBase");
-var applicationPath = '/app/pages/accountSettingsPage/accountDemandsPage';
+var template = require('./accountDemandsPage.html');
 var AccountDemandsPage = (function () {
     //</editor-fold>
     function AccountDemandsPage(_demandService) {
@@ -61,7 +61,7 @@ var AccountDemandsPage = (function () {
     AccountDemandsPage = __decorate([
         core_1.Component({
             selector: 'account-demands-Page',
-            templateUrl: applicationPath + '/accountDemandsPage.html',
+            template: template,
             directives: [demandListBase_1.DemandListBaseComponent]
         }), 
         __metadata('design:paramtypes', [demandService_1.DemandService])

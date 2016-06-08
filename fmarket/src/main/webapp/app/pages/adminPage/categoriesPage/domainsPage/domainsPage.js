@@ -11,7 +11,7 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var requestTypeService_1 = require("../../../../services/requestTypeService");
 var requestType_1 = require("../../../../models/requestType");
-var applicationPath = '/app/pages/adminPage/categoriesPage/domainsPage';
+var template = require('./domainsPage.html');
 var DomainsPage = (function () {
     //</editor-fold>
     function DomainsPage(requestTypeService, formBuilder) {
@@ -97,8 +97,8 @@ var DomainsPage = (function () {
     DomainsPage = __decorate([
         core_1.Component({
             selector: 'companies-Page',
-            templateUrl: applicationPath + '/domainsPage.html',
-            styleUrls: [applicationPath + '/domainsPage.css'],
+            template: template,
+            //styleUrls: [applicationPath + '/domainsPage.css'],
             directives: [common_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [requestTypeService_1.RequestTypeService, common_1.FormBuilder])

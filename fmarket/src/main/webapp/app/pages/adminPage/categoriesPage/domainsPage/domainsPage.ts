@@ -5,12 +5,12 @@ import {RequestTypeService} from "../../../../services/requestTypeService";
 
 import {RequestType} from "../../../../models/requestType";
 
-let applicationPath:string = '/app/pages/adminPage/categoriesPage/domainsPage';
+let template = require('./domainsPage.html');
 
 @Component({
     selector: 'companies-Page',
-    templateUrl: applicationPath + '/domainsPage.html',
-    styleUrls: [applicationPath + '/domainsPage.css'],
+    template:template,
+    //styleUrls: [applicationPath + '/domainsPage.css'],
     directives:[FORM_DIRECTIVES]
 })
 

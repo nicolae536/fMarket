@@ -17,7 +17,7 @@ var registrationService_1 = require("../../../services/registrationService");
 var notificationService_1 = require("../../../services/notificationService");
 var jqueryService_1 = require("../../../services/jqueryService");
 var registrationComponent_1 = require("../../../components/registrationComponent/registrationComponent");
-var folderPath = '/app/pages/registrationPage';
+var template = require('../registrationPage.html');
 var LoginPage = (function () {
     //</editor-fold>
     function LoginPage(router, registrationService, ntificationService, applicationStateService) {
@@ -63,7 +63,7 @@ var LoginPage = (function () {
     LoginPage = __decorate([
         core_1.Component({
             selector: 'login-page',
-            templateUrl: folderPath + '/registrationPage.html',
+            template: template,
             directives: [registrationComponent_1.RegistrationComponent]
         }), 
         __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])

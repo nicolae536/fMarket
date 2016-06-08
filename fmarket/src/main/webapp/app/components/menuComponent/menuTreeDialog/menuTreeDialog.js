@@ -15,6 +15,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var modalDialog_1 = require("../../modalDialog/modalDialog");
 var menuTreeComponent_1 = require("../menuTreeComponent");
+var template = require('./menuTreeDialog.html');
 var MenuTreeDialog = (function (_super) {
     __extends(MenuTreeDialog, _super);
     function MenuTreeDialog() {
@@ -72,7 +73,7 @@ var MenuTreeDialog = (function (_super) {
     MenuTreeDialog = __decorate([
         core_1.Component({
             selector: 'menu-tree-dialog',
-            templateUrl: '/app/components/menuComponent/menuTreeDialog/menuTreeDialog.html',
+            template: template,
             directives: [menuTreeComponent_1.MenuTreeComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -7,10 +7,10 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
 import {RegisterAccount} from "../../models/registerAccount";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 
-const APPLICATION_PATH = '/app/components/registrationComponent';
+let template = require('./registrationComponent.html');
 @Component({
     selector: 'registration-component',
-    templateUrl: APPLICATION_PATH + '/registrationComponent.html',
+    template:template,
     directives: [FORM_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class RegistrationComponent implements OnInit, OnChanges {

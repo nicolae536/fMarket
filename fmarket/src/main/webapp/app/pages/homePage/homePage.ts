@@ -16,11 +16,11 @@ import {Demand} from "../../models/demand";
 import {LocalStorageService} from "../../services/localStorageService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
 
-const folderPath = '/app/pages/homePage';
+let template = require('./homePage.html');
 
 @Component({
     selector: 'home-page',
-    templateUrl: folderPath + '/homePage.html',
+    template: template,
     directives: [DemandComponent]
 })
 export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
@@ -109,7 +109,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
     }
 
     ngAfterViewInit():any {
-        let me=this;
+        let me = this;
         this._notificationService.removeLoading();
         setTimeout(()=> {
             me.viewInitialized = true;
@@ -117,7 +117,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
     }
 
     ngAfterViewChecked():any {
-        let me=this;
+        let me = this;
         setTimeout(()=> {
             me.viewInitialized = true;
         }, 100);

@@ -9,7 +9,7 @@
             <li *ngIf="!isLoggedIn()"><a (click)="goToPageUsingSideMenu('/login')">Contul meu</a></li>
             <li *ngIf="chechIdNormalUser()">
                 <ul>
-                    <li *ngFor="let p of _myAccountDropdownPages"><a (click)="goToPageUsingSideMenu(plink)">{{p.name}}</a></li>
+                    <li *ngFor="let p of _myAccountDropdownPages"><a (click)="goToPageUsingSideMenu(p.link)">{{p.name}}</a></li>
                     <li><a (click)="logout()">Iesire din cont</a></li>
                 </ul>
             </li>

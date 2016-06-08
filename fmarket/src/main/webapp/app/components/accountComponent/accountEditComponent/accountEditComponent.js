@@ -16,7 +16,7 @@ var selectComponent_1 = require("../../selectComponent/selectComponent");
 var _ = require("underscore");
 var Angular2ExtensionValidators_1 = require("../../../models/Angular2ExtensionValidators");
 var accountUser_1 = require("../../../models/accountUser");
-var APPLICATION_PATH = '/app/components/accountComponent/accountEditComponent';
+var template = require('./accountEditComponent.html');
 var AccountEditComponent = (function () {
     function AccountEditComponent(formBuilder) {
         this._saveAccountEmitter = new core_1.EventEmitter();
@@ -113,7 +113,7 @@ var AccountEditComponent = (function () {
     AccountEditComponent = __decorate([
         core_1.Component({
             selector: 'account-edit-component',
-            templateUrl: APPLICATION_PATH + '/accountEditComponent.html',
+            template: template,
             directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent],
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])

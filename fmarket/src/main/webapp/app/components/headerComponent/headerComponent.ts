@@ -14,10 +14,10 @@ import {NotificationService} from "../../services/notificationService";
 import {ApplicationStateService} from "../../services/applicationStateService";
 import * as _ from 'underscore';
 
-let directoryPath = '/app/components/headerComponent';
+let template = require('./headerComponent.html');
 @Component({
     selector: 'header-component',
-    templateUrl: directoryPath + '/headerComponent.html',
+    template:template,
     directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
 

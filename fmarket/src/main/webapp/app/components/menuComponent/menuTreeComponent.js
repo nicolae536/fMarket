@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var baseMenuComponent_1 = require('./baseMenuComponent/baseMenuComponent');
+var template = require('./menuTreeComponent.html');
 var MenuTreeComponent = (function () {
     //TODO implement menuService
     function MenuTreeComponent() {
@@ -173,7 +174,7 @@ var MenuTreeComponent = (function () {
     MenuTreeComponent = __decorate([
         core_1.Component({
             selector: 'menu-component',
-            templateUrl: '/app/components/menuComponent/menuTreeComponent.html',
+            template: template,
             directives: [baseMenuComponent_1.BaseMenuComponent],
             styles: ["\n        .menu-tree{\n            margin-right:30px;\n        }\n        .menu-tree .col-md-4{\n            padding:0px;\n        }\n    "]
         }), 

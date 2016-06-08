@@ -17,11 +17,11 @@ import {DemandStatus} from "../../../models/DemandStatus";
 import {DemandListBaseComponent} from "../../../components/demandComponent/demandListBase/demandListBase";
 
 
-var applicationPath:string = '/app/pages/accountSettingsPage/accountDemandsPage';
+let template = require('./accountDemandsPage.html');
 
 @Component({
     selector: 'account-demands-Page',
-    templateUrl: applicationPath + '/accountDemandsPage.html',
+    template:template,
     directives:[DemandListBaseComponent]
 })
 export class AccountDemandsPage implements OnInit, OnChanges {

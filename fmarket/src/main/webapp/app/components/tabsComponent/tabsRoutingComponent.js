@@ -13,7 +13,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var common_1 = require("@angular/common");
-var applicationPath = '/app/components/tabsComponent';
+var template = require('./tabsComponent.html');
 var TabsRoutingComponent = (function () {
     function TabsRoutingComponent(router, location) {
         this.router = router;
@@ -29,8 +29,8 @@ var TabsRoutingComponent = (function () {
     TabsRoutingComponent = __decorate([
         core_1.Component({
             selector: 'tabs-component',
-            templateUrl: applicationPath + '/tabsComponent.html',
-            styleUrls: [applicationPath + '/tabsComponent.css'],
+            template: template,
+            //styleUrls: [applicationPath + '/tabsComponent.css'],
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [router_1.Router, common_1.Location])

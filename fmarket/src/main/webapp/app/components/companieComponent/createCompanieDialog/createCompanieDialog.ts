@@ -7,9 +7,11 @@ import {Component, OnInit, EventEmitter, Output, Input} from "@angular/core";
 import {ModalDialog} from "../../modalDialog/modalDialog";
 import {CompanieDto} from "../../../models/companieDto";
 
+let template = require('./createCompanieDialog.html');
+
 @Component({
     selector:'create-companie-dialog',
-    templateUrl:'app/components/companieComponent/createCompanieDialog/createCompanieDialog.html',
+    template:template,
     directives:[FORM_DIRECTIVES]
 })
 export class CreateCompanieDialog extends ModalDialog implements OnInit{

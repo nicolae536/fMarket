@@ -18,7 +18,7 @@ var actionDialog_1 = require("../../../components/actionDialog/actionDialog");
 var createSubscriberDialog_1 = require("../../../components/createSubscriberDialog/createSubscriberDialog");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
 var subscriber_1 = require("../../../models/subscriber");
-var applicationPath = '/app/pages/adminPage/subscribersPage';
+var template = require('./subscribersPage.html');
 var SubscribersPage = (function () {
     //</editor-fold>
     function SubscribersPage(subscribersService, localizationService, _notificationService) {
@@ -174,8 +174,8 @@ var SubscribersPage = (function () {
     SubscribersPage = __decorate([
         core_1.Component({
             selector: 'subscribers-Page',
-            templateUrl: applicationPath + '/subscribersPage.html',
-            styleUrls: [applicationPath + '/subscribersPage.css'],
+            template: template,
+            //styleUrls: [applicationPath + '/subscribersPage.css'],
             encapsulation: core_1.ViewEncapsulation.None,
             directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
         }), 
