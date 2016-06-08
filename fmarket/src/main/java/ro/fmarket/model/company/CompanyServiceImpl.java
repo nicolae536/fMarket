@@ -46,7 +46,7 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public List<FullDomainDTO> getCompaniesGroupedByDomain(String name) {
 		List<FullDomainDTO> resultList = new ArrayList<>();
-		List<Company> sortedCompanies = companyDao.getList();
+		List<Company> sortedCompanies = companyDao.getCompaniesByCompanyDomain(name);
 
 		Map<String, List<CompanyNameDTO>> groups = new LinkedHashMap<>();
 
