@@ -77,6 +77,16 @@ var RegistrationComponent = (function () {
                     && this._registrationForm.controls['passwords']['controls']['repeat']['errors']['key'] == 'validatePassword';
         }
     };
+    RegistrationComponent.prototype.getFormControllClass = function (property) {
+        var condition = null;
+        if (this._registrationForm.controls[property]) {
+            condition = this._registrationForm.controls[property].dirty && this._registrationForm.controls[property].valid;
+        }
+        if (!condition && this._registrationForm.controls[property].pristine) {
+            return '';
+        }
+        return condition ? 'glyphicon glyphicon-ok pointer-cursor checking-item-registration' : 'glyphicon glyphicon-remove pointer-cursor checking-item';
+    };
     RegistrationComponent.prototype.registrationFormSubmit = function () {
         if (this._registrationForm.valid) {
             this.$registrationForm.emit(this._registrationForm.value);

@@ -746,6 +746,23 @@
     color: #d53939;
 }
 
+.position-relative{
+    position: relative;
+}
+
+.checking-item {
+    position: absolute;
+    right: -10px;
+    top: 8px;
+}
+
+
+.checking-item-registration {
+    position: absolute;
+    right: -20px;
+    top: 8px;
+}
+
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     padding: 0px;
 }
