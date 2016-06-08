@@ -13,17 +13,19 @@ import {FilterPipe} from "./filterPipe";
                     class="btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
                         <span *ngIf="!_selectedItem">Alege...</span>
                         <span *ngIf="_selectedItem && _selectedItem.displayName">{{_selectedItem.displayName}}</span>
-                        <span [class]="getCarretClass()"></span>
-                        <span class="glyphicon glyphicon-remove pull-right simple-dropdown" *ngIf="_selectedItem !== _chooseItemValue"(click)="removeSelection($event)"></span>
+                        <span [class]="getCarretClass()" style="margin-top: 2px;"></span>
+                        <span style="margin-top: 2px;" class="glyphicon glyphicon-remove pull-right simple-dropdown" *ngIf="_selectedItem !== _chooseItemValue"(click)="removeSelection($event)"></span>
                 </span>
                 
                 <button #multiSelectRef *ngIf="muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [disabled]="checkItems()" 
-                    class="btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+                    class="btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle position-relative" role="button" aria-haspopup="true" aria-expanded="false">
                     <div class="pull-left clearfix remove-right-padding">
-                        <span *ngIf="_selectedItems && _selectedItems.length < 1">Alege...</span>
+                        <div *ngIf="_selectedItems && _selectedItems.length < 1" style="margin-top: 4px;">
+                            <span>Alege...</span>
+                        </div>                    
                         <span class="label label-info pull-left" *ngFor="let item of _selectedItems">{{item.displayName}} <span class="remove-selected" (click)="removeItemFromSelection($event,item)">&times;</span></span>
                     </div>
-                    <div style="margin-top: 7px;" class="pull-right remove-left-padding">
+                    <div class="options-container">
                         <span [class]="getCarretClass()"></span>
                         <span *ngIf="_selectedItems.length > 0" class="glyphicon glyphicon-remove pull-right" (click)="removeSelection($event)"></span>
                     </div>

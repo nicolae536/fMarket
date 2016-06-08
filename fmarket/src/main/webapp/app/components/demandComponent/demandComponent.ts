@@ -87,8 +87,17 @@ export class DemandComponent implements OnInit, OnChanges {
         this._menuTreeDialog.showMenuTreeDialog();
     }
 
-    private removeProperty(property) {
-        this._demandData[property] = '';
+    private getFormControllClass(property) {
+        let condition = String(this._demandData[property]).length > 0;
+        if(this._demandForm.controls[property]){
+            condition = condition && this._demandForm.controls[property].dirty && this._demandForm.controls[property].valid;
+        }
+
+        if(!condition && this._demandForm.controls[property].pristine){
+            return '';
+        }
+
+        return condition ? 'glyphicon glyphicon-ok pointer-cursor checking-item': 'glyphicon glyphicon-remove pointer-cursor checking-item';
     }
 
     private fetchUserEmail() {

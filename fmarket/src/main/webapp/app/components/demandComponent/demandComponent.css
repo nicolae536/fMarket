@@ -9,9 +9,9 @@
     height: 42px;
 }
 
-.demand-dialog-component .demand-component-container .demand-component .remove-icon{
+.demand-dialog-component .demand-component-container .demand-component .checking-item {
     position: absolute;
-    right: 25px;
+    right: -10px;
     top: 8px;
 }
 

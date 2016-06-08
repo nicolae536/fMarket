@@ -724,6 +724,15 @@
     text-align: left
 }
 
+.glyphicon.glyphicon-ok{
+    color: #0f9e0f;;
+    transition: .1s;
+}
+
+.glyphicon.glyphicon-ok:hover{
+    color: #088b08;
+}
+
 .glyphicon.glyphicon-remove {
     color: #ab2424;
     transition: .1s;

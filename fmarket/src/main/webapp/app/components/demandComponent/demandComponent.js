@@ -64,8 +64,15 @@ var DemandComponent = (function () {
     DemandComponent.prototype.showDomainsDialog = function () {
         this._menuTreeDialog.showMenuTreeDialog();
     };
-    DemandComponent.prototype.removeProperty = function (property) {
-        this._demandData[property] = '';
+    DemandComponent.prototype.getFormControllClass = function (property) {
+        var condition = String(this._demandData[property]).length > 0;
+        if (this._demandForm.controls[property]) {
+            condition = condition && this._demandForm.controls[property].dirty && this._demandForm.controls[property].valid;
+        }
+        if (!condition && this._demandForm.controls[property].pristine) {
+            return '';
+        }
+        return condition ? 'glyphicon glyphicon-ok pointer-cursor checking-item' : 'glyphicon glyphicon-remove pointer-cursor checking-item';
     };
     DemandComponent.prototype.fetchUserEmail = function () {
         var user = authorizationService_1.AuthorizationService.getActiveUserState();

@@ -23,8 +23,7 @@
                                     <label>Titlu</label>
                                 </div>
                                 <div class="col-md-10 col-xs-9">
-                                    <span *ngIf="_demandData.title.length>0" class="glyphicon glyphicon-remove pointer-cursor remove-icon"
-                                          (click)="removeProperty('title')"></span>
+                                    <span [ngClass]="getFormControllClass('title')"></span>
                                     <input type="text" class="form-control" [(ngModel)]="_demandData.title"
                                            [ngFormControl]="_demandForm.controls['title']"/>
                                 </div>
@@ -34,8 +33,7 @@
                                     <label>Mesaj</label>
                                 </div>
                                 <div class="col-md-10 col-xs-9">
-                                    <span *ngIf="_demandData.message.length>0" class="glyphicon glyphicon-remove pointer-cursor remove-icon"
-                                          (click)="removeProperty('message')"></span>
+                                    <span [ngClass]="getFormControllClass('message')"></span>
                             <textarea type="text" rows="4" class="form-control no-resize" [(ngModel)]="_demandData.message"
                                       [ngFormControl]="_demandForm.controls['message']"></textarea>
                                 </div>
@@ -45,8 +43,6 @@
                                     <label>Domeniu</label>
                                 </div>
                                 <div class="col-md-10 col-xs-9">
-                                    <span *ngIf="_selectedDomain.id!==-1" class="glyphicon glyphicon-remove pointer-cursor remove-icon"
-                                          (click)="removeSelectedDomain()"></span>
                                     <span class="form-control select-domain" (click)="showDomainsDialog()">{{_selectedDomain.name}}</span>
                                 </div>
                             </div>
@@ -63,8 +59,7 @@
                                     <label>E-mail</label>
                                 </div>
                                 <div class="col-md-10 col-xs-9">
-                                    <span *ngIf="!isUserLoggedIn && _demandData.email && _demandData.email.length>0" class="glyphicon glyphicon-remove pointer-cursor remove-icon"
-                                          (click)="removeProperty('email')"></span>
+                                    <span [ngClass]="getFormControllClass('email')"></span>
                                     <input type="text" [disabled]="isUserLoggedIn" class="form-control"
                                            [(ngModel)]="_demandData.email"
                                            [ngFormControl]="_demandForm.controls['email']"/>
@@ -75,8 +70,7 @@
                                     <label>Telefon</label>
                                 </div>
                                 <div class="col-md-10 col-xs-9">
-                                    <span *ngIf="_demandData.phone.length>0" class="glyphicon glyphicon-remove pointer-cursor remove-icon"
-                                          (click)="removeProperty('phone')"></span>
+                                    <span [ngClass]="getFormControllClass('phone')"></span>
                                     <input type="tel" class="form-control"
                                            [(ngModel)]="_demandData.phone"
                                            [ngFormControl]="_demandForm.controls['phone']"/>
@@ -87,8 +81,7 @@
                                     <label>Nume</label>
                                 </div>
                                 <div class="col-md-10 col-xs-9">
-                                    <span *ngIf="_demandData.name.length>0" class="glyphicon glyphicon-remove pointer-cursor remove-icon"
-                                          (click)="removeProperty('name')"></span>
+                                    <span [ngClass]="getFormControllClass('name')"></span>
                                     <input type="text" class="form-control"
                                            [(ngModel)]="_demandData.name"
                                            [ngFormControl]="_demandForm.controls['name']"/>

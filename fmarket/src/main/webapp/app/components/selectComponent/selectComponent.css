@@ -32,6 +32,12 @@
     padding: 0px;
 }
 
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .options-container{
+    top: 8px;
+    position: absolute;
+    right: 8px;
+}
+
 .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-3.col-md-2 .glyphicon{
     margin-top: 4px;
 }
