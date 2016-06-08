@@ -1,0 +1,98 @@
+.companies-detail-page{
+    
+}
+
+.companies-detail-page .companies-presentation-page-container .side-presentation{
+    position: fixed;
+    background-color: rgba(0, 48, 91, 0.65);
+    height: 100%;
+    color: white;
+}
+
+.companies-detail-page .companies-presentation-page-container .image-container{
+    margin-bottom: 50px;
+    padding-right: 14%;
+    padding-left: 13%;
+    width: 100%;
+    background: aliceblue;
+}
+
+.companies-detail-page .companies-presentation-page-container .image-container .image-logo{
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.companies-detail-page .companies-presentation-page-container .display-table .side-text-content-wrapper .title{
+    margin-bottom: 30px;
+}
+
+.companies-detail-page .companies-presentation-page-container .display-table .side-text-content-wrapper{
+    padding-right: 14%;
+    padding-left: 13%;
+}
+
+.companies-detail-page .companies-presentation-page-container .display-table{
+    display: table;
+    text-align: right;
+    min-height: 79%;
+}
+
+.companies-detail-page .companies-presentation-page-container .companie-detail-container{
+    padding-top: 40px;
+    text-align: center;
+}
+
+.companies-detail-page .companies-presentation-page-container .companie-detail-container .title{
+    padding-bottom: 10px;
+}
+
+.companies-detail-page .companies-presentation-page-container .companie-detail-container .rating{
+    padding: 20px 0;
+    color: white;
+}
+
+.companies-detail-page .companies-presentation-page-container .companie-detail-container .rating .glyphicon{
+    color: white;
+    font-size: 20px;
+}
+
+.companies-detail-page .companies-presentation-page-container .companie-detail-container .details-container{
+    background-color: white;
+    padding: 20px;
+}
+.companies-detail-page .companies-presentation-page-container .companie-detail-container .companie-map{
+    padding: 20px 0;
+    color: white;
+}
+
+.companies-detail-page .companies-presentation-page-container .companie-detail-container .coments-section{
+    padding: 20px 0;
+    color: white;
+}
+
+.companies-detail-page .companies-presentation-page-container .companie-detail-container .coments-section .open-comments-action{
+    cursor: pointer;
+}
+
+
+
+
+
+
+ .table-cell{
+    display: table-cell;
+}
+
+.vertical-align-middle{
+    vertical-align: middle;
+}
+
+.color-white{
+    color: white;
+}
+
+.full-width-container{
+    width: 100%;
+}

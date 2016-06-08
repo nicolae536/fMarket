@@ -58,15 +58,11 @@ export class CompaniesPage implements OnInit {
     }
 
     selectCompanie($event) {
-        // this._router.navigate([`/admin/detalii-companie/${$event.id}`]);
+        this._router.navigate([`/firma-detalii/${$event.id}`]);
     }
 
     splitViewInPiecesUsingScreen(mockArray:Array<Object>) {
         let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0]['clientWidth'];
-
-        // if (screenWidth <= 767) {
-        //     return [mockArray]
-        // }
 
         let index = 0;
         let realIndex = 0;

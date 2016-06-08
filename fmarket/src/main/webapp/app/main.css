@@ -29,7 +29,8 @@
 @import "/app/pages/registrationPage/errorPages/errorActivateTokenPage.css";
 @import "/app/pages/registrationPage/successPages/successPage.css";
 @import "/app/pages/companiesPage/companiesPage.css";
-@import "pages/homePage/homePage.css";
+@import "/app/pages/homePage/homePage.css";
+@import "/app/pages/companiesPage/companieDetailPage/companieDetailPage.css";
 
 .modal-dialog.modal {
     height: 100% !important;

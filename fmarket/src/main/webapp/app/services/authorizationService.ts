@@ -12,6 +12,7 @@ import {AccountSettingsPage} from "../pages/accountSettingsPage/accountSettingsP
 import {SuccessPage} from "../pages/registrationPage/successPages/successPage";
 import {TokenConfirmPage} from "../pages/registrationPage/tokenConfirmPage/tokenConfirmPage";
 import {CompaniesPage} from "../pages/companiesPage/companiesPage";
+import {CompanieDetailPage} from "../pages/companiesPage/companieDetailPage/companieDetailPage";
 
 export class AuthorizationService {
 
@@ -89,6 +90,10 @@ export class AuthorizationService {
             new Route({
                 path: '/firme',
                 component: CompaniesPage
+            }),
+            new Route({
+                path: '/firma-detalii/:id',
+                component: CompanieDetailPage
             }),
             new Route({
                 path: '/confirm/:registration?token',

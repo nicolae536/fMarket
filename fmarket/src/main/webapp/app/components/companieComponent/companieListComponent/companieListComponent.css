@@ -27,6 +27,7 @@
     padding-top: 5px;
     border-bottom: 1px solid #D2DFF3;
     cursor: pointer;
+    transition: .3s linear;
 }
 
 .companie-list-component .companies-grid .companies-list .companie-list-item:hover {

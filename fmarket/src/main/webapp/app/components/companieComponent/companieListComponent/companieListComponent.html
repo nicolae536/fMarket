@@ -11,7 +11,7 @@
                     <div class="companies-list">
                         <div *ngFor="let companie of cellWrapper.companies" class="companie-list-item"  (mouseover)="companie.tooltipVisible=true"
                              (mouseleave)="companie.tooltipVisible=false">
-                            <a click="selectCompanie(companie)">
+                            <a (click)="selectCompanie(companie)">
                                 <span>
                                 {{companie.name}}
                                     </span><!--<img [src]=""/>-->

@@ -12,6 +12,7 @@ var accountSettingsPage_1 = require("../pages/accountSettingsPage/accountSetting
 var successPage_1 = require("../pages/registrationPage/successPages/successPage");
 var tokenConfirmPage_1 = require("../pages/registrationPage/tokenConfirmPage/tokenConfirmPage");
 var companiesPage_1 = require("../pages/companiesPage/companiesPage");
+var companieDetailPage_1 = require("../pages/companiesPage/companieDetailPage/companieDetailPage");
 var AuthorizationService = (function () {
     function AuthorizationService() {
     }
@@ -81,6 +82,10 @@ var AuthorizationService = (function () {
             new router_1.Route({
                 path: '/firme',
                 component: companiesPage_1.CompaniesPage
+            }),
+            new router_1.Route({
+                path: '/firma-detalii/:id',
+                component: companieDetailPage_1.CompanieDetailPage
             }),
             new router_1.Route({
                 path: '/confirm/:registration?token',

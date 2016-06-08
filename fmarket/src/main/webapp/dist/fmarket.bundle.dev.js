@@ -48277,8 +48277,8 @@
 	var registrationService_1 = __webpack_require__(794);
 	var jqueryService_1 = __webpack_require__(775);
 	var applicationStateService_1 = __webpack_require__(771);
-	var headerComponent_1 = __webpack_require__(882);
-	var footerComponent_1 = __webpack_require__(884);
+	var headerComponent_1 = __webpack_require__(883);
+	var footerComponent_1 = __webpack_require__(885);
 	var Roles_1 = __webpack_require__(773);
 	var AppComponent = (function () {
 	    //</editor-fold>
@@ -82157,6 +82157,7 @@
 	var successPage_1 = __webpack_require__(875);
 	var tokenConfirmPage_1 = __webpack_require__(877);
 	var companiesPage_1 = __webpack_require__(878);
+	var companieDetailPage_1 = __webpack_require__(882);
 	var AuthorizationService = (function () {
 	    function AuthorizationService() {
 	    }
@@ -82226,6 +82227,10 @@
 	            new router_1.Route({
 	                path: '/firme',
 	                component: companiesPage_1.CompaniesPage
+	            }),
+	            new router_1.Route({
+	                path: '/firma-detalii/:id',
+	                component: companieDetailPage_1.CompanieDetailPage
 	            }),
 	            new router_1.Route({
 	                path: '/confirm/:registration?token',
@@ -91382,13 +91387,10 @@
 	        });
 	    };
 	    CompaniesPage.prototype.selectCompanie = function ($event) {
-	        // this._router.navigate([`/admin/detalii-companie/${$event.id}`]);
+	        this._router.navigate([("/firma-detalii/" + $event.id)]);
 	    };
 	    CompaniesPage.prototype.splitViewInPiecesUsingScreen = function (mockArray) {
 	        var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0]['clientWidth'];
-	        // if (screenWidth <= 767) {
-	        //     return [mockArray]
-	        // }
 	        var index = 0;
 	        var realIndex = 0;
 	        var collector = [];
@@ -91474,7 +91476,7 @@
 /* 880 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"companie-list-component clearfix\">\r\n    <div class=\"companies-grid clearfix\">\r\n        <div *ngFor=\"let container of _companieList; let i=index\">\r\n            <div *ngIf=\"container && container.length >0\" class=\"col-md-3 col-xs-12 domain-companies-container\">\r\n                <div *ngFor=\"let cellWrapper of container\">\r\n                    <div class=\"title-wrapper\">\r\n                        <span class=\"h4 cell-tag-label\">\r\n                            {{cellWrapper.domainName}}\r\n                        </span>\r\n                    </div>\r\n                    <div class=\"companies-list\">\r\n                        <div *ngFor=\"let companie of cellWrapper.companies\" class=\"companie-list-item\"  (mouseover)=\"companie.tooltipVisible=true\"\r\n                             (mouseleave)=\"companie.tooltipVisible=false\">\r\n                            <a click=\"selectCompanie(companie)\">\r\n                                <span>\r\n                                {{companie.name}}\r\n                                    </span><!--<img [src]=\"\"/>-->\r\n                                <div (mouseover)=\"companie.tooltipVisible=true\"\r\n                                     (mouseleave)=\"companie.tooltipVisible=false\" class=\"tooltip-container\">\r\n                                    <div class=\"inner-tooltip-container blue_arrow_box_top\"\r\n                                         [class.open]=\"companie.tooltipVisible\">\r\n                                        <img [class.open]=\"companie.tooltipVisible\" class=\"logo-item\"\r\n                                             [src]=\"'/companies/logo/' + companie.id\"/>\r\n                                    </div>\r\n                                </div>\r\n                            </a>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div *ngIf=\"(i+1)%4==0\" class=\"clearfix\"></div>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
+	module.exports = "<div class=\"companie-list-component clearfix\">\r\n    <div class=\"companies-grid clearfix\">\r\n        <div *ngFor=\"let container of _companieList; let i=index\">\r\n            <div *ngIf=\"container && container.length >0\" class=\"col-md-3 col-xs-12 domain-companies-container\">\r\n                <div *ngFor=\"let cellWrapper of container\">\r\n                    <div class=\"title-wrapper\">\r\n                        <span class=\"h4 cell-tag-label\">\r\n                            {{cellWrapper.domainName}}\r\n                        </span>\r\n                    </div>\r\n                    <div class=\"companies-list\">\r\n                        <div *ngFor=\"let companie of cellWrapper.companies\" class=\"companie-list-item\"  (mouseover)=\"companie.tooltipVisible=true\"\r\n                             (mouseleave)=\"companie.tooltipVisible=false\">\r\n                            <a (click)=\"selectCompanie(companie)\">\r\n                                <span>\r\n                                {{companie.name}}\r\n                                    </span><!--<img [src]=\"\"/>-->\r\n                                <div (mouseover)=\"companie.tooltipVisible=true\"\r\n                                     (mouseleave)=\"companie.tooltipVisible=false\" class=\"tooltip-container\">\r\n                                    <div class=\"inner-tooltip-container blue_arrow_box_top\"\r\n                                         [class.open]=\"companie.tooltipVisible\">\r\n                                        <img [class.open]=\"companie.tooltipVisible\" class=\"logo-item\"\r\n                                             [src]=\"'/companies/logo/' + companie.id\"/>\r\n                                    </div>\r\n                                </div>\r\n                            </a>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div *ngIf=\"(i+1)%4==0\" class=\"clearfix\"></div>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
 /* 881 */
@@ -91484,6 +91486,45 @@
 
 /***/ },
 /* 882 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 6/8/2016.
+	 */
+	var core_1 = __webpack_require__(32);
+	var jqueryService_1 = __webpack_require__(775);
+	var applicationConstansts_1 = __webpack_require__(746);
+	// let template = require('./companieDetailPage.html');
+	var CompanieDetailPage = (function () {
+	    function CompanieDetailPage() {
+	    }
+	    CompanieDetailPage.prototype.ngOnInit = function () {
+	        jqueryService_1.JqueryService.removeElementWithAnimation('#' + applicationConstansts_1.ApplicationConstants.LOADING_SPINNER);
+	    };
+	    CompanieDetailPage = __decorate([
+	        core_1.Component({
+	            selector: 'compnaie-details-Page',
+	            // template:template,
+	            templateUrl: '/app/pages/companiesPage/companieDetailPage/companieDetailPage.html'
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], CompanieDetailPage);
+	    return CompanieDetailPage;
+	})();
+	exports.CompanieDetailPage = CompanieDetailPage;
+	//# sourceMappingURL=companieDetailPage.js.map
+
+/***/ },
+/* 883 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -91508,7 +91549,7 @@
 	var registrationService_1 = __webpack_require__(794);
 	var notificationService_1 = __webpack_require__(777);
 	var applicationStateService_1 = __webpack_require__(771);
-	var template = __webpack_require__(883);
+	var template = __webpack_require__(884);
 	var HeaderComponent = (function () {
 	    function HeaderComponent(router, localStorageService, registrationService, notificationService, applicationStateService) {
 	        this._router = router;
@@ -91621,13 +91662,13 @@
 	//# sourceMappingURL=headerComponent.js.map
 
 /***/ },
-/* 883 */
+/* 884 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"sidenav-mobile visible-xs\" [style.margin-left]=\"sideMenuOpened ? '0' :'-250px'\">\r\n    <div class=\"clearfix\">\r\n        <a href=\"javascript:void(0)\" class=\"closebtn pull-right\" (click)=\"closeNav()\">×</a>\r\n    </div>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n        <ul class=\"nav navbar-nav navbar-right\">\r\n            <li><a (click)=\"addDemandFromMobile()\">Adauga cerere</a></li>\r\n            <li *ngFor=\"let page of _usersApplicationPages\"><a (click)=\"goToPageUsingSideMenu(page.link)\">{{page.name}}</a></li>\r\n            <li *ngIf=\"!isLoggedIn()\"><a (click)=\"goToPageUsingSideMenu('/login')\">Contul meu</a></li>\r\n            <li *ngIf=\"chechIdNormalUser()\">\r\n                <ul>\r\n                    <li *ngFor=\"let p of _myAccountDropdownPages\"><a (click)=\"goToPageUsingSideMenu(p.link)\">{{p.name}}</a></li>\r\n                    <li><a (click)=\"logout()\">Iesire din cont</a></li>\r\n                </ul>\r\n            </li>\r\n            <li *ngIf=\"isAdminUser()\">\r\n                <ul>\r\n                    <li *ngFor=\"let p of _adminApplicationPages\"><a (click)=\"goToPageUsingSideMenu(p.link)\">{{p.name}}</a></li>\r\n                    <li><a style=\"cursor: pointer;\" (click)=\"logoutFromSideMenu()\">Iesire din cont</a></li>\r\n                </ul>\r\n            </li>\r\n        </ul>\r\n    </ul>\r\n</div>\r\n<div class=\"header\">\r\n    <nav class=\"navbar navbar-default navbar-fixed-top clearfix\">\r\n        <div class=\"container-fluid clearfix\" [style.margin-left]=\"sideMenuOpened ? '250px' :'0px'\">\r\n            <div class=\"visible-xs visible-sm pull-left mobile-menu\">\r\n                <span (click)=\"openNav()\" class=\"glyphicon glyphicon-align-justify\"></span>\r\n            </div>\r\n            <a [routerLink]=\"['/']\" class=\"navbar-header clearfix\">\r\n                <img [style.opacity]=\"hideImage ? 0 : 1\" id=\"element1\" class=\"fMarket-brand-icon\"\r\n                     src=\"/staticResorces/logo.png\"/>\r\n            </a>\r\n            <div class=\"collapse navbar-collapse\">\r\n                <div class=\"pull-right navbar-bottons\">\r\n                    <button class=\"btn btn-success\" (click)=\"addDemand()\">\r\n                        <span class=\"glyphicon glyphicon-plus\"></span>\r\n                        Adauga cerere\r\n                    </button>\r\n                </div>\r\n                <ul class=\"nav navbar-nav navbar-right\">\r\n                    <li *ngFor=\"let page of _usersApplicationPages\"><a [routerLink]=\"[page.link]\">{{page.name}}</a></li>\r\n                    <li *ngIf=\"!isLoggedIn()\"><a [routerLink]=\"['/login']\">Contul meu</a></li>\r\n                    <li *ngIf=\"chechIdNormalUser()\" dropdown class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" dropdownToggle role=\"button\" aria-haspopup=\"true\"\r\n                           aria-expanded=\"false\">{{_myAccountLabel}}<span class=\"caret\"></span></a>\r\n                        <ul dropdownMenu class=\"dropdown-menu\">\r\n                            <li *ngFor=\"let p of _myAccountDropdownPages\"><a [routerLink]=\"[p.link]\">{{p.name}}</a></li>\r\n                            <li><a (click)=\"logout()\">Iesire din cont</a></li>\r\n                        </ul>\r\n                    </li>\r\n                    <li *ngIf=\"isAdminUser()\" dropdown class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" dropdownToggle role=\"button\" aria-haspopup=\"true\"\r\n                           aria-expanded=\"false\">{{_myAccountLabel}}<span class=\"caret\"></span></a>\r\n                        <ul dropdownMenu class=\"dropdown-menu\">\r\n                            <li *ngFor=\"let p of _adminApplicationPages\"><a [routerLink]=\"[p.link]\">{{p.name}}</a></li>\r\n                            <li><a style=\"cursor: pointer;\" (click)=\"logout()\">Iesire din cont</a></li>\r\n                        </ul>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n        </div>\r\n    </nav>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n";
 
 /***/ },
-/* 884 */
+/* 885 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -91644,7 +91685,7 @@
 	};
 	var core_1 = __webpack_require__(32);
 	var router_1 = __webpack_require__(305);
-	var template = __webpack_require__(885);
+	var template = __webpack_require__(886);
 	var FooterComponent = (function () {
 	    function FooterComponent() {
 	    }
@@ -91662,7 +91703,7 @@
 	//# sourceMappingURL=footerComponent.js.map
 
 /***/ },
-/* 885 */
+/* 886 */
 /***/ function(module, exports) {
 
 	module.exports = "<footer class=\"footer\">\r\n    <div class=\"footer-wrapper\">\r\n        <div class=\"row\">\r\n            <div class=\"col-sm-12 col-md-4\">\r\n                <a [routerLink]=\"['/']\" class=\"logo-image-container\">\r\n                    <img class=\"image\" src=\"/staticResorces/logo.png\"/>\r\n                </a>\r\n                <div class=\"footer-row under-image\">\r\n                    <span>© 2016 fMarket. Toate drepturile rezervate</span>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-sm-12 col-md-push-4 col-md-2\">\r\n                <div class=\"footer-row first\">\r\n                    <!--[routerLink]=\"['About']\"-->\r\n                    <a>Contact</a>\r\n                </div>\r\n                <div class=\"footer-row\">\r\n                    <a [routerLink]=\"['/firme']\">Firme ofertante</a>\r\n                </div>\r\n                <div class=\"footer-row last\">\r\n                    <!--[routerLink]=\"['TermsAndConditions']\"-->\r\n                    <a >Termeni si conditii de utilizare</a>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-sm-12 col-md-push-4 col-md-2\">\r\n                <div class=\"footer-row first\">\r\n                    <a [routerLink]=\"['/login']\">Login</a>\r\n                </div>\r\n                <div class=\"footer-row\">\r\n                    <!--[routerLink]=\"['About']\"-->\r\n                    <a>Despre fmarket.ro</a>\r\n                </div>\r\n                <div class=\"footer-row last\">\r\n                    <a [routerLink]=\"['/registration']\">Inregistrare</a>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</footer>";
