@@ -78,6 +78,14 @@ public class CompanyDao extends BaseDao<Company> {
 		return criteria.list();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Company> getCompaniesByCompanyDomain(String domain) {
+		Criteria criteria = getCriteria();
+		criteria.createAlias("domain", "d");
+		criteria.add(Restrictions.ilike("d.name", "%" + domain + "%"));
+		return criteria.list();
+	}
+	
 //	@SuppressWarnings("unchecked")
 //	public List<Company> getAllCompanyNames(String domainName) {
 //		Criteria criteria = getCriteria();
