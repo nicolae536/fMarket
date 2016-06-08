@@ -3,6 +3,7 @@ package ro.fmarket.model.company;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -83,20 +84,9 @@ public class CompanyDao extends BaseDao<Company> {
 		Criteria criteria = getCriteria();
 		criteria.createAlias("domain", "d");
 		criteria.add(Restrictions.ilike("d.name", "%" + domain + "%"));
+		criteria.addOrder(Order.asc("d.name"));
 		return criteria.list();
 	}
 	
-//	@SuppressWarnings("unchecked")
-//	public List<Company> getAllCompanyNames(String domainName) {
-//		Criteria criteria = getCriteria();
-//		criteria.createAlias("domain", "d");
-//		if (StringUtils.isNotBlank(domainName)) {
-//			criteria.add(Restrictions.ilike("d.name", "%" + domainName + "%"));
-//		}
-//
-//		criteria.addOrder(Order.asc("d.name"));
-//		criteria.addOrder(Order.asc("name"));
-//		return criteria.list();
-//	}
 
 }
