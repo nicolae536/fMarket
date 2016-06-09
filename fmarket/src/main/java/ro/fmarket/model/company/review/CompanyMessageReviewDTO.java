@@ -7,14 +7,10 @@ import lombok.Data;
 @Data
 public class CompanyMessageReviewDTO {
 
-	private int companyId;
-	private String companyEmail;
-	
-	private int accountId;
-	private String accountEmail;
-	
 	private DateTime date;
 	
 	private String message;
+	
+	private String name;
 	
 }

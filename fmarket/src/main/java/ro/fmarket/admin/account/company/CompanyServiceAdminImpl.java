@@ -24,10 +24,9 @@ import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
 import ro.fmarket.model.company.Company;
 import ro.fmarket.model.company.CompanyDao;
 import ro.fmarket.model.company.NewCompanyRequest;
+import ro.fmarket.model.company.contact.CompanyContactInfo;
 import ro.fmarket.model.company.logo.CompanyLogo;
 import ro.fmarket.model.company.logo.CompanyLogoDao;
-import ro.fmarket.model.company.rating.CompanyContactInfo;
-import ro.fmarket.model.company.rating.CompanyRating;
 import ro.fmarket.model.domain.company.CompanyDomainDao;
 import ro.fmarket.model.domain.demand.DemandDomain;
 import ro.fmarket.model.domain.demand.DemandDomainDao;
@@ -41,9 +40,6 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 	
 	@Autowired
 	private CompanyDao companyDao;
-
-	@Autowired
-	private AccountDao accountDao;
 
 	@Autowired
 	private CompanyDomainDao companyDomainDao;
@@ -103,7 +99,8 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 		company.setAccount(account);
 		company.setName(request.getName());
 		company.setContactInfo(createContactInfo(request));
-		company.setRating(new CompanyRating());
+		company.setScore(0);
+		company.setVotes(0);
 		company.setDomain(companyDomainDao.load(request.getCompanyDomainId()));
 		for (Integer i : request.getDemandDomains()) {
 			company.getDemandDomains().add(demandDomainDao.load(i));

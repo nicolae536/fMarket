@@ -12,7 +12,6 @@ import lombok.EqualsAndHashCode;
 import ro.fmarket.core.base.BaseEntity;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.company.Company;
-import ro.fmarket.model.domain.company.CompanyDomain;
 
 @Data
 @Entity

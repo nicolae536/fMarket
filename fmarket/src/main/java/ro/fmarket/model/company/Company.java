@@ -13,17 +13,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Min;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import ro.fmarket.core.base.BaseEntity;
 import ro.fmarket.model.account.Account;
+import ro.fmarket.model.company.contact.CompanyContactInfo;
 import ro.fmarket.model.company.logo.CompanyLogo;
-import ro.fmarket.model.company.rating.CompanyContactInfo;
-import ro.fmarket.model.company.rating.CompanyRating;
 import ro.fmarket.model.company.review.CompanyMessageReview;
 import ro.fmarket.model.domain.company.CompanyDomain;
 import ro.fmarket.model.domain.demand.DemandDomain;
@@ -45,9 +44,6 @@ public class Company extends BaseEntity {
 	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	private CompanyContactInfo contactInfo;
 
-	@OneToOne(optional = false, cascade = CascadeType.ALL)
-	private CompanyRating rating;
-
 	@Column(nullable = false)
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dateInserted;
@@ -62,5 +58,19 @@ public class Company extends BaseEntity {
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	private CompanyLogo logo;
+	
+	/**
+	 * reviews nr
+	 */
+	@Min(0)
+	@Column(nullable = false)
+	private Integer votes = 0;
 
+	/**
+	 * Sum of stars
+	 */
+	@Min(0)
+	@Column(nullable = false)
+	private Integer score = 0;
+	
 }

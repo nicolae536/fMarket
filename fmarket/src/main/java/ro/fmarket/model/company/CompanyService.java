@@ -2,13 +2,13 @@ package ro.fmarket.model.company;
 
 import java.util.List;
 
-import ro.fmarket.admin.account.company.CompanyDetailsAdminDTO;
+import ro.fmarket.model.company.review.CompanyMessageReviewDTO;
 import ro.fmarket.model.company.review.NewCompanyMessageReview;
 import ro.fmarket.model.company.review.NewCompanyStarsReview;
 
 public interface CompanyService {
 
-	CompanyDetailsAdminDTO getCompanyDetails(int id);
+	CompanyDetailsDTO getCompanyDetails(int id);
 
 	void addStarsReview(Integer accountId, NewCompanyStarsReview request);
 
@@ -17,4 +17,6 @@ public interface CompanyService {
 	List<FullDomainDTO> getCompaniesGroupedByDomain(String name);
 	
 	byte[] getLogo(int companyId);
+	
+	List<CompanyMessageReviewDTO> getCompanyReviews(int id);
 }

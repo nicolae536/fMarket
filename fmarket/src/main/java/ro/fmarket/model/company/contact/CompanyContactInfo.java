@@ -1,4 +1,4 @@
-package ro.fmarket.model.company.rating;
+package ro.fmarket.model.company.contact;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -16,8 +16,8 @@ public class CompanyContactInfo extends BaseEntity {
 	private String contactPerson;
 	private String email;
 	
-	private double latitude;
-	private double longitude;
+	private Double latitude;
+	private Double longitude;
 
 	@ManyToOne(optional = false)
 	private City city;

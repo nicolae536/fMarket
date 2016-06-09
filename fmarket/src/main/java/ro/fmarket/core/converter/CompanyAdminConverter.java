@@ -6,7 +6,7 @@ import java.util.List;
 import ro.fmarket.admin.account.company.CompanyDetailsAdminDTO;
 import ro.fmarket.admin.account.company.CompanyListItemAdmin;
 import ro.fmarket.model.company.Company;
-import ro.fmarket.model.company.rating.CompanyContactInfo;
+import ro.fmarket.model.company.contact.CompanyContactInfo;
 
 public class CompanyAdminConverter {
 

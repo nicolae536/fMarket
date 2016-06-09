@@ -8,13 +8,21 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ro.fmarket.admin.account.company.CompanyDetailsAdminDTO;
+import ro.fmarket.core.converter.CompanyConverter;
+import ro.fmarket.core.utils.DateUtils;
+import ro.fmarket.model.account.AccountDao;
 import ro.fmarket.model.company.logo.CompanyLogo;
 import ro.fmarket.model.company.logo.CompanyLogoDao;
+import ro.fmarket.model.company.review.CompanyMessageReview;
+import ro.fmarket.model.company.review.CompanyMessageReviewDTO;
+import ro.fmarket.model.company.review.CompanyMessageReviewDao;
+import ro.fmarket.model.company.review.CompanyStarsReview;
+import ro.fmarket.model.company.review.CompanyStarsReviewDao;
 import ro.fmarket.model.company.review.NewCompanyMessageReview;
 import ro.fmarket.model.company.review.NewCompanyStarsReview;
 
@@ -22,25 +30,50 @@ import ro.fmarket.model.company.review.NewCompanyStarsReview;
 @Transactional
 public class CompanyServiceImpl implements CompanyService {
 
+	private static final Logger LOG = Logger.getLogger(CompanyServiceImpl.class);
+	
+	@Autowired
+	private AccountDao accountDao;
+
 	@Autowired
 	private CompanyDao companyDao;
 
 	@Autowired
 	private CompanyLogoDao companyLogoDao;
 
+	@Autowired
+	private CompanyMessageReviewDao companyMessageReviewDao;
+
+	@Autowired
+	private CompanyStarsReviewDao companyStarsReviewDao;
+
 	@Override
-	public CompanyDetailsAdminDTO getCompanyDetails(int id) {
-		return null;
+	public CompanyDetailsDTO getCompanyDetails(int id) {
+		Company company = companyDao.get(id);
+		return CompanyConverter.toDetails(company);
+	}
+
+	@Override
+	public List<CompanyMessageReviewDTO> getCompanyReviews(int id) {
+		List<CompanyMessageReview> reviews = companyMessageReviewDao.getForCompany(id);
+		return CompanyConverter.toReviewDTOList(reviews);
 	}
 
 	@Override
 	public void addStarsReview(Integer accountId, NewCompanyStarsReview request) {
-
+		CompanyStarsReview review = companyStarsReviewDao.getForAccount(accountId);
+		if (review != null) {
+			// TODO update
+		} else {
+			// TODO create
+		}
 	}
 
 	@Override
 	public void addMessageReview(Integer accountId, NewCompanyMessageReview request) {
-
+		CompanyMessageReview review = createNewReview(request);
+		review.setAccount(accountDao.load(accountId));
+		companyMessageReviewDao.save(review);
 	}
 
 	@Override
@@ -80,5 +113,13 @@ public class CompanyServiceImpl implements CompanyService {
 		} else {
 			return logo.getFile();
 		}
+	}
+
+	private CompanyMessageReview createNewReview(NewCompanyMessageReview request) {
+		CompanyMessageReview result = new CompanyMessageReview();
+		result.setDateInserted(DateUtils.now());
+		result.setMessage(request.getMessage());
+		result.setCompany(companyDao.load(request.getCompanyId()));
+		return result;
 	}
 }
