@@ -5,27 +5,47 @@
                 <div class="table-cell vertical-align-middle">
                     <div class="side-text-content-wrapper">
                         <div class="title">
-                            <span class="h2">Test</span>
+                            <span class="h2">{{companieDetailsModel.name}}Test</span>
                         </div>
                     </div>
-                    <div class="company-icon-container">
-                        <div class="image-container">
-                            <img class="image-logo" src="/staticResorces/logo.png">
-                        </div>
-                    </div>
-                    <div class="side-text-content-wrapper">
+                    <!--<div class="company-icon-container">-->
+                    <!--<div class="image-container">-->
+                    <!--<img class="image-logo" src="/staticResorces/logo.png">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="side-text-content-wrapper">-->
 
-                        <div class="company-description">
-                            Ce este Lorem Ipsum?
-                            Lorem Ipsum este pur şi simplu o machetă pentru text a industriei tipografice. Lorem Ipsum a
-                            fost macheta standard a industriei încă din secolul al XVI-lea, când un tipograf anonim a
-                            luat o planşetă de litere şi le-a amestecat pentru a crea o carte demonstrativă pentru
-                            literele respective. Nu doar că a supravieţuit timp de cinci secole, dar şi a facut saltul
-                            în tipografia electronică practic neschimbată. A fost popularizată în anii '60 odată cu
-                            ieşirea colilor Letraset care conţineau pasaje Lorem Ipsum, iar mai recent, prin programele
-                            de publicare pentru calculator, ca Aldus PageMaker care includeau versiuni de Lorem Ipsum.
-                        </div>
-                    </div>
+                    <!--<div class="company-description">-->
+                    <!--Ce este Lorem Ipsum?-->
+                    <!--Lorem Ipsum este pur şi simplu o machetă pentru text a industriei tipografice. Lorem Ipsum a-->
+                    <!--fost macheta standard a industriei încă din secolul al XVI-lea, când un tipograf anonim a-->
+                    <!--luat o planşetă de litere şi le-a amestecat pentru a crea o carte demonstrativă pentru-->
+                    <!--literele respective. Nu doar că a supravieţuit timp de cinci secole, dar şi a facut saltul-->
+                    <!--în tipografia electronică practic neschimbată. A fost popularizată în anii '60 odată cu-->
+                    <!--ieşirea colilor Letraset care conţineau pasaje Lorem Ipsum, iar mai recent, prin programele-->
+                    <!--de publicare pentru calculator, ca Aldus PageMaker care includeau versiuni de Lorem Ipsum.-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <sebm-google-map
+                            [latitude]="mapModel.lat"
+                            [longitude]="mapModel.lng"
+                            [zoom]="mapModel.zoom"
+                            [disableDefaultUI]="false"
+                            [zoomControl]="false">
+
+                        <sebm-google-map-marker #mapMerkerRef
+                                                [latitude]="marketModel.lat"
+                                                [longitude]="marketModel.lng"
+                                                [label]="marketModel.label"
+                                                [markerDraggable]="marketModel.draggable">
+
+                            <sebm-google-map-info-window>
+                                <img class="map-icon" src="/staticResorces/logo.png"/>
+                            </sebm-google-map-info-window>
+
+                        </sebm-google-map-marker>
+
+                    </sebm-google-map>
                 </div>
             </div>
         </div>
@@ -48,31 +68,72 @@
                 </div>
                 <div class="details-container clearfix">
                     <div class="col-md-6">
-                        literele respective. Nu doar că a supravieţuit timp de cinci secole, dar şi a facut saltul
-                        în tipografia electronică practic neschimbată. A fost popularizată în anii '60 odată cu
-                        ieşirea colilor Letraset care conţineau pasaje Lorem Ipsum, iar mai recent, prin programele
-                        de publicare pentru calculator, ca Aldus PageMaker care includeau versiuni de Lorem Ipsum.
-                    </div>
-                    <div class="col-md-6">
-                        literele respective. Nu doar că a supravieţuit timp de cinci secole, dar şi a facut saltul
-                        în tipografia electronică practic neschimbată. A fost popularizată în anii '60 odată cu
-                        ieşirea colilor Letraset care conţineau pasaje Lorem Ipsum, iar mai recent, prin programele
-                        de publicare pentru calculator, ca Aldus PageMaker care includeau versiuni de Lorem Ipsum.
-                    </div>
-                </div>
-                <div class="companie-map">
-                    <span class="h3">Locatia companiei</span>
-                </div>
-                <div class="coments-section">
-                    <div>
-                        <div>
-                            <span class="h3 open-comments-action">Comentarii legate de companie</span>
-                            <span class="glyphicon glyphicon-triangle-bottom open-comments-action"></span>
+                        <div class="form-group">
+                            <label>Email :</label>
+                            <label>{{companieDetailsModel.email}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Telefon :</label>
+                            <label>{{companieDetailsModel.phone}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Adresa :</label>
+                            <label>{{companieDetailsModel.address}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Persoana de contact :</label>
+                            <label>{{companieDetailsModel.contactPerson}}</label>
                         </div>
                     </div>
-                    <div class="coments-group">
-                        <div class="coments-list"></div>
-                        <div class="add-coment-action"></div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Domaniu companie :</label>
+                            <label>{{companieDetailsModel.companyDomain}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Domenii cereri :</label>
+                            <label *ngFor="let c of companieDetailsModel.demandDomains"> {{c.name}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Oras :</label>
+                            <label>{{companieDetailsModel.city}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Data la care a fost adaugata pe fMarket :</label>
+                            <label>{{companieDetailsModel.creationDate}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="coments-section">
+                    <div style="padding-bottom: 20px">
+                        <span class="h3 open-comments-action" (click)="commentsOpen = !commentsOpen">Comentarii legate de companie</span>
+                        <span class="glyphicon open-comments-action" [class.glyphicon-triangle-bottom]="!commentsOpen" [class.glyphicon-triangle-top]="commentsOpen" (click)="commentsOpen = !commentsOpen"></span>
+                    </div>
+                    <div class="coments-group" [class.open]="commentsOpen" >
+                        <div *ngIf="comments.length === 0" style="color: black;">
+                            <span>Nu sunt comentarii.</span>
+                        </div>
+                        <div class="coments-list" *ngFor="let comment of comments">
+                            <div class="form-group">
+                                <div class="comment-author">
+                                    <label class="h4">asds asdas</label>
+                                </div>
+                                <div class="arrow_box_top">
+                                    <textarea class="form-control comment-container" disabled>{{comment.message}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-coment-operation">
+                        <div class="form-group">
+                            <textarea class="form-control no-resize add-comment-container" [(ngModel)]="comment"></textarea>
+                        </div>
+                        <div class="operations">
+                            <button class="btn btn-success" (click)="addComment()">
+                                <span class="glyphicon glyphicon-send"></span>
+                                Adauga comentariu
+                            </button>
+                        </div>
                     </div>
                 </div>
 

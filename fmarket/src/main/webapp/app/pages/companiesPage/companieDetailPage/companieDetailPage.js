@@ -13,18 +13,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var jqueryService_1 = require("../../../services/jqueryService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
-// let template = require('./companieDetailPage.html');
+var core_2 = require('angular2-google-maps/core');
 var CompanieDetailPage = (function () {
     function CompanieDetailPage() {
+        this.companieDetailsModel = {};
+        this.comments = [];
+        this.commentsOpen = false;
     }
     CompanieDetailPage.prototype.ngOnInit = function () {
+        this.mapModel = { lat: 51.673858, lng: 7.815982, zoom: 15 };
+        this.marketModel = { lat: 51.673858, lng: 7.815982, label: 'Nume companie', draggable: false };
         jqueryService_1.JqueryService.removeElementWithAnimation('#' + applicationConstansts_1.ApplicationConstants.LOADING_SPINNER);
     };
+    CompanieDetailPage.prototype.ngAfterViewInit = function () {
+        var me = this;
+        setTimeout(function () {
+            me.mapMerkerRef.nativeElement.click();
+        }, 500);
+    };
+    __decorate([
+        core_1.ViewChild('mapMerkerRef'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], CompanieDetailPage.prototype, "mapMerkerRef", void 0);
     CompanieDetailPage = __decorate([
         core_1.Component({
             selector: 'compnaie-details-Page',
             // template:template,
-            templateUrl: '/app/pages/companiesPage/companieDetailPage/companieDetailPage.html'
+            templateUrl: '/app/pages/companiesPage/companieDetailPage/companieDetailPage.html',
+            directives: [core_2.ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
         }), 
         __metadata('design:paramtypes', [])
     ], CompanieDetailPage);

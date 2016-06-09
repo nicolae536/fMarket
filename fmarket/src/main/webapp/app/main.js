@@ -22,12 +22,13 @@ var localStorageService_1 = require("./services/localStorageService");
 var authorizationService_1 = require("./services/authorizationService");
 var registrationService_1 = require("./services/registrationService");
 var applicationStateService_1 = require("./services/applicationStateService");
-core_1.enableProdMode();
-//console.log(HTTP_PROVIDERS);
+var core_2 = require("angular2-google-maps/core");
+//enableProdMode();
 platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
     http_1.HTTP_PROVIDERS,
     router_1.ROUTER_PROVIDERS,
     core_1.provide(common_1.LocationStrategy, { useClass: common_1.HashLocationStrategy }),
+    core_2.ANGULAR2_GOOGLE_MAPS_PROVIDERS,
     common_2.FormBuilder,
     applicationStateService_1.ApplicationStateService,
     fMarketApi_1.FMarketApi,
