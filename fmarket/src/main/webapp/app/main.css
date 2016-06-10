@@ -32,6 +32,10 @@
 @import "/app/pages/homePage/homePage.css";
 @import "/app/pages/companiesPage/companieDetailPage/companieDetailPage.css";
 
+*:focus {
+    outline: none;
+}
+
 .modal-dialog.modal {
     height: 100% !important;
     max-height: 100% !important;
