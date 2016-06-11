@@ -19,10 +19,9 @@
 }
 
 .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .label.label-info{
-    margin-left: 5px;
-    top: 2.5px;
+    top: 3px;
     margin-bottom: 2px;
-    font-size: 95%;
+    font-size: 90%;
 }
 
 .bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-9.col-md-10{
@@ -47,6 +46,7 @@
     font-size: 12px;
     color: white;
     margin-top: 1.5px;
+    margin-left: 5px;
 }
 
 .bs-ui-select-2.dropdown .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
@@ -85,7 +85,7 @@
 }
 
 .bs-ui-select-2 .ui-select2-list-item:hover{
-    background-color: lightgray;
+    background-color: #f2f2f2;
     cursor: pointer;
 }
 
