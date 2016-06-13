@@ -22,18 +22,22 @@ public class CompanyConverter {
 		result.setContactPerson(contactInfo.getContactPerson());
 		result.setLatitude(contactInfo.getLatitude());
 		result.setLongitude(contactInfo.getLongitude());
-		int avgScore = company.getScore() / company.getVotes();
-		result.setScore(avgScore);
+		if (company.getVotes() == 0) {
+			result.setScore(0);
+		} else {
+			int avgScore = company.getScore() / company.getVotes();
+			result.setScore(avgScore);
+		}
 		return result;
 	}
-	
+
 	public static CompanyMessageReviewDTO toReviewDTO(CompanyMessageReview review) {
 		CompanyMessageReviewDTO result = new CompanyMessageReviewDTO();
 		result.setDate(review.getDateInserted());
 		result.setMessage(review.getMessage());
 		return result;
 	}
-	
+
 	public static List<CompanyMessageReviewDTO> toReviewDTOList(List<CompanyMessageReview> reviews) {
 		List<CompanyMessageReviewDTO> result = new ArrayList<>();
 		for (CompanyMessageReview review : reviews) {
