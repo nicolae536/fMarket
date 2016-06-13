@@ -24,13 +24,13 @@ var CompaniesService = (function () {
         return this.api.get(this.COMPANIE_CONTROLLER + ("/all?p=" + searchQuery));
     };
     CompaniesService.prototype.getCompanieDetailsForUsers = function (id) {
-        return this.api.get(this.COMPANIE_CONTROLLER + ("/details/" + id));
+        return this.api.get(this.COMPANIE_CONTROLLER + ("/" + id));
     };
     CompaniesService.prototype.addStarsReviewForUsers = function (review) {
         return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
     };
     CompaniesService.prototype.addMessageReviewForUsers = function (review) {
-        return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
+        return this.api.post(this.COMPANIE_CONTROLLER + '/review/message', JSON.stringify(review));
     };
     CompaniesService.prototype.createCompany = function (newCompanyRequest) {
         return this.api.post(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(newCompanyRequest));
@@ -82,6 +82,9 @@ var CompaniesService = (function () {
     };
     CompaniesService.prototype.getDemandDomanins = function () {
         return this.api.get('/demand/domains');
+    };
+    CompaniesService.prototype.getCompanyReviews = function (id) {
+        return this.api.get(this.COMPANIE_CONTROLLER + ("/reviews/" + id));
     };
     CompaniesService.prototype.mapNameToSelect2Item = function (array) {
         return _.map(array, function (item) {

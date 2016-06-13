@@ -8,24 +8,6 @@
                             <span class="h2">{{companieDetailsModel.name}}Test</span>
                         </div>
                     </div>
-                    <!--<div class="company-icon-container">-->
-                    <!--<div class="image-container">-->
-                    <!--<img class="image-logo" src="/staticResorces/logo.png">-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="side-text-content-wrapper">-->
-
-                    <!--<div class="company-description">-->
-                    <!--Ce este Lorem Ipsum?-->
-                    <!--Lorem Ipsum este pur şi simplu o machetă pentru text a industriei tipografice. Lorem Ipsum a-->
-                    <!--fost macheta standard a industriei încă din secolul al XVI-lea, când un tipograf anonim a-->
-                    <!--luat o planşetă de litere şi le-a amestecat pentru a crea o carte demonstrativă pentru-->
-                    <!--literele respective. Nu doar că a supravieţuit timp de cinci secole, dar şi a facut saltul-->
-                    <!--în tipografia electronică practic neschimbată. A fost popularizată în anii '60 odată cu-->
-                    <!--ieşirea colilor Letraset care conţineau pasaje Lorem Ipsum, iar mai recent, prin programele-->
-                    <!--de publicare pentru calculator, ca Aldus PageMaker care includeau versiuni de Lorem Ipsum.-->
-                    <!--</div>-->
-                    <!--</div>-->
                     <sebm-google-map
                             [latitude]="mapModel.lat"
                             [longitude]="mapModel.lng"
@@ -40,7 +22,7 @@
                                                 [markerDraggable]="marketModel.draggable">
 
                             <sebm-google-map-info-window>
-                                <img class="map-icon" src="/staticResorces/logo.png"/>
+                                <img class="map-icon" [src]="'/companies/logo/' + companyId"/>
                             </sebm-google-map-info-window>
 
                         </sebm-google-map-marker>
@@ -56,14 +38,14 @@
                 </div>
                 <div class="rating">
                     <div>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
+                        <span [class]="getClassUsingSelectedId(1)" (mouseenter)="setOverItem(1)" (mouseleave)="hoveredItemId = -1" (click)="addStarsNumber(1)"></span>
+                        <span [class]="getClassUsingSelectedId(2)" (mouseenter)="setOverItem(2)" (mouseleave)="hoveredItemId = -1" (click)="addStarsNumber(2)"></span>
+                        <span [class]="getClassUsingSelectedId(3)" (mouseenter)="setOverItem(3)" (mouseleave)="hoveredItemId = -1" (click)="addStarsNumber(3)"></span>
+                        <span [class]="getClassUsingSelectedId(4)" (mouseenter)="setOverItem(4)" (mouseleave)="hoveredItemId = -1" (click)="addStarsNumber(4)"></span>
+                        <span [class]="getClassUsingSelectedId(5)" (mouseenter)="setOverItem(5)" (mouseleave)="hoveredItemId = -1" (click)="addStarsNumber(5)"></span>
                     </div>
                     <div>
-                        4.587
+                        {{companyReview}}
                     </div>
                 </div>
                 <div class="details-container clearfix">
@@ -107,7 +89,7 @@
                 <div class="coments-section">
                     <div style="padding-bottom: 20px">
                         <span class="h3 open-comments-action" (click)="commentsOpen = !commentsOpen">Comentarii legate de companie</span>
-                        <span class="glyphicon open-comments-action" [class.glyphicon-triangle-bottom]="!commentsOpen" [class.glyphicon-triangle-top]="commentsOpen" (click)="commentsOpen = !commentsOpen"></span>
+                        <span class="glyphicon open-comments-action" [class.glyphicon-triangle-bottom]="!commentsOpen" [class.glyphicon-triangle-top]="commentsOpen" (click)="openCommentsSection()"></span>
                     </div>
                     <div class="coments-group" [class.open]="commentsOpen" >
                         <div *ngIf="comments.length === 0" style="color: black;">
@@ -116,7 +98,8 @@
                         <div class="coments-list" *ngFor="let comment of comments">
                             <div class="form-group">
                                 <div class="comment-author">
-                                    <label class="h4">asds asdas</label>
+                                    <label class="h4">{{comment.name}}</label>
+                                    <label>{{comment.date}}</label>
                                 </div>
                                 <div class="arrow_box_top">
                                     <textarea class="form-control comment-container" disabled>{{comment.message}}</textarea>

@@ -13,23 +13,83 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var jqueryService_1 = require("../../../services/jqueryService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
-var core_2 = require('angular2-google-maps/core');
+var core_2 = require("angular2-google-maps/core");
+var companiesService_1 = require("../../../services/companiesService");
+var notificationService_1 = require("../../../services/notificationService");
 var CompanieDetailPage = (function () {
-    function CompanieDetailPage() {
+    function CompanieDetailPage(companiesService, notificationService) {
         this.companieDetailsModel = {};
         this.comments = [];
         this.commentsOpen = false;
+        this.comment = '';
+        this.companiesService = companiesService;
+        this._notificationService = notificationService;
     }
     CompanieDetailPage.prototype.ngOnInit = function () {
         this.mapModel = { lat: 51.673858, lng: 7.815982, zoom: 15 };
         this.marketModel = { lat: 51.673858, lng: 7.815982, label: 'Nume companie', draggable: false };
         jqueryService_1.JqueryService.removeElementWithAnimation('#' + applicationConstansts_1.ApplicationConstants.LOADING_SPINNER);
     };
+    CompanieDetailPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
+        this.companyId = Number(curr.getParam('id'));
+        this.getCompanyDetails();
+        this.getCompanyReviews();
+    };
     CompanieDetailPage.prototype.ngAfterViewInit = function () {
         var me = this;
         setTimeout(function () {
             me.mapMerkerRef.nativeElement.click();
         }, 500);
+    };
+    CompanieDetailPage.prototype.setOverItem = function (number) {
+        this.hoveredItemId = number;
+    };
+    CompanieDetailPage.prototype.getClassUsingSelectedId = function (id) {
+        if (this.hoveredItemId >= id) {
+            return "glyphicon glyphicon-star";
+        }
+        return "glyphicon glyphicon-star-empty";
+    };
+    CompanieDetailPage.prototype.getCompanyReviews = function () {
+        var me = this;
+        this.companiesService.getCompanyReviews(this.companyId)
+            .subscribe(function (succ) {
+            me.comments = succ;
+        }, function (err) {
+        });
+    };
+    CompanieDetailPage.prototype.asd = function () {
+        this.commentsOpen = !this.commentsOpen;
+        if (this.commentsOpen) {
+            this.getCompanyReviews();
+        }
+    };
+    CompanieDetailPage.prototype.getCompanyDetails = function () {
+        var me = this;
+        this.companiesService.getCompanieDetailsForUsers(this.companyId)
+            .subscribe(function (succ) {
+            me.companieDetailsModel = succ;
+        }, function (err) {
+            me._notificationService.emitErrorNotificationToRootComponent('Detaliile companiei nu pot fi afisate', 5);
+        });
+    };
+    CompanieDetailPage.prototype.addComment = function () {
+        var me = this;
+        this.companiesService.addMessageReviewForUsers({ message: this.comment, companyId: this.companyId })
+            .subscribe(function (succ) {
+            me.comment = '';
+        }, function (err) {
+            me._notificationService.emitErrorNotificationToRootComponent('Comentariul nu a putut fi adaugat', 5);
+        });
+    };
+    CompanieDetailPage.prototype.addStarsNumber = function (nr) {
+        var me = this;
+        this.companiesService.addStarsReviewForUsers({ starsNr: nr, companyId: this.companyId })
+            .subscribe(function (succ) {
+            me.comment = '';
+        }, function (err) {
+            me._notificationService.emitErrorNotificationToRootComponent('Comentariul nu a putut fi adaugat', 5);
+        });
     };
     __decorate([
         core_1.ViewChild('mapMerkerRef'), 
@@ -42,7 +102,7 @@ var CompanieDetailPage = (function () {
             templateUrl: '/app/pages/companiesPage/companieDetailPage/companieDetailPage.html',
             directives: [core_2.ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [companiesService_1.CompaniesService, notificationService_1.NotificationService])
     ], CompanieDetailPage);
     return CompanieDetailPage;
 })();

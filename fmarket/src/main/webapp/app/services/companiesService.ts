@@ -26,7 +26,7 @@ export class CompaniesService {
     }
 
     getCompanieDetailsForUsers(id:number) {
-        return this.api.get(this.COMPANIE_CONTROLLER + `/details/${id}`);
+        return this.api.get(this.COMPANIE_CONTROLLER + `/${id}`);
     }
 
     addStarsReviewForUsers(review:IStarReview) {
@@ -34,7 +34,7 @@ export class CompaniesService {
     }
 
     addMessageReviewForUsers(review:IMessageReview) {
-        return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
+        return this.api.post(this.COMPANIE_CONTROLLER + '/review/message', JSON.stringify(review));
     }
 
     createCompany(newCompanyRequest:NewCompanyRequest) {
@@ -98,6 +98,10 @@ export class CompaniesService {
 
     getDemandDomanins() {
         return this.api.get('/demand/domains');
+    }
+
+    getCompanyReviews(id) {
+        return this.api.get(this.COMPANIE_CONTROLLER + `/reviews/${id}`);
     }
 
     mapNameToSelect2Item(array):Array<Select2Item> {

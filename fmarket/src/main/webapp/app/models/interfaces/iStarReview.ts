@@ -3,5 +3,5 @@
  */
 export interface IStarReview{
     starsNr:number;
-    companieId:number;
+    companyId:number;
 }

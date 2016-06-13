@@ -94,11 +94,13 @@
     transition: .3s linear;
     height: 0px;
     overflow: hidden;
+    padding: 30px;
+    display: none;
 }
 
 .companies-detail-page .companies-presentation-page-container .companie-detail-container .coments-group.open{
     height:  auto;
-    padding: 30px;
+    display: block;
 }
 
 .companies-detail-page .companies-presentation-page-container .companie-detail-container .coments-list .comment-author{

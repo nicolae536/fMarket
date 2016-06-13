@@ -89741,13 +89741,13 @@
 	        return this.api.get(this.COMPANIE_CONTROLLER + ("/all?p=" + searchQuery));
 	    };
 	    CompaniesService.prototype.getCompanieDetailsForUsers = function (id) {
-	        return this.api.get(this.COMPANIE_CONTROLLER + ("/details/" + id));
+	        return this.api.get(this.COMPANIE_CONTROLLER + ("/" + id));
 	    };
 	    CompaniesService.prototype.addStarsReviewForUsers = function (review) {
 	        return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
 	    };
 	    CompaniesService.prototype.addMessageReviewForUsers = function (review) {
-	        return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
+	        return this.api.post(this.COMPANIE_CONTROLLER + '/review/message', JSON.stringify(review));
 	    };
 	    CompaniesService.prototype.createCompany = function (newCompanyRequest) {
 	        return this.api.post(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(newCompanyRequest));
@@ -89799,6 +89799,9 @@
 	    };
 	    CompaniesService.prototype.getDemandDomanins = function () {
 	        return this.api.get('/demand/domains');
+	    };
+	    CompaniesService.prototype.getCompanyReviews = function (id) {
+	        return this.api.get(this.COMPANIE_CONTROLLER + ("/reviews/" + id));
 	    };
 	    CompaniesService.prototype.mapNameToSelect2Item = function (array) {
 	        return _.map(array, function (item) {
@@ -91505,22 +91508,82 @@
 	var jqueryService_1 = __webpack_require__(775);
 	var applicationConstansts_1 = __webpack_require__(746);
 	var core_2 = __webpack_require__(883);
+	var companiesService_1 = __webpack_require__(843);
+	var notificationService_1 = __webpack_require__(777);
 	var CompanieDetailPage = (function () {
-	    function CompanieDetailPage() {
+	    function CompanieDetailPage(companiesService, notificationService) {
 	        this.companieDetailsModel = {};
 	        this.comments = [];
 	        this.commentsOpen = false;
+	        this.comment = '';
+	        this.companiesService = companiesService;
+	        this._notificationService = notificationService;
 	    }
 	    CompanieDetailPage.prototype.ngOnInit = function () {
 	        this.mapModel = { lat: 51.673858, lng: 7.815982, zoom: 15 };
 	        this.marketModel = { lat: 51.673858, lng: 7.815982, label: 'Nume companie', draggable: false };
 	        jqueryService_1.JqueryService.removeElementWithAnimation('#' + applicationConstansts_1.ApplicationConstants.LOADING_SPINNER);
 	    };
+	    CompanieDetailPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
+	        this.companyId = Number(curr.getParam('id'));
+	        this.getCompanyDetails();
+	        this.getCompanyReviews();
+	    };
 	    CompanieDetailPage.prototype.ngAfterViewInit = function () {
 	        var me = this;
 	        setTimeout(function () {
 	            me.mapMerkerRef.nativeElement.click();
 	        }, 500);
+	    };
+	    CompanieDetailPage.prototype.setOverItem = function (number) {
+	        this.hoveredItemId = number;
+	    };
+	    CompanieDetailPage.prototype.getClassUsingSelectedId = function (id) {
+	        if (this.hoveredItemId >= id) {
+	            return "glyphicon glyphicon-star";
+	        }
+	        return "glyphicon glyphicon-star-empty";
+	    };
+	    CompanieDetailPage.prototype.getCompanyReviews = function () {
+	        var me = this;
+	        this.companiesService.getCompanyReviews(this.companyId)
+	            .subscribe(function (succ) {
+	            me.comments = succ;
+	        }, function (err) {
+	        });
+	    };
+	    CompanieDetailPage.prototype.asd = function () {
+	        this.commentsOpen = !this.commentsOpen;
+	        if (this.commentsOpen) {
+	            this.getCompanyReviews();
+	        }
+	    };
+	    CompanieDetailPage.prototype.getCompanyDetails = function () {
+	        var me = this;
+	        this.companiesService.getCompanieDetailsForUsers(this.companyId)
+	            .subscribe(function (succ) {
+	            me.companieDetailsModel = succ;
+	        }, function (err) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Detaliile companiei nu pot fi afisate', 5);
+	        });
+	    };
+	    CompanieDetailPage.prototype.addComment = function () {
+	        var me = this;
+	        this.companiesService.addMessageReviewForUsers({ message: this.comment, companyId: this.companyId })
+	            .subscribe(function (succ) {
+	            me.comment = '';
+	        }, function (err) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Comentariul nu a putut fi adaugat', 5);
+	        });
+	    };
+	    CompanieDetailPage.prototype.addStarsNumber = function (nr) {
+	        var me = this;
+	        this.companiesService.addStarsReviewForUsers({ starsNr: nr, companyId: this.companyId })
+	            .subscribe(function (succ) {
+	            me.comment = '';
+	        }, function (err) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Comentariul nu a putut fi adaugat', 5);
+	        });
 	    };
 	    __decorate([
 	        core_1.ViewChild('mapMerkerRef'), 
@@ -91533,7 +91596,7 @@
 	            templateUrl: '/app/pages/companiesPage/companieDetailPage/companieDetailPage.html',
 	            directives: [core_2.ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [companiesService_1.CompaniesService, notificationService_1.NotificationService])
 	    ], CompanieDetailPage);
 	    return CompanieDetailPage;
 	})();
