@@ -46,7 +46,7 @@ public class CompanyController {
 		return service.getCompaniesGroupedByDomain(domainName);
 	}
 	
-	@RequestMapping(value = "/logo/{id}", produces = MediaType.IMAGE_JPEG_VALUE, method = RequestMethod.POST)
+	@RequestMapping(value = "/logo/{id}", produces = MediaType.IMAGE_JPEG_VALUE, method = RequestMethod.GET)
 	public byte[] getCompanyLogo(@PathVariable("id") Integer id) {
 		return service.getLogo(id);
 	}

@@ -100,7 +100,9 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public void sendMailToCompanies(Demand demand, List<String> emailAddresses) {
 		LOG.info("Sending new demaind mails to " + emailAddresses.size() + " companies...");
-		
+		for (String email : emailAddresses) {
+			sendMailToCompany(email, demand);
+		}
 	}
 
 	@Async
@@ -134,5 +136,21 @@ public class MailServiceImpl implements MailService {
 	public void sendNewDemandMailForLoggedInUser(Demand demand) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void sendMailToCompany(String emailTo, Demand demand) {
+		final MimeMessage mimeMessage = mailSender.createMimeMessage();
+		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
+
+		final Context context = new Context();
+		context.setVariable("baseUrl", baseUrl);
+		final String htmlContent = templateEngine.process(DEMAND_CONFIRM_HTML, context);
+		try {
+			LOG.info("Sending demand confirmation email to " + emailTo);
+			configureMessage(message, emailTo, "Confirmare cerere", htmlContent);
+			mailSender.send(mimeMessage);
+		} catch (Exception e) {
+			LOG.error("Exception occurred while trying to send demand confirmation email", e);
+		}
 	}
 }
