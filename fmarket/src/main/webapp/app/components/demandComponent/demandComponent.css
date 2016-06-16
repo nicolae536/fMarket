@@ -4,6 +4,10 @@
     padding-bottom: 3%;
 }
 
+.create-demand-action {
+	margin-top: 10px;
+}
+
 .demand-dialog-component .create-demand-action .btn.btn-success{
     width: 85%;
     height: 42px;
