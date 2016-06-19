@@ -1,7 +1,6 @@
 package ro.fmarket.admin.account.company;
 
 import ro.fmarket.core.rest.PaginatedResponse;
-import ro.fmarket.model.company.NewCompanyRequest;
 
 public interface CompanyServiceAdmin {
 

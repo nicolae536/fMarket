@@ -16,6 +16,7 @@ public class CompanyDetailsDTO {
 	private String email;
 	private String contactPerson;
 	private String address;
+	private String website;
 	private String companyDomain;
 	private int score;
 	

@@ -39,7 +39,7 @@ public class NewDemandInterceptorImpl implements NewDemandInterceptor {
 			}
 			companyEmails = companyDao.getEmailsByDomainAndCities(domainId, cities);
 		}
-		mailService.sendMailToCompanies(demand, companyEmails);
+		mailService.sendMailToCompaniesForNewDemand(demand, companyEmails);
 	}
 
 	

@@ -14,7 +14,7 @@ public interface MailService {
 
 	void sendRegistrationMail(String emailTo, String token);
 	
-	void sendMailToCompanies(Demand demand, List<String> emailAddresses);
+	void sendMailToCompaniesForNewDemand(Demand demand, List<String> emailAddresses);
 	
 	void sendAcceptedDemandMail(String emailTo, Demand demand);
 	

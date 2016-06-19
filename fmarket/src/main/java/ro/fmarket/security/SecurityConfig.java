@@ -71,6 +71,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.logout()
 				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+				.deleteCookies("JSESSIONID")
+				.and()
+			.rememberMe().tokenValiditySeconds(120)
 				.and()
 			.sessionManagement().maximumSessions(5).sessionRegistry(sessionRegistry());
 		

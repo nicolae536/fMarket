@@ -84,9 +84,6 @@ public class UserServiceAdminImpl implements UserServiceAdmin {
 		accountDetails.setName(request.getName());
 		accountDetails.setPhone(request.getPhone());
 
-		if (request.isClosed()) {
-			historicalInfo.setClosedDate(DateUtils.now());
-		}
 	}
 
 	private Account createEmptyUser() {

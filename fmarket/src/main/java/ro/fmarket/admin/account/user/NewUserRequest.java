@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.Email;
 import lombok.Data;
 import ro.fmarket.core.validation.api.ValidPassword;
 import ro.fmarket.model.account.consts.AccountStatus;
-import ro.fmarket.model.account.consts.AccountType;
 
 /**
  * Account type is 'USER'
@@ -26,6 +25,7 @@ public class NewUserRequest {
 	@ValidPassword
 	private String password;
 	
+	@NotNull
 	private AccountStatus accountStatus;
 	
 	private String name;
@@ -35,5 +35,4 @@ public class NewUserRequest {
 	
 	private String phone;
 	
-	private boolean closed;
 }

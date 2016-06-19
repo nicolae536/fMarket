@@ -17,6 +17,9 @@ public class CompanyDetailsAdminDTO {
 	private String phone;
 	private String address;
 	private String contactPerson;
+	private String website;
+	private Double latitude;
+	private Double longitude;
 	
 	private int id;
 	

@@ -23,7 +23,6 @@ import ro.fmarket.model.account.details.AccountDetails;
 import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
 import ro.fmarket.model.company.Company;
 import ro.fmarket.model.company.CompanyDao;
-import ro.fmarket.model.company.NewCompanyRequest;
 import ro.fmarket.model.company.contact.CompanyContactInfo;
 import ro.fmarket.model.company.logo.CompanyLogo;
 import ro.fmarket.model.company.logo.CompanyLogoDao;
@@ -116,6 +115,9 @@ public class CompanyServiceAdminImpl implements CompanyServiceAdmin {
 		info.setPhone(request.getPhone());
 		info.setContactPerson(request.getContactPerson());
 		info.setEmail(request.getEmail());
+		info.setWebsite(request.getWebsite());
+		info.setLatitude(request.getLatitude());
+		info.setLongitude(request.getLongitude());
 		return info;
 	}
 

@@ -84,8 +84,7 @@ public class AccountServiceImpl implements AccountService {
 		if (account == null) {
 			throw new NotFoundException("Account");
 		}
-		UserDetails userDetails = new FMarketPrincipal(account.getEmail(), "",
-				createAuthorities(account.getType().name()));
+		UserDetails userDetails = new FMarketPrincipal(account.getEmail(), "", createAuthorities(account.getType().name()));
 		return userDetails;
 	}
 
@@ -171,8 +170,10 @@ public class AccountServiceImpl implements AccountService {
 		AccountDetailsDTO result = new AccountDetailsDTO();
 		result.setSubscribed(subscriber != null && subscriber.getUnsubscribeDate() == null);
 		City city = accountDetails.getCity();
-		result.setCityName(city.getName());
-		result.setCityId(city.getId());
+		if (city != null) {
+			result.setCityName(city.getName());
+			result.setCityId(city.getId());
+		}
 		result.setPhone(accountDetails.getPhone());
 		result.setName(accountDetails.getName());
 		return result;

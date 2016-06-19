@@ -28,10 +28,13 @@ public class MailServiceImpl implements MailService {
 	private static final String REGISTRATION_CONFIRM_HTML = "registrationConfirm";
 	private static final String ACCEPTED_DEMAND_HTML = "";
 	private static final String REJECTED_DEMAND_HTML = "";
-	private static final String COMPANY_DEMAND_HTML = "";
+	private static final String COMPANY_NEW_DEMAND_HTML = "companyNewDemand";
 
 	@Value("${base.url}")
 	private String baseUrl;
+	
+	@Value("${mail.address.mask}")
+	private String addressMask;
 
 	@Autowired
 	private JavaMailSender mailSender;
@@ -98,7 +101,7 @@ public class MailServiceImpl implements MailService {
 
 	@Async
 	@Override
-	public void sendMailToCompanies(Demand demand, List<String> emailAddresses) {
+	public void sendMailToCompaniesForNewDemand(Demand demand, List<String> emailAddresses) {
 		LOG.info("Sending new demaind mails to " + emailAddresses.size() + " companies...");
 		for (String email : emailAddresses) {
 			sendMailToCompany(email, demand);
@@ -126,7 +129,7 @@ public class MailServiceImpl implements MailService {
 	 */
 	private void configureMessage(MimeMessageHelper message, String to, String subject, String content)
 			throws MessagingException, UnsupportedEncodingException {
-		message.setFrom(new InternetAddress("fmarketapp@gmail.com", "fMarket.ro"));
+		message.setFrom(new InternetAddress("fmarketapp@gmail.com", addressMask));
 		message.setTo(to);
 		message.setSubject(subject);
 		message.setText(content, true /* is html */);
@@ -141,16 +144,22 @@ public class MailServiceImpl implements MailService {
 	private void sendMailToCompany(String emailTo, Demand demand) {
 		final MimeMessage mimeMessage = mailSender.createMimeMessage();
 		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
-
+		
 		final Context context = new Context();
 		context.setVariable("baseUrl", baseUrl);
-		final String htmlContent = templateEngine.process(DEMAND_CONFIRM_HTML, context);
+		context.setVariable("phone", demand.getPhone());
+		context.setVariable("email", demand.getAccount().getEmail());
+		context.setVariable("name", demand.getName());
+		context.setVariable("title", demand.getTitle());
+		context.setVariable("message", demand.getMessage());
+//		context.setVariable("city", ); //TODO
+		final String htmlContent = templateEngine.process(COMPANY_NEW_DEMAND_HTML, context);
 		try {
-			LOG.info("Sending demand confirmation email to " + emailTo);
-			configureMessage(message, emailTo, "Confirmare cerere", htmlContent);
+			LOG.info("Sending new demand email to company with email " + emailTo);
+			configureMessage(message, emailTo, "Cerere noua", htmlContent);
 			mailSender.send(mimeMessage);
 		} catch (Exception e) {
-			LOG.error("Exception occurred while trying to send demand confirmation email", e);
+			LOG.error("Exception occurred while trying to send new demand email to company", e);
 		}
 	}
 }

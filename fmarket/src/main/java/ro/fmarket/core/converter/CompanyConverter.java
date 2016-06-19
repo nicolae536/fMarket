@@ -20,6 +20,7 @@ public class CompanyConverter {
 		result.setPhone(contactInfo.getEmail());
 		result.setAddress(contactInfo.getAddress());
 		result.setContactPerson(contactInfo.getContactPerson());
+		result.setWebsite(contactInfo.getWebsite());
 		result.setLatitude(contactInfo.getLatitude());
 		result.setLongitude(contactInfo.getLongitude());
 		if (company.getVotes() == 0) {

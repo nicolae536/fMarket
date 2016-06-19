@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ro.fmarket.core.exception.InternalErrorException;
 import ro.fmarket.core.rest.PaginatedResponse;
-import ro.fmarket.model.company.NewCompanyRequest;
 
 @RestController
 @RequestMapping("/admin/companies")
@@ -60,8 +59,6 @@ public class CompanyControllerAdmin {
 		String filename = file.getOriginalFilename();
 		int size = (int) file.getSize();
 		service.updateCompanyLogo(id, filename, size, data);
-		
-		System.out.println("NAME: " + filename);
 		
 	}
 

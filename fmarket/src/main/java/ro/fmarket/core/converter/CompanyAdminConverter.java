@@ -42,6 +42,9 @@ public class CompanyAdminConverter {
 		result.setDemandDomains(new ArrayList<>(company.getDemandDomains()));
 		result.setName(company.getName());
 		result.setId(company.getId());
+		result.setWebsite(contactInfo.getWebsite());
+		result.setLatitude(contactInfo.getLatitude());
+		result.setLongitude(contactInfo.getLongitude());
 		return result;
 	}
 	

@@ -15,6 +15,7 @@ public class CompanyContactInfo extends BaseEntity {
 	private String address;
 	private String contactPerson;
 	private String email;
+	private String website;
 	
 	private Double latitude;
 	private Double longitude;
