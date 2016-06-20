@@ -19,20 +19,22 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import ro.fmarket.model.demand.Demand;
 
+@Async
 @Service
 public class MailServiceImpl implements MailService {
 
 	private static final Logger LOG = Logger.getLogger(MailServiceImpl.class);
+
 	private static final String DEMAND_CONFIRM_HTML = "demandConfirm";
 	private static final String PASSWORD_CHANGE_CONFIRM_HTML = "passwordChangeConfirm";
 	private static final String REGISTRATION_CONFIRM_HTML = "registrationConfirm";
-	private static final String ACCEPTED_DEMAND_HTML = "";
-	private static final String REJECTED_DEMAND_HTML = "";
+	private static final String ACCEPTED_DEMAND_HTML = "demandActivated";
+	private static final String REJECTED_DEMAND_HTML = "demandRejected";
 	private static final String COMPANY_NEW_DEMAND_HTML = "companyNewDemand";
 
 	@Value("${base.url}")
 	private String baseUrl;
-	
+
 	@Value("${mail.address.mask}")
 	private String addressMask;
 
@@ -42,7 +44,6 @@ public class MailServiceImpl implements MailService {
 	@Autowired
 	private SpringTemplateEngine templateEngine;
 
-	@Async
 	@Override
 	public void sendRegistrationMail(String emailTo, String token) {
 		final MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -61,7 +62,6 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 
-	@Async
 	@Override
 	public void sendPasswordChangeMail(String emailTo, String token) {
 		final MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -80,15 +80,15 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 
-	@Async
 	@Override
-	public void sendDemandConfirmMail(String emailTo, String token) {
+	public void sendDemandConfirmMail(String emailTo, String name, String token) {
 		final MimeMessage mimeMessage = mailSender.createMimeMessage();
 		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
 
 		final Context context = new Context();
 		context.setVariable("baseUrl", baseUrl);
 		context.setVariable("token", token);
+		context.setVariable("name", name);
 		final String htmlContent = templateEngine.process(DEMAND_CONFIRM_HTML, context);
 		try {
 			LOG.info("Sending demand confirmation email to " + emailTo);
@@ -99,52 +99,23 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 
-	@Async
-	@Override
-	public void sendMailToCompaniesForNewDemand(Demand demand, List<String> emailAddresses) {
-		LOG.info("Sending new demaind mails to " + emailAddresses.size() + " companies...");
-		for (String email : emailAddresses) {
-			sendMailToCompany(email, demand);
-		}
-	}
-
-	@Async
-	@Override
-	public void sendAcceptedDemandMail(String emailTo, Demand demand) {
-		LOG.info("Sending accepted demand email to " + emailTo);
-		
-	}
-
-	@Async
-	@Override
-	public void sendMailForRejectedDemand(String emailTo, Demand demand, String rejectedCause) {
-		LOG.info("Sending rejected demand email to " + emailTo);
-		
-	}
-	
 	/**
 	 * Configure mime message.
+	 * 
 	 * @throws MessagingException
 	 * @throws UnsupportedEncodingException
 	 */
-	private void configureMessage(MimeMessageHelper message, String to, String subject, String content)
-			throws MessagingException, UnsupportedEncodingException {
+	private void configureMessage(MimeMessageHelper message, String to, String subject, String content) throws MessagingException, UnsupportedEncodingException {
 		message.setFrom(new InternetAddress("fmarketapp@gmail.com", addressMask));
 		message.setTo(to);
 		message.setSubject(subject);
 		message.setText(content, true /* is html */);
 	}
 
-	@Override
-	public void sendNewDemandMailForLoggedInUser(Demand demand) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	private void sendMailToCompany(String emailTo, Demand demand) {
 		final MimeMessage mimeMessage = mailSender.createMimeMessage();
 		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
-		
+
 		final Context context = new Context();
 		context.setVariable("baseUrl", baseUrl);
 		context.setVariable("phone", demand.getPhone());
@@ -152,7 +123,7 @@ public class MailServiceImpl implements MailService {
 		context.setVariable("name", demand.getName());
 		context.setVariable("title", demand.getTitle());
 		context.setVariable("message", demand.getMessage());
-//		context.setVariable("city", ); //TODO
+		// context.setVariable("city", ); //TODO
 		final String htmlContent = templateEngine.process(COMPANY_NEW_DEMAND_HTML, context);
 		try {
 			LOG.info("Sending new demand email to company with email " + emailTo);
@@ -161,5 +132,52 @@ public class MailServiceImpl implements MailService {
 		} catch (Exception e) {
 			LOG.error("Exception occurred while trying to send new demand email to company", e);
 		}
+	}
+
+	@Override
+	public void sendMailToCompaniesForNewDemand(Demand demand, List<String> emailAddresses) {
+		LOG.info("Sending new demaind mails to " + emailAddresses.size() + " companies...");
+		for (String email : emailAddresses) {
+			sendMailToCompany(email, demand);
+		}
+	}
+
+	@Override
+	public void sendAcceptedDemandMail(String emailTo, String demandTitle, String token) {
+		final MimeMessage mimeMessage = mailSender.createMimeMessage();
+		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
+
+		final Context context = new Context();
+		context.setVariable("baseUrl", baseUrl);
+		context.setVariable("token", token);
+		context.setVariable("title", demandTitle);
+		final String htmlContent = templateEngine.process(ACCEPTED_DEMAND_HTML, context);
+		try {
+			LOG.info("Sending demand accepted info email to " + emailTo);
+			configureMessage(message, emailTo, "Cerere activata", htmlContent);
+			mailSender.send(mimeMessage);
+		} catch (Exception e) {
+			LOG.error("Exception occurred while trying to send demand accepted info email", e);
+		}
+	}
+
+	@Override
+	public void sendMailForRejectedDemand(String emailTo, String demandTitle, String rejectedCause) {
+		final MimeMessage mimeMessage = mailSender.createMimeMessage();
+		final MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
+
+		final Context context = new Context();
+		context.setVariable("baseUrl", baseUrl);
+		context.setVariable("rejectedCause", rejectedCause);
+		context.setVariable("title", demandTitle);
+		final String htmlContent = templateEngine.process(REJECTED_DEMAND_HTML, context);
+		try {
+			LOG.info("Sending demand rejected info email to " + emailTo);
+			configureMessage(message, emailTo, "Cerere respinsa", htmlContent);
+			mailSender.send(mimeMessage);
+		} catch (Exception e) {
+			LOG.error("Exception occurred while trying to send demand rejected info email", e);
+		}
+
 	}
 }

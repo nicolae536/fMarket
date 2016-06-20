@@ -3,6 +3,7 @@ package ro.fmarket.model.account;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import ro.fmarket.core.exception.InvalidTokenException;
 import ro.fmarket.model.account.details.AccountDetailsDTO;
 
 public interface AccountService extends UserDetailsService {
@@ -20,4 +21,6 @@ public interface AccountService extends UserDetailsService {
 	void updateAccount(int accountId, UpdateAccountRequest request);
 	
 	AccountDetailsDTO getAccountDetails(int accountId);
+	
+	Account getByDemandTokenAccess(String token) throws InvalidTokenException;
 }

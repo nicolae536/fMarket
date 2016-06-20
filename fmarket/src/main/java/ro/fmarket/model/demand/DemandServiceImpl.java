@@ -52,11 +52,9 @@ public class DemandServiceImpl implements DemandService {
 	public void addDemand(NewDemandRequest request, boolean isAccountLogged) {
 		final Demand demand = createNewDemand(request, isAccountLogged);
 		demandDao.save(demand);
-		if (isAccountLogged) {
-			mailService.sendNewDemandMailForLoggedInUser(demand);
-		} else {
+		if (!isAccountLogged) {
 			String token = createAndSaveDemandToken(request, demand);
-			mailService.sendDemandConfirmMail(request.getEmail(), token);
+			mailService.sendDemandConfirmMail(request.getEmail(), request.getName(), token);
 		}
 	}
 

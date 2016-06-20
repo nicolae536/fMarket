@@ -72,8 +72,7 @@ public class DemandServiceAdminImpl implements DemandServiceAdmin {
 		demand.setStatus(DemandStatus.REJECTED);
 		demand.setClosedDate(DateUtils.now());
 		demandDao.update(demand);
-		 mailService.sendMailForRejectedDemand(account.getEmail(), demand, request.getMessage());
-
+		mailService.sendMailForRejectedDemand(account.getEmail(), demand.getTitle(), request.getMessage());
 	}
 
 	@Override

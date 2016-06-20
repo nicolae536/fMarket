@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.fmarket.core.exception.ForbiddenException;
+import ro.fmarket.core.exception.InvalidTokenException;
 import ro.fmarket.core.exception.NotFoundException;
 import ro.fmarket.core.utils.AccountUtils;
 import ro.fmarket.core.utils.DateUtils;
@@ -27,7 +28,9 @@ import ro.fmarket.model.geographical.city.CityDao;
 import ro.fmarket.model.subscriber.Subscriber;
 import ro.fmarket.model.subscriber.SubscriberDao;
 import ro.fmarket.model.subscriber.SubscriberService;
+import ro.fmarket.model.token.DemandAccessToken;
 import ro.fmarket.model.token.PasswordChangeToken;
+import ro.fmarket.model.token.dao.DemandAccessTokenDao;
 import ro.fmarket.model.token.dao.PasswordChangeTokenDao;
 import ro.fmarket.security.FMarketPrincipal;
 
@@ -48,6 +51,9 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private PasswordChangeTokenDao tokenDao;
+	
+	@Autowired
+	private DemandAccessTokenDao demandAccessTokenDao;
 
 	@Autowired
 	private SubscriberService subscriberService;
@@ -177,6 +183,17 @@ public class AccountServiceImpl implements AccountService {
 		result.setPhone(accountDetails.getPhone());
 		result.setName(accountDetails.getName());
 		return result;
+	}
+
+	@Override
+	public Account getByDemandTokenAccess(String token) throws InvalidTokenException {
+		DemandAccessToken foundToken = demandAccessTokenDao.getByToken(token);
+		if (foundToken == null || foundToken.isExpired()) {
+			throw new InvalidTokenException();
+		} else {
+			return foundToken.getAccount();
+		}
+		
 	}
 
 }

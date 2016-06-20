@@ -6,18 +6,16 @@ import ro.fmarket.model.demand.Demand;
 
 public interface MailService {
 
-	void sendDemandConfirmMail(String emailTo, String token);
+	void sendDemandConfirmMail(String emailTo, String name, String token);
 	
-	void sendNewDemandMailForLoggedInUser(Demand demand);
-
 	void sendPasswordChangeMail(String emailTo, String token);
 
 	void sendRegistrationMail(String emailTo, String token);
 	
 	void sendMailToCompaniesForNewDemand(Demand demand, List<String> emailAddresses);
 	
-	void sendAcceptedDemandMail(String emailTo, Demand demand);
+	void sendAcceptedDemandMail(String emailTo, String demandTitle, String token);
 	
-	void sendMailForRejectedDemand(String emailTo, Demand demand, String rejectedCause);
+	void sendMailForRejectedDemand(String emailTo, String demandTitle, String rejectedCause);
 
 }
