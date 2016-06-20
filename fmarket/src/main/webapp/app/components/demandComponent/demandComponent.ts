@@ -87,8 +87,13 @@ export class DemandComponent implements OnInit, OnChanges {
         this._menuTreeDialog.showMenuTreeDialog();
     }
 
+    public removeEmail(){
+        this._demandData.email = '';
+        this.fetchUserEmail();
+    }
+
     private getFormControllClass(property) {
-        let condition = String(this._demandData[property]).length > 0;
+        let condition = String(this._demandForm.controls[property]).length > 0;
         if(this._demandForm.controls[property]){
             condition = condition && this._demandForm.controls[property].dirty && this._demandForm.controls[property].valid;
         }

@@ -82,6 +82,9 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
         this._localeStorageService.storageStateChange.subscribe(
             storageItem => {
                 switch (storageItem ['keyChanged']) {
+                    case ApplicationConstants.ACTIVE_USER_STATE:
+                        this._demandDialog.removeEmail();
+                        break;
                     case ApplicationConstants.NAVIGATE_CREATE_DEMAND:
                         me.navigateToCreateDemandResolver();
                         break;

@@ -23,7 +23,7 @@ var template = require('./accountEditPage.html');
 var AccountEditPage = (function () {
     //</editor-fold>
     function AccountEditPage(accountService, demandService, localizationService, notificationService, router) {
-        this._submitLabel = 'Salveaza modificarile';
+        this._submitLabel = 'Salveaza contul';
         this._cityesList = new Array();
         this._accountService = accountService;
         this._demandService = demandService;

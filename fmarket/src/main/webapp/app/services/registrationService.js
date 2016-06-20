@@ -28,8 +28,8 @@ var RegistrationService = (function () {
         return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({ email: account.email, newPassword: account.passwords.password }));
     };
     RegistrationService.prototype.login = function (account) {
-        var newAccount = account ? account : { email: null, passwords: { password: null } };
-        var credentials = "username=" + newAccount.email + "&password=" + newAccount.passwords.password;
+        var newAccount = account ? account : { email: null, passwords: { password: null }, rememberMe: null };
+        var credentials = "username=" + newAccount.email + "&password=" + newAccount.passwords.password + "&remember-me=" + newAccount.rememberMe;
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('X-Login-Ajax-call', "true");

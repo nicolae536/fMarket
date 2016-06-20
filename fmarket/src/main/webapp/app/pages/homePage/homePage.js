@@ -39,6 +39,7 @@ var HomePage = (function () {
         this._localeStorageService = localeStorageService;
     }
     HomePage.prototype.ngOnInit = function () {
+        var _this = this;
         this.getCities();
         this.getMenuDictionary();
         this._subscribeForm = this._formBuilder.group([]);
@@ -48,6 +49,9 @@ var HomePage = (function () {
         this.navigateToCreateDemandResolver();
         this._localeStorageService.storageStateChange.subscribe(function (storageItem) {
             switch (storageItem['keyChanged']) {
+                case applicationConstansts_1.ApplicationConstants.ACTIVE_USER_STATE:
+                    _this._demandDialog.removeEmail();
+                    break;
                 case applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND:
                     me.navigateToCreateDemandResolver();
                     break;

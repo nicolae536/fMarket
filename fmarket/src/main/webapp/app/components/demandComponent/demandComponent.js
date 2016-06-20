@@ -64,8 +64,12 @@ var DemandComponent = (function () {
     DemandComponent.prototype.showDomainsDialog = function () {
         this._menuTreeDialog.showMenuTreeDialog();
     };
+    DemandComponent.prototype.removeEmail = function () {
+        this._demandData.email = '';
+        this.fetchUserEmail();
+    };
     DemandComponent.prototype.getFormControllClass = function (property) {
-        var condition = String(this._demandData[property]).length > 0;
+        var condition = String(this._demandForm.controls[property]).length > 0;
         if (this._demandForm.controls[property]) {
             condition = condition && this._demandForm.controls[property].dirty && this._demandForm.controls[property].valid;
         }
