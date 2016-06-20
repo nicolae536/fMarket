@@ -59,9 +59,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     ngOnChanges(changes:{}):any {
         if (changes.hasOwnProperty('_loginPage') && changes['_loginPage'].currentValue) {
             this.reapeatPasswordControl = false;
-            
         }
-
     }
 
     updateErrorFied(){
@@ -70,6 +68,24 @@ export class RegistrationComponent implements OnInit, OnChanges {
             && this._registrationForm.controls['passwords']['errors']
             && this._registrationForm.controls['passwords']['errors']['checkPasswords']
             && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
+
+        this.checkBackendErrors();
+    }
+
+    checkBackendErrors(){
+        if(this._registrationForm.controls['email'].errors && this._registrationForm.controls['email'].errors.key === 'validateEmail'){
+            this._registrationForm.controls['email'].setErrors(null);
+        }
+
+        if(this._registrationForm.controls['passwords']['controls']['password'].errors && this._registrationForm.controls['passwords']['controls']['password'].errors.key === 'validatePassword'){
+            this._registrationForm.controls['passwords']['controls']['password'].setErrors(null);
+        }
+
+        if(this._registrationForm.controls['passwords']['controls']['repeat']
+            && this._registrationForm.controls['passwords']['controls']['repeat'].errors
+            && this._registrationForm.controls['passwords']['controls']['repeat'].errors.key === 'validatePassword'){
+                this._registrationForm.controls['passwords']['controls']['repeat'].setErrors(null);
+        }
     }
 
     markAllFieldsAsErrors(configuration) {

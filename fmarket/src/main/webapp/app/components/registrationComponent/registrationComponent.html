@@ -10,6 +10,7 @@
                         <!--<span [ngClass]="getFormControllClass('email')"></span>-->
                         <input type="text" class="form-control" [class.backend-error]="checkIfEmailIsMarked()"
                                placeholder="E-mail"
+                               (ngModelChange)="checkBackendErrors()"
                                [ngFormControl]="_registrationForm.controls['email']"/>
                     </div>
                     <div class="form-group">

@@ -47,6 +47,20 @@ var RegistrationComponent = (function () {
             && this._registrationForm.controls['passwords']['errors']
             && this._registrationForm.controls['passwords']['errors']['checkPasswords']
             && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
+        this.checkBackendErrors();
+    };
+    RegistrationComponent.prototype.checkBackendErrors = function () {
+        if (this._registrationForm.controls['email'].errors && this._registrationForm.controls['email'].errors.key === 'validateEmail') {
+            this._registrationForm.controls['email'].setErrors(null);
+        }
+        if (this._registrationForm.controls['passwords']['controls']['password'].errors && this._registrationForm.controls['passwords']['controls']['password'].errors.key === 'validatePassword') {
+            this._registrationForm.controls['passwords']['controls']['password'].setErrors(null);
+        }
+        if (this._registrationForm.controls['passwords']['controls']['repeat']
+            && this._registrationForm.controls['passwords']['controls']['repeat'].errors
+            && this._registrationForm.controls['passwords']['controls']['repeat'].errors.key === 'validatePassword') {
+            this._registrationForm.controls['passwords']['controls']['repeat'].setErrors(null);
+        }
     };
     RegistrationComponent.prototype.markAllFieldsAsErrors = function (configuration) {
         if (configuration['email']) {

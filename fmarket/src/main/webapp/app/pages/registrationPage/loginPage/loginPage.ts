@@ -84,7 +84,7 @@ export class LoginPage implements OnInit, AfterViewChecked {
 
     requestHandler(account:RegisterAccount) {
         let me=this;
-
+        
         this._registrationService.login(account)
             .subscribe(
                 response => {
