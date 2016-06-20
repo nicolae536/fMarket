@@ -19,6 +19,7 @@ var template = require('./registrationComponent.html');
 var RegistrationComponent = (function () {
     function RegistrationComponent(formBuilder) {
         this.$registrationForm = new core_1.EventEmitter();
+        this.fLoginEmitter = new core_1.EventEmitter();
         this.loaded = new core_1.EventEmitter();
         this.reapeatPasswordControl = true;
         this._formBuilder = formBuilder;
@@ -96,6 +97,9 @@ var RegistrationComponent = (function () {
         invalidAccount.passwords = { password: null, repeat: null };
         this.$registrationForm.emit(invalidAccount);
     };
+    RegistrationComponent.prototype.fLogin = function () {
+        this.fLoginEmitter.emit('auth');
+    };
     __decorate([
         core_1.Input('form-title'), 
         __metadata('design:type', String)
@@ -140,6 +144,10 @@ var RegistrationComponent = (function () {
         core_1.Output('registration-form'), 
         __metadata('design:type', core_1.EventEmitter)
     ], RegistrationComponent.prototype, "$registrationForm", void 0);
+    __decorate([
+        core_1.Output('flogin-emit'), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], RegistrationComponent.prototype, "fLoginEmitter", void 0);
     __decorate([
         core_1.Output('reference-component'), 
         __metadata('design:type', core_1.EventEmitter)

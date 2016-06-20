@@ -20,10 +20,12 @@ var selectComponent_1 = require("../../../components/selectComponent/selectCompo
 var companiesAdminListComponent_1 = require("../../../components/companieComponent/companieListComponent/companiesAdminListComponent");
 var companySearchObject_1 = require("../../../models/companySearchObject");
 var Ng2Pagination_1 = require("../../../models/Ng2Pagination");
+var _ = require("underscore");
 var template = require('./companiesPage.html');
 var CompaniesPage = (function () {
     //</editor-fold>
     function CompaniesPage(router, companiesService, notificationService) {
+        this._companiesList = new Array();
         this.searchFilter = new companySearchObject_1.CompanySearchObject();
         this.pagination = new Ng2Pagination_1.Ng2Pagination();
         this._router = router;
@@ -39,13 +41,16 @@ var CompaniesPage = (function () {
         this._createCompanieDialog = _createCompanieDialog;
     };
     CompaniesPage.prototype.getCompaniesWithFilters = function () {
+        var _this = this;
         var me = this;
-        this.searchFilter['page'] = this.pagination['currentPage'];
-        this._companiesService.getCompanyWithFilters(this.searchFilter)
+        var obj = _.clone(this.searchFilter);
+        obj['page'] = this.pagination['currentPage'];
+        this._companiesService.getCompanyWithFilters(obj)
             .subscribe(function (response) {
             me._companiesList = response.data;
-            me.pagination.currentPage = response.page;
+            // me.pagination.currentPage = response.page;
             me.pagination.totalItems = response.totalPages;
+            me.searchFilter['page'] = _this.pagination['currentPage'];
         }, function (error) {
             me._companiesList = [];
             me._notificationService.emitErrorNotificationToRootComponent('Eroare companiile nu pot fi afisate!', 5);
@@ -85,8 +90,10 @@ var CompaniesPage = (function () {
         var me = this;
         this._companiesService.deleteCompany($event.id)
             .subscribe(function (result) {
+            debugger;
             me.getCompaniesWithFilters();
         }, function (error) {
+            debugger;
             me._notificationService.emitErrorNotificationToRootComponent('Compania nu a putut fi stearsa !', 5);
             me.getCompaniesWithFilters();
         });

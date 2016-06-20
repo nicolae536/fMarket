@@ -5,7 +5,7 @@ import {Component, OnInit, ElementRef, AfterViewInit, ViewChild} from "@angular/
 import {OnActivate, RouteSegment, RouteTree} from "@angular/router";
 import {JqueryService} from "../../../services/jqueryService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
-import {ANGULAR2_GOOGLE_MAPS_DIRECTIVES} from "angular2-google-maps/core";
+// import {GOOGLE_MAPS_DIRECTIVES} from "angular2-google-maps/core";
 import {CompaniesService} from "../../../services/companiesService";
 import {NotificationService} from "../../../services/notificationService";
 
@@ -13,7 +13,7 @@ import {NotificationService} from "../../../services/notificationService";
     selector: 'compnaie-details-Page',
     // template:template,
     templateUrl: '/app/pages/companiesPage/companieDetailPage/companieDetailPage.html',
-    directives: [ANGULAR2_GOOGLE_MAPS_DIRECTIVES],
+    // directives: [GOOGLE_MAPS_DIRECTIVES],
 })
 export class CompanieDetailPage implements OnInit, AfterViewInit, OnActivate {
     private companiesService:CompaniesService;

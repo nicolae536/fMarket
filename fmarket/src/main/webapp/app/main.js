@@ -3,7 +3,6 @@ require('reflect-metadata');
 var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var router_1 = require('@angular/router');
 var app_component_1 = require('./app.component');
-var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var http_1 = require('@angular/http');
 var accountService_1 = require("./services/accountService");
@@ -22,13 +21,14 @@ var localStorageService_1 = require("./services/localStorageService");
 var authorizationService_1 = require("./services/authorizationService");
 var registrationService_1 = require("./services/registrationService");
 var applicationStateService_1 = require("./services/applicationStateService");
-var core_2 = require("angular2-google-maps/core");
+// import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
+var faceBookService_1 = require("./services/faceBookService");
 //enableProdMode();
 platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
     http_1.HTTP_PROVIDERS,
     router_1.ROUTER_PROVIDERS,
-    core_1.provide(common_1.LocationStrategy, { useClass: common_1.HashLocationStrategy }),
-    core_2.ANGULAR2_GOOGLE_MAPS_PROVIDERS,
+    { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
+    // GOOGLE_MAPS_PROVIDERS,
     common_2.FormBuilder,
     applicationStateService_1.ApplicationStateService,
     fMarketApi_1.FMarketApi,
@@ -45,5 +45,6 @@ platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
     usersService_1.UserService,
     companiesService_1.CompaniesService,
     localizationService_1.LocalizationService,
+    faceBookService_1.FaceBookService
 ]);
 //# sourceMappingURL=main.js.map

@@ -26,6 +26,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     @Input('login-page') _loginPage:boolean;
 
     @Output('registration-form') $registrationForm:EventEmitter<RegisterAccount> = new EventEmitter<RegisterAccount>();
+    @Output('flogin-emit') fLoginEmitter:EventEmitter<any> = new EventEmitter<any>();
 
     @Output('reference-component') loaded:EventEmitter<RegistrationComponent> = new EventEmitter<RegistrationComponent>();
 
@@ -58,6 +59,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     ngOnChanges(changes:{}):any {
         if (changes.hasOwnProperty('_loginPage') && changes['_loginPage'].currentValue) {
             this.reapeatPasswordControl = false;
+            
         }
 
     }
@@ -127,6 +129,10 @@ export class RegistrationComponent implements OnInit, OnChanges {
         let invalidAccount = new RegisterAccount();
         invalidAccount.passwords = { password: null, repeat:null};
         this.$registrationForm.emit(invalidAccount);
+    }
+
+    fLogin(){
+        this.fLoginEmitter.emit('auth');
     }
 
 }

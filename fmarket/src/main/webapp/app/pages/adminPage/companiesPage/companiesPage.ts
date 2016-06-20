@@ -4,25 +4,23 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {CORE_DIRECTIVES} from "@angular/common";
-
 import {PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
-
 import {CompaniesService} from "../../../services/companiesService";
 import {NotificationService} from "../../../services/notificationService";
 import {CreateCompanieDialog} from "../../../components/companieComponent/createCompanieDialog/createCompanieDialog";
-
 import {DomainCompanieDto} from "../../../models/domainCompanieDto";
 import {Select2Item, SelectComponent} from "../../../components/selectComponent/selectComponent";
 import {CompanieAdmminListComponent} from "../../../components/companieComponent/companieListComponent/companiesAdminListComponent";
 import {CompanySearchObject} from "../../../models/companySearchObject";
 import {Ng2Pagination} from "../../../models/Ng2Pagination";
 import {CompanieDto} from "../../../models/companieDto";
+import * as _ from "underscore";
 
 let template = require('./companiesPage.html');
 
 @Component({
     selector: 'compnaies-Page',
-    template:template,
+    template: template,
     //styleUrls: [applicationPath + '/companiesPage.css'],
     directives: [CompanieAdmminListComponent, SelectComponent, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })
@@ -38,7 +36,7 @@ export class CompaniesPage implements OnInit {
     private selectCompanieDomain:SelectComponent;
     private selectDomain:SelectComponent;
 
-    private _companiesList:Array<DomainCompanieDto>;
+    private _companiesList:Array<DomainCompanieDto> = new Array<DomainCompanieDto>();
 
     private searchFilter:CompanySearchObject = new CompanySearchObject();
     private pagination:Ng2Pagination = new Ng2Pagination();
@@ -46,7 +44,7 @@ export class CompaniesPage implements OnInit {
     private companieDomains:Array<Select2Item>;
     private domains:Array<Select2Item>;
     //</editor-fold>
-    
+
     constructor(router:Router, companiesService:CompaniesService, notificationService:NotificationService) {
         this._router = router;
         this._companiesService = companiesService;
@@ -65,14 +63,17 @@ export class CompaniesPage implements OnInit {
 
     private getCompaniesWithFilters() {
         let me = this;
-        this.searchFilter['page'] = this.pagination['currentPage'];
 
-        this._companiesService.getCompanyWithFilters(this.searchFilter)
+        let obj = _.clone(this.searchFilter);
+        obj['page'] = this.pagination['currentPage'];
+
+        this._companiesService.getCompanyWithFilters(obj)
             .subscribe(
                 response=> {
                     me._companiesList = response.data;
-                    me.pagination.currentPage = response.page;
+                    // me.pagination.currentPage = response.page;
                     me.pagination.totalItems = response.totalPages;
+                    me.searchFilter['page'] = this.pagination['currentPage'];
                 },
                 error=> {
                     me._companiesList = [];
@@ -123,16 +124,18 @@ export class CompaniesPage implements OnInit {
         this._router.navigate([`/admin/detalii-companie/${$event.id}`]);
     }
 
-    removeCompanie($event:CompanieDto){
-        let me=this;
+    removeCompanie($event:CompanieDto) {
+        let me = this;
         this._companiesService.deleteCompany($event.id)
-            .subscribe(result=>{
-                me.getCompaniesWithFilters();
-            },
-            error=>{
-                me._notificationService.emitErrorNotificationToRootComponent('Compania nu a putut fi stearsa !', 5);
-                me.getCompaniesWithFilters();
-            })
+            .subscribe(result=> {
+                    debugger;
+                    me.getCompaniesWithFilters();
+                },
+                error=> {
+                    debugger;
+                    me._notificationService.emitErrorNotificationToRootComponent('Compania nu a putut fi stearsa !', 5);
+                    me.getCompaniesWithFilters();
+                })
     }
 
     submitSearch() {

@@ -12,6 +12,7 @@ import {JqueryService} from "../../services/jqueryService";
 import {RegistrationComponent} from "../../components/registrationComponent/registrationComponent";
 
 import {RegisterAccount} from "../../models/registerAccount";
+import {FaceBookService} from "../../services/faceBookService";
 
 let template = require('./registrationPage.html');
 
@@ -59,6 +60,10 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
         this._showForgetPasswordLink = false;
         this._showRegisterLink = false;
         this._loginPage = false;
+    }
+
+    initFLogin($event){
+
     }
 
     ngAfterViewChecked():any {

@@ -13,7 +13,8 @@
         [login-page]="_loginPage"
 
         (registration-form)="requestHandler($event)"
-        (reference-component)="referenceComponent($event)">
+        (reference-component)="referenceComponent($event)"
+        (flogin-emit)="initFLogin($event)">
         <div class="spinner">
             <img class="spinner-img" src="/staticResorces/Loading_icon.gif"/>
         </div>

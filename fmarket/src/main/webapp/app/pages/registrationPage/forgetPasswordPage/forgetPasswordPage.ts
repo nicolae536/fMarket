@@ -88,4 +88,8 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
                 }
             )
     }
+
+    initFLogin($event){
+
+    }
 }

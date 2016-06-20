@@ -2,11 +2,12 @@ import 'zone.js';
 import 'reflect-metadata';
 
 import {bootstrap}    from '@angular/platform-browser-dynamic';
+
 import {ROUTER_PROVIDERS} from '@angular/router';
 import {AppComponent} from './app.component';
-import {provide, enableProdMode} from '@angular/core';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common'
 import {HTTP_PROVIDERS} from '@angular/http';
+
 import {AccountService} from "./services/accountService";
 import {CategoriesMenuService} from "./services/categoriesMenuService";
 import {CompanieTypeService} from "./services/companieTypesService";
@@ -23,16 +24,18 @@ import {LocalStorageService} from "./services/localStorageService";
 import {AuthorizationService} from "./services/authorizationService";
 import {RegistrationService} from "./services/registrationService";
 import {ApplicationStateService} from "./services/applicationStateService";
-import {ANGULAR2_GOOGLE_MAPS_PROVIDERS} from "angular2-google-maps/core";
+
+// import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
+import {FaceBookService} from "./services/faceBookService";
 
 //enableProdMode();
 
 bootstrap(AppComponent, [
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,
-    provide(LocationStrategy, {useClass: HashLocationStrategy}),
-    ANGULAR2_GOOGLE_MAPS_PROVIDERS,
-
+    {provide:LocationStrategy, useClass: HashLocationStrategy},
+    // GOOGLE_MAPS_PROVIDERS,
+    
     FormBuilder,
     ApplicationStateService,
     FMarketApi,
@@ -49,4 +52,5 @@ bootstrap(AppComponent, [
     UserService,
     CompaniesService,
     LocalizationService,
+    FaceBookService
 ]);

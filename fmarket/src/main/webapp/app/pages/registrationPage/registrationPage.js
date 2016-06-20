@@ -36,6 +36,8 @@ var RegistrationPage = (function () {
         this._showRegisterLink = false;
         this._loginPage = false;
     };
+    RegistrationPage.prototype.initFLogin = function ($event) {
+    };
     RegistrationPage.prototype.ngAfterViewChecked = function () {
         jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
         this._notificationService.removeLoading();

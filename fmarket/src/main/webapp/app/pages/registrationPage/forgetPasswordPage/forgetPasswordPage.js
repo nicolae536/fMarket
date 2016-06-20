@@ -53,6 +53,8 @@ var ForgetPasswordPage = (function () {
             me._registrationComponent.markAllFieldsAsErrors({ email: true, password: true });
         });
     };
+    ForgetPasswordPage.prototype.initFLogin = function ($event) {
+    };
     __decorate([
         core_1.ViewChild('registrationPageRef'), 
         __metadata('design:type', core_1.ElementRef)

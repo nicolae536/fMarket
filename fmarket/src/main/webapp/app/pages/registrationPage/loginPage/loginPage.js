@@ -17,14 +17,16 @@ var registrationService_1 = require("../../../services/registrationService");
 var notificationService_1 = require("../../../services/notificationService");
 var jqueryService_1 = require("../../../services/jqueryService");
 var registrationComponent_1 = require("../../../components/registrationComponent/registrationComponent");
+var faceBookService_1 = require("../../../services/faceBookService");
 var template = require('../registrationPage.html');
 var LoginPage = (function () {
     //</editor-fold>
-    function LoginPage(router, registrationService, ntificationService, applicationStateService) {
+    function LoginPage(router, registrationService, ntificationService, applicationStateService, faceBookService) {
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = ntificationService;
         this._applicationStateService = applicationStateService;
+        this._faceBookService = faceBookService;
     }
     LoginPage.prototype.ngAfterViewChecked = function () {
         jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
@@ -56,6 +58,13 @@ var LoginPage = (function () {
             me._registrationComponent.markAllFieldsAsErrors({ email: true, password: true });
         });
     };
+    LoginPage.prototype.initFLogin = function ($event) {
+        var me = this;
+        this._faceBookService.login()
+            .subscribe(function (response) {
+        }, function (error) {
+        });
+    };
     __decorate([
         core_1.ViewChild('registrationPageRef'), 
         __metadata('design:type', core_1.ElementRef)
@@ -66,7 +75,7 @@ var LoginPage = (function () {
             template: template,
             directives: [registrationComponent_1.RegistrationComponent]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
+        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService, faceBookService_1.FaceBookService])
     ], LoginPage);
     return LoginPage;
 })();
