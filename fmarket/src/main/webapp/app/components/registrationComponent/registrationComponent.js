@@ -13,7 +13,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
-var registerAccount_1 = require("../../models/registerAccount");
 var Angular2ExtensionValidators_1 = require("../../models/Angular2ExtensionValidators");
 var template = require('./registrationComponent.html');
 var RegistrationComponent = (function () {
@@ -42,11 +41,13 @@ var RegistrationComponent = (function () {
         }
     };
     RegistrationComponent.prototype.updateErrorFied = function () {
-        this.showNotMatchPasswordField = this._registrationForm
+        this.passwordFieldsError = this._registrationForm
             && this._registrationForm.controls['passwords']
             && this._registrationForm.controls['passwords']['errors']
             && this._registrationForm.controls['passwords']['errors']['checkPasswords']
             && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
+        this.showNotMatchPasswordField = this.passwordFieldsError &&
+            this._registrationForm.controls['passwords']['controls']['repeat'].value.length > 0;
         this.checkBackendErrors();
     };
     RegistrationComponent.prototype.checkBackendErrors = function () {
@@ -107,9 +108,12 @@ var RegistrationComponent = (function () {
             this.$registrationForm.emit(this._registrationForm.value);
             return;
         }
-        var invalidAccount = new registerAccount_1.RegisterAccount();
-        invalidAccount.passwords = { password: null, repeat: null };
-        this.$registrationForm.emit(invalidAccount);
+        if (this.passwordFieldsError && this._registrationForm.controls['passwords']['controls']['repeat']) {
+            this._registrationForm.controls['passwords']['controls']['repeat'].setErrors({ key: 'validatePassword' });
+        }
+        // let invalidAccount = new RegisterAccount();
+        // invalidAccount.passwords = { password: null, repeat:null};
+        // this.$registrationForm.emit(invalidAccount);
     };
     RegistrationComponent.prototype.fLogin = function () {
         this.fLoginEmitter.emit('auth');

@@ -10,7 +10,7 @@ import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 let template = require('./registrationComponent.html');
 @Component({
     selector: 'registration-component',
-    template:template,
+    template: template,
     directives: [FORM_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class RegistrationComponent implements OnInit, OnChanges {
@@ -34,6 +34,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     private _registrationForm:ControlGroup;
     private reapeatPasswordControl:boolean = true;
     private showNotMatchPasswordField:boolean;
+    private passwordFieldsError:boolean;
 
     constructor(formBuilder:FormBuilder) {
         this._formBuilder = formBuilder;
@@ -62,51 +63,53 @@ export class RegistrationComponent implements OnInit, OnChanges {
         }
     }
 
-    updateErrorFied(){
-        this.showNotMatchPasswordField = this._registrationForm
+    updateErrorFied() {
+        this.passwordFieldsError = this._registrationForm
             && this._registrationForm.controls['passwords']
             && this._registrationForm.controls['passwords']['errors']
             && this._registrationForm.controls['passwords']['errors']['checkPasswords']
-            && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
+            && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid']
+        this.showNotMatchPasswordField = this.passwordFieldsError &&
+            this._registrationForm.controls['passwords']['controls']['repeat'].value.length > 0;
 
         this.checkBackendErrors();
     }
 
-    checkBackendErrors(){
-        if(this._registrationForm.controls['email'].errors && this._registrationForm.controls['email'].errors.key === 'validateEmail'){
+    checkBackendErrors() {
+        if (this._registrationForm.controls['email'].errors && this._registrationForm.controls['email'].errors.key === 'validateEmail') {
             this._registrationForm.controls['email'].setErrors(null);
         }
 
-        if(this._registrationForm.controls['passwords']['controls']['password'].errors && this._registrationForm.controls['passwords']['controls']['password'].errors.key === 'validatePassword'){
+        if (this._registrationForm.controls['passwords']['controls']['password'].errors && this._registrationForm.controls['passwords']['controls']['password'].errors.key === 'validatePassword') {
             this._registrationForm.controls['passwords']['controls']['password'].setErrors(null);
         }
 
-        if(this._registrationForm.controls['passwords']['controls']['repeat']
+        if (this._registrationForm.controls['passwords']['controls']['repeat']
             && this._registrationForm.controls['passwords']['controls']['repeat'].errors
-            && this._registrationForm.controls['passwords']['controls']['repeat'].errors.key === 'validatePassword'){
-                this._registrationForm.controls['passwords']['controls']['repeat'].setErrors(null);
+            && this._registrationForm.controls['passwords']['controls']['repeat'].errors.key === 'validatePassword') {
+            this._registrationForm.controls['passwords']['controls']['repeat'].setErrors(null);
         }
     }
 
     markAllFieldsAsErrors(configuration) {
 
-        if(configuration['email']) {
+        if (configuration['email']) {
             this._registrationForm.controls['email'].setErrors({key: 'validateEmail'});
         }
 
-        if(configuration['password']){
+        if (configuration['password']) {
             this._registrationForm.controls['passwords']['controls']['password'].setErrors({key: 'validatePassword'});
-            if(this._registrationForm.controls['passwords']['controls']['repeat']){
+            if (this._registrationForm.controls['passwords']['controls']['repeat']) {
                 this._registrationForm.controls['passwords']['controls']['repeat'].setErrors({key: 'validatePassword'});
             }
         }
     }
 
-    checkIfEmailIsMarked(){
+    checkIfEmailIsMarked() {
         return this._registrationForm.controls['email'] && this._registrationForm.controls['email']['errors'] && this._registrationForm.controls['email']['errors']['key'] == 'validateEmail';
     }
 
-    checkIfPasswordIsMarked(controll){
+    checkIfPasswordIsMarked(controll) {
         switch (controll) {
             case 'password':
                 return this._registrationForm.controls['passwords']
@@ -125,15 +128,15 @@ export class RegistrationComponent implements OnInit, OnChanges {
 
     private getFormControllClass(property) {
         let condition = null;
-        if(this._registrationForm.controls[property]){
+        if (this._registrationForm.controls[property]) {
             condition = this._registrationForm.controls[property].dirty && this._registrationForm.controls[property].valid;
         }
 
-        if(!condition && this._registrationForm.controls[property].pristine){
+        if (!condition && this._registrationForm.controls[property].pristine) {
             return '';
         }
 
-        return condition ? 'glyphicon glyphicon-ok pointer-cursor checking-item-registration': 'glyphicon glyphicon-remove pointer-cursor checking-item';
+        return condition ? 'glyphicon glyphicon-ok pointer-cursor checking-item-registration' : 'glyphicon glyphicon-remove pointer-cursor checking-item';
     }
 
     registrationFormSubmit() {
@@ -142,12 +145,15 @@ export class RegistrationComponent implements OnInit, OnChanges {
             return;
         }
 
-        let invalidAccount = new RegisterAccount();
-        invalidAccount.passwords = { password: null, repeat:null};
-        this.$registrationForm.emit(invalidAccount);
+        if (this.passwordFieldsError && this._registrationForm.controls['passwords']['controls']['repeat']) {
+            this._registrationForm.controls['passwords']['controls']['repeat'].setErrors({key: 'validatePassword'});
+        }
+        // let invalidAccount = new RegisterAccount();
+        // invalidAccount.passwords = { password: null, repeat:null};
+        // this.$registrationForm.emit(invalidAccount);
     }
 
-    fLogin(){
+    fLogin() {
         this.fLoginEmitter.emit('auth');
     }
 
