@@ -24,6 +24,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     @Input('show-remember-me-link') showRememberMeField:boolean;
     @Input('show-login-link') _showLoginLink:boolean;
     @Input('login-page') _loginPage:boolean;
+    @Input('facebook-text')facebookText:string;
 
     @Output('registration-form') $registrationForm:EventEmitter<RegisterAccount> = new EventEmitter<RegisterAccount>();
     @Output('flogin-emit') fLoginEmitter:EventEmitter<any> = new EventEmitter<any>();

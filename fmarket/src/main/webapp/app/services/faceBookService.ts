@@ -3,12 +3,15 @@
  */
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Rx";
+import {FMarketApi} from "./fMarketApi";
 
 @Injectable()
 export class FaceBookService {
     private FB;
+    private fmarketApi:FMarketApi;
 
-    constructor() {
+    constructor(fmarketApi:FMarketApi) {
+        this.fmarketApi =fmarketApi;
         let me=this;
         //noinspection TypeScriptUnresolvedVariable
         if (!window.fbAsyncInit) {
@@ -51,22 +54,25 @@ export class FaceBookService {
         console.log('sdk load');
     }
 
+    // login(){
+    //     let me = this;
+    //     return Observable.create(o=>{
+    //         //noinspection TypeScriptUnresolvedVariable
+    //         FB.login((response)=>{
+    //             if (response.authResponse) {
+    //                 console.log('Welcome!  Fetching your information.... ');
+    //                 //noinspection TypeScriptUnresolvedVariable
+    //                 FB.api('/me', function(response) {
+    //                     console.log('Good to see you, ' + response + '.');
+    //                 });
+    //             } else {
+    //                 console.log('User cancelled login or did not fully authorize.');
+    //             }
+    //         })
+    //     })
+    // }
     login(){
-        let me = this;
-        return Observable.create(o=>{
-            //noinspection TypeScriptUnresolvedVariable
-            FB.login((response)=>{
-                if (response.authResponse) {
-                    console.log('Welcome!  Fetching your information.... ');
-                    //noinspection TypeScriptUnresolvedVariable
-                    FB.api('/me', function(response) {
-                        console.log('Good to see you, ' + response + '.');
-                    });
-                } else {
-                    console.log('User cancelled login or did not fully authorize.');
-                }
-            })
-        })
+        return this.fmarketApi.post('connect/facebook','');
     }
 
     statusChangeCallback(response){

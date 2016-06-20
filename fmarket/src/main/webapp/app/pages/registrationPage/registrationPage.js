@@ -16,11 +16,14 @@ var registrationService_1 = require("../../services/registrationService");
 var notificationService_1 = require("../../services/notificationService");
 var jqueryService_1 = require("../../services/jqueryService");
 var registrationComponent_1 = require("../../components/registrationComponent/registrationComponent");
+var faceBookService_1 = require("../../services/faceBookService");
 var template = require('./registrationPage.html');
 var RegistrationPage = (function () {
     //</editor-fold>
-    function RegistrationPage(router, registrationService, notificationService) {
+    function RegistrationPage(router, registrationService, notificationService, _faceBookService) {
+        this._faceBookText = "Inregistreaza-te cu facebook";
         this._router = router;
+        this._faceBookService = _faceBookService;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
     }
@@ -55,6 +58,13 @@ var RegistrationPage = (function () {
             me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Inregistrare invalida!', timeout: 5 });
         });
     };
+    RegistrationPage.prototype.initFLogin = function ($event) {
+        var me = this;
+        this._faceBookService.login()
+            .subscribe(function (response) {
+        }, function (error) {
+        });
+    };
     __decorate([
         core_1.ViewChild('registrationPageRef'), 
         __metadata('design:type', core_1.ElementRef)
@@ -65,7 +75,7 @@ var RegistrationPage = (function () {
             template: template,
             directives: [registrationComponent_1.RegistrationComponent]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
+        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, faceBookService_1.FaceBookService])
     ], RegistrationPage);
     return RegistrationPage;
 })();

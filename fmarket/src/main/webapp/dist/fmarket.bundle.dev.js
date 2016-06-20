@@ -68,7 +68,7 @@
 	var registrationService_1 = __webpack_require__(838);
 	var applicationStateService_1 = __webpack_require__(815);
 	// import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
-	var faceBookService_1 = __webpack_require__(843);
+	var faceBookService_1 = __webpack_require__(841);
 	//enableProdMode();
 	platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
 	    http_1.HTTP_PROVIDERS,
@@ -89412,7 +89412,7 @@
 	var applicationConstansts_1 = __webpack_require__(790);
 	var homePage_1 = __webpack_require__(791);
 	var registrationPage_1 = __webpack_require__(837);
-	var loginPage_1 = __webpack_require__(842);
+	var loginPage_1 = __webpack_require__(843);
 	var forgetPasswordPage_1 = __webpack_require__(844);
 	var adminPage_1 = __webpack_require__(845);
 	var accountSettingsPage_1 = __webpack_require__(908);
@@ -94530,11 +94530,14 @@
 	var notificationService_1 = __webpack_require__(821);
 	var jqueryService_1 = __webpack_require__(819);
 	var registrationComponent_1 = __webpack_require__(839);
-	var template = __webpack_require__(841);
+	var faceBookService_1 = __webpack_require__(841);
+	var template = __webpack_require__(842);
 	var RegistrationPage = (function () {
 	    //</editor-fold>
-	    function RegistrationPage(router, registrationService, notificationService) {
+	    function RegistrationPage(router, registrationService, notificationService, _faceBookService) {
+	        this._faceBookText = "Inregistreaza-te cu facebook";
 	        this._router = router;
+	        this._faceBookService = _faceBookService;
 	        this._registrationService = registrationService;
 	        this._notificationService = notificationService;
 	    }
@@ -94569,6 +94572,13 @@
 	            me._notificationService.emitNotificationToRootComponent({ type: 'danger', dismisable: true, message: 'Inregistrare invalida!', timeout: 5 });
 	        });
 	    };
+	    RegistrationPage.prototype.initFLogin = function ($event) {
+	        var me = this;
+	        this._faceBookService.login()
+	            .subscribe(function (response) {
+	        }, function (error) {
+	        });
+	    };
 	    __decorate([
 	        core_1.ViewChild('registrationPageRef'), 
 	        __metadata('design:type', core_1.ElementRef)
@@ -94579,7 +94589,7 @@
 	            template: template,
 	            directives: [registrationComponent_1.RegistrationComponent]
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
+	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, faceBookService_1.FaceBookService])
 	    ], RegistrationPage);
 	    return RegistrationPage;
 	})();
@@ -94816,6 +94826,10 @@
 	        __metadata('design:type', Boolean)
 	    ], RegistrationComponent.prototype, "_loginPage", void 0);
 	    __decorate([
+	        core_1.Input('facebook-text'), 
+	        __metadata('design:type', String)
+	    ], RegistrationComponent.prototype, "facebookText", void 0);
+	    __decorate([
 	        core_1.Output('registration-form'), 
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], RegistrationComponent.prototype, "$registrationForm", void 0);
@@ -94844,16 +94858,125 @@
 /* 840 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"regisration-component clearfix\">\r\n    <div class=\"form-wrapper\">\r\n        <div class=\"form-style\">\r\n            <div class=\"title-container\">\r\n                <span class=\"h3\">{{formTitle}}</span>\r\n            </div>\r\n            <form [ngFormModel]=\"_registrationForm\" (ngSubmit)=\"registrationFormSubmit()\" class=\"registration-form\">\r\n                <div class=\"registration-form-controls-container\">\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('email')\"></span>-->\r\n                        <input type=\"text\" class=\"form-control\" [class.backend-error]=\"checkIfEmailIsMarked()\"\r\n                               placeholder=\"E-mail\"\r\n                               (ngModelChange)=\"checkBackendErrors()\"\r\n                               [ngFormControl]=\"_registrationForm.controls['email']\"/>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('password')\" [placeholder]=\"passwordLabel\"\r\n                               (ngModelChange)=\"updateErrorFied()\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.password\"/>\r\n                    </div>\r\n                    <div *ngIf=\"!showRememberMeField\" class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('repeat')\" placeholder=\"Repeta parola\"\r\n                               (ngModelChange)=\"updateErrorFied()\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.repeat\"/>\r\n                    </div>\r\n                    <div class=\"animated-error\" *ngIf=\"showNotMatchPasswordField\">\r\n                        <div class=\"password-error right-to-middle-effect\">\r\n                            Cele doua parole nu sunt la fel!\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div *ngIf=\"_loginPage || showNewsletter\" class=\"clearfix\">\r\n                    <div class=\"pull-right button-container\" style=\"width: 100%; margin-bottom: 15px;\">\r\n                        <button type=\"button\" class=\"btn\" (click)=\"fLogin()\"\r\n                                style=\"color: white; background-color: #365899; width: 100%; text-align: center;\">\r\n                            <div class=\"pull-left\" style=\"width: 0px;\">\r\n                                <span class=\"fa fa-facebook-official\" style=\"font-size: 19px;\"></span>\r\n                            </div>\r\n                            f-Login\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"clearfix position-relative\">\r\n                    <div class=\"pull-right button-container\">\r\n                        <button type=\"submit\" class=\"btn btn-success\">{{buttonLabel}}</button>\r\n                    </div>\r\n                    <div *ngIf=\"showNewsletter\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['subscribe']\"/>\r\n                        <label class=\"checkbox-label\">Inscriema la newsletter</label>\r\n                    </div>\r\n                    <div *ngIf=\"showRememberMeField\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['rememberMe']\"/>\r\n                        <label class=\"checkbox-label\">Tine-ma minte</label>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n    <div class=\"links-container text-center\">\r\n        <div *ngIf=\"showForgetPasswordLink || _showRegisterLink || _showLoginLink\" class=\"links clearfix\">\r\n            <div *ngIf=\"showForgetPasswordLink\">\r\n                <label>Ai uitat parola?</label>\r\n                <a [routerLink]=\"['/forget-password']\">{{_forgetPasswordLabel}}</a>\r\n            </div>\r\n            <div *ngIf=\"_showRegisterLink\">\r\n                <label>Nu ai cont?</label>\r\n                <a [routerLink]=\"['/registration']\">Inregistreaza-te</a>\r\n            </div>\r\n            <div *ngIf=\"_showLoginLink\">\r\n                <a [routerLink]=\"['/login']\">Ai deja un cont?</a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+	module.exports = "<div class=\"regisration-component clearfix\">\r\n    <div class=\"form-wrapper\">\r\n        <div class=\"form-style\">\r\n            <div class=\"title-container\">\r\n                <span class=\"h3\">{{formTitle}}</span>\r\n            </div>\r\n            <form [ngFormModel]=\"_registrationForm\" (ngSubmit)=\"registrationFormSubmit()\" class=\"registration-form\">\r\n                <div class=\"registration-form-controls-container\">\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('email')\"></span>-->\r\n                        <input type=\"text\" class=\"form-control\" [class.backend-error]=\"checkIfEmailIsMarked()\"\r\n                               placeholder=\"E-mail\"\r\n                               (ngModelChange)=\"checkBackendErrors()\"\r\n                               [ngFormControl]=\"_registrationForm.controls['email']\"/>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('password')\" [placeholder]=\"passwordLabel\"\r\n                               (ngModelChange)=\"updateErrorFied()\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.password\"/>\r\n                    </div>\r\n                    <div *ngIf=\"!showRememberMeField\" class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('repeat')\" placeholder=\"Repeta parola\"\r\n                               (ngModelChange)=\"updateErrorFied()\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.repeat\"/>\r\n                    </div>\r\n                    <div class=\"animated-error\" *ngIf=\"showNotMatchPasswordField\">\r\n                        <div class=\"password-error right-to-middle-effect\">\r\n                            Cele doua parole nu sunt la fel!\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div *ngIf=\"_loginPage || showNewsletter\" class=\"clearfix\">\r\n                    <div class=\"pull-right button-container\" style=\"width: 100%; margin-bottom: 15px;\">\r\n                        <button type=\"button\" class=\"btn\" (click)=\"fLogin()\"\r\n                                style=\"color: white; background-color: #365899; width: 100%; text-align: center;\">\r\n                            <div class=\"pull-left\" style=\"width: 0px;\">\r\n                                <span class=\"fa fa-facebook-official\" style=\"font-size: 19px;\"></span>\r\n                            </div>\r\n                            {{facebookText}}\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"clearfix position-relative\">\r\n                    <div class=\"pull-right button-container\">\r\n                        <button type=\"submit\" class=\"btn btn-success\">{{buttonLabel}}</button>\r\n                    </div>\r\n                    <div *ngIf=\"showNewsletter\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['subscribe']\"/>\r\n                        <label class=\"checkbox-label\">Inscriema la newsletter</label>\r\n                    </div>\r\n                    <div *ngIf=\"showRememberMeField\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['rememberMe']\"/>\r\n                        <label class=\"checkbox-label\">Tine-ma minte</label>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n    <div class=\"links-container text-center\">\r\n        <div *ngIf=\"showForgetPasswordLink || _showRegisterLink || _showLoginLink\" class=\"links clearfix\">\r\n            <div *ngIf=\"showForgetPasswordLink\">\r\n                <label>Ai uitat parola?</label>\r\n                <a [routerLink]=\"['/forget-password']\">{{_forgetPasswordLabel}}</a>\r\n            </div>\r\n            <div *ngIf=\"_showRegisterLink\">\r\n                <label>Nu ai cont?</label>\r\n                <a [routerLink]=\"['/registration']\">Inregistreaza-te</a>\r\n            </div>\r\n            <div *ngIf=\"_showLoginLink\">\r\n                <a [routerLink]=\"['/login']\">Ai deja un cont?</a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
 /* 841 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"registration-page clearfix\" #registrationPageRef>\r\n    <div class=\"component-wrapper\">\r\n    <registration-component\r\n        [form-title]=\"_formTitle\"\r\n        [button-label]=\"_formButtonLabel\"\r\n        [show-newsletter]=\"_showNewsletterField\"\r\n        [password-label]=\"_passwordLabel\"\r\n        [show-forget-password-link]=\"_showForgetPasswordLink\"\r\n        [forget-password-label]=\"_forgetPasswordLabel\"\r\n        [show-register-link]=\"_showRegisterLink\"\r\n        [show-remember-me-link]=\"_showRememberMeLink\"\r\n        [show-login-link]=\"_showLoginLink\"\r\n        [login-page]=\"_loginPage\"\r\n\r\n        (registration-form)=\"requestHandler($event)\"\r\n        (reference-component)=\"referenceComponent($event)\"\r\n        (flogin-emit)=\"initFLogin($event)\">\r\n        <div class=\"spinner\">\r\n            <img class=\"spinner-img\" src=\"/staticResorces/Loading_icon.gif\"/>\r\n        </div>\r\n    </registration-component>\r\n    </div>\r\n</div>";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 6/20/2016.
+	 */
+	var core_1 = __webpack_require__(30);
+	var fMarketApi_1 = __webpack_require__(793);
+	var FaceBookService = (function () {
+	    function FaceBookService(fmarketApi) {
+	        this.fmarketApi = fmarketApi;
+	        var me = this;
+	        //noinspection TypeScriptUnresolvedVariable
+	        if (!window.fbAsyncInit) {
+	            console.log('define');
+	            //noinspection TypeScriptUnresolvedVariable
+	            window.fbAsyncInit = function () {
+	                console.log('fb init');
+	                //noinspection TypeScriptUnresolvedVariable
+	                FB.init({
+	                    appId: '963606340368916',
+	                    cookie: true,
+	                    // the session
+	                    xfbml: true,
+	                    version: 'v2.6' // use graph api version 2.5
+	                });
+	                //noinspection TypeScriptUnresolvedVariable
+	                FB.getLoginStatus(function (response) {
+	                    me.statusChangeCallback(response);
+	                });
+	            };
+	        }
+	        this.initFB();
+	    }
+	    FaceBookService.prototype.initFB = function () {
+	        var js, id = 'facebook-jssdk', ref = document.getElementsByTagName('script')[0];
+	        if (document.getElementById(id)) {
+	            return;
+	        }
+	        js = document.createElement('script');
+	        js.id = id;
+	        js.async = true;
+	        js.src = "//connect.facebook.net/en_US/sdk.js";
+	        ref.parentNode.insertBefore(js, ref);
+	        console.log('sdk load');
+	    };
+	    // login(){
+	    //     let me = this;
+	    //     return Observable.create(o=>{
+	    //         //noinspection TypeScriptUnresolvedVariable
+	    //         FB.login((response)=>{
+	    //             if (response.authResponse) {
+	    //                 console.log('Welcome!  Fetching your information.... ');
+	    //                 //noinspection TypeScriptUnresolvedVariable
+	    //                 FB.api('/me', function(response) {
+	    //                     console.log('Good to see you, ' + response + '.');
+	    //                 });
+	    //             } else {
+	    //                 console.log('User cancelled login or did not fully authorize.');
+	    //             }
+	    //         })
+	    //     })
+	    // }
+	    FaceBookService.prototype.login = function () {
+	        return this.fmarketApi.post('connect/facebook', '');
+	    };
+	    FaceBookService.prototype.statusChangeCallback = function (response) {
+	        debugger;
+	        console.log('statusChangeCallback');
+	        console.log(response);
+	        // The response object is returned with a status field that lets the
+	        // app know the current login status of the person.
+	        // Full docs on the response object can be found in the documentation
+	        // for FB.getLoginStatus().
+	        if (response.status === 'connected') {
+	            // Logged into your app and Facebook.
+	            testAPI();
+	        }
+	        else if (response.status === 'not_authorized') {
+	            // The person is logged into Facebook, but not your app.
+	            document.getElementById('status').innerHTML = 'Please log ' +
+	                'into this app.';
+	        }
+	        else {
+	            // The person is not logged into Facebook, so we're not sure if
+	            // they are logged into this app or not.
+	            document.getElementById('status').innerHTML = 'Please log ' +
+	                'into Facebook.';
+	        }
+	    };
+	    FaceBookService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
+	    ], FaceBookService);
+	    return FaceBookService;
+	})();
+	exports.FaceBookService = FaceBookService;
+	//# sourceMappingURL=faceBookService.js.map
 
 /***/ },
 /* 842 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"registration-page clearfix\" #registrationPageRef>\r\n    <div class=\"component-wrapper\">\r\n    <registration-component\r\n        [form-title]=\"_formTitle\"\r\n        [button-label]=\"_formButtonLabel\"\r\n        [show-newsletter]=\"_showNewsletterField\"\r\n        [password-label]=\"_passwordLabel\"\r\n        [show-forget-password-link]=\"_showForgetPasswordLink\"\r\n        [forget-password-label]=\"_forgetPasswordLabel\"\r\n        [show-register-link]=\"_showRegisterLink\"\r\n        [show-remember-me-link]=\"_showRememberMeLink\"\r\n        [show-login-link]=\"_showLoginLink\"\r\n        [login-page]=\"_loginPage\"\r\n        [facebook-text]=\"_faceBookText\"\r\n\r\n        (registration-form)=\"requestHandler($event)\"\r\n        (reference-component)=\"referenceComponent($event)\"\r\n        (flogin-emit)=\"initFLogin($event)\">\r\n        <div class=\"spinner\">\r\n            <img class=\"spinner-img\" src=\"/staticResorces/Loading_icon.gif\"/>\r\n        </div>\r\n    </registration-component>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 843 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -94875,11 +94998,12 @@
 	var notificationService_1 = __webpack_require__(821);
 	var jqueryService_1 = __webpack_require__(819);
 	var registrationComponent_1 = __webpack_require__(839);
-	var faceBookService_1 = __webpack_require__(843);
-	var template = __webpack_require__(841);
+	var faceBookService_1 = __webpack_require__(841);
+	var template = __webpack_require__(842);
 	var LoginPage = (function () {
 	    //</editor-fold>
 	    function LoginPage(router, registrationService, ntificationService, applicationStateService, faceBookService) {
+	        this._faceBookText = "f-Login";
 	        this._router = router;
 	        this._registrationService = registrationService;
 	        this._notificationService = ntificationService;
@@ -94941,112 +95065,6 @@
 	//# sourceMappingURL=loginPage.js.map
 
 /***/ },
-/* 843 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 6/20/2016.
-	 */
-	var core_1 = __webpack_require__(30);
-	var Rx_1 = __webpack_require__(542);
-	var FaceBookService = (function () {
-	    function FaceBookService() {
-	        var me = this;
-	        //noinspection TypeScriptUnresolvedVariable
-	        if (!window.fbAsyncInit) {
-	            console.log('define');
-	            //noinspection TypeScriptUnresolvedVariable
-	            window.fbAsyncInit = function () {
-	                console.log('fb init');
-	                //noinspection TypeScriptUnresolvedVariable
-	                FB.init({
-	                    appId: '963606340368916',
-	                    cookie: true,
-	                    // the session
-	                    xfbml: true,
-	                    version: 'v2.6' // use graph api version 2.5
-	                });
-	                //noinspection TypeScriptUnresolvedVariable
-	                FB.getLoginStatus(function (response) {
-	                    me.statusChangeCallback(response);
-	                });
-	            };
-	        }
-	        this.initFB();
-	    }
-	    FaceBookService.prototype.initFB = function () {
-	        var js, id = 'facebook-jssdk', ref = document.getElementsByTagName('script')[0];
-	        if (document.getElementById(id)) {
-	            return;
-	        }
-	        js = document.createElement('script');
-	        js.id = id;
-	        js.async = true;
-	        js.src = "//connect.facebook.net/en_US/sdk.js";
-	        ref.parentNode.insertBefore(js, ref);
-	        console.log('sdk load');
-	    };
-	    FaceBookService.prototype.login = function () {
-	        var me = this;
-	        return Rx_1.Observable.create(function (o) {
-	            //noinspection TypeScriptUnresolvedVariable
-	            FB.login(function (response) {
-	                if (response.authResponse) {
-	                    console.log('Welcome!  Fetching your information.... ');
-	                    //noinspection TypeScriptUnresolvedVariable
-	                    FB.api('/me', function (response) {
-	                        console.log('Good to see you, ' + response + '.');
-	                    });
-	                }
-	                else {
-	                    console.log('User cancelled login or did not fully authorize.');
-	                }
-	            });
-	        });
-	    };
-	    FaceBookService.prototype.statusChangeCallback = function (response) {
-	        debugger;
-	        console.log('statusChangeCallback');
-	        console.log(response);
-	        // The response object is returned with a status field that lets the
-	        // app know the current login status of the person.
-	        // Full docs on the response object can be found in the documentation
-	        // for FB.getLoginStatus().
-	        if (response.status === 'connected') {
-	            // Logged into your app and Facebook.
-	            testAPI();
-	        }
-	        else if (response.status === 'not_authorized') {
-	            // The person is logged into Facebook, but not your app.
-	            document.getElementById('status').innerHTML = 'Please log ' +
-	                'into this app.';
-	        }
-	        else {
-	            // The person is not logged into Facebook, so we're not sure if
-	            // they are logged into this app or not.
-	            document.getElementById('status').innerHTML = 'Please log ' +
-	                'into Facebook.';
-	        }
-	    };
-	    FaceBookService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], FaceBookService);
-	    return FaceBookService;
-	})();
-	exports.FaceBookService = FaceBookService;
-	//# sourceMappingURL=faceBookService.js.map
-
-/***/ },
 /* 844 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -95068,7 +95086,7 @@
 	var registrationService_1 = __webpack_require__(838);
 	var notificationService_1 = __webpack_require__(821);
 	var jqueryService_1 = __webpack_require__(819);
-	var template = __webpack_require__(841);
+	var template = __webpack_require__(842);
 	var ForgetPasswordPage = (function () {
 	    //</editor-fold>
 	    function ForgetPasswordPage(router, registrationService, notificationService) {

@@ -45,6 +45,7 @@ export class LoginPage implements OnInit, AfterViewChecked {
     private _showRememberMeLink:boolean;
     private _showLoginLink:boolean;
     private _loginPage;
+    _faceBookText="f-Login"
     //</editor-fold>
 
     constructor(router:Router,
@@ -84,7 +85,7 @@ export class LoginPage implements OnInit, AfterViewChecked {
 
     requestHandler(account:RegisterAccount) {
         let me=this;
-        
+
         this._registrationService.login(account)
             .subscribe(
                 response => {

@@ -27,6 +27,7 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     private _registrationComponent:RegistrationComponent;
     private _notificationService:NotificationService;
     private _router:Router;
+    private _faceBookService:FaceBookService;
     //</editor-fold>
 
     //<editor-fold desc="Internal variables">
@@ -41,10 +42,12 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     private _showRememberMeLink:boolean;
     private _showLoginLink:boolean;
     private _loginPage;
+    _faceBookText="Inregistreaza-te cu facebook"
     //</editor-fold>
 
-    constructor(router:Router,registrationService:RegistrationService, notificationService:NotificationService) {
+    constructor(router:Router,registrationService:RegistrationService, notificationService:NotificationService, _faceBookService:FaceBookService) {
         this._router = router;
+        this._faceBookService =_faceBookService;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
     }
@@ -86,6 +89,20 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
                 error => {
                     me._registrationComponent.markAllFieldsAsErrors({email:true, password:true});
                     me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Inregistrare invalida!', timeout:5});
+                }
+            )
+    }
+
+    initFLogin($event){
+        let me = this;
+
+        this._faceBookService.login()
+            .subscribe(
+                response=>{
+
+                },
+                error=>{
+
                 }
             )
     }

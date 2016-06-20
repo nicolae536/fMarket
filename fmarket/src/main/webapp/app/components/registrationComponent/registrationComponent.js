@@ -159,6 +159,10 @@ var RegistrationComponent = (function () {
         __metadata('design:type', Boolean)
     ], RegistrationComponent.prototype, "_loginPage", void 0);
     __decorate([
+        core_1.Input('facebook-text'), 
+        __metadata('design:type', String)
+    ], RegistrationComponent.prototype, "facebookText", void 0);
+    __decorate([
         core_1.Output('registration-form'), 
         __metadata('design:type', core_1.EventEmitter)
     ], RegistrationComponent.prototype, "$registrationForm", void 0);

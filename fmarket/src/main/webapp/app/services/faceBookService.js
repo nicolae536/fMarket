@@ -11,9 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 6/20/2016.
  */
 var core_1 = require("@angular/core");
-var Rx_1 = require("rxjs/Rx");
+var fMarketApi_1 = require("./fMarketApi");
 var FaceBookService = (function () {
-    function FaceBookService() {
+    function FaceBookService(fmarketApi) {
+        this.fmarketApi = fmarketApi;
         var me = this;
         //noinspection TypeScriptUnresolvedVariable
         if (!window.fbAsyncInit) {
@@ -49,23 +50,25 @@ var FaceBookService = (function () {
         ref.parentNode.insertBefore(js, ref);
         console.log('sdk load');
     };
+    // login(){
+    //     let me = this;
+    //     return Observable.create(o=>{
+    //         //noinspection TypeScriptUnresolvedVariable
+    //         FB.login((response)=>{
+    //             if (response.authResponse) {
+    //                 console.log('Welcome!  Fetching your information.... ');
+    //                 //noinspection TypeScriptUnresolvedVariable
+    //                 FB.api('/me', function(response) {
+    //                     console.log('Good to see you, ' + response + '.');
+    //                 });
+    //             } else {
+    //                 console.log('User cancelled login or did not fully authorize.');
+    //             }
+    //         })
+    //     })
+    // }
     FaceBookService.prototype.login = function () {
-        var me = this;
-        return Rx_1.Observable.create(function (o) {
-            //noinspection TypeScriptUnresolvedVariable
-            FB.login(function (response) {
-                if (response.authResponse) {
-                    console.log('Welcome!  Fetching your information.... ');
-                    //noinspection TypeScriptUnresolvedVariable
-                    FB.api('/me', function (response) {
-                        console.log('Good to see you, ' + response + '.');
-                    });
-                }
-                else {
-                    console.log('User cancelled login or did not fully authorize.');
-                }
-            });
-        });
+        return this.fmarketApi.post('connect/facebook', '');
     };
     FaceBookService.prototype.statusChangeCallback = function (response) {
         debugger;
@@ -93,7 +96,7 @@ var FaceBookService = (function () {
     };
     FaceBookService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], FaceBookService);
     return FaceBookService;
 })();
