@@ -22,7 +22,7 @@ public class FacebookController extends ConnectController {
 		System.out.println(request.getUserPrincipal());
 		System.out.println(request.toString());
 		
-		return new RedirectView("/index.html#/connections", true);
+		return new RedirectView("/index.html#/SALUTBAAAA", true);
 	}
 
 }

@@ -22,7 +22,6 @@ import ro.fmarket.model.account.consts.AccountType;
 import ro.fmarket.model.account.details.AccountDetails;
 import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
 import ro.fmarket.model.demand.Demand;
-import ro.fmarket.model.domain.demand.DemandDomain;
 
 @Data
 @Entity
@@ -52,5 +51,8 @@ public class Account extends BaseEntity {
 	
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Demand> demands = new HashSet<>(0);
+	
+	@Column(nullable = false)
+	private Boolean isFacebook = false;
 
 }
