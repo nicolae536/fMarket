@@ -18,6 +18,10 @@ public class FacebookController extends ConnectController {
 
 	@Override
 	protected RedirectView connectionStatusRedirect(String providerId, NativeWebRequest request) {
+		System.out.println("CONNECTED!!!");
+		System.out.println(request.getUserPrincipal());
+		System.out.println(request.toString());
+		
 		return new RedirectView("/index.html#/connections", true);
 	}
 
