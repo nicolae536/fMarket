@@ -94553,8 +94553,6 @@
 	        this._showRegisterLink = false;
 	        this._loginPage = false;
 	    };
-	    RegistrationPage.prototype.initFLogin = function ($event) {
-	    };
 	    RegistrationPage.prototype.ngAfterViewChecked = function () {
 	        jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
 	        this._notificationService.removeLoading();
@@ -94574,10 +94572,17 @@
 	    };
 	    RegistrationPage.prototype.initFLogin = function ($event) {
 	        var me = this;
-	        this._faceBookService.login()
-	            .subscribe(function (response) {
-	        }, function (error) {
-	        });
+	        location.assign('/connect/facebook');
+	        //
+	        // this._faceBookService.login()
+	        //     .subscribe(
+	        //         response=>{
+	        //
+	        //         },
+	        //         error=>{
+	        //
+	        //         }
+	        //     )
 	    };
 	    __decorate([
 	        core_1.ViewChild('registrationPageRef'), 
@@ -94877,32 +94882,32 @@
 	 * Created by nick_ on 6/20/2016.
 	 */
 	var core_1 = __webpack_require__(30);
-	var fMarketApi_1 = __webpack_require__(793);
+	var http_1 = __webpack_require__(794);
 	var FaceBookService = (function () {
-	    function FaceBookService(fmarketApi) {
-	        this.fmarketApi = fmarketApi;
-	        var me = this;
-	        //noinspection TypeScriptUnresolvedVariable
-	        if (!window.fbAsyncInit) {
-	            console.log('define');
-	            //noinspection TypeScriptUnresolvedVariable
-	            window.fbAsyncInit = function () {
-	                console.log('fb init');
-	                //noinspection TypeScriptUnresolvedVariable
-	                FB.init({
-	                    appId: '963606340368916',
-	                    cookie: true,
-	                    // the session
-	                    xfbml: true,
-	                    version: 'v2.6' // use graph api version 2.5
-	                });
-	                //noinspection TypeScriptUnresolvedVariable
-	                FB.getLoginStatus(function (response) {
-	                    me.statusChangeCallback(response);
-	                });
-	            };
-	        }
-	        this.initFB();
+	    function FaceBookService(http) {
+	        this.http = http;
+	        // let me=this;
+	        // //noinspection TypeScriptUnresolvedVariable
+	        // if (!window.fbAsyncInit) {
+	        //     console.log('define');
+	        //     //noinspection TypeScriptUnresolvedVariable
+	        //     window.fbAsyncInit = function() {
+	        //         console.log('fb init');
+	        //         //noinspection TypeScriptUnresolvedVariable
+	        //         FB.init({
+	        //             appId: '963606340368916',
+	        //             cookie: true,  // enable cookies to allow the server to access
+	        //             // the session
+	        //             xfbml: true,  // parse social plugins on this page
+	        //             version: 'v2.6' // use graph api version 2.5
+	        //         });
+	        //         //noinspection TypeScriptUnresolvedVariable
+	        //         FB.getLoginStatus(function (response) {
+	        //             me.statusChangeCallback(response);
+	        //         });
+	        //     };
+	        // }
+	        // this.initFB();
 	    }
 	    FaceBookService.prototype.initFB = function () {
 	        var js, id = 'facebook-jssdk', ref = document.getElementsByTagName('script')[0];
@@ -94934,7 +94939,7 @@
 	    //     })
 	    // }
 	    FaceBookService.prototype.login = function () {
-	        return this.fmarketApi.post('connect/facebook', '');
+	        return this.http.post('/connect/facebook', '');
 	    };
 	    FaceBookService.prototype.statusChangeCallback = function (response) {
 	        debugger;
@@ -94962,7 +94967,7 @@
 	    };
 	    FaceBookService = __decorate([
 	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
+	        __metadata('design:paramtypes', [http_1.Http])
 	    ], FaceBookService);
 	    return FaceBookService;
 	})();
@@ -95042,10 +95047,16 @@
 	    };
 	    LoginPage.prototype.initFLogin = function ($event) {
 	        var me = this;
-	        this._faceBookService.login()
-	            .subscribe(function (response) {
-	        }, function (error) {
-	        });
+	        location.assign('/connect/facebook');
+	        // this._faceBookService.login()
+	        //     .subscribe(
+	        //         response=>{
+	        //
+	        //         },
+	        //         error=>{
+	        //
+	        //         }
+	        //     )
 	    };
 	    __decorate([
 	        core_1.ViewChild('registrationPageRef'), 
@@ -99125,7 +99136,7 @@
 /* 925 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"user-companies-page\">\r\n    <div class=\"sub-container\">\r\n        <div class=\"user-companies-page-container\">\r\n            <div class=\"text-center\">\r\n                <h2>Companii</h2>\r\n            </div>\r\n            <div class=\"clearfix search-field-wrapper \">\r\n                <div class=\"col-md-3 col-xs-12\">\r\n                    <div class=\"input-group\">\r\n                        <div class=\"input-group-addon\">\r\n                            <span class=\"glyphicon glyphicon-search\"></span>\r\n                        </div>\r\n                        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"searchFilter\"\r\n                               (ngModelChange)=\"getCompaniesWithFilters()\"/>\r\n                    </div>\r\n                </div>\r\n                <!--<div class=\"col-md-3 col-xs-12 operations\">-->\r\n                    <!--<button class=\"btn btn-primary\" (click)=\"getCompaniesWithFilters()\">-->\r\n                        <!--<span class=\"glyphicon glyphicon-filter\"></span>-->\r\n                        <!--Filtreaza companii-->\r\n                    <!--</button>-->\r\n                <!--</div>-->\r\n            </div>\r\n            <div class=\"clearfix companies-grid-view\">\r\n                <companie-list-component\r\n                        [companies-list]=\"_companiesList\"\r\n                        (companie-selected)=\"selectCompanie($event)\"\r\n                ></companie-list-component>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+	module.exports = "<div class=\"user-companies-page\">\r\n    <div class=\"sub-container\">\r\n        <div class=\"user-companies-page-container\">\r\n            <div class=\"text-center\">\r\n                <h2>Firme partenere</h2>\r\n            </div>\r\n            <div class=\"clearfix search-field-wrapper \">\r\n                <div class=\"col-md-3 col-xs-12\">\r\n                    <div class=\"input-group\">\r\n                        <div class=\"input-group-addon\">\r\n                            <span class=\"glyphicon glyphicon-search\"></span>\r\n                        </div>\r\n                        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"searchFilter\"\r\n                               (ngModelChange)=\"getCompaniesWithFilters()\"/>\r\n                    </div>\r\n                </div>\r\n                <!--<div class=\"col-md-3 col-xs-12 operations\">-->\r\n                    <!--<button class=\"btn btn-primary\" (click)=\"getCompaniesWithFilters()\">-->\r\n                        <!--<span class=\"glyphicon glyphicon-filter\"></span>-->\r\n                        <!--Filtreaza companii-->\r\n                    <!--</button>-->\r\n                <!--</div>-->\r\n            </div>\r\n            <div class=\"clearfix companies-grid-view\">\r\n                <companie-list-component\r\n                        [companies-list]=\"_companiesList\"\r\n                        (companie-selected)=\"selectCompanie($event)\"\r\n                ></companie-list-component>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
 /* 926 */

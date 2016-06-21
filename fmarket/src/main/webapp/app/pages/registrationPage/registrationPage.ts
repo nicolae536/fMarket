@@ -65,10 +65,6 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
         this._loginPage = false;
     }
 
-    initFLogin($event){
-
-    }
-
     ngAfterViewChecked():any {
         JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
         this._notificationService.removeLoading();
@@ -95,15 +91,16 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
 
     initFLogin($event){
         let me = this;
-
-        this._faceBookService.login()
-            .subscribe(
-                response=>{
-
-                },
-                error=>{
-
-                }
-            )
+        location.assign('/connect/facebook');
+        //
+        // this._faceBookService.login()
+        //     .subscribe(
+        //         response=>{
+        //
+        //         },
+        //         error=>{
+        //
+        //         }
+        //     )
     }
 }

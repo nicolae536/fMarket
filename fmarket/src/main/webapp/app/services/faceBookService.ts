@@ -4,36 +4,37 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Rx";
 import {FMarketApi} from "./fMarketApi";
+import {Http} from "@angular/http";
 
 @Injectable()
 export class FaceBookService {
     private FB;
-    private fmarketApi:FMarketApi;
+    private http:Http;
 
-    constructor(fmarketApi:FMarketApi) {
-        this.fmarketApi =fmarketApi;
-        let me=this;
-        //noinspection TypeScriptUnresolvedVariable
-        if (!window.fbAsyncInit) {
-            console.log('define');
-            //noinspection TypeScriptUnresolvedVariable
-            window.fbAsyncInit = function() {
-                console.log('fb init');
-                //noinspection TypeScriptUnresolvedVariable
-                FB.init({
-                    appId: '963606340368916',
-                    cookie: true,  // enable cookies to allow the server to access
-                    // the session
-                    xfbml: true,  // parse social plugins on this page
-                    version: 'v2.6' // use graph api version 2.5
-                });
-                //noinspection TypeScriptUnresolvedVariable
-                FB.getLoginStatus(function (response) {
-                    me.statusChangeCallback(response);
-                });
-            };
-        }
-        this.initFB();
+    constructor(http:Http) {
+        this.http =http;
+        // let me=this;
+        // //noinspection TypeScriptUnresolvedVariable
+        // if (!window.fbAsyncInit) {
+        //     console.log('define');
+        //     //noinspection TypeScriptUnresolvedVariable
+        //     window.fbAsyncInit = function() {
+        //         console.log('fb init');
+        //         //noinspection TypeScriptUnresolvedVariable
+        //         FB.init({
+        //             appId: '963606340368916',
+        //             cookie: true,  // enable cookies to allow the server to access
+        //             // the session
+        //             xfbml: true,  // parse social plugins on this page
+        //             version: 'v2.6' // use graph api version 2.5
+        //         });
+        //         //noinspection TypeScriptUnresolvedVariable
+        //         FB.getLoginStatus(function (response) {
+        //             me.statusChangeCallback(response);
+        //         });
+        //     };
+        // }
+        // this.initFB();
     }
 
     initFB() {
@@ -72,7 +73,7 @@ export class FaceBookService {
     //     })
     // }
     login(){
-        return this.fmarketApi.post('connect/facebook','');
+        return this.http.post('/connect/facebook','');
     }
 
     statusChangeCallback(response){

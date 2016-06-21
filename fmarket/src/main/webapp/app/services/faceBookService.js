@@ -11,32 +11,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by nick_ on 6/20/2016.
  */
 var core_1 = require("@angular/core");
-var fMarketApi_1 = require("./fMarketApi");
+var http_1 = require("@angular/http");
 var FaceBookService = (function () {
-    function FaceBookService(fmarketApi) {
-        this.fmarketApi = fmarketApi;
-        var me = this;
-        //noinspection TypeScriptUnresolvedVariable
-        if (!window.fbAsyncInit) {
-            console.log('define');
-            //noinspection TypeScriptUnresolvedVariable
-            window.fbAsyncInit = function () {
-                console.log('fb init');
-                //noinspection TypeScriptUnresolvedVariable
-                FB.init({
-                    appId: '963606340368916',
-                    cookie: true,
-                    // the session
-                    xfbml: true,
-                    version: 'v2.6' // use graph api version 2.5
-                });
-                //noinspection TypeScriptUnresolvedVariable
-                FB.getLoginStatus(function (response) {
-                    me.statusChangeCallback(response);
-                });
-            };
-        }
-        this.initFB();
+    function FaceBookService(http) {
+        this.http = http;
+        // let me=this;
+        // //noinspection TypeScriptUnresolvedVariable
+        // if (!window.fbAsyncInit) {
+        //     console.log('define');
+        //     //noinspection TypeScriptUnresolvedVariable
+        //     window.fbAsyncInit = function() {
+        //         console.log('fb init');
+        //         //noinspection TypeScriptUnresolvedVariable
+        //         FB.init({
+        //             appId: '963606340368916',
+        //             cookie: true,  // enable cookies to allow the server to access
+        //             // the session
+        //             xfbml: true,  // parse social plugins on this page
+        //             version: 'v2.6' // use graph api version 2.5
+        //         });
+        //         //noinspection TypeScriptUnresolvedVariable
+        //         FB.getLoginStatus(function (response) {
+        //             me.statusChangeCallback(response);
+        //         });
+        //     };
+        // }
+        // this.initFB();
     }
     FaceBookService.prototype.initFB = function () {
         var js, id = 'facebook-jssdk', ref = document.getElementsByTagName('script')[0];
@@ -68,7 +68,7 @@ var FaceBookService = (function () {
     //     })
     // }
     FaceBookService.prototype.login = function () {
-        return this.fmarketApi.post('connect/facebook', '');
+        return this.http.post('/connect/facebook', '');
     };
     FaceBookService.prototype.statusChangeCallback = function (response) {
         debugger;
@@ -96,7 +96,7 @@ var FaceBookService = (function () {
     };
     FaceBookService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
+        __metadata('design:paramtypes', [http_1.Http])
     ], FaceBookService);
     return FaceBookService;
 })();

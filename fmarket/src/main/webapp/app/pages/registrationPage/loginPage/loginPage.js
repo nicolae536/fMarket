@@ -61,10 +61,16 @@ var LoginPage = (function () {
     };
     LoginPage.prototype.initFLogin = function ($event) {
         var me = this;
-        this._faceBookService.login()
-            .subscribe(function (response) {
-        }, function (error) {
-        });
+        location.assign('/connect/facebook');
+        // this._faceBookService.login()
+        //     .subscribe(
+        //         response=>{
+        //
+        //         },
+        //         error=>{
+        //
+        //         }
+        //     )
     };
     __decorate([
         core_1.ViewChild('registrationPageRef'), 

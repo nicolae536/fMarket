@@ -101,15 +101,15 @@ export class LoginPage implements OnInit, AfterViewChecked {
 
     initFLogin($event){
         let me = this;
-
-        this._faceBookService.login()
-            .subscribe(
-                response=>{
-                
-                },
-                error=>{
-                    
-                }
-            )
+        location.assign('/connect/facebook');
+        // this._faceBookService.login()
+        //     .subscribe(
+        //         response=>{
+        //
+        //         },
+        //         error=>{
+        //
+        //         }
+        //     )
     }
 }

@@ -39,8 +39,6 @@ var RegistrationPage = (function () {
         this._showRegisterLink = false;
         this._loginPage = false;
     };
-    RegistrationPage.prototype.initFLogin = function ($event) {
-    };
     RegistrationPage.prototype.ngAfterViewChecked = function () {
         jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
         this._notificationService.removeLoading();
@@ -60,10 +58,17 @@ var RegistrationPage = (function () {
     };
     RegistrationPage.prototype.initFLogin = function ($event) {
         var me = this;
-        this._faceBookService.login()
-            .subscribe(function (response) {
-        }, function (error) {
-        });
+        location.assign('/connect/facebook');
+        //
+        // this._faceBookService.login()
+        //     .subscribe(
+        //         response=>{
+        //
+        //         },
+        //         error=>{
+        //
+        //         }
+        //     )
     };
     __decorate([
         core_1.ViewChild('registrationPageRef'), 
