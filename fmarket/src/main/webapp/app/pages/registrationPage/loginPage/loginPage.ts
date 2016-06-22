@@ -14,7 +14,6 @@ import {JqueryService} from "../../../services/jqueryService";
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
 
 import {RegisterAccount} from "../../../models/registerAccount";
-import {FaceBookService} from "../../../services/faceBookService";
 
 let template = require('../registrationPage.html');
 
@@ -30,7 +29,6 @@ export class LoginPage implements OnInit, AfterViewChecked {
     private _registrationComponent:RegistrationComponent;
     private _applicationStateService:ApplicationStateService;
     private _router:Router;
-    private _faceBookService:FaceBookService;
     //</editor-fold>
 
     //<editor-fold desc="Variables">
@@ -51,13 +49,11 @@ export class LoginPage implements OnInit, AfterViewChecked {
     constructor(router:Router,
                 registrationService:RegistrationService,
                 ntificationService:NotificationService,
-                applicationStateService:ApplicationStateService,
-                faceBookService:FaceBookService ) {
+                applicationStateService:ApplicationStateService ) {
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = ntificationService;
         this._applicationStateService = applicationStateService;
-        this._faceBookService = faceBookService;
     }
 
     ngAfterViewChecked():any {

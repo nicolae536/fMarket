@@ -16,14 +16,12 @@ var registrationService_1 = require("../../services/registrationService");
 var notificationService_1 = require("../../services/notificationService");
 var jqueryService_1 = require("../../services/jqueryService");
 var registrationComponent_1 = require("../../components/registrationComponent/registrationComponent");
-var faceBookService_1 = require("../../services/faceBookService");
 var template = require('./registrationPage.html');
 var RegistrationPage = (function () {
     //</editor-fold>
-    function RegistrationPage(router, registrationService, notificationService, _faceBookService) {
+    function RegistrationPage(router, registrationService, notificationService) {
         this._faceBookText = "Inregistreaza-te cu facebook";
         this._router = router;
-        this._faceBookService = _faceBookService;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
     }
@@ -80,7 +78,7 @@ var RegistrationPage = (function () {
             template: template,
             directives: [registrationComponent_1.RegistrationComponent]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, faceBookService_1.FaceBookService])
+        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
     ], RegistrationPage);
     return RegistrationPage;
 })();

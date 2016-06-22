@@ -12,7 +12,6 @@ import {JqueryService} from "../../services/jqueryService";
 import {RegistrationComponent} from "../../components/registrationComponent/registrationComponent";
 
 import {RegisterAccount} from "../../models/registerAccount";
-import {FaceBookService} from "../../services/faceBookService";
 
 let template = require('./registrationPage.html');
 
@@ -27,7 +26,6 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     private _registrationComponent:RegistrationComponent;
     private _notificationService:NotificationService;
     private _router:Router;
-    private _faceBookService:FaceBookService;
     //</editor-fold>
 
     //<editor-fold desc="Internal variables">
@@ -45,9 +43,8 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     _faceBookText="Inregistreaza-te cu facebook"
     //</editor-fold>
 
-    constructor(router:Router,registrationService:RegistrationService, notificationService:NotificationService, _faceBookService:FaceBookService) {
+    constructor(router:Router,registrationService:RegistrationService, notificationService:NotificationService) {
         this._router = router;
-        this._faceBookService =_faceBookService;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
     }

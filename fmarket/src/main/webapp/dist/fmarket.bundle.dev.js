@@ -51,14 +51,14 @@
 	var app_component_1 = __webpack_require__(371);
 	var common_1 = __webpack_require__(27);
 	var http_1 = __webpack_require__(794);
-	var accountService_1 = __webpack_require__(910);
+	var accountService_1 = __webpack_require__(909);
 	var categoriesMenuService_1 = __webpack_require__(792);
-	var companieTypesService_1 = __webpack_require__(862);
+	var companieTypesService_1 = __webpack_require__(861);
 	var demandService_1 = __webpack_require__(818);
-	var requestTypeService_1 = __webpack_require__(866);
+	var requestTypeService_1 = __webpack_require__(865);
 	var subscribersService_1 = __webpack_require__(820);
-	var usersService_1 = __webpack_require__(847);
-	var companiesService_1 = __webpack_require__(887);
+	var usersService_1 = __webpack_require__(846);
+	var companiesService_1 = __webpack_require__(886);
 	var fMarketApi_1 = __webpack_require__(793);
 	var localizationService_1 = __webpack_require__(822);
 	var common_2 = __webpack_require__(27);
@@ -68,7 +68,6 @@
 	var registrationService_1 = __webpack_require__(838);
 	var applicationStateService_1 = __webpack_require__(815);
 	// import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
-	var faceBookService_1 = __webpack_require__(841);
 	//enableProdMode();
 	platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
 	    http_1.HTTP_PROVIDERS,
@@ -90,8 +89,7 @@
 	    subscribersService_1.SubscribersService,
 	    usersService_1.UserService,
 	    companiesService_1.CompaniesService,
-	    localizationService_1.LocalizationService,
-	    faceBookService_1.FaceBookService
+	    localizationService_1.LocalizationService
 	]);
 	//# sourceMappingURL=main.js.map
 
@@ -55539,8 +55537,8 @@
 	var registrationService_1 = __webpack_require__(838);
 	var jqueryService_1 = __webpack_require__(819);
 	var applicationStateService_1 = __webpack_require__(815);
-	var headerComponent_1 = __webpack_require__(927);
-	var footerComponent_1 = __webpack_require__(929);
+	var headerComponent_1 = __webpack_require__(926);
+	var footerComponent_1 = __webpack_require__(928);
 	var Roles_1 = __webpack_require__(817);
 	var AppComponent = (function () {
 	    //</editor-fold>
@@ -89412,14 +89410,14 @@
 	var applicationConstansts_1 = __webpack_require__(790);
 	var homePage_1 = __webpack_require__(791);
 	var registrationPage_1 = __webpack_require__(837);
-	var loginPage_1 = __webpack_require__(843);
-	var forgetPasswordPage_1 = __webpack_require__(844);
-	var adminPage_1 = __webpack_require__(845);
-	var accountSettingsPage_1 = __webpack_require__(908);
-	var successPage_1 = __webpack_require__(919);
-	var tokenConfirmPage_1 = __webpack_require__(921);
-	var companiesPage_1 = __webpack_require__(922);
-	var companieDetailPage_1 = __webpack_require__(926);
+	var loginPage_1 = __webpack_require__(842);
+	var forgetPasswordPage_1 = __webpack_require__(843);
+	var adminPage_1 = __webpack_require__(844);
+	var accountSettingsPage_1 = __webpack_require__(907);
+	var successPage_1 = __webpack_require__(918);
+	var tokenConfirmPage_1 = __webpack_require__(920);
+	var companiesPage_1 = __webpack_require__(921);
+	var companieDetailPage_1 = __webpack_require__(925);
 	var AuthorizationService = (function () {
 	    function AuthorizationService() {
 	    }
@@ -94530,14 +94528,12 @@
 	var notificationService_1 = __webpack_require__(821);
 	var jqueryService_1 = __webpack_require__(819);
 	var registrationComponent_1 = __webpack_require__(839);
-	var faceBookService_1 = __webpack_require__(841);
-	var template = __webpack_require__(842);
+	var template = __webpack_require__(841);
 	var RegistrationPage = (function () {
 	    //</editor-fold>
-	    function RegistrationPage(router, registrationService, notificationService, _faceBookService) {
+	    function RegistrationPage(router, registrationService, notificationService) {
 	        this._faceBookText = "Inregistreaza-te cu facebook";
 	        this._router = router;
-	        this._faceBookService = _faceBookService;
 	        this._registrationService = registrationService;
 	        this._notificationService = notificationService;
 	    }
@@ -94594,7 +94590,7 @@
 	            template: template,
 	            directives: [registrationComponent_1.RegistrationComponent]
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, faceBookService_1.FaceBookService])
+	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
 	    ], RegistrationPage);
 	    return RegistrationPage;
 	})();
@@ -94863,125 +94859,16 @@
 /* 840 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"regisration-component clearfix\">\r\n    <div class=\"form-wrapper\">\r\n        <div class=\"form-style\">\r\n            <div class=\"title-container\">\r\n                <span class=\"h3\">{{formTitle}}</span>\r\n            </div>\r\n            <form [ngFormModel]=\"_registrationForm\" (ngSubmit)=\"registrationFormSubmit()\" class=\"registration-form\">\r\n                <div class=\"registration-form-controls-container\">\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('email')\"></span>-->\r\n                        <input type=\"text\" class=\"form-control\" [class.backend-error]=\"checkIfEmailIsMarked()\"\r\n                               placeholder=\"E-mail\"\r\n                               (ngModelChange)=\"checkBackendErrors()\"\r\n                               [ngFormControl]=\"_registrationForm.controls['email']\"/>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('password')\" [placeholder]=\"passwordLabel\"\r\n                               (ngModelChange)=\"updateErrorFied()\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.password\"/>\r\n                    </div>\r\n                    <div *ngIf=\"!showRememberMeField\" class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('repeat')\" placeholder=\"Repeta parola\"\r\n                               (ngModelChange)=\"updateErrorFied()\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.repeat\"/>\r\n                    </div>\r\n                    <div class=\"animated-error\" *ngIf=\"showNotMatchPasswordField\">\r\n                        <div class=\"password-error right-to-middle-effect\">\r\n                            Cele doua parole nu sunt la fel!\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div *ngIf=\"_loginPage || showNewsletter\" class=\"clearfix\">\r\n                    <div class=\"pull-right button-container\" style=\"width: 100%; margin-bottom: 15px;\">\r\n                        <button type=\"button\" class=\"btn\" (click)=\"fLogin()\"\r\n                                style=\"color: white; background-color: #365899; width: 100%; text-align: center;\">\r\n                            <div class=\"pull-left\" style=\"width: 0px;\">\r\n                                <span class=\"fa fa-facebook-official\" style=\"font-size: 19px;\"></span>\r\n                            </div>\r\n                            {{facebookText}}\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"clearfix position-relative\">\r\n                    <div class=\"pull-right button-container\">\r\n                        <button type=\"submit\" class=\"btn btn-success\">{{buttonLabel}}</button>\r\n                    </div>\r\n                    <div *ngIf=\"showNewsletter\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['subscribe']\"/>\r\n                        <label class=\"checkbox-label\">Inscriema la newsletter</label>\r\n                    </div>\r\n                    <div *ngIf=\"showRememberMeField\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['rememberMe']\"/>\r\n                        <label class=\"checkbox-label\">Tine-ma minte</label>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n    <div class=\"links-container text-center\">\r\n        <div *ngIf=\"showForgetPasswordLink || _showRegisterLink || _showLoginLink\" class=\"links clearfix\">\r\n            <div *ngIf=\"showForgetPasswordLink\">\r\n                <label>Ai uitat parola?</label>\r\n                <a [routerLink]=\"['/forget-password']\">{{_forgetPasswordLabel}}</a>\r\n            </div>\r\n            <div *ngIf=\"_showRegisterLink\">\r\n                <label>Nu ai cont?</label>\r\n                <a [routerLink]=\"['/registration']\">Inregistreaza-te</a>\r\n            </div>\r\n            <div *ngIf=\"_showLoginLink\">\r\n                <a [routerLink]=\"['/login']\">Ai deja un cont?</a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+	module.exports = "<div class=\"regisration-component clearfix\">\r\n    <div class=\"form-wrapper\">\r\n        <div class=\"form-style\">\r\n            <div class=\"title-container\">\r\n                <span class=\"h3\">{{formTitle}}</span>\r\n            </div>\r\n            <form [ngFormModel]=\"_registrationForm\" (ngSubmit)=\"registrationFormSubmit()\" class=\"registration-form\">\r\n                <div class=\"registration-form-controls-container\">\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('email')\"></span>-->\r\n                        <input type=\"text\" class=\"form-control\" [class.backend-error]=\"checkIfEmailIsMarked()\"\r\n                               placeholder=\"E-mail\"\r\n                               (ngModelChange)=\"checkBackendErrors()\"\r\n                               [ngFormControl]=\"_registrationForm.controls['email']\"/>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('password')\" [placeholder]=\"passwordLabel\"\r\n                               (ngModelChange)=\"updateErrorFied()\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.password\"/>\r\n                    </div>\r\n                    <div *ngIf=\"!showRememberMeField\" class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('repeat')\" placeholder=\"Repeta parola\"\r\n                               (ngModelChange)=\"updateErrorFied()\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.repeat\"/>\r\n\r\n                    </div>\r\n                    <div class=\"animated-error\" *ngIf=\"showNotMatchPasswordField\">\r\n                        <div class=\"password-error right-to-middle-effect\">\r\n                            Cele doua parole nu sunt la fel!\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div *ngIf=\"_loginPage || showNewsletter\" class=\"clearfix\">\r\n                    <div class=\"pull-right button-container\" style=\"width: 100%; margin-bottom: 15px;\">\r\n                        <form ngNoForm method=\"post\" action=\"connect/facebook\">\r\n                            <button type=\"submit\" class=\"btn\"\r\n                                    style=\"color: white; background-color: #365899; width: 100%; text-align: center;\">\r\n                                <div class=\"pull-left\" style=\"width: 0px;\">\r\n                                    <span class=\"fa fa-facebook-official\" style=\"font-size: 19px;\"></span>\r\n                                </div>\r\n                                {{facebookText}}\r\n                            </button>\r\n                        </form>\r\n                    </div>\r\n                </div>\r\n                <div class=\"clearfix position-relative\">\r\n                    <div class=\"pull-right button-container\">\r\n                        <button type=\"submit\" class=\"btn btn-success\">{{buttonLabel}}</button>\r\n                    </div>\r\n                    <div *ngIf=\"showNewsletter\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['subscribe']\"/>\r\n                        <label class=\"checkbox-label\">Inscriema la newsletter</label>\r\n                    </div>\r\n                    <div *ngIf=\"showRememberMeField\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['rememberMe']\"/>\r\n                        <label class=\"checkbox-label\">Tine-ma minte</label>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n    <div class=\"links-container text-center\">\r\n        <div *ngIf=\"showForgetPasswordLink || _showRegisterLink || _showLoginLink\" class=\"links clearfix\">\r\n            <div *ngIf=\"showForgetPasswordLink\">\r\n                <label>Ai uitat parola?</label>\r\n                <a [routerLink]=\"['/forget-password']\">{{_forgetPasswordLabel}}</a>\r\n            </div>\r\n            <div *ngIf=\"_showRegisterLink\">\r\n                <label>Nu ai cont?</label>\r\n                <a [routerLink]=\"['/registration']\">Inregistreaza-te</a>\r\n            </div>\r\n            <div *ngIf=\"_showLoginLink\">\r\n                <a [routerLink]=\"['/login']\">Ai deja un cont?</a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
 /* 841 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 6/20/2016.
-	 */
-	var core_1 = __webpack_require__(30);
-	var http_1 = __webpack_require__(794);
-	var FaceBookService = (function () {
-	    function FaceBookService(http) {
-	        this.http = http;
-	        // let me=this;
-	        // //noinspection TypeScriptUnresolvedVariable
-	        // if (!window.fbAsyncInit) {
-	        //     console.log('define');
-	        //     //noinspection TypeScriptUnresolvedVariable
-	        //     window.fbAsyncInit = function() {
-	        //         console.log('fb init');
-	        //         //noinspection TypeScriptUnresolvedVariable
-	        //         FB.init({
-	        //             appId: '963606340368916',
-	        //             cookie: true,  // enable cookies to allow the server to access
-	        //             // the session
-	        //             xfbml: true,  // parse social plugins on this page
-	        //             version: 'v2.6' // use graph api version 2.5
-	        //         });
-	        //         //noinspection TypeScriptUnresolvedVariable
-	        //         FB.getLoginStatus(function (response) {
-	        //             me.statusChangeCallback(response);
-	        //         });
-	        //     };
-	        // }
-	        // this.initFB();
-	    }
-	    FaceBookService.prototype.initFB = function () {
-	        var js, id = 'facebook-jssdk', ref = document.getElementsByTagName('script')[0];
-	        if (document.getElementById(id)) {
-	            return;
-	        }
-	        js = document.createElement('script');
-	        js.id = id;
-	        js.async = true;
-	        js.src = "//connect.facebook.net/en_US/sdk.js";
-	        ref.parentNode.insertBefore(js, ref);
-	        console.log('sdk load');
-	    };
-	    // login(){
-	    //     let me = this;
-	    //     return Observable.create(o=>{
-	    //         //noinspection TypeScriptUnresolvedVariable
-	    //         FB.login((response)=>{
-	    //             if (response.authResponse) {
-	    //                 console.log('Welcome!  Fetching your information.... ');
-	    //                 //noinspection TypeScriptUnresolvedVariable
-	    //                 FB.api('/me', function(response) {
-	    //                     console.log('Good to see you, ' + response + '.');
-	    //                 });
-	    //             } else {
-	    //                 console.log('User cancelled login or did not fully authorize.');
-	    //             }
-	    //         })
-	    //     })
-	    // }
-	    FaceBookService.prototype.login = function () {
-	        return this.http.post('/connect/facebook', '');
-	    };
-	    FaceBookService.prototype.statusChangeCallback = function (response) {
-	        debugger;
-	        console.log('statusChangeCallback');
-	        console.log(response);
-	        // The response object is returned with a status field that lets the
-	        // app know the current login status of the person.
-	        // Full docs on the response object can be found in the documentation
-	        // for FB.getLoginStatus().
-	        if (response.status === 'connected') {
-	            // Logged into your app and Facebook.
-	            testAPI();
-	        }
-	        else if (response.status === 'not_authorized') {
-	            // The person is logged into Facebook, but not your app.
-	            document.getElementById('status').innerHTML = 'Please log ' +
-	                'into this app.';
-	        }
-	        else {
-	            // The person is not logged into Facebook, so we're not sure if
-	            // they are logged into this app or not.
-	            document.getElementById('status').innerHTML = 'Please log ' +
-	                'into Facebook.';
-	        }
-	    };
-	    FaceBookService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [http_1.Http])
-	    ], FaceBookService);
-	    return FaceBookService;
-	})();
-	exports.FaceBookService = FaceBookService;
-	//# sourceMappingURL=faceBookService.js.map
-
-/***/ },
-/* 842 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"registration-page clearfix\" #registrationPageRef>\r\n    <div class=\"component-wrapper\">\r\n    <registration-component\r\n        [form-title]=\"_formTitle\"\r\n        [button-label]=\"_formButtonLabel\"\r\n        [show-newsletter]=\"_showNewsletterField\"\r\n        [password-label]=\"_passwordLabel\"\r\n        [show-forget-password-link]=\"_showForgetPasswordLink\"\r\n        [forget-password-label]=\"_forgetPasswordLabel\"\r\n        [show-register-link]=\"_showRegisterLink\"\r\n        [show-remember-me-link]=\"_showRememberMeLink\"\r\n        [show-login-link]=\"_showLoginLink\"\r\n        [login-page]=\"_loginPage\"\r\n        [facebook-text]=\"_faceBookText\"\r\n\r\n        (registration-form)=\"requestHandler($event)\"\r\n        (reference-component)=\"referenceComponent($event)\"\r\n        (flogin-emit)=\"initFLogin($event)\">\r\n        <div class=\"spinner\">\r\n            <img class=\"spinner-img\" src=\"/staticResorces/Loading_icon.gif\"/>\r\n        </div>\r\n    </registration-component>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 843 */
+/* 842 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -95003,17 +94890,15 @@
 	var notificationService_1 = __webpack_require__(821);
 	var jqueryService_1 = __webpack_require__(819);
 	var registrationComponent_1 = __webpack_require__(839);
-	var faceBookService_1 = __webpack_require__(841);
-	var template = __webpack_require__(842);
+	var template = __webpack_require__(841);
 	var LoginPage = (function () {
 	    //</editor-fold>
-	    function LoginPage(router, registrationService, ntificationService, applicationStateService, faceBookService) {
+	    function LoginPage(router, registrationService, ntificationService, applicationStateService) {
 	        this._faceBookText = "f-Login";
 	        this._router = router;
 	        this._registrationService = registrationService;
 	        this._notificationService = ntificationService;
 	        this._applicationStateService = applicationStateService;
-	        this._faceBookService = faceBookService;
 	    }
 	    LoginPage.prototype.ngAfterViewChecked = function () {
 	        jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
@@ -95068,7 +94953,7 @@
 	            template: template,
 	            directives: [registrationComponent_1.RegistrationComponent]
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService, faceBookService_1.FaceBookService])
+	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
 	    ], LoginPage);
 	    return LoginPage;
 	})();
@@ -95076,7 +94961,7 @@
 	//# sourceMappingURL=loginPage.js.map
 
 /***/ },
-/* 844 */
+/* 843 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -95097,7 +94982,7 @@
 	var registrationService_1 = __webpack_require__(838);
 	var notificationService_1 = __webpack_require__(821);
 	var jqueryService_1 = __webpack_require__(819);
-	var template = __webpack_require__(842);
+	var template = __webpack_require__(841);
 	var ForgetPasswordPage = (function () {
 	    //</editor-fold>
 	    function ForgetPasswordPage(router, registrationService, notificationService) {
@@ -95155,7 +95040,7 @@
 	//# sourceMappingURL=forgetPasswordPage.js.map
 
 /***/ },
-/* 845 */
+/* 844 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -95173,17 +95058,17 @@
 	var jqueryService_1 = __webpack_require__(819);
 	var authorizationService_1 = __webpack_require__(789);
 	var notificationService_1 = __webpack_require__(821);
-	var usersPage_1 = __webpack_require__(846);
-	var subscribersPage_1 = __webpack_require__(855);
-	var categoriesPage_1 = __webpack_require__(860);
-	var demandsPage_1 = __webpack_require__(876);
-	var companiesPage_1 = __webpack_require__(886);
-	var companiesEditPage_1 = __webpack_require__(893);
-	var demandsEditPage_1 = __webpack_require__(899);
+	var usersPage_1 = __webpack_require__(845);
+	var subscribersPage_1 = __webpack_require__(854);
+	var categoriesPage_1 = __webpack_require__(859);
+	var demandsPage_1 = __webpack_require__(875);
+	var companiesPage_1 = __webpack_require__(885);
+	var companiesEditPage_1 = __webpack_require__(892);
+	var demandsEditPage_1 = __webpack_require__(898);
 	var applicationConstansts_1 = __webpack_require__(790);
-	var companiesCreatePage_1 = __webpack_require__(906);
+	var companiesCreatePage_1 = __webpack_require__(905);
 	var Roles_1 = __webpack_require__(817);
-	var template = __webpack_require__(907);
+	var template = __webpack_require__(906);
 	var AdminPage = (function () {
 	    //</editor-fold>
 	    function AdminPage(location, router, notificationService) {
@@ -95260,7 +95145,7 @@
 	//# sourceMappingURL=adminPage.js.map
 
 /***/ },
-/* 846 */
+/* 845 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -95279,12 +95164,12 @@
 	var ng2_bootstrap_1 = __webpack_require__(373);
 	var notificationService_1 = __webpack_require__(821);
 	var localizationService_1 = __webpack_require__(822);
-	var usersService_1 = __webpack_require__(847);
-	var createUserDialog_1 = __webpack_require__(848);
-	var actionDialog_1 = __webpack_require__(851);
-	var user_1 = __webpack_require__(849);
-	var mock_Status_1 = __webpack_require__(853);
-	var template = __webpack_require__(854);
+	var usersService_1 = __webpack_require__(846);
+	var createUserDialog_1 = __webpack_require__(847);
+	var actionDialog_1 = __webpack_require__(850);
+	var user_1 = __webpack_require__(848);
+	var mock_Status_1 = __webpack_require__(852);
+	var template = __webpack_require__(853);
 	var UsersPage = (function () {
 	    //</editor-fold>
 	    function UsersPage(_userService, _notificationService, _localizationService) {
@@ -95408,7 +95293,7 @@
 	//# sourceMappingURL=usersPage.js.map
 
 /***/ },
-/* 847 */
+/* 846 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -95460,7 +95345,7 @@
 	//# sourceMappingURL=usersService.js.map
 
 /***/ },
-/* 848 */
+/* 847 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -95480,10 +95365,10 @@
 	var core_1 = __webpack_require__(30);
 	var common_1 = __webpack_require__(27);
 	var modalDialog_1 = __webpack_require__(830);
-	var user_1 = __webpack_require__(849);
+	var user_1 = __webpack_require__(848);
 	var Angular2ExtensionValidators_1 = __webpack_require__(823);
 	var _ = __webpack_require__(372);
-	var template = __webpack_require__(850);
+	var template = __webpack_require__(849);
 	var CreateUserDialog = (function (_super) {
 	    __extends(CreateUserDialog, _super);
 	    function CreateUserDialog(formBuilder) {
@@ -95590,7 +95475,7 @@
 	//# sourceMappingURL=createUserDialog.js.map
 
 /***/ },
-/* 849 */
+/* 848 */
 /***/ function(module, exports) {
 
 	var User = (function () {
@@ -95663,13 +95548,13 @@
 	//# sourceMappingURL=user.js.map
 
 /***/ },
-/* 850 */
+/* 849 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 0.5 : 0\"  [ngClass]=\"{'remove':remove}\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelFormAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\" [ngClass]=\"{'remove':remove}\">\r\n    <div class=\"modal-dialog modal-dialog-very-sm modal-lg\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <form [ngFormModel]=\"_userForm\" (ngSubmit)=\"submitNewUser()\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelFormAction()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h4 class=\"modal-title\">\r\n                        {{title}}\r\n                    </h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-user\"></span>\r\n                        </span>\r\n                            <input type=\"text\" [ngFormControl]=\"_userForm.controls['name']\" [(ngModel)]=\"responseObject.name\" class=\"form-control\"\r\n                                   placeholder=\"Name\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-envelope\"></span>\r\n                        </span>\r\n                            <input type=\"email\" [ngFormControl]=\"_userForm.controls['email']\" [(ngModel)]=\"responseObject.email\" class=\"form-control\"\r\n                                   placeholder=\"E-mail\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-lock\"></span>\r\n                        </span>\r\n                            <input type=\"password\" [ngFormControl]=\"_userForm.controls['password']\" [(ngModel)]=\"responseObject.password\" class=\"form-control\"\r\n                                   placeholder=\"Password\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-earphone\"></span>\r\n                        </span>\r\n                            <input type=\"tel\" [ngFormControl]=\"_userForm.controls['phone']\" [(ngModel)]=\"responseObject.phone\" class=\"form-control\"\r\n                                   placeholder=\"0777123456\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-stats\"></span>\r\n                        </span>\r\n                            <select class=\"user-status-select\" [ngFormControl]=\"_userForm.controls['status']\" [(ngModel)]=\"responseObject.status\">\r\n                                <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                                </option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-globe\"></span>\r\n                        </span>\r\n                            <select class=\"user-status-select\" [ngFormControl]=\"_userForm.controls['cityId']\" [(ngModel)]=\"responseObject.cityId\">\r\n                                <option *ngFor=\"let option of cityList\" [value]=\"option.id\">{{option.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <label>Account Details:</label>\r\n                        <textarea type=\"text\" [ngFormControl]=\"_userForm.controls['accountDetails']\" [(ngModel)]=\"responseObject.accountDetails\"\r\n                                  class=\"form-control no-resize\"></textarea>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelFormAction()\">\r\n                        {{cancelLabel}}\r\n                    </button>\r\n                    <button type=\"submit\" [disabled]=\"!_userForm.valid\" class=\"btn btn-primary btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n\r\n    </div>\r\n</div>\r\n";
 
 /***/ },
-/* 851 */
+/* 850 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -95688,7 +95573,7 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var modalDialog_1 = __webpack_require__(830);
-	var template = __webpack_require__(852);
+	var template = __webpack_require__(851);
 	var ActionDialog = (function (_super) {
 	    __extends(ActionDialog, _super);
 	    function ActionDialog() {
@@ -95734,13 +95619,13 @@
 	//# sourceMappingURL=actionDialog.js.map
 
 /***/ },
-/* 852 */
+/* 851 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\">\r\n    <div class=\"modal-dialog modal-lg\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelAction()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h2 class=\"modal-title\">\r\n                    {{title}}\r\n                </h2>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <h4>{{message}}</h4>\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelAction()\">{{cancelLabel}}</button>\r\n                <button type=\"button\" class=\"btn btn-danger btn-sm\" (click)=\"positiveAction()\"> {{positiveLabel}}\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n";
 
 /***/ },
-/* 853 */
+/* 852 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var accountStatus_1 = __webpack_require__(824);
@@ -95753,13 +95638,13 @@
 	//# sourceMappingURL=mock-Status.js.map
 
 /***/ },
-/* 854 */
+/* 853 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"users-page\">\r\n    <!-- TODO catch close event -->\r\n    <action-dialog\r\n            [title]=\"'Delete'\"\r\n            [positive-label]=\"'Delete'\"\r\n            (loaded)=\"referenceActionDialogInComponent($event)\"\r\n            (action-confirmed)=\"actionDialogConfirmDelete($event)\">\r\n    </action-dialog>\r\n    <create-user-dialog\r\n            [city-list]=\"cityList\"\r\n            [status-list]=\"statusList\"\r\n            (loaded)=\"referenceCreateUserDialogInComponent($event)\"\r\n            (create-user)=\"confirmCreateUser()\">\r\n    </create-user-dialog>\r\n    <div class=\"page-title\">\r\n        <div class=\"row\">\r\n            <span class=\"h3\">Conturi</span>\r\n        </div>\r\n    </div>\r\n    <div class=\"page-content\">\r\n        <div class=\"row\">\r\n            <div class=\"filters\">\r\n                <div class=\"clearfix filter-container\">\r\n                    <div class=\"col-md-1 col-xs-12 remove-left-padding\">\r\n                        <div class=\"form-group\">\r\n                            <label>Id:</label>\r\n                            <input type=\"number\" [(ngModel)]=\"idFilter\" placeholder=\"0\"\r\n                                   class=\"form-control\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <div class=\"form-group\">\r\n                            <label>Email:</label>\r\n                            <input type=\"text\" [(ngModel)]=\"emailFilter\" placeholder=\"user@domain.com\"\r\n                                   class=\"form-control\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <div class=\"form-group\">\r\n                            <label>Nume:</label>\r\n                            <input type=\"text\" [(ngModel)]=\"nameFilter\" placeholder=\"Andrei\" class=\"form-control\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <label>Status:</label>\r\n\r\n                        <div>\r\n                            <select class=\"user-status-select\" [(ngModel)]=\"selectedStatusFilter\">\r\n                                <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                                </option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <label>Oras:</label>\r\n\r\n                        <div>\r\n                            <select class=\"user-status-select\" [(ngModel)]=\"cityId\">\r\n                                <option *ngFor=\"let option of cityList\" [value]=\"option.id\">{{option.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-3 col-xs-12 remove-right-padding push-down clearfix\">\r\n                        <div class=\"pull-left btn-container\">\r\n                            <button class=\"btn btn-success\" (click)=\"applyFilters()\">Aplica Filtre</button>\r\n                        </div>\r\n                        <div class=\"pull-right btn-container\">\r\n                            <button class=\"btn btn-primary\" (click)=\"createAccount()\">\r\n                                <span class=\"glyphicon glyphicon-plus\"></span> Adauga utilizator\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"push-down pull-right\">\r\n\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <table class=\"table table-striped\" cellspacing=\"0\" width=\"100%\">\r\n                <thead class=\"thead-inverse\">\r\n                <tr>\r\n                    <th class=\"col-md-1 col-sm-2 col-xs-2 vertical-align\">Id</th>\r\n                    <th class=\"col-md-3 col-sm-4 col-xs-4 text-left vertical-align\">Email</th>\r\n                    <th class=\"col-md-3 col-sm-4 col-xs-4 text-left vertical-align\">Nume</th>\r\n                    <th class=\"col-md-1 hidden-sm hidden-xs vertical-align\">Status</th>\r\n                    <th class=\"col-md-3 hidden-sm hidden-xs vertical-align\">Oras</th>\r\n                    <th class=\"col-md-1 hidden-sm hidden-xs vertical-align\" colspan=\"2\">Actiuni</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody class=\"table-body\">\r\n                <tr *ngFor=\"let user of usersList\" [ngClass]=\"user.isInEditMode ? 'success':''\">\r\n                    <td>\r\n                        <span>{{user.id}}</span>\r\n                    </td>\r\n                    <td class=\"text-left\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.email}}</span>\r\n                        <input *ngIf=\"user.isInEditMode\" type=\"text\" class=\"form-control\" [(ngModel)]=\"user.email\"/>\r\n                    </td>\r\n                    <td class=\"text-left\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.name}}</span>\r\n                        <input *ngIf=\"user.isInEditMode\" type=\"text\" class=\"form-control\" [(ngModel)]=\"user.name\"/>\r\n                    </td>\r\n                    <td class=\"fit-select-to-td hidden-sm hidden-xs\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.status}}</span>\r\n                        <select *ngIf=\"user.isInEditMode\" class=\"user-status-select\" [(ngModel)]=\"user.status\">\r\n                            <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                            </option>\r\n                        </select>\r\n                    </td>\r\n                    <td class=\"fit-select-to-td hidden-sm hidden-xs\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.city}}</span>\r\n                        <select *ngIf=\"user.isInEditMode\" class=\"user-status-select\" [(ngModel)]=\"user.cityId\">\r\n                            <option *ngFor=\"let option of cityList\" [value]=\"option.id\">{{option.name}}</option>\r\n                        </select>\r\n                    </td>\r\n                    <td class=\"hidden-sm hidden-xs\">\r\n                        <a href=\"javascript:void(0)\" *ngIf=\"!user.isInEditMode\" (click)=\"toggleEditMode(user)\">\r\n                            <span class=\"glyphicon glyphicon-cog\"></span>\r\n                        </a>\r\n                        <a href=\"javascript:void(0)\" *ngIf=\"user.isInEditMode\" (click)=\"saveEditedUser(user)\">\r\n                            <span *ngIf=\"user.isInEditMode\" class=\"glyphicon glyphicon-ok\"></span>\r\n                        </a>\r\n                        <a href=\"javascript:void(0)\" *ngIf=\"user.isInEditMode\" (click)=\"closeEditMode(user)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                        </a>\r\n                    </td>\r\n                    <td class=\"hidden-sm hidden-xs\">\r\n                        <a href=\"javascript:void(0)\" (click)=\"deleteUser(user)\">\r\n                            <span class=\"glyphicon glyphicon-trash\"></span>\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n                <tr class=\"navigation-row text-center\">\r\n                    <td colspan=\"7\" class=\"navigation-column\">\r\n                        <pagination [totalItems]=\"pagination.totalItems\" [(ngModel)]=\"pagination.currentPage\"\r\n                                    (ngModelChange)=\"getUsers()\" [maxSize]=\"pagination.maxSize\" class=\"pagination-sm\"\r\n                                    [boundaryLinks]=\"true\" [rotate]=\"false\" (numPages)=\"numPages = $event\"></pagination>\r\n                    </td>\r\n                </tr>\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 855 */
+/* 854 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -95778,11 +95663,11 @@
 	var localizationService_1 = __webpack_require__(822);
 	var notificationService_1 = __webpack_require__(821);
 	__webpack_require__(687);
-	var actionDialog_1 = __webpack_require__(851);
-	var createSubscriberDialog_1 = __webpack_require__(856);
+	var actionDialog_1 = __webpack_require__(850);
+	var createSubscriberDialog_1 = __webpack_require__(855);
 	var applicationConstansts_1 = __webpack_require__(790);
-	var subscriber_1 = __webpack_require__(857);
-	var template = __webpack_require__(859);
+	var subscriber_1 = __webpack_require__(856);
+	var template = __webpack_require__(858);
 	var SubscribersPage = (function () {
 	    //</editor-fold>
 	    function SubscribersPage(subscribersService, localizationService, _notificationService) {
@@ -95951,7 +95836,7 @@
 	//# sourceMappingURL=subscribersPage.js.map
 
 /***/ },
-/* 856 */
+/* 855 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -95971,9 +95856,9 @@
 	var core_1 = __webpack_require__(30);
 	var common_1 = __webpack_require__(27);
 	var modalDialog_1 = __webpack_require__(830);
-	var subscriber_1 = __webpack_require__(857);
+	var subscriber_1 = __webpack_require__(856);
 	var Angular2ExtensionValidators_1 = __webpack_require__(823);
-	var template = __webpack_require__(858);
+	var template = __webpack_require__(857);
 	var CreateSubscriberDialog = (function (_super) {
 	    __extends(CreateSubscriberDialog, _super);
 	    function CreateSubscriberDialog(formBuilder) {
@@ -96049,7 +95934,7 @@
 	//# sourceMappingURL=createSubscriberDialog.js.map
 
 /***/ },
-/* 857 */
+/* 856 */
 /***/ function(module, exports) {
 
 	var Subscriber = (function () {
@@ -96071,19 +95956,19 @@
 	//# sourceMappingURL=subscriber.js.map
 
 /***/ },
-/* 858 */
+/* 857 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 0.5 : 0\"  [ngClass]=\"{'remove':remove}\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelCreateSubscriber()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\" [ngClass]=\"{'remove':remove}\">\r\n    <div class=\"modal-dialog modal-dialog-very-sm modal-lg\" (click)=\"stopPropagation($event)\">\r\n        <form [ngFormModel]=\"_subscriberForm\" (ngSubmit)=\"submitSubscriber()\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelCreateSubscriber()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h4 class=\"modal-title\">\r\n                        {{title}}\r\n                    </h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n\t\t\t\t\t\t<span class=\"input-group-addon\">\r\n\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-envelope\"></span>\r\n\t\t\t\t\t\t</span>\r\n                            <input type=\"email\" [ngFormControl]=\"_subscriberForm.controls['email']\"\r\n                                   [(ngModel)]=\"responseObject.email\" class=\"form-control\"\r\n                                   placeholder=\"E-mail\"/>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelCreateSubscriber()\">{{cancelLabel}}\r\n                    </button>\r\n                    <button type=\"submit\" [disabled]=\"!_subscriberForm.valid\" class=\"btn btn-primary btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n</div>\r\n";
 
 /***/ },
-/* 859 */
+/* 858 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"clearfix\">\r\n    <!-- TODO catch close event -->\r\n    <action-dialog\r\n            [title]=\"'Delete'\"\r\n            [positive-label]=\"'Delete'\"\r\n            (loaded)=\"referenceActionDialogInComponent($event)\"\r\n            (action-confirmed)=\"actionDialogConfirmDelete($event)\">\r\n        <h4>Are you sure that you want to delete this subscriber ?</h4>\r\n    </action-dialog>\r\n    <create-subscriber-dialog\r\n            (loaded)=\"referenceCreateSubscriberDialogInComponent($event)\"\r\n            (create-subscriber)=\"createSubscriber($event)\">\r\n    </create-subscriber-dialog>\r\n    <div class=\"subscribers-page\">\r\n        <!-- TODO catch close event -->\r\n        <div class=\"page-title\">\r\n            <div class=\"row\">\r\n                <span class=\"h3\">Abonati</span>\r\n            </div>\r\n        </div>\r\n        <div class=\"page-content\">\r\n            <div class=\"row\">\r\n                <div class=\"filters\">\r\n\r\n                    <div class=\"clearfix filter-container\">\r\n                        <div class=\"col-lg-3 col-xs-12 remove-left-padding\">\r\n                            <div class=\"form-group\">\r\n                                <label>Email:</label>\r\n                                <input type=\"text\" [(ngModel)]=\"emailFilter\" placeholder=\"email@domain.com\"\r\n                                       class=\"form-control\"/>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-lg-3 col-xs-12\">\r\n                            <div class=\"form-group\">\r\n                                <label>Data abonarii:</label>\r\n                                <div class=\"input-group\">\r\n                                    <div class=\"input-group-btn\">\r\n                                        <div dropdown [(isOpen)]=\"subscribeDatePicker.state\">\r\n                                            <button class=\"btn btn-primary\" dropdownToggle>\r\n                                                <span class=\"glyphicon glyphicon-calendar\"></span>\r\n                                            </button>\r\n                                            <div dropdownMenu class=\"dropdown-menu\">\r\n                                                <datepicker (click)=\"openSubscribeDatePicke($event)\"\r\n                                                            [(ngModel)]=\"subscribeDateFilter\"\r\n                                                            [showWeeks]=\"true\"\r\n                                                ></datepicker>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                    <input type=\"text\" [placeholder]=\"dateTimePlaceHolder\" class=\"form-control\"\r\n                                           [(ngModel)]=\"subscriberFormatedDate\"\r\n                                           (ngModelChange)=\"updateSubscribeDatePicker()\"\r\n                                    />\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                        <div class=\"col-lg-3 col-xs-12\">\r\n                            <div class=\"form-group\">\r\n                                <label>Data dezabonarii:</label>\r\n                                <div class=\"input-group\">\r\n                                    <div class=\"input-group-btn\">\r\n                                        <div dropdown [(isOpen)]=\"unSubscribeDatePicker.state\">\r\n                                            <button class=\"btn btn-primary\" dropdownToggle>\r\n                                                <span class=\"glyphicon glyphicon-calendar\"></span>\r\n                                            </button>\r\n                                            <div dropdownMenu class=\"dropdown-menu\">\r\n                                                <datepicker (click)=\"openUnSubscribeDatePicke($event)\"\r\n                                                            [(ngModel)]=\"unsubscribeDateFilter\"\r\n                                                            [showWeeks]=\"true\"></datepicker>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                    <input type=\"text\" [(ngModel)]=\"unsubscriberFormatedDate\" class=\"form-control\"\r\n                                           [placeholder]=\"dateTimePlaceHolder\"\r\n                                           (ngModelChange)=\"updateunSubscribeDatePicker()\"\r\n                                    />\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-lg-3 col-xs-12 no-right-p padding-top-25 remove-right-padding\">\r\n                            <div class=\"pull-right btn-full-width\">\r\n                                <input type=\"button\" class=\"btn btn-primary\" (click)=\"showSubscriberDialog()\"\r\n                                       value=\"Adauga abonat\"/>\r\n                            </div>\r\n                            <div class=\"pull-left btn-full-width\">\r\n                                <input type=\"button\" class=\"btn btn-success\" (click)=\"getSubscribersWithFilters()\"\r\n                                       value=\"Aplica filtre\"/>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n                <div class=\"subscribers\">\r\n                    <div class=\"table-responsiv\">\r\n                        <table class=\"table table-striped\">\r\n                            <thead class=\"thead-inverse\">\r\n                            <tr class=\"vertical-align\">\r\n                                <th class=\"col-md-1 col-xs-1\">Id</th>\r\n                                <th class=\"col-md-3 col-xs-5 pointer-cursor text-left\" (click)=\"sortByColumn('EMAIL')\">\r\n                                    <span>Email</span>\r\n                                    <span [ngClass]=\"getClassForSorting('EMAIL')\"></span>\r\n                                </th>\r\n                                <th class=\"col-md-2 col-xs-5 pointer-cursor hidden-sm hidden-xs\"\r\n                                    (click)=\"sortByColumn('SUBSCRIBE_DATE')\">\r\n                                    <span>Data abonarii</span>\r\n                                    <span [ngClass]=\"getClassForSorting('SUBSCRIBE_DATE')\"></span>\r\n                                </th>\r\n                                <th class=\"col-md-2 hidden-sm hidden-xs pointer-cursor\"\r\n                                    (click)=\"sortByColumn('UNSUBSCRIBE_DATE')\">\r\n                                    <span>Data dezabonarii</span>\r\n                                    <span [ngClass]=\"getClassForSorting('UNSUBSCRIBE_DATE')\"></span>\r\n                                </th>\r\n                                <th class=\"col-md-3 hidden-sm hidden-xs text-left\">Cod dezabonare</th>\r\n                                <th class=\"col-md-1\" colspan=\"3\">Actiuni</th>\r\n                            </tr>\r\n                            </thead>\r\n                            <tbody class=\"table-body\">\r\n                            <tr *ngFor=\"let subscriber of subscribersList\"\r\n                                [ngClass]=\"subscriber.isInEditMode ? 'success':''\">\r\n                                <td>\r\n                                    <span>{{subscriber.id}}</span>\r\n                                </td>\r\n                                <td class=\"text-left\">\r\n                                    <span>{{subscriber.email}}</span>\r\n                                </td>\r\n                                <td class=\"hidden-sm hidden-xs\">\r\n                                    <span>{{subscriber.subscribeDate}}</span>\r\n                                </td>\r\n                                <td class=\"fit-select-to-td hidden-sm hidden-xs\">\r\n                                    <span>{{subscriber.unsubscribeDate}}</span>\r\n                                </td>\r\n                                <td class=\"fit-select-to-td hidden-sm hidden-xs text-left\">\r\n                                    <span>{{subscriber.unsubscribeToken}}</span>\r\n                                </td>\r\n                                <td>\r\n                                    <a href=\"javascript:void(0)\" title=\"Subscribe\" (click)=\"subscribe(subscriber)\">\r\n                                        <span class=\"glyphicon glyphicon-log-in\"></span>\r\n                                    </a>\r\n                                </td>\r\n                                <td>\r\n                                    <a href=\"javascript:void(0)\" title=\"Unsubscribe\" (click)=\"unsubscribe(subscriber)\">\r\n                                        <span class=\"glyphicon glyphicon-log-out\tTry it\"></span>\r\n                                    </a>\r\n                                </td>\r\n                                <td>\r\n                                    <a href=\"javascript:void(0)\" title=\"Delete\"\r\n                                       (click)=\"actionDialog.show(deleteMessage,subscriber)\">\r\n                                        <span class=\"glyphicon glyphicon-trash\"></span>\r\n                                    </a>\r\n                                </td>\r\n                            </tr>\r\n                            <tr class=\"navigation-row\">\r\n                                <td colspan=\"8\" class=\"navigation-column\">\r\n                                    <pagination [totalItems]=\"pagination.totalItems\"\r\n                                                [(ngModel)]=\"pagination.currentPage\"\r\n                                                (ngModelChange)=\"getSubscribersWithFilters()\" [maxSize]=\"pagination.maxSize\"\r\n                                                class=\"pagination-sm\"\r\n                                                [boundaryLinks]=\"true\" [rotate]=\"false\"\r\n                                                (numPages)=\"numPages = $event\"></pagination>\r\n                                </td>\r\n                            </tr>\r\n                            </tbody>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 860 */
+/* 859 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -96097,11 +95982,11 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(348);
-	var companiesPage_1 = __webpack_require__(861);
-	var domainsPage_1 = __webpack_require__(865);
-	var categoriesMenuPage_1 = __webpack_require__(869);
-	var tabsRoutingComponent_1 = __webpack_require__(873);
-	var template = __webpack_require__(875);
+	var companiesPage_1 = __webpack_require__(860);
+	var domainsPage_1 = __webpack_require__(864);
+	var categoriesMenuPage_1 = __webpack_require__(868);
+	var tabsRoutingComponent_1 = __webpack_require__(872);
+	var template = __webpack_require__(874);
 	var CategoriesPage = (function () {
 	    function CategoriesPage() {
 	        this.tabPagesList = [{ name: 'Meniu', link: '/admin/categorii/meniu', enableMarker: false, markerContent: "" },
@@ -96137,7 +96022,7 @@
 	//# sourceMappingURL=categoriesPage.js.map
 
 /***/ },
-/* 861 */
+/* 860 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -96151,9 +96036,9 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var common_1 = __webpack_require__(27);
-	var companieTypesService_1 = __webpack_require__(862);
-	var companieType_1 = __webpack_require__(863);
-	var template = __webpack_require__(864);
+	var companieTypesService_1 = __webpack_require__(861);
+	var companieType_1 = __webpack_require__(862);
+	var template = __webpack_require__(863);
 	var CompaniesPage = (function () {
 	    //</editor-fold>
 	    function CompaniesPage(companieTypeService, formBuilder) {
@@ -96250,7 +96135,7 @@
 	//# sourceMappingURL=companiesPage.js.map
 
 /***/ },
-/* 862 */
+/* 861 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -96291,7 +96176,7 @@
 	//# sourceMappingURL=companieTypesService.js.map
 
 /***/ },
-/* 863 */
+/* 862 */
 /***/ function(module, exports) {
 
 	var CompanieType = (function () {
@@ -96307,13 +96192,13 @@
 	//# sourceMappingURL=companieType.js.map
 
 /***/ },
-/* 864 */
+/* 863 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"companies-page clearfix\">\r\n    <div class=\"col-lg-6 col-xs-12 remove-left-padding\">\r\n        <div class=\"companie-type-filter col-lg-6 col-xs-12 clearfix\">\r\n            <div class=\"search-field col-xs-12\">\r\n                <div class=\"input-group\">\r\n \t\t\t\t<span class=\"input-group-addon\">\r\n \t\t\t\t\t<span class=\"glyphicon glyphicon-search\"></span>\r\n \t\t\t\t</span>\r\n                    <input class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"searchQuery\"\r\n                           (ngModelChange)=\"getCompanyTypesWithFilters()\"/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"pull-right\">\r\n            <button class=\"btn btn-primary\" (click)=\"toggleAddCompanieDomain(true)\">\r\n                <span class=\"glyphicon glyphicon-plus\"></span> Adauga tip de companie\r\n            </button>\r\n        </div>\r\n        <div class=\"clearfix\"></div>\r\n        <div class=\"add-companie\" *ngIf=\"showAddCompanieDomainRow\">\r\n            <form [ngFormModel]=\"_newDomainForm\" (ngSubmit)=\"addCompanieDomain()\">\r\n                <div class=\"input-group\">\r\n                    <input [ngFormControl]=\"_newDomainForm.controls['newDomain']\" class=\"form-control\" [(ngModel)]=\"newDomain\"/>\r\n\r\n                    <div class=\"input-group-btn\">\r\n                        <button [disabled]=\"!_newDomainForm.valid\" type=\"submit\" class=\"btn btn-secondary btn-primary\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                            Creeaza\r\n                        </button>\r\n                        <button type=\"button\" class=\"btn btn-secondary btn-default\"\r\n                                (click)=\"toggleAddCompanieDomain(false)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                            Cancel\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n        <!-- *ngIf=\"showAddCompanieDomainRow\" -->\r\n        <div class=\"companie-type\">\r\n            <div class=\"list-group\">\r\n                <div *ngFor=\"let companieType of companieTypes\" class=\"list-group-item clearfix\">\r\n                    <div class=\"col-md-9 col-xs-6\">\r\n                        <div *ngIf=\"!companieType.isInEditMode\" class=\"text-center-indent\">\r\n \t\t\t\t\t        <span [title]=\"companieType.name\">\r\n \t\t\t\t\t        \t{{companieType.name}}\r\n \t\t\t\t\t        </span>\r\n                        </div>\r\n                        <input autofocus *ngIf=\"companieType.isInEditMode\" class=\"form-control\" [(ngModel)]=\"companieType.name\"/>\r\n                    </div>\r\n                    <div class=\"col-md-3 col-xs-6 operation-labels\">\r\n                        <a class=\"secondary\" (click)=\"deleteCompanyType(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-trash\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"!companieType.isInEditMode\" class=\"secondary\" (click)=\"toggleEditMode(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-pencil\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"companieType.isInEditMode\" class=\"secondary\" (click)=\"revertEdit(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"companieType.isInEditMode\" class=\"secondary\" (click)=\"editCompaniType(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                        </a>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 865 */
+/* 864 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -96327,9 +96212,9 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var common_1 = __webpack_require__(27);
-	var requestTypeService_1 = __webpack_require__(866);
-	var requestType_1 = __webpack_require__(867);
-	var template = __webpack_require__(868);
+	var requestTypeService_1 = __webpack_require__(865);
+	var requestType_1 = __webpack_require__(866);
+	var template = __webpack_require__(867);
 	var DomainsPage = (function () {
 	    //</editor-fold>
 	    function DomainsPage(requestTypeService, formBuilder) {
@@ -96427,7 +96312,7 @@
 	//# sourceMappingURL=domainsPage.js.map
 
 /***/ },
-/* 866 */
+/* 865 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -96468,7 +96353,7 @@
 	//# sourceMappingURL=requestTypeService.js.map
 
 /***/ },
-/* 867 */
+/* 866 */
 /***/ function(module, exports) {
 
 	var RequestType = (function () {
@@ -96484,13 +96369,13 @@
 	//# sourceMappingURL=requestType.js.map
 
 /***/ },
-/* 868 */
+/* 867 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"domains-page clearfix\">\r\n    <div class=\"col-lg-6 col-xs-12 remove-left-padding\">\r\n        <div class=\"domain-type-filter col-lg-6\">\r\n            <div class=\"search-field\">\r\n                <div class=\"input-group\">\r\n  \t\t\t\t<span class=\"input-group-addon\">\r\n  \t\t\t\t\t<span class=\"glyphicon glyphicon-search\"></span>\r\n  \t\t\t\t</span>\r\n                    <input class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"searchQuery\"\r\n                           (ngModelChange)=\"getRequestTypesWithFilters()\"/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"pull-right operations\">\r\n            <button class=\"btn btn-primary\" (click)=\"toggleAddRequestType(true)\">\r\n                <span class=\"glyphicon glyphicon-plus\"></span> Adauga tip de cerere\r\n            </button>\r\n        </div>\r\n        <div class=\"clearfix\"></div>\r\n        <!-- *ngIf=\"showAddRequestRow\" -->\r\n        <div class=\"add-request\" *ngIf=\"showAddRequestRow\">\r\n            <form [ngFormModel]=\"_newDomainForm\" (ngSubmit)=\"addRequestType()\">\r\n                <div class=\"input-group\">\r\n                    <input [ngFormControl]=\"_newDomainForm.controls['newRequestType']\" class=\"form-control\" [(ngModel)]=\"newRequestType\"/>\r\n\r\n                    <div class=\"input-group-btn\">\r\n                        <button [disabled]=\"!_newDomainForm.valid\" type=\"submit\" class=\"btn btn-secondary btn-primary\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                            Creeaza\r\n                        </button>\r\n                        <button type=\"button\" class=\"btn btn-secondary btn-default\" (click)=\"toggleAddRequestType(false)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                            Cancel\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n        <div class=\"clearfix\"></div>\r\n        <div class=\"domain-type\">\r\n            <ul class=\"list-group\">\r\n                <li *ngFor=\"let requestType of domainsTypes\" class=\"list-group-item clearfix\">\r\n                    <div class=\"pull-right align-operations\">\r\n                        <a class=\"secondary\" (click)=\"deleteRequestType(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-trash\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"!requestType.isInEditMode\" class=\"secondary\" (click)=\"toggleEditMode(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-cog\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"requestType.isInEditMode\" class=\"secondary\" (click)=\"revertEdit(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"requestType.isInEditMode\" type=\"submit\"  class=\"secondary\" (click)=\"editRequestType(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                        </a>\r\n                        <span class=\"pull-right label label-info\">- Companii - {{requestType.companies}}</span>\r\n                    </div>\r\n                    <div class=\"col-md-7 col-xs-4 col-sm-4\">\r\n                        <div *ngIf=\"!requestType.isInEditMode\" class=\"text-center-indent\">\r\n  \t\t\t\t\t        <span [title]=\"requestType.name\">\r\n  \t\t\t\t\t\t        {{requestType.name}}\r\n  \t\t\t\t\t        </span>\r\n                        </div>\r\n                        <input autofocus *ngIf=\"requestType.isInEditMode\" class=\"form-control\" [(ngModel)]=\"requestType.name\"/>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 869 */
+/* 868 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -96505,11 +96390,11 @@
 	var core_1 = __webpack_require__(30);
 	var categoriesMenuService_1 = __webpack_require__(792);
 	var menuTreeComponent_1 = __webpack_require__(831);
-	var menuItemDialog_1 = __webpack_require__(870);
+	var menuItemDialog_1 = __webpack_require__(869);
 	var selectComponent_1 = __webpack_require__(826);
 	var authorizationService_1 = __webpack_require__(789);
 	var Roles_1 = __webpack_require__(817);
-	var template = __webpack_require__(872);
+	var template = __webpack_require__(871);
 	var CategoriesMenuPage = (function () {
 	    //</editor-fold>
 	    function CategoriesMenuPage(_categoriesMenuService) {
@@ -96603,7 +96488,7 @@
 	//# sourceMappingURL=categoriesMenuPage.js.map
 
 /***/ },
-/* 870 */
+/* 869 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -96622,7 +96507,7 @@
 	var common_1 = __webpack_require__(27);
 	var selectComponent_1 = __webpack_require__(826);
 	var Angular2ExtensionValidators_1 = __webpack_require__(823);
-	var template = __webpack_require__(871);
+	var template = __webpack_require__(870);
 	//used template to not download the same html multiple times
 	var MenuItemDialog = (function () {
 	    function MenuItemDialog(formBuilder) {
@@ -96763,19 +96648,19 @@
 	//# sourceMappingURL=menuItemDialog.js.map
 
 /***/ },
-/* 871 */
+/* 870 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in menu-item-dialog\" tabindex=\"-1\" (click)=\"cancelAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\">\r\n    <div class=\"modal-dialog modal-dialog-very-sm modal\" [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <form [ngFormModel]=\"_menuItem\" (ngSubmit)=\"submitMenuItem()\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelAction()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h4 class=\"modal-title\">\r\n                        Adauga\r\n                    </h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <label>Pozitie</label>\r\n                        <input type=\"number\" class=\"form-control\" [(ngFormControl)]=\"_menuItem.controls['orderNr']\"\r\n                               [(ngModel)]=\"orderNr\"/>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <label>Denumire</label>\r\n                        <input class=\"form-control\" [(ngFormControl)]=\"_menuItem.controls['name']\" [(ngModel)]=\"name\"/>\r\n                    </div>\r\n                    <div>\r\n                        <label>Domeniu</label>\r\n                        <select-component\r\n                                [select-items]=\"items\"\r\n                                [single-item-selected]=\"selectedItem\"\r\n                                [multi-select]=\"false\"\r\n                                (loaded)=\"referenceSelectComponent($event)\"\r\n                        ></select-component>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"hide()\">Cancel</button>\r\n                    <button type=\"submit\" class=\"btn btn-primary btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 872 */
+/* 871 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"categories-menu-page\">\r\n    <div class=\"clearfix\">\r\n        <menu-item-dialog\r\n                [domains-list]=\"_domains\"\r\n                (modal-loaded)=\"referenceModal($event)\"\r\n                (add-menu-item)=\"addMenuItem($event)\"\r\n                (update-menu-item)=\"editMenuItem($event)\"\r\n        ></menu-item-dialog>\r\n        <menu-component\r\n                [use-domain-marker]=\"true\"\r\n                [menu-tree-data]=\"menuDictionary\"\r\n                [remove-position]=\"false\"\r\n                [enable-operations]=\"isAdminUser\"\r\n                (item-selected)=\"selectMenuItem($event)\"\r\n                (add-menu-item)=\"showAddMenuModal($event)\"\r\n                (edit-menu-item)=\"showEditMenuModal($event)\"\r\n                (delete-menu-item)=\"deleteMenuItem($event)\">\r\n        </menu-component>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 873 */
+/* 872 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -96793,7 +96678,7 @@
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(348);
 	var common_1 = __webpack_require__(27);
-	var template = __webpack_require__(874);
+	var template = __webpack_require__(873);
 	var TabsRoutingComponent = (function () {
 	    function TabsRoutingComponent(router, location) {
 	        this.router = router;
@@ -96821,19 +96706,19 @@
 	//# sourceMappingURL=tabsRoutingComponent.js.map
 
 /***/ },
-/* 874 */
+/* 873 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"clearfix\">\r\n    <ul class=\"nav nav-tabs\" role=\"tablist\">\r\n        <li role=\"presentation\" *ngFor=\"let tab of tabPagesList\"\r\n            [class.active]=\"checkRoute(tab.link)\">\r\n                <a [routerLink]=\"[tab.link]\">\r\n                    {{tab.name}}\r\n                </a>\r\n                <span *ngIf=\"tab.enableMarker\" class=\"label label-info\">{{tab.markerContent}}</span>\r\n        </li>\r\n    </ul>\r\n</div>";
 
 /***/ },
-/* 875 */
+/* 874 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\r\n\r\n    <tabs-component\r\n        [tabs-pages-list]=\"tabPagesList\">\r\n    </tabs-component>\r\n\r\n    <div>\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 876 */
+/* 875 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -96850,10 +96735,10 @@
 	 */
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(348);
-	var tabsRoutingComponent_1 = __webpack_require__(873);
-	var newDemandsListPage_1 = __webpack_require__(877);
-	var allDemandsListPage_1 = __webpack_require__(884);
-	var template = __webpack_require__(885);
+	var tabsRoutingComponent_1 = __webpack_require__(872);
+	var newDemandsListPage_1 = __webpack_require__(876);
+	var allDemandsListPage_1 = __webpack_require__(883);
+	var template = __webpack_require__(884);
 	var DemandsPage = (function () {
 	    function DemandsPage() {
 	        this.tabPagesList = [{ name: 'Cereri noi', link: '/admin/cereri/newDemands', enableMarker: false, markerContent: "" },
@@ -96885,7 +96770,7 @@
 	//# sourceMappingURL=demandsPage.js.map
 
 /***/ },
-/* 877 */
+/* 876 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -96907,15 +96792,15 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(348);
-	var requestTypeService_1 = __webpack_require__(866);
+	var requestTypeService_1 = __webpack_require__(865);
 	var categoriesMenuService_1 = __webpack_require__(792);
 	var localizationService_1 = __webpack_require__(822);
-	var demandListBase_1 = __webpack_require__(878);
+	var demandListBase_1 = __webpack_require__(877);
 	var demandService_1 = __webpack_require__(818);
-	var demandsListPageBase_1 = __webpack_require__(880);
+	var demandsListPageBase_1 = __webpack_require__(879);
 	var menuTreeDialog_1 = __webpack_require__(829);
 	var notificationService_1 = __webpack_require__(821);
-	var template = __webpack_require__(883);
+	var template = __webpack_require__(882);
 	var NewDemandsListPage = (function (_super) {
 	    __extends(NewDemandsListPage, _super);
 	    function NewDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService) {
@@ -96956,7 +96841,7 @@
 	//# sourceMappingURL=newDemandsListPage.js.map
 
 /***/ },
-/* 878 */
+/* 877 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -96972,7 +96857,7 @@
 	 * Created by nick_ on 4/20/2016.
 	 */
 	var core_1 = __webpack_require__(30);
-	var template = __webpack_require__(879);
+	var template = __webpack_require__(878);
 	var DemandListBaseComponent = (function () {
 	    function DemandListBaseComponent() {
 	        this.demandList = new Array();
@@ -97014,21 +96899,21 @@
 	//# sourceMappingURL=demandListBase.js.map
 
 /***/ },
-/* 879 */
+/* 878 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"demand-list-base clearfix\">\r\n    <div class=\"list-group\">\r\n        <table class=\"table table-striped text-center\">\r\n            <thead class=\"thead-inverse\">\r\n            <tr>\r\n                <th class=\"hidden-xs hidden-sm vertical-align\">Id</th>\r\n                <th class=\"hidden-xs hidden-sm vertical-align\">Id cont</th>\r\n                <th class=\"text-left vertical-align\">Titlu</th>\r\n                <th class=\"hidden-xs hidden-sm text-left vertical-align\">Data creeri</th>\r\n                <th class=\"vertical-align\">Status</th>\r\n                <th class=\"vertical-align\">Domeniu</th>\r\n                <th *ngIf=\"!hideOperation\" class=\"vertical-align\" colspan=\"2\">Actiuni</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody class=\"table-body\">\r\n            <tr *ngFor=\"let demand of demandList\">\r\n                <td class=\"hidden-xs hidden-sm\">{{demand.id}}</td>\r\n                <td class=\"hidden-xs hidden-sm\">{{demand.accountId}}</td>\r\n                <td class=\"text-left\">{{demand.title}}</td>\r\n                <td class=\"hidden-xs hidden-sm text-left\">{{demand.email}}</td>\r\n                <td>{{demand.creationDate}}</td>\r\n                <td>{{demand.status}}</td>\r\n                <td [title]=\"'Editeaza compania '+demand.title\" *ngIf=\"!hideOperation\" >\r\n                    <a class=\"action\"   (click)=\"selectDemand(demand)\">\r\n                        <span class=\"glyphicon glyphicon-cog\"></span>\r\n                    </a>\r\n                </td>\r\n                <td [title]=\"'Sterge compania '+demand.title\" *ngIf=\"!hideOperation\" >\r\n                    <a class=\"action\" (click)=\"removeDemand($event, demand)\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span>\r\n                    </a>\r\n                </td>\r\n            </tr>\r\n            </tbody>\r\n        </table>\r\n\r\n        <!--<div  class=\"list-group-item\">-->\r\n            <!--<a href=\"javascript:void(0)\">-->\r\n                <!--<div class=\"pull-right\">-->\r\n                    <!--<span *ngIf=\"demand.accountId\" class=\"label label-success\" title=\"Id-ul contului care a postat cererea\">Id cont: {{demand.accountId}}</span>-->\r\n                    <!--<span *ngIf=\"demand.creationDate\" class=\"label label-success\" title=\"Data la care a fost postata cererea\">Data: {{demand.creationDate}}</span>-->\r\n                <!--</div>-->\r\n                <!--{{demand.title}}-->\r\n                <!--<span class=\"label label-success\" title=\"Statusul cereri\" *ngIf=\"demand.status\">{{demand.status}}</span>-->\r\n            <!--</a>-->\r\n        <!--</div>-->\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 880 */
+/* 879 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by nick_ on 4/22/2016.
 	 */
 	var _ = __webpack_require__(372);
-	var DemandStatus_1 = __webpack_require__(881);
-	var DemandSearchObject_1 = __webpack_require__(882);
+	var DemandStatus_1 = __webpack_require__(880);
+	var DemandSearchObject_1 = __webpack_require__(881);
 	var DemandsListPageBase = (function () {
 	    //</editor-fold>
 	    function DemandsListPageBase(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService) {
@@ -97115,7 +97000,7 @@
 	//# sourceMappingURL=demandsListPageBase.js.map
 
 /***/ },
-/* 881 */
+/* 880 */
 /***/ function(module, exports) {
 
 	/**
@@ -97136,7 +97021,7 @@
 	//# sourceMappingURL=DemandStatus.js.map
 
 /***/ },
-/* 882 */
+/* 881 */
 /***/ function(module, exports) {
 
 	/**
@@ -97155,13 +97040,13 @@
 	//# sourceMappingURL=DemandSearchObject.js.map
 
 /***/ },
-/* 883 */
+/* 882 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"demands-list-page\">\r\n    <div *ngIf=\"pageName==='demands'\" class=\"filters clearfix\">\r\n        <menu-tree-dialog\r\n                [menu-tree-data]=\"menuDictionary\"\r\n                [enable-operations]=\"false\"\r\n                (loaded)=\"referenceDialogInDemandComponent($event)\"\r\n                (action-confirmed)=\"selectItemUsingMenu($event)\"\r\n        ></menu-tree-dialog>\r\n        <div class=\"col-md-2 col-xs-12\">\r\n            <label>Id cont</label>\r\n            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"_searchObject.accountId\"/>\r\n        </div>\r\n        <div class=\"col-md-2 col-xs-12\">\r\n            <label>Domeniu</label>\r\n            <span class=\"form-control select-domain\" (click)=\"showDomainsDialog()\">{{_searchObject.domainName}}</span>\r\n        </div>\r\n        <div class=\"col-md-2 col-xs-12\">\r\n            <label>Domeniu</label>\r\n            <select class=\"domain-select\" [(ngModel)]=\"_searchObject.status\">\r\n                <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                </option>\r\n            </select>\r\n        </div>\r\n        <div class=\"col-md-6 col-xs-12 clearfix\">\r\n            <div class=\"pull-right btn-full-width\">\r\n                <input type=\"button\" class=\"btn btn-success\" value=\"Aplica filtre\" (click)=\"getAllDemandsList()\" />\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"demand-list-container clearfix\">\r\n        <demand-list-component\r\n                [demand-list]=\"_demandsList\"\r\n                (demand-selected)=\"navigateToDemand($event)\"\r\n                (remove-demand)=\"removeDemand($event)\">\r\n        </demand-list-component>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 884 */
+/* 883 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -97187,11 +97072,11 @@
 	var categoriesMenuService_1 = __webpack_require__(792);
 	var localizationService_1 = __webpack_require__(822);
 	var notificationService_1 = __webpack_require__(821);
-	var demandListBase_1 = __webpack_require__(878);
-	var requestTypeService_1 = __webpack_require__(866);
-	var demandsListPageBase_1 = __webpack_require__(880);
+	var demandListBase_1 = __webpack_require__(877);
+	var requestTypeService_1 = __webpack_require__(865);
+	var demandsListPageBase_1 = __webpack_require__(879);
 	var menuTreeDialog_1 = __webpack_require__(829);
-	var template = __webpack_require__(883);
+	var template = __webpack_require__(882);
 	var AllDemandsListPage = (function (_super) {
 	    __extends(AllDemandsListPage, _super);
 	    function AllDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService) {
@@ -97232,13 +97117,13 @@
 	//# sourceMappingURL=allDemandsListPage.js.map
 
 /***/ },
-/* 885 */
+/* 884 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\r\n    <tabs-component\r\n            [tabs-pages-list]=\"tabPagesList\">\r\n        <div class=\"spinner\">\r\n            <img class=\"spinner-img\" src=\"/staticResorces/Loading_icon.gif\"/>\r\n        </div>\r\n    </tabs-component>\r\n    <div>\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 886 */
+/* 885 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -97257,14 +97142,14 @@
 	var router_1 = __webpack_require__(348);
 	var common_1 = __webpack_require__(27);
 	var ng2_bootstrap_1 = __webpack_require__(373);
-	var companiesService_1 = __webpack_require__(887);
+	var companiesService_1 = __webpack_require__(886);
 	var notificationService_1 = __webpack_require__(821);
 	var selectComponent_1 = __webpack_require__(826);
-	var companiesAdminListComponent_1 = __webpack_require__(888);
-	var companySearchObject_1 = __webpack_require__(890);
-	var Ng2Pagination_1 = __webpack_require__(891);
+	var companiesAdminListComponent_1 = __webpack_require__(887);
+	var companySearchObject_1 = __webpack_require__(889);
+	var Ng2Pagination_1 = __webpack_require__(890);
 	var _ = __webpack_require__(372);
-	var template = __webpack_require__(892);
+	var template = __webpack_require__(891);
 	var CompaniesPage = (function () {
 	    //</editor-fold>
 	    function CompaniesPage(router, companiesService, notificationService) {
@@ -97362,7 +97247,7 @@
 	//# sourceMappingURL=companiesPage.js.map
 
 /***/ },
-/* 887 */
+/* 886 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -97471,7 +97356,7 @@
 	//# sourceMappingURL=companiesService.js.map
 
 /***/ },
-/* 888 */
+/* 887 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -97487,7 +97372,7 @@
 	 * Created by nick_ on 5/6/2016.
 	 */
 	var core_1 = __webpack_require__(30);
-	var template = __webpack_require__(889);
+	var template = __webpack_require__(888);
 	var CompanieAdmminListComponent = (function () {
 	    function CompanieAdmminListComponent() {
 	        this._companieSelectedEmitter = new core_1.EventEmitter();
@@ -97525,13 +97410,13 @@
 	//# sourceMappingURL=companiesAdminListComponent.js.map
 
 /***/ },
-/* 889 */
+/* 888 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"admin-companies-list\">\r\n    <table class=\"table table-striped text-center\">\r\n        <thead class=\"thead-inverse\">\r\n        <tr>\r\n            <th class=\"hidden-xs hidden-sm vertical-align\">Id</th>\r\n            <th class=\"hidden-xs hidden-sm vertical-align\">Id cont</th>\r\n            <th class=\"text-left vertical-align\">Nume</th>\r\n            <th class=\"hidden-xs hidden-sm text-left vertical-align\">Email</th>\r\n            <th class=\"vertical-align\">Domeniu companie</th>\r\n            <th class=\"vertical-align\" colspan=\"2\">Actiuni</th>\r\n        </tr>\r\n        </thead>\r\n        <tbody class=\"table-body\">\r\n        <tr *ngFor=\"let companie of _companieList\">\r\n            <td class=\"hidden-xs hidden-sm\">{{companie.id}}</td>\r\n            <td class=\"hidden-xs hidden-sm\">{{companie.accountId}}</td>\r\n            <td class=\"text-left\">{{companie.name}}</td>\r\n            <td class=\"hidden-xs hidden-sm text-left\">{{companie.email}}</td>\r\n            <td>{{companie.companyDomain}}</td>\r\n            <td [title]=\"'Editeaza compania '+companie.name\">\r\n                <a class=\"action\"  (click)=\"selectCompanie(companie)\">\r\n                    <span class=\"glyphicon glyphicon-cog\"></span>\r\n                </a>\r\n            </td>\r\n            <td [title]=\"'Sterge compania '+companie.name\">\r\n                <a class=\"action\" (click)=\"removeCompanie($event, companie)\">\r\n                    <span class=\"glyphicon glyphicon-trash\"></span>\r\n                </a>\r\n            </td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</div>";
 
 /***/ },
-/* 890 */
+/* 889 */
 /***/ function(module, exports) {
 
 	/**
@@ -97551,7 +97436,7 @@
 	//# sourceMappingURL=companySearchObject.js.map
 
 /***/ },
-/* 891 */
+/* 890 */
 /***/ function(module, exports) {
 
 	/**
@@ -97569,13 +97454,13 @@
 	//# sourceMappingURL=Ng2Pagination.js.map
 
 /***/ },
-/* 892 */
+/* 891 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"companies-page clearfix\">\r\n    <div style=\"margin-bottom: 10px;\">\r\n        <span class=\"h3\">Companii</span>\r\n    </div>\r\n    <div class=\"clearfix filter\">\r\n        <div class=\"pull-right operations\">\r\n            <div class=\"inline-with-row\">\r\n                <button type=\"button\" class=\"btn btn-success\" (click)=\"goToNewCompanyPage()\">\r\n                    <span class=\"glyphicon glyphicon-plus\"></span>\r\n                    Adauga companie\r\n                </button>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-md-2 col-xs-12\">\r\n            <div class=\"form-group\">\r\n                <label>Nume</label>\r\n                <input class=\"form-control\" [(ngModel)]=\"searchFilter.email\"/>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-md-2 col-xs-12\">\r\n            <div class=\"form-group\">\r\n                <label>Domeniu companie</label>\r\n                <select-component\r\n                        [select-items]=\"companieDomains\"\r\n                        [single-item-selected]=\"searchFilter.companyDomain\"\r\n                        [multi-select]=\"false\"\r\n                        (loaded)=\"referenceSelectCompanyDomainComponent($event)\"\r\n                ></select-component>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-md-2 col-xs-12\">\r\n            <div class=\"form-group\">\r\n                <label>Domeniu cereri</label>\r\n                <select-component\r\n                        [select-items]=\"domains\"\r\n                        [selected-items]=\"searchFilter.demandDomains\"\r\n                        [multi-select]=\"true\"\r\n                        (loaded)=\"referenceSelectDemandDomainComponent($event)\"\r\n                ></select-component>\r\n            </div>\r\n        </div>\r\n        <div class=\"pull-left operations\">\r\n            <div class=\"inline-with-row\">\r\n                <button class=\"btn btn-primary\" (click)=\"getCompaniesWithFilters()\">\r\n                    <span class=\"glyphicon glyphicon-filter\"></span>\r\n                    Filtreaza companii\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"companies-grid-view\">\r\n        <div class=\"clearfix\">\r\n            <companie-admin-list-component\r\n                    [admin-companies-list]=\"_companiesList\"\r\n                    (admin-companie-selected)=\"selectCompanie($event)\"\r\n                    (admin-companie-removed)=\"removeCompanie($event)\"\r\n            ></companie-admin-list-component>\r\n        </div>\r\n        <div class=\"grid-pagination text-center\">\r\n            <pagination [totalItems]=\"pagination.totalItems\" [(ngModel)]=\"pagination.currentPage\"\r\n                        (ngModelChange)=\"getCompaniesWithFilters()\" [maxSize]=\"pagination.maxSize\" class=\"pagination-sm\"\r\n                        [boundaryLinks]=\"true\" [rotate]=\"false\" (numPages)=\"numPages = $event\"></pagination>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 893 */
+/* 892 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -97598,12 +97483,12 @@
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(348);
 	var common_1 = __webpack_require__(27);
-	var companiesService_1 = __webpack_require__(887);
+	var companiesService_1 = __webpack_require__(886);
 	var notificationService_1 = __webpack_require__(821);
-	var companiesEditComponent_1 = __webpack_require__(894);
-	var companiesEditBase_1 = __webpack_require__(897);
+	var companiesEditComponent_1 = __webpack_require__(893);
+	var companiesEditBase_1 = __webpack_require__(896);
 	var localizationService_1 = __webpack_require__(822);
-	var template = __webpack_require__(898);
+	var template = __webpack_require__(897);
 	var CompaniesEditPage = (function (_super) {
 	    __extends(CompaniesEditPage, _super);
 	    function CompaniesEditPage(location, router, companiesService, notificationService, localizationService) {
@@ -97664,7 +97549,7 @@
 	//# sourceMappingURL=companiesEditPage.js.map
 
 /***/ },
-/* 894 */
+/* 893 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -97682,10 +97567,10 @@
 	var _ = __webpack_require__(372);
 	var core_1 = __webpack_require__(30);
 	var common_1 = __webpack_require__(27);
-	var newCompanyRequest_1 = __webpack_require__(895);
+	var newCompanyRequest_1 = __webpack_require__(894);
 	var Angular2ExtensionValidators_1 = __webpack_require__(823);
 	var selectComponent_1 = __webpack_require__(826);
-	var template = __webpack_require__(896);
+	var template = __webpack_require__(895);
 	var CompaniesEditComponent = (function () {
 	    function CompaniesEditComponent(formBuilder) {
 	        this.saveCompanieEmitter = new core_1.EventEmitter();
@@ -97807,7 +97692,7 @@
 	//# sourceMappingURL=companiesEditComponent.js.map
 
 /***/ },
-/* 895 */
+/* 894 */
 /***/ function(module, exports) {
 
 	/**
@@ -97833,16 +97718,16 @@
 	//# sourceMappingURL=newCompanyRequest.js.map
 
 /***/ },
-/* 896 */
+/* 895 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"companie-edit-component clearfix\">\r\n    <form [ngFormModel]=\"_companieEditForm\" (ngSubmit)=\"saveEditedCompanie()\">\r\n        <div class=\"companie-edit\">\r\n            <div class=\"form-group\">\r\n                <label>Nume companie</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['name']\" [(ngModel)]=\"_companieEditFormModel.name\" class=\"form-control\"\r\n                       placeholder=\"Nume companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Email companie</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['email']\" [(ngModel)]=\"_companieEditFormModel.email\" class=\"form-control\"\r\n                       placeholder=\"Email companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Parola</label>\r\n                <input type=\"password\" [ngFormControl]=\"_companieEditForm.controls['password']\" [(ngModel)]=\"_companieEditFormModel.password\" class=\"form-control\"\r\n                   placeholder=\"Parola cont companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Telefon</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['phone']\" [(ngModel)]=\"_companieEditFormModel.phone\" class=\"form-control\"\r\n                       placeholder=\"0712345689\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Numele persoanei de contact</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['contactPerson']\" [(ngModel)]=\"_companieEditFormModel.contactPerson\" class=\"form-control\"\r\n                       placeholder=\"Numele persoanei de contact\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Adresa companie</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['address']\" [(ngModel)]=\"_companieEditFormModel.address\" class=\"form-control\"\r\n                       placeholder=\"Adresa companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Oras</label>\r\n                <select-component\r\n                        [select-items]=\"_cities\"\r\n                        [single-item-selected]=\"_companieEditFormModel.city\"\r\n                        [multi-select]=\"false\"\r\n                        (loaded)=\"referenceSelectCityComponent($event)\"\r\n                ></select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Domeniu companie</label>\r\n                <select-component\r\n                        [select-items]=\"_companyDomains\"\r\n                        [single-item-selected]=\"_companieEditFormModel.companyDomain\"\r\n                        [multi-select]=\"false\"\r\n                        (loaded)=\"referenceSelectCompanyDomainComponent($event)\"\r\n                ></select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Domeniu cereri</label>\r\n                <select-component\r\n                        [select-items]=\"_domains\"\r\n                        [selected-items]=\"_companieEditFormModel.demandDomains\"\r\n                        [multi-select]=\"true\"\r\n                        (loaded)=\"referenceSelectDemandDomainComponent($event)\"\r\n                ></select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Logo companie</label>\r\n                <input type=\"file\" accept=\".jpg,.jpeg\" (change)=\"saveFile($event)\" />\r\n            </div>\r\n        </div>\r\n        <div class=\"actions\">\r\n            <button type=\"submit\" class=\"btn btn-success\">\r\n                Salveaza\r\n            </button>\r\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"goToPreviousPage()\">\r\n                Inapoi\r\n            </button>\r\n        </div>\r\n    </form>\r\n</div>";
 
 /***/ },
-/* 897 */
+/* 896 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var newCompanyRequest_1 = __webpack_require__(895);
+	var newCompanyRequest_1 = __webpack_require__(894);
 	var CompaniesEditBase = (function () {
 	    function CompaniesEditBase(location, router, companiesService, notificationService, localizationService) {
 	        this._router = router;
@@ -97891,13 +97776,13 @@
 	//# sourceMappingURL=companiesEditBase.js.map
 
 /***/ },
-/* 898 */
+/* 897 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"companies-edit-page clearfix\">\r\n    <companies-edit-componet\r\n        [edit-mode]=\"true\"\r\n        [companie-model]=\"_companie\"\r\n        [company-domains]=\"_companyDomains\"\r\n        [cities]=\"_cities\"\r\n        [domains]=\"_domains\"\r\n        (save-edited-companie)=\"saveCompanie($event)\"\r\n        (navigate-back)=\"goToPreviousLocation()\"\r\n        (reference-companie-edit-component)=\"referenceComponent($event)\"\r\n    ></companies-edit-componet>\r\n</div>";
 
 /***/ },
-/* 899 */
+/* 898 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -97916,11 +97801,11 @@
 	var router_1 = __webpack_require__(348);
 	var common_1 = __webpack_require__(27);
 	var demandService_1 = __webpack_require__(818);
-	var requestTypeService_1 = __webpack_require__(866);
-	var demandEdit_1 = __webpack_require__(900);
+	var requestTypeService_1 = __webpack_require__(865);
+	var demandEdit_1 = __webpack_require__(899);
 	var notificationService_1 = __webpack_require__(821);
-	var rejectDemandDialogComponent_1 = __webpack_require__(903);
-	var template = __webpack_require__(905);
+	var rejectDemandDialogComponent_1 = __webpack_require__(902);
+	var template = __webpack_require__(904);
 	var DemandsEditPage = (function () {
 	    //</editor-fold>
 	    function DemandsEditPage(router, _location, demandService, requestTypeService, notificationService) {
@@ -98019,7 +97904,7 @@
 	//# sourceMappingURL=demandsEditPage.js.map
 
 /***/ },
-/* 900 */
+/* 899 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -98035,9 +97920,9 @@
 	 * Created by nick_ on 4/20/2016.
 	 */
 	var core_1 = __webpack_require__(30);
-	var demandDetailsDTO_1 = __webpack_require__(901);
+	var demandDetailsDTO_1 = __webpack_require__(900);
 	var selectComponent_1 = __webpack_require__(826);
-	var template = __webpack_require__(902);
+	var template = __webpack_require__(901);
 	var DemandEditComponent = (function () {
 	    function DemandEditComponent() {
 	        this.rejectDemandEvent = new core_1.EventEmitter();
@@ -98099,7 +97984,7 @@
 	//# sourceMappingURL=demandEdit.js.map
 
 /***/ },
-/* 901 */
+/* 900 */
 /***/ function(module, exports) {
 
 	/**
@@ -98116,13 +98001,13 @@
 	//# sourceMappingURL=demandDetailsDTO.js.map
 
 /***/ },
-/* 902 */
+/* 901 */
 /***/ function(module, exports) {
 
 	module.exports = "<div *ngIf=\"_demand\" class=\"demand-edit-component\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-9 col-xs-12\">\r\n            <div class=\"form-group\">\r\n                <label>Title</label>\r\n                <span type=\"text\" class=\"form-control\" disabled>{{_demand.title}}</span>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Mesaj</label>\r\n                <textarea class=\"form-control\" disabled [ngModel]=\"_demand.message\"></textarea>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Domeniu</label>\r\n                <select-component\r\n                        [select-items]=\"_domains\"\r\n                        [single-item-selected]=\"_demand.selectedDomain\"\r\n                        [multi-select]=\"false\"\r\n                        (loaded)=\"referenceDemandsComponent($event)\">\r\n                </select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Orase</label>\r\n                <span disabled class=\"form-control city-presentation\">\r\n                    <span *ngFor=\"let city of _demand.cities\" class=\"label label-success\">{{city}}</span>\r\n                </span>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <input type=\"checkbox\" [(ngModel)]=\"_demand.allCities\" />\r\n                <label class=\"checkbox-label\">Doresc sa fiu contactat din orice oras</label>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Data in care a fost creata cererea</label>\r\n                <span disabled class=\"form-control\">\r\n                    {{_demand.creationDate}}\r\n                </span>\r\n            </div>\r\n\r\n        </div>\r\n        <div class=\"col-md-3 col-xs-12 button-group\">\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-success\"\r\n                    (click)=\"acceptDemand()\">\r\n                    Accepta\r\n                </button>\r\n            </div>\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-danger\"\r\n                    (click)=\"rejectDemand()\">\r\n                    Refuza\r\n                </button>\r\n            </div>\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-info\"\r\n                        (click)=\"saveEditedDemand()\">\r\n                    Salveaza modificarile\r\n                </button>\r\n            </div>\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-warning\"\r\n                        (click)=\"goBackToPreviousPage()\">\r\n                    Inapoi la lista\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <hr/>\r\n    <div class=\"row\">\r\n        <div class=\"col-md-2\">\r\n            <label> Id cerere: {{_demand.accountId}}</label>\r\n        </div>\r\n        <div class=\"col-md-2\">\r\n            <label> Nume utilizator: {{_demand.name}}</label>\r\n\r\n        </div>\r\n        <div class=\"col-md-4\">\r\n            <label> Email utilizator: {{_demand.accountEmail}}</label>\r\n\r\n        </div>\r\n        <div class=\"col-md-2\">\r\n            <label> Statusul contului: {{_demand.accountStatus}}</label>\r\n\r\n        </div>\r\n        <div class=\"col-md-2\">\r\n            <label> Numar cereri: {{_demand.demandsCount}}</label>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 903 */
+/* 902 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __extends = (this && this.__extends) || function (d, b) {
@@ -98142,7 +98027,7 @@
 	var core_1 = __webpack_require__(30);
 	var common_1 = __webpack_require__(27);
 	var modalDialog_1 = __webpack_require__(830);
-	var template = __webpack_require__(904);
+	var template = __webpack_require__(903);
 	var RejectDemandDialogComponent = (function (_super) {
 	    __extends(RejectDemandDialogComponent, _super);
 	    function RejectDemandDialogComponent(_formBuilder) {
@@ -98197,19 +98082,19 @@
 	//# sourceMappingURL=rejectDemandDialogComponent.js.map
 
 /***/ },
-/* 904 */
+/* 903 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\">\r\n    <div class=\"modal-dialog modal-lg\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <form [ngFormModel]=\"rejectDemand\" (ngSubmit)=\"rejectDemandSubmit()\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelAction()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h2 class=\"modal-title\">\r\n                        {{title}}\r\n                    </h2>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <label>Mesaj</label>\r\n                        <textarea class=\"form-control message-text\" [ngFormControl]=\"rejectDemand.controls['message']\"></textarea>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelAction()\">{{cancelLabel}}\r\n                    </button>\r\n                    <button type=\"submit\" class=\"btn btn-danger btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n";
 
 /***/ },
-/* 905 */
+/* 904 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"demand-edit-page clearfix\">\r\n    <reject-demand-dialog\r\n        (loaded)=\"rejectDemandDialogLoaded($event)\"\r\n        (request-reject)=\"rejectDemand($event)\">\r\n    </reject-demand-dialog>\r\n    <demand-edit-component\r\n        [demand]=\"_demand\"\r\n        [demand-domains]=\"_demandDomains\"\r\n        (reject-demand)=\"showRejectDemandDialog($event)\"\r\n        (accept-demand)=\"acceptDemand($event)\"\r\n        (save-demand)=\"saveEditedDemand($event)\"\r\n        (go-to-List)=\"navigateToList($event)\">\r\n    </demand-edit-component>\r\n</div>";
 
 /***/ },
-/* 906 */
+/* 905 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -98232,12 +98117,12 @@
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(348);
 	var common_1 = __webpack_require__(27);
-	var companiesService_1 = __webpack_require__(887);
+	var companiesService_1 = __webpack_require__(886);
 	var notificationService_1 = __webpack_require__(821);
-	var companiesEditComponent_1 = __webpack_require__(894);
-	var companiesEditBase_1 = __webpack_require__(897);
+	var companiesEditComponent_1 = __webpack_require__(893);
+	var companiesEditBase_1 = __webpack_require__(896);
 	var localizationService_1 = __webpack_require__(822);
-	var template = __webpack_require__(898);
+	var template = __webpack_require__(897);
 	var CompanieCreatePage = (function (_super) {
 	    __extends(CompanieCreatePage, _super);
 	    function CompanieCreatePage(location, router, companiesService, notificationService, localizationService) {
@@ -98283,13 +98168,13 @@
 	//# sourceMappingURL=companiesCreatePage.js.map
 
 /***/ },
-/* 907 */
+/* 906 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"admin-page-container\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row content\">\r\n            <div #leftMenu class=\"col-sm-2 sidenav hidden-xs hidden-sm\">\r\n                <div class=\"menu-container\">\r\n                    <div class=\"admin-menu-title text-left clearfix\">\r\n                        <div class=\"pull-left\">\r\n                            <span class=\"glyphicon glyphicon-th-list\"></span>\r\n                        </div>\r\n                        <div class=\"text-center\">\r\n                            <span class=\"h4\">Mangement website</span>\r\n                        </div>\r\n                    </div>\r\n                    <ul class=\"nav nav-pills nav-stacked\">\r\n                        <li [class.active]=\"checkRoute('/admin/users')\">\r\n                            <a [routerLink]=\"['/admin/users']\" class=\"clearfix\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-user\"></span>\r\n                                </div>\r\n                                Utilizatori\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/subscribers')\">\r\n                            <a [routerLink]=\"['/admin/subscribers']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-globe\"></span>\r\n                                </div>\r\n                                Abonati\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/categorii')\">\r\n                            <a [routerLink]=\"['/admin/categorii/meniu']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-tasks\"></span>\r\n                                </div>\r\n                                Categorii\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/cereri')\">\r\n                            <a [routerLink]=\"['/admin/cereri/newDemands']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-list-alt\"></span>\r\n                                </div>\r\n                                Cereri\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/companii') || checkRoute('/admin/ceeaza-companie/ceeaza')\">\r\n                            <a [routerLink]=\"['/admin/companii']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-transfer\"></span>\r\n                                </div>\r\n                                Companii\r\n                            </a>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n            <div #rightMenu class=\"col-sm-10 col-xs-12 col-sm-12\">\r\n                <div class=\"upper-page-container\">\r\n                    <div class=\"inner-page-container\">\r\n                        <router-outlet></router-outlet>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 908 */
+/* 907 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -98308,13 +98193,13 @@
 	var router_1 = __webpack_require__(348);
 	var notificationService_1 = __webpack_require__(821);
 	var jqueryService_1 = __webpack_require__(819);
-	var accountEditPage_1 = __webpack_require__(909);
-	var accountDemandsPage_1 = __webpack_require__(916);
+	var accountEditPage_1 = __webpack_require__(908);
+	var accountDemandsPage_1 = __webpack_require__(915);
 	var authorizationService_1 = __webpack_require__(789);
 	var applicationConstansts_1 = __webpack_require__(790);
-	var tabsRoutingComponent_1 = __webpack_require__(873);
+	var tabsRoutingComponent_1 = __webpack_require__(872);
 	var Roles_1 = __webpack_require__(817);
-	var template = __webpack_require__(918);
+	var template = __webpack_require__(917);
 	var AccountSettingsPage = (function () {
 	    //</editor-fold>
 	    function AccountSettingsPage(router, notificationService) {
@@ -98354,7 +98239,7 @@
 	//# sourceMappingURL=accountSettingsPage.js.map
 
 /***/ },
-/* 909 */
+/* 908 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -98371,14 +98256,14 @@
 	 */
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(348);
-	var accountService_1 = __webpack_require__(910);
+	var accountService_1 = __webpack_require__(909);
 	var demandService_1 = __webpack_require__(818);
 	var localizationService_1 = __webpack_require__(822);
 	var notificationService_1 = __webpack_require__(821);
-	var accountEditComponent_1 = __webpack_require__(911);
-	var accountDto_1 = __webpack_require__(914);
+	var accountEditComponent_1 = __webpack_require__(910);
+	var accountDto_1 = __webpack_require__(913);
 	var authorizationService_1 = __webpack_require__(789);
-	var template = __webpack_require__(915);
+	var template = __webpack_require__(914);
 	var AccountEditPage = (function () {
 	    //</editor-fold>
 	    function AccountEditPage(accountService, demandService, localizationService, notificationService, router) {
@@ -98461,7 +98346,7 @@
 	//# sourceMappingURL=accountEditPage.js.map
 
 /***/ },
-/* 910 */
+/* 909 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -98522,7 +98407,7 @@
 	//# sourceMappingURL=accountService.js.map
 
 /***/ },
-/* 911 */
+/* 910 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -98542,8 +98427,8 @@
 	var selectComponent_1 = __webpack_require__(826);
 	var _ = __webpack_require__(372);
 	var Angular2ExtensionValidators_1 = __webpack_require__(823);
-	var accountUser_1 = __webpack_require__(912);
-	var template = __webpack_require__(913);
+	var accountUser_1 = __webpack_require__(911);
+	var template = __webpack_require__(912);
 	var AccountEditComponent = (function () {
 	    function AccountEditComponent(formBuilder) {
 	        this._saveAccountEmitter = new core_1.EventEmitter();
@@ -98651,7 +98536,7 @@
 	//# sourceMappingURL=accountEditComponent.js.map
 
 /***/ },
-/* 912 */
+/* 911 */
 /***/ function(module, exports) {
 
 	/**
@@ -98674,13 +98559,13 @@
 	//# sourceMappingURL=accountUser.js.map
 
 /***/ },
-/* 913 */
+/* 912 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"account-edit-component clearfix\">\r\n    <div class=\"clearfix\">\r\n        <div class=\"col-md-6 col-xs-12 col-sm-12\">\r\n            <form *ngIf=\"_accountFormModel\" [ngFormModel]=\"_accountFormModel\" (ngSubmit)=\"saveEditedAccount()\"\r\n                  class=\"account-form\">\r\n                <span class=\"h4\">Date cont</span>\r\n                <hr/>\r\n                <div class=\"form-group\">\r\n                    <label>Email</label>\r\n                    <span class=\"form-control\" type=\"text\" disabled>{{_accountModel.email}}</span>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Nume</label>\r\n                    <input class=\"form-control\" type=\"text\" placeholder=\"Adaugati numele la contul tau\"\r\n                           [ngFormControl]=\"_accountFormModel.controls['name']\"\r\n                           [(ngModel)]=\"_accountModel.name\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Telefon</label>\r\n                    <input class=\"form-control\" type=\"text\" placeholder=\"Adaugati numarul de telefon la contul tau\"\r\n                           [ngFormControl]=\"_accountFormModel.controls['phone']\"\r\n                           [(ngModel)]=\"_accountModel.phone\"/>\r\n                </div>\r\n                <div>\r\n                    <label>Oras</label>\r\n                    <select-component\r\n                            [select-items]=\"_cities\"\r\n                            [single-item-selected]=\"_accountModel.cityItem\"\r\n                            [multi-select]=\"false\"\r\n                            (loaded)=\"referenceCitySelectorComponent($event)\">\r\n                    </select-component>\r\n                </div>\r\n                <div>\r\n                    <div class=\"pull-right\">\r\n                        <button type=\"submit\" class=\"btn btn-primary\">{{submitLabel}}</button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-xs-12 col-sm-12\">\r\n            <form *ngIf=\"_accountFormModel\" [ngFormModel]=\"_changePasswordFormModel\" (ngSubmit)=\"changePassword()\"\r\n                  class=\"account-form\">\r\n\r\n                <span class=\"h4\">Schimbare parola</span>\r\n                <hr/>\r\n                <div class=\"form-group\">\r\n                    <label>Parola veche</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.lastPassword\"\r\n                           [(ngModel)]=\"_accountModel.lastPassword\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Parola noua</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.passwords.controls.password\"\r\n                           [(ngModel)]=\"_accountModel.newPassword\"\r\n                           (ngModelChange)=\"updateErrorField()\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Confirma parola noua</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.passwords.controls.repeat\"\r\n                           [(ngModel)]=\"_accountModel.confirmNewPassword\"\r\n                           (ngModelChange)=\"updateErrorField()\"/>\r\n                </div>\r\n                <div class=\"position-relative\" *ngIf=\"showNotMatchPasswordField\">\r\n                    <div class=\"password-error right-to-middle-effect\">\r\n                        Cele doua parole nu sunt la fel!\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <div class=\"pull-right\">\r\n                        <button type=\"submit\" class=\"btn btn-primary\">Schimba parola</button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 914 */
+/* 913 */
 /***/ function(module, exports) {
 
 	/**
@@ -98715,13 +98600,13 @@
 	//# sourceMappingURL=accountDto.js.map
 
 /***/ },
-/* 915 */
+/* 914 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"account-edit-page\">\r\n    <account-edit-component\r\n        [account-form-model]=\"_account\"\r\n        [city-list]=\"_cityesList\"\r\n        [submit-label]=\"_submitLabel\"\r\n        (save-edited-account)=\"saveEditedAccount($event)\"\r\n        (change-password)=\"changePassword($event)\">\r\n    </account-edit-component>\r\n</div>";
 
 /***/ },
-/* 916 */
+/* 915 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -98739,9 +98624,9 @@
 	var _ = __webpack_require__(372);
 	var core_1 = __webpack_require__(30);
 	var demandService_1 = __webpack_require__(818);
-	var DemandStatus_1 = __webpack_require__(881);
-	var demandListBase_1 = __webpack_require__(878);
-	var template = __webpack_require__(917);
+	var DemandStatus_1 = __webpack_require__(880);
+	var demandListBase_1 = __webpack_require__(877);
+	var template = __webpack_require__(916);
 	var AccountDemandsPage = (function () {
 	    //</editor-fold>
 	    function AccountDemandsPage(_demandService) {
@@ -98798,19 +98683,19 @@
 	//# sourceMappingURL=accountDemandsPage.js.map
 
 /***/ },
-/* 917 */
+/* 916 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"user-demands-list-page\">\r\n    <div class=\"demand-filters clearfix\">\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" [class.active-filter]=\"selectedFilter === 'ACTIVE'\"\r\n             (click)=\"getDemandsWithFilter('ACTIVE')\">\r\n            Active\r\n            <span class=\"\"></span>\r\n        </div>\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" [class.active-filter]=\"selectedFilter === 'PENDING&&IN_REVIEW'\"\r\n             (click)=\"getDemandsWithFilter('PENDING&&IN_REVIEW')\">\r\n            In procesare\r\n            <span class=\"\"></span>\r\n        </div>\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" style=\"border-right: none\" [class.active-filter]=\"selectedFilter === 'REJECTED&&CLOSED'\"\r\n             (click)=\"getDemandsWithFilter('REJECTED&&CLOSED')\">\r\n            Dezactivate\r\n            <span class=\"\"></span>\r\n        </div>\r\n    </div>\r\n    <div class=\"clearfix pull-down-10\">\r\n        <demand-list-component\r\n                [hide-operation]=\"true\"\r\n                [demand-list]=\"_demandsList\">\r\n        </demand-list-component>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 918 */
+/* 917 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"account-settings-page clearfix\">\r\n    <div class=\"sub-container\">\r\n        <div class=\"container-fluid account-settings-page-container\">\r\n            <div class=\"content\">\r\n                <!--<div class=\"col-sm-2 sidenav\">-->\r\n                    <!--<h4>Cont</h4>-->\r\n                    <!--<ul class=\"nav nav-pills nav-stacked\">-->\r\n                        <!--<li [ngClass]=\"router.isRouteActive(router.generate(['Account/Details'])) ? 'active':''\"><a-->\r\n                                <!--[routerLink]=\"['Account/Details']\">Cont</a></li>-->\r\n                        <!--<li [ngClass]=\"router.isRouteActive(router.generate(['Account/Demands'])) ? 'active':''\"><a-->\r\n                                <!--[routerLink]=\"['Account/Demands']\">Cereri</a></li>-->\r\n                    <!--</ul>-->\r\n                <!--</div>-->\r\n                <tabs-component\r\n                        [tabs-pages-list]=\"tabPagesList\">\r\n                </tabs-component>\r\n                <div class=\"sub-pabge-container\">\r\n                    <router-outlet></router-outlet>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 919 */
+/* 918 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -98829,7 +98714,7 @@
 	var router_1 = __webpack_require__(348);
 	var jqueryService_1 = __webpack_require__(819);
 	var applicationConstansts_1 = __webpack_require__(790);
-	var template = __webpack_require__(920);
+	var template = __webpack_require__(919);
 	var SuccessPage = (function () {
 	    //</editor-fold>
 	    function SuccessPage(router) {
@@ -98867,13 +98752,13 @@
 	//# sourceMappingURL=successPage.js.map
 
 /***/ },
-/* 920 */
+/* 919 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"success-page-container\">\r\n    <div class=\"success-page clearfix\">\r\n        <div class=\"success-page-wrapper clearfix\">\r\n            <span class=\"glyphicon glyphicon-ok\"></span>\r\n            <span class=\"h2\">{{title}}</span>\r\n            <div style=\"margin-top: 17px\">\r\n                <div class=\"pull-right\">\r\n                    <a type=\"button\" [routerLink]=\"['/']\">Continuati</a>\r\n                </div>\r\n               <span class=\"h4\"> {{message}}</span>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 921 */
+/* 920 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -98994,7 +98879,7 @@
 	//# sourceMappingURL=tokenConfirmPage.js.map
 
 /***/ },
-/* 922 */
+/* 921 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -99013,11 +98898,11 @@
 	var router_1 = __webpack_require__(348);
 	var common_1 = __webpack_require__(27);
 	var _ = __webpack_require__(372);
-	var companieListComponent_1 = __webpack_require__(923);
+	var companieListComponent_1 = __webpack_require__(922);
 	var ng2_bootstrap_1 = __webpack_require__(373);
-	var companiesService_1 = __webpack_require__(887);
+	var companiesService_1 = __webpack_require__(886);
 	var notificationService_1 = __webpack_require__(821);
-	var template = __webpack_require__(925);
+	var template = __webpack_require__(924);
 	var CompaniesPage = (function () {
 	    //</editor-fold">
 	    function CompaniesPage(router, companiesService, notificationService) {
@@ -99076,7 +98961,7 @@
 	//# sourceMappingURL=companiesPage.js.map
 
 /***/ },
-/* 923 */
+/* 922 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -99093,7 +98978,7 @@
 	 */
 	var core_1 = __webpack_require__(30);
 	var ng2_bootstrap_1 = __webpack_require__(373);
-	var template = __webpack_require__(924);
+	var template = __webpack_require__(923);
 	var CompanieListComponent = (function () {
 	    function CompanieListComponent() {
 	        this._companieSelectedEmitter = new core_1.EventEmitter();
@@ -99127,19 +99012,19 @@
 	//# sourceMappingURL=companieListComponent.js.map
 
 /***/ },
-/* 924 */
+/* 923 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"companie-list-component clearfix\">\r\n    <div class=\"companies-grid clearfix\">\r\n        <div *ngFor=\"let container of _companieList; let i=index\">\r\n            <div *ngIf=\"container && container.length >0\" class=\"col-md-3 col-xs-12 domain-companies-container\">\r\n                <div *ngFor=\"let cellWrapper of container\">\r\n                    <div class=\"title-wrapper\">\r\n                        <span class=\"h4 cell-tag-label\">\r\n                            {{cellWrapper.domainName}}\r\n                        </span>\r\n                    </div>\r\n                    <div class=\"companies-list\">\r\n                        <div *ngFor=\"let companie of cellWrapper.companies\" class=\"companie-list-item\"  (mouseover)=\"companie.tooltipVisible=true\"\r\n                             (mouseleave)=\"companie.tooltipVisible=false\">\r\n                            <a (click)=\"selectCompanie(companie)\">\r\n                                <span>\r\n                                {{companie.name}}\r\n                                    </span><!--<img [src]=\"\"/>-->\r\n                                <div (mouseover)=\"companie.tooltipVisible=true\"\r\n                                     (mouseleave)=\"companie.tooltipVisible=false\" class=\"tooltip-container\">\r\n                                    <div class=\"inner-tooltip-container blue_arrow_box_top\"\r\n                                         [class.open]=\"companie.tooltipVisible\">\r\n                                        <img [class.open]=\"companie.tooltipVisible\" class=\"logo-item\"\r\n                                             [src]=\"'/companies/logo/' + companie.id\"/>\r\n                                    </div>\r\n                                </div>\r\n                            </a>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div *ngIf=\"(i+1)%4==0\" class=\"clearfix\"></div>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 925 */
+/* 924 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"user-companies-page\">\r\n    <div class=\"sub-container\">\r\n        <div class=\"user-companies-page-container\">\r\n            <div class=\"text-center\">\r\n                <h2>Firme partenere</h2>\r\n            </div>\r\n            <div class=\"clearfix search-field-wrapper \">\r\n                <div class=\"col-md-3 col-xs-12\">\r\n                    <div class=\"input-group\">\r\n                        <div class=\"input-group-addon\">\r\n                            <span class=\"glyphicon glyphicon-search\"></span>\r\n                        </div>\r\n                        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"searchFilter\"\r\n                               (ngModelChange)=\"getCompaniesWithFilters()\"/>\r\n                    </div>\r\n                </div>\r\n                <!--<div class=\"col-md-3 col-xs-12 operations\">-->\r\n                    <!--<button class=\"btn btn-primary\" (click)=\"getCompaniesWithFilters()\">-->\r\n                        <!--<span class=\"glyphicon glyphicon-filter\"></span>-->\r\n                        <!--Filtreaza companii-->\r\n                    <!--</button>-->\r\n                <!--</div>-->\r\n            </div>\r\n            <div class=\"clearfix companies-grid-view\">\r\n                <companie-list-component\r\n                        [companies-list]=\"_companiesList\"\r\n                        (companie-selected)=\"selectCompanie($event)\"\r\n                ></companie-list-component>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 926 */
+/* 925 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -99158,7 +99043,7 @@
 	var jqueryService_1 = __webpack_require__(819);
 	var applicationConstansts_1 = __webpack_require__(790);
 	// import {GOOGLE_MAPS_DIRECTIVES} from "angular2-google-maps/core";
-	var companiesService_1 = __webpack_require__(887);
+	var companiesService_1 = __webpack_require__(886);
 	var notificationService_1 = __webpack_require__(821);
 	var CompanieDetailPage = (function () {
 	    function CompanieDetailPage(companiesService, notificationService) {
@@ -99253,7 +99138,7 @@
 	//# sourceMappingURL=companieDetailPage.js.map
 
 /***/ },
-/* 927 */
+/* 926 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -99278,7 +99163,7 @@
 	var registrationService_1 = __webpack_require__(838);
 	var notificationService_1 = __webpack_require__(821);
 	var applicationStateService_1 = __webpack_require__(815);
-	var template = __webpack_require__(928);
+	var template = __webpack_require__(927);
 	var HeaderComponent = (function () {
 	    function HeaderComponent(router, localStorageService, registrationService, notificationService, applicationStateService) {
 	        this._router = router;
@@ -99391,13 +99276,13 @@
 	//# sourceMappingURL=headerComponent.js.map
 
 /***/ },
-/* 928 */
+/* 927 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"sidenav-mobile visible-xs\" [style.margin-left]=\"sideMenuOpened ? '0' :'-250px'\">\r\n    <div class=\"clearfix\">\r\n        <a href=\"javascript:void(0)\" class=\"closebtn pull-right\" (click)=\"closeNav()\">×</a>\r\n    </div>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n        <ul class=\"nav navbar-nav navbar-right\">\r\n            <li><a (click)=\"addDemandFromMobile()\">Adauga cerere</a></li>\r\n            <li *ngFor=\"let page of _usersApplicationPages\"><a (click)=\"goToPageUsingSideMenu(page.link)\">{{page.name}}</a></li>\r\n            <li *ngIf=\"!isLoggedIn()\"><a (click)=\"goToPageUsingSideMenu('/login')\">Contul meu</a></li>\r\n            <li *ngIf=\"chechIdNormalUser()\">\r\n                <ul>\r\n                    <li *ngFor=\"let p of _myAccountDropdownPages\"><a (click)=\"goToPageUsingSideMenu(p.link)\">{{p.name}}</a></li>\r\n                    <li><a (click)=\"logout()\">Iesire din cont</a></li>\r\n                </ul>\r\n            </li>\r\n            <li *ngIf=\"isAdminUser()\">\r\n                <ul>\r\n                    <li *ngFor=\"let p of _adminApplicationPages\"><a (click)=\"goToPageUsingSideMenu(p.link)\">{{p.name}}</a></li>\r\n                    <li><a style=\"cursor: pointer;\" (click)=\"logoutFromSideMenu()\">Iesire din cont</a></li>\r\n                </ul>\r\n            </li>\r\n        </ul>\r\n    </ul>\r\n</div>\r\n<div class=\"header\">\r\n    <nav class=\"navbar navbar-default navbar-fixed-top clearfix\">\r\n        <div class=\"container-fluid clearfix\" [style.margin-left]=\"sideMenuOpened ? '250px' :'0px'\">\r\n            <div class=\"visible-xs visible-sm pull-left mobile-menu\">\r\n                <span (click)=\"openNav()\" class=\"glyphicon glyphicon-align-justify\"></span>\r\n            </div>\r\n            <a [routerLink]=\"['/']\" class=\"navbar-header clearfix\">\r\n                <img [style.opacity]=\"hideImage ? 0 : 1\" id=\"element1\" class=\"fMarket-brand-icon\"\r\n                     src=\"/staticResorces/logo.png\"/>\r\n            </a>\r\n            <div class=\"collapse navbar-collapse\">\r\n                <div class=\"pull-right navbar-bottons\">\r\n                    <button class=\"btn btn-success\" (click)=\"addDemand()\">\r\n                        <span class=\"glyphicon glyphicon-plus\"></span>\r\n                        Adauga cerere\r\n                    </button>\r\n                </div>\r\n                <ul class=\"nav navbar-nav navbar-right\">\r\n                    <li *ngFor=\"let page of _usersApplicationPages\"><a [routerLink]=\"[page.link]\">{{page.name}}</a></li>\r\n                    <li *ngIf=\"!isLoggedIn()\"><a [routerLink]=\"['/login']\">Contul meu</a></li>\r\n                    <li *ngIf=\"chechIdNormalUser()\" dropdown class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" dropdownToggle role=\"button\" aria-haspopup=\"true\"\r\n                           aria-expanded=\"false\">{{_myAccountLabel}}<span class=\"caret\"></span></a>\r\n                        <ul dropdownMenu class=\"dropdown-menu\">\r\n                            <li *ngFor=\"let p of _myAccountDropdownPages\"><a [routerLink]=\"[p.link]\">{{p.name}}</a></li>\r\n                            <li><a (click)=\"logout()\">Iesire din cont</a></li>\r\n                        </ul>\r\n                    </li>\r\n                    <li *ngIf=\"isAdminUser()\" dropdown class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" dropdownToggle role=\"button\" aria-haspopup=\"true\"\r\n                           aria-expanded=\"false\">{{_myAccountLabel}}<span class=\"caret\"></span></a>\r\n                        <ul dropdownMenu class=\"dropdown-menu\">\r\n                            <li *ngFor=\"let p of _adminApplicationPages\"><a [routerLink]=\"[p.link]\">{{p.name}}</a></li>\r\n                            <li><a style=\"cursor: pointer;\" (click)=\"logout()\">Iesire din cont</a></li>\r\n                        </ul>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n        </div>\r\n    </nav>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n";
 
 /***/ },
-/* 929 */
+/* 928 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99414,7 +99299,7 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(348);
-	var template = __webpack_require__(930);
+	var template = __webpack_require__(929);
 	var FooterComponent = (function () {
 	    function FooterComponent() {
 	    }
@@ -99432,7 +99317,7 @@
 	//# sourceMappingURL=footerComponent.js.map
 
 /***/ },
-/* 930 */
+/* 929 */
 /***/ function(module, exports) {
 
 	module.exports = "<footer class=\"footer\">\r\n    <div class=\"footer-wrapper\">\r\n        <div class=\"row\">\r\n            <div class=\"col-sm-12 col-md-4\">\r\n                <a [routerLink]=\"['/']\" class=\"logo-image-container\">\r\n                    <img class=\"image\" src=\"/staticResorces/logo.png\"/>\r\n                </a>\r\n                <div class=\"footer-row under-image\">\r\n                    <span>© 2016 fMarket. Toate drepturile rezervate</span>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-sm-12 col-md-push-4 col-md-2\">\r\n                <div class=\"footer-row first\">\r\n                    <!--[routerLink]=\"['About']\"-->\r\n                    <a>Contact</a>\r\n                </div>\r\n                <div class=\"footer-row\">\r\n                    <a [routerLink]=\"['/firme']\">Firme ofertante</a>\r\n                </div>\r\n                <div class=\"footer-row last\">\r\n                    <!--[routerLink]=\"['TermsAndConditions']\"-->\r\n                    <a >Termeni si conditii de utilizare</a>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-sm-12 col-md-push-4 col-md-2\">\r\n                <div class=\"footer-row first\">\r\n                    <a [routerLink]=\"['/login']\">Login</a>\r\n                </div>\r\n                <div class=\"footer-row\">\r\n                    <!--[routerLink]=\"['About']\"-->\r\n                    <a>Despre fmarket.ro</a>\r\n                </div>\r\n                <div class=\"footer-row last\">\r\n                    <a [routerLink]=\"['/registration']\">Inregistrare</a>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</footer>";

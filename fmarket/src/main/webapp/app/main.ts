@@ -26,7 +26,6 @@ import {RegistrationService} from "./services/registrationService";
 import {ApplicationStateService} from "./services/applicationStateService";
 
 // import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
-import {FaceBookService} from "./services/faceBookService";
 
 //enableProdMode();
 
@@ -51,6 +50,5 @@ bootstrap(AppComponent, [
     SubscribersService,
     UserService,
     CompaniesService,
-    LocalizationService,
-    FaceBookService
+    LocalizationService
 ]);

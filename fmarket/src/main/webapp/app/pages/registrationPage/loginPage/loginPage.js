@@ -17,17 +17,15 @@ var registrationService_1 = require("../../../services/registrationService");
 var notificationService_1 = require("../../../services/notificationService");
 var jqueryService_1 = require("../../../services/jqueryService");
 var registrationComponent_1 = require("../../../components/registrationComponent/registrationComponent");
-var faceBookService_1 = require("../../../services/faceBookService");
 var template = require('../registrationPage.html');
 var LoginPage = (function () {
     //</editor-fold>
-    function LoginPage(router, registrationService, ntificationService, applicationStateService, faceBookService) {
+    function LoginPage(router, registrationService, ntificationService, applicationStateService) {
         this._faceBookText = "f-Login";
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = ntificationService;
         this._applicationStateService = applicationStateService;
-        this._faceBookService = faceBookService;
     }
     LoginPage.prototype.ngAfterViewChecked = function () {
         jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
@@ -82,7 +80,7 @@ var LoginPage = (function () {
             template: template,
             directives: [registrationComponent_1.RegistrationComponent]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService, faceBookService_1.FaceBookService])
+        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
     ], LoginPage);
     return LoginPage;
 })();

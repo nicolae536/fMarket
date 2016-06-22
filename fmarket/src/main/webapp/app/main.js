@@ -22,7 +22,6 @@ var authorizationService_1 = require("./services/authorizationService");
 var registrationService_1 = require("./services/registrationService");
 var applicationStateService_1 = require("./services/applicationStateService");
 // import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
-var faceBookService_1 = require("./services/faceBookService");
 //enableProdMode();
 platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
     http_1.HTTP_PROVIDERS,
@@ -44,7 +43,6 @@ platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
     subscribersService_1.SubscribersService,
     usersService_1.UserService,
     companiesService_1.CompaniesService,
-    localizationService_1.LocalizationService,
-    faceBookService_1.FaceBookService
+    localizationService_1.LocalizationService
 ]);
 //# sourceMappingURL=main.js.map
