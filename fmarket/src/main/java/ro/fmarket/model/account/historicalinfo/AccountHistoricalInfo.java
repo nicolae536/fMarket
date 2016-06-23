@@ -11,7 +11,7 @@ import ro.fmarket.core.base.BaseEntity;
 @Data
 @Entity
 public class AccountHistoricalInfo extends BaseEntity {
-
+	//TODO last facebook login
 	private Integer loginTimes;
 	
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")

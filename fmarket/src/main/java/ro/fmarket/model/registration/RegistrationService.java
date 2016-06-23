@@ -8,4 +8,6 @@ public interface RegistrationService {
 	
 	Account registerAutoAccount(String email);
 	
+	void registerOrAuthenticateFacebookAccount(String email);
+	
 }

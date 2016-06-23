@@ -12,9 +12,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.servlet.view.RedirectView;
 
 public class FacebookConnectController extends ConnectController {
-
-	@Autowired
-	private Facebook facebook;
 	
 	@Autowired
 	public FacebookConnectController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
@@ -23,32 +20,13 @@ public class FacebookConnectController extends ConnectController {
 
 	@Override
 	protected RedirectView connectionStatusRedirect(String providerId, NativeWebRequest request) {
-		System.out.println("CONNECTED!!!");
-		System.out.println(request.getUserPrincipal());
-		
-		return new RedirectView("/index.html#/SALUTBAAAA", true);
-	}
-	
-	public RedirectView connectedView() {
-		return null;
-	}
-	
-	protected String connectedView(String providerId) {
-		System.out.println("CONNECTED VIEW !!!");
-		return "/index.html#/CONNECTEDVIEWWW";		
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/data")
-	public String printFacebookData() {
-		if (facebook != null) {
-			System.out.println(facebook.hashCode());
-//			System.out.println(facebook.isAuthorized());
-			Advised a = (Advised) facebook;
-//			System.out.println(a.getTargetSource().getTarget());
+		String url;
+		if (request.getUserPrincipal() != null) {
+			url = "/";
 		} else {
-			System.out.println("Facebook is null");
+			url = "/#/login";
 		}
-		return "index.html";
+		return new RedirectView(url, true);
 	}
-
+	
 }

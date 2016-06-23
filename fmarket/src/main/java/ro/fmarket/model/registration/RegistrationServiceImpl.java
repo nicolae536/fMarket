@@ -1,6 +1,7 @@
 package ro.fmarket.model.registration;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import ro.fmarket.mail.MailService;
 import ro.fmarket.model.account.Account;
 import ro.fmarket.model.account.AccountDao;
 import ro.fmarket.model.account.AccountService;
+import ro.fmarket.model.account.AccountServiceImpl;
 import ro.fmarket.model.account.consts.AccountStatus;
 import ro.fmarket.model.account.consts.AccountType;
 import ro.fmarket.model.account.details.AccountDetails;
@@ -20,11 +22,15 @@ import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
 import ro.fmarket.model.subscriber.SubscriberService;
 import ro.fmarket.model.token.RegistrationToken;
 import ro.fmarket.model.token.dao.RegistrationTokenDao;
+import ro.fmarket.security.FMarketPrincipal;
+import ro.fmarket.security.SecurityUtils;
 
 @Service
 @Transactional
 public class RegistrationServiceImpl implements RegistrationService {
 
+	private static final Logger LOG = Logger.getLogger(RegistrationServiceImpl.class);
+	
 	@Autowired
 	private AccountDao accountDao;
 
@@ -42,6 +48,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 	
 	@Autowired
 	private RegistrationTokenDao tokenDao;
+	
+	@Autowired
+	private SecurityUtils securityUtils;
 
 	@Override
 	public void registerAccount(NewAccountRequest request) {
@@ -111,6 +120,40 @@ public class RegistrationServiceImpl implements RegistrationService {
 		registrationToken.setToken(TokenUtils.generateToken());
 		tokenDao.save(registrationToken);
 		return registrationToken.getToken();
+	}
+
+	/**
+	 * If user is not existing, it will be created. In any case, it is logged in automatically.
+	 * @param email
+	 * @return
+	 */
+	@Override
+	public void registerOrAuthenticateFacebookAccount(String email) {
+		Account account = accountDao.getByEmail(email);
+		if (account == null) {
+			account = createFacebookAccount(email);
+			accountDao.save(account); //TODO check if id is filled
+			LOG.info("New facebook account was created");
+		}
+		securityUtils.authenticateUser(account.getId(), account.getEmail(), account.getType().toString());
+	}
+	
+	private Account createFacebookAccount(String email) {
+		Account account = new Account();
+		account.setEmail(email);
+		account.setPassword(RandomStringUtils.randomAlphanumeric(30));
+		account.setType(AccountType.USER);
+		account.setStatus(AccountStatus.ACTIVE);
+		account.setIsFacebook(true);
+		
+		final AccountDetails details = new AccountDetails();
+		final AccountHistoricalInfo historicalInfo = new AccountHistoricalInfo();
+		account.setAccountDetails(details);
+		account.setHistoricalInfo(historicalInfo);
+
+		historicalInfo.setCreationDate(DateUtils.now());
+		
+		return account;
 	}
 
 }
