@@ -10,7 +10,7 @@ import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 let template = require('./registrationComponent.html');
 @Component({
     selector: 'registration-component',
-    template: '/app/components/registrationComponent/registrationComponent.html',//template,
+    templateUrl: '/app/components/registrationComponent/registrationComponent.html',//template,
     directives: [FORM_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class RegistrationComponent implements OnInit, OnChanges {

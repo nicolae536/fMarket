@@ -178,7 +178,7 @@ var RegistrationComponent = (function () {
     RegistrationComponent = __decorate([
         core_1.Component({
             selector: 'registration-component',
-            template: '/app/components/registrationComponent/registrationComponent.html',
+            templateUrl: '/app/components/registrationComponent/registrationComponent.html',
             directives: [common_1.FORM_DIRECTIVES, router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])
