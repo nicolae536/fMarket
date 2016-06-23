@@ -1,3 +1,4 @@
+"use strict";
 var RequestType = (function () {
     function RequestType(id, name, companies) {
         this.isInEditMode = false;
@@ -6,6 +7,6 @@ var RequestType = (function () {
         //this.companies = companies;
     }
     return RequestType;
-})();
+}());
 exports.RequestType = RequestType;
 //# sourceMappingURL=requestType.js.map

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Created by nick_ on 5/5/2016.
  */
@@ -8,6 +9,6 @@ var Role = (function () {
     Role.USER = 'USER';
     Role.ANONYMUS = 'ANONYMUS';
     return Role;
-})();
+}());
 exports.Role = Role;
 //# sourceMappingURL=Roles.js.map

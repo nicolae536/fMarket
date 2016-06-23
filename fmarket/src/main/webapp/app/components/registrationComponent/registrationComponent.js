@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -177,12 +178,12 @@ var RegistrationComponent = (function () {
     RegistrationComponent = __decorate([
         core_1.Component({
             selector: 'registration-component',
-            template: template,
+            template: '/app/components/registrationComponent/registrationComponent.html',
             directives: [common_1.FORM_DIRECTIVES, router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], RegistrationComponent);
     return RegistrationComponent;
-})();
+}());
 exports.RegistrationComponent = RegistrationComponent;
 //# sourceMappingURL=registrationComponent.js.map

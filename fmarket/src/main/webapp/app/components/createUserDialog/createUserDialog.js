@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -120,6 +121,6 @@ var CreateUserDialog = (function (_super) {
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], CreateUserDialog);
     return CreateUserDialog;
-})(modalDialog_1.ModalDialog);
+}(modalDialog_1.ModalDialog));
 exports.CreateUserDialog = CreateUserDialog;
 //# sourceMappingURL=createUserDialog.js.map
