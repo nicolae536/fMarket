@@ -37,6 +37,7 @@
                 <div *ngIf="_loginPage || showNewsletter" class="clearfix">
                     <div class="pull-right button-container" style="width: 100%; margin-bottom: 15px;">
                         <form ngNoForm method="post" action="connect/facebook">
+                        	<input type="hidden" name="scope" value="email" />
                             <button type="submit" class="btn"
                                     style="color: white; background-color: #365899; width: 100%; text-align: center;">
                                 <div class="pull-left" style="width: 0px;">

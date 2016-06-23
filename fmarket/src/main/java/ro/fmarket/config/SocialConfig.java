@@ -20,6 +20,7 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 
@@ -34,6 +35,9 @@ public class SocialConfig implements SocialConfigurer {
 	@Autowired
 	private DataSource dataSource;
 
+	@Autowired
+	private FacebookInterceptor interceptor;
+	
 	@Override
 	public void addConnectionFactories(ConnectionFactoryConfigurer cfConfig, Environment env) {
 		cfConfig.addConnectionFactory(new FacebookConnectionFactory(env.getProperty("facebook.appKey"), env.getProperty("facebook.appSecret")));
@@ -48,27 +52,34 @@ public class SocialConfig implements SocialConfigurer {
 				if (authentication == null) {
 					throw new IllegalStateException("Unable to get a ConnectionRepository: no user signed in");
 				}
-				return ((FMarketPrincipal) authentication.getPrincipal()).getUsername();
+				return authentication.getName();
 			}
 		};
 	}
 
 	@Override
 	public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-		return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
+//		return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
+		return new InMemoryUsersConnectionRepository(connectionFactoryLocator);
 	}
 
 	@Bean
 	@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
 	public Facebook facebook(ConnectionRepository repository) {
 		Connection<Facebook> connection = repository.findPrimaryConnection(Facebook.class);
+		System.out.println("FACEBOOK BEAN..");
+		if (connection == null) {
+			System.out.println("IT IS NULL");
+		} else {
+			System.out.println(connection.getApi());
+		}
 		return connection != null ? connection.getApi() : null;
 	}
 
 	@Bean
 	public FacebookConnectController getConnectController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
 		FacebookConnectController controller = new FacebookConnectController(connectionFactoryLocator, connectionRepository);
-		controller.addInterceptor(new FacebookInterceptor());
+		controller.addInterceptor(interceptor);
 		return controller;
 	}
 

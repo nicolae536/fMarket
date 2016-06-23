@@ -1,5 +1,6 @@
 package ro.fmarket.facebook;
 
+import org.springframework.aop.framework.Advised;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
@@ -24,7 +25,6 @@ public class FacebookConnectController extends ConnectController {
 	protected RedirectView connectionStatusRedirect(String providerId, NativeWebRequest request) {
 		System.out.println("CONNECTED!!!");
 		System.out.println(request.getUserPrincipal());
-		System.out.println(request.toString());
 		
 		return new RedirectView("/index.html#/SALUTBAAAA", true);
 	}
@@ -39,14 +39,16 @@ public class FacebookConnectController extends ConnectController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/data")
-	public void printFacebookData() {
+	public String printFacebookData() {
 		if (facebook != null) {
 			System.out.println(facebook.hashCode());
-			System.out.println(facebook.isAuthorized());
-			System.out.println(facebook.userOperations().getUserProfile());
+//			System.out.println(facebook.isAuthorized());
+			Advised a = (Advised) facebook;
+//			System.out.println(a.getTargetSource().getTarget());
 		} else {
 			System.out.println("Facebook is null");
 		}
+		return "index.html";
 	}
 
 }
