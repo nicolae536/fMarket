@@ -60,6 +60,10 @@ public class AccountDao extends BaseDao<Account> {
 
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		criteria.add(Restrictions.eq("type", AccountType.USER));
+		if (searchObject.getEmail() != null) {
+			criteria.add(Restrictions.ilike("email", "%" + searchObject.getEmail() + "%"));
+		}
+		
 		if (searchObject.getCityId() != null) {
 			criteria.createAlias("accountDetails", "details");
 			accountDetailsJoin = true;

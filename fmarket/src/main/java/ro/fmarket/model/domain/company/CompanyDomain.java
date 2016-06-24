@@ -18,7 +18,7 @@ import ro.fmarket.model.company.Company;
 @EqualsAndHashCode(callSuper = false, exclude = "companies")
 public class CompanyDomain extends BaseEntity {
 
-	@Column(length = 30, nullable = false)
+	@Column(length = 40, nullable = false)
 	private String name;
 	
 	@OneToMany(mappedBy = "domain", fetch = FetchType.LAZY)

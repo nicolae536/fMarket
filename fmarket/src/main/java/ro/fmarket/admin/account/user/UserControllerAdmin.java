@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ro.fmarket.core.rest.PaginatedResponse;
+import ro.fmarket.model.account.consts.AccountStatus;
+import ro.fmarket.model.demand.consts.DemandStatus;
 
 @RestController
 @RequestMapping("/admin/users")
@@ -19,6 +21,11 @@ public class UserControllerAdmin {
 	@Autowired
 	private UserServiceAdmin userService;
 
+	@RequestMapping(value = "/statuses", method = RequestMethod.GET)
+	public AccountStatus[] getDemandStatuses() {
+		return AccountStatus.values();
+	}
+	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public PaginatedResponse<UserDTO> searchUsers(@Valid @RequestBody UserSearchObject searchObject, @RequestParam("page") Integer page) {
 		return userService.searchUsers(searchObject, page);

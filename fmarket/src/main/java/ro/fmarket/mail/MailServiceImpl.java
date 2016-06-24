@@ -180,4 +180,10 @@ public class MailServiceImpl implements MailService {
 		}
 
 	}
+
+	@Override
+	public void sendMailForNewFacebookAccount(String emailTo, String name) {
+		// TODO Auto-generated method stub
+		
+	}
 }

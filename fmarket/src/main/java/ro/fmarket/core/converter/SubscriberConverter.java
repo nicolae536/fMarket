@@ -12,7 +12,7 @@ public class SubscriberConverter {
 		final SubscriberDTO result = new SubscriberDTO();
 		result.setEmail(subscriber.getEmail());
 		result.setId(subscriber.getId());
-		result.setUnsubscribeToken(subscriber.getUnsubscribeToken());
+		result.setUnsubscribeToken(subscriber.getUnsubscribeToken().substring(0, 10) + "...");
 		result.setUnsubscribeDate(subscriber.getUnsubscribeDate());
 		result.setSubscribeDate(subscriber.getSubscribeDate());
 		if (subscriber.getUnsubscribeDate() != null) {

@@ -17,5 +17,7 @@ public interface MailService {
 	void sendAcceptedDemandMail(String emailTo, String demandTitle, String token);
 	
 	void sendMailForRejectedDemand(String emailTo, String demandTitle, String rejectedCause);
+	
+	void sendMailForNewFacebookAccount(String emailTo, String name);
 
 }

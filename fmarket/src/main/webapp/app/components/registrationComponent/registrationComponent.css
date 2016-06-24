@@ -52,18 +52,28 @@
 .add-position-relative{
     position: relative;
 }
+.fb-icon {
+	color: #ffffff;
+	font-size: 22px;
+	margin-right: 0;
+}
 
 .facebook-btn {
 	background-color: #3b5998;
 	border: 0;
-	border-radius: 3px;
-	padding: 10px;
+	border-radius: 2px;
+	padding: 14px;
 	color:white;
 	width: 100%;
+	font-size: 15.5px;
 }
 
 .facebook-btn:hover {
 	background-color: #4060a5;
+}
+
+.facebook-or {
+	color: #888888;
 }
 
 @media (max-width: 1176px) {
