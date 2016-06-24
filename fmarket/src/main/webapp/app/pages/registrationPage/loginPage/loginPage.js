@@ -22,7 +22,7 @@ var template = require('../registrationPage.html');
 var LoginPage = (function () {
     //</editor-fold>
     function LoginPage(router, registrationService, ntificationService, applicationStateService) {
-        this._faceBookText = "f-Login";
+        this._faceBookText = "Logheaza-te cu Facebook";
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = ntificationService;

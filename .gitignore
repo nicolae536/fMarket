@@ -26,3 +26,6 @@ fmarket/.factorypath
 fmarket/src/main/webapp/node_modules/
 fmarket/src/main/webapp/.idea/inspectionProfiles/Project_Default.xml
 fmarket/src/main/webapp/.idea/inspectionProfiles/profiles_settings.xml
+fmarket/.externalToolBuilders/org.eclipse.wst.common.project.facet.core.builder.launch
+fmarket/.externalToolBuilders/org.eclipse.wst.jsdt.core.javascriptValidator (1).launch
+fmarket/.externalToolBuilders/org.eclipse.wst.validation.validationbuilder.launch

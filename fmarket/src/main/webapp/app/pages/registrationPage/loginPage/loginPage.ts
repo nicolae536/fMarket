@@ -43,7 +43,7 @@ export class LoginPage implements OnInit, AfterViewChecked {
     private _showRememberMeLink:boolean;
     private _showLoginLink:boolean;
     private _loginPage;
-    _faceBookText="f-Login"
+    _faceBookText="Logheaza-te cu Facebook"
     //</editor-fold>
 
     constructor(router:Router,
