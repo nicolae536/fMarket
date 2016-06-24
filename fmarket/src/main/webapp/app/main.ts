@@ -25,7 +25,7 @@ import {AuthorizationService} from "./services/authorizationService";
 import {RegistrationService} from "./services/registrationService";
 import {ApplicationStateService} from "./services/applicationStateService";
 
-// import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
+import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
 
 //enableProdMode();
 
@@ -33,8 +33,8 @@ bootstrap(AppComponent, [
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,
     {provide:LocationStrategy, useClass: HashLocationStrategy},
-    // GOOGLE_MAPS_PROVIDERS,
-    
+    GOOGLE_MAPS_PROVIDERS,
+
     FormBuilder,
     ApplicationStateService,
     FMarketApi,

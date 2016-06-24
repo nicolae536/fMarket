@@ -15,6 +15,12 @@
     animation: loagind-screen-transition;
 }
 
+.spinner-absolute-center .spinner-theme{
+    color: white;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
 @keyframes loagind-screen-transition {
     0%{

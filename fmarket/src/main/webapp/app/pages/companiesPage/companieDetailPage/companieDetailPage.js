@@ -14,7 +14,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var jqueryService_1 = require("../../../services/jqueryService");
 var applicationConstansts_1 = require("../../../models/applicationConstansts");
-// import {GOOGLE_MAPS_DIRECTIVES} from "angular2-google-maps/core";
+var core_2 = require("angular2-google-maps/core");
 var companiesService_1 = require("../../../services/companiesService");
 var notificationService_1 = require("../../../services/notificationService");
 var CompanieDetailPage = (function () {
@@ -101,6 +101,7 @@ var CompanieDetailPage = (function () {
             selector: 'compnaie-details-Page',
             // template:template,
             templateUrl: '/app/pages/companiesPage/companieDetailPage/companieDetailPage.html',
+            directives: [core_2.GOOGLE_MAPS_DIRECTIVES],
         }), 
         __metadata('design:paramtypes', [companiesService_1.CompaniesService, notificationService_1.NotificationService])
     ], CompanieDetailPage);
