@@ -17,7 +17,8 @@ public class CompanyDomainServiceImpl implements CompanyDomainService {
 
 	@Override
 	public List<CompanyDomainDTO> getAll() {
-		return CompanyDomainConverter.toDTOList(dao.getList());
+		return dao.getAllWithCompaniesCount();
+//		return CompanyDomainConverter.toDTOList(dao.getList());
 	}
 
 	@Override

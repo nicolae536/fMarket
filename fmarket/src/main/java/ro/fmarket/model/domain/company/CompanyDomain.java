@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ro.fmarket.core.base.BaseEntity;
@@ -21,7 +24,8 @@ public class CompanyDomain extends BaseEntity {
 	@Column(length = 40, nullable = false)
 	private String name;
 	
-	@OneToMany(mappedBy = "domain", fetch = FetchType.LAZY)
+	@LazyCollection(LazyCollectionOption.EXTRA)
+	@OneToMany(mappedBy = "domain")
 	private Set<Company> companies = new HashSet<>();
 	
 }

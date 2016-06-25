@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +24,7 @@ import ro.fmarket.mail.MailService;
 import ro.fmarket.model.account.consts.AccountStatus;
 import ro.fmarket.model.account.details.AccountDetails;
 import ro.fmarket.model.account.details.AccountDetailsDTO;
+import ro.fmarket.model.account.historicalinfo.AccountHistoricalInfo;
 import ro.fmarket.model.geographical.city.City;
 import ro.fmarket.model.geographical.city.CityDao;
 import ro.fmarket.model.subscriber.Subscriber;
@@ -194,6 +196,22 @@ public class AccountServiceImpl implements AccountService {
 			return foundToken.getAccount();
 		}
 		
+	}
+
+	@Async
+	@Override
+	public void updateAccountLastLogin(String email, boolean isAuto) {
+		Account account = accountDao.getByEmail(email);
+		AccountHistoricalInfo historicalInfo = account.getHistoricalInfo();
+		if (isAuto) {
+		historicalInfo.setLastAutoLoginDate(DateUtils.now());
+		historicalInfo.setAutoLoginTimes(historicalInfo.getAutoLoginTimes() + 1);
+		} else {
+			historicalInfo.setLastLoginDate(DateUtils.now());
+			historicalInfo.setLoginTimes(historicalInfo.getLoginTimes() + 1);
+		}
+		accountDao.update(account);
+		LOG.info("Updated last login details for account");
 	}
 
 }

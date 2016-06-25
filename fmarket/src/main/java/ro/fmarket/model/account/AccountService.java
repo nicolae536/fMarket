@@ -23,4 +23,6 @@ public interface AccountService extends UserDetailsService {
 	AccountDetailsDTO getAccountDetails(int accountId);
 	
 	Account getByDemandTokenAccess(String token) throws InvalidTokenException;
+	
+	void updateAccountLastLogin(String email, boolean isAuto);
 }

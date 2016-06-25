@@ -132,8 +132,16 @@ public class RegistrationServiceImpl implements RegistrationService {
 		Account account = accountDao.getByEmail(email);
 		if (account == null) {
 			account = createFacebookAccount(email);
+			AccountHistoricalInfo historicalInfo = account.getHistoricalInfo();
+			historicalInfo.setLastFacebookLoginDate(DateUtils.now());
+			historicalInfo.setFacebookLoginTimes(1);
 			accountDao.save(account); //TODO check if id is filled
 			LOG.info("New facebook account was created");
+		} else {
+			AccountHistoricalInfo historicalInfo = account.getHistoricalInfo();
+			historicalInfo.setLastFacebookLoginDate(DateUtils.now());
+			historicalInfo.setFacebookLoginTimes(historicalInfo.getFacebookLoginTimes() + 1);
+			accountDao.update(account);
 		}
 		securityUtils.authenticateUser(account.getId(), account.getEmail(), account.getType().toString());
 	}
@@ -150,7 +158,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 		final AccountHistoricalInfo historicalInfo = new AccountHistoricalInfo();
 		account.setAccountDetails(details);
 		account.setHistoricalInfo(historicalInfo);
-
 		historicalInfo.setCreationDate(DateUtils.now());
 		
 		return account;

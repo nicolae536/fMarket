@@ -17,7 +17,8 @@ public class DemandDomainServiceImpl implements DemandDomainService {
 	
 	@Override
 	public List<DemandDomainDTO> getAll() {
-		return DemandDomainConverter.toDTOList(dao.getList());
+		return dao.getAllWithCompaniesCount();
+//		return DemandDomainConverter.toDTOList(dao.getList());
 	}
 
 	@Override

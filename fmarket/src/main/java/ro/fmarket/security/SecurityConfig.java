@@ -16,6 +16,7 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
@@ -34,6 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+	
+	@Autowired
+	private RestAuthenticationSuccessHandler successHandler;
 
 	@Bean
 	@Override
@@ -65,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().permitAll()
 				.and()
 			.formLogin()
-				.successHandler(new RestAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
+				.successHandler(successHandler)
 				.failureHandler(new RestAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler())).and().exceptionHandling()
 				.authenticationEntryPoint(restAuthenticationEntryPoint)
 				.and()
@@ -76,7 +80,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.rememberMe().tokenValiditySeconds(120)
 				.and()
 			.sessionManagement().maximumSessions(5).sessionRegistry(sessionRegistry());
-		
+	}
+	
+	@Bean
+	public SimpleUrlAuthenticationSuccessHandler simpleAuthHandler() {
+		return new SavedRequestAwareAuthenticationSuccessHandler();
 	}
 	
 	@Bean
