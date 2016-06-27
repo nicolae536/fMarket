@@ -1,4 +1,3 @@
-"use strict";
 var User = (function () {
     function User(id, name, email, type, status, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes, phone) {
         this.isInEditMode = false;
@@ -64,6 +63,6 @@ var User = (function () {
         return true;
     };
     return User;
-}());
+})();
 exports.User = User;
 //# sourceMappingURL=user.js.map

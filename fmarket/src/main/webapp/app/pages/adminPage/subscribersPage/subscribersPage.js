@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -64,7 +63,7 @@ var SubscribersPage = (function () {
         this._subscribersService.subscribe(subscriberValue.email)
             .subscribe(function (response) {
             me.getSubscribersWithFilters();
-            me.createSubscriberDialog.hide();
+            me.createSubscriberDialog.close();
         }, function (error) {
             me._notificationService.emitErrorNotificationToRootComponent('Abonatul nu a putut fi adaugat', 5);
         });
@@ -110,7 +109,7 @@ var SubscribersPage = (function () {
         });
     };
     SubscribersPage.prototype.getClassForSorting = function (columnName) {
-        return this.sortkeyAndFilter[columnName] ? "glyphicon glyphicon-sort-by-attributes-alt" : "glyphicon glyphicon-sort-by-attributes";
+        return this.sortkeyAndFilter[columnName] ? "fa fa-sort" : "fa fa-sort";
     };
     SubscribersPage.prototype.sortByColumn = function (columnName) {
         this.matchSortOrderByColumn(columnName);
@@ -183,6 +182,6 @@ var SubscribersPage = (function () {
         __metadata('design:paramtypes', [subscribersService_1.SubscribersService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
     ], SubscribersPage);
     return SubscribersPage;
-}());
+})();
 exports.SubscribersPage = SubscribersPage;
 //# sourceMappingURL=subscribersPage.js.map

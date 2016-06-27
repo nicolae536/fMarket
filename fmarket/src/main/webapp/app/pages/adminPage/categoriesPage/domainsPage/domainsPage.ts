@@ -23,7 +23,7 @@ export class DomainsPage implements OnInit {
 
     //<editor-fold desc="Variables">
     searchQuery:string = "";
-    domainsTypes:Array<RequestType> = [new RequestType("", "test", 1), new RequestType("", "test", 3), new RequestType("", "test", 2)];
+    domainsTypes:Array<RequestType> = [];
 
     showAddRequestRow:boolean;
     newRequestType:string;

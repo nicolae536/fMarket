@@ -1,7 +1,6 @@
 /**
  * Created by nick_ on 5/6/2016.
  */
-"use strict";
 var PaginationWrapper = (function () {
     function PaginationWrapper() {
         this.totalItems = 1;
@@ -11,6 +10,6 @@ var PaginationWrapper = (function () {
         this.rotate = false;
     }
     return PaginationWrapper;
-}());
+})();
 exports.PaginationWrapper = PaginationWrapper;
 //# sourceMappingURL=paginationWrapper.js.map

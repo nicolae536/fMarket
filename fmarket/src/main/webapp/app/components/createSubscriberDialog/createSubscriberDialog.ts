@@ -52,6 +52,12 @@ export class CreateSubscriberDialog extends ModalDialog {
         return this.responseObject as Subscriber;
     }
 
+    close(){
+        this.hideWithoutAnimation();
+        this._subscriberForm.removeControl("email");
+        this.buildForm();
+    }
+
     cancelCreateSubscriber(){
         this._subscriberForm.removeControl('email');
         this.buildForm();

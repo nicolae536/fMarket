@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -45,6 +44,9 @@ var CompaniesPage = (function () {
         var _this = this;
         var me = this;
         var obj = _.clone(this.searchFilter);
+        obj.name = obj.name && obj.name.length > 0 ? obj.name : null;
+        obj.companyDomain = this.selectCompanieDomain && this.selectCompanieDomain._selectedItem && this.selectCompanieDomain._selectedItem.boundItem ? this.selectCompanieDomain._selectedItem.boundItem['id'] : null;
+        obj.demandDomains = this.selectDomain && this.selectDomain._selectedItems && this.selectDomain._selectedItems.length > 0 ? this.getDomainsFromSelect(this.selectDomain._selectedItems) : [];
         obj['page'] = this.pagination['currentPage'];
         this._companiesService.getCompanyWithFilters(obj)
             .subscribe(function (response) {
@@ -55,6 +57,12 @@ var CompaniesPage = (function () {
         }, function (error) {
             me._companiesList = [];
             me._notificationService.emitErrorNotificationToRootComponent('Eroare companiile nu pot fi afisate!', 5);
+        });
+    };
+    CompaniesPage.prototype.getDomainsFromSelect = function (_selectedItems) {
+        return _.map(_selectedItems, function (v) {
+            if (v.boundItem)
+                return v.boundItem['id'];
         });
     };
     CompaniesPage.prototype.getCompanieDomains = function () {
@@ -115,6 +123,6 @@ var CompaniesPage = (function () {
         __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
     ], CompaniesPage);
     return CompaniesPage;
-}());
+})();
 exports.CompaniesPage = CompaniesPage;
 //# sourceMappingURL=companiesPage.js.map

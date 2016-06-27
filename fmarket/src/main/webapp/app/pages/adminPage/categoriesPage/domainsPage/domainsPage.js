@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -11,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var requestTypeService_1 = require("../../../../services/requestTypeService");
-var requestType_1 = require("../../../../models/requestType");
 var template = require('./domainsPage.html');
 var DomainsPage = (function () {
     //</editor-fold>
@@ -19,7 +17,7 @@ var DomainsPage = (function () {
         //</editor-fold>
         //<editor-fold desc="Variables">
         this.searchQuery = "";
-        this.domainsTypes = [new requestType_1.RequestType("", "test", 1), new requestType_1.RequestType("", "test", 3), new requestType_1.RequestType("", "test", 2)];
+        this.domainsTypes = [];
         this._requestTypeService = requestTypeService;
         this._formBuilder = formBuilder;
     }
@@ -105,6 +103,6 @@ var DomainsPage = (function () {
         __metadata('design:paramtypes', [requestTypeService_1.RequestTypeService, common_1.FormBuilder])
     ], DomainsPage);
     return DomainsPage;
-}());
+})();
 exports.DomainsPage = DomainsPage;
 //# sourceMappingURL=domainsPage.js.map

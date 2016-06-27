@@ -1,4 +1,3 @@
-"use strict";
 /**
  * Created by nick_ on 5/5/2016.
  */
@@ -284,6 +283,6 @@ var ApplicationConstants = (function () {
     ApplicationConstants.LOADING_SPINNER = 'loadingSpinnerComponent';
     ApplicationConstants.NAVIGATE_CREATE_DEMAND = 'NAVIGATE-CREATE-DEMAND';
     return ApplicationConstants;
-}());
+})();
 exports.ApplicationConstants = ApplicationConstants;
 //# sourceMappingURL=applicationConstansts.js.map

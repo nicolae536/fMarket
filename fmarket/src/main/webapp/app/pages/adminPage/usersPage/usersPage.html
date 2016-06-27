@@ -45,7 +45,7 @@
                         <label>Status:</label>
 
                         <div>
-                            <select class="user-status-select" [(ngModel)]="selectedStatusFilter">
+                            <select class="user-status-select" [(ngModel)]="selectedStatusFilter" [disabled]="statusList && statusList.legth > 0">
                                 <option *ngFor="let option of statusList" [value]="option.status">{{option.displayName}}
                                 </option>
                             </select>

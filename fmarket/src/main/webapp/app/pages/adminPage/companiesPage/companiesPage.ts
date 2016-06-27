@@ -64,7 +64,12 @@ export class CompaniesPage implements OnInit {
     private getCompaniesWithFilters() {
         let me = this;
 
+
+
         let obj = _.clone(this.searchFilter);
+        obj.name = obj.name && obj.name.length > 0 ? obj.name : null;
+        obj.companyDomain = this.selectCompanieDomain && this.selectCompanieDomain._selectedItem && this.selectCompanieDomain._selectedItem.boundItem ? this.selectCompanieDomain._selectedItem.boundItem['id'] : null;
+        obj.demandDomains = this.selectDomain && this.selectDomain._selectedItems && this.selectDomain._selectedItems.length > 0 ? this.getDomainsFromSelect(this.selectDomain._selectedItems) : [];
         obj['page'] = this.pagination['currentPage'];
 
         this._companiesService.getCompanyWithFilters(obj)
@@ -80,6 +85,13 @@ export class CompaniesPage implements OnInit {
                     me._notificationService.emitErrorNotificationToRootComponent('Eroare companiile nu pot fi afisate!', 5);
                 }
             )
+    }
+
+    getDomainsFromSelect(_selectedItems:Array<Select2Item>){
+        return _.map(_selectedItems,(v)=>{
+            if(v.boundItem)
+                return v.boundItem['id'];
+        })
     }
 
     getCompanieDomains() {

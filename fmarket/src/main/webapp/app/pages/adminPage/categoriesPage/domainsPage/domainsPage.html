@@ -53,7 +53,7 @@
                         <a *ngIf="requestType.isInEditMode" type="submit"  class="secondary" (click)="editRequestType(requestType)">
                             <span class="glyphicon glyphicon-ok"></span>
                         </a>
-                        <span class="pull-right label label-info">- Companii - {{requestType.companies}}</span>
+                        <span class="pull-right label label-info">Companii: {{requestType.nrOfCompanies}}</span>
                     </div>
                     <div class="col-md-7 col-xs-4 col-sm-4">
                         <div *ngIf="!requestType.isInEditMode" class="text-center-indent">

@@ -1,7 +1,7 @@
 <div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 0.5 : 0"  [ngClass]="{'remove':remove}"></div>
 <div class="modal fade bs-example-modal-lg in" tabindex="-1" (click)="cancelCreateSubscriber()" role="dialog"
      [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0" [ngClass]="{'remove':remove}">
-    <div class="modal-dialog modal-dialog-very-sm modal-lg" (click)="stopPropagation($event)">
+    <div class="modal-dialog modal-dialog-very-sm modal-md" (click)="stopPropagation($event)">
         <form [ngFormModel]="_subscriberForm" (ngSubmit)="submitSubscriber()">
             <div class="modal-content">
                 <div class="modal-header">

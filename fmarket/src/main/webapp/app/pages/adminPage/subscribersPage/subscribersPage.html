@@ -97,22 +97,22 @@
                             <thead class="thead-inverse">
                             <tr class="vertical-align">
                                 <th class="col-md-1 col-xs-1">Id</th>
-                                <th class="col-md-3 col-xs-5 pointer-cursor text-left" (click)="sortByColumn('EMAIL')">
+                                <th class="col-md-4 col-xs-5 pointer-cursor text-left" (click)="sortByColumn('EMAIL')">
                                     <span>Email</span>
                                     <span [ngClass]="getClassForSorting('EMAIL')"></span>
                                 </th>
-                                <th class="col-md-1 col-xs-5 pointer-cursor hidden-sm hidden-xs"
-                                    (click)="sortByColumn('SUBSCRIBE_DATE')">
-                                    <span>Data abonarii</span>
-                                    <span [ngClass]="getClassForSorting('SUBSCRIBE_DATE')"></span>
-                                </th>
-                                <th class="col-md-1 hidden-sm hidden-xs pointer-cursor"
-                                    (click)="sortByColumn('UNSUBSCRIBE_DATE')">
-                                    <span>Data dezabonarii</span>
-                                    <span [ngClass]="getClassForSorting('UNSUBSCRIBE_DATE')"></span>
-                                </th>
-                                <th class="col-md-1 hidden-sm hidden-xs text-left">Cod dezabonare</th>
-                                <th class="col-md-1" colspan="3">Actiuni</th>
+                                <!--<th class="col-md-1 col-xs-5 pointer-cursor hidden-sm hidden-xs"-->
+                                    <!--(click)="sortByColumn('SUBSCRIBE_DATE')">-->
+                                    <!--<span>Data abonarii</span>-->
+                                    <!--&lt;!&ndash;<span [ngClass]="getClassForSorting('SUBSCRIBE_DATE')" aria-hidden="truet"></span>&ndash;&gt;-->
+                                <!--</th>-->
+                                <!--<th class="col-md-1 hidden-sm hidden-xs pointer-cursor"-->
+                                    <!--(click)="sortByColumn('UNSUBSCRIBE_DATE')">-->
+                                    <!--<span>Data dezabonarii</span>-->
+                                    <!--<span [ngClass]="getClassForSorting('UNSUBSCRIBE_DATE')"></span>-->
+                                <!--</th>-->
+                                <th class="col-md-5 hidden-xs text-left">Cod dezabonare</th>
+                                <th class="col-md-2" colspan="3">Actiuni</th>
                             </tr>
                             </thead>
                             <tbody class="table-body">
@@ -124,12 +124,12 @@
                                 <td class="text-left">
                                     <span>{{subscriber.email}}</span>
                                 </td>
-                                <td class="hidden-sm hidden-xs">
-                                    <span>{{subscriber.subscribeDate}}</span>
-                                </td>
-                                <td class="fit-select-to-td hidden-sm hidden-xs">
-                                    <span>{{subscriber.unsubscribeDate}}</span>
-                                </td>
+                                <!--<td class="hidden-sm hidden-xs">-->
+                                    <!--<span>{{subscriber.subscribeDate}}</span>-->
+                                <!--</td>-->
+                                <!--<td class="fit-select-to-td hidden-sm hidden-xs">-->
+                                    <!--<span>{{subscriber.unsubscribeDate}}</span>-->
+                                <!--</td>-->
                                 <td class="fit-select-to-td hidden-sm hidden-xs text-left">
                                     <span>{{subscriber.unsubscribeToken}}</span>
                                 </td>

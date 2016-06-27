@@ -93,7 +93,7 @@ export class SubscribersPage implements OnInit {
             .subscribe(
                 response => {
                     me.getSubscribersWithFilters();
-                    me.createSubscriberDialog.hide();
+                    me.createSubscriberDialog.close();
                 },
                 error => {
                     me._notificationService.emitErrorNotificationToRootComponent('Abonatul nu a putut fi adaugat', 5);
@@ -153,7 +153,7 @@ export class SubscribersPage implements OnInit {
     }
 
     getClassForSorting(columnName) {
-        return this.sortkeyAndFilter[columnName] ? "glyphicon glyphicon-sort-by-attributes-alt" : "glyphicon glyphicon-sort-by-attributes";
+        return this.sortkeyAndFilter[columnName] ? "fa fa-sort" : "fa fa-sort";
     }
 
     sortByColumn(columnName) {

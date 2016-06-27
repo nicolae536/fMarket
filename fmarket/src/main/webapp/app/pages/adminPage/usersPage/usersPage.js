@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -19,7 +18,6 @@ var usersService_1 = require("../../../services/usersService");
 var createUserDialog_1 = require("../../../components/createUserDialog/createUserDialog");
 var actionDialog_1 = require("../../../components/actionDialog/actionDialog");
 var user_1 = require("../../../models/user");
-var mock_Status_1 = require("../../../services/mock-providers/mock-Status");
 var template = require('./usersPage.html');
 var UsersPage = (function () {
     //</editor-fold>
@@ -27,7 +25,6 @@ var UsersPage = (function () {
         this._userService = _userService;
         this._notificationService = _notificationService;
         this._localizationService = _localizationService;
-        this.statusList = mock_Status_1.STATUS;
         this.usersPerPage = 10;
         this.emailFilter = "";
         this.nameFilter = "";
@@ -38,6 +35,7 @@ var UsersPage = (function () {
     }
     UsersPage.prototype.ngOnInit = function () {
         var me = this;
+        this.getStatusList();
         this.getUsers();
         this._notificationService.removeLoading();
     };
@@ -53,7 +51,6 @@ var UsersPage = (function () {
             .subscribe(function (response) {
             me.usersList = response['data'];
             me.pagination['totalItems'] = response['totalPages'];
-            me.pagination['currentPage'] = response['page'];
         }, function (error) {
             me._notificationService.emitErrorNotificationToRootComponent('A aparut o eroare, utilizatori nu pot fi afisati.', 5);
         });
@@ -111,6 +108,19 @@ var UsersPage = (function () {
             me.cityList = [];
         });
     };
+    UsersPage.prototype.getStatusList = function () {
+        var me = this;
+        this._userService.getStatuese()
+            .subscribe(function (resp) {
+            me.statusList = [{ status: null, displayName: "Alege..." }].concat(_.map(resp, function (v) {
+                return {
+                    status: v,
+                    displayName: v
+                };
+            }));
+        }, function (error) {
+        });
+    };
     //grid
     UsersPage.prototype.createAccount = function () {
         this.userDialog.show("", new user_1.User());
@@ -139,6 +149,6 @@ var UsersPage = (function () {
         __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
     ], UsersPage);
     return UsersPage;
-}());
+})();
 exports.UsersPage = UsersPage;
 //# sourceMappingURL=usersPage.js.map

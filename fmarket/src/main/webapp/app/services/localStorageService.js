@@ -1,4 +1,3 @@
-"use strict";
 var Subject_1 = require("rxjs/Subject");
 /**
  * Created by nick_ on 5/5/2016.
@@ -29,6 +28,6 @@ var LocalStorageService = (function () {
         localStorage.removeItem(key);
     };
     return LocalStorageService;
-}());
+})();
 exports.LocalStorageService = LocalStorageService;
 //# sourceMappingURL=localStorageService.js.map

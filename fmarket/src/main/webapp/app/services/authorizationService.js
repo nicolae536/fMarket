@@ -1,4 +1,3 @@
-"use strict";
 /**
  * Created by nick_ on 5/5/2016.
  */
@@ -99,6 +98,6 @@ var AuthorizationService = (function () {
         return applicationRoutes;
     };
     return AuthorizationService;
-}());
+})();
 exports.AuthorizationService = AuthorizationService;
 //# sourceMappingURL=authorizationService.js.map

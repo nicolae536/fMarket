@@ -3,8 +3,7 @@
  */
 export class CompanySearchObject{
     name:string = "";
-    email:string = "";
     companyDomain:string = "";
-    demandDomains:string = "";
+    demandDomains:Array<number> = [];
     page:number =1;
 }

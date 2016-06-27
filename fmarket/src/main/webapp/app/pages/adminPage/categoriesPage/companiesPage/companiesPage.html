@@ -40,15 +40,7 @@
         <div class="companie-type">
             <div class="list-group">
                 <div *ngFor="let companieType of companieTypes" class="list-group-item clearfix">
-                    <div class="col-md-9 col-xs-6">
-                        <div *ngIf="!companieType.isInEditMode" class="text-center-indent">
- 					        <span [title]="companieType.name">
- 					        	{{companieType.name}}
- 					        </span>
-                        </div>
-                        <input autofocus *ngIf="companieType.isInEditMode" class="form-control" [(ngModel)]="companieType.name"/>
-                    </div>
-                    <div class="col-md-3 col-xs-6 operation-labels">
+                    <div class="pull-right operation-labels">
                         <a class="secondary" (click)="deleteCompanyType(companieType)">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
@@ -61,6 +53,15 @@
                         <a *ngIf="companieType.isInEditMode" class="secondary" (click)="editCompaniType(companieType)">
                             <span class="glyphicon glyphicon-ok"></span>
                         </a>
+                        <span class="pull-right label label-info">Companii: {{companieType.nrOfCompanies}}</span>
+                    </div>
+                    <div class="col-md-7 col-xs-4 col-sm-4">
+                        <div *ngIf="!companieType.isInEditMode" class="text-center-indent">
+ 					        <span [title]="companieType.name">
+ 					        	{{companieType.name}}
+ 					        </span>
+                        </div>
+                        <input autofocus *ngIf="companieType.isInEditMode" class="form-control" [(ngModel)]="companieType.name"/>
                     </div>
                 </div>
             </div>

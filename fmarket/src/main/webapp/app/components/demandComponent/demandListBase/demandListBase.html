@@ -6,9 +6,8 @@
                 <th class="hidden-xs hidden-sm vertical-align">Id</th>
                 <th class="hidden-xs hidden-sm vertical-align">Id cont</th>
                 <th class="text-left vertical-align">Titlu</th>
-                <th class="hidden-xs hidden-sm text-left vertical-align">Data creeri</th>
+                <th class="hidden-xs hidden-sm vertical-align">Data creeri</th>
                 <th class="vertical-align">Status</th>
-                <th class="vertical-align">Domeniu</th>
                 <th *ngIf="!hideOperation" class="vertical-align" colspan="2">Actiuni</th>
             </tr>
             </thead>
@@ -17,7 +16,6 @@
                 <td class="hidden-xs hidden-sm">{{demand.id}}</td>
                 <td class="hidden-xs hidden-sm">{{demand.accountId}}</td>
                 <td class="text-left">{{demand.title}}</td>
-                <td class="hidden-xs hidden-sm text-left">{{demand.email}}</td>
                 <td>{{demand.creationDate}}</td>
                 <td>{{demand.status}}</td>
                 <td [title]="'Editeaza compania '+demand.title" *ngIf="!hideOperation" >

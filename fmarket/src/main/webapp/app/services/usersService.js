@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -32,17 +31,20 @@ var UserService = (function () {
         var requestOptions = {
             id: id === undefined || id == null || id === -1 ? null : id,
             email: emailFilter.length > 0 ? emailFilter : null,
-            name: nameFilter.length > 0 ? emailFilter : null,
+            name: nameFilter.length > 0 ? nameFilter : null,
             status: selectedStatusFilter ? selectedStatusFilter : null,
-            cityId: cityId === -1 || cityId == null || cityId === -1 ? null : cityId,
+            cityId: cityId == -1 || !cityId ? null : cityId,
         };
         return requestOptions;
+    };
+    UserService.prototype.getStatuese = function () {
+        return this.api.get("/admin/users/statuses");
     };
     UserService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
     ], UserService);
     return UserService;
-}());
+})();
 exports.UserService = UserService;
 //# sourceMappingURL=usersService.js.map

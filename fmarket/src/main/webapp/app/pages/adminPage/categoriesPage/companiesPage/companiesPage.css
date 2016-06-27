@@ -29,17 +29,13 @@
     padding-top: 14px;
 }
 
-.companies-page.clearfix .col-lg-6.col-xs-12 .pull-right{
-    padding-top: 1%;
-}
-
-.companies-page .companie-type .list-group .list-group-item .col-md-9{
+.companies-page .companie-type .list-group .list-group-item .col-md-7{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.companies-page .companie-type .list-group .list-group-item .col-md-9 .form-control {
+.companies-page .companie-type .list-group .list-group-item .col-md-7 .form-control {
     margin-top: -1px;
     height: 42px;
     margin-left: -16px;
@@ -47,7 +43,7 @@
     z-index: 1000;
 }
 
-.companies-page .companie-type .list-group .list-group-item .col-md-3.operation-labels{
+.companies-page .companie-type .list-group .list-group-item .operation-labels{
     padding: 14px 0px 0px 0px;
 }
 
@@ -93,6 +89,7 @@
 
     .companies-page.clearfix .col-lg-6.col-xs-12 .pull-right{
         width: 100%;
+        padding-top: 1%;
     }
 
     .companies-page.clearfix .col-lg-6.col-xs-12 .pull-right .btn{

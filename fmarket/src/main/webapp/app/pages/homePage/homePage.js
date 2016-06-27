@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -65,10 +64,10 @@ var HomePage = (function () {
         var me = this;
         var navigationProperty = this._localeStorageService.getItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND);
         if (navigationProperty && navigationProperty['navigate']) {
-            var interval_1 = setInterval(function () {
+            var interval = setInterval(function () {
                 if (me.viewInitialized) {
                     jqueryService_1.JqueryService.scrollToElemet({ nativeElement: '#createDemandComponent' });
-                    window.clearInterval(interval_1);
+                    window.clearInterval(interval);
                 }
             }, 10);
             localStorage.removeItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND);
@@ -174,6 +173,6 @@ var HomePage = (function () {
         __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService, localStorageService_1.LocalStorageService])
     ], HomePage);
     return HomePage;
-}());
+})();
 exports.HomePage = HomePage;
 //# sourceMappingURL=homePage.js.map

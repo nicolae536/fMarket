@@ -6,11 +6,6 @@
     padding: 0;
 }
 
-.domains-page .operations{
-    padding-top: 1%;
-
-}
-
 .domains-page .add-request {
     padding-top: 1%;
     animation: slide-down-49 0.4s;
@@ -109,6 +104,7 @@
 
     .domains-page .operations{
         width: 100%;
+        padding-top: 1%;
     }
 
     .domains-page .operations .btn{

@@ -42,7 +42,7 @@ export class UsersPage implements OnInit {
     userBackup:User;
     cityList:Array<Object>;
 
-    statusList:Array<Object> = STATUS;
+    statusList:Array<Object>;
     usersPerPage:number = 10;
     emailFilter:string = "";
     nameFilter:string = "";
@@ -63,6 +63,7 @@ export class UsersPage implements OnInit {
 
     ngOnInit() {
         var me = this;
+        this.getStatusList();
         this.getUsers();
         this._notificationService.removeLoading();
     }
@@ -82,7 +83,6 @@ export class UsersPage implements OnInit {
                 response => {
                     me.usersList = response['data'];
                     me.pagination['totalItems']=response['totalPages'];
-                    me.pagination['currentPage']=response['page'];
                 },
                 error => {
                     me._notificationService.emitErrorNotificationToRootComponent('A aparut o eroare, utilizatori nu pot fi afisati.',5);
@@ -155,6 +155,26 @@ export class UsersPage implements OnInit {
                 }
             )
     }
+
+    private getStatusList(){
+        let me = this;
+
+        this._userService.getStatuese()
+            .subscribe(
+                resp=>{
+                    me.statusList =[{status: null, displayName: "Alege..."}].concat(_.map(resp, (v)=>{
+                        return {
+                            status: v,
+                            displayName: v
+                        }
+                    }));
+                },
+                error=>{
+
+                }
+            );
+    }
+
     //grid
     createAccount() {
         this.userDialog.show("", new User());

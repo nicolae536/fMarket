@@ -35,11 +35,15 @@ export class UserService {
         var requestOptions:FilterOptions = {
             id: id === undefined || id == null || id === -1 ? null : id,
             email: emailFilter.length > 0 ? emailFilter : null,
-            name: nameFilter.length > 0 ? emailFilter : null,
+            name: nameFilter.length > 0 ? nameFilter : null,
             status: selectedStatusFilter ? selectedStatusFilter : null,
-            cityId:  cityId === -1 || cityId == null || cityId === -1 ? null : cityId,
+            cityId:  cityId == -1 || !cityId ? null : cityId,
         };
         return requestOptions;
+    }
+
+    getStatuese(){
+        return this.api.get(`/admin/users/statuses`);
     }
 }
 
