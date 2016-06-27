@@ -96,7 +96,7 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 		account.setStatus(AccountStatus.ACTIVE);
 		accountDao.save(account);
 		
-		demand.setStatus(DemandStatus.IN_REVIEW);
+		demand.setStatus(DemandStatus.WAITING_FOR_REVIEW);
 		demandDao.save(demand);
 		
 		demandTokenDao.deleteById(demandToken.getId());

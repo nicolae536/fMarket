@@ -45,6 +45,11 @@ public class DomainMenuServiceImpl implements DomainMenuService {
 			if (request.getOrderNr() != null) {
 				itemForUpdate.setOderNr(request.getOrderNr());
 			}
+			if (request.getDomainId() != null) {
+				itemForUpdate.setDomain(demandDomainDao.load(request.getDomainId()));
+			} else {
+				itemForUpdate.setDomain(null);
+			}
 			dao.update(itemForUpdate);
 		}
 	}

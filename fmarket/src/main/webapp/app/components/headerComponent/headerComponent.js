@@ -64,7 +64,7 @@ var HeaderComponent = (function () {
         }
         this._myAccountLabel = userState.email;
         this._myAccountDropdownPages = [
-            { link: '/account/demands', name: 'Anunturile mele' },
+            { link: '/account/demands', name: 'Cererile mele' },
             { link: '/account/details', name: 'Setari' },
         ];
     };

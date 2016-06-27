@@ -56,13 +56,14 @@ public class CompanyDao extends BaseDao<Company> {
 		if (searchObject.getCompanyId() != null) {
 			criteria.add(Restrictions.eq("id", searchObject.getCompanyId()));
 		}
-		if (searchObject.getCompanyDomainId() != null) {
-			criteria.add(Restrictions.eq("domain.id", searchObject.getCompanyDomainId()));
+		if (searchObject.getCompanyDomain() != null) {
+			System.out.println("Here");
+			criteria.add(Restrictions.eq("domain.id", searchObject.getCompanyDomain()));
 		}
-		if (searchObject.getDemandDomainId() != null) {
-			criteria.createAlias("demandDomains", "dd");
-			criteria.add(Restrictions.eq("dd.id", searchObject.getDemandDomainId()));
-		}
+//		if (searchObject.getDemandDomainId() != null) {TODO
+//			criteria.createAlias("demandDomains", "dd");
+//			criteria.add(Restrictions.eq("dd.id", searchObject.getDemandDomainId()));
+//		}
 		
 		return criteria;
 	}

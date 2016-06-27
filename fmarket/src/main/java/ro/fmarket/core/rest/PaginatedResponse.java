@@ -22,6 +22,8 @@ public class PaginatedResponse<T> {
 	
 	public PaginatedResponse(Collection<T> data, int totalPages, int page) {
 		this.data = data;
+		this.page = page;
+		this.totalPages = totalPages;
 	}
 	
 }

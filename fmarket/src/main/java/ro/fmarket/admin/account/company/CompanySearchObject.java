@@ -1,6 +1,10 @@
 package ro.fmarket.admin.account.company;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
 
 import lombok.Data;
 
@@ -16,10 +20,11 @@ public class CompanySearchObject {
 	
 	private String name;
 	
+	@Email
 	private String email;
 	
-	private Integer companyDomainId;
+	private Integer companyDomain; //TODO should be ID
 	
-	private Integer demandDomainId;
+	private List<Integer> demandDomains; //TODO also IDS
 	
 }
