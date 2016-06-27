@@ -95,7 +95,6 @@ export class CategoriesMenuPage implements OnInit {
     editMenuItem(updateDomainMenuItemRequest:IUpdateDomainMenuItemRequest) {
         let me = this;
 
-
         me._categoriesMenuService.updateMenuItem(updateDomainMenuItemRequest)
             .subscribe(
                 response=> {

@@ -96554,7 +96554,7 @@
 	                });
 	                break;
 	            case 'update':
-	                this.updateMenuItemEmitter.emit({ id: this.id, newName: this.name, orderNr: this.orderNr });
+	                this.updateMenuItemEmitter.emit({ id: this.id, newName: this.name, orderNr: this.orderNr, domainId: this._select._selectedItem.boundItem ? this._select._selectedItem.boundItem['id'] : null });
 	                break;
 	        }
 	    };
