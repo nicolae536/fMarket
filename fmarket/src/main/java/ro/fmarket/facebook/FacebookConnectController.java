@@ -24,7 +24,7 @@ public class FacebookConnectController extends ConnectController {
 		if (request.getUserPrincipal() != null) {
 			url = "/";
 		} else {
-			url = "/#login";
+			url = "/#/login";
 		}
 		return new RedirectView(url, true);
 	}

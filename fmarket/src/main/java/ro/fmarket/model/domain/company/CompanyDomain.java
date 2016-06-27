@@ -24,7 +24,7 @@ public class CompanyDomain extends BaseEntity {
 	@Column(length = 40, nullable = false)
 	private String name;
 	
-	@LazyCollection(LazyCollectionOption.EXTRA)
+//	@LazyCollection(LazyCollectionOption.EXTRA)
 	@OneToMany(mappedBy = "domain")
 	private Set<Company> companies = new HashSet<>();
 	

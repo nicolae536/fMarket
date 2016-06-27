@@ -30,7 +30,6 @@ public class FacebookInterceptor implements ConnectInterceptor<Facebook>{
 		if (email != null) {
 			registrationService.registerOrAuthenticateFacebookAccount(email);
 		}
-		
 	}
 
 }

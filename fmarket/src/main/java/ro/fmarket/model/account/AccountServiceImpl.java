@@ -198,7 +198,6 @@ public class AccountServiceImpl implements AccountService {
 		
 	}
 
-	@Async
 	@Override
 	public void updateAccountLastLogin(String email, boolean isAuto) {
 		Account account = accountDao.getByEmail(email);

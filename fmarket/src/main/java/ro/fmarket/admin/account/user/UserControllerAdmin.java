@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ro.fmarket.core.rest.PaginatedResponse;
 import ro.fmarket.model.account.consts.AccountStatus;
-import ro.fmarket.model.demand.consts.DemandStatus;
 
 @RestController
 @RequestMapping("/admin/users")

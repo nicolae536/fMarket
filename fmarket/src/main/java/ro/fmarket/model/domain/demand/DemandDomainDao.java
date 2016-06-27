@@ -17,7 +17,7 @@ public class DemandDomainDao extends BaseDao<DemandDomain> {
 	
 	@SuppressWarnings("unchecked")
 	public List<DemandDomainDTO> getAllWithCompaniesCount() {
-		String sql = "select d.id as id, d.name as name, count(c.id) as nrOfCompanies from DemandDomain d join d.companies c";
+		String sql = "select d.id as id, d.name as name, d.companies.size as nrOfCompanies from DemandDomain d";
 		return getSession()
 				.createQuery(sql)
 				.setResultTransformer(Transformers.aliasToBean(DemandDomainDTO.class))

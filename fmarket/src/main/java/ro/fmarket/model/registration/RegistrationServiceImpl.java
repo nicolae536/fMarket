@@ -2,6 +2,7 @@ package ro.fmarket.model.registration;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -158,7 +159,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 		final AccountHistoricalInfo historicalInfo = new AccountHistoricalInfo();
 		account.setAccountDetails(details);
 		account.setHistoricalInfo(historicalInfo);
-		historicalInfo.setCreationDate(DateUtils.now());
+		DateTime now = DateUtils.now();
+		historicalInfo.setCreationDate(now);
+		historicalInfo.setActivationDate(now);
 		
 		return account;
 	}

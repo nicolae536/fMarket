@@ -16,7 +16,11 @@ public class CompanyDomainDao extends BaseDao<CompanyDomain> {
 	
 	@SuppressWarnings("unchecked")
 	public List<CompanyDomainDTO> getAllWithCompaniesCount() {
-		String sql = "select  d.id as id, d.name as name, count(c.id) as nrOfCompanies from CompanyDomain d join d.companies c";
+//		String sql = "select d.id as id, d.name as name, count(c.id) as nrOfCompanies from CompanyDomain d join d.companies c";
+		String sql = "select d.id as id, d.name as name, d.companies.size as nrOfCompanies from CompanyDomain d";
+//		select new map(parent.id, count(elements(parent.children)))
+//		from Parent parent group by parent.id
+		
 		return getSession()
 				.createQuery(sql)
 				.setResultTransformer(Transformers.aliasToBean(CompanyDomainDTO.class))
