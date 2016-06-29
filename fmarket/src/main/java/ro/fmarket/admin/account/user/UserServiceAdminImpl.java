@@ -68,14 +68,15 @@ public class UserServiceAdminImpl implements UserServiceAdmin {
 
 	private void fillUserFields(Account account, NewUserRequest request) {
 		account.setEmail(request.getEmail());
-		account.setStatus(request.getAccountStatus());
+		account.setStatus(request.getStatus());
 		account.setType(AccountType.USER);
 		if (request.getPassword() != null) {
 			account.setPassword(passwordEncoder.encode(request.getPassword()));
 		}
 		AccountDetails accountDetails = account.getAccountDetails();
 		AccountHistoricalInfo historicalInfo = account.getHistoricalInfo();
-
+		historicalInfo.setCreationDate(DateUtils.now());
+		
 		if (request.getCityId() != null) { // city
 			accountDetails.setCity(cityDao.load(request.getCityId()));
 		} else {

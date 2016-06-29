@@ -26,7 +26,7 @@ public class NewUserRequest {
 	private String password;
 	
 	@NotNull
-	private AccountStatus accountStatus;
+	private AccountStatus status;
 	
 	private String name;
 	

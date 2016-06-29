@@ -55623,7 +55623,6 @@
 	                            message: "(" + response + ") Cereri noi de validat!",
 	                            timeout: null
 	                        };
-	                        debugger;
 	                        me._notifications.push(alertMessage);
 	                    }
 	                }, function (error) {
@@ -97560,10 +97559,8 @@
 	        var me = this;
 	        this._companiesService.deleteCompany($event.id)
 	            .subscribe(function (result) {
-	            debugger;
 	            me.getCompaniesWithFilters();
 	        }, function (error) {
-	            debugger;
 	            me._notificationService.emitErrorNotificationToRootComponent('Compania nu a putut fi stearsa !', 5);
 	            me.getCompaniesWithFilters();
 	        });
@@ -98639,7 +98636,6 @@
 	    AccountEditPage.prototype.changePassword = function (editedAccount) {
 	        var _this = this;
 	        var me = this;
-	        debugger;
 	        if (!editedAccount) {
 	            this._notificationService.emitWarningNotificationToRootComponent('Complectati corect toate campurile pentru parole inainte de a salva!', 5);
 	            return;

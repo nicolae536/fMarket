@@ -137,7 +137,6 @@ export class AppComponent implements OnInit {
                                         message: `(${response}) Cereri noi de validat!`,
                                         timeout: null
                                     };
-                                    debugger;
                                     me._notifications.push(alertMessage);
 
                                 }

@@ -31,12 +31,12 @@ public class UserControllerAdmin {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void createUser(@RequestBody NewUserRequest request) {
+	public void createUser(@Valid @RequestBody NewUserRequest request) {
 		userService.createUser(request);
 	}
 
 	@RequestMapping(value="/{id}",method = RequestMethod.PUT)
-	public void updateUser(@PathVariable("id") Integer id, @RequestBody NewUserRequest request) {
+	public void updateUser(@PathVariable("id") Integer id, @Valid @RequestBody NewUserRequest request) {
 
 	}
 	

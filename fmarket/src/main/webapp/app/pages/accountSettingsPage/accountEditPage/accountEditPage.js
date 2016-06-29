@@ -40,7 +40,6 @@ var AccountEditPage = (function () {
     AccountEditPage.prototype.changePassword = function (editedAccount) {
         var _this = this;
         var me = this;
-        debugger;
         if (!editedAccount) {
             this._notificationService.emitWarningNotificationToRootComponent('Complectati corect toate campurile pentru parole inainte de a salva!', 5);
             return;

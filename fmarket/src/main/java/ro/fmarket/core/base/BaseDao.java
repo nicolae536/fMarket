@@ -57,10 +57,11 @@ public class BaseDao<T> {
 	}
 	
 	public void deleteById(Integer id) {
-			String hql = "delete " + type.getSimpleName() + " where id = :id";
-			final Query query = getSession().createQuery(hql);
-			query.setParameter("id", id);
-			query.executeUpdate();
+//			String hql = "delete " + type.getSimpleName() + " where id = :id";
+//			final Query query = getSession().createQuery(hql);
+//			query.setParameter("id", id);
+//			query.executeUpdate();
+		this.delete(this.load(id));
 	}
 	
 	@SuppressWarnings("unchecked")

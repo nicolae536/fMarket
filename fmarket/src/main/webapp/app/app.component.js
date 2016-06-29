@@ -82,7 +82,6 @@ var AppComponent = (function () {
                             message: "(" + response + ") Cereri noi de validat!",
                             timeout: null
                         };
-                        debugger;
                         me._notifications.push(alertMessage);
                     }
                 }, function (error) {

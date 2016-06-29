@@ -58,7 +58,6 @@ export class AccountEditPage implements OnInit {
 
     changePassword(editedAccount:AccountUser) {
         let me = this;
-        debugger;
         if(!editedAccount){
             this._notificationService.emitWarningNotificationToRootComponent('Complectati corect toate campurile pentru parole inainte de a salva!', 5)
             return;
