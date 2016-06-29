@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -105,6 +106,6 @@ var CompanieDetailPage = (function () {
         __metadata('design:paramtypes', [companiesService_1.CompaniesService, notificationService_1.NotificationService])
     ], CompanieDetailPage);
     return CompanieDetailPage;
-})();
+}());
 exports.CompanieDetailPage = CompanieDetailPage;
 //# sourceMappingURL=companieDetailPage.js.map

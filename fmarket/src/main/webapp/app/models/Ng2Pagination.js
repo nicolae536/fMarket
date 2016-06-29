@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Created by NicolaeB on 5/31/2016.
  */
@@ -8,6 +9,6 @@ var Ng2Pagination = (function () {
         this.maxSize = 7;
     }
     return Ng2Pagination;
-})();
+}());
 exports.Ng2Pagination = Ng2Pagination;
 //# sourceMappingURL=Ng2Pagination.js.map

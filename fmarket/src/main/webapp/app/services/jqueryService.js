@@ -1,3 +1,4 @@
+"use strict";
 var _ = require('underscore');
 var JqueryService = (function () {
     function JqueryService() {
@@ -75,6 +76,6 @@ var JqueryService = (function () {
         $(nativeElement).height(pageHeight);
     };
     return JqueryService;
-})();
+}());
 exports.JqueryService = JqueryService;
 //# sourceMappingURL=jqueryService.js.map

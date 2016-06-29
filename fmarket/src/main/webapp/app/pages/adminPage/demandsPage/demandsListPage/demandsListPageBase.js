@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Created by nick_ on 4/22/2016.
  */
@@ -85,6 +86,6 @@ var DemandsListPageBase = (function () {
         this._router.navigate([("/admin/cerere-detalii/" + demand.id)]);
     };
     return DemandsListPageBase;
-})();
+}());
 exports.DemandsListPageBase = DemandsListPageBase;
 //# sourceMappingURL=demandsListPageBase.js.map

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Created by NicolaeB on 5/26/2016.
  */
@@ -16,6 +17,6 @@ var NewCompanyRequest = (function () {
         return new NewCompanyRequest("", "", "", "", "", -1, -1, []);
     };
     return NewCompanyRequest;
-})();
+}());
 exports.NewCompanyRequest = NewCompanyRequest;
 //# sourceMappingURL=newCompanyRequest.js.map

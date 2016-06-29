@@ -10,19 +10,21 @@
             <label>Id cont</label>
             <input type="number" class="form-control" [(ngModel)]="_searchObject.accountId"/>
         </div>
-        <div class="col-md-2 col-xs-12">
+        <div class="col-md-3 col-xs-12">
             <label>Domeniu</label>
             <span class="form-control select-domain" (click)="showDomainsDialog()">{{_searchObject.domainName}}</span>
         </div>
-        <div class="col-md-2 col-xs-12">
-            <label>Domeniu</label>
+        <div class="col-md-3 col-xs-12">
+            <label>Status</label>
             <select class="domain-select" [(ngModel)]="_searchObject.status">
                 <option *ngFor="let option of statusList" [value]="option.status">{{option.displayName}}
                 </option>
             </select>
         </div>
-        <div class="col-md-6 col-xs-12 clearfix">
-            <div class="pull-right btn-full-width">
+        <div class="clearfix">
+            <div class="pull-right btn-full-width" style="padding-top:5px;">
+            	<br/>
+            	
                 <input type="button" class="btn btn-success" value="Aplica filtre" (click)="getAllDemandsList()" />
             </div>
         </div>

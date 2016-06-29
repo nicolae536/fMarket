@@ -1,3 +1,4 @@
+"use strict";
 var accountStatus_1 = require("./accountStatus");
 var EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 var PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$/i;
@@ -83,6 +84,6 @@ var CustomValidators = (function () {
         };
     };
     return CustomValidators;
-})();
+}());
 exports.CustomValidators = CustomValidators;
 //# sourceMappingURL=Angular2ExtensionValidators.js.map
