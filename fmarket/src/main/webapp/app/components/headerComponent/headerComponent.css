@@ -21,7 +21,8 @@
 }
 
 .navbar.navbar-default.navbar-fixed-top .container-fluid .navbar-header .fMarket-brand-icon{
-    max-height: 50px;
+    max-height: 34px;
+    margin-top: 10px;
     width: auto;
     transition: opacity .2s linear;
 }

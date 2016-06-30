@@ -5,7 +5,7 @@
             [positive-label]="'Delete'"
             (loaded)="referenceActionDialogInComponent($event)"
             (action-confirmed)="actionDialogConfirmDelete($event)">
-        <h4>Are you sure that you want to delete this subscriber ?</h4>
+        <h4>Sunteti sigur ca doriti sa stergeti abonatul ?</h4>
     </action-dialog>
     <create-subscriber-dialog
             (loaded)="referenceCreateSubscriberDialogInComponent($event)"
@@ -30,54 +30,7 @@
                                        class="form-control"/>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-xs-12">
-                            <div class="form-group">
-                                <label>Data abonarii:</label>
-                                <div class="input-group">
-                                    <div class="input-group-btn">
-                                        <div dropdown [(isOpen)]="subscribeDatePicker.state">
-                                            <button class="btn btn-primary" dropdownToggle>
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </button>
-                                            <div dropdownMenu class="dropdown-menu">
-                                                <datepicker (click)="openSubscribeDatePicke($event)"
-                                                            [(ngModel)]="subscribeDateFilter"
-                                                            [showWeeks]="true"
-                                                ></datepicker>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="text" [placeholder]="dateTimePlaceHolder" class="form-control"
-                                           [(ngModel)]="subscriberFormatedDate"
-                                           (ngModelChange)="updateSubscribeDatePicker()"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-xs-12">
-                            <div class="form-group">
-                                <label>Data dezabonarii:</label>
-                                <div class="input-group">
-                                    <div class="input-group-btn">
-                                        <div dropdown [(isOpen)]="unSubscribeDatePicker.state">
-                                            <button class="btn btn-primary" dropdownToggle>
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </button>
-                                            <div dropdownMenu class="dropdown-menu">
-                                                <datepicker (click)="openUnSubscribeDatePicke($event)"
-                                                            [(ngModel)]="unsubscribeDateFilter"
-                                                            [showWeeks]="true"></datepicker>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="text" [(ngModel)]="unsubscriberFormatedDate" class="form-control"
-                                           [placeholder]="dateTimePlaceHolder"
-                                           (ngModelChange)="updateunSubscribeDatePicker()"
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="col-lg-3 col-xs-12 no-right-p padding-top-25 remove-right-padding">
                             <div class="pull-right btn-full-width">
                                 <input type="button" class="btn btn-primary" (click)="showSubscriberDialog()"
