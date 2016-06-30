@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -49,7 +48,6 @@ public class BaseDao<T> {
 
 	protected Criteria getCriteria() {
 		return getSession().createCriteria(type);
-
 	}
 
 	public void delete(T entity) {
