@@ -33,14 +33,14 @@
                         <!--<span [ngClass]="getFormControllClass('passwords')"></span>-->
                         <input type="password" class="form-control"
                                [class.backend-error]="checkIfPasswordIsMarked('password')" [placeholder]="passwordLabel"
-                               (ngModelChange)="updateErrorFied()"
+                               (ngModelChange)="updateErrorFied($event, 'p')"
                                [ngFormControl]="_registrationForm.controls.passwords.controls.password"/>
                     </div>
                     <div *ngIf="!showRememberMeField" class="form-group">
                         <!--<span [ngClass]="getFormControllClass('passwords')"></span>-->
                         <input type="password" class="form-control"
                                [class.backend-error]="checkIfPasswordIsMarked('repeat')" placeholder="Repeta parola"
-                               (ngModelChange)="updateErrorFied()"
+                               (ngModelChange)="updateErrorFied($event, 'r')"
                                [ngFormControl]="_registrationForm.controls.passwords.controls.repeat"/>
 
                     </div>

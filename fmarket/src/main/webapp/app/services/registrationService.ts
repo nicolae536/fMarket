@@ -10,7 +10,7 @@ import {RegisterAccount} from "../models/registerAccount";
 export class RegistrationService {
     private api:FMarketApi;
     private REGISTRATION_CONTROLLER:string = '/registration'
-    private ACCOUNT_CONTROLLER:string = '/account'
+    private ACCOUNT_CONTROLLER:string = '/accounts'
 
     constructor(api:FMarketApi){
         this.api = api;

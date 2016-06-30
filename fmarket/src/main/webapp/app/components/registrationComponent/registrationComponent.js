@@ -41,13 +41,24 @@ var RegistrationComponent = (function () {
             this.reapeatPasswordControl = false;
         }
     };
-    RegistrationComponent.prototype.updateErrorFied = function () {
-        this.passwordFieldsError = this._registrationForm
-            && this._registrationForm.controls['passwords']
-            && this._registrationForm.controls['passwords']['errors']
-            && this._registrationForm.controls['passwords']['errors']['checkPasswords']
-            && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
-        this.showNotMatchPasswordField = this.passwordFieldsError &&
+    RegistrationComponent.prototype.updateErrorFied = function ($event, f) {
+        if (!this._registrationForm.controls['passwords']['controls']['repeat']) {
+            return false;
+        }
+        var value = $event;
+        var valueToCompare = '';
+        if (f == 'r') {
+            valueToCompare = this._registrationForm.controls['passwords']['controls']['password'].value;
+        }
+        else {
+            valueToCompare = this._registrationForm.controls['passwords']['controls']['repeat'].value;
+        }
+        // this.passwordFieldsError = this._registrationForm
+        //     && this._registrationForm.controls['passwords']
+        //     && this._registrationForm.controls['passwords']['errors']
+        //     && this._registrationForm.controls['passwords']['errors']['checkPasswords']
+        //     && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
+        this.showNotMatchPasswordField = (value != valueToCompare) &&
             this._registrationForm.controls['passwords']['controls']['repeat'].value.length > 0;
         this.checkBackendErrors();
     };

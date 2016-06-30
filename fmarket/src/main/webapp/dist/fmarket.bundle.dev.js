@@ -1422,31 +1422,6 @@
 	// shim for using process in browser
 
 	var process = module.exports = {};
-
-	// cached from whatever global is present so that test runners that stub it
-	// don't break things.  But we need to wrap it in a try catch in case it is
-	// wrapped in strict mode code which doesn't define any globals.  It's inside a
-	// function because try/catches deoptimize in certain engines.
-
-	var cachedSetTimeout;
-	var cachedClearTimeout;
-
-	(function () {
-	  try {
-	    cachedSetTimeout = setTimeout;
-	  } catch (e) {
-	    cachedSetTimeout = function () {
-	      throw new Error('setTimeout is not defined');
-	    }
-	  }
-	  try {
-	    cachedClearTimeout = clearTimeout;
-	  } catch (e) {
-	    cachedClearTimeout = function () {
-	      throw new Error('clearTimeout is not defined');
-	    }
-	  }
-	} ())
 	var queue = [];
 	var draining = false;
 	var currentQueue;
@@ -1471,7 +1446,7 @@
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = cachedSetTimeout(cleanUpNextTick);
+	    var timeout = setTimeout(cleanUpNextTick);
 	    draining = true;
 
 	    var len = queue.length;
@@ -1488,7 +1463,7 @@
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    cachedClearTimeout(timeout);
+	    clearTimeout(timeout);
 	}
 
 	process.nextTick = function (fun) {
@@ -1500,7 +1475,7 @@
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        cachedSetTimeout(drainQueue, 0);
+	        setTimeout(drainQueue, 0);
 	    }
 	};
 
@@ -94933,7 +94908,7 @@
 	var RegistrationService = (function () {
 	    function RegistrationService(api) {
 	        this.REGISTRATION_CONTROLLER = '/registration';
-	        this.ACCOUNT_CONTROLLER = '/account';
+	        this.ACCOUNT_CONTROLLER = '/accounts';
 	        this.api = api;
 	    }
 	    RegistrationService.prototype.createAccount = function (account) {
@@ -95023,13 +94998,24 @@
 	            this.reapeatPasswordControl = false;
 	        }
 	    };
-	    RegistrationComponent.prototype.updateErrorFied = function () {
-	        this.passwordFieldsError = this._registrationForm
-	            && this._registrationForm.controls['passwords']
-	            && this._registrationForm.controls['passwords']['errors']
-	            && this._registrationForm.controls['passwords']['errors']['checkPasswords']
-	            && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
-	        this.showNotMatchPasswordField = this.passwordFieldsError &&
+	    RegistrationComponent.prototype.updateErrorFied = function ($event, f) {
+	        if (!this._registrationForm.controls['passwords']['controls']['repeat']) {
+	            return false;
+	        }
+	        var value = $event;
+	        var valueToCompare = '';
+	        if (f == 'r') {
+	            valueToCompare = this._registrationForm.controls['passwords']['controls']['password'].value;
+	        }
+	        else {
+	            valueToCompare = this._registrationForm.controls['passwords']['controls']['repeat'].value;
+	        }
+	        // this.passwordFieldsError = this._registrationForm
+	        //     && this._registrationForm.controls['passwords']
+	        //     && this._registrationForm.controls['passwords']['errors']
+	        //     && this._registrationForm.controls['passwords']['errors']['checkPasswords']
+	        //     && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
+	        this.showNotMatchPasswordField = (value != valueToCompare) &&
 	            this._registrationForm.controls['passwords']['controls']['repeat'].value.length > 0;
 	        this.checkBackendErrors();
 	    };
@@ -95174,7 +95160,7 @@
 /* 843 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"regisration-component clearfix\">\r\n    <div class=\"form-wrapper\">\r\n        <div class=\"form-style\">\r\n            <div class=\"title-container\">\r\n                <span class=\"h3\">{{formTitle}}</span>\r\n            </div>\r\n            <form [ngFormModel]=\"_registrationForm\" (ngSubmit)=\"registrationFormSubmit()\" class=\"registration-form\">\r\n                <div class=\"registration-form-controls-container\">\r\n                 <div *ngIf=\"_loginPage\" class=\"clearfix\">\r\n                    <div class=\"button-container\" style=\"width: 100%; margin-bottom: 15px;\">\r\n                        <form ngNoForm method=\"post\" action=\"connect/facebook\"> \t\r\n                        \t<input type=\"hidden\" name=\"scope\" value=\"email\" />\r\n\t                            <button type=\"submit\" class=\"facebook-btn\">\r\n\t                                <div class=\"\">\r\n\t                                    <i class=\"fa fa-facebook pull-left fb-icon\"></i>\r\n\t                                    <span style=\"\">Logheaza-te cu Facebook</span>\r\n\t                                </div>\r\n\t                                \r\n\t                            </button>\r\n                           \r\n                        </form>\r\n                         <div class=\"text-center facebook-or\">sau</div>\r\n                    </div>\r\n                </div>\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('email')\"></span>-->\r\n                        <input type=\"text\" class=\"form-control\" [class.backend-error]=\"checkIfEmailIsMarked()\"\r\n                               placeholder=\"E-mail\"\r\n                               (ngModelChange)=\"checkBackendErrors()\"\r\n                               [ngFormControl]=\"_registrationForm.controls['email']\"/>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('password')\" [placeholder]=\"passwordLabel\"\r\n                               (ngModelChange)=\"updateErrorFied()\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.password\"/>\r\n                    </div>\r\n                    <div *ngIf=\"!showRememberMeField\" class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('repeat')\" placeholder=\"Repeta parola\"\r\n                               (ngModelChange)=\"updateErrorFied()\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.repeat\"/>\r\n\r\n                    </div>\r\n                    <div class=\"animated-error\" *ngIf=\"showNotMatchPasswordField\">\r\n                        <div class=\"password-error right-to-middle-effect\">\r\n                            Cele doua parole nu sunt la fel!\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n               \r\n                <div class=\"clearfix position-relative\">\r\n                    <div class=\"pull-right button-container\">\r\n                        <button type=\"submit\" class=\"btn btn-success\">{{buttonLabel}}</button>\r\n                    </div>\r\n                    <div *ngIf=\"showNewsletter\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['subscribe']\"/>\r\n                        <label class=\"checkbox-label\">Inscriema la newsletter</label>\r\n                    </div>\r\n                    <div *ngIf=\"showRememberMeField\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['rememberMe']\"/>\r\n                        <label class=\"checkbox-label\">Tine-ma minte</label>\r\n                    </div>\r\n                </div>\r\n                \r\n            </form>\r\n        </div>\r\n    </div>\r\n    <div class=\"links-container text-center\">\r\n        <div class=\"links clearfix\">\r\n            <div *ngIf=\"showForgetPasswordLink\">\r\n                <label>Ai uitat parola?</label>\r\n                <a [routerLink]=\"['/forget-password']\">{{_forgetPasswordLabel}}</a>\r\n            </div>\r\n            <div>\r\n                <label>Nu ai cont?</label>\r\n                <a [routerLink]=\"['/registration']\">Inregistreaza-te</a>\r\n            </div>\r\n            <div *ngIf=\"_showLoginLink\">\r\n                <a [routerLink]=\"['/login']\">Ai deja un cont?</a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+	module.exports = "<div class=\"regisration-component clearfix\">\r\n    <div class=\"form-wrapper\">\r\n        <div class=\"form-style\">\r\n            <div class=\"title-container\">\r\n                <span class=\"h3\">{{formTitle}}</span>\r\n            </div>\r\n            <form [ngFormModel]=\"_registrationForm\" (ngSubmit)=\"registrationFormSubmit()\" class=\"registration-form\">\r\n                <div class=\"registration-form-controls-container\">\r\n                 <div *ngIf=\"_loginPage\" class=\"clearfix\">\r\n                    <div class=\"button-container\" style=\"width: 100%; margin-bottom: 15px;\">\r\n                        <form ngNoForm method=\"post\" action=\"connect/facebook\"> \t\r\n                        \t<input type=\"hidden\" name=\"scope\" value=\"email\" />\r\n\t                            <button type=\"submit\" class=\"facebook-btn\">\r\n\t                                <div class=\"\">\r\n\t                                    <i class=\"fa fa-facebook pull-left fb-icon\"></i>\r\n\t                                    <span style=\"\">Logheaza-te cu Facebook</span>\r\n\t                                </div>\r\n\t                                \r\n\t                            </button>\r\n                           \r\n                        </form>\r\n                         <div class=\"text-center facebook-or\">sau</div>\r\n                    </div>\r\n                </div>\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('email')\"></span>-->\r\n                        <input type=\"text\" class=\"form-control\" [class.backend-error]=\"checkIfEmailIsMarked()\"\r\n                               placeholder=\"E-mail\"\r\n                               (ngModelChange)=\"checkBackendErrors()\"\r\n                               [ngFormControl]=\"_registrationForm.controls['email']\"/>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('password')\" [placeholder]=\"passwordLabel\"\r\n                               (ngModelChange)=\"updateErrorFied($event, 'p')\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.password\"/>\r\n                    </div>\r\n                    <div *ngIf=\"!showRememberMeField\" class=\"form-group\">\r\n                        <!--<span [ngClass]=\"getFormControllClass('passwords')\"></span>-->\r\n                        <input type=\"password\" class=\"form-control\"\r\n                               [class.backend-error]=\"checkIfPasswordIsMarked('repeat')\" placeholder=\"Repeta parola\"\r\n                               (ngModelChange)=\"updateErrorFied($event, 'r')\"\r\n                               [ngFormControl]=\"_registrationForm.controls.passwords.controls.repeat\"/>\r\n\r\n                    </div>\r\n                    <div class=\"animated-error\" *ngIf=\"showNotMatchPasswordField\">\r\n                        <div class=\"password-error right-to-middle-effect\">\r\n                            Cele doua parole nu sunt la fel!\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n               \r\n                <div class=\"clearfix position-relative\">\r\n                    <div class=\"pull-right button-container\">\r\n                        <button type=\"submit\" class=\"btn btn-success\">{{buttonLabel}}</button>\r\n                    </div>\r\n                    <div *ngIf=\"showNewsletter\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['subscribe']\"/>\r\n                        <label class=\"checkbox-label\">Inscriema la newsletter</label>\r\n                    </div>\r\n                    <div *ngIf=\"showRememberMeField\">\r\n                        <input type=\"checkbox\" [ngFormControl]=\"_registrationForm.controls['rememberMe']\"/>\r\n                        <label class=\"checkbox-label\">Tine-ma minte</label>\r\n                    </div>\r\n                </div>\r\n                \r\n            </form>\r\n        </div>\r\n    </div>\r\n    <div class=\"links-container text-center\">\r\n        <div class=\"links clearfix\">\r\n            <div *ngIf=\"showForgetPasswordLink\">\r\n                <label>Ai uitat parola?</label>\r\n                <a [routerLink]=\"['/forget-password']\">{{_forgetPasswordLabel}}</a>\r\n            </div>\r\n            <div>\r\n                <label>Nu ai cont?</label>\r\n                <a [routerLink]=\"['/registration']\">Inregistreaza-te</a>\r\n            </div>\r\n            <div *ngIf=\"_showLoginLink\">\r\n                <a [routerLink]=\"['/login']\">Ai deja un cont?</a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
 /* 844 */
@@ -97559,8 +97545,10 @@
 	        var me = this;
 	        this._companiesService.deleteCompany($event.id)
 	            .subscribe(function (result) {
+	            debugger;
 	            me.getCompaniesWithFilters();
 	        }, function (error) {
+	            debugger;
 	            me._notificationService.emitErrorNotificationToRootComponent('Compania nu a putut fi stearsa !', 5);
 	            me.getCompaniesWithFilters();
 	        });

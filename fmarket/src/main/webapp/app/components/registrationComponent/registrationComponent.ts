@@ -64,13 +64,25 @@ export class RegistrationComponent implements OnInit, OnChanges {
         }
     }
 
-    updateErrorFied() {
-        this.passwordFieldsError = this._registrationForm
-            && this._registrationForm.controls['passwords']
-            && this._registrationForm.controls['passwords']['errors']
-            && this._registrationForm.controls['passwords']['errors']['checkPasswords']
-            && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid']
-        this.showNotMatchPasswordField = this.passwordFieldsError &&
+    updateErrorFied($event, f) {
+        if (!this._registrationForm.controls['passwords']['controls']['repeat']){
+            return false;
+        }
+
+        let value = $event;
+        let valueToCompare = '';
+        if(f == 'r'){
+            valueToCompare = this._registrationForm.controls['passwords']['controls']['password'].value;
+        }
+        else {
+            valueToCompare = this._registrationForm.controls['passwords']['controls']['repeat'].value;
+        }
+        // this.passwordFieldsError = this._registrationForm
+        //     && this._registrationForm.controls['passwords']
+        //     && this._registrationForm.controls['passwords']['errors']
+        //     && this._registrationForm.controls['passwords']['errors']['checkPasswords']
+        //     && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
+        this.showNotMatchPasswordField = (value != valueToCompare) &&
             this._registrationForm.controls['passwords']['controls']['repeat'].value.length > 0;
 
         this.checkBackendErrors();

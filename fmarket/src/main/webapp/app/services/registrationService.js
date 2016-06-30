@@ -17,7 +17,7 @@ var fMarketApi_1 = require("./fMarketApi");
 var RegistrationService = (function () {
     function RegistrationService(api) {
         this.REGISTRATION_CONTROLLER = '/registration';
-        this.ACCOUNT_CONTROLLER = '/account';
+        this.ACCOUNT_CONTROLLER = '/accounts';
         this.api = api;
     }
     RegistrationService.prototype.createAccount = function (account) {
