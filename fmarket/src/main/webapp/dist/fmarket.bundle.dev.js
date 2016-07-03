@@ -93735,10 +93735,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var accountStatus_1 = __webpack_require__(827);
-	var EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	var PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$/i;
-	var PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
-	var INTEGER_REGEX = /^(0|[1-9][0-9]*)$/;
 	var CustomValidators = (function () {
 	    function CustomValidators() {
 	    }
@@ -93764,21 +93760,21 @@
 	        };
 	    };
 	    CustomValidators.validateEmail = function (c) {
-	        return EMAIL_REGEX.test(c.value) ? null : {
+	        return CustomValidators.EMAIL_REGEX.test(c.value) ? null : {
 	            validateEmail: {
 	                valid: false
 	            }
 	        };
 	    };
 	    CustomValidators.validatePassword = function (c) {
-	        return PASSWORD_REGEX.test(c.value) ? null : {
+	        return CustomValidators.PASSWORD_REGEX.test(c.value) ? null : {
 	            validatePassword: {
 	                valid: false
 	            }
 	        };
 	    };
 	    CustomValidators.validatePhoneNumber = function (c) {
-	        return PHONE_REGEX.test(c.value) ? null : {
+	        return CustomValidators.PHONE_REGEX.test(c.value) ? null : {
 	            validatePhoneNumber: {
 	                valid: false
 	            }
@@ -93812,12 +93808,16 @@
 	        return null;
 	    };
 	    CustomValidators.validateInteger = function (c) {
-	        return INTEGER_REGEX.test(c.value) ? null : {
+	        return CustomValidators.INTEGER_REGEX.test(c.value) ? null : {
 	            validateInteger: {
 	                valid: false
 	            }
 	        };
 	    };
+	    CustomValidators.EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    CustomValidators.PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$/i;
+	    CustomValidators.PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+	    CustomValidators.INTEGER_REGEX = /^(0|[1-9][0-9]*)$/;
 	    return CustomValidators;
 	})();
 	exports.CustomValidators = CustomValidators;
@@ -98604,6 +98604,7 @@
 	 */
 	var core_1 = __webpack_require__(30);
 	var fMarketApi_1 = __webpack_require__(796);
+	var Angular2ExtensionValidators_1 = __webpack_require__(826);
 	var AccountService = (function () {
 	    function AccountService(api) {
 	        this._AccountController = '/accounts';
@@ -98615,9 +98616,9 @@
 	    AccountService.prototype.saveEditedAccount = function (accountDto) {
 	        console.log('edit-request');
 	        return this.api.put(this._AccountController + '/self/update', JSON.stringify({
-	            name: accountDto.name,
-	            cityId: accountDto.cityId,
-	            phone: accountDto.phone
+	            name: accountDto.name && accountDto.name.length > 0 ? accountDto.name : null,
+	            cityId: accountDto.cityId && !isNaN(accountDto.cityId) ? accountDto.cityId : null,
+	            phone: accountDto.phone && accountDto.phone.length > 0 && Angular2ExtensionValidators_1.CustomValidators.PHONE_REGEX.test(accountDto.phone) ? accountDto.phone : null
 	        }));
 	    };
 	    AccountService.prototype.changePassword = function (accountDto) {
@@ -98685,7 +98686,7 @@
 	        this.buildForm();
 	    };
 	    AccountEditComponent.prototype.saveEditedAccount = function () {
-	        var account = _.clone(this._accountModel);
+	        var account = this.getFormData;
 	        this._saveAccountEmitter.emit(account);
 	    };
 	    AccountEditComponent.prototype.changePassword = function () {
@@ -98700,7 +98701,7 @@
 	            var response = {};
 	            if (this._accountFormModel.valid) {
 	                response = _.clone(this._accountModel);
-	                response['cityId'] = this._citySelector && this._citySelector.selectedItem ? this._citySelector.selectedItem.boundItem['id'] : -1;
+	                response['cityId'] = this._citySelector && this._citySelector.selectedItem && this._citySelector.selectedItem.boundItem ? this._citySelector.selectedItem.boundItem['id'] : null;
 	                return response;
 	            }
 	            return null;

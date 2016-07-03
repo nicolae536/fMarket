@@ -1,8 +1,4 @@
 var accountStatus_1 = require("./accountStatus");
-var EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-var PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$/i;
-var PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
-var INTEGER_REGEX = /^(0|[1-9][0-9]*)$/;
 var CustomValidators = (function () {
     function CustomValidators() {
     }
@@ -28,21 +24,21 @@ var CustomValidators = (function () {
         };
     };
     CustomValidators.validateEmail = function (c) {
-        return EMAIL_REGEX.test(c.value) ? null : {
+        return CustomValidators.EMAIL_REGEX.test(c.value) ? null : {
             validateEmail: {
                 valid: false
             }
         };
     };
     CustomValidators.validatePassword = function (c) {
-        return PASSWORD_REGEX.test(c.value) ? null : {
+        return CustomValidators.PASSWORD_REGEX.test(c.value) ? null : {
             validatePassword: {
                 valid: false
             }
         };
     };
     CustomValidators.validatePhoneNumber = function (c) {
-        return PHONE_REGEX.test(c.value) ? null : {
+        return CustomValidators.PHONE_REGEX.test(c.value) ? null : {
             validatePhoneNumber: {
                 valid: false
             }
@@ -76,12 +72,16 @@ var CustomValidators = (function () {
         return null;
     };
     CustomValidators.validateInteger = function (c) {
-        return INTEGER_REGEX.test(c.value) ? null : {
+        return CustomValidators.INTEGER_REGEX.test(c.value) ? null : {
             validateInteger: {
                 valid: false
             }
         };
     };
+    CustomValidators.EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    CustomValidators.PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$/i;
+    CustomValidators.PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+    CustomValidators.INTEGER_REGEX = /^(0|[1-9][0-9]*)$/;
     return CustomValidators;
 })();
 exports.CustomValidators = CustomValidators;

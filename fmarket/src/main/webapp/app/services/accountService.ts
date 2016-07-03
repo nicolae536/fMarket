@@ -4,6 +4,7 @@
 import {Injectable} from "@angular/core";
 import {FMarketApi} from "./fMarketApi";
 import {AccountUser} from "../models/accountUser";
+import {CustomValidators} from "../models/Angular2ExtensionValidators";
 
 
 @Injectable()
@@ -22,9 +23,9 @@ export class AccountService {
     saveEditedAccount(accountDto:AccountUser) {
         console.log('edit-request');
         return this.api.put(this._AccountController + '/self/update', JSON.stringify({
-            name: accountDto.name,
-            cityId: accountDto.cityId,
-            phone: accountDto.phone
+            name: accountDto.name && accountDto.name.length > 0 ? accountDto.name : null,
+            cityId: accountDto.cityId && !isNaN(accountDto.cityId) ? accountDto.cityId:null,
+            phone: accountDto.phone && accountDto.phone.length > 0 && CustomValidators.PHONE_REGEX.test(accountDto.phone)? accountDto.phone : null
         }));
     }
 

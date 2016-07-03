@@ -12,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require("@angular/core");
 var fMarketApi_1 = require("./fMarketApi");
+var Angular2ExtensionValidators_1 = require("../models/Angular2ExtensionValidators");
 var AccountService = (function () {
     function AccountService(api) {
         this._AccountController = '/accounts';
@@ -23,9 +24,9 @@ var AccountService = (function () {
     AccountService.prototype.saveEditedAccount = function (accountDto) {
         console.log('edit-request');
         return this.api.put(this._AccountController + '/self/update', JSON.stringify({
-            name: accountDto.name,
-            cityId: accountDto.cityId,
-            phone: accountDto.phone
+            name: accountDto.name && accountDto.name.length > 0 ? accountDto.name : null,
+            cityId: accountDto.cityId && !isNaN(accountDto.cityId) ? accountDto.cityId : null,
+            phone: accountDto.phone && accountDto.phone.length > 0 && Angular2ExtensionValidators_1.CustomValidators.PHONE_REGEX.test(accountDto.phone) ? accountDto.phone : null
         }));
     };
     AccountService.prototype.changePassword = function (accountDto) {

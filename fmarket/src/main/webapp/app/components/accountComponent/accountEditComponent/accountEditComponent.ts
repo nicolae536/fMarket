@@ -45,7 +45,7 @@ export class AccountEditComponent implements OnInit {
     }
 
     saveEditedAccount() {
-        let account = _.clone(this._accountModel);
+        let account = this.getFormData;
         this._saveAccountEmitter.emit(account);
     }
 
@@ -62,7 +62,7 @@ export class AccountEditComponent implements OnInit {
         let response = {};
         if (this._accountFormModel.valid) {
             response = _.clone(this._accountModel);
-            response['cityId'] = this._citySelector && this._citySelector.selectedItem ? this._citySelector.selectedItem.boundItem['id'] : -1;
+            response['cityId'] = this._citySelector && this._citySelector.selectedItem && this._citySelector.selectedItem.boundItem ? this._citySelector.selectedItem.boundItem['id'] : null;
 
             return response;
         }
