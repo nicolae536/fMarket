@@ -45,10 +45,7 @@ export class AccountEditComponent implements OnInit {
     }
 
     saveEditedAccount() {
-        let account = null;
-        if (this._accountFormModel.valid) {
-            account = _.clone(this._accountModel);
-        }
+        let account = _.clone(this._accountModel);
         this._saveAccountEmitter.emit(account);
     }
 

@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33,10 +32,7 @@ var AccountEditComponent = (function () {
         this.buildForm();
     };
     AccountEditComponent.prototype.saveEditedAccount = function () {
-        var account = null;
-        if (this._accountFormModel.valid) {
-            account = _.clone(this._accountModel);
-        }
+        var account = _.clone(this._accountModel);
         this._saveAccountEmitter.emit(account);
     };
     AccountEditComponent.prototype.changePassword = function () {
@@ -120,6 +116,6 @@ var AccountEditComponent = (function () {
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], AccountEditComponent);
     return AccountEditComponent;
-}());
+})();
 exports.AccountEditComponent = AccountEditComponent;
 //# sourceMappingURL=accountEditComponent.js.map

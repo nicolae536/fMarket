@@ -1,7 +1,6 @@
 /**
  * Created by nick_ on 4/17/2016.
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,6 +20,7 @@ var template = require('./registrationPage.html');
 var RegistrationPage = (function () {
     //</editor-fold>
     function RegistrationPage(router, registrationService, notificationService) {
+        this._loginPage = false;
         this._faceBookText = "Inregistreaza-te cu facebook";
         this._router = router;
         this._registrationService = registrationService;
@@ -36,7 +36,7 @@ var RegistrationPage = (function () {
         this._forgetPasswordLabel = '';
         this._showForgetPasswordLink = false;
         this._showRegisterLink = false;
-        this._loginPage = false;
+        this._createAccountPage = true;
     };
     RegistrationPage.prototype.ngAfterViewChecked = function () {
         jqueryService_1.JqueryService.setPageHeight(this._registrationPageRef.nativeElement);
@@ -82,6 +82,6 @@ var RegistrationPage = (function () {
         __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
     ], RegistrationPage);
     return RegistrationPage;
-}());
+})();
 exports.RegistrationPage = RegistrationPage;
 //# sourceMappingURL=registrationPage.js.map

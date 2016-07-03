@@ -16,14 +16,13 @@ let template = require('./registrationComponent.html');
 export class RegistrationComponent implements OnInit, OnChanges {
     @Input('form-title') formTitle:string;
     @Input('button-label') buttonLabel:string;
-    @Input('show-newsletter') showNewsletter:boolean;
     @Input('password-label') passwordLabel:string;
-    @Input('show-forget-password-link') showForgetPasswordLink:boolean;
     @Input('forget-password-label') _forgetPasswordLabel:string;
-    @Input('show-register-link') _showRegisterLink:boolean;
-    @Input('show-remember-me-link') showRememberMeField:boolean;
-    @Input('show-login-link') _showLoginLink:boolean;
+
     @Input('login-page') _loginPage:boolean;
+    @Input('rest-password-page') _restPasswordPage:boolean;
+    @Input('create-account-page') _createAccountPage:boolean;
+
     @Input('facebook-text')facebookText:string;
 
     @Output('registration-form') $registrationForm:EventEmitter<RegisterAccount> = new EventEmitter<RegisterAccount>();
@@ -77,11 +76,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
         else {
             valueToCompare = this._registrationForm.controls['passwords']['controls']['repeat'].value;
         }
-        // this.passwordFieldsError = this._registrationForm
-        //     && this._registrationForm.controls['passwords']
-        //     && this._registrationForm.controls['passwords']['errors']
-        //     && this._registrationForm.controls['passwords']['errors']['checkPasswords']
-        //     && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
+
         this.showNotMatchPasswordField = (value != valueToCompare) &&
             this._registrationForm.controls['passwords']['controls']['repeat'].value.length > 0;
 
@@ -161,9 +156,6 @@ export class RegistrationComponent implements OnInit, OnChanges {
         if (this.passwordFieldsError && this._registrationForm.controls['passwords']['controls']['repeat']) {
             this._registrationForm.controls['passwords']['controls']['repeat'].setErrors({key: 'validatePassword'});
         }
-        // let invalidAccount = new RegisterAccount();
-        // invalidAccount.passwords = { password: null, repeat:null};
-        // this.$registrationForm.emit(invalidAccount);
     }
 
     fLogin() {

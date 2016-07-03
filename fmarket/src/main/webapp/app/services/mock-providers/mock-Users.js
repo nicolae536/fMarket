@@ -1,4 +1,3 @@
-"use strict";
 var user_1 = require("../../models/user");
 var accountStatus_1 = require("../../models/accountStatus");
 exports.USERS = [

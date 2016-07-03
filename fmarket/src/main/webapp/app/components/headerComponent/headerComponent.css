@@ -54,6 +54,13 @@
     }
 }
 
+@media (max-width: 1024px) {
+    .navbar.navbar-default.navbar-fixed-top .container-fluid .navbar-header .fMarket-brand-icon{
+        margin-left: 10px;
+    }
+
+}
+
 .sidenav-mobile .nav.navbar-nav.navbar-right{
     margin: auto;
 }

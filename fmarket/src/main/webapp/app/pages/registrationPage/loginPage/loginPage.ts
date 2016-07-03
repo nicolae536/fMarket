@@ -35,13 +35,8 @@ export class LoginPage implements OnInit, AfterViewChecked {
     private _formButtonLabel:string;
     @ViewChild('registrationPageRef') _registrationPageRef:ElementRef;
     private _formTitle:string;
-    private _showNewsletterField:boolean;
     private _passwordLabel:string;
-    private _showForgetPasswordLink:boolean;
-    private _showRegisterLink:boolean;
     private _forgetPasswordLabel:string;
-    private _showRememberMeLink:boolean;
-    private _showLoginLink:boolean;
     private _loginPage;
     _faceBookText="Logheaza-te cu Facebook"
     //</editor-fold>
@@ -65,15 +60,10 @@ export class LoginPage implements OnInit, AfterViewChecked {
     }
 
     ngOnInit():any {
-        this._showLoginLink = false;
-        this._showRememberMeLink = true;
         this._formTitle = 'Intra in cont';
         this._formButtonLabel = 'Intra in cont';
-        this._showNewsletterField = false;
         this._passwordLabel = 'Parola';
-        this._showRegisterLink = true;
         this._forgetPasswordLabel = 'Click aici pentru a o reseta'
-        this._showForgetPasswordLink = true;
         this._loginPage = true;
         this._notificationService.removeLoading();
 

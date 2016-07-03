@@ -35,14 +35,10 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
     @ViewChild('registrationPageRef') _registrationPageRef:ElementRef;
     private _formTitle:string;
     private _formButtonLabel:string;
-    private _showNewsletterField:boolean;
     private _passwordLabel:string;
-    private _showForgetPasswordLink:boolean;
-    private _showRegisterLink:boolean;
     private _forgetPasswordLabel;
-    private _showRememberMeLink;
-    private _showLoginLink;
-    private _loginPage;
+    private _loginPage:boolean = false;
+    private _restPasswordPage:boolean;
     //</editor-fold>
 
     constructor(router:Router, registrationService:RegistrationService, notificationService:NotificationService) {
@@ -60,16 +56,11 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
         this._registrationComponent = $event;
     }
     ngOnInit():any {
-        this._showLoginLink = false;
-        this._showRememberMeLink = false;
-        this._showRegisterLink = false;
         this._formTitle = 'Resetare parola';
         this._formButtonLabel = 'Reseteaza parola';
-        this._showNewsletterField = false;
         this._passwordLabel = 'Parola noua';
-        this._showForgetPasswordLink = false;
         this._forgetPasswordLabel = '';
-        this._loginPage = false;
+        this._restPasswordPage = true;
 
         this._notificationService.removeLoading();
     }

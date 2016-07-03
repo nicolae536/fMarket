@@ -1,7 +1,6 @@
 /**
  * Created by nick_ on 4/17/2016.
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,6 +20,7 @@ var template = require('../registrationPage.html');
 var ForgetPasswordPage = (function () {
     //</editor-fold>
     function ForgetPasswordPage(router, registrationService, notificationService) {
+        this._loginPage = false;
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
@@ -32,16 +32,11 @@ var ForgetPasswordPage = (function () {
         this._registrationComponent = $event;
     };
     ForgetPasswordPage.prototype.ngOnInit = function () {
-        this._showLoginLink = false;
-        this._showRememberMeLink = false;
-        this._showRegisterLink = false;
         this._formTitle = 'Resetare parola';
         this._formButtonLabel = 'Reseteaza parola';
-        this._showNewsletterField = false;
         this._passwordLabel = 'Parola noua';
-        this._showForgetPasswordLink = false;
         this._forgetPasswordLabel = '';
-        this._loginPage = false;
+        this._restPasswordPage = true;
         this._notificationService.removeLoading();
     };
     ForgetPasswordPage.prototype.requestHandler = function (account) {
@@ -70,6 +65,6 @@ var ForgetPasswordPage = (function () {
         __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
     ], ForgetPasswordPage);
     return ForgetPasswordPage;
-}());
+})();
 exports.ForgetPasswordPage = ForgetPasswordPage;
 //# sourceMappingURL=forgetPasswordPage.js.map

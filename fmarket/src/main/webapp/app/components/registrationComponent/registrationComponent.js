@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -53,11 +52,6 @@ var RegistrationComponent = (function () {
         else {
             valueToCompare = this._registrationForm.controls['passwords']['controls']['repeat'].value;
         }
-        // this.passwordFieldsError = this._registrationForm
-        //     && this._registrationForm.controls['passwords']
-        //     && this._registrationForm.controls['passwords']['errors']
-        //     && this._registrationForm.controls['passwords']['errors']['checkPasswords']
-        //     && !this._registrationForm.controls['passwords']['errors']['checkPasswords']['valid'];
         this.showNotMatchPasswordField = (value != valueToCompare) &&
             this._registrationForm.controls['passwords']['controls']['repeat'].value.length > 0;
         this.checkBackendErrors();
@@ -123,9 +117,6 @@ var RegistrationComponent = (function () {
         if (this.passwordFieldsError && this._registrationForm.controls['passwords']['controls']['repeat']) {
             this._registrationForm.controls['passwords']['controls']['repeat'].setErrors({ key: 'validatePassword' });
         }
-        // let invalidAccount = new RegisterAccount();
-        // invalidAccount.passwords = { password: null, repeat:null};
-        // this.$registrationForm.emit(invalidAccount);
     };
     RegistrationComponent.prototype.fLogin = function () {
         this.fLoginEmitter.emit('auth');
@@ -139,37 +130,25 @@ var RegistrationComponent = (function () {
         __metadata('design:type', String)
     ], RegistrationComponent.prototype, "buttonLabel", void 0);
     __decorate([
-        core_1.Input('show-newsletter'), 
-        __metadata('design:type', Boolean)
-    ], RegistrationComponent.prototype, "showNewsletter", void 0);
-    __decorate([
         core_1.Input('password-label'), 
         __metadata('design:type', String)
     ], RegistrationComponent.prototype, "passwordLabel", void 0);
-    __decorate([
-        core_1.Input('show-forget-password-link'), 
-        __metadata('design:type', Boolean)
-    ], RegistrationComponent.prototype, "showForgetPasswordLink", void 0);
     __decorate([
         core_1.Input('forget-password-label'), 
         __metadata('design:type', String)
     ], RegistrationComponent.prototype, "_forgetPasswordLabel", void 0);
     __decorate([
-        core_1.Input('show-register-link'), 
-        __metadata('design:type', Boolean)
-    ], RegistrationComponent.prototype, "_showRegisterLink", void 0);
-    __decorate([
-        core_1.Input('show-remember-me-link'), 
-        __metadata('design:type', Boolean)
-    ], RegistrationComponent.prototype, "showRememberMeField", void 0);
-    __decorate([
-        core_1.Input('show-login-link'), 
-        __metadata('design:type', Boolean)
-    ], RegistrationComponent.prototype, "_showLoginLink", void 0);
-    __decorate([
         core_1.Input('login-page'), 
         __metadata('design:type', Boolean)
     ], RegistrationComponent.prototype, "_loginPage", void 0);
+    __decorate([
+        core_1.Input('rest-password-page'), 
+        __metadata('design:type', Boolean)
+    ], RegistrationComponent.prototype, "_restPasswordPage", void 0);
+    __decorate([
+        core_1.Input('create-account-page'), 
+        __metadata('design:type', Boolean)
+    ], RegistrationComponent.prototype, "_createAccountPage", void 0);
     __decorate([
         core_1.Input('facebook-text'), 
         __metadata('design:type', String)
@@ -195,6 +174,6 @@ var RegistrationComponent = (function () {
         __metadata('design:paramtypes', [common_1.FormBuilder])
     ], RegistrationComponent);
     return RegistrationComponent;
-}());
+})();
 exports.RegistrationComponent = RegistrationComponent;
 //# sourceMappingURL=registrationComponent.js.map

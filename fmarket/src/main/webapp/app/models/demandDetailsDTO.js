@@ -1,4 +1,3 @@
-"use strict";
 /**
  * Created by NicolaeB on 4/26/2016.
  */
@@ -8,6 +7,6 @@ var DemandDetailsDTO = (function () {
         this.isInEditMode = false;
     }
     return DemandDetailsDTO;
-}());
+})();
 exports.DemandDetailsDTO = DemandDetailsDTO;
 //# sourceMappingURL=demandDetailsDTO.js.map

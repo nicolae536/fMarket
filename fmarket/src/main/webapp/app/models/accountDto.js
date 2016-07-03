@@ -1,4 +1,3 @@
-"use strict";
 /**
  * Created by NicolaeB on 4/27/2016.
  */
@@ -26,6 +25,6 @@ var AccountDto = (function () {
         return new AccountDto(-1, '', '', '', (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), '', null, '', 0, 0, null, '');
     };
     return AccountDto;
-}());
+})();
 exports.AccountDto = AccountDto;
 //# sourceMappingURL=accountDto.js.map

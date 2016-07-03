@@ -1,7 +1,6 @@
 /**
  * Created by nick_ on 4/26/2016.
  */
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -35,15 +34,10 @@ var LoginPage = (function () {
         this._registrationComponent = $event;
     };
     LoginPage.prototype.ngOnInit = function () {
-        this._showLoginLink = false;
-        this._showRememberMeLink = true;
         this._formTitle = 'Intra in cont';
         this._formButtonLabel = 'Intra in cont';
-        this._showNewsletterField = false;
         this._passwordLabel = 'Parola';
-        this._showRegisterLink = true;
         this._forgetPasswordLabel = 'Click aici pentru a o reseta';
-        this._showForgetPasswordLink = true;
         this._loginPage = true;
         this._notificationService.removeLoading();
     };
@@ -84,6 +78,6 @@ var LoginPage = (function () {
         __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
     ], LoginPage);
     return LoginPage;
-}());
+})();
 exports.LoginPage = LoginPage;
 //# sourceMappingURL=loginPage.js.map

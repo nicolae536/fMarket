@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -156,13 +155,13 @@ var SelectComponent = (function () {
         __metadata('design:paramtypes', [])
     ], SelectComponent);
     return SelectComponent;
-}());
+})();
 exports.SelectComponent = SelectComponent;
 //This definition will remain here so the component may be exported with his types
 var Select2Item = (function () {
     function Select2Item() {
     }
     return Select2Item;
-}());
+})();
 exports.Select2Item = Select2Item;
 //# sourceMappingURL=selectComponent.js.map

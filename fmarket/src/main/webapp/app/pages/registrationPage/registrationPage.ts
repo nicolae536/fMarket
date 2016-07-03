@@ -39,8 +39,9 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     private _showRegisterLink:boolean;
     private _showRememberMeLink:boolean;
     private _showLoginLink:boolean;
-    private _loginPage;
+    private _loginPage:boolean = false;
     _faceBookText="Inregistreaza-te cu facebook"
+    private _createAccountPage:boolean;
     //</editor-fold>
 
     constructor(router:Router,registrationService:RegistrationService, notificationService:NotificationService) {
@@ -59,7 +60,7 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
         this._forgetPasswordLabel = '';
         this._showForgetPasswordLink = false;
         this._showRegisterLink = false;
-        this._loginPage = false;
+        this._createAccountPage =true;
     }
 
     ngAfterViewChecked():any {
