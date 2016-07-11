@@ -1,1 +1,1 @@
-{"version":3,"file":"domainCompanieDto.js","sourceRoot":"","sources":["domainCompanieDto.ts"],"names":["DomainCompanieDto","DomainCompanieDto.constructor"],"mappings":"AACA;;GAEG;AAEH;IAAAA;IAGAC,CAACA;IAADD,wBAACA;AAADA,CAACA,AAHD,IAGC;AAHY,yBAAiB,oBAG7B,CAAA"}
+{"version":3,"file":"domainCompanieDto.js","sourceRoot":"","sources":["domainCompanieDto.ts"],"names":[],"mappings":";AACA;;GAEG;AAEH;IAAA;IAGA,CAAC;IAAD,wBAAC;AAAD,CAAC,AAHD,IAGC;AAHY,yBAAiB,oBAG7B,CAAA"}
