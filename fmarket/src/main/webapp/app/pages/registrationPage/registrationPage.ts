@@ -12,6 +12,7 @@ import {JqueryService} from "../../services/jqueryService";
 import {RegistrationComponent} from "../../components/registrationComponent/registrationComponent";
 
 import {RegisterAccount} from "../../models/registerAccount";
+import {SuccessPageOptions} from "./successPages/successPage";
 
 let template = require('./registrationPage.html');
 
@@ -40,7 +41,6 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
     private _showRememberMeLink:boolean;
     private _showLoginLink:boolean;
     private _loginPage:boolean = false;
-    _faceBookText="Inregistreaza-te cu facebook"
     private _createAccountPage:boolean;
     //</editor-fold>
 
@@ -78,7 +78,7 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
         this._registrationService.createAccount(account)
             .subscribe(
                 response => {
-                    me._router.navigate(['/success/success-registration']);
+                    me._router.navigate([`/success/${SuccessPageOptions.SuccessRegistration}`]);
                 },
                 error => {
                     me._registrationComponent.markAllFieldsAsErrors({email:true, password:true});

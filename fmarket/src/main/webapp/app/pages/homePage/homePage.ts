@@ -15,6 +15,8 @@ import {DemandComponent} from "../../components/demandComponent/demandComponent"
 import {Demand} from "../../models/demand";
 import {LocalStorageService} from "../../services/localStorageService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
+import {SuccessPageOptions} from "../registrationPage/successPages/successPage";
+import {AuthorizationService} from "../../services/authorizationService";
 
 let template = require('./homePage.html');
 
@@ -83,6 +85,11 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
             storageItem => {
                 switch (storageItem ['keyChanged']) {
                     case ApplicationConstants.ACTIVE_USER_STATE:
+                        if(AuthorizationService.hasRole(storageItem['newValue'].accountType)){
+                            this._router.navigate('/admin/users');
+                            return;
+                        }
+
                         this._demandDialog.removeEmail();
                         break;
                     case ApplicationConstants.NAVIGATE_CREATE_DEMAND:
@@ -169,7 +176,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
             .subscribe(
                 respose=> {
                     me._demandDialog.restData();
-                    me._router.navigate(['/success/create-demand'])
+                    me._router.navigate([`/success/${SuccessPageOptions.CreateDemand}`])
                 },
                 error=> {
                     this._notificationService.emitErrorNotificationToRootComponent('Cererea nu a putut fi creata', 5);

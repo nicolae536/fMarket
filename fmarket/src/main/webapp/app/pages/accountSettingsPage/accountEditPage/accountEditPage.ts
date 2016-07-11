@@ -14,6 +14,7 @@ import {AccountDto} from "../../../models/accountDto";
 import {Select2Item} from "../../../components/selectComponent/selectComponent";
 import {AccountUser} from "../../../models/accountUser";
 import {AuthorizationService} from "../../../services/authorizationService";
+import {SuccessPageOptions} from "../../registrationPage/successPages/successPage";
 
 let template = require('./accountEditPage.html');
 
@@ -66,7 +67,7 @@ export class AccountEditPage implements OnInit {
         this._accountService.changeSelfPassword(editedAccount)
             .subscribe(
                 response => {
-                    me._router.navigate(['/success/success-rest-password']);
+                    me._router.navigate([`/success/${SuccessPageOptions.SuccessRestPassword}`]);
                 },
                 errr => {
                     this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5)

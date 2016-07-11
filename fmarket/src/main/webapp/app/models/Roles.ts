@@ -6,3 +6,15 @@ export class Role {
     public static USER = 'USER';
     public static ANONYMUS = 'ANONYMUS';
 }
+
+export class RoleAnonymous{
+    public ANONYMUS = 'ANONYMUS';
+}
+
+export class RoleUser extends RoleAnonymous{
+    public USER = 'USER';
+}
+
+export class RoleAdmin{
+    public ADMIN = 'ADMIN';
+}

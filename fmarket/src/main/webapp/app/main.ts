@@ -3,11 +3,12 @@ import 'reflect-metadata';
 
 import {bootstrap}    from '@angular/platform-browser-dynamic';
 
-import {ROUTER_PROVIDERS} from '@angular/router';
+
 import {AppComponent} from './app.component';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common'
 import {HTTP_PROVIDERS} from '@angular/http';
 
+import {APP_ROUTER_PROVIDERS} from './app.routes';
 import {AccountService} from "./services/accountService";
 import {CategoriesMenuService} from "./services/categoriesMenuService";
 import {CompanieTypeService} from "./services/companieTypesService";
@@ -31,7 +32,7 @@ import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
 
 bootstrap(AppComponent, [
     HTTP_PROVIDERS,
-    ROUTER_PROVIDERS,
+    APP_ROUTER_PROVIDERS,
     {provide:LocationStrategy, useClass: HashLocationStrategy},
     GOOGLE_MAPS_PROVIDERS,
 

@@ -1,11 +1,8 @@
 import {Component} from "@angular/core";
-import {Routes, ROUTER_DIRECTIVES, Route} from "@angular/router";
 
-import {CompaniesPage} from "./companiesPage/companiesPage";
-import {DomainsPage} from "./domainsPage/domainsPage";
-import {CategoriesMenuPage} from "./categoriesMenuPage/categoriesMenuPage";
 import {TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
 import {TabHeader} from "../../../models/TabHeader";
+import {APPLICATION_ROUTER_DIRECTIVE} from "../../../components/applicationRouter/applicationRouter";
 
 let template = require('./categoriesPage.html');
 
@@ -13,23 +10,8 @@ let template = require('./categoriesPage.html');
     selector: 'categoryes-page',
     template:template,
     //styleUrls: [applicationPath + '/categoriesPage.css'],
-    directives: [TabsRoutingComponent, ROUTER_DIRECTIVES]
+    directives: [TabsRoutingComponent, APPLICATION_ROUTER_DIRECTIVE]
 })
-@Routes([
-    new Route({
-        path: '/meniu',
-        component: CategoriesMenuPage,
-    }),
-    new Route({
-        path: '/firme',
-        component: CompaniesPage,
-    }),
-    new Route({
-        path: '/domenii',
-        component: DomainsPage,
-    }),
-])
-
 
 export class CategoriesPage {
 

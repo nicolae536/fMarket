@@ -3,37 +3,25 @@
  */
 
 import {Component} from "@angular/core";
-import {ROUTER_DIRECTIVES, Routes, Route, Router, OnActivate, RouteSegment, RouteTree} from "@angular/router";
+import { Router} from "@angular/router";
 
 import {NotificationService} from "../../services/notificationService";
 import {JqueryService} from "../../services/jqueryService";
 
-import {AccountEditPage} from "./accountEditPage/accountEditPage";
-import {AccountDemandsPage} from "./accountDemandsPage/accountDemandsPage";
-import {AuthorizationService} from "../../services/authorizationService";
+
 import {ApplicationConstants} from "../../models/applicationConstansts";
 import {TabsRoutingComponent} from "../../components/tabsComponent/tabsRoutingComponent";
-import {Role} from "../../models/Roles";
+import {APPLICATION_ROUTER_DIRECTIVE} from "../../components/applicationRouter/applicationRouter";
 let template = require('./accountSettingsPage.html');
 
 
 @Component({
     selector: 'account-settings-Page',
     template:template,
-    directives: [ROUTER_DIRECTIVES, TabsRoutingComponent]
+    directives: [APPLICATION_ROUTER_DIRECTIVE, TabsRoutingComponent]
 })
 
-@Routes([
-    new Route({
-        path: '/details',
-        component: AccountEditPage,
-    }),
-    new Route({
-        path: '/demands',
-        component: AccountDemandsPage,
-    })
-])
-export class AccountSettingsPage implements OnActivate{
+export class AccountSettingsPage{
 
     //<editor-fold desc="Services">
     router:Router;
@@ -52,10 +40,10 @@ export class AccountSettingsPage implements OnActivate{
         JqueryService.removeElementWithAnimation(document.getElementById(ApplicationConstants.LOADING_SPINNER));
     }
 
-    routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
-        if(!(AuthorizationService.isLoggedIn() && !AuthorizationService.hasRole(Role.ADMIN))){
-            this.router.navigate(['/login']);
-            this._notificationService.e("Nu aveti access la acest modul !!!",5)
-        }
-    }
+    // routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
+    //     if(!(AuthorizationService.isLoggedIn() && !AuthorizationService.hasRole(Role.ADMIN))){
+    //         this.router.navigate(['/login']);
+    //         this._notificationService.e("Nu aveti access la acest modul !!!",5)
+    //     }
+    // }
 }

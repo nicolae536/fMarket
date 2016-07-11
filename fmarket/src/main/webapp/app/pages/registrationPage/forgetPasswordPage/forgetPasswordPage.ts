@@ -10,6 +10,7 @@ import {RegistrationService} from "../../../services/registrationService";
 import {RegisterAccount} from "../../../models/registerAccount";
 import {NotificationService} from "../../../services/notificationService";
 import {JqueryService} from "../../../services/jqueryService";
+import {SuccessPageOptions} from "../successPages/successPage";
 
 let template = require('../registrationPage.html');
 
@@ -71,7 +72,7 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
         this._registrationService.resetPassword(account)
             .subscribe(
                 response => {
-                    me._router.navigate(['/success', {succesOption:'success-rest-password'}]);
+                    me._router.navigate([`/success/${SuccessPageOptions.SuccessRestPassword}`]);
                 },
                 error => {
                     me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Resetare parola invalida!', timeout:5});

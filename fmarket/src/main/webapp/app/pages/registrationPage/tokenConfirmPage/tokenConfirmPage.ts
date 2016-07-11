@@ -1,8 +1,8 @@
 /**
  * Created by nick_ on 5/6/2016.
  */
-import {Component} from "@angular/core";
-import {Router, ROUTER_DIRECTIVES, OnActivate, RouteSegment, RouteTree} from "@angular/router";
+import {Component, OnInit} from "@angular/core";
+import {Router, ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
 
 import {RegistrationService} from "../../../services/registrationService";
 import {NotificationService} from "../../../services/notificationService";
@@ -16,12 +16,13 @@ import {ApplicationStateService} from "../../../services/applicationStateService
     directives:[ROUTER_DIRECTIVES]
 })
 
-export class TokenConfirmPage implements OnActivate{
+export class TokenConfirmPage implements OnInit{
     //<editor-fold desc="Services">
     private _registrationService:RegistrationService;
     private _router:Router;
     private _notificationService:NotificationService;
     private _applicationStateService:ApplicationStateService;
+    private _activatedRoute:ActivatedRoute;
     //</editor-fold>
 
     //<editor-fold desc="Internal variables">
@@ -29,15 +30,23 @@ export class TokenConfirmPage implements OnActivate{
     private errorMessage:string = 'Linkul este invalid sau a expirat.';
     //</editor-fold>
 
-    constructor(router:Router, registrationService:RegistrationService, notificationService:NotificationService, applicationStateService:ApplicationStateService) {
+    constructor(router:Router, _activatedRoute:ActivatedRoute,registrationService:RegistrationService, notificationService:NotificationService, applicationStateService:ApplicationStateService) {
         this._router = router;
+        this._activatedRoute =_activatedRoute;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
         this._applicationStateService = applicationStateService;
 
     }
 
-    routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
+    ngOnInit():any {
+        this._activatedRoute.params.subscribe(params =>
+            this.activateToken(params)
+        );
+    }
+
+    activateToken(params):void {
+        //TODO check how to override angular 2 matrix notation to query string notation
         let token = this.getParameterByName('token', location.href);
 
         if(location.href.indexOf('/registration?token') !== -1){

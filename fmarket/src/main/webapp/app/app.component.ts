@@ -1,7 +1,7 @@
 import * as _ from "underscore";
 
 import {Component, OnInit} from "@angular/core";
-import {Routes, Router, ROUTER_DIRECTIVES} from "@angular/router";
+import {Router} from "@angular/router";
 import {Location, CORE_DIRECTIVES} from "@angular/common";
 
 import {AlertComponent} from "ng2-bootstrap/ng2-bootstrap";
@@ -22,6 +22,7 @@ import {HeaderComponent} from "./components/headerComponent/headerComponent";
 import {FooterComponent} from "./components/footerComponent/footerComponent";
 
 import {Role} from "./models/Roles";
+import {APPLICATION_ROUTER_DIRECTIVE} from "./components/applicationRouter/applicationRouter";
 
 @Component({
     selector: 'my-app',
@@ -43,10 +44,8 @@ import {Role} from "./models/Roles";
             <footer-component></footer-component>
         </div>
     `,
-    directives: [ROUTER_DIRECTIVES, HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent]
+    directives: [APPLICATION_ROUTER_DIRECTIVE, HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent]
 })
-
-@Routes(AuthorizationService.getApplicationRootRoutes())
 
 export class AppComponent implements OnInit {
 

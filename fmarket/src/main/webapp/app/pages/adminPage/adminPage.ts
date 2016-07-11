@@ -1,65 +1,22 @@
 import {Component, AfterViewChecked, ViewChild} from "@angular/core";
-import {Routes, Router, ROUTER_DIRECTIVES, Route, OnActivate, RouteSegment, RouteTree } from "@angular/router";
+import {Router, ROUTER_DIRECTIVES} from "@angular/router";
 import {Location} from "@angular/common";
 
 import {JqueryService} from "../../services/jqueryService";
-import {AuthorizationService} from "../../services/authorizationService";
 import {NotificationService} from "../../services/notificationService";
 
-import {UsersPage} from "./usersPage/usersPage";
-import {SubscribersPage} from "./subscribersPage/subscribersPage";
-import {CategoriesPage} from "./categoriesPage/categoriesPage";
-import {DemandsPage} from "./demandsPage/demandsPage";
-import {CompaniesPage} from "./companiesPage/companiesPage";
-import {CompaniesEditPage} from "./companiesPage/companiesEditPage/companiesEditPage";
-import {DemandsEditPage} from "./demandsPage/demandsEditPage/demandsEditPage";
 import {ApplicationConstants} from "../../models/applicationConstansts";
-import {CompanieCreatePage} from "./companiesPage/companiesEditPage/companiesCreatePage";
-import {Role} from "../../models/Roles";
+import {APPLICATION_ROUTER_DIRECTIVE} from "../../components/applicationRouter/applicationRouter";
 
 let template = require('./adminPage.html');
 
 @Component({
     selector: 'admin-Page',
     template:template,
-    directives: [ROUTER_DIRECTIVES]
+    directives: [APPLICATION_ROUTER_DIRECTIVE, ROUTER_DIRECTIVES]
 })
 
-@Routes([
-    new Route({
-        path: '/users',
-        component: UsersPage,
-    }),
-    new Route({
-        path: '/subscribers',
-        component: SubscribersPage,
-    }),
-    new Route({
-        path: '/categorii',
-        component: CategoriesPage,
-    }),
-    new Route({
-        path: '/cereri',
-        component: DemandsPage,
-    }),
-    new Route({
-        path: '/cerere-detalii/:id',
-        component: DemandsEditPage,
-    }),
-    new Route({
-        path: '/companii',
-        component: CompaniesPage,
-    }),
-    new Route({
-        path: '/detalii-companie/:id',
-        component: CompaniesEditPage,
-    }),
-    new Route({
-        path: '/ceeaza-companie/ceeaza',
-        component: CompanieCreatePage,
-    })
-])
-export class AdminPage implements AfterViewChecked, OnActivate{
+export class AdminPage implements AfterViewChecked{
     //<editor-fold="Services">
     router:Router;
     location:Location;
@@ -78,11 +35,11 @@ export class AdminPage implements AfterViewChecked, OnActivate{
         JqueryService.removeElementWithAnimation(document.getElementById(ApplicationConstants.LOADING_SPINNER));
     }
 
-    routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
-        if(!(AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN))){
-            this.router.navigate(['/login']);
-        }
-    }
+    // routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
+    //     if(!(AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN))){
+    //         this.router.navigate(['/login']);
+    //     }
+    // }
 
     ngAfterViewChecked():any {
         // JqueryService.setAdminPageHeight(this.leftMenu.nativeElement, this.rightMenu.nativeElement);

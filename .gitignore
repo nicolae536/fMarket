@@ -31,7 +31,8 @@ fmarket/.externalToolBuilders/org.eclipse.wst.jsdt.core.javascriptValidator (1).
 fmarket/.externalToolBuilders/org.eclipse.wst.validation.validationbuilder.launch
 fmarket/src/main/webapp/npm-debug.log
 fmarket/src/main/webapp/typings
-fmarket/src/main/webapp/app/*.js
+fmarket/src/main/webapp/app/**.js
+fmarket/src/main/webapp/app/**.map
 fmarket/src/main/webapp/app/components/accountComponent/accountEditComponent/accountEditComponent.js
 fmarket/src/main/webapp/app/components/actionDialog/actionDialog.js
 fmarket/src/main/webapp/app/components/companieComponent/companieEditComponent/companiesEditComponent.js
@@ -134,3 +135,16 @@ fmarket/src/main/webapp/app/services/registrationService.js
 fmarket/src/main/webapp/app/services/requestTypeService.js
 fmarket/src/main/webapp/app/services/subscribersService.js
 fmarket/src/main/webapp/app/services/usersService.js
+fmarket/src/main/webapp/app/app.routes.js.map
+fmarket/src/main/webapp/app/app.component.js
+fmarket/src/main/webapp/app/app.routes.js
+fmarket/src/main/webapp/app/components/applicationRouter/applicationRouter.js
+fmarket/src/main/webapp/app/components/applicationRouter/applicationRouter.js.map
+fmarket/src/main/webapp/app/pages/accountSettingsPage/account.routes.js
+fmarket/src/main/webapp/app/pages/accountSettingsPage/account.routes.js.map
+fmarket/src/main/webapp/app/pages/adminPage/admin.routes.js
+fmarket/src/main/webapp/app/pages/adminPage/admin.routes.js.map
+fmarket/src/main/webapp/app/pages/adminPage/categoriesPage/categories.routes.js
+fmarket/src/main/webapp/app/pages/adminPage/categoriesPage/categories.routes.js.map
+fmarket/src/main/webapp/app/pages/adminPage/demandsPage/demand.routes.js
+fmarket/src/main/webapp/app/pages/adminPage/demandsPage/demand.routes.js.map
