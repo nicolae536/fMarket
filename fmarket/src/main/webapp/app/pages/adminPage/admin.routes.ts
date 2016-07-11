@@ -36,26 +36,32 @@ export const ADMIN_PAGE_ROUTE_PROVIDERS: RouterConfig = [
             {
                 path: 'categorii',
                 component: CategoriesPage,
+                roles: [Role.ADMIN]
             },
             {
                 path: 'cereri',
                 component: DemandsPage,
+                roles: [Role.ADMIN]
             },
             {
                 path: 'cerere-detalii/:id',
                 component: DemandsEditPage,
+                roles: [Role.ADMIN]
             },
             {
                 path: 'companii',
                 component: CompaniesPage,
+                roles: [Role.ADMIN]
             },
             {
                 path: 'detalii-companie/:id',
                 component: CompaniesEditPage,
+                roles: [Role.ADMIN]
             },
             {
                 path: 'ceeaza-companie/ceeaza',
                 component: CompanieCreatePage,
+                roles: [Role.ADMIN]
             },
             ...CATEGORIES_PAGE_ROUTE_PROVIDERS,
             ...DEMANDS_PAGE_ROUTE_PROVIDERS
