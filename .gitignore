@@ -31,8 +31,8 @@ fmarket/.externalToolBuilders/org.eclipse.wst.jsdt.core.javascriptValidator (1).
 fmarket/.externalToolBuilders/org.eclipse.wst.validation.validationbuilder.launch
 fmarket/src/main/webapp/npm-debug.log
 fmarket/src/main/webapp/typings
-fmarket/src/main/webapp/app/**.js
-fmarket/src/main/webapp/app/**.map
+fmarket/src/main/webapp/app/**/*.js
+fmarket/src/main/webapp/app/**/*.js.map
 fmarket/src/main/webapp/app/components/accountComponent/accountEditComponent/accountEditComponent.js
 fmarket/src/main/webapp/app/components/actionDialog/actionDialog.js
 fmarket/src/main/webapp/app/components/companieComponent/companieEditComponent/companiesEditComponent.js
