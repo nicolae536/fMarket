@@ -30,4 +30,4 @@ fmarket/.externalToolBuilders/org.eclipse.wst.common.project.facet.core.builder.
 fmarket/.externalToolBuilders/org.eclipse.wst.jsdt.core.javascriptValidator (1).launch
 fmarket/.externalToolBuilders/org.eclipse.wst.validation.validationbuilder.launch
 fmarket/src/main/webapp/npm-debug.log
-fmarket/src/main/webapp/typings/index.d.ts
+fmarket/src/main/webapp/typings
