@@ -1,5 +1,5 @@
 install css minify tool
-    npm install clean-css
+    npm install --save-dev clean-css
 typescript compile
 	tsc   
 build command

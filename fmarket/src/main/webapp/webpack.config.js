@@ -1,12 +1,12 @@
-var env = 'dev';
+var env = process.argv.length > 2 ? process.argv[2] : '-env-dev';
 
 switch (env) {
-    case 'prod':
-    case 'production':
+    case '-env-prod':
+    case '-env-production':
         module.exports = require('./config/webpack.prod');
         break;
-    case 'dev':
-    case 'development':
+    case '-env-dev':
+    case '-env-development':
     default:
         module.exports = require('./config/webpack.dev');
 }
