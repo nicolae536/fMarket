@@ -5,7 +5,7 @@ import {bootstrap}    from '@angular/platform-browser-dynamic';
 
 
 import {AppComponent} from './app.component';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common'
+import {LocationStrategy, HashLocationStrategy, CORE_DIRECTIVES} from '@angular/common'
 import {HTTP_PROVIDERS} from '@angular/http';
 
 import {APP_ROUTER_PROVIDERS} from './app.routes';
@@ -28,7 +28,6 @@ import {ApplicationStateService} from "./services/applicationStateService";
 
 import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
 import {PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
-import {RouterContainer} from "./services/routerContainer";
 import {AuthorizationFilter} from "./services/AuthorizationFilter";
 
 //enableProdMode();
@@ -37,6 +36,7 @@ bootstrap(AppComponent, [
     HTTP_PROVIDERS,
     APP_ROUTER_PROVIDERS,
     PAGINATION_DIRECTIVES,
+    CORE_DIRECTIVES,
     {provide:LocationStrategy, useClass: HashLocationStrategy},
     GOOGLE_MAPS_PROVIDERS,
 

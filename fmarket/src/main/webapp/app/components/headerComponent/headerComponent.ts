@@ -12,12 +12,11 @@ import {ApplicationConstants} from "../../models/applicationConstansts";
 import {RegistrationService} from "../../services/registrationService";
 import {NotificationService} from "../../services/notificationService";
 import {ApplicationStateService} from "../../services/applicationStateService";
-import * as _ from 'underscore';
+import * as template from './headerComponent.html';
 
-let template = require('./headerComponent.html');
 @Component({
     selector: 'header-component',
-    template:template,
+    template: template,
     directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
 

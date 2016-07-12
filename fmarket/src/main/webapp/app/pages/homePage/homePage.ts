@@ -1,7 +1,10 @@
 /**
  * Created by nick_ on 4/12/2016.
  */
-import {Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit, OnDestroy} from "@angular/core";
+import {
+    Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit, OnDestroy,
+    trigger, transition, animate, style, state
+} from "@angular/core";
 import {Router} from "@angular/router";
 import {FormBuilder, Validators} from "@angular/common";
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
@@ -17,13 +20,24 @@ import {LocalStorageService} from "../../services/localStorageService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
 import {SuccessPageOptions} from "../registrationPage/successPages/successPage";
 import {AuthorizationService} from "../../services/authorizationService";
-
-let template = require('./homePage.html');
+import * as template from './homePage.html';
 
 @Component({
     selector: 'home-page',
     template: template,
-    directives: [DemandComponent]
+    directives: [DemandComponent],
+    animations: [
+        trigger('flyInOut', [
+            state('in', style({transform: 'translateX(0)'})),
+            transition('void => *', [
+                style({transform: 'translateX(-100%)'}),
+                animate(500)
+            ]),
+            transition('* => void', [
+                animate(500, style({transform: 'translateX(100%)'}))
+            ])
+        ])
+    ]
 })
 export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
 
@@ -43,6 +57,8 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
     @ViewChild('howWeWork') private howWeWorkRef:ElementRef;
     @ViewChild('videoContainer') private videoContainer:ElementRef;
     @ViewChild('videoRightContainer') private videoRightContainer:ElementRef;
+
+    animation = {componentLoad: false};
     private _demandDialog:DemandComponent;
     scrollProperty:string = 'scrollY';
     private _cityes;
@@ -123,6 +139,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
         this._notificationService.removeLoading();
         setTimeout(()=> {
             me.viewInitialized = true;
+            me.animation.componentLoad = true;
         }, 100);
     }
 

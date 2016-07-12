@@ -14,6 +14,7 @@ import {JqueryService} from "../../../services/jqueryService";
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
 
 import {RegisterAccount} from "../../../models/registerAccount";
+import {Role} from "../../../models/Roles";
 
 let template = require('../registrationPage.html');
 
@@ -76,26 +77,18 @@ export class LoginPage implements OnInit, AfterViewChecked {
             .subscribe(
                 response => {
                     me._applicationStateService.setApplicationSessionState(response);
-                    me._router.navigate(['/'])
+
+                    if(response['accountType'] === Role.ADMIN){
+                        me._router.navigate(['admin/users'])
+                    }
+                    else {
+                        me._router.navigate([''])
+                    }
                 },
                 error => {
                     me._notificationService.emitErrorNotificationToRootComponent("Date de autentificare incorecte!", 5);
                     me._registrationComponent.markAllFieldsAsErrors({email:true, password:true});
                 }
             )
-    }
-
-    initFLogin($event){
-        let me = this;
-        location.assign('/connect/facebook');
-        // this._faceBookService.login()
-        //     .subscribe(
-        //         response=>{
-        //
-        //         },
-        //         error=>{
-        //
-        //         }
-        //     )
     }
 }

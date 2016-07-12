@@ -5,7 +5,9 @@
     <ul class="nav navbar-nav navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li><a (click)="addDemandFromMobile()">Adauga cerere</a></li>
-            <li *ngFor="let page of _usersApplicationPages"><a (click)="goToPageUsingSideMenu(page.link)">{{page.name}}</a></li>
+            <template  [ngIf]="!isAdminUser()" >
+                <li *ngFor="let page of _usersApplicationPages"><a (click)="goToPageUsingSideMenu(page.link)">{{page.name}}</a></li>
+            </template>
             <li *ngIf="!isLoggedIn()"><a (click)="goToPageUsingSideMenu('/login')">Contul meu</a></li>
             <li *ngIf="chechIdNormalUser()">
                 <ul>
@@ -40,7 +42,9 @@
                     </button>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li *ngFor="let page of _usersApplicationPages"><a [routerLink]="[page.link]">{{page.name}}</a></li>
+                    <template  [ngIf]="!isAdminUser()" >
+                        <li *ngFor="let page of _usersApplicationPages"><a [routerLink]="[page.link]">{{page.name}}</a></li>
+                    </template>
                     <li *ngIf="!isLoggedIn()"><a [routerLink]="['/login']">Contul meu</a></li>
                     <li *ngIf="chechIdNormalUser()" dropdown class="dropdown">
                         <a href="#" class="dropdown-toggle" dropdownToggle role="button" aria-haspopup="true"
