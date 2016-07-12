@@ -5,7 +5,9 @@ import {Component} from "@angular/core";
 
 import {TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
 import {TabHeader} from "../../../models/TabHeader";
-import {APPLICATION_ROUTER_DIRECTIVE} from "../../../components/applicationRouter/applicationRouter";
+import {NewDemandsListPage} from "./demandsListPage/newDemandsListPage";
+import {AllDemandsListPage} from "./demandsListPage/allDemandsListPage";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 
 let template = require('./demandsPage.html');
 
@@ -13,7 +15,8 @@ let template = require('./demandsPage.html');
     selector: 'demands-page',
     template:template,
     //styleUrls: [applicationPath + '/demandsPage.css'],
-    directives: [TabsRoutingComponent, APPLICATION_ROUTER_DIRECTIVE]
+    directives: [TabsRoutingComponent, ROUTER_DIRECTIVES],
+    precompile: [NewDemandsListPage, AllDemandsListPage]
 })
 export class DemandsPage {
 

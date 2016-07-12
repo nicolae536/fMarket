@@ -15,6 +15,7 @@ import {CompanieCreatePage} from "./companiesPage/companiesEditPage/companiesCre
 import {CATEGORIES_PAGE_ROUTE_PROVIDERS} from "./categoriesPage/categories.routes";
 import {DEMANDS_PAGE_ROUTE_PROVIDERS} from "./demandsPage/demand.routes";
 import {Role} from "../../models/Roles";
+import {AuthorizationFilter} from "../../services/AuthorizationFilter";
 
 
 export const ADMIN_PAGE_ROUTE_PROVIDERS: RouterConfig = [
@@ -26,42 +27,51 @@ export const ADMIN_PAGE_ROUTE_PROVIDERS: RouterConfig = [
             {
                 path: 'users',
                 component: UsersPage,
-                roles: [Role.ADMIN]
+                roles: [Role.ADMIN],
+                canActivate: [AuthorizationFilter]
             },
             {
                 path: 'subscribers',
                 component: SubscribersPage,
-                roles: [Role.ADMIN]
+                roles: [Role.ADMIN],
+                canActivate: [AuthorizationFilter]
             },
             {
                 path: 'categorii',
                 component: CategoriesPage,
-                roles: [Role.ADMIN]
+                roles: [Role.ADMIN],
+                canActivate: [AuthorizationFilter]
             },
             {
                 path: 'cereri',
                 component: DemandsPage,
-                roles: [Role.ADMIN]
+                roles: [Role.ADMIN],
+                canActivate: [AuthorizationFilter]
             },
             {
                 path: 'cerere-detalii/:id',
                 component: DemandsEditPage,
-                roles: [Role.ADMIN]
+                roles: [Role.ADMIN],
+                canActivate: [AuthorizationFilter]
             },
             {
                 path: 'companii',
                 component: CompaniesPage,
-                roles: [Role.ADMIN]
+                roles: [Role.ADMIN],
+                canActivate: [AuthorizationFilter]
             },
             {
                 path: 'detalii-companie/:id',
                 component: CompaniesEditPage,
-                roles: [Role.ADMIN]
+                roles: [Role.ADMIN],
+                redirectTo: '',
+                canActivate: [AuthorizationFilter]
             },
             {
                 path: 'ceeaza-companie/ceeaza',
                 component: CompanieCreatePage,
-                roles: [Role.ADMIN]
+                roles: [Role.ADMIN],
+                canActivate: [AuthorizationFilter]
             },
             ...CATEGORIES_PAGE_ROUTE_PROVIDERS,
             ...DEMANDS_PAGE_ROUTE_PROVIDERS

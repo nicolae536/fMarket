@@ -44,21 +44,22 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	__webpack_require__(1);
 	__webpack_require__(3);
 	var platform_browser_dynamic_1 = __webpack_require__(26);
 	var app_component_1 = __webpack_require__(353);
 	var common_1 = __webpack_require__(27);
 	var http_1 = __webpack_require__(798);
-	var app_routes_1 = __webpack_require__(884);
-	var accountService_1 = __webpack_require__(887);
+	var app_routes_1 = __webpack_require__(942);
+	var accountService_1 = __webpack_require__(909);
 	var categoriesMenuService_1 = __webpack_require__(796);
-	var companieTypesService_1 = __webpack_require__(925);
+	var companieTypesService_1 = __webpack_require__(872);
 	var demandService_1 = __webpack_require__(822);
-	var requestTypeService_1 = __webpack_require__(917);
+	var requestTypeService_1 = __webpack_require__(876);
 	var subscribersService_1 = __webpack_require__(824);
-	var usersService_1 = __webpack_require__(900);
-	var companiesService_1 = __webpack_require__(861);
+	var usersService_1 = __webpack_require__(852);
+	var companiesService_1 = __webpack_require__(897);
 	var fMarketApi_1 = __webpack_require__(797);
 	var localizationService_1 = __webpack_require__(826);
 	var common_2 = __webpack_require__(27);
@@ -67,11 +68,14 @@
 	var authorizationService_1 = __webpack_require__(793);
 	var registrationService_1 = __webpack_require__(844);
 	var applicationStateService_1 = __webpack_require__(819);
-	var core_1 = __webpack_require__(864);
+	var core_1 = __webpack_require__(922);
+	var ng2_bootstrap_1 = __webpack_require__(407);
+	var AuthorizationFilter_1 = __webpack_require__(946);
 	//enableProdMode();
 	platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
 	    http_1.HTTP_PROVIDERS,
 	    app_routes_1.APP_ROUTER_PROVIDERS,
+	    ng2_bootstrap_1.PAGINATION_DIRECTIVES,
 	    { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
 	    core_1.GOOGLE_MAPS_PROVIDERS,
 	    common_2.FormBuilder,
@@ -89,7 +93,8 @@
 	    subscribersService_1.SubscribersService,
 	    usersService_1.UserService,
 	    companiesService_1.CompaniesService,
-	    localizationService_1.LocalizationService
+	    localizationService_1.LocalizationService,
+	    AuthorizationFilter_1.AuthorizationFilter
 	]);
 	//# sourceMappingURL=main.js.map
 
@@ -55443,6 +55448,7 @@
 /* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -55467,10 +55473,20 @@
 	var registrationService_1 = __webpack_require__(844);
 	var jqueryService_1 = __webpack_require__(823);
 	var applicationStateService_1 = __webpack_require__(819);
-	var headerComponent_1 = __webpack_require__(880);
-	var footerComponent_1 = __webpack_require__(882);
+	var headerComponent_1 = __webpack_require__(938);
+	var footerComponent_1 = __webpack_require__(940);
 	var Roles_1 = __webpack_require__(821);
-	var applicationRouter_1 = __webpack_require__(851);
+	var adminPage_1 = __webpack_require__(850);
+	var accountSettingsPage_1 = __webpack_require__(905);
+	var homePage_1 = __webpack_require__(795);
+	var registrationPage_1 = __webpack_require__(843);
+	var loginPage_1 = __webpack_require__(848);
+	var forgetPasswordPage_1 = __webpack_require__(849);
+	var successPage_1 = __webpack_require__(840);
+	var companieDetailPage_1 = __webpack_require__(921);
+	var tokenConfirmPage_1 = __webpack_require__(916);
+	var companiesPage_1 = __webpack_require__(917);
+	var router_2 = __webpack_require__(355);
 	var AppComponent = (function () {
 	    //</editor-fold>
 	    function AppComponent(router, location, notificationService, registrationService, applicationStateService, localeStorageService) {
@@ -55567,19 +55583,31 @@
 	    };
 	    AppComponent.prototype.handleUserState = function (response, context) {
 	        if (!response.loggedIn && (context.location.path().indexOf('/admin') !== -1 || context.location.path().indexOf('/account') !== -1)) {
-	            context.router.navigate(['/']);
+	            context.router.navigate(['']);
 	        }
 	    };
 	    AppComponent = __decorate([
 	        core_1.Component({
 	            selector: 'my-app',
 	            template: "                \n        <div class=\"application-wrapper\">\n            <header-component></header-component>\n            <div class=\"page-container\">\n                <div class=\"notification-wrapper\">\n                    <div *ngFor=\"let notification of _notifications\"  class=\"wrapper-inner\">\n                        <div [class.ng-for-item]=\"notification.new\"  class=\"notification-helper\">\n                                <alert [type]=\"notification.type\" dismissible=\"true\" (close)=\"closeAlert(notification)\">\n                                    {{notification.message}}\n                                </alert>\n                        </div>\n                    </div>\n                </div>\n                <router-outlet></router-outlet>\n            </div>\n            <footer-component></footer-component>\n        </div>\n    ",
-	            directives: [applicationRouter_1.APPLICATION_ROUTER_DIRECTIVE, headerComponent_1.HeaderComponent, ng2_bootstrap_1.AlertComponent, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent]
+	            directives: [router_2.ROUTER_DIRECTIVES, headerComponent_1.HeaderComponent, ng2_bootstrap_1.AlertComponent, common_1.CORE_DIRECTIVES, footerComponent_1.FooterComponent],
+	            precompile: [
+	                adminPage_1.AdminPage,
+	                accountSettingsPage_1.AccountSettingsPage,
+	                homePage_1.HomePage,
+	                registrationPage_1.RegistrationPage,
+	                loginPage_1.LoginPage,
+	                forgetPasswordPage_1.ForgetPasswordPage,
+	                successPage_1.SuccessPage,
+	                companiesPage_1.CompaniesPage,
+	                companieDetailPage_1.CompanieDetailPage,
+	                tokenConfirmPage_1.TokenConfirmPage,
+	            ]
 	        }), 
 	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, notificationService_1.NotificationService, registrationService_1.RegistrationService, applicationStateService_1.ApplicationStateService, localStorageService_1.LocalStorageService])
 	    ], AppComponent);
 	    return AppComponent;
-	})();
+	}());
 	exports.AppComponent = AppComponent;
 	//# sourceMappingURL=app.component.js.map
 
@@ -92589,6 +92617,7 @@
 /* 793 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by nick_ on 5/5/2016.
 	 */
@@ -92598,11 +92627,11 @@
 	var loginPage_1 = __webpack_require__(848);
 	var forgetPasswordPage_1 = __webpack_require__(849);
 	var adminPage_1 = __webpack_require__(850);
-	var accountSettingsPage_1 = __webpack_require__(853);
+	var accountSettingsPage_1 = __webpack_require__(905);
 	var successPage_1 = __webpack_require__(840);
-	var tokenConfirmPage_1 = __webpack_require__(857);
-	var companiesPage_1 = __webpack_require__(858);
-	var companieDetailPage_1 = __webpack_require__(863);
+	var tokenConfirmPage_1 = __webpack_require__(916);
+	var companiesPage_1 = __webpack_require__(917);
+	var companieDetailPage_1 = __webpack_require__(921);
 	var AuthorizationService = (function () {
 	    function AuthorizationService() {
 	    }
@@ -92679,7 +92708,7 @@
 	        return applicationRoutes;
 	    };
 	    return AuthorizationService;
-	})();
+	}());
 	exports.AuthorizationService = AuthorizationService;
 	//# sourceMappingURL=authorizationService.js.map
 
@@ -92687,6 +92716,7 @@
 /* 794 */
 /***/ function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by nick_ on 5/5/2016.
 	 */
@@ -92972,7 +93002,7 @@
 	    ApplicationConstants.LOADING_SPINNER = 'loadingSpinnerComponent';
 	    ApplicationConstants.NAVIGATE_CREATE_DEMAND = 'NAVIGATE-CREATE-DEMAND';
 	    return ApplicationConstants;
-	})();
+	}());
 	exports.ApplicationConstants = ApplicationConstants;
 	//# sourceMappingURL=applicationConstansts.js.map
 
@@ -92980,6 +93010,7 @@
 /* 795 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -93052,10 +93083,10 @@
 	        var me = this;
 	        var navigationProperty = this._localeStorageService.getItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND);
 	        if (navigationProperty && navigationProperty['navigate']) {
-	            var interval = setInterval(function () {
+	            var interval_1 = setInterval(function () {
 	                if (me.viewInitialized) {
 	                    jqueryService_1.JqueryService.scrollToElemet({ nativeElement: '#createDemandComponent' });
-	                    window.clearInterval(interval);
+	                    window.clearInterval(interval_1);
 	                }
 	            }, 10);
 	            localStorage.removeItem(applicationConstansts_1.ApplicationConstants.NAVIGATE_CREATE_DEMAND);
@@ -93161,7 +93192,7 @@
 	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService, router_1.Router, demandService_1.DemandService, subscribersService_1.SubscribersService, common_1.FormBuilder, notificationService_1.NotificationService, localizationService_1.LocalizationService, localStorageService_1.LocalStorageService])
 	    ], HomePage);
 	    return HomePage;
-	})();
+	}());
 	exports.HomePage = HomePage;
 	//# sourceMappingURL=homePage.js.map
 
@@ -93169,6 +93200,7 @@
 /* 796 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -93208,7 +93240,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], CategoriesMenuService);
 	    return CategoriesMenuService;
-	})();
+	}());
 	exports.CategoriesMenuService = CategoriesMenuService;
 	//# sourceMappingURL=categoriesMenuService.js.map
 
@@ -93216,6 +93248,7 @@
 /* 797 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -93277,7 +93310,7 @@
 	        __metadata('design:paramtypes', [http_1.Http, applicationStateService_1.ApplicationStateService])
 	    ], FMarketApi);
 	    return FMarketApi;
-	})();
+	}());
 	exports.FMarketApi = FMarketApi;
 	//# sourceMappingURL=fMarketApi.js.map
 
@@ -96403,6 +96436,7 @@
 /* 819 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -96447,7 +96481,7 @@
 	        __metadata('design:paramtypes', [localStorageService_1.LocalStorageService])
 	    ], ApplicationStateService);
 	    return ApplicationStateService;
-	})();
+	}());
 	exports.ApplicationStateService = ApplicationStateService;
 	//# sourceMappingURL=applicationStateService.js.map
 
@@ -96455,6 +96489,7 @@
 /* 820 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var Subject_1 = __webpack_require__(62);
 	/**
 	 * Created by nick_ on 5/5/2016.
@@ -96485,7 +96520,7 @@
 	        localStorage.removeItem(key);
 	    };
 	    return LocalStorageService;
-	})();
+	}());
 	exports.LocalStorageService = LocalStorageService;
 	//# sourceMappingURL=localStorageService.js.map
 
@@ -96493,6 +96528,7 @@
 /* 821 */
 /***/ function(module, exports) {
 
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -96508,14 +96544,14 @@
 	    Role.USER = 'USER';
 	    Role.ANONYMUS = 'ANONYMUS';
 	    return Role;
-	})();
+	}());
 	exports.Role = Role;
 	var RoleAnonymous = (function () {
 	    function RoleAnonymous() {
 	        this.ANONYMUS = 'ANONYMUS';
 	    }
 	    return RoleAnonymous;
-	})();
+	}());
 	exports.RoleAnonymous = RoleAnonymous;
 	var RoleUser = (function (_super) {
 	    __extends(RoleUser, _super);
@@ -96524,14 +96560,14 @@
 	        this.USER = 'USER';
 	    }
 	    return RoleUser;
-	})(RoleAnonymous);
+	}(RoleAnonymous));
 	exports.RoleUser = RoleUser;
 	var RoleAdmin = (function () {
 	    function RoleAdmin() {
 	        this.ADMIN = 'ADMIN';
 	    }
 	    return RoleAdmin;
-	})();
+	}());
 	exports.RoleAdmin = RoleAdmin;
 	//# sourceMappingURL=Roles.js.map
 
@@ -96539,6 +96575,7 @@
 /* 822 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -96646,7 +96683,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], DemandService);
 	    return DemandService;
-	})();
+	}());
 	exports.DemandService = DemandService;
 	//# sourceMappingURL=demandService.js.map
 
@@ -96654,6 +96691,7 @@
 /* 823 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var _ = __webpack_require__(354);
 	var JqueryService = (function () {
 	    function JqueryService() {
@@ -96731,7 +96769,7 @@
 	        $(nativeElement).height(pageHeight);
 	    };
 	    return JqueryService;
-	})();
+	}());
 	exports.JqueryService = JqueryService;
 	//# sourceMappingURL=jqueryService.js.map
 
@@ -96739,6 +96777,7 @@
 /* 824 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -96782,7 +96821,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], SubscribersService);
 	    return SubscribersService;
-	})();
+	}());
 	exports.SubscribersService = SubscribersService;
 	//# sourceMappingURL=subscribersService.js.map
 
@@ -96790,6 +96829,7 @@
 /* 825 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -96851,7 +96891,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], NotificationService);
 	    return NotificationService;
-	})();
+	}());
 	exports.NotificationService = NotificationService;
 	//# sourceMappingURL=notificationService.js.map
 
@@ -96859,6 +96899,7 @@
 /* 826 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -96905,7 +96946,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], LocalizationService);
 	    return LocalizationService;
-	})();
+	}());
 	exports.LocalizationService = LocalizationService;
 	//# sourceMappingURL=localizationService.js.map
 
@@ -96913,6 +96954,7 @@
 /* 827 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var accountStatus_1 = __webpack_require__(828);
 	var CustomValidators = (function () {
 	    function CustomValidators() {
@@ -96998,7 +97040,7 @@
 	    CustomValidators.PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
 	    CustomValidators.INTEGER_REGEX = /^(0|[1-9][0-9]*)$/;
 	    return CustomValidators;
-	})();
+	}());
 	exports.CustomValidators = CustomValidators;
 	//# sourceMappingURL=Angular2ExtensionValidators.js.map
 
@@ -97009,6 +97051,7 @@
 	/**
 	 * Created by NicolaeB on 4/26/2016.
 	 */
+	"use strict";
 	var AccountStatus = (function () {
 	    function AccountStatus() {
 	    }
@@ -97017,7 +97060,7 @@
 	    AccountStatus.DISABLED = "DISABLED";
 	    AccountStatus.AUTO = "AUTO";
 	    return AccountStatus;
-	})();
+	}());
 	exports.AccountStatus = AccountStatus;
 	//# sourceMappingURL=accountStatus.js.map
 
@@ -97025,6 +97068,7 @@
 /* 829 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -97214,7 +97258,7 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], DemandComponent);
 	    return DemandComponent;
-	})();
+	}());
 	exports.DemandComponent = DemandComponent;
 	//# sourceMappingURL=demandComponent.js.map
 
@@ -97222,6 +97266,7 @@
 /* 830 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -97372,21 +97417,21 @@
 	    SelectComponent = __decorate([
 	        core_1.Component({
 	            selector: 'select-component',
-	            template: "\n            <div dropdown [(isOpen)]=\"_dropdownStatus.isopen\" [class.dropUp]=\"dropUp\" [class.dropdown]=\"!dropUp\" class=\"bs-ui-select-2 clearfix\">\n                <span #simpleSelectRef *ngIf=\"!muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <span *ngIf=\"!_selectedItem\">Alege...</span>\n                        <span *ngIf=\"_selectedItem && _selectedItem.displayName\">{{_selectedItem.displayName}}</span>\n                        <span [class]=\"getCarretClass()\" style=\"margin-top: 2px;\"></span>\n                        <span style=\"margin-top: 2px;\" class=\"glyphicon glyphicon-remove pull-right simple-dropdown\" *ngIf=\"_selectedItem !== _chooseItemValue\"(click)=\"removeSelection($event)\"></span>\n                </span>\n                \n                <button #multiSelectRef *ngIf=\"muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle position-relative\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    <div class=\"pull-left clearfix remove-right-padding\">\n                        <div *ngIf=\"_selectedItems && _selectedItems.length < 1\" style=\"margin-top: 4px;\">\n                            <span>Alege...</span>\n                        </div>                    \n                        <span class=\"label label-info pull-left\" *ngFor=\"let item of _selectedItems\">{{item.displayName}} <span class=\"remove-selected glyphicon glyphicon-remove\" (click)=\"removeItemFromSelection($event,item)\"></span></span>\n                    </div>\n                    <div class=\"options-container\">\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span *ngIf=\"_selectedItems.length > 0\" class=\"glyphicon glyphicon-remove pull-right\" (click)=\"removeSelection($event)\"></span>\n                    </div>\n                </button>\n                <div dropdownMenu class=\"ui-select2-list-container dropdown-menu\" [class.dropdown-open]=\"_dropdownStatus.isopen\">\n                        <div class=\"ui-select2-search\">\n                            <div *ngIf=\"searchQuery.length > 0\" class=\"ui-select2-search-right-icon\">\n                                <span class=\"glyphicon glyphicon-remove\" (click)=\"removeSearchQuery()\"></span>\n                            </div>\n                            <input class=\"form-control\" [(ngModel)]=\"searchQuery\" placeholder=\"Search..\"/>\n                        </div>\n                        <div class=\"ui-select2-list\">\n                            <div *ngIf=\"!muliSelect\" class=\"ui-select2-list-item\" (click)=\"selectItem(_chooseItemValue)\">{{_chooseItemValue.displayName}}</div>\n                            <div class=\"ui-select2-list-item\" *ngFor=\"let i of items|filterItems:searchQuery\" (click)=\"selectItem(i)\">{{i.displayName}}</div>\n                        </div>\n                </div>\n            </div>\n    ",
+	            template: "\n            <div dropdown [(isOpen)]=\"_dropdownStatus.isopen\" [class.dropUp]=\"dropUp\" [class.dropdown]=\"!dropUp\" class=\"bs-ui-select-2 clearfix\">\n                <span #simpleSelectRef *ngIf=\"!muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [class.disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                        <span *ngIf=\"!_selectedItem\">Alege...</span>\n                        <span *ngIf=\"_selectedItem && _selectedItem.displayName\">{{_selectedItem.displayName}}</span>\n                        <span [class]=\"getCarretClass()\" style=\"margin-top: 2px;\"></span>\n                        <span style=\"margin-top: 2px;\" class=\"glyphicon glyphicon-remove pull-right simple-dropdown\" *ngIf=\"_selectedItem !== _chooseItemValue\"(click)=\"removeSelection($event)\"></span>\n                </span>\n                \n                <button #multiSelectRef *ngIf=\"muliSelect\" dropdownToggle [style.pointerEvents]=\"checkItems()? 'none' : 'auto'\" [class.disabled]=\"checkItems()\" \n                    class=\"btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle position-relative\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    <div class=\"pull-left clearfix remove-right-padding\">\n                        <div *ngIf=\"_selectedItems && _selectedItems.length < 1\" style=\"margin-top: 4px;\">\n                            <span>Alege...</span>\n                        </div>                    \n                        <span class=\"label label-info pull-left\" *ngFor=\"let item of _selectedItems\">{{item.displayName}} <span class=\"remove-selected glyphicon glyphicon-remove\" (click)=\"removeItemFromSelection($event,item)\"></span></span>\n                    </div>\n                    <div class=\"options-container\">\n                        <span [class]=\"getCarretClass()\"></span>\n                        <span *ngIf=\"_selectedItems.length > 0\" class=\"glyphicon glyphicon-remove pull-right\" (click)=\"removeSelection($event)\"></span>\n                    </div>\n                </button>\n                <div dropdownMenu class=\"ui-select2-list-container dropdown-menu\" [class.dropdown-open]=\"_dropdownStatus.isopen\">\n                        <div class=\"ui-select2-search\">\n                            <div *ngIf=\"searchQuery.length > 0\" class=\"ui-select2-search-right-icon\">\n                                <span class=\"glyphicon glyphicon-remove\" (click)=\"removeSearchQuery()\"></span>\n                            </div>\n                            <input class=\"form-control\" [(ngModel)]=\"searchQuery\" placeholder=\"Search..\"/>\n                        </div>\n                        <div class=\"ui-select2-list\">\n                            <div *ngIf=\"!muliSelect\" class=\"ui-select2-list-item\" (click)=\"selectItem(_chooseItemValue)\">{{_chooseItemValue.displayName}}</div>\n                            <div class=\"ui-select2-list-item\" *ngFor=\"let i of items|filterItems:searchQuery\" (click)=\"selectItem(i)\">{{i.displayName}}</div>\n                        </div>\n                </div>\n            </div>\n    ",
 	            pipes: [filterPipe_1.FilterPipe],
 	            directives: [ng2_bootstrap_1.DROPDOWN_DIRECTIVES]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], SelectComponent);
 	    return SelectComponent;
-	})();
+	}());
 	exports.SelectComponent = SelectComponent;
 	//This definition will remain here so the component may be exported with his types
 	var Select2Item = (function () {
 	    function Select2Item() {
 	    }
 	    return Select2Item;
-	})();
+	}());
 	exports.Select2Item = Select2Item;
 	//# sourceMappingURL=selectComponent.js.map
 
@@ -97394,6 +97439,7 @@
 /* 831 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -97434,7 +97480,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], FilterPipe);
 	    return FilterPipe;
-	})();
+	}());
 	exports.FilterPipe = FilterPipe;
 	//# sourceMappingURL=filterPipe.js.map
 
@@ -97442,6 +97488,7 @@
 /* 832 */
 /***/ function(module, exports) {
 
+	"use strict";
 	var Demand = (function () {
 	    function Demand() {
 	        this.title = '';
@@ -97457,7 +97504,7 @@
 	        this.domainId = -1;
 	    }
 	    return Demand;
-	})();
+	}());
 	exports.Demand = Demand;
 	//# sourceMappingURL=demand.js.map
 
@@ -97465,6 +97512,7 @@
 /* 833 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -97546,7 +97594,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], MenuTreeDialog);
 	    return MenuTreeDialog;
-	})(modalDialog_1.ModalDialog);
+	}(modalDialog_1.ModalDialog));
 	exports.MenuTreeDialog = MenuTreeDialog;
 	//# sourceMappingURL=menuTreeDialog.js.map
 
@@ -97554,6 +97602,7 @@
 /* 834 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -97606,7 +97655,7 @@
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], ModalDialog.prototype, "confirmAction", void 0);
 	    return ModalDialog;
-	})();
+	}());
 	exports.ModalDialog = ModalDialog;
 	//# sourceMappingURL=modalDialog.js.map
 
@@ -97614,6 +97663,7 @@
 /* 835 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -97797,7 +97847,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], MenuTreeComponent);
 	    return MenuTreeComponent;
-	})();
+	}());
 	exports.MenuTreeComponent = MenuTreeComponent;
 	//# sourceMappingURL=menuTreeComponent.js.map
 
@@ -97805,6 +97855,7 @@
 /* 836 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -97919,7 +97970,7 @@
 	        __metadata('design:paramtypes', [])
 	    ], BaseMenuComponent);
 	    return BaseMenuComponent;
-	})();
+	}());
 	exports.BaseMenuComponent = BaseMenuComponent;
 	//# sourceMappingURL=baseMenuComponent.js.map
 
@@ -97948,6 +97999,7 @@
 	/**
 	 * Created by nick_ on 5/5/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98000,7 +98052,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, router_1.ActivatedRoute])
 	    ], SuccessPage);
 	    return SuccessPage;
-	})();
+	}());
 	exports.SuccessPage = SuccessPage;
 	var SuccessPageOptions = (function () {
 	    function SuccessPageOptions() {
@@ -98009,7 +98061,7 @@
 	    SuccessPageOptions.SuccessRestPassword = 'success-rest-password';
 	    SuccessPageOptions.CreateDemand = 'create-demand';
 	    return SuccessPageOptions;
-	})();
+	}());
 	exports.SuccessPageOptions = SuccessPageOptions;
 	//# sourceMappingURL=successPage.js.map
 
@@ -98032,6 +98084,7 @@
 	/**
 	 * Created by nick_ on 4/17/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98113,7 +98166,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
 	    ], RegistrationPage);
 	    return RegistrationPage;
-	})();
+	}());
 	exports.RegistrationPage = RegistrationPage;
 	//# sourceMappingURL=registrationPage.js.map
 
@@ -98121,6 +98174,7 @@
 /* 844 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98178,7 +98232,7 @@
 	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
 	    ], RegistrationService);
 	    return RegistrationService;
-	})();
+	}());
 	exports.RegistrationService = RegistrationService;
 	//# sourceMappingURL=registrationService.js.map
 
@@ -98186,6 +98240,7 @@
 /* 845 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98362,7 +98417,7 @@
 	        __metadata('design:paramtypes', [common_1.FormBuilder])
 	    ], RegistrationComponent);
 	    return RegistrationComponent;
-	})();
+	}());
 	exports.RegistrationComponent = RegistrationComponent;
 	//# sourceMappingURL=registrationComponent.js.map
 
@@ -98385,6 +98440,7 @@
 	/**
 	 * Created by nick_ on 4/26/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98462,7 +98518,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
 	    ], LoginPage);
 	    return LoginPage;
-	})();
+	}());
 	exports.LoginPage = LoginPage;
 	//# sourceMappingURL=loginPage.js.map
 
@@ -98473,6 +98529,7 @@
 	/**
 	 * Created by nick_ on 4/17/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98538,7 +98595,7 @@
 	        __metadata('design:paramtypes', [router_1.Router, registrationService_1.RegistrationService, notificationService_1.NotificationService])
 	    ], ForgetPasswordPage);
 	    return ForgetPasswordPage;
-	})();
+	}());
 	exports.ForgetPasswordPage = ForgetPasswordPage;
 	//# sourceMappingURL=forgetPasswordPage.js.map
 
@@ -98546,6 +98603,7 @@
 /* 850 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98561,8 +98619,15 @@
 	var jqueryService_1 = __webpack_require__(823);
 	var notificationService_1 = __webpack_require__(825);
 	var applicationConstansts_1 = __webpack_require__(794);
-	var applicationRouter_1 = __webpack_require__(851);
-	var template = __webpack_require__(852);
+	var usersPage_1 = __webpack_require__(851);
+	var subscribersPage_1 = __webpack_require__(859);
+	var categoriesPage_1 = __webpack_require__(864);
+	var demandsPage_1 = __webpack_require__(879);
+	var demandsEditPage_1 = __webpack_require__(889);
+	var companiesPage_1 = __webpack_require__(871);
+	var companiesEditPage_1 = __webpack_require__(896);
+	var companiesCreatePage_1 = __webpack_require__(903);
+	var template = __webpack_require__(904);
 	var AdminPage = (function () {
 	    //</editor-fold>
 	    function AdminPage(location, router, notificationService) {
@@ -98571,11 +98636,6 @@
 	        this._notificationService = notificationService;
 	        jqueryService_1.JqueryService.removeElementWithAnimation(document.getElementById(applicationConstansts_1.ApplicationConstants.LOADING_SPINNER));
 	    }
-	    // routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
-	    //     if(!(AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN))){
-	    //         this.router.navigate(['/login']);
-	    //     }
-	    // }
 	    AdminPage.prototype.ngAfterViewChecked = function () {
 	        // JqueryService.setAdminPageHeight(this.leftMenu.nativeElement, this.rightMenu.nativeElement);
 	        this._notificationService.removeLoading();
@@ -98595,12 +98655,22 @@
 	        core_1.Component({
 	            selector: 'admin-Page',
 	            template: template,
-	            directives: [applicationRouter_1.APPLICATION_ROUTER_DIRECTIVE, router_1.ROUTER_DIRECTIVES]
+	            directives: [router_1.ROUTER_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
+	            precompile: [
+	                usersPage_1.UsersPage,
+	                subscribersPage_1.SubscribersPage,
+	                categoriesPage_1.CategoriesPage,
+	                demandsPage_1.DemandsPage,
+	                demandsEditPage_1.DemandsEditPage,
+	                companiesPage_1.CompaniesPage,
+	                companiesEditPage_1.CompaniesEditPage,
+	                companiesCreatePage_1.CompanieCreatePage,
+	            ]
 	        }), 
 	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, notificationService_1.NotificationService])
 	    ], AdminPage);
 	    return AdminPage;
-	})();
+	}());
 	exports.AdminPage = AdminPage;
 	//# sourceMappingURL=adminPage.js.map
 
@@ -98608,6 +98678,223 @@
 /* 851 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var _ = __webpack_require__(354);
+	var core_1 = __webpack_require__(30);
+	var common_1 = __webpack_require__(27);
+	__webpack_require__(358);
+	var ng2_bootstrap_1 = __webpack_require__(407);
+	var notificationService_1 = __webpack_require__(825);
+	var localizationService_1 = __webpack_require__(826);
+	var usersService_1 = __webpack_require__(852);
+	var createUserDialog_1 = __webpack_require__(853);
+	var actionDialog_1 = __webpack_require__(856);
+	var user_1 = __webpack_require__(854);
+	var template = __webpack_require__(858);
+	var UsersPage = (function () {
+	    //</editor-fold>
+	    function UsersPage(_userService, _notificationService, _localizationService) {
+	        this._userService = _userService;
+	        this._notificationService = _notificationService;
+	        this._localizationService = _localizationService;
+	        this.usersPerPage = 10;
+	        this.emailFilter = "";
+	        this.nameFilter = "";
+	        this.cityId = -1;
+	        this.selectedStatusFilter = null;
+	        this.pagination = { totalItems: 1, currentPage: 1, maxSize: 7 };
+	        this.getCities();
+	    }
+	    UsersPage.prototype.ngOnInit = function () {
+	        var me = this;
+	        this.getStatusList();
+	        this.getUsers();
+	        this._notificationService.removeLoading();
+	    };
+	    UsersPage.prototype.referenceActionDialogInComponent = function (modal) {
+	        this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
+	    };
+	    UsersPage.prototype.referenceCreateUserDialogInComponent = function (modal) {
+	        this.userDialog = modal; // Here you get a reference to the modal so you can control it programmatically
+	    };
+	    UsersPage.prototype.getUsers = function () {
+	        var me = this;
+	        this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.pagination['currentPage'])
+	            .subscribe(function (response) {
+	            me.usersList = response['data'];
+	            me.pagination['totalItems'] = response['totalPages'];
+	        }, function (error) {
+	            me._notificationService.emitErrorNotificationToRootComponent('A aparut o eroare, utilizatori nu pot fi afisati.', 5);
+	        });
+	    };
+	    //user actions
+	    UsersPage.prototype.toggleEditMode = function (user) {
+	        user.userBackup = _.clone(user);
+	        user.isInEditMode = true;
+	    };
+	    UsersPage.prototype.closeEditMode = function (user) {
+	        user.email = user.userBackup.email;
+	        user.name = user.userBackup.name;
+	        user.status = user.userBackup.status;
+	        user.city = user.userBackup.city;
+	        user.cityId = user.userBackup.cityId;
+	        user.isInEditMode = false;
+	    };
+	    UsersPage.prototype.deleteUser = function (user) {
+	        var me = this;
+	        this.actionDialog.show("Are you sure that you want to delete this user ?", user);
+	    };
+	    UsersPage.prototype.actionDialogConfirmDelete = function (user) {
+	        var me = this;
+	        this.actionDialog.hide();
+	        this._userService.deleteUser(user)
+	            .subscribe(function (response) {
+	            var userIndex = me.usersList.indexOf(user);
+	            if (userIndex !== -1) {
+	                me.usersList.splice(userIndex, 1);
+	            }
+	        }, function (error) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Utilizatorul nu pote fi sters.', 5);
+	        });
+	    };
+	    UsersPage.prototype.saveEditedUser = function (user) {
+	        var _this = this;
+	        user.isInEditMode = false;
+	        this._userService.updateUser(user)
+	            .subscribe(function (response) {
+	            //success
+	        }, function (error) {
+	            //display be message
+	            var userIndex = _this.usersList.indexOf(user);
+	            if (userIndex !== -1) {
+	                _this.usersList[userIndex] = _this.userBackup;
+	            }
+	        });
+	    };
+	    UsersPage.prototype.getCities = function () {
+	        var me = this;
+	        me._localizationService.getCityList()
+	            .subscribe(function (succesR) {
+	            me['cityList'] = [{ id: -1, name: "Alege..." }].concat(succesR);
+	        }, function (error) {
+	            me.cityList = [];
+	        });
+	    };
+	    UsersPage.prototype.getStatusList = function () {
+	        var me = this;
+	        this._userService.getStatuese()
+	            .subscribe(function (resp) {
+	            me.statusList = [{ status: null, displayName: "Alege..." }].concat(_.map(resp, function (v) {
+	                return {
+	                    status: v,
+	                    displayName: v
+	                };
+	            }));
+	        }, function (error) {
+	        });
+	    };
+	    //grid
+	    UsersPage.prototype.createAccount = function () {
+	        this.userDialog.show("", new user_1.User());
+	    };
+	    UsersPage.prototype.confirmCreateUser = function () {
+	        var me = this;
+	        //post to backend
+	        this._userService.createUser(this.userDialog.getValue()).subscribe(function (resp) {
+	            me.userDialog.hide();
+	            me.getUsers();
+	        }, function (error) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Utilizatorul nu pote fi creat.', 5);
+	        });
+	    };
+	    UsersPage.prototype.applyFilters = function () {
+	        this.getUsers();
+	    };
+	    UsersPage = __decorate([
+	        core_1.Component({
+	            selector: 'users-Page',
+	            template: template,
+	            //styleUrls: [applicationPath + '/usersPage.css'],
+	            encapsulation: core_1.ViewEncapsulation.None,
+	            directives: [actionDialog_1.ActionDialog, createUserDialog_1.CreateUserDialog, common_1.NgForm, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
+	        }), 
+	        __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
+	    ], UsersPage);
+	    return UsersPage;
+	}());
+	exports.UsersPage = UsersPage;
+	//# sourceMappingURL=usersPage.js.map
+
+/***/ },
+/* 852 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var fMarketApi_1 = __webpack_require__(797);
+	var UserService = (function () {
+	    function UserService(api) {
+	        this.adminUsersControllerRoute = '/admin/users';
+	        this.api = api;
+	    }
+	    UserService.prototype.updateUser = function (user) {
+	        return this.api.put(this.adminUsersControllerRoute + ("/" + user.id), JSON.stringify(user));
+	    };
+	    UserService.prototype.createUser = function (user) {
+	        return this.api.post(this.adminUsersControllerRoute, JSON.stringify(user));
+	    };
+	    UserService.prototype.deleteUser = function (user) {
+	        return this.api.delete(this.adminUsersControllerRoute + ("/" + user.id));
+	    };
+	    UserService.prototype.getUsersWithFilters = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
+	        var requestOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);
+	        return this.api.post(this.adminUsersControllerRoute + ("/search?page=" + pageIndex), JSON.stringify(requestOptions));
+	    };
+	    UserService.prototype.buildSearchObject = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
+	        var requestOptions = {
+	            id: id === undefined || id == null || id === -1 ? null : id,
+	            email: emailFilter.length > 0 ? emailFilter : null,
+	            name: nameFilter.length > 0 ? nameFilter : null,
+	            status: selectedStatusFilter ? selectedStatusFilter : null,
+	            cityId: cityId == -1 || !cityId ? null : cityId,
+	        };
+	        return requestOptions;
+	    };
+	    UserService.prototype.getStatuese = function () {
+	        return this.api.get("/admin/users/statuses");
+	    };
+	    UserService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
+	    ], UserService);
+	    return UserService;
+	}());
+	exports.UserService = UserService;
+	//# sourceMappingURL=usersService.js.map
+
+/***/ },
+/* 853 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 	var __extends = (this && this.__extends) || function (d, b) {
 	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
 	    function __() { this.constructor = d; }
@@ -98622,76 +98909,208 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	/**
-	 * Created by NicolaeB on 7/11/2016.
-	 */
 	var core_1 = __webpack_require__(30);
-	var router_1 = __webpack_require__(355);
-	var authorizationService_1 = __webpack_require__(793);
-	var Roles_1 = __webpack_require__(821);
-	var APPLICATION_ROUTER_DIRECTIVE = (function (_super) {
-	    __extends(APPLICATION_ROUTER_DIRECTIVE, _super);
-	    function APPLICATION_ROUTER_DIRECTIVE(router, parentOutletMap, location, componentFactoryResolver, name) {
-	        _super.call(this, parentOutletMap, location, componentFactoryResolver, name);
-	        this.router = router;
+	var common_1 = __webpack_require__(27);
+	var modalDialog_1 = __webpack_require__(834);
+	var user_1 = __webpack_require__(854);
+	var Angular2ExtensionValidators_1 = __webpack_require__(827);
+	var _ = __webpack_require__(354);
+	var template = __webpack_require__(855);
+	var CreateUserDialog = (function (_super) {
+	    __extends(CreateUserDialog, _super);
+	    function CreateUserDialog(formBuilder) {
+	        _super.call(this);
+	        this.modaleMode = "newUser";
+	        this.title = "Adauga utilizator nou";
+	        this.cancelLabel = 'Cancel';
+	        this.positiveLabel = 'Creeaza utilizator';
+	        this.loadedEmitter = new core_1.EventEmitter();
+	        this.createUser = new core_1.EventEmitter();
+	        this._formBuilder = formBuilder;
+	        this.responseObject = new user_1.User();
 	    }
-	    APPLICATION_ROUTER_DIRECTIVE.prototype.activate = function (activatedRoute, providers, outletMap) {
-	        var requiredUserRoles = activatedRoute.snapshot['_routeConfig'] ? activatedRoute.snapshot['_routeConfig'].roles : null;
-	        debugger;
-	        if (this.authorizeRoute(requiredUserRoles)) {
-	            return _super.prototype.activate.call(this, activatedRoute, providers, outletMap);
-	        }
-	        else {
-	            var activeUserRole = authorizationService_1.AuthorizationService.getUserRole();
-	            switch (activeUserRole) {
-	                case null:
-	                case Roles_1.Role.ANONYMUS:
-	                case Roles_1.Role.USER: {
-	                    window.location.href = '/#';
-	                    break;
-	                }
-	                case Roles_1.Role.ADMIN: {
-	                    window.location.href = '/#/admin/users';
-	                    break;
-	                }
-	            }
-	        }
+	    CreateUserDialog.prototype.ngOnInit = function () {
+	        this._userForm = this._formBuilder.group([]);
+	        this.buildForm();
+	        this.loadedEmitter.emit(this);
 	    };
-	    APPLICATION_ROUTER_DIRECTIVE.prototype.authorizeRoute = function (requiredRoles) {
-	        var authorized = false;
-	        var activeUserRole = authorizationService_1.AuthorizationService.getUserRole();
-	        if (!requiredRoles) {
-	            requiredRoles = [Roles_1.Role.ANONYMUS, Roles_1.Role.USER];
-	        }
-	        if (!activeUserRole) {
-	            activeUserRole = Roles_1.Role.ANONYMUS;
-	        }
-	        return requiredRoles.indexOf(activeUserRole) !== -1;
+	    CreateUserDialog.prototype.editUser = function (user, cityList, statusList) {
+	        this.title = "Name: " + user.name;
+	        this.positiveLabel = 'Edit';
+	        this.show("", user);
+	        this.setValue(user);
 	    };
-	    APPLICATION_ROUTER_DIRECTIVE = __decorate([
-	        core_1.Directive({
-	            selector: 'router-outlet'
+	    CreateUserDialog.prototype.clearData = function () {
+	        this.responseObject = new user_1.User();
+	    };
+	    CreateUserDialog.prototype.setValue = function (user) {
+	        this.responseObject = user;
+	    };
+	    CreateUserDialog.prototype.getValue = function () {
+	        return this.responseObject;
+	    };
+	    CreateUserDialog.prototype.submitNewUser = function () {
+	        if (!this._userForm.valid) {
+	            return;
+	        }
+	        this.createUser.emit(this.getValue());
+	    };
+	    CreateUserDialog.prototype.cancelFormAction = function () {
+	        this.rebuildForm();
+	        this.cancelAction();
+	    };
+	    CreateUserDialog.prototype.rebuildForm = function () {
+	        var me = this;
+	        this.responseObject = new user_1.User();
+	        var controls = [];
+	        _.each(this._userForm, function (control, name) {
+	            controls[name] = name;
+	        });
+	        _.each(controls, function (control, name) {
+	            me._userForm.removeControl(name);
+	        });
+	        this.buildForm();
+	    };
+	    CreateUserDialog.prototype.buildForm = function () {
+	        this._userForm.addControl('name', this._formBuilder.control(this.responseObject['name'], common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3), common_1.Validators.maxLength(20)])));
+	        this._userForm.addControl('email', this._formBuilder.control(this.responseObject['email'], common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
+	        this._userForm.addControl('password', this._formBuilder.control(this.responseObject['password'], common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword])));
+	        this._userForm.addControl('phone', this._formBuilder.control(this.responseObject['phone'], common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(10), Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber])));
+	        this._userForm.addControl('status', this._formBuilder.control(this.responseObject['status'], common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateAccountStatus])));
+	        this._userForm.addControl('cityId', this._formBuilder.control(this.responseObject['cityId'], common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateCityId])));
+	        this._userForm.addControl('accountDetails', this._formBuilder.control(this.responseObject['accountDetails'], common_1.Validators.compose([common_1.Validators.required])));
+	    };
+	    __decorate([
+	        core_1.Input('title'), 
+	        __metadata('design:type', String)
+	    ], CreateUserDialog.prototype, "title", void 0);
+	    __decorate([
+	        core_1.Input('cancel-label'), 
+	        __metadata('design:type', String)
+	    ], CreateUserDialog.prototype, "cancelLabel", void 0);
+	    __decorate([
+	        core_1.Input('positive-label'), 
+	        __metadata('design:type', String)
+	    ], CreateUserDialog.prototype, "positiveLabel", void 0);
+	    __decorate([
+	        core_1.Input('status-list'), 
+	        __metadata('design:type', Array)
+	    ], CreateUserDialog.prototype, "statusList", void 0);
+	    __decorate([
+	        core_1.Input('city-list'), 
+	        __metadata('design:type', Array)
+	    ], CreateUserDialog.prototype, "cityList", void 0);
+	    __decorate([
+	        core_1.Output('loaded'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], CreateUserDialog.prototype, "loadedEmitter", void 0);
+	    __decorate([
+	        core_1.Output('create-user'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], CreateUserDialog.prototype, "createUser", void 0);
+	    CreateUserDialog = __decorate([
+	        core_1.Component({
+	            selector: 'create-user-dialog',
+	            template: template,
+	            directives: [common_1.FORM_DIRECTIVES]
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, router_1.RouterOutletMap, core_1.ViewContainerRef, core_1.ComponentFactoryResolver, String])
-	    ], APPLICATION_ROUTER_DIRECTIVE);
-	    return APPLICATION_ROUTER_DIRECTIVE;
-	})(router_1.RouterOutlet);
-	exports.APPLICATION_ROUTER_DIRECTIVE = APPLICATION_ROUTER_DIRECTIVE;
-	//# sourceMappingURL=applicationRouter.js.map
+	        __metadata('design:paramtypes', [common_1.FormBuilder])
+	    ], CreateUserDialog);
+	    return CreateUserDialog;
+	}(modalDialog_1.ModalDialog));
+	exports.CreateUserDialog = CreateUserDialog;
+	//# sourceMappingURL=createUserDialog.js.map
 
 /***/ },
-/* 852 */
+/* 854 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"admin-page-container\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row content\">\r\n            <div #leftMenu class=\"col-sm-2 sidenav hidden-xs hidden-sm\">\r\n                <div class=\"menu-container\">\r\n                    <div class=\"admin-menu-title text-left clearfix\">\r\n                        <div class=\"pull-left\">\r\n                            <span class=\"glyphicon glyphicon-th-list\"></span>\r\n                        </div>\r\n                        <div class=\"text-center\">\r\n                            <span class=\"h4\">Mangement website</span>\r\n                        </div>\r\n                    </div>\r\n                    <ul class=\"nav nav-pills nav-stacked\">\r\n                        <li [class.active]=\"checkRoute('/admin/users')\">\r\n                            <a [routerLink]=\"['/admin/users']\" class=\"clearfix\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-user\"></span>\r\n                                </div>\r\n                                Utilizatori\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/subscribers')\">\r\n                            <a [routerLink]=\"['/admin/subscribers']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-globe\"></span>\r\n                                </div>\r\n                                Abonati\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/categorii')\">\r\n                            <a [routerLink]=\"['/admin/categorii/meniu']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-tasks\"></span>\r\n                                </div>\r\n                                Categorii\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/cereri')\">\r\n                            <a [routerLink]=\"['/admin/cereri/newDemands']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-list-alt\"></span>\r\n                                </div>\r\n                                Cereri\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/companii') || checkRoute('/admin/ceeaza-companie/ceeaza')\">\r\n                            <a [routerLink]=\"['/admin/companii']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-transfer\"></span>\r\n                                </div>\r\n                                Companii\r\n                            </a>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n            <div #rightMenu class=\"col-sm-10 col-xs-12 col-sm-12\">\r\n                <div class=\"upper-page-container\">\r\n                    <div class=\"inner-page-container\">\r\n                        <router-outlet></router-outlet>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+	"use strict";
+	var User = (function () {
+	    function User(id, name, email, type, status, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes, phone) {
+	        this.isInEditMode = false;
+	        this.id = id ? id : -1;
+	        this.name = name ? name : "";
+	        this.email = email ? email : "";
+	        this.type = type ? type : "";
+	        this.status = status ? status : null;
+	        this.creationDate = creationDate ? creationDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
+	        this.closedDate = closedDate ? closedDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
+	        this.lastPasswordChangeDate = lastPasswordChangeDate ? lastPasswordChangeDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
+	        this.lastLoginDate = lastLoginDate ? lastLoginDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
+	        this.lastAutoLoginDate = lastAutoLoginDate ? lastAutoLoginDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
+	        this.cityId = cityId ? cityId : -1;
+	        this.city = city ? city : -1;
+	        this.loginTimes = loginTimes ? loginTimes : -1;
+	        this.autoLoginTimes = autoLoginTimes ? autoLoginTimes : -1;
+	        this.phone = phone ? phone : "";
+	    }
+	    User.prototype.getNewInstance = function () {
+	        return new User();
+	    };
+	    User.prototype.isValid = function () {
+	        if (!this.id || this.id === -1) {
+	            return false;
+	        }
+	        if (!this.name || this.name === "") {
+	            return false;
+	        }
+	        if (!this.type || this.type === "") {
+	            return false;
+	        }
+	        if (!this.email || this.email === "" || !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(this.email.trim())) {
+	            return false;
+	        }
+	        if (!this.creationDate || this.creationDate === new Date(1, 1, 1, 0, 0, 0, 0)) {
+	            return false;
+	        }
+	        if (!this.lastPasswordChangeDate || this.lastPasswordChangeDate === new Date(1, 1, 1, 0, 0, 0, 0)) {
+	            return false;
+	        }
+	        if (!this.lastLoginDate || this.lastLoginDate === new Date(1, 1, 1, 0, 0, 0, 0)) {
+	            return false;
+	        }
+	        if (!this.lastAutoLoginDate || this.lastAutoLoginDate === new Date(1, 1, 1, 0, 0, 0, 0)) {
+	            return false;
+	        }
+	        if (!this.cityId || this.cityId === -1) {
+	            return false;
+	        }
+	        if (!this.city || this.city === "") {
+	            return false;
+	        }
+	        if (!this.loginTimes || this.loginTimes === -1) {
+	            return false;
+	        }
+	        if (!this.autoLoginTimes || this.autoLoginTimes === -1) {
+	            return false;
+	        }
+	        if (!this.phone || this.phone === "") {
+	            return false;
+	        }
+	        return true;
+	    };
+	    return User;
+	}());
+	exports.User = User;
+	//# sourceMappingURL=user.js.map
 
 /***/ },
-/* 853 */
+/* 855 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 0.5 : 0\"  [ngClass]=\"{'remove':remove}\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelFormAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\" [ngClass]=\"{'remove':remove}\">\r\n    <div class=\"modal-dialog modal-dialog-very-sm modal-lg\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <form [ngFormModel]=\"_userForm\" (ngSubmit)=\"submitNewUser()\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelFormAction()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h4 class=\"modal-title\">\r\n                        {{title}}\r\n                    </h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-user\"></span>\r\n                        </span>\r\n                            <input type=\"text\" [ngFormControl]=\"_userForm.controls['name']\" [(ngModel)]=\"responseObject.name\" class=\"form-control\"\r\n                                   placeholder=\"Name\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-envelope\"></span>\r\n                        </span>\r\n                            <input type=\"email\" [ngFormControl]=\"_userForm.controls['email']\" [(ngModel)]=\"responseObject.email\" class=\"form-control\"\r\n                                   placeholder=\"E-mail\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-lock\"></span>\r\n                        </span>\r\n                            <input type=\"password\" [ngFormControl]=\"_userForm.controls['password']\" [(ngModel)]=\"responseObject.password\" class=\"form-control\"\r\n                                   placeholder=\"Password\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-earphone\"></span>\r\n                        </span>\r\n                            <input type=\"tel\" [ngFormControl]=\"_userForm.controls['phone']\" [(ngModel)]=\"responseObject.phone\" class=\"form-control\"\r\n                                   placeholder=\"0777123456\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-stats\"></span>\r\n                        </span>\r\n                            <select class=\"user-status-select\" [ngFormControl]=\"_userForm.controls['status']\" [(ngModel)]=\"responseObject.status\">\r\n                                <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                                </option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-globe\"></span>\r\n                        </span>\r\n                            <select class=\"user-status-select\" [ngFormControl]=\"_userForm.controls['cityId']\" [(ngModel)]=\"responseObject.cityId\">\r\n                                <option *ngFor=\"let option of cityList\" [value]=\"option.id\">{{option.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <label>Account Details:</label>\r\n                        <textarea type=\"text\" [ngFormControl]=\"_userForm.controls['accountDetails']\" [(ngModel)]=\"responseObject.accountDetails\"\r\n                                  class=\"form-control no-resize\"></textarea>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelFormAction()\">\r\n                        {{cancelLabel}}\r\n                    </button>\r\n                    <button type=\"submit\" [disabled]=\"!_userForm.valid\" class=\"btn btn-primary btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n\r\n    </div>\r\n</div>\r\n";
+
+/***/ },
+/* 856 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Created by nick_ on 4/26/2016.
-	 */
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98702,39 +99121,447 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(30);
-	var router_1 = __webpack_require__(355);
-	var notificationService_1 = __webpack_require__(825);
-	var jqueryService_1 = __webpack_require__(823);
-	var applicationConstansts_1 = __webpack_require__(794);
-	var tabsRoutingComponent_1 = __webpack_require__(854);
-	var applicationRouter_1 = __webpack_require__(851);
-	var template = __webpack_require__(856);
-	var AccountSettingsPage = (function () {
-	    //</editor-fold>
-	    function AccountSettingsPage(router, notificationService) {
-	        this.router = router;
-	        this.tabPagesList = [{ name: 'Contul meu', link: '/account/details', enableMarker: false, markerContent: "" },
-	            { name: 'Cererile mele', link: '/account/demands', enableMarker: false, markerContent: "" }];
-	        this._notificationService = notificationService;
-	        jqueryService_1.JqueryService.removeElementWithAnimation(document.getElementById(applicationConstansts_1.ApplicationConstants.LOADING_SPINNER));
+	var modalDialog_1 = __webpack_require__(834);
+	var template = __webpack_require__(857);
+	var ActionDialog = (function (_super) {
+	    __extends(ActionDialog, _super);
+	    function ActionDialog() {
+	        _super.call(this);
+	        this.positiveLabel = 'OK';
+	        this.cancelLabel = 'Cancel';
+	        this.loadedEmitter = new core_1.EventEmitter();
+	        this.confirmAction = new core_1.EventEmitter();
 	    }
-	    AccountSettingsPage = __decorate([
+	    ActionDialog.prototype.ngOnInit = function () {
+	        this.loadedEmitter.emit(this);
+	    };
+	    __decorate([
+	        core_1.Input('title'), 
+	        __metadata('design:type', String)
+	    ], ActionDialog.prototype, "title", void 0);
+	    __decorate([
+	        core_1.Input('positive-label'), 
+	        __metadata('design:type', String)
+	    ], ActionDialog.prototype, "positiveLabel", void 0);
+	    __decorate([
+	        core_1.Input('cancel-label'), 
+	        __metadata('design:type', String)
+	    ], ActionDialog.prototype, "cancelLabel", void 0);
+	    __decorate([
+	        core_1.Output('loaded'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], ActionDialog.prototype, "loadedEmitter", void 0);
+	    __decorate([
+	        core_1.Output('action-confirmed'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], ActionDialog.prototype, "confirmAction", void 0);
+	    ActionDialog = __decorate([
 	        core_1.Component({
-	            selector: 'account-settings-Page',
-	            template: template,
-	            directives: [applicationRouter_1.APPLICATION_ROUTER_DIRECTIVE, tabsRoutingComponent_1.TabsRoutingComponent]
+	            selector: 'action-dialog',
+	            template: template
 	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, notificationService_1.NotificationService])
-	    ], AccountSettingsPage);
-	    return AccountSettingsPage;
-	})();
-	exports.AccountSettingsPage = AccountSettingsPage;
-	//# sourceMappingURL=accountSettingsPage.js.map
+	        __metadata('design:paramtypes', [])
+	    ], ActionDialog);
+	    return ActionDialog;
+	}(modalDialog_1.ModalDialog));
+	exports.ActionDialog = ActionDialog;
+	//# sourceMappingURL=actionDialog.js.map
 
 /***/ },
-/* 854 */
+/* 857 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\">\r\n    <div class=\"modal-dialog modal-lg\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelAction()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h2 class=\"modal-title\">\r\n                    {{title}}\r\n                </h2>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <h4>{{message}}</h4>\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelAction()\">{{cancelLabel}}</button>\r\n                <button type=\"button\" class=\"btn btn-danger btn-sm\" (click)=\"positiveAction()\"> {{positiveLabel}}\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n";
+
+/***/ },
+/* 858 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"users-page\">\r\n    <!-- TODO catch close event -->\r\n    <action-dialog\r\n            [title]=\"'Delete'\"\r\n            [positive-label]=\"'Delete'\"\r\n            (loaded)=\"referenceActionDialogInComponent($event)\"\r\n            (action-confirmed)=\"actionDialogConfirmDelete($event)\">\r\n    </action-dialog>\r\n    <create-user-dialog\r\n            [city-list]=\"cityList\"\r\n            [status-list]=\"statusList\"\r\n            (loaded)=\"referenceCreateUserDialogInComponent($event)\"\r\n            (create-user)=\"confirmCreateUser()\">\r\n    </create-user-dialog>\r\n    <div class=\"page-title\">\r\n        <div class=\"row\">\r\n            <span class=\"h3\">Conturi</span>\r\n        </div>\r\n    </div>\r\n    <div class=\"page-content\">\r\n        <div class=\"row\">\r\n            <div class=\"filters\">\r\n                <div class=\"clearfix filter-container\">\r\n                    <div class=\"col-md-1 col-xs-12 remove-left-padding\">\r\n                        <div class=\"form-group\">\r\n                            <label>Id:</label>\r\n                            <input type=\"number\" [(ngModel)]=\"idFilter\" placeholder=\"0\"\r\n                                   class=\"form-control\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <div class=\"form-group\">\r\n                            <label>Email:</label>\r\n                            <input type=\"text\" [(ngModel)]=\"emailFilter\" placeholder=\"user@domain.com\"\r\n                                   class=\"form-control\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <div class=\"form-group\">\r\n                            <label>Nume:</label>\r\n                            <input type=\"text\" [(ngModel)]=\"nameFilter\" placeholder=\"Andrei\" class=\"form-control\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <label>Status:</label>\r\n\r\n                        <div>\r\n                            <select class=\"user-status-select\" [(ngModel)]=\"selectedStatusFilter\" [disabled]=\"statusList && statusList.legth > 0\">\r\n                                <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                                </option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <label>Oras:</label>\r\n\r\n                        <div>\r\n                            <select class=\"user-status-select\" [(ngModel)]=\"cityId\">\r\n                                <option *ngFor=\"let option of cityList\" [value]=\"option.id\">{{option.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-3 col-xs-12 remove-right-padding push-down clearfix\">\r\n                        <div class=\"pull-left btn-container\">\r\n                            <button class=\"btn btn-success\" (click)=\"applyFilters()\">Aplica Filtre</button>\r\n                        </div>\r\n                        <div class=\"pull-right btn-container\">\r\n                            <button class=\"btn btn-primary\" (click)=\"createAccount()\">\r\n                                <span class=\"glyphicon glyphicon-plus\"></span> Adauga utilizator\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"push-down pull-right\">\r\n\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <table class=\"table table-striped\" cellspacing=\"0\" width=\"100%\">\r\n                <thead class=\"thead-inverse\">\r\n                <tr>\r\n                    <th class=\"col-md-1 col-sm-2 col-xs-2 vertical-align\">Id</th>\r\n                    <th class=\"col-md-3 col-sm-4 col-xs-4 text-left vertical-align\">Email</th>\r\n                    <th class=\"col-md-2 col-sm-4 col-xs-4 text-left vertical-align\">Nume</th>\r\n                    <th class=\"col-md-1 hidden-sm hidden-xs vertical-align\">Status</th>\r\n                    <th class=\"col-md-2 hidden-sm hidden-xs vertical-align\">Oras</th>\r\n                    <th class=\"col-md-1 hidden-sm hidden-xs vertical-align\" colspan=\"2\">Actiuni</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody class=\"table-body\">\r\n                <tr *ngFor=\"let user of usersList\" [ngClass]=\"user.isInEditMode ? 'success':''\">\r\n                    <td>\r\n                        <span>{{user.id}}</span>\r\n                    </td>\r\n                    <td class=\"text-left\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.email}}</span>\r\n                        <input *ngIf=\"user.isInEditMode\" type=\"text\" class=\"form-control\" [(ngModel)]=\"user.email\"/>\r\n                    </td>\r\n                    <td class=\"text-left\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.name}}</span>\r\n                        <input *ngIf=\"user.isInEditMode\" type=\"text\" class=\"form-control\" [(ngModel)]=\"user.name\"/>\r\n                    </td>\r\n                    <td class=\"fit-select-to-td hidden-sm hidden-xs\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.status}}</span>\r\n                        <select *ngIf=\"user.isInEditMode\" class=\"user-status-select\" [(ngModel)]=\"user.status\">\r\n                            <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                            </option>\r\n                        </select>\r\n                    </td>\r\n                    <td class=\"fit-select-to-td hidden-sm hidden-xs\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.city}}</span>\r\n                        <select *ngIf=\"user.isInEditMode\" class=\"user-status-select\" [(ngModel)]=\"user.cityId\">\r\n                            <option *ngFor=\"let option of cityList\" [value]=\"option.id\">{{option.name}}</option>\r\n                        </select>\r\n                    </td>\r\n                    <td class=\"hidden-sm hidden-xs\">\r\n                        <a href=\"javascript:void(0)\" *ngIf=\"!user.isInEditMode\" (click)=\"toggleEditMode(user)\">\r\n                            <span class=\"glyphicon glyphicon-cog\"></span>\r\n                        </a>\r\n                        <a href=\"javascript:void(0)\" *ngIf=\"user.isInEditMode\" (click)=\"saveEditedUser(user)\">\r\n                            <span *ngIf=\"user.isInEditMode\" class=\"glyphicon glyphicon-ok\"></span>\r\n                        </a>\r\n                        <a href=\"javascript:void(0)\" *ngIf=\"user.isInEditMode\" (click)=\"closeEditMode(user)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                        </a>\r\n                    </td>\r\n                    <td class=\"hidden-sm hidden-xs\">\r\n                        <a href=\"javascript:void(0)\" (click)=\"deleteUser(user)\">\r\n                            <span class=\"glyphicon glyphicon-trash\"></span>\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n                <tr class=\"navigation-row text-center\">\r\n                    <td colspan=\"7\" class=\"navigation-column\">\r\n                        <pagination [totalItems]=\"pagination.totalItems\" [(ngModel)]=\"pagination.currentPage\"\r\n                                    (ngModelChange)=\"getUsers()\" [maxSize]=\"pagination.maxSize\" class=\"pagination-sm\"\r\n                                    [boundaryLinks]=\"true\" [rotate]=\"false\" (numPages)=\"numPages = $event\"></pagination>\r\n                    </td>\r\n                </tr>\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 859 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var common_1 = __webpack_require__(27);
+	var ng2_bootstrap_1 = __webpack_require__(407);
+	var subscribersService_1 = __webpack_require__(824);
+	var localizationService_1 = __webpack_require__(826);
+	var notificationService_1 = __webpack_require__(825);
+	__webpack_require__(358);
+	var actionDialog_1 = __webpack_require__(856);
+	var createSubscriberDialog_1 = __webpack_require__(860);
+	var applicationConstansts_1 = __webpack_require__(794);
+	var subscriber_1 = __webpack_require__(861);
+	var template = __webpack_require__(863);
+	var SubscribersPage = (function () {
+	    //</editor-fold>
+	    function SubscribersPage(subscribersService, localizationService, _notificationService) {
+	        this.subscribeDatePicker = { state: false };
+	        this.unSubscribeDatePicker = { state: false };
+	        this.orderList = [{ value: -1, text: "Chose..." },
+	            { value: 1, text: "Ascending" },
+	            { value: 2, text: "Descending" }];
+	        this.sortKey = "EMAIL";
+	        this.sortOrder = true;
+	        this.sortkeyAndFilter = [];
+	        this.emailFilter = "";
+	        this.subscribeDateFilter = new Date();
+	        this.unsubscribeDateFilter = new Date();
+	        this.dateTimePlaceHolder = applicationConstansts_1.ApplicationConstants.getLocaleDateString();
+	        this.pagination = { totalItems: 1, currentPage: 1, maxSize: 7 };
+	        this.subscribersList = [];
+	        this.deleteMessage = "Are you sure that you want to delete this subscriber ?";
+	        this._notificationService = _notificationService;
+	        this.sortkeyAndFilter["EMAIL"] = true;
+	        this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
+	        this.sortkeyAndFilter["UNSUBSCRIBE_DATE"] = true;
+	        this._localizationService = localizationService;
+	        this._subscribersService = subscribersService;
+	    }
+	    SubscribersPage.prototype.ngOnInit = function () {
+	        this.getCities();
+	        this.matchSortOrderByColumn('');
+	        this.getSubscribersWithFilters();
+	    };
+	    SubscribersPage.prototype.referenceActionDialogInComponent = function (modal) {
+	        this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
+	    };
+	    SubscribersPage.prototype.referenceCreateSubscriberDialogInComponent = function (modal) {
+	        this.createSubscriberDialog = modal;
+	    };
+	    SubscribersPage.prototype.showSubscriberDialog = function () {
+	        this.createSubscriberDialog.show("", new subscriber_1.Subscriber());
+	    };
+	    SubscribersPage.prototype.createSubscriber = function (subscriberValue) {
+	        var me = this;
+	        this._subscribersService.subscribe(subscriberValue.email)
+	            .subscribe(function (response) {
+	            me.getSubscribersWithFilters();
+	            me.createSubscriberDialog.close();
+	        }, function (error) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Abonatul nu a putut fi adaugat', 5);
+	        });
+	    };
+	    SubscribersPage.prototype.getSubscribersWithFilters = function () {
+	        var me = this;
+	        this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.pagination['currentPage'], this.sortKey, this.sortOrder)
+	            .subscribe(function (response) {
+	            me.subscribersList = response.data;
+	            me.pagination['totalItems'] = response.totalPages;
+	            me.pagination['currentPage'] = response.page;
+	        }, function (error) {
+	        });
+	    };
+	    SubscribersPage.prototype.subscribe = function (subscriber) {
+	        var me = this;
+	        this._subscribersService.subscribe(subscriber.email)
+	            .subscribe(function (response) {
+	            me.getSubscribersWithFilters();
+	        }, function (error) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Userul nu se poate abona.', 5);
+	        });
+	    };
+	    SubscribersPage.prototype.unsubscribe = function (subscriber) {
+	        var me = this;
+	        this._subscribersService.unsubscribe(subscriber.id)
+	            .subscribe(function (response) {
+	        }, function (error) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Userul nu se poate dezabona.', 5);
+	        });
+	    };
+	    SubscribersPage.prototype.actionDialogConfirmDelete = function (subscriber) {
+	        var me = this;
+	        this.actionDialog.hide();
+	        this._subscribersService.delete(subscriber.id)
+	            .subscribe(function (response) {
+	            var subscriberIndex = me.subscribersList.indexOf(subscriber);
+	            if (subscriberIndex !== -1) {
+	                me.subscribersList.splice(subscriberIndex, 1);
+	            }
+	        }, function (error) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Abonatul nu poate fi sters.', 5);
+	        });
+	    };
+	    SubscribersPage.prototype.getClassForSorting = function (columnName) {
+	        return this.sortkeyAndFilter[columnName] ? "fa fa-sort" : "fa fa-sort";
+	    };
+	    SubscribersPage.prototype.sortByColumn = function (columnName) {
+	        this.matchSortOrderByColumn(columnName);
+	        this.getSubscribersWithFilters();
+	    };
+	    SubscribersPage.prototype.matchSortOrderByColumn = function (columnName) {
+	        var me = this;
+	        this.sortKey = columnName;
+	        for (var sortkey in this.sortkeyAndFilter) {
+	            if (sortkey === columnName) {
+	                me.sortOrder = this.sortkeyAndFilter[sortkey] = !this.sortkeyAndFilter[sortkey];
+	            }
+	            else {
+	                //true -> ascending
+	                this.sortkeyAndFilter[sortkey] = true;
+	            }
+	        }
+	    };
+	    SubscribersPage.prototype.toggleEditMode = function (subscriber) {
+	        subscriber.isInEditMode = true;
+	    };
+	    SubscribersPage.prototype.saveEditedSubscriber = function (subscriber) {
+	        subscriber.isInEditMode = false;
+	    };
+	    SubscribersPage.prototype.openSubscribeDatePicke = function ($event) {
+	        $event.stopPropagation();
+	        $event.preventDefault();
+	        this.subscribeDatePicker.state = true;
+	        this.subscriberFormatedDate = this.subscribeDateFilter.toLocaleDateString();
+	    };
+	    SubscribersPage.prototype.openUnSubscribeDatePicke = function ($event) {
+	        $event.stopPropagation();
+	        $event.preventDefault();
+	        this.unSubscribeDatePicker.state = true;
+	        this.unsubscriberFormatedDate = this.unsubscribeDateFilter.toLocaleDateString();
+	    };
+	    SubscribersPage.prototype.updateSubscribeDatePicker = function () {
+	        var dateString = applicationConstansts_1.ApplicationConstants.getLocaleDateString();
+	        if (!applicationConstansts_1.ApplicationConstants.getLocaleDateRegex().test(this.subscriberFormatedDate)) {
+	            this.subscriberFormatedDate = '';
+	            return;
+	        }
+	        this.subscribeDateFilter = new Date(this.subscriberFormatedDate);
+	    };
+	    SubscribersPage.prototype.updateunSubscribeDatePicker = function () {
+	        var dateString = applicationConstansts_1.ApplicationConstants.getLocaleDateString();
+	        if (!applicationConstansts_1.ApplicationConstants.getLocaleDateRegex().test(this.unsubscriberFormatedDate)) {
+	            this.unsubscriberFormatedDate = '';
+	            return;
+	        }
+	        this.unsubscribeDateFilter = new Date(this.unsubscriberFormatedDate);
+	    };
+	    SubscribersPage.prototype.getCities = function () {
+	        var me = this;
+	        me._localizationService.getCityList()
+	            .subscribe(function (succesR) {
+	            me.cityList = succesR;
+	        }, function (error) {
+	            me.cityList = [];
+	        });
+	    };
+	    SubscribersPage = __decorate([
+	        core_1.Component({
+	            selector: 'subscribers-Page',
+	            template: template,
+	            //styleUrls: [applicationPath + '/subscribersPage.css'],
+	            encapsulation: core_1.ViewEncapsulation.None,
+	            directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
+	        }), 
+	        __metadata('design:paramtypes', [subscribersService_1.SubscribersService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
+	    ], SubscribersPage);
+	    return SubscribersPage;
+	}());
+	exports.SubscribersPage = SubscribersPage;
+	//# sourceMappingURL=subscribersPage.js.map
+
+/***/ },
+/* 860 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var common_1 = __webpack_require__(27);
+	var modalDialog_1 = __webpack_require__(834);
+	var subscriber_1 = __webpack_require__(861);
+	var Angular2ExtensionValidators_1 = __webpack_require__(827);
+	var template = __webpack_require__(862);
+	var CreateSubscriberDialog = (function (_super) {
+	    __extends(CreateSubscriberDialog, _super);
+	    function CreateSubscriberDialog(formBuilder) {
+	        _super.call(this);
+	        this.modaleMode = "newSubscriber";
+	        this.title = "Adauga abonat nou";
+	        this.cancelLabel = 'Cancel';
+	        this.positiveLabel = 'Creeaza abonat';
+	        this.loadedEmitter = new core_1.EventEmitter();
+	        this.createEmitter = new core_1.EventEmitter();
+	        this._formBuilder = formBuilder;
+	    }
+	    CreateSubscriberDialog.prototype.ngOnInit = function () {
+	        this.loadedEmitter.emit(this);
+	        this.responseObject = new subscriber_1.Subscriber();
+	        this._subscriberForm = this._formBuilder.group([]);
+	        this.buildForm();
+	    };
+	    CreateSubscriberDialog.prototype.clearData = function () {
+	        this.responseObject = new subscriber_1.Subscriber();
+	    };
+	    CreateSubscriberDialog.prototype.setValue = function (subscriber) {
+	        this.responseObject = subscriber;
+	    };
+	    CreateSubscriberDialog.prototype.getValue = function () {
+	        return this.responseObject;
+	    };
+	    CreateSubscriberDialog.prototype.close = function () {
+	        this.hideWithoutAnimation();
+	        this._subscriberForm.removeControl("email");
+	        this.buildForm();
+	    };
+	    CreateSubscriberDialog.prototype.cancelCreateSubscriber = function () {
+	        this._subscriberForm.removeControl('email');
+	        this.buildForm();
+	        this.cancelAction();
+	    };
+	    CreateSubscriberDialog.prototype.buildForm = function () {
+	        this._subscriberForm.addControl('email', this._formBuilder.control(this.responseObject['email'], common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
+	    };
+	    CreateSubscriberDialog.prototype.submitSubscriber = function () {
+	        if (!this._subscriberForm.valid) {
+	            return;
+	        }
+	        this.createEmitter.emit(this.responseObject);
+	    };
+	    __decorate([
+	        core_1.Input('title'), 
+	        __metadata('design:type', String)
+	    ], CreateSubscriberDialog.prototype, "title", void 0);
+	    __decorate([
+	        core_1.Input('cancel-label'), 
+	        __metadata('design:type', String)
+	    ], CreateSubscriberDialog.prototype, "cancelLabel", void 0);
+	    __decorate([
+	        core_1.Input('positive-label'), 
+	        __metadata('design:type', String)
+	    ], CreateSubscriberDialog.prototype, "positiveLabel", void 0);
+	    __decorate([
+	        core_1.Output('loaded'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], CreateSubscriberDialog.prototype, "loadedEmitter", void 0);
+	    __decorate([
+	        core_1.Output('create-subscriber'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], CreateSubscriberDialog.prototype, "createEmitter", void 0);
+	    CreateSubscriberDialog = __decorate([
+	        core_1.Component({
+	            selector: 'create-subscriber-dialog',
+	            template: template,
+	            directives: [common_1.FORM_DIRECTIVES]
+	        }), 
+	        __metadata('design:paramtypes', [common_1.FormBuilder])
+	    ], CreateSubscriberDialog);
+	    return CreateSubscriberDialog;
+	}(modalDialog_1.ModalDialog));
+	exports.CreateSubscriberDialog = CreateSubscriberDialog;
+	//# sourceMappingURL=createSubscriberDialog.js.map
+
+/***/ },
+/* 861 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var Subscriber = (function () {
+	    function Subscriber(id, description, email, subscribeDate, unsubscribeDate, unsubscribeToken) {
+	        this.isInEditMode = false;
+	        this.id = id ? id : "";
+	        this.description = description ? description : "";
+	        this.email = email ? email : "";
+	        this.subscribeDate = subscribeDate ? subscribeDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
+	        this.unsubscribeDate = unsubscribeDate ? unsubscribeDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
+	        this.unsubscribeToken = unsubscribeToken ? unsubscribeToken : -1;
+	    }
+	    Subscriber.prototype.getNewInstance = function () {
+	        return new Subscriber();
+	    };
+	    return Subscriber;
+	}());
+	exports.Subscriber = Subscriber;
+	//# sourceMappingURL=subscriber.js.map
+
+/***/ },
+/* 862 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 0.5 : 0\"  [ngClass]=\"{'remove':remove}\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelCreateSubscriber()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\" [ngClass]=\"{'remove':remove}\">\r\n    <div class=\"modal-dialog modal-dialog-very-sm modal-md\" (click)=\"stopPropagation($event)\">\r\n        <form [ngFormModel]=\"_subscriberForm\" (ngSubmit)=\"submitSubscriber()\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelCreateSubscriber()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h4 class=\"modal-title\">\r\n                        {{title}}\r\n                    </h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n\t\t\t\t\t\t<span class=\"input-group-addon\">\r\n\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-envelope\"></span>\r\n\t\t\t\t\t\t</span>\r\n                            <input type=\"email\" [ngFormControl]=\"_subscriberForm.controls['email']\"\r\n                                   [(ngModel)]=\"responseObject.email\" class=\"form-control\"\r\n                                   placeholder=\"E-mail\"/>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelCreateSubscriber()\">{{cancelLabel}}\r\n                    </button>\r\n                    <button type=\"submit\" [disabled]=\"!_subscriberForm.valid\" class=\"btn btn-primary btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n</div>\r\n";
+
+/***/ },
+/* 863 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"clearfix\">\r\n    <!-- TODO catch close event -->\r\n    <action-dialog\r\n            [title]=\"'Delete'\"\r\n            [positive-label]=\"'Delete'\"\r\n            (loaded)=\"referenceActionDialogInComponent($event)\"\r\n            (action-confirmed)=\"actionDialogConfirmDelete($event)\">\r\n        <h4>Sunteti sigur ca doriti sa stergeti abonatul ?</h4>\r\n    </action-dialog>\r\n    <create-subscriber-dialog\r\n            (loaded)=\"referenceCreateSubscriberDialogInComponent($event)\"\r\n            (create-subscriber)=\"createSubscriber($event)\">\r\n    </create-subscriber-dialog>\r\n    <div class=\"subscribers-page\">\r\n        <!-- TODO catch close event -->\r\n        <div class=\"page-title\">\r\n            <div class=\"row\">\r\n                <span class=\"h3\">Abonati</span>\r\n            </div>\r\n        </div>\r\n        <div class=\"page-content\">\r\n            <div class=\"row\">\r\n                <div class=\"filters\">\r\n\r\n                    <div class=\"clearfix filter-container\">\r\n                        <div class=\"col-lg-3 col-xs-12 remove-left-padding\">\r\n                            <div class=\"form-group\">\r\n                                <label>Email:</label>\r\n                                <input type=\"text\" [(ngModel)]=\"emailFilter\" placeholder=\"email@domain.com\"\r\n                                       class=\"form-control\"/>\r\n                            </div>\r\n                        </div>\r\n                        \r\n                        <div class=\"col-lg-3 col-xs-12 no-right-p padding-top-25 remove-right-padding\">\r\n                            <div class=\"pull-right btn-full-width\">\r\n                                <input type=\"button\" class=\"btn btn-primary\" (click)=\"showSubscriberDialog()\"\r\n                                       value=\"Adauga abonat\"/>\r\n                            </div>\r\n                            <div class=\"pull-left btn-full-width\">\r\n                                <input type=\"button\" class=\"btn btn-success\" (click)=\"getSubscribersWithFilters()\"\r\n                                       value=\"Aplica filtre\"/>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n                <div class=\"subscribers\">\r\n                    <div class=\"table-responsiv\">\r\n                        <table class=\"table table-striped\">\r\n                            <thead class=\"thead-inverse\">\r\n                            <tr class=\"vertical-align\">\r\n                                <th class=\"col-md-1 col-xs-1\">Id</th>\r\n                                <th class=\"col-md-4 col-xs-5 pointer-cursor text-left\" (click)=\"sortByColumn('EMAIL')\">\r\n                                    <span>Email</span>\r\n                                    <span [ngClass]=\"getClassForSorting('EMAIL')\"></span>\r\n                                </th>\r\n                                <!--<th class=\"col-md-1 col-xs-5 pointer-cursor hidden-sm hidden-xs\"-->\r\n                                    <!--(click)=\"sortByColumn('SUBSCRIBE_DATE')\">-->\r\n                                    <!--<span>Data abonarii</span>-->\r\n                                    <!--&lt;!&ndash;<span [ngClass]=\"getClassForSorting('SUBSCRIBE_DATE')\" aria-hidden=\"truet\"></span>&ndash;&gt;-->\r\n                                <!--</th>-->\r\n                                <!--<th class=\"col-md-1 hidden-sm hidden-xs pointer-cursor\"-->\r\n                                    <!--(click)=\"sortByColumn('UNSUBSCRIBE_DATE')\">-->\r\n                                    <!--<span>Data dezabonarii</span>-->\r\n                                    <!--<span [ngClass]=\"getClassForSorting('UNSUBSCRIBE_DATE')\"></span>-->\r\n                                <!--</th>-->\r\n                                <th class=\"col-md-5 hidden-xs text-left\">Cod dezabonare</th>\r\n                                <th class=\"col-md-2\" colspan=\"3\">Actiuni</th>\r\n                            </tr>\r\n                            </thead>\r\n                            <tbody class=\"table-body\">\r\n                            <tr *ngFor=\"let subscriber of subscribersList\"\r\n                                [ngClass]=\"subscriber.isInEditMode ? 'success':''\">\r\n                                <td>\r\n                                    <span>{{subscriber.id}}</span>\r\n                                </td>\r\n                                <td class=\"text-left\">\r\n                                    <span>{{subscriber.email}}</span>\r\n                                </td>\r\n                                <!--<td class=\"hidden-sm hidden-xs\">-->\r\n                                    <!--<span>{{subscriber.subscribeDate}}</span>-->\r\n                                <!--</td>-->\r\n                                <!--<td class=\"fit-select-to-td hidden-sm hidden-xs\">-->\r\n                                    <!--<span>{{subscriber.unsubscribeDate}}</span>-->\r\n                                <!--</td>-->\r\n                                <td class=\"fit-select-to-td hidden-sm hidden-xs text-left\">\r\n                                    <span>{{subscriber.unsubscribeToken}}</span>\r\n                                </td>\r\n                                <td>\r\n                                    <a href=\"javascript:void(0)\" title=\"Subscribe\" (click)=\"subscribe(subscriber)\">\r\n                                        <span class=\"glyphicon glyphicon-log-in\"></span>\r\n                                    </a>\r\n                                </td>\r\n                                <td>\r\n                                    <a href=\"javascript:void(0)\" title=\"Unsubscribe\" (click)=\"unsubscribe(subscriber)\">\r\n                                        <span class=\"glyphicon glyphicon-log-out\tTry it\"></span>\r\n                                    </a>\r\n                                </td>\r\n                                <td>\r\n                                    <a href=\"javascript:void(0)\" title=\"Delete\"\r\n                                       (click)=\"actionDialog.show(deleteMessage,subscriber)\">\r\n                                        <span class=\"glyphicon glyphicon-trash\"></span>\r\n                                    </a>\r\n                                </td>\r\n                            </tr>\r\n                            <tr class=\"navigation-row\">\r\n                                <td colspan=\"8\" class=\"navigation-column\">\r\n                                    <pagination [totalItems]=\"pagination.totalItems\"\r\n                                                [(ngModel)]=\"pagination.currentPage\"\r\n                                                (ngModelChange)=\"getSubscribersWithFilters()\" [maxSize]=\"pagination.maxSize\"\r\n                                                class=\"pagination-sm\"\r\n                                                [boundaryLinks]=\"true\" [rotate]=\"false\"\r\n                                                (numPages)=\"numPages = $event\"></pagination>\r\n                                </td>\r\n                            </tr>\r\n                            </tbody>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 864 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var tabsRoutingComponent_1 = __webpack_require__(865);
+	var categoriesMenuPage_1 = __webpack_require__(867);
+	var companiesPage_1 = __webpack_require__(871);
+	var domainsPage_1 = __webpack_require__(875);
+	var router_1 = __webpack_require__(355);
+	var template = __webpack_require__(878);
+	var CategoriesPage = (function () {
+	    function CategoriesPage() {
+	        this.tabPagesList = [{ name: 'Meniu', link: '/admin/categorii/meniu', enableMarker: false, markerContent: "" },
+	            { name: 'Companii', link: '/admin/categorii/firme', enableMarker: false, markerContent: "" },
+	            { name: 'Cereri', link: '/admin/categorii/domenii', enableMarker: false, markerContent: "" }];
+	    }
+	    CategoriesPage = __decorate([
+	        core_1.Component({
+	            selector: 'categoryes-page',
+	            template: template,
+	            //styleUrls: [applicationPath + '/categoriesPage.css'],
+	            directives: [tabsRoutingComponent_1.TabsRoutingComponent, router_1.ROUTER_DIRECTIVES],
+	            precompile: [
+	                categoriesMenuPage_1.CategoriesMenuPage,
+	                companiesPage_1.CompaniesPage,
+	                domainsPage_1.DomainsPage
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], CategoriesPage);
+	    return CategoriesPage;
+	}());
+	exports.CategoriesPage = CategoriesPage;
+	//# sourceMappingURL=categoriesPage.js.map
+
+/***/ },
+/* 865 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98750,7 +99577,7 @@
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(355);
 	var common_1 = __webpack_require__(27);
-	var template = __webpack_require__(855);
+	var template = __webpack_require__(866);
 	var TabsRoutingComponent = (function () {
 	    function TabsRoutingComponent(router, location) {
 	        this.router = router;
@@ -98773,26 +99600,2404 @@
 	        __metadata('design:paramtypes', [router_1.Router, common_1.Location])
 	    ], TabsRoutingComponent);
 	    return TabsRoutingComponent;
-	})();
+	}());
 	exports.TabsRoutingComponent = TabsRoutingComponent;
 	//# sourceMappingURL=tabsRoutingComponent.js.map
 
 /***/ },
-/* 855 */
+/* 866 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"clearfix\">\r\n    <ul class=\"nav nav-tabs\" role=\"tablist\">\r\n        <li role=\"presentation\" *ngFor=\"let tab of tabPagesList\"\r\n            [class.active]=\"checkRoute(tab.link)\">\r\n                <a [routerLink]=\"[tab.link]\">\r\n                    {{tab.name}}\r\n                </a>\r\n                <span *ngIf=\"tab.enableMarker\" class=\"label label-info\">{{tab.markerContent}}</span>\r\n        </li>\r\n    </ul>\r\n</div>";
 
 /***/ },
-/* 856 */
+/* 867 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var categoriesMenuService_1 = __webpack_require__(796);
+	var menuTreeComponent_1 = __webpack_require__(835);
+	var menuItemDialog_1 = __webpack_require__(868);
+	var selectComponent_1 = __webpack_require__(830);
+	var authorizationService_1 = __webpack_require__(793);
+	var Roles_1 = __webpack_require__(821);
+	var template = __webpack_require__(870);
+	var CategoriesMenuPage = (function () {
+	    //</editor-fold>
+	    function CategoriesMenuPage(_categoriesMenuService) {
+	        //</editor-fold>
+	        //<editor-fold desc="Variables">
+	        this.menuDictionary = [];
+	        this.isAdminUser = authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
+	        this._categoriesMenuService = _categoriesMenuService;
+	        // code...
+	    }
+	    CategoriesMenuPage.prototype.ngOnInit = function () {
+	        this.getMenuDictionary();
+	        this.getDomains();
+	    };
+	    CategoriesMenuPage.prototype.referenceModal = function (modal) {
+	        this._menuItemModal = modal;
+	    };
+	    CategoriesMenuPage.prototype.getMenuDictionary = function () {
+	        var me = this;
+	        this._categoriesMenuService.getMenuDictionary()
+	            .subscribe(function (response) {
+	            me.menuDictionary = response;
+	        }, function (error) {
+	            me.menuDictionary = [];
+	        });
+	    };
+	    CategoriesMenuPage.prototype.selectMenuItem = function (menuItem) {
+	        //
+	    };
+	    CategoriesMenuPage.prototype.showAddMenuModal = function (parentId) {
+	        this._modalInterface = { parentId: parentId, operationType: "new", positiveLabel: "Create", id: null };
+	        this._menuItemModal.show(this._modalInterface);
+	    };
+	    CategoriesMenuPage.prototype.addMenuItem = function (newDomainMenuItemRequest) {
+	        var me = this;
+	        me._categoriesMenuService.addMenuItem(newDomainMenuItemRequest)
+	            .subscribe(function (response) {
+	            me._menuItemModal.hide();
+	            me.getMenuDictionary();
+	        }, function (error) {
+	            // me._menuItemModal.showErrors();
+	        });
+	    };
+	    CategoriesMenuPage.prototype.showEditMenuModal = function (menuToUpdate) {
+	        this._menuItemModal.update({
+	            operationType: "update",
+	            positiveLabel: "Update",
+	            menuModel: menuToUpdate,
+	            id: null
+	        });
+	    };
+	    CategoriesMenuPage.prototype.editMenuItem = function (updateDomainMenuItemRequest) {
+	        var me = this;
+	        me._categoriesMenuService.updateMenuItem(updateDomainMenuItemRequest)
+	            .subscribe(function (response) {
+	            me._menuItemModal.hide();
+	            me.getMenuDictionary();
+	        }, function (error) {
+	            // me._menuItemModal.showErrors();
+	        });
+	    };
+	    CategoriesMenuPage.prototype.deleteMenuItem = function (id) {
+	        var _this = this;
+	        this._categoriesMenuService.deleteMenuItem(id)
+	            .subscribe(function (response) {
+	            _this.getMenuDictionary();
+	        }, function (errod) {
+	        });
+	    };
+	    CategoriesMenuPage.prototype.getDomains = function () {
+	        var me = this;
+	        this._categoriesMenuService.getDomains()
+	            .subscribe(function (response) {
+	            me._domains = response;
+	        }, function (error) {
+	            me._domains = [];
+	        });
+	    };
+	    CategoriesMenuPage = __decorate([
+	        core_1.Component({
+	            selector: 'companies-Page',
+	            template: template,
+	            //styleUrls: [applicationPath + '/categoriesMenuPage.css'],
+	            directives: [menuTreeComponent_1.MenuTreeComponent, menuItemDialog_1.MenuItemDialog, selectComponent_1.SelectComponent],
+	        }), 
+	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])
+	    ], CategoriesMenuPage);
+	    return CategoriesMenuPage;
+	}());
+	exports.CategoriesMenuPage = CategoriesMenuPage;
+	//# sourceMappingURL=categoriesMenuPage.js.map
+
+/***/ },
+/* 868 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 4/9/2016.
+	 */
+	var core_1 = __webpack_require__(30);
+	var common_1 = __webpack_require__(27);
+	var selectComponent_1 = __webpack_require__(830);
+	var Angular2ExtensionValidators_1 = __webpack_require__(827);
+	var template = __webpack_require__(869);
+	//used template to not download the same html multiple times
+	var MenuItemDialog = (function () {
+	    function MenuItemDialog(formBuilder) {
+	        this.modalLoaded = new core_1.EventEmitter();
+	        this.newMenuItemEmitter = new core_1.EventEmitter();
+	        this.updateMenuItemEmitter = new core_1.EventEmitter();
+	        this._formBuilder = formBuilder;
+	        this._menuItem = this._formBuilder.group([]);
+	    }
+	    MenuItemDialog.prototype.ngOnInit = function () {
+	        this.modalLoaded.emit(this);
+	        this._validForm = true;
+	        this.buildMenuItemForm();
+	    };
+	    MenuItemDialog.prototype.ngOnChanges = function (changes) {
+	        if (changes.hasOwnProperty('domainsList') && this.domainsList) {
+	            this.items = this.domainsList.map(function (domain) {
+	                return {
+	                    displayName: domain['name'],
+	                    boundItem: domain
+	                };
+	            });
+	        }
+	    };
+	    MenuItemDialog.prototype.submitMenuItem = function () {
+	        if (!this._menuItem.valid) {
+	            return;
+	        }
+	        this.positiveAction();
+	    };
+	    MenuItemDialog.prototype.show = function (newModal) {
+	        this.fatchModel(newModal);
+	        this.showModal = true;
+	    };
+	    MenuItemDialog.prototype.referenceSelectComponent = function (select) {
+	        this._select = select;
+	        //build the form only when component is ready
+	    };
+	    MenuItemDialog.prototype.update = function (newModal) {
+	        this.fatchUpdateModel(newModal);
+	        this.showModal = true;
+	    };
+	    MenuItemDialog.prototype.hide = function () {
+	        this.clearModal();
+	        this.showModal = false;
+	    };
+	    MenuItemDialog.prototype.positiveAction = function () {
+	        switch (this.operationType) {
+	            case 'new':
+	                this.newMenuItemEmitter.emit({
+	                    parentId: this.parentId,
+	                    name: this.name,
+	                    orderNr: this.orderNr,
+	                    domainId: this._select._selectedItem.boundItem ? this._select._selectedItem.boundItem['id'] : null
+	                });
+	                break;
+	            case 'update':
+	                this.updateMenuItemEmitter.emit({ id: this.id, newName: this.name, orderNr: this.orderNr, domainId: this._select._selectedItem.boundItem ? this._select._selectedItem.boundItem['id'] : null });
+	                break;
+	        }
+	    };
+	    MenuItemDialog.prototype.cancelAction = function () {
+	        this.clearModal();
+	        this.showModal = false;
+	    };
+	    MenuItemDialog.prototype.stopPropagation = function ($event) {
+	        $event.stopPropagation();
+	    };
+	    MenuItemDialog.prototype.clearModal = function () {
+	        this.parentId = -1;
+	        this.id = "";
+	        this.name = "";
+	        this.orderNr = "";
+	        this._select.selectItem(this._select._chooseItemValue);
+	        this.rebuildFormControls();
+	    };
+	    MenuItemDialog.prototype.fatchModel = function (newModal) {
+	        this.parentId = newModal.parentId;
+	        this.positiveLabel = newModal.positiveLabel;
+	        this.operationType = newModal.operationType;
+	        this.id = newModal.id;
+	    };
+	    MenuItemDialog.prototype.fatchUpdateModel = function (newModal) {
+	        this.id = newModal.menuModel['id'];
+	        this.name = newModal.menuModel['name'];
+	        this.orderNr = newModal.menuModel['orderNr'];
+	        this.selectItemById(newModal.menuModel['domainId']);
+	        this.positiveLabel = newModal.positiveLabel;
+	        this.operationType = newModal.operationType;
+	    };
+	    MenuItemDialog.prototype.selectItemById = function (domainId) {
+	        var i = 0;
+	        while (i < this.items.length) {
+	            if (this.items[i].boundItem && this.items[i].boundItem['id'] === domainId) {
+	                this._select._selectedItem = this.items[i];
+	                return;
+	            }
+	            i++;
+	        }
+	    };
+	    MenuItemDialog.prototype.buildMenuItemForm = function () {
+	        this._menuItem.addControl('orderNr', this._formBuilder.control(this.orderNr, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateInteger])));
+	        this._menuItem.addControl('name', this._formBuilder.control(this.orderNr, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
+	    };
+	    MenuItemDialog.prototype.rebuildFormControls = function () {
+	        this._menuItem.removeControl('orderNr');
+	        this._menuItem.removeControl('name');
+	        this.buildMenuItemForm();
+	    };
+	    __decorate([
+	        core_1.Output('modal-loaded'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], MenuItemDialog.prototype, "modalLoaded", void 0);
+	    __decorate([
+	        core_1.Output('add-menu-item'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], MenuItemDialog.prototype, "newMenuItemEmitter", void 0);
+	    __decorate([
+	        core_1.Output('update-menu-item'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], MenuItemDialog.prototype, "updateMenuItemEmitter", void 0);
+	    __decorate([
+	        core_1.Input('domains-list'), 
+	        __metadata('design:type', Array)
+	    ], MenuItemDialog.prototype, "domainsList", void 0);
+	    MenuItemDialog = __decorate([
+	        core_1.Component({
+	            selector: 'menu-item-dialog',
+	            template: template,
+	            styles: ["\n        .ng-dirty.ng-invalid.ng-touched {\n            border-color: #ab2424;\n        \n        }\n        \n        .ng-dirty.ng-invalid.ng-touched:focus {\n            border-color: #ab2424;\n            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #ab2424;\n        }\n    "],
+	            directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent]
+	        }), 
+	        __metadata('design:paramtypes', [common_1.FormBuilder])
+	    ], MenuItemDialog);
+	    return MenuItemDialog;
+	}());
+	exports.MenuItemDialog = MenuItemDialog;
+	//# sourceMappingURL=menuItemDialog.js.map
+
+/***/ },
+/* 869 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in menu-item-dialog\" tabindex=\"-1\" (click)=\"cancelAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\">\r\n    <div class=\"modal-dialog modal-dialog-very-sm modal\" [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <form [ngFormModel]=\"_menuItem\" (ngSubmit)=\"submitMenuItem()\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelAction()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h4 class=\"modal-title\">\r\n                        Adauga\r\n                    </h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <label>Pozitie</label>\r\n                        <input type=\"number\" class=\"form-control\" [(ngFormControl)]=\"_menuItem.controls['orderNr']\"\r\n                               [(ngModel)]=\"orderNr\"/>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <label>Denumire</label>\r\n                        <input class=\"form-control\" [(ngFormControl)]=\"_menuItem.controls['name']\" [(ngModel)]=\"name\"/>\r\n                    </div>\r\n                    <div>\r\n                        <label>Domeniu</label>\r\n                        <select-component\r\n                                [select-items]=\"items\"\r\n                                [single-item-selected]=\"selectedItem\"\r\n                                [multi-select]=\"false\"\r\n                                (loaded)=\"referenceSelectComponent($event)\"\r\n                        ></select-component>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"hide()\">Cancel</button>\r\n                    <button type=\"submit\" class=\"btn btn-primary btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 870 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"categories-menu-page\">\r\n    <div class=\"clearfix\">\r\n        <menu-item-dialog\r\n                [domains-list]=\"_domains\"\r\n                (modal-loaded)=\"referenceModal($event)\"\r\n                (add-menu-item)=\"addMenuItem($event)\"\r\n                (update-menu-item)=\"editMenuItem($event)\"\r\n        ></menu-item-dialog>\r\n        <menu-component\r\n                [use-domain-marker]=\"true\"\r\n                [menu-tree-data]=\"menuDictionary\"\r\n                [remove-position]=\"false\"\r\n                [enable-operations]=\"isAdminUser\"\r\n                (item-selected)=\"selectMenuItem($event)\"\r\n                (add-menu-item)=\"showAddMenuModal($event)\"\r\n                (edit-menu-item)=\"showEditMenuModal($event)\"\r\n                (delete-menu-item)=\"deleteMenuItem($event)\">\r\n        </menu-component>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 871 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var common_1 = __webpack_require__(27);
+	var companieTypesService_1 = __webpack_require__(872);
+	var companieType_1 = __webpack_require__(873);
+	var template = __webpack_require__(874);
+	var CompaniesPage = (function () {
+	    //</editor-fold>
+	    function CompaniesPage(companieTypeService, formBuilder) {
+	        //</editor-fold>
+	        //<editor-fold desc="Variables">
+	        this.companieTypes = [new companieType_1.CompanieType("", "test", 1), new companieType_1.CompanieType("", "test", 3), new companieType_1.CompanieType("", "test", 2)];
+	        this.searchQuery = "";
+	        this._companieTypeService = companieTypeService;
+	        this._formBuilder = formBuilder;
+	    }
+	    CompaniesPage.prototype.ngOnInit = function () {
+	        this.getCompanyTypesWithFilters();
+	        this._newDomainForm = this._formBuilder.group([]);
+	        this.buildDomainForm();
+	    };
+	    CompaniesPage.prototype.getCompanyTypesWithFilters = function () {
+	        var me = this;
+	        this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
+	            .subscribe(function (response) {
+	            me.companieTypes = response;
+	        }, function (error) {
+	            me.companieTypes = [];
+	        });
+	    };
+	    CompaniesPage.prototype.addCompanieDomain = function () {
+	        var me = this;
+	        if (!this._newDomainForm.valid) {
+	            return;
+	        }
+	        this._companieTypeService.addCompanyType(this.newDomain)
+	            .subscribe(function (response) {
+	            me.getCompanyTypesWithFilters();
+	            me.newDomain = "";
+	            me.toggleAddCompanieDomain(false);
+	            me.rebuildForm();
+	        }, function (error) {
+	            //make the field red
+	            //this.companieTypes = [];
+	        });
+	    };
+	    CompaniesPage.prototype.deleteCompanyType = function (companyType) {
+	        var me = this;
+	        this._companieTypeService.deleteCompanyType(companyType.id)
+	            .subscribe(function (response) {
+	            me.getCompanyTypesWithFilters();
+	        }, function (error) {
+	            //me.companieTypes = [];
+	        });
+	    };
+	    CompaniesPage.prototype.editCompaniType = function (companyType) {
+	        var me = this;
+	        this._companieTypeService.editCompaniType(companyType)
+	            .subscribe(function (response) {
+	            companyType.isInEditMode = false;
+	            //this.companieTypes = response.data;
+	        }, function (error) {
+	            //this.companieTypes = [];
+	        });
+	    };
+	    CompaniesPage.prototype.toggleEditMode = function (companyType) {
+	        companyType.isInEditMode = true;
+	        companyType.companieTypeBackup = JSON.parse(JSON.stringify(companyType));
+	    };
+	    CompaniesPage.prototype.revertEdit = function (companieType) {
+	        companieType.isInEditMode = false;
+	        companieType.id = companieType.companieTypeBackup.id;
+	        companieType.companies_no = companieType.companieTypeBackup.companies_no;
+	        companieType.name = companieType.companieTypeBackup.name;
+	    };
+	    CompaniesPage.prototype.toggleAddCompanieDomain = function (value) {
+	        this.showAddCompanieDomainRow = value;
+	        if (!value) {
+	            this.newDomain = '';
+	            this.rebuildForm();
+	        }
+	    };
+	    CompaniesPage.prototype.buildDomainForm = function () {
+	        this._newDomainForm.addControl('newDomain', this._formBuilder.control(this.newDomain, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
+	    };
+	    CompaniesPage.prototype.rebuildForm = function () {
+	        this._newDomainForm.removeControl('newDomain');
+	        this.buildDomainForm();
+	    };
+	    CompaniesPage = __decorate([
+	        core_1.Component({
+	            selector: 'companies-Page',
+	            template: template,
+	        }), 
+	        __metadata('design:paramtypes', [companieTypesService_1.CompanieTypeService, common_1.FormBuilder])
+	    ], CompaniesPage);
+	    return CompaniesPage;
+	}());
+	exports.CompaniesPage = CompaniesPage;
+	//# sourceMappingURL=companiesPage.js.map
+
+/***/ },
+/* 872 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var fMarketApi_1 = __webpack_require__(797);
+	var CompanieTypeService = (function () {
+	    function CompanieTypeService(api) {
+	        this._CompanyDomainController = '/company/domains';
+	        this.api = api;
+	    }
+	    CompanieTypeService.prototype.getCompanyTypesWithFilters = function (searchQuery) {
+	        return this.api.get(this._CompanyDomainController);
+	    };
+	    CompanieTypeService.prototype.deleteCompanyType = function (companyId) {
+	        return this.api.delete(this._CompanyDomainController + ("/" + companyId));
+	    };
+	    CompanieTypeService.prototype.editCompaniType = function (companyDomain) {
+	        return this.api.put(this._CompanyDomainController, JSON.stringify({ id: companyDomain.id, newName: companyDomain.name }));
+	    };
+	    CompanieTypeService.prototype.addCompanyType = function (companyDomain) {
+	        return this.api.post(this._CompanyDomainController, JSON.stringify({ name: companyDomain }));
+	    };
+	    CompanieTypeService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
+	    ], CompanieTypeService);
+	    return CompanieTypeService;
+	}());
+	exports.CompanieTypeService = CompanieTypeService;
+	//# sourceMappingURL=companieTypesService.js.map
+
+/***/ },
+/* 873 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var CompanieType = (function () {
+	    function CompanieType(id, name, companies) {
+	        this.isInEditMode = false;
+	        this.id = id;
+	        this.name = name;
+	        //this.companies_no = companies;
+	    }
+	    return CompanieType;
+	}());
+	exports.CompanieType = CompanieType;
+	//# sourceMappingURL=companieType.js.map
+
+/***/ },
+/* 874 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"companies-page clearfix\">\r\n    <div class=\"col-lg-6 col-xs-12 remove-left-padding\">\r\n        <div class=\"companie-type-filter col-lg-6 col-xs-12 clearfix\">\r\n            <div class=\"search-field col-xs-12\">\r\n                <div class=\"input-group\">\r\n \t\t\t\t<span class=\"input-group-addon\">\r\n \t\t\t\t\t<span class=\"glyphicon glyphicon-search\"></span>\r\n \t\t\t\t</span>\r\n                    <input class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"searchQuery\"\r\n                           (ngModelChange)=\"getCompanyTypesWithFilters()\"/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"pull-right\">\r\n            <button class=\"btn btn-primary\" (click)=\"toggleAddCompanieDomain(true)\">\r\n                <span class=\"glyphicon glyphicon-plus\"></span> Adauga tip de companie\r\n            </button>\r\n        </div>\r\n        <div class=\"clearfix\"></div>\r\n        <div class=\"add-companie\" *ngIf=\"showAddCompanieDomainRow\">\r\n            <form [ngFormModel]=\"_newDomainForm\" (ngSubmit)=\"addCompanieDomain()\">\r\n                <div class=\"input-group\">\r\n                    <input [ngFormControl]=\"_newDomainForm.controls['newDomain']\" class=\"form-control\" [(ngModel)]=\"newDomain\"/>\r\n\r\n                    <div class=\"input-group-btn\">\r\n                        <button [disabled]=\"!_newDomainForm.valid\" type=\"submit\" class=\"btn btn-secondary btn-primary\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                            Creeaza\r\n                        </button>\r\n                        <button type=\"button\" class=\"btn btn-secondary btn-default\"\r\n                                (click)=\"toggleAddCompanieDomain(false)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                            Cancel\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n        <!-- *ngIf=\"showAddCompanieDomainRow\" -->\r\n        <div class=\"companie-type\">\r\n            <div class=\"list-group\">\r\n                <div *ngFor=\"let companieType of companieTypes\" class=\"list-group-item clearfix\">\r\n                    <div class=\"pull-right operation-labels\">\r\n                        <a class=\"secondary\" (click)=\"deleteCompanyType(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-trash\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"!companieType.isInEditMode\" class=\"secondary\" (click)=\"toggleEditMode(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-pencil\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"companieType.isInEditMode\" class=\"secondary\" (click)=\"revertEdit(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"companieType.isInEditMode\" class=\"secondary\" (click)=\"editCompaniType(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                        </a>\r\n                        <span class=\"pull-right label label-info\">Companii: {{companieType.nrOfCompanies}}</span>\r\n                    </div>\r\n                    <div class=\"col-md-7 col-xs-4 col-sm-4\">\r\n                        <div *ngIf=\"!companieType.isInEditMode\" class=\"text-center-indent\">\r\n \t\t\t\t\t        <span [title]=\"companieType.name\">\r\n \t\t\t\t\t        \t{{companieType.name}}\r\n \t\t\t\t\t        </span>\r\n                        </div>\r\n                        <input autofocus *ngIf=\"companieType.isInEditMode\" class=\"form-control\" [(ngModel)]=\"companieType.name\"/>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 875 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var common_1 = __webpack_require__(27);
+	var requestTypeService_1 = __webpack_require__(876);
+	var template = __webpack_require__(877);
+	var DomainsPage = (function () {
+	    //</editor-fold>
+	    function DomainsPage(requestTypeService, formBuilder) {
+	        //</editor-fold>
+	        //<editor-fold desc="Variables">
+	        this.searchQuery = "";
+	        this.domainsTypes = [];
+	        this._requestTypeService = requestTypeService;
+	        this._formBuilder = formBuilder;
+	    }
+	    DomainsPage.prototype.ngOnInit = function () {
+	        this._newDomainForm = this._formBuilder.group([]);
+	        this.getRequestTypesWithFilters();
+	        this.buildForm();
+	    };
+	    DomainsPage.prototype.getRequestTypesWithFilters = function () {
+	        var me = this;
+	        this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
+	            .subscribe(function (response) {
+	            me.domainsTypes = response;
+	        }, function (error) {
+	            me.domainsTypes = [];
+	        });
+	    };
+	    DomainsPage.prototype.addRequestType = function () {
+	        if (!this._newDomainForm.valid) {
+	            return;
+	        }
+	        var me = this;
+	        this._requestTypeService.addRequestType(this.newRequestType)
+	            .subscribe(function (response) {
+	            me.getRequestTypesWithFilters();
+	            me.newRequestType = "";
+	            me.toggleAddRequestType(false);
+	        }, function (error) {
+	            //make the field red
+	            //this.companieTypes = [];
+	        });
+	    };
+	    DomainsPage.prototype.deleteRequestType = function (requestType) {
+	        var me = this;
+	        this._requestTypeService.deleteRequestType(requestType.id)
+	            .subscribe(function (response) {
+	            me.domainsTypes = response;
+	            me.getRequestTypesWithFilters();
+	        }, function (error) {
+	            me.getRequestTypesWithFilters();
+	        });
+	    };
+	    DomainsPage.prototype.editRequestType = function (requestType) {
+	        var me = this;
+	        this._requestTypeService.editRequestType(requestType)
+	            .subscribe(function (response) {
+	            requestType.isInEditMode = false;
+	            //this.companieTypes = response.data;
+	        }, function (error) {
+	            //this.companieTypes = [];
+	        });
+	    };
+	    DomainsPage.prototype.toggleAddRequestType = function (value) {
+	        this.showAddRequestRow = value;
+	        if (!value) {
+	            this.rebuildForm();
+	        }
+	    };
+	    DomainsPage.prototype.toggleEditMode = function (requestType) {
+	        requestType.isInEditMode = true;
+	        requestType.backupRequestType = JSON.parse(JSON.stringify(requestType));
+	    };
+	    DomainsPage.prototype.revertEdit = function (requestType) {
+	        requestType.isInEditMode = false;
+	        requestType.id = requestType.backupRequestType.id;
+	        requestType.companies = requestType.backupRequestType.companies;
+	        requestType.name = requestType.backupRequestType.name;
+	    };
+	    DomainsPage.prototype.rebuildForm = function () {
+	        this._newDomainForm.removeControl('newRequestType');
+	        this.buildForm();
+	    };
+	    DomainsPage.prototype.buildForm = function () {
+	        this._newDomainForm.addControl('newRequestType', this._formBuilder.control(this.newRequestType, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
+	    };
+	    DomainsPage = __decorate([
+	        core_1.Component({
+	            selector: 'companies-Page',
+	            template: template,
+	            //styleUrls: [applicationPath + '/domainsPage.css'],
+	            directives: [common_1.FORM_DIRECTIVES]
+	        }), 
+	        __metadata('design:paramtypes', [requestTypeService_1.RequestTypeService, common_1.FormBuilder])
+	    ], DomainsPage);
+	    return DomainsPage;
+	}());
+	exports.DomainsPage = DomainsPage;
+	//# sourceMappingURL=domainsPage.js.map
+
+/***/ },
+/* 876 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var fMarketApi_1 = __webpack_require__(797);
+	var RequestTypeService = (function () {
+	    function RequestTypeService(api) {
+	        this._requestDomains = '/demand/domains';
+	        this.api = api;
+	    }
+	    RequestTypeService.prototype.getRequestTypesWithFilters = function (searchQuery) {
+	        return this.api.get(this._requestDomains);
+	    };
+	    RequestTypeService.prototype.deleteRequestType = function (requestId) {
+	        return this.api.delete(this._requestDomains + ("/" + requestId));
+	    };
+	    RequestTypeService.prototype.editRequestType = function (request) {
+	        return this.api.put(this._requestDomains + ("/" + request.id), JSON.stringify({ id: request.id, newName: request.name }));
+	    };
+	    RequestTypeService.prototype.addRequestType = function (request) {
+	        return this.api.post(this._requestDomains, JSON.stringify({ name: request }));
+	    };
+	    RequestTypeService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
+	    ], RequestTypeService);
+	    return RequestTypeService;
+	}());
+	exports.RequestTypeService = RequestTypeService;
+	//# sourceMappingURL=requestTypeService.js.map
+
+/***/ },
+/* 877 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"domains-page clearfix\">\r\n    <div class=\"col-lg-6 col-xs-12 remove-left-padding\">\r\n        <div class=\"domain-type-filter col-lg-6\">\r\n            <div class=\"search-field\">\r\n                <div class=\"input-group\">\r\n  \t\t\t\t<span class=\"input-group-addon\">\r\n  \t\t\t\t\t<span class=\"glyphicon glyphicon-search\"></span>\r\n  \t\t\t\t</span>\r\n                    <input class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"searchQuery\"\r\n                           (ngModelChange)=\"getRequestTypesWithFilters()\"/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"pull-right operations\">\r\n            <button class=\"btn btn-primary\" (click)=\"toggleAddRequestType(true)\">\r\n                <span class=\"glyphicon glyphicon-plus\"></span> Adauga tip de cerere\r\n            </button>\r\n        </div>\r\n        <div class=\"clearfix\"></div>\r\n        <!-- *ngIf=\"showAddRequestRow\" -->\r\n        <div class=\"add-request\" *ngIf=\"showAddRequestRow\">\r\n            <form [ngFormModel]=\"_newDomainForm\" (ngSubmit)=\"addRequestType()\">\r\n                <div class=\"input-group\">\r\n                    <input [ngFormControl]=\"_newDomainForm.controls['newRequestType']\" class=\"form-control\" [(ngModel)]=\"newRequestType\"/>\r\n\r\n                    <div class=\"input-group-btn\">\r\n                        <button [disabled]=\"!_newDomainForm.valid\" type=\"submit\" class=\"btn btn-secondary btn-primary\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                            Creeaza\r\n                        </button>\r\n                        <button type=\"button\" class=\"btn btn-secondary btn-default\" (click)=\"toggleAddRequestType(false)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                            Cancel\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n        <div class=\"clearfix\"></div>\r\n        <div class=\"domain-type\">\r\n            <ul class=\"list-group\">\r\n                <li *ngFor=\"let requestType of domainsTypes\" class=\"list-group-item clearfix\">\r\n                    <div class=\"pull-right align-operations\">\r\n                        <a class=\"secondary\" (click)=\"deleteRequestType(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-trash\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"!requestType.isInEditMode\" class=\"secondary\" (click)=\"toggleEditMode(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-cog\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"requestType.isInEditMode\" class=\"secondary\" (click)=\"revertEdit(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"requestType.isInEditMode\" type=\"submit\"  class=\"secondary\" (click)=\"editRequestType(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                        </a>\r\n                        <span class=\"pull-right label label-info\">Companii: {{requestType.nrOfCompanies}}</span>\r\n                    </div>\r\n                    <div class=\"col-md-7 col-xs-4 col-sm-4\">\r\n                        <div *ngIf=\"!requestType.isInEditMode\" class=\"text-center-indent\">\r\n  \t\t\t\t\t        <span [title]=\"requestType.name\">\r\n  \t\t\t\t\t\t        {{requestType.name}}\r\n  \t\t\t\t\t        </span>\r\n                        </div>\r\n                        <input autofocus *ngIf=\"requestType.isInEditMode\" class=\"form-control\" [(ngModel)]=\"requestType.name\"/>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 878 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\r\n\r\n    <tabs-component\r\n        [tabs-pages-list]=\"tabPagesList\">\r\n    </tabs-component>\r\n\r\n    <div>\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 879 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 4/21/2016.
+	 */
+	var core_1 = __webpack_require__(30);
+	var tabsRoutingComponent_1 = __webpack_require__(865);
+	var newDemandsListPage_1 = __webpack_require__(880);
+	var allDemandsListPage_1 = __webpack_require__(887);
+	var router_1 = __webpack_require__(355);
+	var template = __webpack_require__(888);
+	var DemandsPage = (function () {
+	    function DemandsPage() {
+	        this.tabPagesList = [{ name: 'Cereri noi', link: '/admin/cereri/newDemands', enableMarker: false, markerContent: "" },
+	            { name: 'Cereri', link: '/admin/cereri/lista', enableMarker: true, markerContent: "" }
+	        ];
+	    }
+	    DemandsPage = __decorate([
+	        core_1.Component({
+	            selector: 'demands-page',
+	            template: template,
+	            //styleUrls: [applicationPath + '/demandsPage.css'],
+	            directives: [tabsRoutingComponent_1.TabsRoutingComponent, router_1.ROUTER_DIRECTIVES],
+	            precompile: [newDemandsListPage_1.NewDemandsListPage, allDemandsListPage_1.AllDemandsListPage]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], DemandsPage);
+	    return DemandsPage;
+	}());
+	exports.DemandsPage = DemandsPage;
+	//# sourceMappingURL=demandsPage.js.map
+
+/***/ },
+/* 880 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by nick_ on 4/23/2016.
+	 */
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var router_1 = __webpack_require__(355);
+	var requestTypeService_1 = __webpack_require__(876);
+	var categoriesMenuService_1 = __webpack_require__(796);
+	var localizationService_1 = __webpack_require__(826);
+	var demandListBase_1 = __webpack_require__(881);
+	var demandService_1 = __webpack_require__(822);
+	var demandsListPageBase_1 = __webpack_require__(883);
+	var menuTreeDialog_1 = __webpack_require__(833);
+	var notificationService_1 = __webpack_require__(825);
+	var template = __webpack_require__(886);
+	var NewDemandsListPage = (function (_super) {
+	    __extends(NewDemandsListPage, _super);
+	    function NewDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService) {
+	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService);
+	        this.pageName = 'new-demands';
+	        this._demandsRoute = '/new';
+	    }
+	    NewDemandsListPage.prototype.ngOnInit = function () {
+	        //this.getCities();
+	        this.getNewDemandsList();
+	    };
+	    NewDemandsListPage.prototype.removeDemand = function (demand) {
+	        var me = this;
+	        this._demandService.declineDemand(demand)
+	            .subscribe(function (response) {
+	            me.getNewDemandsList();
+	        }, function (error) {
+	            me.getNewDemandsList();
+	        });
+	    };
+	    NewDemandsListPage.prototype.ngOnChanges = function (changes) {
+	        /*if(changes && changes['_demandsList']){
+	            this.getDomains();
+	        }*/
+	    };
+	    NewDemandsListPage = __decorate([
+	        core_1.Component({
+	            selector: 'new-demands-list-page',
+	            template: template,
+	            //styleUrls: [applicationPath + '/demandsListPageBase.css'],
+	            directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
+	        }), 
+	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
+	    ], NewDemandsListPage);
+	    return NewDemandsListPage;
+	}(demandsListPageBase_1.DemandsListPageBase));
+	exports.NewDemandsListPage = NewDemandsListPage;
+	//# sourceMappingURL=newDemandsListPage.js.map
+
+/***/ },
+/* 881 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 4/20/2016.
+	 */
+	var core_1 = __webpack_require__(30);
+	var template = __webpack_require__(882);
+	var DemandListBaseComponent = (function () {
+	    function DemandListBaseComponent() {
+	        this.demandList = new Array();
+	        this.selectDemandEmitter = new core_1.EventEmitter();
+	        this.removeDemanddEmitter = new core_1.EventEmitter();
+	    }
+	    DemandListBaseComponent.prototype.selectDemand = function (demand) {
+	        this.selectDemandEmitter.emit(demand);
+	    };
+	    DemandListBaseComponent.prototype.removeDemand = function ($event, companie) {
+	        this.removeDemanddEmitter.emit(companie);
+	    };
+	    __decorate([
+	        core_1.Input('demand-list'), 
+	        __metadata('design:type', Array)
+	    ], DemandListBaseComponent.prototype, "demandList", void 0);
+	    __decorate([
+	        core_1.Input('hide-operation'), 
+	        __metadata('design:type', Boolean)
+	    ], DemandListBaseComponent.prototype, "hideOperation", void 0);
+	    __decorate([
+	        core_1.Output('demand-selected'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], DemandListBaseComponent.prototype, "selectDemandEmitter", void 0);
+	    __decorate([
+	        core_1.Output('remove-demand'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], DemandListBaseComponent.prototype, "removeDemanddEmitter", void 0);
+	    DemandListBaseComponent = __decorate([
+	        core_1.Component({
+	            selector: 'demand-list-component',
+	            template: template,
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], DemandListBaseComponent);
+	    return DemandListBaseComponent;
+	}());
+	exports.DemandListBaseComponent = DemandListBaseComponent;
+	//# sourceMappingURL=demandListBase.js.map
+
+/***/ },
+/* 882 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"demand-list-base clearfix\">\r\n    <div class=\"list-group\">\r\n        <table class=\"table table-striped text-center\">\r\n            <thead class=\"thead-inverse\">\r\n            <tr>\r\n                <th class=\"hidden-xs hidden-sm vertical-align\">Id</th>\r\n                <th class=\"hidden-xs hidden-sm vertical-align\">Id cont</th>\r\n                <th class=\"text-left vertical-align\">Titlu</th>\r\n                <th class=\"hidden-xs hidden-sm vertical-align\">Data crearii</th>\r\n                <th class=\"vertical-align\">Status</th>\r\n                <th *ngIf=\"!hideOperation\" class=\"vertical-align\" colspan=\"2\">Actiuni</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody class=\"table-body\">\r\n            <tr *ngFor=\"let demand of demandList\">\r\n                <td class=\"hidden-xs hidden-sm\">{{demand.id}}</td>\r\n                <td class=\"hidden-xs hidden-sm\">{{demand.accountId}}</td>\r\n                <td class=\"text-left\">{{demand.title}}</td>\r\n                <td>{{demand.creationDate}}</td>\r\n                <td>{{demand.status}}</td>\r\n                <td [title]=\"'Editeaza compania '+demand.title\" *ngIf=\"!hideOperation\" >\r\n                    <a class=\"action\"   (click)=\"selectDemand(demand)\">\r\n                        <span class=\"glyphicon glyphicon-cog\"></span>\r\n                    </a>\r\n                </td>\r\n                <td [title]=\"'Sterge compania '+demand.title\" *ngIf=\"!hideOperation\" >\r\n                    <a class=\"action\" (click)=\"removeDemand($event, demand)\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span>\r\n                    </a>\r\n                </td>\r\n            </tr>\r\n            </tbody>\r\n        </table>\r\n\r\n        <!--<div  class=\"list-group-item\">-->\r\n            <!--<a href=\"javascript:void(0)\">-->\r\n                <!--<div class=\"pull-right\">-->\r\n                    <!--<span *ngIf=\"demand.accountId\" class=\"label label-success\" title=\"Id-ul contului care a postat cererea\">Id cont: {{demand.accountId}}</span>-->\r\n                    <!--<span *ngIf=\"demand.creationDate\" class=\"label label-success\" title=\"Data la care a fost postata cererea\">Data: {{demand.creationDate}}</span>-->\r\n                <!--</div>-->\r\n                <!--{{demand.title}}-->\r\n                <!--<span class=\"label label-success\" title=\"Statusul cereri\" *ngIf=\"demand.status\">{{demand.status}}</span>-->\r\n            <!--</a>-->\r\n        <!--</div>-->\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 883 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	/**
+	 * Created by nick_ on 4/22/2016.
+	 */
+	var _ = __webpack_require__(354);
+	var DemandStatus_1 = __webpack_require__(884);
+	var DemandSearchObject_1 = __webpack_require__(885);
+	var DemandsListPageBase = (function () {
+	    //</editor-fold>
+	    function DemandsListPageBase(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService) {
+	        this.statusList = [{ status: DemandStatus_1.DemandStatus.ACTIVE, displayName: DemandStatus_1.DemandStatus.ACTIVE },
+	            { status: DemandStatus_1.DemandStatus.CLOSED, displayName: DemandStatus_1.DemandStatus.CLOSED },
+	            { status: DemandStatus_1.DemandStatus.IN_REVIEW, displayName: DemandStatus_1.DemandStatus.IN_REVIEW },
+	            { status: DemandStatus_1.DemandStatus.PENDING, displayName: DemandStatus_1.DemandStatus.PENDING },
+	            { status: DemandStatus_1.DemandStatus.REJECTED, displayName: DemandStatus_1.DemandStatus.REJECTED },
+	            { status: DemandStatus_1.DemandStatus.WAITING_FOR_REVIEW, displayName: DemandStatus_1.DemandStatus.WAITING_FOR_REVIEW }];
+	        this._categoriesMenuService = _categoriesMenuService;
+	        this._demandService = _demandService;
+	        this._requestTypeService = _requestTypeService;
+	        this._notificationService = _notificationService;
+	        this._demandsRoute = "";
+	        this._searchObject = new DemandSearchObject_1.DemandSearchObject('', 1, DemandStatus_1.DemandStatus.WAITING_FOR_REVIEW, -1);
+	        this._searchObject.domainName = "Alege domeniu...";
+	        this._router = router;
+	        this._localizationService = _localizationService;
+	    }
+	    DemandsListPageBase.prototype.showDomainsDialog = function () {
+	        this._menuTreeDialog.showMenuTreeDialog();
+	    };
+	    DemandsListPageBase.prototype.getAllDemandsList = function () {
+	        var me = this;
+	        this._demandService.getDemandsWithFilters(this._searchObject)
+	            .subscribe(function (response) {
+	            me._demandsList = response.data;
+	            me.totalPages = response.totalPages;
+	            me._searchObject.page = response.page;
+	        }, function (error) {
+	        });
+	    };
+	    DemandsListPageBase.prototype.getMenuDictionary = function () {
+	        var me = this;
+	        this._categoriesMenuService.getMenuDictionary()
+	            .subscribe(function (response) {
+	            me.menuDictionary = response;
+	        }, function (error) {
+	            me.menuDictionary = [];
+	        });
+	    };
+	    DemandsListPageBase.prototype.getNewDemandsList = function () {
+	        var me = this;
+	        this._demandService.getNewDemands()
+	            .subscribe(function (response) {
+	            me._demandsList = response;
+	        }, function (error) {
+	        });
+	    };
+	    DemandsListPageBase.prototype.referenceDialogInDemandComponent = function (menuItemsModal) {
+	        this._menuTreeDialog = menuItemsModal;
+	    };
+	    DemandsListPageBase.prototype.selectItemUsingMenu = function (item) {
+	        this._searchObject.domainName = item.name;
+	        this._searchObject.domainId = item.domainId;
+	    };
+	    DemandsListPageBase.prototype.getCities = function () {
+	        var me = this;
+	        this._localizationService.getCityList()
+	            .subscribe(function (response) {
+	            me._citiesList = me._localizationService.mapNameToSelect2Item(response);
+	        }, function (error) {
+	        });
+	    };
+	    DemandsListPageBase.prototype.getDomains = function () {
+	        var me = this;
+	        this._requestTypeService.getRequestTypesWithFilters()
+	            .subscribe(function (response) {
+	            me._domainsList = _.map(response, function (domain) {
+	                return {
+	                    displayName: domain['name'],
+	                    boundItem: domain
+	                };
+	            });
+	        }, function (error) {
+	        });
+	    };
+	    DemandsListPageBase.prototype.navigateToDemand = function (demand) {
+	        this._router.navigate([("/admin/cerere-detalii/" + demand.id)]);
+	    };
+	    return DemandsListPageBase;
+	}());
+	exports.DemandsListPageBase = DemandsListPageBase;
+	//# sourceMappingURL=demandsListPageBase.js.map
+
+/***/ },
+/* 884 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by NicolaeB on 4/26/2016.
+	 */
+	"use strict";
+	var DemandStatus = (function () {
+	    function DemandStatus() {
+	    }
+	    DemandStatus.ACTIVE = "ACTIVE";
+	    DemandStatus.PENDING = "PENDING";
+	    DemandStatus.WAITING_FOR_REVIEW = "WAITING_FOR_REVIEW";
+	    DemandStatus.IN_REVIEW = "IN_REVIEW";
+	    DemandStatus.CLOSED = "CLOSED";
+	    DemandStatus.REJECTED = "REJECTED";
+	    return DemandStatus;
+	}());
+	exports.DemandStatus = DemandStatus;
+	//# sourceMappingURL=DemandStatus.js.map
+
+/***/ },
+/* 885 */
+/***/ function(module, exports) {
+
+	"use strict";
+	/**
+	 * Created by NicolaeB on 5/26/2016.
+	 */
+	var DemandSearchObject = (function () {
+	    function DemandSearchObject(accountId, page, status, domainId) {
+	        this.accountId = accountId;
+	        this.page = page;
+	        this.status = status;
+	        this.domainId = domainId;
+	    }
+	    return DemandSearchObject;
+	}());
+	exports.DemandSearchObject = DemandSearchObject;
+	//# sourceMappingURL=DemandSearchObject.js.map
+
+/***/ },
+/* 886 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"demands-list-page\">\r\n    <div *ngIf=\"pageName==='demands'\" class=\"filters clearfix\">\r\n        <menu-tree-dialog\r\n                [menu-tree-data]=\"menuDictionary\"\r\n                [enable-operations]=\"false\"\r\n                (loaded)=\"referenceDialogInDemandComponent($event)\"\r\n                (action-confirmed)=\"selectItemUsingMenu($event)\"\r\n        ></menu-tree-dialog>\r\n        <div class=\"col-md-2 col-xs-12\">\r\n            <label>Id cont</label>\r\n            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"_searchObject.accountId\"/>\r\n        </div>\r\n        <div class=\"col-md-3 col-xs-12\">\r\n            <label>Domeniu</label>\r\n            <span class=\"form-control select-domain\" (click)=\"showDomainsDialog()\">{{_searchObject.domainName}}</span>\r\n        </div>\r\n        <div class=\"col-md-3 col-xs-12\">\r\n            <label>Status</label>\r\n            <select class=\"domain-select\" [(ngModel)]=\"_searchObject.status\">\r\n                <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                </option>\r\n            </select>\r\n        </div>\r\n        <div class=\"clearfix\">\r\n            <div class=\"pull-right btn-full-width\" style=\"padding-top:5px;\">\r\n            \t<br/>\r\n            \t\r\n                <input type=\"button\" class=\"btn btn-success\" value=\"Aplica filtre\" (click)=\"getAllDemandsList()\" />\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"demand-list-container clearfix\">\r\n        <demand-list-component\r\n                [demand-list]=\"_demandsList\"\r\n                (demand-selected)=\"navigateToDemand($event)\"\r\n                (remove-demand)=\"removeDemand($event)\">\r\n        </demand-list-component>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 887 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 4/22/2016.
+	 */
+	var core_1 = __webpack_require__(30);
+	var router_1 = __webpack_require__(355);
+	var demandService_1 = __webpack_require__(822);
+	var categoriesMenuService_1 = __webpack_require__(796);
+	var localizationService_1 = __webpack_require__(826);
+	var notificationService_1 = __webpack_require__(825);
+	var demandListBase_1 = __webpack_require__(881);
+	var requestTypeService_1 = __webpack_require__(876);
+	var demandsListPageBase_1 = __webpack_require__(883);
+	var menuTreeDialog_1 = __webpack_require__(833);
+	var template = __webpack_require__(886);
+	var AllDemandsListPage = (function (_super) {
+	    __extends(AllDemandsListPage, _super);
+	    function AllDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService) {
+	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService);
+	        this.pageName = 'demands';
+	    }
+	    AllDemandsListPage.prototype.ngOnInit = function () {
+	        // this.getCities();
+	        this.getAllDemandsList();
+	        this.getMenuDictionary();
+	    };
+	    AllDemandsListPage.prototype.removeDemand = function (demand) {
+	        var me = this;
+	        this._demandService.declineDemand(demand)
+	            .subscribe(function (response) {
+	            me.getAllDemandsList();
+	        }, function (error) {
+	            me.getAllDemandsList();
+	        });
+	    };
+	    AllDemandsListPage.prototype.ngOnChanges = function (changes) {
+	        // if(changes && changes['_demandsList']){
+	        //     this.getDomains();
+	        // }
+	    };
+	    AllDemandsListPage = __decorate([
+	        core_1.Component({
+	            selector: 'demands-list-page',
+	            template: template,
+	            //styleUrls: [applicationPath + '/demandsListPageBase.css'],
+	            directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
+	        }), 
+	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
+	    ], AllDemandsListPage);
+	    return AllDemandsListPage;
+	}(demandsListPageBase_1.DemandsListPageBase));
+	exports.AllDemandsListPage = AllDemandsListPage;
+	//# sourceMappingURL=allDemandsListPage.js.map
+
+/***/ },
+/* 888 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\r\n    <tabs-component\r\n            [tabs-pages-list]=\"tabPagesList\">\r\n    </tabs-component>\r\n    <div>\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 889 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by nick_ on 4/22/2016.
+	 */
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var router_1 = __webpack_require__(355);
+	var common_1 = __webpack_require__(27);
+	var demandService_1 = __webpack_require__(822);
+	var requestTypeService_1 = __webpack_require__(876);
+	var demandEdit_1 = __webpack_require__(890);
+	var notificationService_1 = __webpack_require__(825);
+	var rejectDemandDialogComponent_1 = __webpack_require__(893);
+	var template = __webpack_require__(895);
+	var DemandsEditPage = (function () {
+	    //</editor-fold>
+	    function DemandsEditPage(router, _location, demandService, requestTypeService, notificationService) {
+	        this._location = _location;
+	        this._notificationService = notificationService;
+	        this._router = router;
+	        this._demandService = demandService;
+	        this._requestTypeService = requestTypeService;
+	    }
+	    DemandsEditPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
+	        this._demandId = Number(curr.getParam('id'));
+	    };
+	    DemandsEditPage.prototype.ngOnInit = function () {
+	        this.getDomains();
+	    };
+	    DemandsEditPage.prototype.rejectDemandDialogLoaded = function ($event) {
+	        this.rejectDemandDialog = $event;
+	    };
+	    DemandsEditPage.prototype.getDemand = function () {
+	        var me = this;
+	        this._demandService.getDemand(this._demandId)
+	            .subscribe(function (response) {
+	            me._demand = response;
+	            me._demand['selectedDomain'] = me.getDomainById(me._demand.domainId);
+	            console.log(me._demand['selectedDomain']);
+	        }, function (error) {
+	        });
+	    };
+	    DemandsEditPage.prototype.getDomains = function () {
+	        var me = this;
+	        this._demandService.getDemandDomanins()
+	            .subscribe(function (response) {
+	            me._demandDomains = me._demandService.mapNameToSelect2Item(response);
+	            me.getDemand();
+	        }, function (error) {
+	            me._demandDomains = new Array();
+	        });
+	    };
+	    DemandsEditPage.prototype.getDomainById = function (demandId) {
+	        for (var _i = 0, _a = this._demandDomains; _i < _a.length; _i++) {
+	            var obj = _a[_i];
+	            if (obj['boundItem']['id'] === demandId) {
+	                return obj;
+	            }
+	        }
+	        return null;
+	    };
+	    DemandsEditPage.prototype.navigateToList = function ($event) {
+	        this._location.back();
+	    };
+	    DemandsEditPage.prototype.acceptDemand = function (demand) {
+	        var me = this;
+	        this._demandService.acceptDemand(demand)
+	            .subscribe(function (response) {
+	            me._location.back();
+	            me._notificationService.emitSuccessNotificationToRootComponent('Cerere activata cu success', 3);
+	        }, function (error) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Cerere nu a putut fi activata !', 3);
+	        });
+	    };
+	    DemandsEditPage.prototype.showRejectDemandDialog = function () {
+	        this.rejectDemandDialog.show();
+	    };
+	    DemandsEditPage.prototype.rejectDemand = function (response) {
+	        var me = this;
+	        response['id'] = this._demand.id;
+	        this._demandService.declineDemand(response)
+	            .subscribe(function (response) {
+	            me.rejectDemandDialog.hide();
+	            me._location.back();
+	        }, function (error) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Erroare de server cererea nu poate fi refuzata !', 3);
+	        });
+	    };
+	    DemandsEditPage.prototype.saveEditedDemand = function (demand) {
+	        var me = this;
+	        this._demandService.saveDemand(demand)
+	            .subscribe(function (response) {
+	            me._location.back();
+	        }, function (error) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Cerere nu poate fi salvata !', 3);
+	        });
+	    };
+	    DemandsEditPage = __decorate([
+	        core_1.Component({
+	            selector: 'demands-edit-page',
+	            template: template,
+	            //styleUrls: [applicationPath + '/demandsEditPage.css'],
+	            directives: [demandEdit_1.DemandEditComponent, rejectDemandDialogComponent_1.RejectDemandDialogComponent]
+	        }), 
+	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, demandService_1.DemandService, requestTypeService_1.RequestTypeService, notificationService_1.NotificationService])
+	    ], DemandsEditPage);
+	    return DemandsEditPage;
+	}());
+	exports.DemandsEditPage = DemandsEditPage;
+	//# sourceMappingURL=demandsEditPage.js.map
+
+/***/ },
+/* 890 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 4/20/2016.
+	 */
+	var core_1 = __webpack_require__(30);
+	var demandDetailsDTO_1 = __webpack_require__(891);
+	var selectComponent_1 = __webpack_require__(830);
+	var template = __webpack_require__(892);
+	var DemandEditComponent = (function () {
+	    function DemandEditComponent() {
+	        this.rejectDemandEvent = new core_1.EventEmitter();
+	        this.acceptDemandEvent = new core_1.EventEmitter();
+	        this.saveDemandEvent = new core_1.EventEmitter();
+	        this.goToListEmitter = new core_1.EventEmitter();
+	    }
+	    DemandEditComponent.prototype.acceptDemand = function () {
+	        this.acceptDemandEvent.emit(this._demand);
+	    };
+	    DemandEditComponent.prototype.rejectDemand = function () {
+	        this.rejectDemandEvent.emit(Number(this._demand.id));
+	    };
+	    DemandEditComponent.prototype.referenceDemandsComponent = function ($event) {
+	        this.selectDemandComponent = $event;
+	    };
+	    DemandEditComponent.prototype.saveEditedDemand = function () {
+	        this._demand.isInEditMode = false;
+	        this.saveDemandEvent.emit(this._demand);
+	    };
+	    DemandEditComponent.prototype.goBackToPreviousPage = function () {
+	        this.goToListEmitter.emit({});
+	    };
+	    __decorate([
+	        core_1.Input('demand'), 
+	        __metadata('design:type', demandDetailsDTO_1.DemandDetailsDTO)
+	    ], DemandEditComponent.prototype, "_demand", void 0);
+	    __decorate([
+	        core_1.Input('demand-domains'), 
+	        __metadata('design:type', Array)
+	    ], DemandEditComponent.prototype, "_domains", void 0);
+	    __decorate([
+	        core_1.Output('reject-demand'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], DemandEditComponent.prototype, "rejectDemandEvent", void 0);
+	    __decorate([
+	        core_1.Output('accept-demand'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], DemandEditComponent.prototype, "acceptDemandEvent", void 0);
+	    __decorate([
+	        core_1.Output('save-demand'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], DemandEditComponent.prototype, "saveDemandEvent", void 0);
+	    __decorate([
+	        core_1.Output('go-to-List'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], DemandEditComponent.prototype, "goToListEmitter", void 0);
+	    DemandEditComponent = __decorate([
+	        core_1.Component({
+	            selector: 'demand-edit-component',
+	            template: template,
+	            directives: [selectComponent_1.SelectComponent]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], DemandEditComponent);
+	    return DemandEditComponent;
+	}());
+	exports.DemandEditComponent = DemandEditComponent;
+	//# sourceMappingURL=demandEdit.js.map
+
+/***/ },
+/* 891 */
+/***/ function(module, exports) {
+
+	"use strict";
+	/**
+	 * Created by NicolaeB on 4/26/2016.
+	 */
+	var DemandDetailsDTO = (function () {
+	    function DemandDetailsDTO() {
+	        this.cities = new Array();
+	        this.isInEditMode = false;
+	    }
+	    return DemandDetailsDTO;
+	}());
+	exports.DemandDetailsDTO = DemandDetailsDTO;
+	//# sourceMappingURL=demandDetailsDTO.js.map
+
+/***/ },
+/* 892 */
+/***/ function(module, exports) {
+
+	module.exports = "<div *ngIf=\"_demand\" class=\"demand-edit-component\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-9 col-xs-12\">\r\n            <div class=\"form-group\">\r\n                <label>Title</label>\r\n                <span type=\"text\" class=\"form-control\" disabled>{{_demand.title}}</span>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Mesaj</label>\r\n                <textarea class=\"form-control\" disabled [ngModel]=\"_demand.message\"></textarea>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Domeniu</label>\r\n                <select-component\r\n                        [select-items]=\"_domains\"\r\n                        [single-item-selected]=\"_demand.selectedDomain\"\r\n                        [multi-select]=\"false\"\r\n                        (loaded)=\"referenceDemandsComponent($event)\">\r\n                </select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Orase</label>\r\n                <span disabled class=\"form-control city-presentation\">\r\n                    <span *ngFor=\"let city of _demand.cities\" class=\"label label-success\">{{city}}</span>\r\n                </span>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <input type=\"checkbox\" [(ngModel)]=\"_demand.allCities\" />\r\n                <label class=\"checkbox-label\">Doresc sa fiu contactat din orice oras</label>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Data in care a fost creata cererea</label>\r\n                <span disabled class=\"form-control\">\r\n                    {{_demand.creationDate}}\r\n                </span>\r\n            </div>\r\n\r\n        </div>\r\n        <div class=\"col-md-3 col-xs-12 button-group\">\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-success\"\r\n                    (click)=\"acceptDemand()\">\r\n                    Accepta\r\n                </button>\r\n            </div>\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-danger\"\r\n                    (click)=\"rejectDemand()\">\r\n                    Refuza\r\n                </button>\r\n            </div>\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-info\"\r\n                        (click)=\"saveEditedDemand()\">\r\n                    Salveaza modificarile\r\n                </button>\r\n            </div>\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-warning\"\r\n                        (click)=\"goBackToPreviousPage()\">\r\n                    Inapoi la lista\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <hr/>\r\n    <div class=\"row\">\r\n        <div class=\"col-md-2\">\r\n            <label> Id cerere: {{_demand.accountId}}</label>\r\n        </div>\r\n        <div class=\"col-md-2\">\r\n            <label> Nume utilizator: {{_demand.name}}</label>\r\n\r\n        </div>\r\n        <div class=\"col-md-4\">\r\n            <label> Email utilizator: {{_demand.accountEmail}}</label>\r\n\r\n        </div>\r\n        <div class=\"col-md-2\">\r\n            <label> Statusul contului: {{_demand.accountStatus}}</label>\r\n\r\n        </div>\r\n        <div class=\"col-md-2\">\r\n            <label> Numar cereri: {{_demand.demandsCount}}</label>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 893 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var common_1 = __webpack_require__(27);
+	var modalDialog_1 = __webpack_require__(834);
+	var template = __webpack_require__(894);
+	var RejectDemandDialogComponent = (function (_super) {
+	    __extends(RejectDemandDialogComponent, _super);
+	    function RejectDemandDialogComponent(_formBuilder) {
+	        this.title = 'Mesaj';
+	        this.positiveLabel = 'Refuza';
+	        this.cancelLabel = 'Cancel';
+	        this.loadedEmitter = new core_1.EventEmitter();
+	        this.rejectAction = new core_1.EventEmitter();
+	        this._formBuilder = _formBuilder;
+	        this.rejectDemand = this._formBuilder.group([]);
+	        _super.call(this);
+	    }
+	    RejectDemandDialogComponent.prototype.ngOnInit = function () {
+	        this.rejectDemand.addControl('message', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.minLength(5), common_1.Validators.required])));
+	        this.loadedEmitter.emit(this);
+	    };
+	    RejectDemandDialogComponent.prototype.rejectDemandSubmit = function () {
+	        if (this.rejectDemand.valid) {
+	            this.rejectAction.emit(this.rejectDemand.value);
+	        }
+	    };
+	    __decorate([
+	        core_1.Input('title'), 
+	        __metadata('design:type', String)
+	    ], RejectDemandDialogComponent.prototype, "title", void 0);
+	    __decorate([
+	        core_1.Input('positive-label'), 
+	        __metadata('design:type', String)
+	    ], RejectDemandDialogComponent.prototype, "positiveLabel", void 0);
+	    __decorate([
+	        core_1.Input('cancel-label'), 
+	        __metadata('design:type', String)
+	    ], RejectDemandDialogComponent.prototype, "cancelLabel", void 0);
+	    __decorate([
+	        core_1.Output('loaded'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], RejectDemandDialogComponent.prototype, "loadedEmitter", void 0);
+	    __decorate([
+	        core_1.Output('request-reject'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], RejectDemandDialogComponent.prototype, "rejectAction", void 0);
+	    RejectDemandDialogComponent = __decorate([
+	        core_1.Component({
+	            selector: 'reject-demand-dialog',
+	            template: template,
+	        }), 
+	        __metadata('design:paramtypes', [common_1.FormBuilder])
+	    ], RejectDemandDialogComponent);
+	    return RejectDemandDialogComponent;
+	}(modalDialog_1.ModalDialog));
+	exports.RejectDemandDialogComponent = RejectDemandDialogComponent;
+	//# sourceMappingURL=rejectDemandDialogComponent.js.map
+
+/***/ },
+/* 894 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\">\r\n    <div class=\"modal-dialog modal-lg\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <form [ngFormModel]=\"rejectDemand\" (ngSubmit)=\"rejectDemandSubmit()\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelAction()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h2 class=\"modal-title\">\r\n                        {{title}}\r\n                    </h2>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <label>Mesaj</label>\r\n                        <textarea class=\"form-control message-text\" [ngFormControl]=\"rejectDemand.controls['message']\"></textarea>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelAction()\">{{cancelLabel}}\r\n                    </button>\r\n                    <button type=\"submit\" class=\"btn btn-danger btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n";
+
+/***/ },
+/* 895 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"demand-edit-page clearfix\">\r\n    <reject-demand-dialog\r\n        (loaded)=\"rejectDemandDialogLoaded($event)\"\r\n        (request-reject)=\"rejectDemand($event)\">\r\n    </reject-demand-dialog>\r\n    <demand-edit-component\r\n        [demand]=\"_demand\"\r\n        [demand-domains]=\"_demandDomains\"\r\n        (reject-demand)=\"showRejectDemandDialog($event)\"\r\n        (accept-demand)=\"acceptDemand($event)\"\r\n        (save-demand)=\"saveEditedDemand($event)\"\r\n        (go-to-List)=\"navigateToList($event)\">\r\n    </demand-edit-component>\r\n</div>";
+
+/***/ },
+/* 896 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by nick_ on 5/6/2016.
+	 */
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var router_1 = __webpack_require__(355);
+	var common_1 = __webpack_require__(27);
+	var companiesService_1 = __webpack_require__(897);
+	var notificationService_1 = __webpack_require__(825);
+	var companiesEditComponent_1 = __webpack_require__(898);
+	var companiesEditBase_1 = __webpack_require__(901);
+	var localizationService_1 = __webpack_require__(826);
+	var template = __webpack_require__(902);
+	var CompaniesEditPage = (function (_super) {
+	    __extends(CompaniesEditPage, _super);
+	    function CompaniesEditPage(location, router, companiesService, notificationService, localizationService) {
+	        _super.call(this, location, router, companiesService, notificationService, localizationService);
+	    }
+	    CompaniesEditPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
+	        this.companieId = curr.getParam('id');
+	    };
+	    CompaniesEditPage.prototype.ngOnInit = function () {
+	        this.getCities();
+	        this.getCompanieDomains();
+	        this.getDomains();
+	        var me = this;
+	        this._companiesService.getCompanyDetails(parseInt(this.companieId))
+	            .subscribe(function (response) {
+	            response['city'] = response['city'] ? { displayName: response['city']['name'], boundItem: response['city'] } : null;
+	            response['companyDomain'] = response['companyDomain'] ? { displayName: response['companyDomain']['name'], boundItem: response['companyDomain'] } : null;
+	            response['demandDomains'] = me._localizationService.mapNameToSelect2Item(response['demandDomains']);
+	            me._companie = response;
+	        }, function (error) {
+	            me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!', 5);
+	            me._location.back();
+	        });
+	    };
+	    CompaniesEditPage.prototype.saveCompanie = function (companieDto) {
+	        var me = this;
+	        var logoFile = companieDto['logoFile'];
+	        companieDto['logoFile'] = null;
+	        this._companiesService.editCompany(companieDto)
+	            .subscribe(function (success) {
+	            if (logoFile) {
+	                me.uploadCompanyLogo(companieDto['id'], logoFile);
+	                return;
+	            }
+	            me._location.back();
+	        }, function (error) {
+	        });
+	    };
+	    CompaniesEditPage.prototype.uploadCompanyLogo = function (id, logoImage) {
+	        var me = this;
+	        this._companiesService.uploadCompanyLogo(id, logoImage)
+	            .subscribe(function (success) {
+	            me._location.back();
+	        }, function (error) {
+	        });
+	    };
+	    CompaniesEditPage = __decorate([
+	        core_1.Component({
+	            selector: 'companies-edit-page',
+	            template: template,
+	            directives: [companiesEditComponent_1.CompaniesEditComponent]
+	        }), 
+	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
+	    ], CompaniesEditPage);
+	    return CompaniesEditPage;
+	}(companiesEditBase_1.CompaniesEditBase));
+	exports.CompaniesEditPage = CompaniesEditPage;
+	//# sourceMappingURL=companiesEditPage.js.map
+
+/***/ },
+/* 897 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 5/6/2016.
+	 */
+	var core_1 = __webpack_require__(30);
+	var fMarketApi_1 = __webpack_require__(797);
+	var _ = __webpack_require__(354);
+	var Rx_1 = __webpack_require__(579);
+	var CompaniesService = (function () {
+	    function CompaniesService(api) {
+	        this.COMPANIE_CONTROLLER = '/companies';
+	        this.ADMIN_COMPANIE_CONTROLLER = '/admin' + this.COMPANIE_CONTROLLER;
+	        this.api = api;
+	    }
+	    CompaniesService.prototype.getCompaniesForUsers = function (searchQuery) {
+	        return this.api.get(this.COMPANIE_CONTROLLER + ("/all?p=" + searchQuery));
+	    };
+	    CompaniesService.prototype.getCompanieDetailsForUsers = function (id) {
+	        return this.api.get(this.COMPANIE_CONTROLLER + ("/" + id));
+	    };
+	    CompaniesService.prototype.addStarsReviewForUsers = function (review) {
+	        return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
+	    };
+	    CompaniesService.prototype.addMessageReviewForUsers = function (review) {
+	        return this.api.post(this.COMPANIE_CONTROLLER + '/review/message', JSON.stringify(review));
+	    };
+	    CompaniesService.prototype.createCompany = function (newCompanyRequest) {
+	        return this.api.post(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(newCompanyRequest));
+	    };
+	    CompaniesService.prototype.uploadCompanyLogo = function (id, logoImage) {
+	        var _this = this;
+	        return Rx_1.Observable.create(function (observer) {
+	            var formData = new FormData(), xhr = new XMLHttpRequest();
+	            // for (let i = 0; i < logoImage.length; i++) {
+	            //     formData.append("uploads[]", logoImage[i], logoImage[i].name);
+	            // }
+	            if (logoImage.length > 0) {
+	                formData.append("logo", logoImage[0], logoImage[0].name);
+	                xhr.onreadystatechange = function () {
+	                    if (xhr.readyState === 4) {
+	                        if (xhr.status === 200) {
+	                            observer.next(xhr.response.length > 0 ? JSON.parse(xhr.response) : '');
+	                            observer.complete();
+	                        }
+	                        else {
+	                            observer.error(xhr.response);
+	                        }
+	                    }
+	                };
+	                // xhr.upload.onprogress = (event) => {
+	                //     this.progress = Math.round(event.loaded / event.total * 100);
+	                //
+	                //     this.progressObserver.next(this.progress);
+	                // };
+	                xhr.open('POST', _this.ADMIN_COMPANIE_CONTROLLER + ("/logo/" + id), true);
+	                xhr.send(formData);
+	            }
+	        });
+	    };
+	    CompaniesService.prototype.getCompanyWithFilters = function (searchObject) {
+	        return this.api.post(this.ADMIN_COMPANIE_CONTROLLER + '/search', JSON.stringify(searchObject));
+	    };
+	    CompaniesService.prototype.getCompanyDetails = function (companyId) {
+	        return this.api.get(this.ADMIN_COMPANIE_CONTROLLER + ("/" + companyId));
+	    };
+	    CompaniesService.prototype.editCompany = function (updatedCompany) {
+	        return this.api.put(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(updatedCompany));
+	    };
+	    CompaniesService.prototype.deleteCompany = function (id) {
+	        return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER + ("/" + id));
+	    };
+	    CompaniesService.prototype.getCompanieDomains = function () {
+	        return this.api.get('/company/domains');
+	    };
+	    CompaniesService.prototype.getDemandDomanins = function () {
+	        return this.api.get('/demand/domains');
+	    };
+	    CompaniesService.prototype.getCompanyReviews = function (id) {
+	        return this.api.get(this.COMPANIE_CONTROLLER + ("/reviews/" + id));
+	    };
+	    CompaniesService.prototype.mapNameToSelect2Item = function (array) {
+	        return _.map(array, function (item) {
+	            return {
+	                displayName: item['name'],
+	                boundItem: item
+	            };
+	        });
+	    };
+	    CompaniesService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
+	    ], CompaniesService);
+	    return CompaniesService;
+	}());
+	exports.CompaniesService = CompaniesService;
+	//# sourceMappingURL=companiesService.js.map
+
+/***/ },
+/* 898 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 5/6/2016.
+	 */
+	var _ = __webpack_require__(354);
+	var core_1 = __webpack_require__(30);
+	var common_1 = __webpack_require__(27);
+	var newCompanyRequest_1 = __webpack_require__(899);
+	var Angular2ExtensionValidators_1 = __webpack_require__(827);
+	var selectComponent_1 = __webpack_require__(830);
+	var template = __webpack_require__(900);
+	var CompaniesEditComponent = (function () {
+	    function CompaniesEditComponent(formBuilder) {
+	        this.saveCompanieEmitter = new core_1.EventEmitter();
+	        this.loaded = new core_1.EventEmitter();
+	        this.discardChangesEmitter = new core_1.EventEmitter();
+	        this._formBuilder = formBuilder;
+	    }
+	    CompaniesEditComponent.prototype.ngOnInit = function () {
+	        this._companieEditForm = this._formBuilder.group([]);
+	        if (!this._companieEditFormModel) {
+	            this._companieEditFormModel = newCompanyRequest_1.NewCompanyRequest.getEmptyCompany();
+	        }
+	        this.buildCompanieEditForm();
+	        this.loaded.emit(this);
+	    };
+	    CompaniesEditComponent.prototype.destroyCompanieEditForm = function () {
+	        var me = this;
+	        _.each(this.getCompanieFormControls(), function (value) {
+	            me._companieEditForm.removeControl(value);
+	        });
+	    };
+	    CompaniesEditComponent.prototype.buildCompanieEditForm = function () {
+	        this._companieEditForm.addControl('name', this._formBuilder.control(this._companieEditFormModel.name, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
+	        this._companieEditForm.addControl('email', this._formBuilder.control(this._companieEditFormModel.email, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
+	        var passwordValidators = this.editMode ? [Angular2ExtensionValidators_1.CustomValidators.validatePassword] : [common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword];
+	        this._companieEditForm.addControl('password', this._formBuilder.control(this._companieEditFormModel.password, common_1.Validators.compose()));
+	        this._companieEditForm.addControl('phone', this._formBuilder.control(this._companieEditFormModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber])));
+	        this._companieEditForm.addControl('contactPerson', this._formBuilder.control(this._companieEditFormModel.contactPerson, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
+	        this._companieEditForm.addControl('address', this._formBuilder.control(this._companieEditFormModel.address, common_1.Validators.required));
+	        this._companieEditForm.addControl('cityId', this._formBuilder.control(this._companieEditFormModel.cityId));
+	        this._companieEditForm.addControl('companyDomain', this._formBuilder.control(this._companieEditFormModel.companyDomain));
+	        this._companieEditForm.addControl('demandDomains', this._formBuilder.control(this._companieEditFormModel.demandDomains));
+	    };
+	    CompaniesEditComponent.prototype.getCompanieFormControls = function () {
+	        var colector = [];
+	        _.each(this._companieEditForm.controls, function (control, name) {
+	            colector[name] = name;
+	        });
+	        return colector;
+	    };
+	    CompaniesEditComponent.prototype.saveFile = function ($event) {
+	        this.fileUpload = $event.srcElement.files;
+	    };
+	    CompaniesEditComponent.prototype.saveEditedCompanie = function () {
+	        if (!this._companieEditForm.valid) {
+	            return;
+	        }
+	        var requestObject = _.clone(this._companieEditFormModel);
+	        requestObject.cityId = this.selectCity && this.selectCity._selectedItem && this.selectCity._selectedItem.boundItem ? this.selectCity._selectedItem.boundItem['id'] : null;
+	        requestObject.companyDomainId = this.selectCompanyDomain && this.selectCompanyDomain._selectedItem && this.selectCompanyDomain._selectedItem.boundItem ? this.selectCompanyDomain._selectedItem.boundItem['id'] : null;
+	        requestObject.demandDomains = this.selectDemandDomain && this.selectDemandDomain._selectedItems && this.selectDemandDomain._selectedItems.length > 0 ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
+	        requestObject['demandDomainIds'] = this.selectDemandDomain && this.selectDemandDomain._selectedItems && this.selectDemandDomain._selectedItems.length > 0 ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
+	        requestObject['logoFile'] = this.fileUpload;
+	        this.saveCompanieEmitter.emit(requestObject);
+	    };
+	    CompaniesEditComponent.prototype.referenceSelectCityComponent = function ($event) {
+	        this.selectCity = $event;
+	    };
+	    CompaniesEditComponent.prototype.referenceSelectCompanyDomainComponent = function ($event) {
+	        this.selectCompanyDomain = $event;
+	    };
+	    CompaniesEditComponent.prototype.referenceSelectDemandDomainComponent = function ($event) {
+	        this.selectDemandDomain = $event;
+	    };
+	    CompaniesEditComponent.prototype.goToPreviousPage = function () {
+	        this.discardChangesEmitter.emit(null);
+	    };
+	    CompaniesEditComponent.prototype.getDemandDomains = function (_selectedItems) {
+	        return _.map(_selectedItems, function (item) {
+	            if (item) {
+	                return item['boundItem']['id'];
+	            }
+	        });
+	    };
+	    __decorate([
+	        core_1.Input('companie-model'), 
+	        __metadata('design:type', newCompanyRequest_1.NewCompanyRequest)
+	    ], CompaniesEditComponent.prototype, "_companieEditFormModel", void 0);
+	    __decorate([
+	        core_1.Input('company-domains'), 
+	        __metadata('design:type', Array)
+	    ], CompaniesEditComponent.prototype, "_companyDomains", void 0);
+	    __decorate([
+	        core_1.Input('cities'), 
+	        __metadata('design:type', Array)
+	    ], CompaniesEditComponent.prototype, "_cities", void 0);
+	    __decorate([
+	        core_1.Input('domains'), 
+	        __metadata('design:type', Array)
+	    ], CompaniesEditComponent.prototype, "_domains", void 0);
+	    __decorate([
+	        core_1.Input('edit-mode'), 
+	        __metadata('design:type', Boolean)
+	    ], CompaniesEditComponent.prototype, "editMode", void 0);
+	    __decorate([
+	        core_1.Output('save-edited-companie'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], CompaniesEditComponent.prototype, "saveCompanieEmitter", void 0);
+	    __decorate([
+	        core_1.Output('reference-companie-edit-component'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], CompaniesEditComponent.prototype, "loaded", void 0);
+	    __decorate([
+	        core_1.Output('discard-changes-companie'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], CompaniesEditComponent.prototype, "discardChangesEmitter", void 0);
+	    CompaniesEditComponent = __decorate([
+	        core_1.Component({
+	            selector: 'companies-edit-componet',
+	            template: template,
+	            directives: [selectComponent_1.SelectComponent, common_1.NgIf],
+	            styles: ["\n        @media (max-width: 990px) {\n            .actions {\n                pa\n            } \n            \n            .actions .btn{\n                width: 100%;\n            }\n        }\n    "]
+	        }), 
+	        __metadata('design:paramtypes', [common_1.FormBuilder])
+	    ], CompaniesEditComponent);
+	    return CompaniesEditComponent;
+	}());
+	exports.CompaniesEditComponent = CompaniesEditComponent;
+	//# sourceMappingURL=companiesEditComponent.js.map
+
+/***/ },
+/* 899 */
+/***/ function(module, exports) {
+
+	"use strict";
+	/**
+	 * Created by NicolaeB on 5/26/2016.
+	 */
+	var NewCompanyRequest = (function () {
+	    function NewCompanyRequest(name, email, phone, contactPerson, address, cityId, companyDomainId, demandDomains) {
+	        this.name = name;
+	        this.email = email;
+	        this.phone = phone;
+	        this.contactPerson = contactPerson;
+	        this.address = address;
+	        this.cityId = cityId;
+	        this.companyDomainId = companyDomainId;
+	        this.demandDomains = demandDomains;
+	    }
+	    NewCompanyRequest.getEmptyCompany = function () {
+	        return new NewCompanyRequest("", "", "", "", "", -1, -1, []);
+	    };
+	    return NewCompanyRequest;
+	}());
+	exports.NewCompanyRequest = NewCompanyRequest;
+	//# sourceMappingURL=newCompanyRequest.js.map
+
+/***/ },
+/* 900 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"companie-edit-component clearfix\">\r\n    <form [ngFormModel]=\"_companieEditForm\" (ngSubmit)=\"saveEditedCompanie()\">\r\n        <div class=\"companie-edit\">\r\n            <div class=\"form-group\">\r\n                <label>Nume companie</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['name']\" [(ngModel)]=\"_companieEditFormModel.name\" class=\"form-control\"\r\n                       placeholder=\"Nume companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Email companie</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['email']\" [(ngModel)]=\"_companieEditFormModel.email\" class=\"form-control\"\r\n                       placeholder=\"Email companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Parola</label>\r\n                <input type=\"password\" [ngFormControl]=\"_companieEditForm.controls['password']\" [(ngModel)]=\"_companieEditFormModel.password\" class=\"form-control\"\r\n                   placeholder=\"Parola cont companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Telefon</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['phone']\" [(ngModel)]=\"_companieEditFormModel.phone\" class=\"form-control\"\r\n                       placeholder=\"0712345689\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Numele persoanei de contact</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['contactPerson']\" [(ngModel)]=\"_companieEditFormModel.contactPerson\" class=\"form-control\"\r\n                       placeholder=\"Numele persoanei de contact\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Adresa companie</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['address']\" [(ngModel)]=\"_companieEditFormModel.address\" class=\"form-control\"\r\n                       placeholder=\"Adresa companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Oras</label>\r\n                <select-component\r\n                        [select-items]=\"_cities\"\r\n                        [single-item-selected]=\"_companieEditFormModel.city\"\r\n                        [multi-select]=\"false\"\r\n                        (loaded)=\"referenceSelectCityComponent($event)\"\r\n                ></select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Domeniu companie</label>\r\n                <select-component\r\n                        [select-items]=\"_companyDomains\"\r\n                        [single-item-selected]=\"_companieEditFormModel.companyDomain\"\r\n                        [multi-select]=\"false\"\r\n                        (loaded)=\"referenceSelectCompanyDomainComponent($event)\"\r\n                ></select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Domeniu cereri</label>\r\n                <select-component\r\n                        [select-items]=\"_domains\"\r\n                        [selected-items]=\"_companieEditFormModel.demandDomains\"\r\n                        [multi-select]=\"true\"\r\n                        (loaded)=\"referenceSelectDemandDomainComponent($event)\"\r\n                ></select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Logo companie</label>\r\n                <input type=\"file\" accept=\".jpg,.jpeg\" (change)=\"saveFile($event)\" />\r\n            </div>\r\n        </div>\r\n        <div class=\"actions\">\r\n            <button type=\"submit\" class=\"btn btn-success\">\r\n                Salveaza\r\n            </button>\r\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"goToPreviousPage()\">\r\n                Inapoi\r\n            </button>\r\n        </div>\r\n    </form>\r\n</div>";
+
+/***/ },
+/* 901 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var newCompanyRequest_1 = __webpack_require__(899);
+	var CompaniesEditBase = (function () {
+	    function CompaniesEditBase(location, router, companiesService, notificationService, localizationService) {
+	        this._router = router;
+	        this._companiesService = companiesService;
+	        this._notificationService = notificationService;
+	        this._location = location;
+	        this._localizationService = localizationService;
+	        this._companie = newCompanyRequest_1.NewCompanyRequest.getEmptyCompany();
+	    }
+	    CompaniesEditBase.prototype.referenceComponent = function (companieEditComponent) {
+	        this._companieEditComponent = companieEditComponent;
+	    };
+	    CompaniesEditBase.prototype.goToPreviousLocation = function () {
+	        this._location.back();
+	    };
+	    CompaniesEditBase.prototype.getCities = function () {
+	        var me = this;
+	        this._localizationService.getCityList()
+	            .subscribe(function (success) {
+	            me._cities = me._localizationService.mapNameToSelect2Item(success);
+	        }, function (error) {
+	            me._cities = new Array();
+	        });
+	    };
+	    CompaniesEditBase.prototype.getCompanieDomains = function () {
+	        var me = this;
+	        this._companiesService.getCompanieDomains()
+	            .subscribe(function (success) {
+	            me._companyDomains = me._localizationService.mapNameToSelect2Item(success);
+	        }, function (error) {
+	            me._companyDomains = new Array();
+	        });
+	    };
+	    CompaniesEditBase.prototype.getDomains = function () {
+	        var me = this;
+	        this._companiesService.getDemandDomanins()
+	            .subscribe(function (success) {
+	            me._domains = me._localizationService.mapNameToSelect2Item(success);
+	        }, function (error) {
+	            me._domains = new Array();
+	        });
+	    };
+	    return CompaniesEditBase;
+	}());
+	exports.CompaniesEditBase = CompaniesEditBase;
+	//# sourceMappingURL=companiesEditBase.js.map
+
+/***/ },
+/* 902 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"companies-edit-page clearfix\">\r\n    <companies-edit-componet\r\n        [edit-mode]=\"true\"\r\n        [companie-model]=\"_companie\"\r\n        [company-domains]=\"_companyDomains\"\r\n        [cities]=\"_cities\"\r\n        [domains]=\"_domains\"\r\n        (save-edited-companie)=\"saveCompanie($event)\"\r\n        (navigate-back)=\"goToPreviousLocation()\"\r\n        (reference-companie-edit-component)=\"referenceComponent($event)\"\r\n    ></companies-edit-componet>\r\n</div>";
+
+/***/ },
+/* 903 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by nick_ on 5/6/2016.
+	 */
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var router_1 = __webpack_require__(355);
+	var common_1 = __webpack_require__(27);
+	var companiesService_1 = __webpack_require__(897);
+	var notificationService_1 = __webpack_require__(825);
+	var companiesEditComponent_1 = __webpack_require__(898);
+	var companiesEditBase_1 = __webpack_require__(901);
+	var localizationService_1 = __webpack_require__(826);
+	var template = __webpack_require__(902);
+	var CompanieCreatePage = (function (_super) {
+	    __extends(CompanieCreatePage, _super);
+	    function CompanieCreatePage(location, router, companiesService, notificationService, localizationService) {
+	        _super.call(this, location, router, companiesService, notificationService, localizationService);
+	    }
+	    CompanieCreatePage.prototype.ngOnInit = function () {
+	        this.getCities();
+	        this.getCompanieDomains();
+	        this.getDomains();
+	    };
+	    CompanieCreatePage.prototype.saveCompanie = function (companieDto) {
+	        var me = this;
+	        this._companiesService.createCompany(companieDto)
+	            .subscribe(function (succes) {
+	            if (companieDto['logoFile']) {
+	                me.uploadLogoFile(succes, companieDto['logoFile']);
+	                return;
+	            }
+	            me._location.back();
+	        }, function (error) {
+	            //me.
+	        });
+	    };
+	    CompanieCreatePage.prototype.uploadLogoFile = function (id, logoFile) {
+	        var me = this;
+	        this._companiesService.uploadCompanyLogo(id, logoFile)
+	            .subscribe(function (succes) {
+	            me._location.back();
+	        }, function (error) {
+	        });
+	    };
+	    CompanieCreatePage = __decorate([
+	        core_1.Component({
+	            selector: 'companies-edit-page',
+	            template: template,
+	            directives: [companiesEditComponent_1.CompaniesEditComponent]
+	        }), 
+	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
+	    ], CompanieCreatePage);
+	    return CompanieCreatePage;
+	}(companiesEditBase_1.CompaniesEditBase));
+	exports.CompanieCreatePage = CompanieCreatePage;
+	//# sourceMappingURL=companiesCreatePage.js.map
+
+/***/ },
+/* 904 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"admin-page-container\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row content\">\r\n            <div #leftMenu class=\"col-sm-2 sidenav hidden-xs hidden-sm\">\r\n                <div class=\"menu-container\">\r\n                    <div class=\"admin-menu-title text-left clearfix\">\r\n                        <div class=\"pull-left\">\r\n                            <span class=\"glyphicon glyphicon-th-list\"></span>\r\n                        </div>\r\n                        <div class=\"text-center\">\r\n                            <span class=\"h4\">Mangement website</span>\r\n                        </div>\r\n                    </div>\r\n                    <ul class=\"nav nav-pills nav-stacked\">\r\n                        <li [class.active]=\"checkRoute('/admin/users')\">\r\n                            <a [routerLink]=\"['/admin/users']\" class=\"clearfix\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-user\"></span>\r\n                                </div>\r\n                                Utilizatori\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/subscribers')\">\r\n                            <a [routerLink]=\"['/admin/subscribers']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-globe\"></span>\r\n                                </div>\r\n                                Abonati\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/categorii')\">\r\n                            <a [routerLink]=\"['/admin/categorii/meniu']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-tasks\"></span>\r\n                                </div>\r\n                                Categorii\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/cereri')\">\r\n                            <a [routerLink]=\"['/admin/cereri/newDemands']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-list-alt\"></span>\r\n                                </div>\r\n                                Cereri\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/companii') || checkRoute('/admin/ceeaza-companie/ceeaza')\">\r\n                            <a [routerLink]=\"['/admin/companii']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-transfer\"></span>\r\n                                </div>\r\n                                Companii\r\n                            </a>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n            <div #rightMenu class=\"col-sm-10 col-xs-12 col-sm-12\">\r\n                <div class=\"upper-page-container\">\r\n                    <div class=\"inner-page-container\">\r\n                        <router-outlet></router-outlet>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 905 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by nick_ on 4/26/2016.
+	 */
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(30);
+	var router_1 = __webpack_require__(355);
+	var notificationService_1 = __webpack_require__(825);
+	var jqueryService_1 = __webpack_require__(823);
+	var applicationConstansts_1 = __webpack_require__(794);
+	var tabsRoutingComponent_1 = __webpack_require__(865);
+	var accountDemandsPage_1 = __webpack_require__(906);
+	var accountEditPage_1 = __webpack_require__(908);
+	var router_2 = __webpack_require__(355);
+	var template = __webpack_require__(915);
+	var AccountSettingsPage = (function () {
+	    //</editor-fold>
+	    function AccountSettingsPage(router, notificationService) {
+	        this.router = router;
+	        this.tabPagesList = [{ name: 'Contul meu', link: '/account/details', enableMarker: false, markerContent: "" },
+	            { name: 'Cererile mele', link: '/account/demands', enableMarker: false, markerContent: "" }];
+	        this._notificationService = notificationService;
+	        jqueryService_1.JqueryService.removeElementWithAnimation(document.getElementById(applicationConstansts_1.ApplicationConstants.LOADING_SPINNER));
+	    }
+	    AccountSettingsPage = __decorate([
+	        core_1.Component({
+	            selector: 'account-settings-Page',
+	            template: template,
+	            directives: [router_2.ROUTER_DIRECTIVES, tabsRoutingComponent_1.TabsRoutingComponent],
+	            precompile: [
+	                accountEditPage_1.AccountEditPage,
+	                accountDemandsPage_1.AccountDemandsPage
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [router_1.Router, notificationService_1.NotificationService])
+	    ], AccountSettingsPage);
+	    return AccountSettingsPage;
+	}());
+	exports.AccountSettingsPage = AccountSettingsPage;
+	//# sourceMappingURL=accountSettingsPage.js.map
+
+/***/ },
+/* 906 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 4/26/2016.
+	 */
+	var _ = __webpack_require__(354);
+	var core_1 = __webpack_require__(30);
+	var demandService_1 = __webpack_require__(822);
+	var DemandStatus_1 = __webpack_require__(884);
+	var demandListBase_1 = __webpack_require__(881);
+	var template = __webpack_require__(907);
+	var AccountDemandsPage = (function () {
+	    //</editor-fold>
+	    function AccountDemandsPage(_demandService) {
+	        this._demandService = _demandService;
+	    }
+	    AccountDemandsPage.prototype.ngOnInit = function () {
+	        this.getDemandsWithFilter(DemandStatus_1.DemandStatus.ACTIVE);
+	    };
+	    AccountDemandsPage.prototype.ngOnChanges = function (changes) {
+	    };
+	    AccountDemandsPage.prototype.getDemandsWithFilter = function (filtru) {
+	        var me = this;
+	        this.selectedFilter = filtru;
+	        this._demandService.getUserDemandsWithFilter()
+	            .subscribe(function (response) {
+	            me.backendDemands = response;
+	            me.fatchDemandsUsingFilters();
+	        }, function (reject) {
+	        });
+	    };
+	    AccountDemandsPage.prototype.fatchDemandsUsingFilters = function () {
+	        switch (this.selectedFilter) {
+	            case DemandStatus_1.DemandStatus.ACTIVE:
+	                this.filterDemands([DemandStatus_1.DemandStatus.ACTIVE]);
+	                break;
+	            case DemandStatus_1.DemandStatus.PENDING + '&&' + DemandStatus_1.DemandStatus.IN_REVIEW:
+	                this.filterDemands([DemandStatus_1.DemandStatus.PENDING, DemandStatus_1.DemandStatus.IN_REVIEW]);
+	                break;
+	            case DemandStatus_1.DemandStatus.REJECTED + '&&' + DemandStatus_1.DemandStatus.CLOSED:
+	                this.filterDemands([DemandStatus_1.DemandStatus.REJECTED, DemandStatus_1.DemandStatus.CLOSED]);
+	                break;
+	        }
+	    };
+	    AccountDemandsPage.prototype.filterDemands = function (filters) {
+	        var me = this;
+	        var colector = [];
+	        _.each(filters, function (filter) {
+	            var filtredDemands = _.where(me.backendDemands, { status: filter });
+	            colector = colector.concat(filtredDemands);
+	        });
+	        this._demandsList = colector;
+	    };
+	    AccountDemandsPage = __decorate([
+	        core_1.Component({
+	            selector: 'account-demands-Page',
+	            template: template,
+	            directives: [demandListBase_1.DemandListBaseComponent]
+	        }), 
+	        __metadata('design:paramtypes', [demandService_1.DemandService])
+	    ], AccountDemandsPage);
+	    return AccountDemandsPage;
+	}());
+	exports.AccountDemandsPage = AccountDemandsPage;
+	//# sourceMappingURL=accountDemandsPage.js.map
+
+/***/ },
+/* 907 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"user-demands-list-page\">\r\n    <div class=\"demand-filters clearfix\">\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" [class.active-filter]=\"selectedFilter === 'ACTIVE'\"\r\n             (click)=\"getDemandsWithFilter('ACTIVE')\">\r\n            Active\r\n            <span class=\"\"></span>\r\n        </div>\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" [class.active-filter]=\"selectedFilter === 'PENDING&&IN_REVIEW'\"\r\n             (click)=\"getDemandsWithFilter('PENDING&&IN_REVIEW')\">\r\n            In procesare\r\n            <span class=\"\"></span>\r\n        </div>\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" style=\"border-right: none\" [class.active-filter]=\"selectedFilter === 'REJECTED&&CLOSED'\"\r\n             (click)=\"getDemandsWithFilter('REJECTED&&CLOSED')\">\r\n            Dezactivate\r\n            <span class=\"\"></span>\r\n        </div>\r\n    </div>\r\n    <div class=\"clearfix pull-down-10\">\r\n        <demand-list-component\r\n                [hide-operation]=\"true\"\r\n                [demand-list]=\"_demandsList\">\r\n        </demand-list-component>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 908 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 4/26/2016.
+	 */
+	var core_1 = __webpack_require__(30);
+	var router_1 = __webpack_require__(355);
+	var accountService_1 = __webpack_require__(909);
+	var demandService_1 = __webpack_require__(822);
+	var localizationService_1 = __webpack_require__(826);
+	var notificationService_1 = __webpack_require__(825);
+	var accountEditComponent_1 = __webpack_require__(910);
+	var accountDto_1 = __webpack_require__(913);
+	var authorizationService_1 = __webpack_require__(793);
+	var successPage_1 = __webpack_require__(840);
+	var template = __webpack_require__(914);
+	var AccountEditPage = (function () {
+	    //</editor-fold>
+	    function AccountEditPage(accountService, demandService, localizationService, notificationService, router) {
+	        this._submitLabel = 'Salveaza contul';
+	        this._cityesList = new Array();
+	        this._accountService = accountService;
+	        this._demandService = demandService;
+	        this._router = router;
+	        this._account = accountDto_1.AccountDto.getEmptyInstance();
+	        this._localizationService = localizationService;
+	        this._notificationService = notificationService;
+	    }
+	    AccountEditPage.prototype.ngOnInit = function () {
+	        this.getCityList();
+	        this.getAccountData();
+	    };
+	    AccountEditPage.prototype.changePassword = function (editedAccount) {
+	        var _this = this;
+	        var me = this;
+	        if (!editedAccount) {
+	            this._notificationService.emitWarningNotificationToRootComponent('Complectati corect toate campurile pentru parole inainte de a salva!', 5);
+	            return;
+	        }
+	        this._accountService.changeSelfPassword(editedAccount)
+	            .subscribe(function (response) {
+	            me._router.navigate([("/success/" + successPage_1.SuccessPageOptions.SuccessRestPassword)]);
+	        }, function (errr) {
+	            _this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5);
+	        });
+	    };
+	    AccountEditPage.prototype.saveEditedAccount = function (editedAccount) {
+	        var _this = this;
+	        var me = this;
+	        if (!editedAccount) {
+	            this._notificationService.emitWarningNotificationToRootComponent('Complectati toate datele inainte sa salvati contul!', 5);
+	            return;
+	        }
+	        this._accountService.saveEditedAccount(editedAccount)
+	            .subscribe(function (response) {
+	            me.getAccountData();
+	        }, function (errr) {
+	            _this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5);
+	        });
+	    };
+	    AccountEditPage.prototype.getCityList = function () {
+	        var me = this;
+	        this._localizationService.getCityList()
+	            .subscribe(function (response) {
+	            me._cityesList = me._localizationService.extractNameToSelect2Item(response);
+	        }, function (error) {
+	        });
+	    };
+	    AccountEditPage.prototype.getAccountData = function () {
+	        var me = this;
+	        this._accountService.getAccountDetails()
+	            .subscribe(function (success) {
+	            success['cityItem'] = { displayName: success['cityName'],
+	                boundItem: {
+	                    id: success['cityId'],
+	                    name: success['cityName'],
+	                } };
+	            success['email'] = authorizationService_1.AuthorizationService.getUserEmail();
+	            me._account = success;
+	        }, function (error) {
+	            me._account = accountDto_1.AccountDto.getEmptyInstance();
+	        });
+	    };
+	    AccountEditPage = __decorate([
+	        core_1.Component({
+	            selector: 'account-edit-Page',
+	            template: template,
+	            directives: [accountEditComponent_1.AccountEditComponent]
+	        }), 
+	        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService, notificationService_1.NotificationService, router_1.Router])
+	    ], AccountEditPage);
+	    return AccountEditPage;
+	}());
+	exports.AccountEditPage = AccountEditPage;
+	//# sourceMappingURL=accountEditPage.js.map
+
+/***/ },
+/* 909 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by nick_ on 4/24/2016.
+	 */
+	var core_1 = __webpack_require__(30);
+	var fMarketApi_1 = __webpack_require__(797);
+	var Angular2ExtensionValidators_1 = __webpack_require__(827);
+	var AccountService = (function () {
+	    function AccountService(api) {
+	        this._AccountController = '/accounts';
+	        this.api = api;
+	    }
+	    AccountService.prototype.getAccount = function () {
+	        return this.api.get(this._AccountController + '/user');
+	    };
+	    AccountService.prototype.saveEditedAccount = function (accountDto) {
+	        console.log('edit-request');
+	        return this.api.put(this._AccountController + '/self/update', JSON.stringify({
+	            name: accountDto.name && accountDto.name.length > 0 ? accountDto.name : null,
+	            cityId: accountDto.cityId && !isNaN(accountDto.cityId) ? accountDto.cityId : null,
+	            phone: accountDto.phone && accountDto.phone.length > 0 && Angular2ExtensionValidators_1.CustomValidators.PHONE_REGEX.test(accountDto.phone) ? accountDto.phone : null
+	        }));
+	    };
+	    AccountService.prototype.changePassword = function (accountDto) {
+	        console.log('changepassword-request');
+	        return this.api.post(this._AccountController + '/changepassword-1', JSON.stringify({
+	            email: accountDto.email,
+	            oldPassword: accountDto.lastPassword,
+	            newPassword: accountDto.newPassword,
+	            newPasswordConfirm: accountDto.confirmNewPassword
+	        }));
+	    };
+	    AccountService.prototype.changeSelfPassword = function (accountDto) {
+	        return this.api.post(this._AccountController + '/self/changepassword', JSON.stringify({
+	            oldPassword: accountDto.lastPassword,
+	            newPassword: accountDto.newPassword,
+	        }));
+	    };
+	    AccountService.prototype.getAccountDetails = function () {
+	        return this.api.get(this._AccountController + '/self/details');
+	    };
+	    AccountService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
+	    ], AccountService);
+	    return AccountService;
+	}());
+	exports.AccountService = AccountService;
+	//# sourceMappingURL=accountService.js.map
+
+/***/ },
+/* 910 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	/**
+	 * Created by NicolaeB on 4/27/2016.
+	 */
+	var core_1 = __webpack_require__(30);
+	var common_1 = __webpack_require__(27);
+	var selectComponent_1 = __webpack_require__(830);
+	var _ = __webpack_require__(354);
+	var Angular2ExtensionValidators_1 = __webpack_require__(827);
+	var accountUser_1 = __webpack_require__(911);
+	var template = __webpack_require__(912);
+	var AccountEditComponent = (function () {
+	    function AccountEditComponent(formBuilder) {
+	        this._saveAccountEmitter = new core_1.EventEmitter();
+	        this._changePasswordEmitter = new core_1.EventEmitter();
+	        this._formBuilder = formBuilder;
+	        this._accountFormModel = this._formBuilder.group([{}]);
+	        this._changePasswordFormModel = this._formBuilder.group([{}]);
+	    }
+	    AccountEditComponent.prototype.referenceCitySelectorComponent = function (citySelector) {
+	        this._citySelector = citySelector;
+	    };
+	    AccountEditComponent.prototype.ngOnInit = function () {
+	        this.buildForm();
+	    };
+	    AccountEditComponent.prototype.saveEditedAccount = function () {
+	        var account = this.getFormData;
+	        this._saveAccountEmitter.emit(account);
+	    };
+	    AccountEditComponent.prototype.changePassword = function () {
+	        var account = null;
+	        if (this._changePasswordFormModel.valid) {
+	            account = _.clone(this._accountModel);
+	        }
+	        this._changePasswordEmitter.emit(account);
+	    };
+	    Object.defineProperty(AccountEditComponent.prototype, "getFormData", {
+	        get: function () {
+	            var response = {};
+	            if (this._accountFormModel.valid) {
+	                response = _.clone(this._accountModel);
+	                response['cityId'] = this._citySelector && this._citySelector.selectedItem && this._citySelector.selectedItem.boundItem ? this._citySelector.selectedItem.boundItem['id'] : null;
+	                return response;
+	            }
+	            return null;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    AccountEditComponent.prototype.checkIfPasswordIsMarked = function (controll) {
+	        switch (controll) {
+	            case 'password':
+	                return this._changePasswordFormModel.controls['passwords']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['password']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['password']['errors']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['password']['errors']['key'] == 'validatePassword';
+	            case 'repeat':
+	                return this._changePasswordFormModel.controls['passwords']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']['errors']
+	                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']['errors']['key'] == 'validatePassword';
+	        }
+	    };
+	    AccountEditComponent.prototype.buildForm = function () {
+	        this._accountFormModel.addControl('name', this._formBuilder.control(this._accountModel.name, common_1.Validators.required));
+	        this._accountFormModel.addControl('phone', this._formBuilder.control(this._accountModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber, common_1.Validators.maxLength(12)])));
+	        // this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
+	        this._changePasswordFormModel.addControl('lastPassword', this._formBuilder.control(this._accountModel.lastPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
+	        this._changePasswordFormModel.addControl('passwords', this._formBuilder.group({}, { validator: Angular2ExtensionValidators_1.CustomValidators.checkPasswords }));
+	        this._changePasswordFormModel.controls['passwords']['addControl']('password', this._formBuilder.control(this._accountModel.newPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
+	        this._changePasswordFormModel.controls['passwords']['addControl']('repeat', this._formBuilder.control(this._accountModel.confirmNewPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
+	    };
+	    AccountEditComponent.prototype.updateErrorField = function () {
+	        this.showNotMatchPasswordField = this._changePasswordFormModel
+	            && this._changePasswordFormModel.controls['passwords']
+	            && this._changePasswordFormModel.controls['passwords']['errors']
+	            && this._changePasswordFormModel.controls['passwords']['errors']['checkPasswords']
+	            && !this._changePasswordFormModel.controls['passwords']['errors']['checkPasswords']['valid'];
+	    };
+	    __decorate([
+	        core_1.Input('account-form-model'), 
+	        __metadata('design:type', accountUser_1.AccountUser)
+	    ], AccountEditComponent.prototype, "_accountModel", void 0);
+	    __decorate([
+	        core_1.Input('city-list'), 
+	        __metadata('design:type', Object)
+	    ], AccountEditComponent.prototype, "_cities", void 0);
+	    __decorate([
+	        core_1.Input('submit-label'), 
+	        __metadata('design:type', Object)
+	    ], AccountEditComponent.prototype, "submitLabel", void 0);
+	    __decorate([
+	        core_1.Output('save-edited-account'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], AccountEditComponent.prototype, "_saveAccountEmitter", void 0);
+	    __decorate([
+	        core_1.Output('change-password'), 
+	        __metadata('design:type', core_1.EventEmitter)
+	    ], AccountEditComponent.prototype, "_changePasswordEmitter", void 0);
+	    AccountEditComponent = __decorate([
+	        core_1.Component({
+	            selector: 'account-edit-component',
+	            template: template,
+	            directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent],
+	        }), 
+	        __metadata('design:paramtypes', [common_1.FormBuilder])
+	    ], AccountEditComponent);
+	    return AccountEditComponent;
+	}());
+	exports.AccountEditComponent = AccountEditComponent;
+	//# sourceMappingURL=accountEditComponent.js.map
+
+/***/ },
+/* 911 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by nick_ on 6/2/2016.
+	 */
+	"use strict";
+	var AccountUser = (function () {
+	    function AccountUser() {
+	        this.email = '';
+	        this.name = '';
+	        this.phone = '';
+	        this.cityItem = '';
+	        this.lastPassword = '';
+	        this.newPassword = '';
+	        this.confirmNewPassword = '';
+	        this.cityId = -1;
+	    }
+	    return AccountUser;
+	}());
+	exports.AccountUser = AccountUser;
+	//# sourceMappingURL=accountUser.js.map
+
+/***/ },
+/* 912 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"account-edit-component clearfix\">\r\n    <div class=\"clearfix\">\r\n        <div class=\"col-md-6 col-xs-12 col-sm-12\">\r\n            <form *ngIf=\"_accountFormModel\" [ngFormModel]=\"_accountFormModel\" (ngSubmit)=\"saveEditedAccount()\"\r\n                  class=\"account-form\">\r\n                <span class=\"h4\">Date cont</span>\r\n                <hr/>\r\n                <div class=\"form-group\">\r\n                    <label>Email</label>\r\n                    <span class=\"form-control\" type=\"text\" disabled>{{_accountModel.email}}</span>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Nume</label>\r\n                    <input class=\"form-control\" type=\"text\" placeholder=\"Adaugati numele la contul tau\"\r\n                           [ngFormControl]=\"_accountFormModel.controls['name']\"\r\n                           [(ngModel)]=\"_accountModel.name\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Telefon</label>\r\n                    <input class=\"form-control\" type=\"text\" placeholder=\"Adaugati numarul de telefon la contul tau\"\r\n                           [ngFormControl]=\"_accountFormModel.controls['phone']\"\r\n                           [(ngModel)]=\"_accountModel.phone\"/>\r\n                </div>\r\n                <div>\r\n                    <label>Oras</label>\r\n                    <select-component\r\n                            [select-items]=\"_cities\"\r\n                            [single-item-selected]=\"_accountModel.cityItem\"\r\n                            [multi-select]=\"false\"\r\n                            (loaded)=\"referenceCitySelectorComponent($event)\">\r\n                    </select-component>\r\n                </div>\r\n                <div>\r\n                    <div class=\"pull-right\">\r\n                        <button type=\"submit\" class=\"btn btn-primary\">{{submitLabel}}</button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-xs-12 col-sm-12\">\r\n            <form *ngIf=\"_accountFormModel\" [ngFormModel]=\"_changePasswordFormModel\" (ngSubmit)=\"changePassword()\"\r\n                  class=\"account-form\">\r\n\r\n                <span class=\"h4\">Schimbare parola</span>\r\n                <hr/>\r\n                <div class=\"form-group\">\r\n                    <label>Parola veche</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.lastPassword\"\r\n                           [(ngModel)]=\"_accountModel.lastPassword\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Parola noua</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.passwords.controls.password\"\r\n                           [(ngModel)]=\"_accountModel.newPassword\"\r\n                           (ngModelChange)=\"updateErrorField()\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Confirma parola noua</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.passwords.controls.repeat\"\r\n                           [(ngModel)]=\"_accountModel.confirmNewPassword\"\r\n                           (ngModelChange)=\"updateErrorField()\"/>\r\n                </div>\r\n                <div class=\"position-relative\" *ngIf=\"showNotMatchPasswordField\">\r\n                    <div class=\"password-error right-to-middle-effect\">\r\n                        Cele doua parole nu sunt la fel!\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <div class=\"pull-right\">\r\n                        <button type=\"submit\" class=\"btn btn-primary\">Schimba parola</button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
+
+/***/ },
+/* 913 */
+/***/ function(module, exports) {
+
+	"use strict";
+	/**
+	 * Created by NicolaeB on 4/27/2016.
+	 */
+	var AccountDto = (function () {
+	    function AccountDto(id, email, type, status, creationDate, closedDate, activationDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, name, cityId, city, loginTimes, autoLoginTimes, cityItem, newPassword) {
+	        this.id = id;
+	        this.email = email;
+	        this.accountType = type;
+	        this.status = status;
+	        this.creationDate = creationDate;
+	        this.closedDate = closedDate;
+	        this.activationDate = activationDate;
+	        this.lastPasswordChangeDate = lastPasswordChangeDate;
+	        this.lastLoginDate = lastLoginDate;
+	        this.lastAutoLoginDate = lastAutoLoginDate;
+	        this.name = name;
+	        this.cityId = cityId;
+	        this.city = city;
+	        this.loginTimes = loginTimes;
+	        this.autoLoginTimes = autoLoginTimes;
+	        this.cityItem = cityItem;
+	        this.newPassword = newPassword;
+	    }
+	    AccountDto.getEmptyInstance = function () {
+	        return new AccountDto(-1, '', '', '', (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), '', null, '', 0, 0, null, '');
+	    };
+	    return AccountDto;
+	}());
+	exports.AccountDto = AccountDto;
+	//# sourceMappingURL=accountDto.js.map
+
+/***/ },
+/* 914 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"account-edit-page\">\r\n    <account-edit-component\r\n        [account-form-model]=\"_account\"\r\n        [city-list]=\"_cityesList\"\r\n        [submit-label]=\"_submitLabel\"\r\n        (save-edited-account)=\"saveEditedAccount($event)\"\r\n        (change-password)=\"changePassword($event)\">\r\n    </account-edit-component>\r\n</div>";
+
+/***/ },
+/* 915 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"account-settings-page clearfix\">\r\n    <div class=\"sub-container\">\r\n        <div class=\"container-fluid account-settings-page-container\">\r\n            <div class=\"content\">\r\n                <!--<div class=\"col-sm-2 sidenav\">-->\r\n                    <!--<h4>Cont</h4>-->\r\n                    <!--<ul class=\"nav nav-pills nav-stacked\">-->\r\n                        <!--<li [ngClass]=\"router.isRouteActive(router.generate(['Account/Details'])) ? 'active':''\"><a-->\r\n                                <!--[routerLink]=\"['Account/Details']\">Cont</a></li>-->\r\n                        <!--<li [ngClass]=\"router.isRouteActive(router.generate(['Account/Demands'])) ? 'active':''\"><a-->\r\n                                <!--[routerLink]=\"['Account/Demands']\">Cereri</a></li>-->\r\n                    <!--</ul>-->\r\n                <!--</div>-->\r\n                <tabs-component\r\n                        [tabs-pages-list]=\"tabPagesList\">\r\n                </tabs-component>\r\n                <div class=\"sub-pabge-container\">\r\n                    <router-outlet></router-outlet>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 857 */
+/* 916 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98914,14 +102119,15 @@
 	        __metadata('design:paramtypes', [router_1.Router, router_1.ActivatedRoute, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
 	    ], TokenConfirmPage);
 	    return TokenConfirmPage;
-	})();
+	}());
 	exports.TokenConfirmPage = TokenConfirmPage;
 	//# sourceMappingURL=tokenConfirmPage.js.map
 
 /***/ },
-/* 858 */
+/* 917 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -98938,11 +102144,11 @@
 	var router_1 = __webpack_require__(355);
 	var common_1 = __webpack_require__(27);
 	var _ = __webpack_require__(354);
-	var companieListComponent_1 = __webpack_require__(859);
+	var companieListComponent_1 = __webpack_require__(918);
 	var ng2_bootstrap_1 = __webpack_require__(407);
-	var companiesService_1 = __webpack_require__(861);
+	var companiesService_1 = __webpack_require__(897);
 	var notificationService_1 = __webpack_require__(825);
-	var template = __webpack_require__(862);
+	var template = __webpack_require__(920);
 	var CompaniesPage = (function () {
 	    //</editor-fold">
 	    function CompaniesPage(router, companiesService, notificationService) {
@@ -98996,14 +102202,15 @@
 	        __metadata('design:paramtypes', [router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService])
 	    ], CompaniesPage);
 	    return CompaniesPage;
-	})();
+	}());
 	exports.CompaniesPage = CompaniesPage;
 	//# sourceMappingURL=companiesPage.js.map
 
 /***/ },
-/* 859 */
+/* 918 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -99018,7 +102225,7 @@
 	 */
 	var core_1 = __webpack_require__(30);
 	var ng2_bootstrap_1 = __webpack_require__(407);
-	var template = __webpack_require__(860);
+	var template = __webpack_require__(919);
 	var CompanieListComponent = (function () {
 	    function CompanieListComponent() {
 	        this._companieSelectedEmitter = new core_1.EventEmitter();
@@ -99047,135 +102254,27 @@
 	        __metadata('design:paramtypes', [])
 	    ], CompanieListComponent);
 	    return CompanieListComponent;
-	})();
+	}());
 	exports.CompanieListComponent = CompanieListComponent;
 	//# sourceMappingURL=companieListComponent.js.map
 
 /***/ },
-/* 860 */
+/* 919 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"companie-list-component clearfix\">\r\n    <div class=\"companies-grid clearfix\">\r\n        <div *ngFor=\"let container of _companieList; let i=index\">\r\n            <div *ngIf=\"container && container.length >0\" class=\"col-md-3 col-xs-12 domain-companies-container\">\r\n                <div *ngFor=\"let cellWrapper of container\">\r\n                    <div class=\"title-wrapper\">\r\n                        <span class=\"h4 cell-tag-label\">\r\n                            {{cellWrapper.domainName}}\r\n                        </span>\r\n                    </div>\r\n                    <div class=\"companies-list\">\r\n                        <div *ngFor=\"let companie of cellWrapper.companies\" class=\"companie-list-item\"  (mouseover)=\"companie.tooltipVisible=true\"\r\n                             (mouseleave)=\"companie.tooltipVisible=false\">\r\n                            <a (click)=\"selectCompanie(companie)\">\r\n                                <span>\r\n                                {{companie.name}}\r\n                                    </span><!--<img [src]=\"\"/>-->\r\n                                <div (mouseover)=\"companie.tooltipVisible=true\"\r\n                                     (mouseleave)=\"companie.tooltipVisible=false\" class=\"tooltip-container\">\r\n                                    <div class=\"inner-tooltip-container blue_arrow_box_top\"\r\n                                         [class.open]=\"companie.tooltipVisible\">\r\n                                        <img [class.open]=\"companie.tooltipVisible\" class=\"logo-item\"\r\n                                             [src]=\"'/companies/logo/' + companie.id\"/>\r\n                                    </div>\r\n                                </div>\r\n                            </a>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div *ngIf=\"(i+1)%4==0\" class=\"clearfix\"></div>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 861 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 5/6/2016.
-	 */
-	var core_1 = __webpack_require__(30);
-	var fMarketApi_1 = __webpack_require__(797);
-	var _ = __webpack_require__(354);
-	var Rx_1 = __webpack_require__(579);
-	var CompaniesService = (function () {
-	    function CompaniesService(api) {
-	        this.COMPANIE_CONTROLLER = '/companies';
-	        this.ADMIN_COMPANIE_CONTROLLER = '/admin' + this.COMPANIE_CONTROLLER;
-	        this.api = api;
-	    }
-	    CompaniesService.prototype.getCompaniesForUsers = function (searchQuery) {
-	        return this.api.get(this.COMPANIE_CONTROLLER + ("/all?p=" + searchQuery));
-	    };
-	    CompaniesService.prototype.getCompanieDetailsForUsers = function (id) {
-	        return this.api.get(this.COMPANIE_CONTROLLER + ("/" + id));
-	    };
-	    CompaniesService.prototype.addStarsReviewForUsers = function (review) {
-	        return this.api.post(this.COMPANIE_CONTROLLER + '/review/stars', JSON.stringify(review));
-	    };
-	    CompaniesService.prototype.addMessageReviewForUsers = function (review) {
-	        return this.api.post(this.COMPANIE_CONTROLLER + '/review/message', JSON.stringify(review));
-	    };
-	    CompaniesService.prototype.createCompany = function (newCompanyRequest) {
-	        return this.api.post(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(newCompanyRequest));
-	    };
-	    CompaniesService.prototype.uploadCompanyLogo = function (id, logoImage) {
-	        var _this = this;
-	        return Rx_1.Observable.create(function (observer) {
-	            var formData = new FormData(), xhr = new XMLHttpRequest();
-	            // for (let i = 0; i < logoImage.length; i++) {
-	            //     formData.append("uploads[]", logoImage[i], logoImage[i].name);
-	            // }
-	            if (logoImage.length > 0) {
-	                formData.append("logo", logoImage[0], logoImage[0].name);
-	                xhr.onreadystatechange = function () {
-	                    if (xhr.readyState === 4) {
-	                        if (xhr.status === 200) {
-	                            observer.next(xhr.response.length > 0 ? JSON.parse(xhr.response) : '');
-	                            observer.complete();
-	                        }
-	                        else {
-	                            observer.error(xhr.response);
-	                        }
-	                    }
-	                };
-	                // xhr.upload.onprogress = (event) => {
-	                //     this.progress = Math.round(event.loaded / event.total * 100);
-	                //
-	                //     this.progressObserver.next(this.progress);
-	                // };
-	                xhr.open('POST', _this.ADMIN_COMPANIE_CONTROLLER + ("/logo/" + id), true);
-	                xhr.send(formData);
-	            }
-	        });
-	    };
-	    CompaniesService.prototype.getCompanyWithFilters = function (searchObject) {
-	        return this.api.post(this.ADMIN_COMPANIE_CONTROLLER + '/search', JSON.stringify(searchObject));
-	    };
-	    CompaniesService.prototype.getCompanyDetails = function (companyId) {
-	        return this.api.get(this.ADMIN_COMPANIE_CONTROLLER + ("/" + companyId));
-	    };
-	    CompaniesService.prototype.editCompany = function (updatedCompany) {
-	        return this.api.put(this.ADMIN_COMPANIE_CONTROLLER, JSON.stringify(updatedCompany));
-	    };
-	    CompaniesService.prototype.deleteCompany = function (id) {
-	        return this.api.delete(this.ADMIN_COMPANIE_CONTROLLER + ("/" + id));
-	    };
-	    CompaniesService.prototype.getCompanieDomains = function () {
-	        return this.api.get('/company/domains');
-	    };
-	    CompaniesService.prototype.getDemandDomanins = function () {
-	        return this.api.get('/demand/domains');
-	    };
-	    CompaniesService.prototype.getCompanyReviews = function (id) {
-	        return this.api.get(this.COMPANIE_CONTROLLER + ("/reviews/" + id));
-	    };
-	    CompaniesService.prototype.mapNameToSelect2Item = function (array) {
-	        return _.map(array, function (item) {
-	            return {
-	                displayName: item['name'],
-	                boundItem: item
-	            };
-	        });
-	    };
-	    CompaniesService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
-	    ], CompaniesService);
-	    return CompaniesService;
-	})();
-	exports.CompaniesService = CompaniesService;
-	//# sourceMappingURL=companiesService.js.map
-
-/***/ },
-/* 862 */
+/* 920 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"user-companies-page\">\r\n    <div class=\"sub-container\">\r\n        <div class=\"user-companies-page-container\">\r\n            <div class=\"text-center\">\r\n                <h2>Firme partenere</h2>\r\n            </div>\r\n            <div class=\"clearfix search-field-wrapper \">\r\n                <div class=\"col-md-3 col-xs-12\">\r\n                    <div class=\"input-group\">\r\n                        <div class=\"input-group-addon\">\r\n                            <span class=\"glyphicon glyphicon-search\"></span>\r\n                        </div>\r\n                        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"searchFilter\"\r\n                               (ngModelChange)=\"getCompaniesWithFilters()\"/>\r\n                    </div>\r\n                </div>\r\n                <!--<div class=\"col-md-3 col-xs-12 operations\">-->\r\n                    <!--<button class=\"btn btn-primary\" (click)=\"getCompaniesWithFilters()\">-->\r\n                        <!--<span class=\"glyphicon glyphicon-filter\"></span>-->\r\n                        <!--Filtreaza companii-->\r\n                    <!--</button>-->\r\n                <!--</div>-->\r\n            </div>\r\n            <div class=\"clearfix companies-grid-view\">\r\n                <companie-list-component\r\n                        [companies-list]=\"_companiesList\"\r\n                        (companie-selected)=\"selectCompanie($event)\"\r\n                ></companie-list-component>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 863 */
+/* 921 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -99191,8 +102290,8 @@
 	var core_1 = __webpack_require__(30);
 	var jqueryService_1 = __webpack_require__(823);
 	var applicationConstansts_1 = __webpack_require__(794);
-	var core_2 = __webpack_require__(864);
-	var companiesService_1 = __webpack_require__(861);
+	var core_2 = __webpack_require__(922);
+	var companiesService_1 = __webpack_require__(897);
 	var notificationService_1 = __webpack_require__(825);
 	var CompanieDetailPage = (function () {
 	    function CompanieDetailPage(companiesService, notificationService) {
@@ -99283,12 +102382,12 @@
 	        __metadata('design:paramtypes', [companiesService_1.CompaniesService, notificationService_1.NotificationService])
 	    ], CompanieDetailPage);
 	    return CompanieDetailPage;
-	})();
+	}());
 	exports.CompanieDetailPage = CompanieDetailPage;
 	//# sourceMappingURL=companieDetailPage.js.map
 
 /***/ },
-/* 864 */
+/* 922 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99302,12 +102401,12 @@
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	var core_1 = __webpack_require__(30);
-	var lazy_maps_api_loader_1 = __webpack_require__(865);
-	var maps_api_loader_1 = __webpack_require__(867);
-	var browser_globals_1 = __webpack_require__(866);
+	var lazy_maps_api_loader_1 = __webpack_require__(923);
+	var maps_api_loader_1 = __webpack_require__(925);
+	var browser_globals_1 = __webpack_require__(924);
 	// main modules
-	__export(__webpack_require__(868));
-	__export(__webpack_require__(878));
+	__export(__webpack_require__(926));
+	__export(__webpack_require__(936));
 	// Google Maps types
 	exports.GOOGLE_MAPS_PROVIDERS = [
 	    browser_globals_1.BROWSER_GLOBALS_PROVIDERS,
@@ -99318,7 +102417,7 @@
 
 
 /***/ },
-/* 865 */
+/* 923 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99346,8 +102445,8 @@
 	    return function (target, key) { decorator(target, key, paramIndex); }
 	};
 	var core_1 = __webpack_require__(30);
-	var browser_globals_1 = __webpack_require__(866);
-	var maps_api_loader_1 = __webpack_require__(867);
+	var browser_globals_1 = __webpack_require__(924);
+	var maps_api_loader_1 = __webpack_require__(925);
 	(function (GoogleMapsScriptProtocol) {
 	    GoogleMapsScriptProtocol[GoogleMapsScriptProtocol["HTTP"] = 0] = "HTTP";
 	    GoogleMapsScriptProtocol[GoogleMapsScriptProtocol["HTTPS"] = 1] = "HTTPS";
@@ -99481,7 +102580,7 @@
 
 
 /***/ },
-/* 866 */
+/* 924 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99500,7 +102599,7 @@
 
 
 /***/ },
-/* 867 */
+/* 925 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99535,7 +102634,7 @@
 
 
 /***/ },
-/* 868 */
+/* 926 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99545,22 +102644,22 @@
 	 * @license MIT
 	 */
 	"use strict";
-	var directives_const_1 = __webpack_require__(869);
+	var directives_const_1 = __webpack_require__(927);
 	exports.GOOGLE_MAPS_DIRECTIVES = directives_const_1.GOOGLE_MAPS_DIRECTIVES;
-	var google_map_1 = __webpack_require__(870);
+	var google_map_1 = __webpack_require__(928);
 	exports.SebmGoogleMap = google_map_1.SebmGoogleMap;
-	var google_map_circle_1 = __webpack_require__(875);
+	var google_map_circle_1 = __webpack_require__(933);
 	exports.SebmGoogleMapCircle = google_map_circle_1.SebmGoogleMapCircle;
-	var google_map_info_window_1 = __webpack_require__(876);
+	var google_map_info_window_1 = __webpack_require__(934);
 	exports.SebmGoogleMapInfoWindow = google_map_info_window_1.SebmGoogleMapInfoWindow;
-	var google_map_marker_1 = __webpack_require__(877);
+	var google_map_marker_1 = __webpack_require__(935);
 	exports.SebmGoogleMapMarker = google_map_marker_1.SebmGoogleMapMarker;
 
 	//# sourceMappingURL=directives.js.map
 
 
 /***/ },
-/* 869 */
+/* 927 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99570,17 +102669,17 @@
 	 * @license MIT
 	 */
 	"use strict";
-	var google_map_1 = __webpack_require__(870);
-	var google_map_circle_1 = __webpack_require__(875);
-	var google_map_info_window_1 = __webpack_require__(876);
-	var google_map_marker_1 = __webpack_require__(877);
+	var google_map_1 = __webpack_require__(928);
+	var google_map_circle_1 = __webpack_require__(933);
+	var google_map_info_window_1 = __webpack_require__(934);
+	var google_map_marker_1 = __webpack_require__(935);
 	exports.GOOGLE_MAPS_DIRECTIVES = [google_map_1.SebmGoogleMap, google_map_marker_1.SebmGoogleMapMarker, google_map_info_window_1.SebmGoogleMapInfoWindow, google_map_circle_1.SebmGoogleMapCircle];
 
 	//# sourceMappingURL=directives-const.js.map
 
 
 /***/ },
-/* 870 */
+/* 928 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99600,10 +102699,10 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(30);
-	var google_maps_api_wrapper_1 = __webpack_require__(871);
-	var circle_manager_1 = __webpack_require__(872);
-	var info_window_manager_1 = __webpack_require__(873);
-	var marker_manager_1 = __webpack_require__(874);
+	var google_maps_api_wrapper_1 = __webpack_require__(929);
+	var circle_manager_1 = __webpack_require__(930);
+	var info_window_manager_1 = __webpack_require__(931);
+	var marker_manager_1 = __webpack_require__(932);
 	/**
 	 * SebMGoogleMap renders a Google Map.
 	 * **Important note**: To be able see a map in the browser, you have to define a height for the CSS
@@ -99859,7 +102958,7 @@
 
 
 /***/ },
-/* 871 */
+/* 929 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99880,7 +102979,7 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var Observable_1 = __webpack_require__(63);
-	var maps_api_loader_1 = __webpack_require__(867);
+	var maps_api_loader_1 = __webpack_require__(925);
 	/**
 	 * Wrapper class that handles the communication with the Google Maps Javascript
 	 * API v3
@@ -99972,7 +103071,7 @@
 
 
 /***/ },
-/* 872 */
+/* 930 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -99993,7 +103092,7 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var Observable_1 = __webpack_require__(63);
-	var google_maps_api_wrapper_1 = __webpack_require__(871);
+	var google_maps_api_wrapper_1 = __webpack_require__(929);
 	var CircleManager = (function () {
 	    function CircleManager(_apiWrapper, _zone) {
 	        this._apiWrapper = _apiWrapper;
@@ -100079,7 +103178,7 @@
 
 
 /***/ },
-/* 873 */
+/* 931 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -100099,8 +103198,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(30);
-	var google_maps_api_wrapper_1 = __webpack_require__(871);
-	var marker_manager_1 = __webpack_require__(874);
+	var google_maps_api_wrapper_1 = __webpack_require__(929);
+	var marker_manager_1 = __webpack_require__(932);
 	var InfoWindowManager = (function () {
 	    function InfoWindowManager(_mapsWrapper, _zone, _markerManager) {
 	        this._mapsWrapper = _mapsWrapper;
@@ -100171,7 +103270,7 @@
 
 
 /***/ },
-/* 874 */
+/* 932 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -100192,7 +103291,7 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var Observable_1 = __webpack_require__(63);
-	var google_maps_api_wrapper_1 = __webpack_require__(871);
+	var google_maps_api_wrapper_1 = __webpack_require__(929);
 	var MarkerManager = (function () {
 	    function MarkerManager(_mapsWrapper, _zone) {
 	        this._mapsWrapper = _mapsWrapper;
@@ -100260,7 +103359,7 @@
 
 
 /***/ },
-/* 875 */
+/* 933 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -100280,7 +103379,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(30);
-	var circle_manager_1 = __webpack_require__(872);
+	var circle_manager_1 = __webpack_require__(930);
 	var SebmGoogleMapCircle = (function () {
 	    function SebmGoogleMapCircle(_manager) {
 	        this._manager = _manager;
@@ -100475,7 +103574,7 @@
 
 
 /***/ },
-/* 876 */
+/* 934 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -100495,7 +103594,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(30);
-	var info_window_manager_1 = __webpack_require__(873);
+	var info_window_manager_1 = __webpack_require__(931);
 	var infoWindowId = 0;
 	/**
 	 * SebmGoogleMapInfoWindow renders a info window inside a {@link SebmGoogleMapMarker} or standalone.
@@ -100608,7 +103707,7 @@
 
 
 /***/ },
-/* 877 */
+/* 935 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -100628,8 +103727,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(30);
-	var marker_manager_1 = __webpack_require__(874);
-	var google_map_info_window_1 = __webpack_require__(876);
+	var marker_manager_1 = __webpack_require__(932);
+	var google_map_info_window_1 = __webpack_require__(934);
 	var markerId = 0;
 	/**
 	 * SebmGoogleMapMarker renders a map marker inside a {@link SebmGoogleMap}.
@@ -100746,7 +103845,7 @@
 
 
 /***/ },
-/* 878 */
+/* 936 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -100756,29 +103855,29 @@
 	 * @license MIT
 	 */
 	"use strict";
-	var google_maps_api_wrapper_1 = __webpack_require__(871);
+	var google_maps_api_wrapper_1 = __webpack_require__(929);
 	exports.GoogleMapsAPIWrapper = google_maps_api_wrapper_1.GoogleMapsAPIWrapper;
-	var circle_manager_1 = __webpack_require__(872);
+	var circle_manager_1 = __webpack_require__(930);
 	exports.CircleManager = circle_manager_1.CircleManager;
-	var info_window_manager_1 = __webpack_require__(873);
+	var info_window_manager_1 = __webpack_require__(931);
 	exports.InfoWindowManager = info_window_manager_1.InfoWindowManager;
-	var marker_manager_1 = __webpack_require__(874);
+	var marker_manager_1 = __webpack_require__(932);
 	exports.MarkerManager = marker_manager_1.MarkerManager;
-	var lazy_maps_api_loader_1 = __webpack_require__(865);
+	var lazy_maps_api_loader_1 = __webpack_require__(923);
 	exports.GoogleMapsScriptProtocol = lazy_maps_api_loader_1.GoogleMapsScriptProtocol;
 	exports.LazyMapsAPILoader = lazy_maps_api_loader_1.LazyMapsAPILoader;
 	exports.LazyMapsAPILoaderConfig = lazy_maps_api_loader_1.LazyMapsAPILoaderConfig;
 	exports.provideLazyMapsAPILoaderConfig = lazy_maps_api_loader_1.provideLazyMapsAPILoaderConfig;
-	var maps_api_loader_1 = __webpack_require__(867);
+	var maps_api_loader_1 = __webpack_require__(925);
 	exports.MapsAPILoader = maps_api_loader_1.MapsAPILoader;
-	var noop_maps_api_loader_1 = __webpack_require__(879);
+	var noop_maps_api_loader_1 = __webpack_require__(937);
 	exports.NoOpMapsAPILoader = noop_maps_api_loader_1.NoOpMapsAPILoader;
 
 	//# sourceMappingURL=services.js.map
 
 
 /***/ },
-/* 879 */
+/* 937 */
 /***/ function(module, exports) {
 
 	/**
@@ -100811,9 +103910,10 @@
 
 
 /***/ },
-/* 880 */
+/* 938 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -100836,7 +103936,7 @@
 	var registrationService_1 = __webpack_require__(844);
 	var notificationService_1 = __webpack_require__(825);
 	var applicationStateService_1 = __webpack_require__(819);
-	var template = __webpack_require__(881);
+	var template = __webpack_require__(939);
 	var HeaderComponent = (function () {
 	    function HeaderComponent(router, localStorageService, registrationService, notificationService, applicationStateService) {
 	        this._router = router;
@@ -100944,23 +104044,24 @@
 	        __metadata('design:paramtypes', [router_1.Router, localStorageService_1.LocalStorageService, registrationService_1.RegistrationService, notificationService_1.NotificationService, applicationStateService_1.ApplicationStateService])
 	    ], HeaderComponent);
 	    return HeaderComponent;
-	})();
+	}());
 	exports.HeaderComponent = HeaderComponent;
 	//# sourceMappingURL=headerComponent.js.map
 
 /***/ },
-/* 881 */
+/* 939 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"sidenav-mobile visible-xs\" [style.margin-left]=\"sideMenuOpened ? '0' :'-250px'\">\r\n    <div class=\"clearfix\">\r\n        <a href=\"javascript:void(0)\" class=\"closebtn pull-right\" (click)=\"closeNav()\">×</a>\r\n    </div>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n        <ul class=\"nav navbar-nav navbar-right\">\r\n            <li><a (click)=\"addDemandFromMobile()\">Adauga cerere</a></li>\r\n            <li *ngFor=\"let page of _usersApplicationPages\"><a (click)=\"goToPageUsingSideMenu(page.link)\">{{page.name}}</a></li>\r\n            <li *ngIf=\"!isLoggedIn()\"><a (click)=\"goToPageUsingSideMenu('/login')\">Contul meu</a></li>\r\n            <li *ngIf=\"chechIdNormalUser()\">\r\n                <ul>\r\n                    <li *ngFor=\"let p of _myAccountDropdownPages\"><a (click)=\"goToPageUsingSideMenu(p.link)\">{{p.name}}</a></li>\r\n                    <li><a (click)=\"logout()\">Iesire din cont</a></li>\r\n                </ul>\r\n            </li>\r\n            <li *ngIf=\"isAdminUser()\">\r\n                <ul>\r\n                    <li *ngFor=\"let p of _adminApplicationPages\"><a (click)=\"goToPageUsingSideMenu(p.link)\">{{p.name}}</a></li>\r\n                    <li><a style=\"cursor: pointer;\" (click)=\"logoutFromSideMenu()\">Iesire din cont</a></li>\r\n                </ul>\r\n            </li>\r\n        </ul>\r\n    </ul>\r\n</div>\r\n<div class=\"header\">\r\n    <nav class=\"navbar navbar-default navbar-fixed-top clearfix\">\r\n        <div class=\"container-fluid clearfix\" [style.margin-left]=\"sideMenuOpened ? '250px' :'0px'\">\r\n            <div class=\"visible-xs visible-sm pull-left mobile-menu\">\r\n                <span (click)=\"openNav()\" class=\"glyphicon glyphicon-align-justify\"></span>\r\n            </div>\r\n            <a [routerLink]=\"['/']\" class=\"navbar-header clearfix\">\r\n                <img [style.opacity]=\"hideImage ? 0 : 1\" id=\"element1\" class=\"fMarket-brand-icon\"\r\n                     src=\"/staticResorces/orange_logo_simple.png\"/>\r\n            </a>\r\n            <div class=\"collapse navbar-collapse\">\r\n                <div class=\"pull-right navbar-bottons\">\r\n                    <button class=\"btn btn-success\" (click)=\"addDemand()\">\r\n                        <span class=\"glyphicon glyphicon-plus\"></span>\r\n                        Adauga cerere\r\n                    </button>\r\n                </div>\r\n                <ul class=\"nav navbar-nav navbar-right\">\r\n                    <li *ngFor=\"let page of _usersApplicationPages\"><a [routerLink]=\"[page.link]\">{{page.name}}</a></li>\r\n                    <li *ngIf=\"!isLoggedIn()\"><a [routerLink]=\"['/login']\">Contul meu</a></li>\r\n                    <li *ngIf=\"chechIdNormalUser()\" dropdown class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" dropdownToggle role=\"button\" aria-haspopup=\"true\"\r\n                           aria-expanded=\"false\">{{_myAccountLabel}}<span class=\"caret\"></span></a>\r\n                        <ul dropdownMenu class=\"dropdown-menu\">\r\n                            <li *ngFor=\"let p of _myAccountDropdownPages\"><a [routerLink]=\"[p.link]\">{{p.name}}</a></li>\r\n                            <li><a (click)=\"logout()\">Iesire din cont</a></li>\r\n                        </ul>\r\n                    </li>\r\n                    <li *ngIf=\"isAdminUser()\" dropdown class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" dropdownToggle role=\"button\" aria-haspopup=\"true\"\r\n                           aria-expanded=\"false\">{{_myAccountLabel}}<span class=\"caret\"></span></a>\r\n                        <ul dropdownMenu class=\"dropdown-menu\">\r\n                            <li *ngFor=\"let p of _adminApplicationPages\"><a [routerLink]=\"[p.link]\">{{p.name}}</a></li>\r\n                            <li><a style=\"cursor: pointer;\" (click)=\"logout()\">Iesire din cont</a></li>\r\n                        </ul>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n        </div>\r\n    </nav>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n";
+	module.exports = "<div class=\"sidenav-mobile visible-xs\" [style.margin-left]=\"sideMenuOpened ? '0' :'-250px'\">\r\n    <div class=\"clearfix\">\r\n        <a href=\"javascript:void(0)\" class=\"closebtn pull-right\" (click)=\"closeNav()\">×</a>\r\n    </div>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n        <ul class=\"nav navbar-nav navbar-right\">\r\n            <li><a (click)=\"addDemandFromMobile()\">Adauga cerere</a></li>\r\n            <li *ngFor=\"let page of _usersApplicationPages\"><a (click)=\"goToPageUsingSideMenu(page.link)\">{{page.name}}</a></li>\r\n            <li *ngIf=\"!isLoggedIn()\"><a (click)=\"goToPageUsingSideMenu('/login')\">Contul meu</a></li>\r\n            <li *ngIf=\"chechIdNormalUser()\">\r\n                <ul>\r\n                    <li *ngFor=\"let p of _myAccountDropdownPages\"><a (click)=\"goToPageUsingSideMenu(p.link)\">{{p.name}}</a></li>\r\n                    <li><a (click)=\"logout()\">Iesire din cont</a></li>\r\n                </ul>\r\n            </li>\r\n            <li *ngIf=\"isAdminUser()\">\r\n                <ul>\r\n                    <li *ngFor=\"let p of _adminApplicationPages\"><a (click)=\"goToPageUsingSideMenu(p.link)\">{{p.name}}</a></li>\r\n                    <li><a style=\"cursor: pointer;\" (click)=\"logoutFromSideMenu()\">Iesire din cont</a></li>\r\n                </ul>\r\n            </li>\r\n        </ul>\r\n    </ul>\r\n</div>\r\n<div class=\"header\">\r\n    <nav class=\"navbar navbar-default navbar-fixed-top clearfix\">\r\n        <div class=\"container-fluid clearfix\" [style.margin-left]=\"sideMenuOpened ? '250px' :'0px'\">\r\n            <div class=\"visible-xs visible-sm pull-left mobile-menu\">\r\n                <span (click)=\"openNav()\" class=\"glyphicon glyphicon-align-justify\"></span>\r\n            </div>\r\n            <a [routerLink]=\"['']\" class=\"navbar-header clearfix\">\r\n                <img [style.opacity]=\"hideImage ? 0 : 1\" id=\"element1\" class=\"fMarket-brand-icon\"\r\n                     src=\"/staticResorces/orange_logo_simple.png\"/>\r\n            </a>\r\n            <div class=\"collapse navbar-collapse\">\r\n                <div class=\"pull-right navbar-bottons\">\r\n                    <button class=\"btn btn-success\" (click)=\"addDemand()\">\r\n                        <span class=\"glyphicon glyphicon-plus\"></span>\r\n                        Adauga cerere\r\n                    </button>\r\n                </div>\r\n                <ul class=\"nav navbar-nav navbar-right\">\r\n                    <li *ngFor=\"let page of _usersApplicationPages\"><a [routerLink]=\"[page.link]\">{{page.name}}</a></li>\r\n                    <li *ngIf=\"!isLoggedIn()\"><a [routerLink]=\"['/login']\">Contul meu</a></li>\r\n                    <li *ngIf=\"chechIdNormalUser()\" dropdown class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" dropdownToggle role=\"button\" aria-haspopup=\"true\"\r\n                           aria-expanded=\"false\">{{_myAccountLabel}}<span class=\"caret\"></span></a>\r\n                        <ul dropdownMenu class=\"dropdown-menu\">\r\n                            <li *ngFor=\"let p of _myAccountDropdownPages\"><a [routerLink]=\"[p.link]\">{{p.name}}</a></li>\r\n                            <li><a (click)=\"logout()\">Iesire din cont</a></li>\r\n                        </ul>\r\n                    </li>\r\n                    <li *ngIf=\"isAdminUser()\" dropdown class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" dropdownToggle role=\"button\" aria-haspopup=\"true\"\r\n                           aria-expanded=\"false\">{{_myAccountLabel}}<span class=\"caret\"></span></a>\r\n                        <ul dropdownMenu class=\"dropdown-menu\">\r\n                            <li *ngFor=\"let p of _adminApplicationPages\"><a [routerLink]=\"[p.link]\">{{p.name}}</a></li>\r\n                            <li><a style=\"cursor: pointer;\" (click)=\"logout()\">Iesire din cont</a></li>\r\n                        </ul>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n        </div>\r\n    </nav>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n";
 
 /***/ },
-/* 882 */
+/* 940 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by nick_ on 5/6/2016.
 	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -100972,7 +104073,7 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(355);
-	var template = __webpack_require__(883);
+	var template = __webpack_require__(941);
 	var FooterComponent = (function () {
 	    function FooterComponent() {
 	    }
@@ -100985,20 +104086,21 @@
 	        __metadata('design:paramtypes', [])
 	    ], FooterComponent);
 	    return FooterComponent;
-	})();
+	}());
 	exports.FooterComponent = FooterComponent;
 	//# sourceMappingURL=footerComponent.js.map
 
 /***/ },
-/* 883 */
+/* 941 */
 /***/ function(module, exports) {
 
 	module.exports = "<footer class=\"footer\">\r\n    <div class=\"footer-wrapper\">\r\n        <div class=\"row\">\r\n            <div class=\"col-sm-12 col-md-4\">\r\n                <a [routerLink]=\"['/']\" class=\"logo-image-container\">\r\n                    <img class=\"image\" src=\"/staticResorces/gray_logo_v.png\"/>\r\n                </a>\r\n                <div class=\"footer-row under-image\">\r\n                    <span>© 2016 SimpluSiRapid.ro. Toate drepturile rezervate</span>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-sm-12 col-md-push-4 col-md-2\">\r\n                <div class=\"footer-row first\">\r\n                    <!--[routerLink]=\"['About']\"-->\r\n                    <a>Contact</a>\r\n                </div>\r\n                <div class=\"footer-row\">\r\n                    <a [routerLink]=\"['/firme']\">Firme ofertante</a>\r\n                </div>\r\n                <div class=\"footer-row last\">\r\n                    <!--[routerLink]=\"['TermsAndConditions']\"-->\r\n                    <a >Termeni si conditii de utilizare</a>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-sm-12 col-md-push-4 col-md-2\">\r\n                <div class=\"footer-row first\">\r\n                    <a [routerLink]=\"['/login']\">Login</a>\r\n                </div>\r\n                <div class=\"footer-row\">\r\n                    <!--[routerLink]=\"['About']\"-->\r\n                    <a>Despre SimpluSiRapid.ro</a>\r\n                </div>\r\n                <div class=\"footer-row last\">\r\n                    <a [routerLink]=\"['/registration']\">Inregistrare</a>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</footer>";
 
 /***/ },
-/* 884 */
+/* 942 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by NicolaeB on 7/11/2016.
 	 */
@@ -101009,56 +104111,71 @@
 	var forgetPasswordPage_1 = __webpack_require__(849);
 	var successPage_1 = __webpack_require__(840);
 	var adminPage_1 = __webpack_require__(850);
-	var accountSettingsPage_1 = __webpack_require__(853);
-	var companieDetailPage_1 = __webpack_require__(863);
-	var tokenConfirmPage_1 = __webpack_require__(857);
-	var companiesPage_1 = __webpack_require__(858);
-	var account_routes_1 = __webpack_require__(885);
-	var admin_routes_1 = __webpack_require__(898);
+	var accountSettingsPage_1 = __webpack_require__(905);
+	var companieDetailPage_1 = __webpack_require__(921);
+	var tokenConfirmPage_1 = __webpack_require__(916);
+	var companiesPage_1 = __webpack_require__(917);
+	var account_routes_1 = __webpack_require__(943);
+	var admin_routes_1 = __webpack_require__(944);
+	var AuthorizationFilter_1 = __webpack_require__(946);
 	exports.routes = [
 	    {
 	        path: '',
 	        component: homePage_1.HomePage,
+	        canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	    },
 	    {
 	        path: 'registration',
-	        component: registrationPage_1.RegistrationPage
+	        component: registrationPage_1.RegistrationPage,
+	        canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	    },
 	    {
 	        path: 'login',
-	        component: loginPage_1.LoginPage
+	        component: loginPage_1.LoginPage,
+	        canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	    },
 	    {
 	        path: 'forget-password',
-	        component: forgetPasswordPage_1.ForgetPasswordPage
+	        component: forgetPasswordPage_1.ForgetPasswordPage,
+	        canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	    },
 	    {
 	        path: 'success/:succesOption',
-	        component: successPage_1.SuccessPage
+	        component: successPage_1.SuccessPage,
+	        canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	    },
 	    {
 	        path: 'admin',
 	        component: adminPage_1.AdminPage,
+	        redirectTo: '',
+	        canActivate: [AuthorizationFilter_1.AuthorizationFilter],
+	        pathMatch: 'full'
 	    },
 	    {
 	        path: 'account',
 	        component: accountSettingsPage_1.AccountSettingsPage,
+	        redirectTo: '',
+	        canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	    },
 	    {
 	        path: 'firme',
-	        component: companiesPage_1.CompaniesPage
+	        component: companiesPage_1.CompaniesPage,
+	        canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	    },
 	    {
 	        path: 'firma-detalii/:id',
-	        component: companieDetailPage_1.CompanieDetailPage
+	        component: companieDetailPage_1.CompanieDetailPage,
+	        canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	    },
 	    {
 	        path: 'confirm/:registration?token',
-	        component: tokenConfirmPage_1.TokenConfirmPage
+	        component: tokenConfirmPage_1.TokenConfirmPage,
+	        canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	    },
 	    {
 	        path: '*',
-	        component: homePage_1.HomePage
+	        component: homePage_1.HomePage,
+	        canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	    }
 	].concat(admin_routes_1.ADMIN_PAGE_ROUTE_PROVIDERS, account_routes_1.ACCOUNT_SETTINGS_PAGE_ROUTE_PROVIDERS);
 	exports.APP_ROUTER_PROVIDERS = [
@@ -101067,12 +104184,13 @@
 	//# sourceMappingURL=app.routes.js.map
 
 /***/ },
-/* 885 */
+/* 943 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var accountEditPage_1 = __webpack_require__(886);
-	var accountDemandsPage_1 = __webpack_require__(893);
-	var accountSettingsPage_1 = __webpack_require__(853);
+	"use strict";
+	var accountSettingsPage_1 = __webpack_require__(905);
+	var accountEditPage_1 = __webpack_require__(908);
+	var accountDemandsPage_1 = __webpack_require__(906);
 	var Roles_1 = __webpack_require__(821);
 	exports.ACCOUNT_SETTINGS_PAGE_ROUTE_PROVIDERS = [
 	    {
@@ -101083,12 +104201,12 @@
 	            {
 	                path: 'details',
 	                component: accountEditPage_1.AccountEditPage,
-	                roles: [Roles_1.Role.USER],
+	                roles: [Roles_1.Role.USER]
 	            },
 	            {
 	                path: 'demands',
-	                roles: [Roles_1.Role.USER],
 	                component: accountDemandsPage_1.AccountDemandsPage,
+	                roles: [Roles_1.Role.USER]
 	            }
 	        ]
 	    }
@@ -101096,557 +104214,26 @@
 	//# sourceMappingURL=account.routes.js.map
 
 /***/ },
-/* 886 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 4/26/2016.
-	 */
-	var core_1 = __webpack_require__(30);
-	var router_1 = __webpack_require__(355);
-	var accountService_1 = __webpack_require__(887);
-	var demandService_1 = __webpack_require__(822);
-	var localizationService_1 = __webpack_require__(826);
-	var notificationService_1 = __webpack_require__(825);
-	var accountEditComponent_1 = __webpack_require__(888);
-	var accountDto_1 = __webpack_require__(891);
-	var authorizationService_1 = __webpack_require__(793);
-	var successPage_1 = __webpack_require__(840);
-	var template = __webpack_require__(892);
-	var AccountEditPage = (function () {
-	    //</editor-fold>
-	    function AccountEditPage(accountService, demandService, localizationService, notificationService, router) {
-	        this._submitLabel = 'Salveaza contul';
-	        this._cityesList = new Array();
-	        this._accountService = accountService;
-	        this._demandService = demandService;
-	        this._router = router;
-	        this._account = accountDto_1.AccountDto.getEmptyInstance();
-	        this._localizationService = localizationService;
-	        this._notificationService = notificationService;
-	    }
-	    AccountEditPage.prototype.ngOnInit = function () {
-	        this.getCityList();
-	        this.getAccountData();
-	    };
-	    AccountEditPage.prototype.changePassword = function (editedAccount) {
-	        var _this = this;
-	        var me = this;
-	        if (!editedAccount) {
-	            this._notificationService.emitWarningNotificationToRootComponent('Complectati corect toate campurile pentru parole inainte de a salva!', 5);
-	            return;
-	        }
-	        this._accountService.changeSelfPassword(editedAccount)
-	            .subscribe(function (response) {
-	            me._router.navigate([("/success/" + successPage_1.SuccessPageOptions.SuccessRestPassword)]);
-	        }, function (errr) {
-	            _this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5);
-	        });
-	    };
-	    AccountEditPage.prototype.saveEditedAccount = function (editedAccount) {
-	        var _this = this;
-	        var me = this;
-	        if (!editedAccount) {
-	            this._notificationService.emitWarningNotificationToRootComponent('Complectati toate datele inainte sa salvati contul!', 5);
-	            return;
-	        }
-	        this._accountService.saveEditedAccount(editedAccount)
-	            .subscribe(function (response) {
-	            me.getAccountData();
-	        }, function (errr) {
-	            _this._notificationService.emitErrorNotificationToRootComponent('Contul nu a putut fi salvat cu success.', 5);
-	        });
-	    };
-	    AccountEditPage.prototype.getCityList = function () {
-	        var me = this;
-	        this._localizationService.getCityList()
-	            .subscribe(function (response) {
-	            me._cityesList = me._localizationService.extractNameToSelect2Item(response);
-	        }, function (error) {
-	        });
-	    };
-	    AccountEditPage.prototype.getAccountData = function () {
-	        var me = this;
-	        this._accountService.getAccountDetails()
-	            .subscribe(function (success) {
-	            success['cityItem'] = { displayName: success['cityName'],
-	                boundItem: {
-	                    id: success['cityId'],
-	                    name: success['cityName'],
-	                } };
-	            success['email'] = authorizationService_1.AuthorizationService.getUserEmail();
-	            me._account = success;
-	        }, function (error) {
-	            me._account = accountDto_1.AccountDto.getEmptyInstance();
-	        });
-	    };
-	    AccountEditPage = __decorate([
-	        core_1.Component({
-	            selector: 'account-edit-Page',
-	            template: template,
-	            directives: [accountEditComponent_1.AccountEditComponent]
-	        }), 
-	        __metadata('design:paramtypes', [accountService_1.AccountService, demandService_1.DemandService, localizationService_1.LocalizationService, notificationService_1.NotificationService, router_1.Router])
-	    ], AccountEditPage);
-	    return AccountEditPage;
-	})();
-	exports.AccountEditPage = AccountEditPage;
-	//# sourceMappingURL=accountEditPage.js.map
-
-/***/ },
-/* 887 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 4/24/2016.
-	 */
-	var core_1 = __webpack_require__(30);
-	var fMarketApi_1 = __webpack_require__(797);
-	var Angular2ExtensionValidators_1 = __webpack_require__(827);
-	var AccountService = (function () {
-	    function AccountService(api) {
-	        this._AccountController = '/accounts';
-	        this.api = api;
-	    }
-	    AccountService.prototype.getAccount = function () {
-	        return this.api.get(this._AccountController + '/user');
-	    };
-	    AccountService.prototype.saveEditedAccount = function (accountDto) {
-	        console.log('edit-request');
-	        return this.api.put(this._AccountController + '/self/update', JSON.stringify({
-	            name: accountDto.name && accountDto.name.length > 0 ? accountDto.name : null,
-	            cityId: accountDto.cityId && !isNaN(accountDto.cityId) ? accountDto.cityId : null,
-	            phone: accountDto.phone && accountDto.phone.length > 0 && Angular2ExtensionValidators_1.CustomValidators.PHONE_REGEX.test(accountDto.phone) ? accountDto.phone : null
-	        }));
-	    };
-	    AccountService.prototype.changePassword = function (accountDto) {
-	        console.log('changepassword-request');
-	        return this.api.post(this._AccountController + '/changepassword-1', JSON.stringify({
-	            email: accountDto.email,
-	            oldPassword: accountDto.lastPassword,
-	            newPassword: accountDto.newPassword,
-	            newPasswordConfirm: accountDto.confirmNewPassword
-	        }));
-	    };
-	    AccountService.prototype.changeSelfPassword = function (accountDto) {
-	        return this.api.post(this._AccountController + '/self/changepassword', JSON.stringify({
-	            oldPassword: accountDto.lastPassword,
-	            newPassword: accountDto.newPassword,
-	        }));
-	    };
-	    AccountService.prototype.getAccountDetails = function () {
-	        return this.api.get(this._AccountController + '/self/details');
-	    };
-	    AccountService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
-	    ], AccountService);
-	    return AccountService;
-	})();
-	exports.AccountService = AccountService;
-	//# sourceMappingURL=accountService.js.map
-
-/***/ },
-/* 888 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by NicolaeB on 4/27/2016.
-	 */
-	var core_1 = __webpack_require__(30);
-	var common_1 = __webpack_require__(27);
-	var selectComponent_1 = __webpack_require__(830);
-	var _ = __webpack_require__(354);
-	var Angular2ExtensionValidators_1 = __webpack_require__(827);
-	var accountUser_1 = __webpack_require__(889);
-	var template = __webpack_require__(890);
-	var AccountEditComponent = (function () {
-	    function AccountEditComponent(formBuilder) {
-	        this._saveAccountEmitter = new core_1.EventEmitter();
-	        this._changePasswordEmitter = new core_1.EventEmitter();
-	        this._formBuilder = formBuilder;
-	        this._accountFormModel = this._formBuilder.group([{}]);
-	        this._changePasswordFormModel = this._formBuilder.group([{}]);
-	    }
-	    AccountEditComponent.prototype.referenceCitySelectorComponent = function (citySelector) {
-	        this._citySelector = citySelector;
-	    };
-	    AccountEditComponent.prototype.ngOnInit = function () {
-	        this.buildForm();
-	    };
-	    AccountEditComponent.prototype.saveEditedAccount = function () {
-	        var account = this.getFormData;
-	        this._saveAccountEmitter.emit(account);
-	    };
-	    AccountEditComponent.prototype.changePassword = function () {
-	        var account = null;
-	        if (this._changePasswordFormModel.valid) {
-	            account = _.clone(this._accountModel);
-	        }
-	        this._changePasswordEmitter.emit(account);
-	    };
-	    Object.defineProperty(AccountEditComponent.prototype, "getFormData", {
-	        get: function () {
-	            var response = {};
-	            if (this._accountFormModel.valid) {
-	                response = _.clone(this._accountModel);
-	                response['cityId'] = this._citySelector && this._citySelector.selectedItem && this._citySelector.selectedItem.boundItem ? this._citySelector.selectedItem.boundItem['id'] : null;
-	                return response;
-	            }
-	            return null;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    AccountEditComponent.prototype.checkIfPasswordIsMarked = function (controll) {
-	        switch (controll) {
-	            case 'password':
-	                return this._changePasswordFormModel.controls['passwords']
-	                    && this._changePasswordFormModel.controls['passwords']['controls']
-	                    && this._changePasswordFormModel.controls['passwords']['controls']['password']
-	                    && this._changePasswordFormModel.controls['passwords']['controls']['password']['errors']
-	                    && this._changePasswordFormModel.controls['passwords']['controls']['password']['errors']['key'] == 'validatePassword';
-	            case 'repeat':
-	                return this._changePasswordFormModel.controls['passwords']
-	                    && this._changePasswordFormModel.controls['passwords']['controls']
-	                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']
-	                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']['errors']
-	                    && this._changePasswordFormModel.controls['passwords']['controls']['repeat']['errors']['key'] == 'validatePassword';
-	        }
-	    };
-	    AccountEditComponent.prototype.buildForm = function () {
-	        this._accountFormModel.addControl('name', this._formBuilder.control(this._accountModel.name, common_1.Validators.required));
-	        this._accountFormModel.addControl('phone', this._formBuilder.control(this._accountModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber, common_1.Validators.maxLength(12)])));
-	        // this._accountFormModel.addControl('cityItem', this._formBuilder.control(this._accountModel.cityItem));
-	        this._changePasswordFormModel.addControl('lastPassword', this._formBuilder.control(this._accountModel.lastPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
-	        this._changePasswordFormModel.addControl('passwords', this._formBuilder.group({}, { validator: Angular2ExtensionValidators_1.CustomValidators.checkPasswords }));
-	        this._changePasswordFormModel.controls['passwords']['addControl']('password', this._formBuilder.control(this._accountModel.newPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
-	        this._changePasswordFormModel.controls['passwords']['addControl']('repeat', this._formBuilder.control(this._accountModel.confirmNewPassword, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword, common_1.Validators.minLength(6)])));
-	    };
-	    AccountEditComponent.prototype.updateErrorField = function () {
-	        this.showNotMatchPasswordField = this._changePasswordFormModel
-	            && this._changePasswordFormModel.controls['passwords']
-	            && this._changePasswordFormModel.controls['passwords']['errors']
-	            && this._changePasswordFormModel.controls['passwords']['errors']['checkPasswords']
-	            && !this._changePasswordFormModel.controls['passwords']['errors']['checkPasswords']['valid'];
-	    };
-	    __decorate([
-	        core_1.Input('account-form-model'), 
-	        __metadata('design:type', accountUser_1.AccountUser)
-	    ], AccountEditComponent.prototype, "_accountModel", void 0);
-	    __decorate([
-	        core_1.Input('city-list'), 
-	        __metadata('design:type', Object)
-	    ], AccountEditComponent.prototype, "_cities", void 0);
-	    __decorate([
-	        core_1.Input('submit-label'), 
-	        __metadata('design:type', Object)
-	    ], AccountEditComponent.prototype, "submitLabel", void 0);
-	    __decorate([
-	        core_1.Output('save-edited-account'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], AccountEditComponent.prototype, "_saveAccountEmitter", void 0);
-	    __decorate([
-	        core_1.Output('change-password'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], AccountEditComponent.prototype, "_changePasswordEmitter", void 0);
-	    AccountEditComponent = __decorate([
-	        core_1.Component({
-	            selector: 'account-edit-component',
-	            template: template,
-	            directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent],
-	        }), 
-	        __metadata('design:paramtypes', [common_1.FormBuilder])
-	    ], AccountEditComponent);
-	    return AccountEditComponent;
-	})();
-	exports.AccountEditComponent = AccountEditComponent;
-	//# sourceMappingURL=accountEditComponent.js.map
-
-/***/ },
-/* 889 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by nick_ on 6/2/2016.
-	 */
-	var AccountUser = (function () {
-	    function AccountUser() {
-	        this.email = '';
-	        this.name = '';
-	        this.phone = '';
-	        this.cityItem = '';
-	        this.lastPassword = '';
-	        this.newPassword = '';
-	        this.confirmNewPassword = '';
-	        this.cityId = -1;
-	    }
-	    return AccountUser;
-	})();
-	exports.AccountUser = AccountUser;
-	//# sourceMappingURL=accountUser.js.map
-
-/***/ },
-/* 890 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"account-edit-component clearfix\">\r\n    <div class=\"clearfix\">\r\n        <div class=\"col-md-6 col-xs-12 col-sm-12\">\r\n            <form *ngIf=\"_accountFormModel\" [ngFormModel]=\"_accountFormModel\" (ngSubmit)=\"saveEditedAccount()\"\r\n                  class=\"account-form\">\r\n                <span class=\"h4\">Date cont</span>\r\n                <hr/>\r\n                <div class=\"form-group\">\r\n                    <label>Email</label>\r\n                    <span class=\"form-control\" type=\"text\" disabled>{{_accountModel.email}}</span>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Nume</label>\r\n                    <input class=\"form-control\" type=\"text\" placeholder=\"Adaugati numele la contul tau\"\r\n                           [ngFormControl]=\"_accountFormModel.controls['name']\"\r\n                           [(ngModel)]=\"_accountModel.name\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Telefon</label>\r\n                    <input class=\"form-control\" type=\"text\" placeholder=\"Adaugati numarul de telefon la contul tau\"\r\n                           [ngFormControl]=\"_accountFormModel.controls['phone']\"\r\n                           [(ngModel)]=\"_accountModel.phone\"/>\r\n                </div>\r\n                <div>\r\n                    <label>Oras</label>\r\n                    <select-component\r\n                            [select-items]=\"_cities\"\r\n                            [single-item-selected]=\"_accountModel.cityItem\"\r\n                            [multi-select]=\"false\"\r\n                            (loaded)=\"referenceCitySelectorComponent($event)\">\r\n                    </select-component>\r\n                </div>\r\n                <div>\r\n                    <div class=\"pull-right\">\r\n                        <button type=\"submit\" class=\"btn btn-primary\">{{submitLabel}}</button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-xs-12 col-sm-12\">\r\n            <form *ngIf=\"_accountFormModel\" [ngFormModel]=\"_changePasswordFormModel\" (ngSubmit)=\"changePassword()\"\r\n                  class=\"account-form\">\r\n\r\n                <span class=\"h4\">Schimbare parola</span>\r\n                <hr/>\r\n                <div class=\"form-group\">\r\n                    <label>Parola veche</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.lastPassword\"\r\n                           [(ngModel)]=\"_accountModel.lastPassword\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Parola noua</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.passwords.controls.password\"\r\n                           [(ngModel)]=\"_accountModel.newPassword\"\r\n                           (ngModelChange)=\"updateErrorField()\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Confirma parola noua</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.passwords.controls.repeat\"\r\n                           [(ngModel)]=\"_accountModel.confirmNewPassword\"\r\n                           (ngModelChange)=\"updateErrorField()\"/>\r\n                </div>\r\n                <div class=\"position-relative\" *ngIf=\"showNotMatchPasswordField\">\r\n                    <div class=\"password-error right-to-middle-effect\">\r\n                        Cele doua parole nu sunt la fel!\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <div class=\"pull-right\">\r\n                        <button type=\"submit\" class=\"btn btn-primary\">Schimba parola</button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 891 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by NicolaeB on 4/27/2016.
-	 */
-	var AccountDto = (function () {
-	    function AccountDto(id, email, type, status, creationDate, closedDate, activationDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, name, cityId, city, loginTimes, autoLoginTimes, cityItem, newPassword) {
-	        this.id = id;
-	        this.email = email;
-	        this.accountType = type;
-	        this.status = status;
-	        this.creationDate = creationDate;
-	        this.closedDate = closedDate;
-	        this.activationDate = activationDate;
-	        this.lastPasswordChangeDate = lastPasswordChangeDate;
-	        this.lastLoginDate = lastLoginDate;
-	        this.lastAutoLoginDate = lastAutoLoginDate;
-	        this.name = name;
-	        this.cityId = cityId;
-	        this.city = city;
-	        this.loginTimes = loginTimes;
-	        this.autoLoginTimes = autoLoginTimes;
-	        this.cityItem = cityItem;
-	        this.newPassword = newPassword;
-	    }
-	    AccountDto.getEmptyInstance = function () {
-	        return new AccountDto(-1, '', '', '', (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), (new Date()).toLocaleDateString(), '', null, '', 0, 0, null, '');
-	    };
-	    return AccountDto;
-	})();
-	exports.AccountDto = AccountDto;
-	//# sourceMappingURL=accountDto.js.map
-
-/***/ },
-/* 892 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"account-edit-page\">\r\n    <account-edit-component\r\n        [account-form-model]=\"_account\"\r\n        [city-list]=\"_cityesList\"\r\n        [submit-label]=\"_submitLabel\"\r\n        (save-edited-account)=\"saveEditedAccount($event)\"\r\n        (change-password)=\"changePassword($event)\">\r\n    </account-edit-component>\r\n</div>";
-
-/***/ },
-/* 893 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 4/26/2016.
-	 */
-	var _ = __webpack_require__(354);
-	var core_1 = __webpack_require__(30);
-	var demandService_1 = __webpack_require__(822);
-	var DemandStatus_1 = __webpack_require__(894);
-	var demandListBase_1 = __webpack_require__(895);
-	var template = __webpack_require__(897);
-	var AccountDemandsPage = (function () {
-	    //</editor-fold>
-	    function AccountDemandsPage(_demandService) {
-	        this._demandService = _demandService;
-	    }
-	    AccountDemandsPage.prototype.ngOnInit = function () {
-	        this.getDemandsWithFilter(DemandStatus_1.DemandStatus.ACTIVE);
-	    };
-	    AccountDemandsPage.prototype.ngOnChanges = function (changes) {
-	    };
-	    AccountDemandsPage.prototype.getDemandsWithFilter = function (filtru) {
-	        var me = this;
-	        this.selectedFilter = filtru;
-	        this._demandService.getUserDemandsWithFilter()
-	            .subscribe(function (response) {
-	            me.backendDemands = response;
-	            me.fatchDemandsUsingFilters();
-	        }, function (reject) {
-	        });
-	    };
-	    AccountDemandsPage.prototype.fatchDemandsUsingFilters = function () {
-	        switch (this.selectedFilter) {
-	            case DemandStatus_1.DemandStatus.ACTIVE:
-	                this.filterDemands([DemandStatus_1.DemandStatus.ACTIVE]);
-	                break;
-	            case DemandStatus_1.DemandStatus.PENDING + '&&' + DemandStatus_1.DemandStatus.IN_REVIEW:
-	                this.filterDemands([DemandStatus_1.DemandStatus.PENDING, DemandStatus_1.DemandStatus.IN_REVIEW]);
-	                break;
-	            case DemandStatus_1.DemandStatus.REJECTED + '&&' + DemandStatus_1.DemandStatus.CLOSED:
-	                this.filterDemands([DemandStatus_1.DemandStatus.REJECTED, DemandStatus_1.DemandStatus.CLOSED]);
-	                break;
-	        }
-	    };
-	    AccountDemandsPage.prototype.filterDemands = function (filters) {
-	        var me = this;
-	        var colector = [];
-	        _.each(filters, function (filter) {
-	            var filtredDemands = _.where(me.backendDemands, { status: filter });
-	            colector = colector.concat(filtredDemands);
-	        });
-	        this._demandsList = colector;
-	    };
-	    AccountDemandsPage = __decorate([
-	        core_1.Component({
-	            selector: 'account-demands-Page',
-	            template: template,
-	            directives: [demandListBase_1.DemandListBaseComponent]
-	        }), 
-	        __metadata('design:paramtypes', [demandService_1.DemandService])
-	    ], AccountDemandsPage);
-	    return AccountDemandsPage;
-	})();
-	exports.AccountDemandsPage = AccountDemandsPage;
-	//# sourceMappingURL=accountDemandsPage.js.map
-
-/***/ },
-/* 894 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by NicolaeB on 4/26/2016.
-	 */
-	var DemandStatus = (function () {
-	    function DemandStatus() {
-	    }
-	    DemandStatus.ACTIVE = "ACTIVE";
-	    DemandStatus.PENDING = "PENDING";
-	    DemandStatus.WAITING_FOR_REVIEW = "WAITING_FOR_REVIEW";
-	    DemandStatus.IN_REVIEW = "IN_REVIEW";
-	    DemandStatus.CLOSED = "CLOSED";
-	    DemandStatus.REJECTED = "REJECTED";
-	    return DemandStatus;
-	})();
-	exports.DemandStatus = DemandStatus;
-	//# sourceMappingURL=DemandStatus.js.map
-
-/***/ },
-/* 895 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 4/20/2016.
-	 */
-	var core_1 = __webpack_require__(30);
-	var template = __webpack_require__(896);
-	var DemandListBaseComponent = (function () {
-	    function DemandListBaseComponent() {
-	        this.demandList = new Array();
-	        this.selectDemandEmitter = new core_1.EventEmitter();
-	        this.removeDemanddEmitter = new core_1.EventEmitter();
-	    }
-	    DemandListBaseComponent.prototype.selectDemand = function (demand) {
-	        this.selectDemandEmitter.emit(demand);
-	    };
-	    DemandListBaseComponent.prototype.removeDemand = function ($event, companie) {
-	        this.removeDemanddEmitter.emit(companie);
-	    };
-	    __decorate([
-	        core_1.Input('demand-list'), 
-	        __metadata('design:type', Array)
-	    ], DemandListBaseComponent.prototype, "demandList", void 0);
-	    __decorate([
-	        core_1.Input('hide-operation'), 
-	        __metadata('design:type', Boolean)
-	    ], DemandListBaseComponent.prototype, "hideOperation", void 0);
-	    __decorate([
-	        core_1.Output('demand-selected'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], DemandListBaseComponent.prototype, "selectDemandEmitter", void 0);
-	    __decorate([
-	        core_1.Output('remove-demand'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], DemandListBaseComponent.prototype, "removeDemanddEmitter", void 0);
-	    DemandListBaseComponent = __decorate([
-	        core_1.Component({
-	            selector: 'demand-list-component',
-	            template: template,
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], DemandListBaseComponent);
-	    return DemandListBaseComponent;
-	})();
-	exports.DemandListBaseComponent = DemandListBaseComponent;
-	//# sourceMappingURL=demandListBase.js.map
-
-/***/ },
-/* 896 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"demand-list-base clearfix\">\r\n    <div class=\"list-group\">\r\n        <table class=\"table table-striped text-center\">\r\n            <thead class=\"thead-inverse\">\r\n            <tr>\r\n                <th class=\"hidden-xs hidden-sm vertical-align\">Id</th>\r\n                <th class=\"hidden-xs hidden-sm vertical-align\">Id cont</th>\r\n                <th class=\"text-left vertical-align\">Titlu</th>\r\n                <th class=\"hidden-xs hidden-sm vertical-align\">Data crearii</th>\r\n                <th class=\"vertical-align\">Status</th>\r\n                <th *ngIf=\"!hideOperation\" class=\"vertical-align\" colspan=\"2\">Actiuni</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody class=\"table-body\">\r\n            <tr *ngFor=\"let demand of demandList\">\r\n                <td class=\"hidden-xs hidden-sm\">{{demand.id}}</td>\r\n                <td class=\"hidden-xs hidden-sm\">{{demand.accountId}}</td>\r\n                <td class=\"text-left\">{{demand.title}}</td>\r\n                <td>{{demand.creationDate}}</td>\r\n                <td>{{demand.status}}</td>\r\n                <td [title]=\"'Editeaza compania '+demand.title\" *ngIf=\"!hideOperation\" >\r\n                    <a class=\"action\"   (click)=\"selectDemand(demand)\">\r\n                        <span class=\"glyphicon glyphicon-cog\"></span>\r\n                    </a>\r\n                </td>\r\n                <td [title]=\"'Sterge compania '+demand.title\" *ngIf=\"!hideOperation\" >\r\n                    <a class=\"action\" (click)=\"removeDemand($event, demand)\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span>\r\n                    </a>\r\n                </td>\r\n            </tr>\r\n            </tbody>\r\n        </table>\r\n\r\n        <!--<div  class=\"list-group-item\">-->\r\n            <!--<a href=\"javascript:void(0)\">-->\r\n                <!--<div class=\"pull-right\">-->\r\n                    <!--<span *ngIf=\"demand.accountId\" class=\"label label-success\" title=\"Id-ul contului care a postat cererea\">Id cont: {{demand.accountId}}</span>-->\r\n                    <!--<span *ngIf=\"demand.creationDate\" class=\"label label-success\" title=\"Data la care a fost postata cererea\">Data: {{demand.creationDate}}</span>-->\r\n                <!--</div>-->\r\n                <!--{{demand.title}}-->\r\n                <!--<span class=\"label label-success\" title=\"Statusul cereri\" *ngIf=\"demand.status\">{{demand.status}}</span>-->\r\n            <!--</a>-->\r\n        <!--</div>-->\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 897 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"user-demands-list-page\">\r\n    <div class=\"demand-filters clearfix\">\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" [class.active-filter]=\"selectedFilter === 'ACTIVE'\"\r\n             (click)=\"getDemandsWithFilter('ACTIVE')\">\r\n            Active\r\n            <span class=\"\"></span>\r\n        </div>\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" [class.active-filter]=\"selectedFilter === 'PENDING&&IN_REVIEW'\"\r\n             (click)=\"getDemandsWithFilter('PENDING&&IN_REVIEW')\">\r\n            In procesare\r\n            <span class=\"\"></span>\r\n        </div>\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" style=\"border-right: none\" [class.active-filter]=\"selectedFilter === 'REJECTED&&CLOSED'\"\r\n             (click)=\"getDemandsWithFilter('REJECTED&&CLOSED')\">\r\n            Dezactivate\r\n            <span class=\"\"></span>\r\n        </div>\r\n    </div>\r\n    <div class=\"clearfix pull-down-10\">\r\n        <demand-list-component\r\n                [hide-operation]=\"true\"\r\n                [demand-list]=\"_demandsList\">\r\n        </demand-list-component>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 898 */
+/* 944 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by NicolaeB on 7/11/2016.
 	 */
+	"use strict";
 	var adminPage_1 = __webpack_require__(850);
-	var usersPage_1 = __webpack_require__(899);
-	var subscribersPage_1 = __webpack_require__(907);
-	var categoriesPage_1 = __webpack_require__(912);
-	var demandsPage_1 = __webpack_require__(914);
-	var demandsEditPage_1 = __webpack_require__(916);
-	var companiesPage_1 = __webpack_require__(924);
-	var companiesEditPage_1 = __webpack_require__(928);
-	var companiesCreatePage_1 = __webpack_require__(934);
-	var categories_routes_1 = __webpack_require__(935);
-	var demand_routes_1 = __webpack_require__(942);
+	var usersPage_1 = __webpack_require__(851);
+	var subscribersPage_1 = __webpack_require__(859);
+	var categoriesPage_1 = __webpack_require__(864);
+	var demandsPage_1 = __webpack_require__(879);
+	var demandsEditPage_1 = __webpack_require__(889);
+	var companiesPage_1 = __webpack_require__(871);
+	var companiesEditPage_1 = __webpack_require__(896);
+	var companiesCreatePage_1 = __webpack_require__(903);
+	var categories_routes_1 = __webpack_require__(945);
+	var demand_routes_1 = __webpack_require__(947);
 	var Roles_1 = __webpack_require__(821);
+	var AuthorizationFilter_1 = __webpack_require__(946);
 	exports.ADMIN_PAGE_ROUTE_PROVIDERS = [
 	    {
 	        path: 'admin',
@@ -101656,42 +104243,51 @@
 	            {
 	                path: 'users',
 	                component: usersPage_1.UsersPage,
-	                roles: [Roles_1.Role.ADMIN]
+	                roles: [Roles_1.Role.ADMIN],
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            },
 	            {
 	                path: 'subscribers',
 	                component: subscribersPage_1.SubscribersPage,
-	                roles: [Roles_1.Role.ADMIN]
+	                roles: [Roles_1.Role.ADMIN],
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            },
 	            {
 	                path: 'categorii',
 	                component: categoriesPage_1.CategoriesPage,
-	                roles: [Roles_1.Role.ADMIN]
+	                roles: [Roles_1.Role.ADMIN],
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            },
 	            {
 	                path: 'cereri',
 	                component: demandsPage_1.DemandsPage,
-	                roles: [Roles_1.Role.ADMIN]
+	                roles: [Roles_1.Role.ADMIN],
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            },
 	            {
 	                path: 'cerere-detalii/:id',
 	                component: demandsEditPage_1.DemandsEditPage,
-	                roles: [Roles_1.Role.ADMIN]
+	                roles: [Roles_1.Role.ADMIN],
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            },
 	            {
 	                path: 'companii',
 	                component: companiesPage_1.CompaniesPage,
-	                roles: [Roles_1.Role.ADMIN]
+	                roles: [Roles_1.Role.ADMIN],
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            },
 	            {
 	                path: 'detalii-companie/:id',
 	                component: companiesEditPage_1.CompaniesEditPage,
-	                roles: [Roles_1.Role.ADMIN]
+	                roles: [Roles_1.Role.ADMIN],
+	                redirectTo: '',
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            },
 	            {
 	                path: 'ceeaza-companie/ceeaza',
 	                component: companiesCreatePage_1.CompanieCreatePage,
-	                roles: [Roles_1.Role.ADMIN]
+	                roles: [Roles_1.Role.ADMIN],
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            }
 	        ].concat(categories_routes_1.CATEGORIES_PAGE_ROUTE_PROVIDERS, demand_routes_1.DEMANDS_PAGE_ROUTE_PROVIDERS)
 	    }
@@ -101699,1857 +104295,16 @@
 	//# sourceMappingURL=admin.routes.js.map
 
 /***/ },
-/* 899 */
+/* 945 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var _ = __webpack_require__(354);
-	var core_1 = __webpack_require__(30);
-	var common_1 = __webpack_require__(27);
-	__webpack_require__(358);
-	var ng2_bootstrap_1 = __webpack_require__(407);
-	var notificationService_1 = __webpack_require__(825);
-	var localizationService_1 = __webpack_require__(826);
-	var usersService_1 = __webpack_require__(900);
-	var createUserDialog_1 = __webpack_require__(901);
-	var actionDialog_1 = __webpack_require__(904);
-	var user_1 = __webpack_require__(902);
-	var template = __webpack_require__(906);
-	var UsersPage = (function () {
-	    //</editor-fold>
-	    function UsersPage(_userService, _notificationService, _localizationService) {
-	        this._userService = _userService;
-	        this._notificationService = _notificationService;
-	        this._localizationService = _localizationService;
-	        this.usersPerPage = 10;
-	        this.emailFilter = "";
-	        this.nameFilter = "";
-	        this.cityId = -1;
-	        this.selectedStatusFilter = null;
-	        this.pagination = { totalItems: 1, currentPage: 1, maxSize: 7 };
-	        this.getCities();
-	    }
-	    UsersPage.prototype.ngOnInit = function () {
-	        var me = this;
-	        this.getStatusList();
-	        this.getUsers();
-	        this._notificationService.removeLoading();
-	    };
-	    UsersPage.prototype.referenceActionDialogInComponent = function (modal) {
-	        this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
-	    };
-	    UsersPage.prototype.referenceCreateUserDialogInComponent = function (modal) {
-	        this.userDialog = modal; // Here you get a reference to the modal so you can control it programmatically
-	    };
-	    UsersPage.prototype.getUsers = function () {
-	        var me = this;
-	        this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.pagination['currentPage'])
-	            .subscribe(function (response) {
-	            me.usersList = response['data'];
-	            me.pagination['totalItems'] = response['totalPages'];
-	        }, function (error) {
-	            me._notificationService.emitErrorNotificationToRootComponent('A aparut o eroare, utilizatori nu pot fi afisati.', 5);
-	        });
-	    };
-	    //user actions
-	    UsersPage.prototype.toggleEditMode = function (user) {
-	        user.userBackup = _.clone(user);
-	        user.isInEditMode = true;
-	    };
-	    UsersPage.prototype.closeEditMode = function (user) {
-	        user.email = user.userBackup.email;
-	        user.name = user.userBackup.name;
-	        user.status = user.userBackup.status;
-	        user.city = user.userBackup.city;
-	        user.cityId = user.userBackup.cityId;
-	        user.isInEditMode = false;
-	    };
-	    UsersPage.prototype.deleteUser = function (user) {
-	        var me = this;
-	        this.actionDialog.show("Are you sure that you want to delete this user ?", user);
-	    };
-	    UsersPage.prototype.actionDialogConfirmDelete = function (user) {
-	        var me = this;
-	        this.actionDialog.hide();
-	        this._userService.deleteUser(user)
-	            .subscribe(function (response) {
-	            var userIndex = me.usersList.indexOf(user);
-	            if (userIndex !== -1) {
-	                me.usersList.splice(userIndex, 1);
-	            }
-	        }, function (error) {
-	            me._notificationService.emitErrorNotificationToRootComponent('Utilizatorul nu pote fi sters.', 5);
-	        });
-	    };
-	    UsersPage.prototype.saveEditedUser = function (user) {
-	        var _this = this;
-	        user.isInEditMode = false;
-	        this._userService.updateUser(user)
-	            .subscribe(function (response) {
-	            //success
-	        }, function (error) {
-	            //display be message
-	            var userIndex = _this.usersList.indexOf(user);
-	            if (userIndex !== -1) {
-	                _this.usersList[userIndex] = _this.userBackup;
-	            }
-	        });
-	    };
-	    UsersPage.prototype.getCities = function () {
-	        var me = this;
-	        me._localizationService.getCityList()
-	            .subscribe(function (succesR) {
-	            me['cityList'] = [{ id: -1, name: "Alege..." }].concat(succesR);
-	        }, function (error) {
-	            me.cityList = [];
-	        });
-	    };
-	    UsersPage.prototype.getStatusList = function () {
-	        var me = this;
-	        this._userService.getStatuese()
-	            .subscribe(function (resp) {
-	            me.statusList = [{ status: null, displayName: "Alege..." }].concat(_.map(resp, function (v) {
-	                return {
-	                    status: v,
-	                    displayName: v
-	                };
-	            }));
-	        }, function (error) {
-	        });
-	    };
-	    //grid
-	    UsersPage.prototype.createAccount = function () {
-	        this.userDialog.show("", new user_1.User());
-	    };
-	    UsersPage.prototype.confirmCreateUser = function () {
-	        var me = this;
-	        //post to backend
-	        this._userService.createUser(this.userDialog.getValue()).subscribe(function (resp) {
-	            me.userDialog.hide();
-	            me.getUsers();
-	        }, function (error) {
-	            me._notificationService.emitErrorNotificationToRootComponent('Utilizatorul nu pote fi creat.', 5);
-	        });
-	    };
-	    UsersPage.prototype.applyFilters = function () {
-	        this.getUsers();
-	    };
-	    UsersPage = __decorate([
-	        core_1.Component({
-	            selector: 'users-Page',
-	            template: template,
-	            //styleUrls: [applicationPath + '/usersPage.css'],
-	            encapsulation: core_1.ViewEncapsulation.None,
-	            directives: [actionDialog_1.ActionDialog, createUserDialog_1.CreateUserDialog, common_1.NgForm, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
-	        }), 
-	        __metadata('design:paramtypes', [usersService_1.UserService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
-	    ], UsersPage);
-	    return UsersPage;
-	})();
-	exports.UsersPage = UsersPage;
-	//# sourceMappingURL=usersPage.js.map
-
-/***/ },
-/* 900 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var fMarketApi_1 = __webpack_require__(797);
-	var UserService = (function () {
-	    function UserService(api) {
-	        this.adminUsersControllerRoute = '/admin/users';
-	        this.api = api;
-	    }
-	    UserService.prototype.updateUser = function (user) {
-	        return this.api.put(this.adminUsersControllerRoute + ("/" + user.id), JSON.stringify(user));
-	    };
-	    UserService.prototype.createUser = function (user) {
-	        return this.api.post(this.adminUsersControllerRoute, JSON.stringify(user));
-	    };
-	    UserService.prototype.deleteUser = function (user) {
-	        return this.api.delete(this.adminUsersControllerRoute + ("/" + user.id));
-	    };
-	    UserService.prototype.getUsersWithFilters = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
-	        var requestOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);
-	        return this.api.post(this.adminUsersControllerRoute + ("/search?page=" + pageIndex), JSON.stringify(requestOptions));
-	    };
-	    UserService.prototype.buildSearchObject = function (id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex) {
-	        var requestOptions = {
-	            id: id === undefined || id == null || id === -1 ? null : id,
-	            email: emailFilter.length > 0 ? emailFilter : null,
-	            name: nameFilter.length > 0 ? nameFilter : null,
-	            status: selectedStatusFilter ? selectedStatusFilter : null,
-	            cityId: cityId == -1 || !cityId ? null : cityId,
-	        };
-	        return requestOptions;
-	    };
-	    UserService.prototype.getStatuese = function () {
-	        return this.api.get("/admin/users/statuses");
-	    };
-	    UserService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
-	    ], UserService);
-	    return UserService;
-	})();
-	exports.UserService = UserService;
-	//# sourceMappingURL=usersService.js.map
-
-/***/ },
-/* 901 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var common_1 = __webpack_require__(27);
-	var modalDialog_1 = __webpack_require__(834);
-	var user_1 = __webpack_require__(902);
-	var Angular2ExtensionValidators_1 = __webpack_require__(827);
-	var _ = __webpack_require__(354);
-	var template = __webpack_require__(903);
-	var CreateUserDialog = (function (_super) {
-	    __extends(CreateUserDialog, _super);
-	    function CreateUserDialog(formBuilder) {
-	        _super.call(this);
-	        this.modaleMode = "newUser";
-	        this.title = "Adauga utilizator nou";
-	        this.cancelLabel = 'Cancel';
-	        this.positiveLabel = 'Creeaza utilizator';
-	        this.loadedEmitter = new core_1.EventEmitter();
-	        this.createUser = new core_1.EventEmitter();
-	        this._formBuilder = formBuilder;
-	        this.responseObject = new user_1.User();
-	    }
-	    CreateUserDialog.prototype.ngOnInit = function () {
-	        this._userForm = this._formBuilder.group([]);
-	        this.buildForm();
-	        this.loadedEmitter.emit(this);
-	    };
-	    CreateUserDialog.prototype.editUser = function (user, cityList, statusList) {
-	        this.title = "Name: " + user.name;
-	        this.positiveLabel = 'Edit';
-	        this.show("", user);
-	        this.setValue(user);
-	    };
-	    CreateUserDialog.prototype.clearData = function () {
-	        this.responseObject = new user_1.User();
-	    };
-	    CreateUserDialog.prototype.setValue = function (user) {
-	        this.responseObject = user;
-	    };
-	    CreateUserDialog.prototype.getValue = function () {
-	        return this.responseObject;
-	    };
-	    CreateUserDialog.prototype.submitNewUser = function () {
-	        if (!this._userForm.valid) {
-	            return;
-	        }
-	        this.createUser.emit(this.getValue());
-	    };
-	    CreateUserDialog.prototype.cancelFormAction = function () {
-	        this.rebuildForm();
-	        this.cancelAction();
-	    };
-	    CreateUserDialog.prototype.rebuildForm = function () {
-	        var me = this;
-	        this.responseObject = new user_1.User();
-	        var controls = [];
-	        _.each(this._userForm, function (control, name) {
-	            controls[name] = name;
-	        });
-	        _.each(controls, function (control, name) {
-	            me._userForm.removeControl(name);
-	        });
-	        this.buildForm();
-	    };
-	    CreateUserDialog.prototype.buildForm = function () {
-	        this._userForm.addControl('name', this._formBuilder.control(this.responseObject['name'], common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3), common_1.Validators.maxLength(20)])));
-	        this._userForm.addControl('email', this._formBuilder.control(this.responseObject['email'], common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
-	        this._userForm.addControl('password', this._formBuilder.control(this.responseObject['password'], common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword])));
-	        this._userForm.addControl('phone', this._formBuilder.control(this.responseObject['phone'], common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(10), Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber])));
-	        this._userForm.addControl('status', this._formBuilder.control(this.responseObject['status'], common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateAccountStatus])));
-	        this._userForm.addControl('cityId', this._formBuilder.control(this.responseObject['cityId'], common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateCityId])));
-	        this._userForm.addControl('accountDetails', this._formBuilder.control(this.responseObject['accountDetails'], common_1.Validators.compose([common_1.Validators.required])));
-	    };
-	    __decorate([
-	        core_1.Input('title'), 
-	        __metadata('design:type', String)
-	    ], CreateUserDialog.prototype, "title", void 0);
-	    __decorate([
-	        core_1.Input('cancel-label'), 
-	        __metadata('design:type', String)
-	    ], CreateUserDialog.prototype, "cancelLabel", void 0);
-	    __decorate([
-	        core_1.Input('positive-label'), 
-	        __metadata('design:type', String)
-	    ], CreateUserDialog.prototype, "positiveLabel", void 0);
-	    __decorate([
-	        core_1.Input('status-list'), 
-	        __metadata('design:type', Array)
-	    ], CreateUserDialog.prototype, "statusList", void 0);
-	    __decorate([
-	        core_1.Input('city-list'), 
-	        __metadata('design:type', Array)
-	    ], CreateUserDialog.prototype, "cityList", void 0);
-	    __decorate([
-	        core_1.Output('loaded'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], CreateUserDialog.prototype, "loadedEmitter", void 0);
-	    __decorate([
-	        core_1.Output('create-user'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], CreateUserDialog.prototype, "createUser", void 0);
-	    CreateUserDialog = __decorate([
-	        core_1.Component({
-	            selector: 'create-user-dialog',
-	            template: template,
-	            directives: [common_1.FORM_DIRECTIVES]
-	        }), 
-	        __metadata('design:paramtypes', [common_1.FormBuilder])
-	    ], CreateUserDialog);
-	    return CreateUserDialog;
-	})(modalDialog_1.ModalDialog);
-	exports.CreateUserDialog = CreateUserDialog;
-	//# sourceMappingURL=createUserDialog.js.map
-
-/***/ },
-/* 902 */
-/***/ function(module, exports) {
-
-	var User = (function () {
-	    function User(id, name, email, type, status, creationDate, closedDate, lastPasswordChangeDate, lastLoginDate, lastAutoLoginDate, cityId, city, loginTimes, autoLoginTimes, phone) {
-	        this.isInEditMode = false;
-	        this.id = id ? id : -1;
-	        this.name = name ? name : "";
-	        this.email = email ? email : "";
-	        this.type = type ? type : "";
-	        this.status = status ? status : null;
-	        this.creationDate = creationDate ? creationDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
-	        this.closedDate = closedDate ? closedDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
-	        this.lastPasswordChangeDate = lastPasswordChangeDate ? lastPasswordChangeDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
-	        this.lastLoginDate = lastLoginDate ? lastLoginDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
-	        this.lastAutoLoginDate = lastAutoLoginDate ? lastAutoLoginDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
-	        this.cityId = cityId ? cityId : -1;
-	        this.city = city ? city : -1;
-	        this.loginTimes = loginTimes ? loginTimes : -1;
-	        this.autoLoginTimes = autoLoginTimes ? autoLoginTimes : -1;
-	        this.phone = phone ? phone : "";
-	    }
-	    User.prototype.getNewInstance = function () {
-	        return new User();
-	    };
-	    User.prototype.isValid = function () {
-	        if (!this.id || this.id === -1) {
-	            return false;
-	        }
-	        if (!this.name || this.name === "") {
-	            return false;
-	        }
-	        if (!this.type || this.type === "") {
-	            return false;
-	        }
-	        if (!this.email || this.email === "" || !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(this.email.trim())) {
-	            return false;
-	        }
-	        if (!this.creationDate || this.creationDate === new Date(1, 1, 1, 0, 0, 0, 0)) {
-	            return false;
-	        }
-	        if (!this.lastPasswordChangeDate || this.lastPasswordChangeDate === new Date(1, 1, 1, 0, 0, 0, 0)) {
-	            return false;
-	        }
-	        if (!this.lastLoginDate || this.lastLoginDate === new Date(1, 1, 1, 0, 0, 0, 0)) {
-	            return false;
-	        }
-	        if (!this.lastAutoLoginDate || this.lastAutoLoginDate === new Date(1, 1, 1, 0, 0, 0, 0)) {
-	            return false;
-	        }
-	        if (!this.cityId || this.cityId === -1) {
-	            return false;
-	        }
-	        if (!this.city || this.city === "") {
-	            return false;
-	        }
-	        if (!this.loginTimes || this.loginTimes === -1) {
-	            return false;
-	        }
-	        if (!this.autoLoginTimes || this.autoLoginTimes === -1) {
-	            return false;
-	        }
-	        if (!this.phone || this.phone === "") {
-	            return false;
-	        }
-	        return true;
-	    };
-	    return User;
-	})();
-	exports.User = User;
-	//# sourceMappingURL=user.js.map
-
-/***/ },
-/* 903 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 0.5 : 0\"  [ngClass]=\"{'remove':remove}\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelFormAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\" [ngClass]=\"{'remove':remove}\">\r\n    <div class=\"modal-dialog modal-dialog-very-sm modal-lg\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <form [ngFormModel]=\"_userForm\" (ngSubmit)=\"submitNewUser()\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelFormAction()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h4 class=\"modal-title\">\r\n                        {{title}}\r\n                    </h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-user\"></span>\r\n                        </span>\r\n                            <input type=\"text\" [ngFormControl]=\"_userForm.controls['name']\" [(ngModel)]=\"responseObject.name\" class=\"form-control\"\r\n                                   placeholder=\"Name\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-envelope\"></span>\r\n                        </span>\r\n                            <input type=\"email\" [ngFormControl]=\"_userForm.controls['email']\" [(ngModel)]=\"responseObject.email\" class=\"form-control\"\r\n                                   placeholder=\"E-mail\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-lock\"></span>\r\n                        </span>\r\n                            <input type=\"password\" [ngFormControl]=\"_userForm.controls['password']\" [(ngModel)]=\"responseObject.password\" class=\"form-control\"\r\n                                   placeholder=\"Password\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-earphone\"></span>\r\n                        </span>\r\n                            <input type=\"tel\" [ngFormControl]=\"_userForm.controls['phone']\" [(ngModel)]=\"responseObject.phone\" class=\"form-control\"\r\n                                   placeholder=\"0777123456\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-stats\"></span>\r\n                        </span>\r\n                            <select class=\"user-status-select\" [ngFormControl]=\"_userForm.controls['status']\" [(ngModel)]=\"responseObject.status\">\r\n                                <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                                </option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n                        <span class=\"input-group-addon\">\r\n                          <span class=\"glyphicon glyphicon-globe\"></span>\r\n                        </span>\r\n                            <select class=\"user-status-select\" [ngFormControl]=\"_userForm.controls['cityId']\" [(ngModel)]=\"responseObject.cityId\">\r\n                                <option *ngFor=\"let option of cityList\" [value]=\"option.id\">{{option.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <label>Account Details:</label>\r\n                        <textarea type=\"text\" [ngFormControl]=\"_userForm.controls['accountDetails']\" [(ngModel)]=\"responseObject.accountDetails\"\r\n                                  class=\"form-control no-resize\"></textarea>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelFormAction()\">\r\n                        {{cancelLabel}}\r\n                    </button>\r\n                    <button type=\"submit\" [disabled]=\"!_userForm.valid\" class=\"btn btn-primary btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n\r\n    </div>\r\n</div>\r\n";
-
-/***/ },
-/* 904 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var modalDialog_1 = __webpack_require__(834);
-	var template = __webpack_require__(905);
-	var ActionDialog = (function (_super) {
-	    __extends(ActionDialog, _super);
-	    function ActionDialog() {
-	        _super.call(this);
-	        this.positiveLabel = 'OK';
-	        this.cancelLabel = 'Cancel';
-	        this.loadedEmitter = new core_1.EventEmitter();
-	        this.confirmAction = new core_1.EventEmitter();
-	    }
-	    ActionDialog.prototype.ngOnInit = function () {
-	        this.loadedEmitter.emit(this);
-	    };
-	    __decorate([
-	        core_1.Input('title'), 
-	        __metadata('design:type', String)
-	    ], ActionDialog.prototype, "title", void 0);
-	    __decorate([
-	        core_1.Input('positive-label'), 
-	        __metadata('design:type', String)
-	    ], ActionDialog.prototype, "positiveLabel", void 0);
-	    __decorate([
-	        core_1.Input('cancel-label'), 
-	        __metadata('design:type', String)
-	    ], ActionDialog.prototype, "cancelLabel", void 0);
-	    __decorate([
-	        core_1.Output('loaded'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], ActionDialog.prototype, "loadedEmitter", void 0);
-	    __decorate([
-	        core_1.Output('action-confirmed'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], ActionDialog.prototype, "confirmAction", void 0);
-	    ActionDialog = __decorate([
-	        core_1.Component({
-	            selector: 'action-dialog',
-	            template: template
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], ActionDialog);
-	    return ActionDialog;
-	})(modalDialog_1.ModalDialog);
-	exports.ActionDialog = ActionDialog;
-	//# sourceMappingURL=actionDialog.js.map
-
-/***/ },
-/* 905 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\">\r\n    <div class=\"modal-dialog modal-lg\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <div class=\"modal-header\">\r\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelAction()\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n                <h2 class=\"modal-title\">\r\n                    {{title}}\r\n                </h2>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <h4>{{message}}</h4>\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelAction()\">{{cancelLabel}}</button>\r\n                <button type=\"button\" class=\"btn btn-danger btn-sm\" (click)=\"positiveAction()\"> {{positiveLabel}}\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n";
-
-/***/ },
-/* 906 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"users-page\">\r\n    <!-- TODO catch close event -->\r\n    <action-dialog\r\n            [title]=\"'Delete'\"\r\n            [positive-label]=\"'Delete'\"\r\n            (loaded)=\"referenceActionDialogInComponent($event)\"\r\n            (action-confirmed)=\"actionDialogConfirmDelete($event)\">\r\n    </action-dialog>\r\n    <create-user-dialog\r\n            [city-list]=\"cityList\"\r\n            [status-list]=\"statusList\"\r\n            (loaded)=\"referenceCreateUserDialogInComponent($event)\"\r\n            (create-user)=\"confirmCreateUser()\">\r\n    </create-user-dialog>\r\n    <div class=\"page-title\">\r\n        <div class=\"row\">\r\n            <span class=\"h3\">Conturi</span>\r\n        </div>\r\n    </div>\r\n    <div class=\"page-content\">\r\n        <div class=\"row\">\r\n            <div class=\"filters\">\r\n                <div class=\"clearfix filter-container\">\r\n                    <div class=\"col-md-1 col-xs-12 remove-left-padding\">\r\n                        <div class=\"form-group\">\r\n                            <label>Id:</label>\r\n                            <input type=\"number\" [(ngModel)]=\"idFilter\" placeholder=\"0\"\r\n                                   class=\"form-control\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <div class=\"form-group\">\r\n                            <label>Email:</label>\r\n                            <input type=\"text\" [(ngModel)]=\"emailFilter\" placeholder=\"user@domain.com\"\r\n                                   class=\"form-control\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <div class=\"form-group\">\r\n                            <label>Nume:</label>\r\n                            <input type=\"text\" [(ngModel)]=\"nameFilter\" placeholder=\"Andrei\" class=\"form-control\"/>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <label>Status:</label>\r\n\r\n                        <div>\r\n                            <select class=\"user-status-select\" [(ngModel)]=\"selectedStatusFilter\" [disabled]=\"statusList && statusList.legth > 0\">\r\n                                <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                                </option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-2 col-xs-12 remove-left-padding\">\r\n                        <label>Oras:</label>\r\n\r\n                        <div>\r\n                            <select class=\"user-status-select\" [(ngModel)]=\"cityId\">\r\n                                <option *ngFor=\"let option of cityList\" [value]=\"option.id\">{{option.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-md-3 col-xs-12 remove-right-padding push-down clearfix\">\r\n                        <div class=\"pull-left btn-container\">\r\n                            <button class=\"btn btn-success\" (click)=\"applyFilters()\">Aplica Filtre</button>\r\n                        </div>\r\n                        <div class=\"pull-right btn-container\">\r\n                            <button class=\"btn btn-primary\" (click)=\"createAccount()\">\r\n                                <span class=\"glyphicon glyphicon-plus\"></span> Adauga utilizator\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"push-down pull-right\">\r\n\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <table class=\"table table-striped\" cellspacing=\"0\" width=\"100%\">\r\n                <thead class=\"thead-inverse\">\r\n                <tr>\r\n                    <th class=\"col-md-1 col-sm-2 col-xs-2 vertical-align\">Id</th>\r\n                    <th class=\"col-md-3 col-sm-4 col-xs-4 text-left vertical-align\">Email</th>\r\n                    <th class=\"col-md-2 col-sm-4 col-xs-4 text-left vertical-align\">Nume</th>\r\n                    <th class=\"col-md-1 hidden-sm hidden-xs vertical-align\">Status</th>\r\n                    <th class=\"col-md-2 hidden-sm hidden-xs vertical-align\">Oras</th>\r\n                    <th class=\"col-md-1 hidden-sm hidden-xs vertical-align\" colspan=\"2\">Actiuni</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody class=\"table-body\">\r\n                <tr *ngFor=\"let user of usersList\" [ngClass]=\"user.isInEditMode ? 'success':''\">\r\n                    <td>\r\n                        <span>{{user.id}}</span>\r\n                    </td>\r\n                    <td class=\"text-left\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.email}}</span>\r\n                        <input *ngIf=\"user.isInEditMode\" type=\"text\" class=\"form-control\" [(ngModel)]=\"user.email\"/>\r\n                    </td>\r\n                    <td class=\"text-left\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.name}}</span>\r\n                        <input *ngIf=\"user.isInEditMode\" type=\"text\" class=\"form-control\" [(ngModel)]=\"user.name\"/>\r\n                    </td>\r\n                    <td class=\"fit-select-to-td hidden-sm hidden-xs\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.status}}</span>\r\n                        <select *ngIf=\"user.isInEditMode\" class=\"user-status-select\" [(ngModel)]=\"user.status\">\r\n                            <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                            </option>\r\n                        </select>\r\n                    </td>\r\n                    <td class=\"fit-select-to-td hidden-sm hidden-xs\">\r\n                        <span *ngIf=\"!user.isInEditMode\">{{user.city}}</span>\r\n                        <select *ngIf=\"user.isInEditMode\" class=\"user-status-select\" [(ngModel)]=\"user.cityId\">\r\n                            <option *ngFor=\"let option of cityList\" [value]=\"option.id\">{{option.name}}</option>\r\n                        </select>\r\n                    </td>\r\n                    <td class=\"hidden-sm hidden-xs\">\r\n                        <a href=\"javascript:void(0)\" *ngIf=\"!user.isInEditMode\" (click)=\"toggleEditMode(user)\">\r\n                            <span class=\"glyphicon glyphicon-cog\"></span>\r\n                        </a>\r\n                        <a href=\"javascript:void(0)\" *ngIf=\"user.isInEditMode\" (click)=\"saveEditedUser(user)\">\r\n                            <span *ngIf=\"user.isInEditMode\" class=\"glyphicon glyphicon-ok\"></span>\r\n                        </a>\r\n                        <a href=\"javascript:void(0)\" *ngIf=\"user.isInEditMode\" (click)=\"closeEditMode(user)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                        </a>\r\n                    </td>\r\n                    <td class=\"hidden-sm hidden-xs\">\r\n                        <a href=\"javascript:void(0)\" (click)=\"deleteUser(user)\">\r\n                            <span class=\"glyphicon glyphicon-trash\"></span>\r\n                        </a>\r\n                    </td>\r\n                </tr>\r\n                <tr class=\"navigation-row text-center\">\r\n                    <td colspan=\"7\" class=\"navigation-column\">\r\n                        <pagination [totalItems]=\"pagination.totalItems\" [(ngModel)]=\"pagination.currentPage\"\r\n                                    (ngModelChange)=\"getUsers()\" [maxSize]=\"pagination.maxSize\" class=\"pagination-sm\"\r\n                                    [boundaryLinks]=\"true\" [rotate]=\"false\" (numPages)=\"numPages = $event\"></pagination>\r\n                    </td>\r\n                </tr>\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 907 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var common_1 = __webpack_require__(27);
-	var ng2_bootstrap_1 = __webpack_require__(407);
-	var subscribersService_1 = __webpack_require__(824);
-	var localizationService_1 = __webpack_require__(826);
-	var notificationService_1 = __webpack_require__(825);
-	__webpack_require__(358);
-	var actionDialog_1 = __webpack_require__(904);
-	var createSubscriberDialog_1 = __webpack_require__(908);
-	var applicationConstansts_1 = __webpack_require__(794);
-	var subscriber_1 = __webpack_require__(909);
-	var template = __webpack_require__(911);
-	var SubscribersPage = (function () {
-	    //</editor-fold>
-	    function SubscribersPage(subscribersService, localizationService, _notificationService) {
-	        this.subscribeDatePicker = { state: false };
-	        this.unSubscribeDatePicker = { state: false };
-	        this.orderList = [{ value: -1, text: "Chose..." },
-	            { value: 1, text: "Ascending" },
-	            { value: 2, text: "Descending" }];
-	        this.sortKey = "EMAIL";
-	        this.sortOrder = true;
-	        this.sortkeyAndFilter = [];
-	        this.emailFilter = "";
-	        this.subscribeDateFilter = new Date();
-	        this.unsubscribeDateFilter = new Date();
-	        this.dateTimePlaceHolder = applicationConstansts_1.ApplicationConstants.getLocaleDateString();
-	        this.pagination = { totalItems: 1, currentPage: 1, maxSize: 7 };
-	        this.subscribersList = [];
-	        this.deleteMessage = "Are you sure that you want to delete this subscriber ?";
-	        this._notificationService = _notificationService;
-	        this.sortkeyAndFilter["EMAIL"] = true;
-	        this.sortkeyAndFilter["SUBSCRIBE_DATE"] = true;
-	        this.sortkeyAndFilter["UNSUBSCRIBE_DATE"] = true;
-	        this._localizationService = localizationService;
-	        this._subscribersService = subscribersService;
-	    }
-	    SubscribersPage.prototype.ngOnInit = function () {
-	        this.getCities();
-	        this.matchSortOrderByColumn('');
-	        this.getSubscribersWithFilters();
-	    };
-	    SubscribersPage.prototype.referenceActionDialogInComponent = function (modal) {
-	        this.actionDialog = modal; // Here you get a reference to the modal so you can control it programmatically
-	    };
-	    SubscribersPage.prototype.referenceCreateSubscriberDialogInComponent = function (modal) {
-	        this.createSubscriberDialog = modal;
-	    };
-	    SubscribersPage.prototype.showSubscriberDialog = function () {
-	        this.createSubscriberDialog.show("", new subscriber_1.Subscriber());
-	    };
-	    SubscribersPage.prototype.createSubscriber = function (subscriberValue) {
-	        var me = this;
-	        this._subscribersService.subscribe(subscriberValue.email)
-	            .subscribe(function (response) {
-	            me.getSubscribersWithFilters();
-	            me.createSubscriberDialog.close();
-	        }, function (error) {
-	            me._notificationService.emitErrorNotificationToRootComponent('Abonatul nu a putut fi adaugat', 5);
-	        });
-	    };
-	    SubscribersPage.prototype.getSubscribersWithFilters = function () {
-	        var me = this;
-	        this._subscribersService.getSubscribersWithFilters(null, this.emailFilter, this.pagination['currentPage'], this.sortKey, this.sortOrder)
-	            .subscribe(function (response) {
-	            me.subscribersList = response.data;
-	            me.pagination['totalItems'] = response.totalPages;
-	            me.pagination['currentPage'] = response.page;
-	        }, function (error) {
-	        });
-	    };
-	    SubscribersPage.prototype.subscribe = function (subscriber) {
-	        var me = this;
-	        this._subscribersService.subscribe(subscriber.email)
-	            .subscribe(function (response) {
-	            me.getSubscribersWithFilters();
-	        }, function (error) {
-	            me._notificationService.emitErrorNotificationToRootComponent('Userul nu se poate abona.', 5);
-	        });
-	    };
-	    SubscribersPage.prototype.unsubscribe = function (subscriber) {
-	        var me = this;
-	        this._subscribersService.unsubscribe(subscriber.id)
-	            .subscribe(function (response) {
-	        }, function (error) {
-	            me._notificationService.emitErrorNotificationToRootComponent('Userul nu se poate dezabona.', 5);
-	        });
-	    };
-	    SubscribersPage.prototype.actionDialogConfirmDelete = function (subscriber) {
-	        var me = this;
-	        this.actionDialog.hide();
-	        this._subscribersService.delete(subscriber.id)
-	            .subscribe(function (response) {
-	            var subscriberIndex = me.subscribersList.indexOf(subscriber);
-	            if (subscriberIndex !== -1) {
-	                me.subscribersList.splice(subscriberIndex, 1);
-	            }
-	        }, function (error) {
-	            me._notificationService.emitErrorNotificationToRootComponent('Abonatul nu poate fi sters.', 5);
-	        });
-	    };
-	    SubscribersPage.prototype.getClassForSorting = function (columnName) {
-	        return this.sortkeyAndFilter[columnName] ? "fa fa-sort" : "fa fa-sort";
-	    };
-	    SubscribersPage.prototype.sortByColumn = function (columnName) {
-	        this.matchSortOrderByColumn(columnName);
-	        this.getSubscribersWithFilters();
-	    };
-	    SubscribersPage.prototype.matchSortOrderByColumn = function (columnName) {
-	        var me = this;
-	        this.sortKey = columnName;
-	        for (var sortkey in this.sortkeyAndFilter) {
-	            if (sortkey === columnName) {
-	                me.sortOrder = this.sortkeyAndFilter[sortkey] = !this.sortkeyAndFilter[sortkey];
-	            }
-	            else {
-	                //true -> ascending
-	                this.sortkeyAndFilter[sortkey] = true;
-	            }
-	        }
-	    };
-	    SubscribersPage.prototype.toggleEditMode = function (subscriber) {
-	        subscriber.isInEditMode = true;
-	    };
-	    SubscribersPage.prototype.saveEditedSubscriber = function (subscriber) {
-	        subscriber.isInEditMode = false;
-	    };
-	    SubscribersPage.prototype.openSubscribeDatePicke = function ($event) {
-	        $event.stopPropagation();
-	        $event.preventDefault();
-	        this.subscribeDatePicker.state = true;
-	        this.subscriberFormatedDate = this.subscribeDateFilter.toLocaleDateString();
-	    };
-	    SubscribersPage.prototype.openUnSubscribeDatePicke = function ($event) {
-	        $event.stopPropagation();
-	        $event.preventDefault();
-	        this.unSubscribeDatePicker.state = true;
-	        this.unsubscriberFormatedDate = this.unsubscribeDateFilter.toLocaleDateString();
-	    };
-	    SubscribersPage.prototype.updateSubscribeDatePicker = function () {
-	        var dateString = applicationConstansts_1.ApplicationConstants.getLocaleDateString();
-	        if (!applicationConstansts_1.ApplicationConstants.getLocaleDateRegex().test(this.subscriberFormatedDate)) {
-	            this.subscriberFormatedDate = '';
-	            return;
-	        }
-	        this.subscribeDateFilter = new Date(this.subscriberFormatedDate);
-	    };
-	    SubscribersPage.prototype.updateunSubscribeDatePicker = function () {
-	        var dateString = applicationConstansts_1.ApplicationConstants.getLocaleDateString();
-	        if (!applicationConstansts_1.ApplicationConstants.getLocaleDateRegex().test(this.unsubscriberFormatedDate)) {
-	            this.unsubscriberFormatedDate = '';
-	            return;
-	        }
-	        this.unsubscribeDateFilter = new Date(this.unsubscriberFormatedDate);
-	    };
-	    SubscribersPage.prototype.getCities = function () {
-	        var me = this;
-	        me._localizationService.getCityList()
-	            .subscribe(function (succesR) {
-	            me.cityList = succesR;
-	        }, function (error) {
-	            me.cityList = [];
-	        });
-	    };
-	    SubscribersPage = __decorate([
-	        core_1.Component({
-	            selector: 'subscribers-Page',
-	            template: template,
-	            //styleUrls: [applicationPath + '/subscribersPage.css'],
-	            encapsulation: core_1.ViewEncapsulation.None,
-	            directives: [createSubscriberDialog_1.CreateSubscriberDialog, actionDialog_1.ActionDialog, common_1.NgForm, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, ng2_bootstrap_1.DROPDOWN_DIRECTIVES, ng2_bootstrap_1.PAGINATION_DIRECTIVES, common_1.CORE_DIRECTIVES]
-	        }), 
-	        __metadata('design:paramtypes', [subscribersService_1.SubscribersService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
-	    ], SubscribersPage);
-	    return SubscribersPage;
-	})();
-	exports.SubscribersPage = SubscribersPage;
-	//# sourceMappingURL=subscribersPage.js.map
-
-/***/ },
-/* 908 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var common_1 = __webpack_require__(27);
-	var modalDialog_1 = __webpack_require__(834);
-	var subscriber_1 = __webpack_require__(909);
-	var Angular2ExtensionValidators_1 = __webpack_require__(827);
-	var template = __webpack_require__(910);
-	var CreateSubscriberDialog = (function (_super) {
-	    __extends(CreateSubscriberDialog, _super);
-	    function CreateSubscriberDialog(formBuilder) {
-	        _super.call(this);
-	        this.modaleMode = "newSubscriber";
-	        this.title = "Adauga abonat nou";
-	        this.cancelLabel = 'Cancel';
-	        this.positiveLabel = 'Creeaza abonat';
-	        this.loadedEmitter = new core_1.EventEmitter();
-	        this.createEmitter = new core_1.EventEmitter();
-	        this._formBuilder = formBuilder;
-	    }
-	    CreateSubscriberDialog.prototype.ngOnInit = function () {
-	        this.loadedEmitter.emit(this);
-	        this.responseObject = new subscriber_1.Subscriber();
-	        this._subscriberForm = this._formBuilder.group([]);
-	        this.buildForm();
-	    };
-	    CreateSubscriberDialog.prototype.clearData = function () {
-	        this.responseObject = new subscriber_1.Subscriber();
-	    };
-	    CreateSubscriberDialog.prototype.setValue = function (subscriber) {
-	        this.responseObject = subscriber;
-	    };
-	    CreateSubscriberDialog.prototype.getValue = function () {
-	        return this.responseObject;
-	    };
-	    CreateSubscriberDialog.prototype.close = function () {
-	        this.hideWithoutAnimation();
-	        this._subscriberForm.removeControl("email");
-	        this.buildForm();
-	    };
-	    CreateSubscriberDialog.prototype.cancelCreateSubscriber = function () {
-	        this._subscriberForm.removeControl('email');
-	        this.buildForm();
-	        this.cancelAction();
-	    };
-	    CreateSubscriberDialog.prototype.buildForm = function () {
-	        this._subscriberForm.addControl('email', this._formBuilder.control(this.responseObject['email'], common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
-	    };
-	    CreateSubscriberDialog.prototype.submitSubscriber = function () {
-	        if (!this._subscriberForm.valid) {
-	            return;
-	        }
-	        this.createEmitter.emit(this.responseObject);
-	    };
-	    __decorate([
-	        core_1.Input('title'), 
-	        __metadata('design:type', String)
-	    ], CreateSubscriberDialog.prototype, "title", void 0);
-	    __decorate([
-	        core_1.Input('cancel-label'), 
-	        __metadata('design:type', String)
-	    ], CreateSubscriberDialog.prototype, "cancelLabel", void 0);
-	    __decorate([
-	        core_1.Input('positive-label'), 
-	        __metadata('design:type', String)
-	    ], CreateSubscriberDialog.prototype, "positiveLabel", void 0);
-	    __decorate([
-	        core_1.Output('loaded'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], CreateSubscriberDialog.prototype, "loadedEmitter", void 0);
-	    __decorate([
-	        core_1.Output('create-subscriber'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], CreateSubscriberDialog.prototype, "createEmitter", void 0);
-	    CreateSubscriberDialog = __decorate([
-	        core_1.Component({
-	            selector: 'create-subscriber-dialog',
-	            template: template,
-	            directives: [common_1.FORM_DIRECTIVES]
-	        }), 
-	        __metadata('design:paramtypes', [common_1.FormBuilder])
-	    ], CreateSubscriberDialog);
-	    return CreateSubscriberDialog;
-	})(modalDialog_1.ModalDialog);
-	exports.CreateSubscriberDialog = CreateSubscriberDialog;
-	//# sourceMappingURL=createSubscriberDialog.js.map
-
-/***/ },
-/* 909 */
-/***/ function(module, exports) {
-
-	var Subscriber = (function () {
-	    function Subscriber(id, description, email, subscribeDate, unsubscribeDate, unsubscribeToken) {
-	        this.isInEditMode = false;
-	        this.id = id ? id : "";
-	        this.description = description ? description : "";
-	        this.email = email ? email : "";
-	        this.subscribeDate = subscribeDate ? subscribeDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
-	        this.unsubscribeDate = unsubscribeDate ? unsubscribeDate.toLocaleDateString("en-US") : new Date(1, 1, 1, 0, 0, 0, 0).toLocaleDateString("en-US");
-	        this.unsubscribeToken = unsubscribeToken ? unsubscribeToken : -1;
-	    }
-	    Subscriber.prototype.getNewInstance = function () {
-	        return new Subscriber();
-	    };
-	    return Subscriber;
-	})();
-	exports.Subscriber = Subscriber;
-	//# sourceMappingURL=subscriber.js.map
-
-/***/ },
-/* 910 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 0.5 : 0\"  [ngClass]=\"{'remove':remove}\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelCreateSubscriber()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\" [ngClass]=\"{'remove':remove}\">\r\n    <div class=\"modal-dialog modal-dialog-very-sm modal-md\" (click)=\"stopPropagation($event)\">\r\n        <form [ngFormModel]=\"_subscriberForm\" (ngSubmit)=\"submitSubscriber()\">\r\n            <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelCreateSubscriber()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h4 class=\"modal-title\">\r\n                        {{title}}\r\n                    </h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <div class=\"input-group\">\r\n\t\t\t\t\t\t<span class=\"input-group-addon\">\r\n\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-envelope\"></span>\r\n\t\t\t\t\t\t</span>\r\n                            <input type=\"email\" [ngFormControl]=\"_subscriberForm.controls['email']\"\r\n                                   [(ngModel)]=\"responseObject.email\" class=\"form-control\"\r\n                                   placeholder=\"E-mail\"/>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelCreateSubscriber()\">{{cancelLabel}}\r\n                    </button>\r\n                    <button type=\"submit\" [disabled]=\"!_subscriberForm.valid\" class=\"btn btn-primary btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n</div>\r\n";
-
-/***/ },
-/* 911 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"clearfix\">\r\n    <!-- TODO catch close event -->\r\n    <action-dialog\r\n            [title]=\"'Delete'\"\r\n            [positive-label]=\"'Delete'\"\r\n            (loaded)=\"referenceActionDialogInComponent($event)\"\r\n            (action-confirmed)=\"actionDialogConfirmDelete($event)\">\r\n        <h4>Sunteti sigur ca doriti sa stergeti abonatul ?</h4>\r\n    </action-dialog>\r\n    <create-subscriber-dialog\r\n            (loaded)=\"referenceCreateSubscriberDialogInComponent($event)\"\r\n            (create-subscriber)=\"createSubscriber($event)\">\r\n    </create-subscriber-dialog>\r\n    <div class=\"subscribers-page\">\r\n        <!-- TODO catch close event -->\r\n        <div class=\"page-title\">\r\n            <div class=\"row\">\r\n                <span class=\"h3\">Abonati</span>\r\n            </div>\r\n        </div>\r\n        <div class=\"page-content\">\r\n            <div class=\"row\">\r\n                <div class=\"filters\">\r\n\r\n                    <div class=\"clearfix filter-container\">\r\n                        <div class=\"col-lg-3 col-xs-12 remove-left-padding\">\r\n                            <div class=\"form-group\">\r\n                                <label>Email:</label>\r\n                                <input type=\"text\" [(ngModel)]=\"emailFilter\" placeholder=\"email@domain.com\"\r\n                                       class=\"form-control\"/>\r\n                            </div>\r\n                        </div>\r\n                        \r\n                        <div class=\"col-lg-3 col-xs-12 no-right-p padding-top-25 remove-right-padding\">\r\n                            <div class=\"pull-right btn-full-width\">\r\n                                <input type=\"button\" class=\"btn btn-primary\" (click)=\"showSubscriberDialog()\"\r\n                                       value=\"Adauga abonat\"/>\r\n                            </div>\r\n                            <div class=\"pull-left btn-full-width\">\r\n                                <input type=\"button\" class=\"btn btn-success\" (click)=\"getSubscribersWithFilters()\"\r\n                                       value=\"Aplica filtre\"/>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n                <div class=\"subscribers\">\r\n                    <div class=\"table-responsiv\">\r\n                        <table class=\"table table-striped\">\r\n                            <thead class=\"thead-inverse\">\r\n                            <tr class=\"vertical-align\">\r\n                                <th class=\"col-md-1 col-xs-1\">Id</th>\r\n                                <th class=\"col-md-4 col-xs-5 pointer-cursor text-left\" (click)=\"sortByColumn('EMAIL')\">\r\n                                    <span>Email</span>\r\n                                    <span [ngClass]=\"getClassForSorting('EMAIL')\"></span>\r\n                                </th>\r\n                                <!--<th class=\"col-md-1 col-xs-5 pointer-cursor hidden-sm hidden-xs\"-->\r\n                                    <!--(click)=\"sortByColumn('SUBSCRIBE_DATE')\">-->\r\n                                    <!--<span>Data abonarii</span>-->\r\n                                    <!--&lt;!&ndash;<span [ngClass]=\"getClassForSorting('SUBSCRIBE_DATE')\" aria-hidden=\"truet\"></span>&ndash;&gt;-->\r\n                                <!--</th>-->\r\n                                <!--<th class=\"col-md-1 hidden-sm hidden-xs pointer-cursor\"-->\r\n                                    <!--(click)=\"sortByColumn('UNSUBSCRIBE_DATE')\">-->\r\n                                    <!--<span>Data dezabonarii</span>-->\r\n                                    <!--<span [ngClass]=\"getClassForSorting('UNSUBSCRIBE_DATE')\"></span>-->\r\n                                <!--</th>-->\r\n                                <th class=\"col-md-5 hidden-xs text-left\">Cod dezabonare</th>\r\n                                <th class=\"col-md-2\" colspan=\"3\">Actiuni</th>\r\n                            </tr>\r\n                            </thead>\r\n                            <tbody class=\"table-body\">\r\n                            <tr *ngFor=\"let subscriber of subscribersList\"\r\n                                [ngClass]=\"subscriber.isInEditMode ? 'success':''\">\r\n                                <td>\r\n                                    <span>{{subscriber.id}}</span>\r\n                                </td>\r\n                                <td class=\"text-left\">\r\n                                    <span>{{subscriber.email}}</span>\r\n                                </td>\r\n                                <!--<td class=\"hidden-sm hidden-xs\">-->\r\n                                    <!--<span>{{subscriber.subscribeDate}}</span>-->\r\n                                <!--</td>-->\r\n                                <!--<td class=\"fit-select-to-td hidden-sm hidden-xs\">-->\r\n                                    <!--<span>{{subscriber.unsubscribeDate}}</span>-->\r\n                                <!--</td>-->\r\n                                <td class=\"fit-select-to-td hidden-sm hidden-xs text-left\">\r\n                                    <span>{{subscriber.unsubscribeToken}}</span>\r\n                                </td>\r\n                                <td>\r\n                                    <a href=\"javascript:void(0)\" title=\"Subscribe\" (click)=\"subscribe(subscriber)\">\r\n                                        <span class=\"glyphicon glyphicon-log-in\"></span>\r\n                                    </a>\r\n                                </td>\r\n                                <td>\r\n                                    <a href=\"javascript:void(0)\" title=\"Unsubscribe\" (click)=\"unsubscribe(subscriber)\">\r\n                                        <span class=\"glyphicon glyphicon-log-out\tTry it\"></span>\r\n                                    </a>\r\n                                </td>\r\n                                <td>\r\n                                    <a href=\"javascript:void(0)\" title=\"Delete\"\r\n                                       (click)=\"actionDialog.show(deleteMessage,subscriber)\">\r\n                                        <span class=\"glyphicon glyphicon-trash\"></span>\r\n                                    </a>\r\n                                </td>\r\n                            </tr>\r\n                            <tr class=\"navigation-row\">\r\n                                <td colspan=\"8\" class=\"navigation-column\">\r\n                                    <pagination [totalItems]=\"pagination.totalItems\"\r\n                                                [(ngModel)]=\"pagination.currentPage\"\r\n                                                (ngModelChange)=\"getSubscribersWithFilters()\" [maxSize]=\"pagination.maxSize\"\r\n                                                class=\"pagination-sm\"\r\n                                                [boundaryLinks]=\"true\" [rotate]=\"false\"\r\n                                                (numPages)=\"numPages = $event\"></pagination>\r\n                                </td>\r\n                            </tr>\r\n                            </tbody>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 912 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var tabsRoutingComponent_1 = __webpack_require__(854);
-	var applicationRouter_1 = __webpack_require__(851);
-	var template = __webpack_require__(913);
-	var CategoriesPage = (function () {
-	    function CategoriesPage() {
-	        this.tabPagesList = [{ name: 'Meniu', link: '/admin/categorii/meniu', enableMarker: false, markerContent: "" },
-	            { name: 'Companii', link: '/admin/categorii/firme', enableMarker: false, markerContent: "" },
-	            { name: 'Cereri', link: '/admin/categorii/domenii', enableMarker: false, markerContent: "" }];
-	    }
-	    CategoriesPage = __decorate([
-	        core_1.Component({
-	            selector: 'categoryes-page',
-	            template: template,
-	            //styleUrls: [applicationPath + '/categoriesPage.css'],
-	            directives: [tabsRoutingComponent_1.TabsRoutingComponent, applicationRouter_1.APPLICATION_ROUTER_DIRECTIVE]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], CategoriesPage);
-	    return CategoriesPage;
-	})();
-	exports.CategoriesPage = CategoriesPage;
-	//# sourceMappingURL=categoriesPage.js.map
-
-/***/ },
-/* 913 */
-/***/ function(module, exports) {
-
-	module.exports = "<div>\r\n\r\n    <tabs-component\r\n        [tabs-pages-list]=\"tabPagesList\">\r\n    </tabs-component>\r\n\r\n    <div>\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 914 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 4/21/2016.
-	 */
-	var core_1 = __webpack_require__(30);
-	var tabsRoutingComponent_1 = __webpack_require__(854);
-	var applicationRouter_1 = __webpack_require__(851);
-	var template = __webpack_require__(915);
-	var DemandsPage = (function () {
-	    function DemandsPage() {
-	        this.tabPagesList = [{ name: 'Cereri noi', link: '/admin/cereri/newDemands', enableMarker: false, markerContent: "" },
-	            { name: 'Cereri', link: '/admin/cereri/lista', enableMarker: true, markerContent: "" }
-	        ];
-	    }
-	    DemandsPage = __decorate([
-	        core_1.Component({
-	            selector: 'demands-page',
-	            template: template,
-	            //styleUrls: [applicationPath + '/demandsPage.css'],
-	            directives: [tabsRoutingComponent_1.TabsRoutingComponent, applicationRouter_1.APPLICATION_ROUTER_DIRECTIVE]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], DemandsPage);
-	    return DemandsPage;
-	})();
-	exports.DemandsPage = DemandsPage;
-	//# sourceMappingURL=demandsPage.js.map
-
-/***/ },
-/* 915 */
-/***/ function(module, exports) {
-
-	module.exports = "<div>\r\n    <tabs-component\r\n            [tabs-pages-list]=\"tabPagesList\">\r\n    </tabs-component>\r\n    <div>\r\n        <router-outlet></router-outlet>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 916 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by nick_ on 4/22/2016.
-	 */
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var router_1 = __webpack_require__(355);
-	var common_1 = __webpack_require__(27);
-	var demandService_1 = __webpack_require__(822);
-	var requestTypeService_1 = __webpack_require__(917);
-	var demandEdit_1 = __webpack_require__(918);
-	var notificationService_1 = __webpack_require__(825);
-	var rejectDemandDialogComponent_1 = __webpack_require__(921);
-	var template = __webpack_require__(923);
-	var DemandsEditPage = (function () {
-	    //</editor-fold>
-	    function DemandsEditPage(router, _location, demandService, requestTypeService, notificationService) {
-	        this._location = _location;
-	        this._notificationService = notificationService;
-	        this._router = router;
-	        this._demandService = demandService;
-	        this._requestTypeService = requestTypeService;
-	    }
-	    DemandsEditPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
-	        this._demandId = Number(curr.getParam('id'));
-	    };
-	    DemandsEditPage.prototype.ngOnInit = function () {
-	        this.getDomains();
-	    };
-	    DemandsEditPage.prototype.rejectDemandDialogLoaded = function ($event) {
-	        this.rejectDemandDialog = $event;
-	    };
-	    DemandsEditPage.prototype.getDemand = function () {
-	        var me = this;
-	        this._demandService.getDemand(this._demandId)
-	            .subscribe(function (response) {
-	            me._demand = response;
-	            me._demand['selectedDomain'] = me.getDomainById(me._demand.domainId);
-	            console.log(me._demand['selectedDomain']);
-	        }, function (error) {
-	        });
-	    };
-	    DemandsEditPage.prototype.getDomains = function () {
-	        var me = this;
-	        this._demandService.getDemandDomanins()
-	            .subscribe(function (response) {
-	            me._demandDomains = me._demandService.mapNameToSelect2Item(response);
-	            me.getDemand();
-	        }, function (error) {
-	            me._demandDomains = new Array();
-	        });
-	    };
-	    DemandsEditPage.prototype.getDomainById = function (demandId) {
-	        for (var _i = 0, _a = this._demandDomains; _i < _a.length; _i++) {
-	            var obj = _a[_i];
-	            if (obj['boundItem']['id'] === demandId) {
-	                return obj;
-	            }
-	        }
-	        return null;
-	    };
-	    DemandsEditPage.prototype.navigateToList = function ($event) {
-	        this._location.back();
-	    };
-	    DemandsEditPage.prototype.acceptDemand = function (demand) {
-	        var me = this;
-	        this._demandService.acceptDemand(demand)
-	            .subscribe(function (response) {
-	            me._location.back();
-	            me._notificationService.emitSuccessNotificationToRootComponent('Cerere activata cu success', 3);
-	        }, function (error) {
-	            me._notificationService.emitErrorNotificationToRootComponent('Cerere nu a putut fi activata !', 3);
-	        });
-	    };
-	    DemandsEditPage.prototype.showRejectDemandDialog = function () {
-	        this.rejectDemandDialog.show();
-	    };
-	    DemandsEditPage.prototype.rejectDemand = function (response) {
-	        var me = this;
-	        response['id'] = this._demand.id;
-	        this._demandService.declineDemand(response)
-	            .subscribe(function (response) {
-	            me.rejectDemandDialog.hide();
-	            me._location.back();
-	        }, function (error) {
-	            me._notificationService.emitErrorNotificationToRootComponent('Erroare de server cererea nu poate fi refuzata !', 3);
-	        });
-	    };
-	    DemandsEditPage.prototype.saveEditedDemand = function (demand) {
-	        var me = this;
-	        this._demandService.saveDemand(demand)
-	            .subscribe(function (response) {
-	            me._location.back();
-	        }, function (error) {
-	            me._notificationService.emitErrorNotificationToRootComponent('Cerere nu poate fi salvata !', 3);
-	        });
-	    };
-	    DemandsEditPage = __decorate([
-	        core_1.Component({
-	            selector: 'demands-edit-page',
-	            template: template,
-	            //styleUrls: [applicationPath + '/demandsEditPage.css'],
-	            directives: [demandEdit_1.DemandEditComponent, rejectDemandDialogComponent_1.RejectDemandDialogComponent]
-	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, common_1.Location, demandService_1.DemandService, requestTypeService_1.RequestTypeService, notificationService_1.NotificationService])
-	    ], DemandsEditPage);
-	    return DemandsEditPage;
-	})();
-	exports.DemandsEditPage = DemandsEditPage;
-	//# sourceMappingURL=demandsEditPage.js.map
-
-/***/ },
-/* 917 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var fMarketApi_1 = __webpack_require__(797);
-	var RequestTypeService = (function () {
-	    function RequestTypeService(api) {
-	        this._requestDomains = '/demand/domains';
-	        this.api = api;
-	    }
-	    RequestTypeService.prototype.getRequestTypesWithFilters = function (searchQuery) {
-	        return this.api.get(this._requestDomains);
-	    };
-	    RequestTypeService.prototype.deleteRequestType = function (requestId) {
-	        return this.api.delete(this._requestDomains + ("/" + requestId));
-	    };
-	    RequestTypeService.prototype.editRequestType = function (request) {
-	        return this.api.put(this._requestDomains + ("/" + request.id), JSON.stringify({ id: request.id, newName: request.name }));
-	    };
-	    RequestTypeService.prototype.addRequestType = function (request) {
-	        return this.api.post(this._requestDomains, JSON.stringify({ name: request }));
-	    };
-	    RequestTypeService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
-	    ], RequestTypeService);
-	    return RequestTypeService;
-	})();
-	exports.RequestTypeService = RequestTypeService;
-	//# sourceMappingURL=requestTypeService.js.map
-
-/***/ },
-/* 918 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 4/20/2016.
-	 */
-	var core_1 = __webpack_require__(30);
-	var demandDetailsDTO_1 = __webpack_require__(919);
-	var selectComponent_1 = __webpack_require__(830);
-	var template = __webpack_require__(920);
-	var DemandEditComponent = (function () {
-	    function DemandEditComponent() {
-	        this.rejectDemandEvent = new core_1.EventEmitter();
-	        this.acceptDemandEvent = new core_1.EventEmitter();
-	        this.saveDemandEvent = new core_1.EventEmitter();
-	        this.goToListEmitter = new core_1.EventEmitter();
-	    }
-	    DemandEditComponent.prototype.acceptDemand = function () {
-	        this.acceptDemandEvent.emit(this._demand);
-	    };
-	    DemandEditComponent.prototype.rejectDemand = function () {
-	        this.rejectDemandEvent.emit(Number(this._demand.id));
-	    };
-	    DemandEditComponent.prototype.referenceDemandsComponent = function ($event) {
-	        this.selectDemandComponent = $event;
-	    };
-	    DemandEditComponent.prototype.saveEditedDemand = function () {
-	        this._demand.isInEditMode = false;
-	        this.saveDemandEvent.emit(this._demand);
-	    };
-	    DemandEditComponent.prototype.goBackToPreviousPage = function () {
-	        this.goToListEmitter.emit({});
-	    };
-	    __decorate([
-	        core_1.Input('demand'), 
-	        __metadata('design:type', demandDetailsDTO_1.DemandDetailsDTO)
-	    ], DemandEditComponent.prototype, "_demand", void 0);
-	    __decorate([
-	        core_1.Input('demand-domains'), 
-	        __metadata('design:type', Array)
-	    ], DemandEditComponent.prototype, "_domains", void 0);
-	    __decorate([
-	        core_1.Output('reject-demand'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], DemandEditComponent.prototype, "rejectDemandEvent", void 0);
-	    __decorate([
-	        core_1.Output('accept-demand'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], DemandEditComponent.prototype, "acceptDemandEvent", void 0);
-	    __decorate([
-	        core_1.Output('save-demand'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], DemandEditComponent.prototype, "saveDemandEvent", void 0);
-	    __decorate([
-	        core_1.Output('go-to-List'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], DemandEditComponent.prototype, "goToListEmitter", void 0);
-	    DemandEditComponent = __decorate([
-	        core_1.Component({
-	            selector: 'demand-edit-component',
-	            template: template,
-	            directives: [selectComponent_1.SelectComponent]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], DemandEditComponent);
-	    return DemandEditComponent;
-	})();
-	exports.DemandEditComponent = DemandEditComponent;
-	//# sourceMappingURL=demandEdit.js.map
-
-/***/ },
-/* 919 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by NicolaeB on 4/26/2016.
-	 */
-	var DemandDetailsDTO = (function () {
-	    function DemandDetailsDTO() {
-	        this.cities = new Array();
-	        this.isInEditMode = false;
-	    }
-	    return DemandDetailsDTO;
-	})();
-	exports.DemandDetailsDTO = DemandDetailsDTO;
-	//# sourceMappingURL=demandDetailsDTO.js.map
-
-/***/ },
-/* 920 */
-/***/ function(module, exports) {
-
-	module.exports = "<div *ngIf=\"_demand\" class=\"demand-edit-component\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-9 col-xs-12\">\r\n            <div class=\"form-group\">\r\n                <label>Title</label>\r\n                <span type=\"text\" class=\"form-control\" disabled>{{_demand.title}}</span>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Mesaj</label>\r\n                <textarea class=\"form-control\" disabled [ngModel]=\"_demand.message\"></textarea>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Domeniu</label>\r\n                <select-component\r\n                        [select-items]=\"_domains\"\r\n                        [single-item-selected]=\"_demand.selectedDomain\"\r\n                        [multi-select]=\"false\"\r\n                        (loaded)=\"referenceDemandsComponent($event)\">\r\n                </select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Orase</label>\r\n                <span disabled class=\"form-control city-presentation\">\r\n                    <span *ngFor=\"let city of _demand.cities\" class=\"label label-success\">{{city}}</span>\r\n                </span>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <input type=\"checkbox\" [(ngModel)]=\"_demand.allCities\" />\r\n                <label class=\"checkbox-label\">Doresc sa fiu contactat din orice oras</label>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Data in care a fost creata cererea</label>\r\n                <span disabled class=\"form-control\">\r\n                    {{_demand.creationDate}}\r\n                </span>\r\n            </div>\r\n\r\n        </div>\r\n        <div class=\"col-md-3 col-xs-12 button-group\">\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-success\"\r\n                    (click)=\"acceptDemand()\">\r\n                    Accepta\r\n                </button>\r\n            </div>\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-danger\"\r\n                    (click)=\"rejectDemand()\">\r\n                    Refuza\r\n                </button>\r\n            </div>\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-info\"\r\n                        (click)=\"saveEditedDemand()\">\r\n                    Salveaza modificarile\r\n                </button>\r\n            </div>\r\n            <div class=\"button-container\">\r\n                <button class=\"btn btn-warning\"\r\n                        (click)=\"goBackToPreviousPage()\">\r\n                    Inapoi la lista\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <hr/>\r\n    <div class=\"row\">\r\n        <div class=\"col-md-2\">\r\n            <label> Id cerere: {{_demand.accountId}}</label>\r\n        </div>\r\n        <div class=\"col-md-2\">\r\n            <label> Nume utilizator: {{_demand.name}}</label>\r\n\r\n        </div>\r\n        <div class=\"col-md-4\">\r\n            <label> Email utilizator: {{_demand.accountEmail}}</label>\r\n\r\n        </div>\r\n        <div class=\"col-md-2\">\r\n            <label> Statusul contului: {{_demand.accountStatus}}</label>\r\n\r\n        </div>\r\n        <div class=\"col-md-2\">\r\n            <label> Numar cereri: {{_demand.demandsCount}}</label>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 921 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var common_1 = __webpack_require__(27);
-	var modalDialog_1 = __webpack_require__(834);
-	var template = __webpack_require__(922);
-	var RejectDemandDialogComponent = (function (_super) {
-	    __extends(RejectDemandDialogComponent, _super);
-	    function RejectDemandDialogComponent(_formBuilder) {
-	        this.title = 'Mesaj';
-	        this.positiveLabel = 'Refuza';
-	        this.cancelLabel = 'Cancel';
-	        this.loadedEmitter = new core_1.EventEmitter();
-	        this.rejectAction = new core_1.EventEmitter();
-	        this._formBuilder = _formBuilder;
-	        this.rejectDemand = this._formBuilder.group([]);
-	        _super.call(this);
-	    }
-	    RejectDemandDialogComponent.prototype.ngOnInit = function () {
-	        this.rejectDemand.addControl('message', this._formBuilder.control('', common_1.Validators.compose([common_1.Validators.minLength(5), common_1.Validators.required])));
-	        this.loadedEmitter.emit(this);
-	    };
-	    RejectDemandDialogComponent.prototype.rejectDemandSubmit = function () {
-	        if (this.rejectDemand.valid) {
-	            this.rejectAction.emit(this.rejectDemand.value);
-	        }
-	    };
-	    __decorate([
-	        core_1.Input('title'), 
-	        __metadata('design:type', String)
-	    ], RejectDemandDialogComponent.prototype, "title", void 0);
-	    __decorate([
-	        core_1.Input('positive-label'), 
-	        __metadata('design:type', String)
-	    ], RejectDemandDialogComponent.prototype, "positiveLabel", void 0);
-	    __decorate([
-	        core_1.Input('cancel-label'), 
-	        __metadata('design:type', String)
-	    ], RejectDemandDialogComponent.prototype, "cancelLabel", void 0);
-	    __decorate([
-	        core_1.Output('loaded'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], RejectDemandDialogComponent.prototype, "loadedEmitter", void 0);
-	    __decorate([
-	        core_1.Output('request-reject'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], RejectDemandDialogComponent.prototype, "rejectAction", void 0);
-	    RejectDemandDialogComponent = __decorate([
-	        core_1.Component({
-	            selector: 'reject-demand-dialog',
-	            template: template,
-	        }), 
-	        __metadata('design:paramtypes', [common_1.FormBuilder])
-	    ], RejectDemandDialogComponent);
-	    return RejectDemandDialogComponent;
-	})(modalDialog_1.ModalDialog);
-	exports.RejectDemandDialogComponent = RejectDemandDialogComponent;
-	//# sourceMappingURL=rejectDemandDialogComponent.js.map
-
-/***/ },
-/* 922 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in\" tabindex=\"-1\" (click)=\"cancelAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\">\r\n    <div class=\"modal-dialog modal-lg\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <form [ngFormModel]=\"rejectDemand\" (ngSubmit)=\"rejectDemandSubmit()\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelAction()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h2 class=\"modal-title\">\r\n                        {{title}}\r\n                    </h2>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <label>Mesaj</label>\r\n                        <textarea class=\"form-control message-text\" [ngFormControl]=\"rejectDemand.controls['message']\"></textarea>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"cancelAction()\">{{cancelLabel}}\r\n                    </button>\r\n                    <button type=\"submit\" class=\"btn btn-danger btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n";
-
-/***/ },
-/* 923 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"demand-edit-page clearfix\">\r\n    <reject-demand-dialog\r\n        (loaded)=\"rejectDemandDialogLoaded($event)\"\r\n        (request-reject)=\"rejectDemand($event)\">\r\n    </reject-demand-dialog>\r\n    <demand-edit-component\r\n        [demand]=\"_demand\"\r\n        [demand-domains]=\"_demandDomains\"\r\n        (reject-demand)=\"showRejectDemandDialog($event)\"\r\n        (accept-demand)=\"acceptDemand($event)\"\r\n        (save-demand)=\"saveEditedDemand($event)\"\r\n        (go-to-List)=\"navigateToList($event)\">\r\n    </demand-edit-component>\r\n</div>";
-
-/***/ },
-/* 924 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var common_1 = __webpack_require__(27);
-	var companieTypesService_1 = __webpack_require__(925);
-	var companieType_1 = __webpack_require__(926);
-	var template = __webpack_require__(927);
-	var CompaniesPage = (function () {
-	    //</editor-fold>
-	    function CompaniesPage(companieTypeService, formBuilder) {
-	        //</editor-fold>
-	        //<editor-fold desc="Variables">
-	        this.companieTypes = [new companieType_1.CompanieType("", "test", 1), new companieType_1.CompanieType("", "test", 3), new companieType_1.CompanieType("", "test", 2)];
-	        this.searchQuery = "";
-	        this._companieTypeService = companieTypeService;
-	        this._formBuilder = formBuilder;
-	    }
-	    CompaniesPage.prototype.ngOnInit = function () {
-	        this.getCompanyTypesWithFilters();
-	        this._newDomainForm = this._formBuilder.group([]);
-	        this.buildDomainForm();
-	    };
-	    CompaniesPage.prototype.getCompanyTypesWithFilters = function () {
-	        var me = this;
-	        this._companieTypeService.getCompanyTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-	            .subscribe(function (response) {
-	            me.companieTypes = response;
-	        }, function (error) {
-	            me.companieTypes = [];
-	        });
-	    };
-	    CompaniesPage.prototype.addCompanieDomain = function () {
-	        var me = this;
-	        if (!this._newDomainForm.valid) {
-	            return;
-	        }
-	        this._companieTypeService.addCompanyType(this.newDomain)
-	            .subscribe(function (response) {
-	            me.getCompanyTypesWithFilters();
-	            me.newDomain = "";
-	            me.toggleAddCompanieDomain(false);
-	            me.rebuildForm();
-	        }, function (error) {
-	            //make the field red
-	            //this.companieTypes = [];
-	        });
-	    };
-	    CompaniesPage.prototype.deleteCompanyType = function (companyType) {
-	        var me = this;
-	        this._companieTypeService.deleteCompanyType(companyType.id)
-	            .subscribe(function (response) {
-	            me.getCompanyTypesWithFilters();
-	        }, function (error) {
-	            //me.companieTypes = [];
-	        });
-	    };
-	    CompaniesPage.prototype.editCompaniType = function (companyType) {
-	        var me = this;
-	        this._companieTypeService.editCompaniType(companyType)
-	            .subscribe(function (response) {
-	            companyType.isInEditMode = false;
-	            //this.companieTypes = response.data;
-	        }, function (error) {
-	            //this.companieTypes = [];
-	        });
-	    };
-	    CompaniesPage.prototype.toggleEditMode = function (companyType) {
-	        companyType.isInEditMode = true;
-	        companyType.companieTypeBackup = JSON.parse(JSON.stringify(companyType));
-	    };
-	    CompaniesPage.prototype.revertEdit = function (companieType) {
-	        companieType.isInEditMode = false;
-	        companieType.id = companieType.companieTypeBackup.id;
-	        companieType.companies_no = companieType.companieTypeBackup.companies_no;
-	        companieType.name = companieType.companieTypeBackup.name;
-	    };
-	    CompaniesPage.prototype.toggleAddCompanieDomain = function (value) {
-	        this.showAddCompanieDomainRow = value;
-	        if (!value) {
-	            this.newDomain = '';
-	            this.rebuildForm();
-	        }
-	    };
-	    CompaniesPage.prototype.buildDomainForm = function () {
-	        this._newDomainForm.addControl('newDomain', this._formBuilder.control(this.newDomain, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
-	    };
-	    CompaniesPage.prototype.rebuildForm = function () {
-	        this._newDomainForm.removeControl('newDomain');
-	        this.buildDomainForm();
-	    };
-	    CompaniesPage = __decorate([
-	        core_1.Component({
-	            selector: 'companies-Page',
-	            template: template,
-	        }), 
-	        __metadata('design:paramtypes', [companieTypesService_1.CompanieTypeService, common_1.FormBuilder])
-	    ], CompaniesPage);
-	    return CompaniesPage;
-	})();
-	exports.CompaniesPage = CompaniesPage;
-	//# sourceMappingURL=companiesPage.js.map
-
-/***/ },
-/* 925 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var fMarketApi_1 = __webpack_require__(797);
-	var CompanieTypeService = (function () {
-	    function CompanieTypeService(api) {
-	        this._CompanyDomainController = '/company/domains';
-	        this.api = api;
-	    }
-	    CompanieTypeService.prototype.getCompanyTypesWithFilters = function (searchQuery) {
-	        return this.api.get(this._CompanyDomainController);
-	    };
-	    CompanieTypeService.prototype.deleteCompanyType = function (companyId) {
-	        return this.api.delete(this._CompanyDomainController + ("/" + companyId));
-	    };
-	    CompanieTypeService.prototype.editCompaniType = function (companyDomain) {
-	        return this.api.put(this._CompanyDomainController, JSON.stringify({ id: companyDomain.id, newName: companyDomain.name }));
-	    };
-	    CompanieTypeService.prototype.addCompanyType = function (companyDomain) {
-	        return this.api.post(this._CompanyDomainController, JSON.stringify({ name: companyDomain }));
-	    };
-	    CompanieTypeService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [fMarketApi_1.FMarketApi])
-	    ], CompanieTypeService);
-	    return CompanieTypeService;
-	})();
-	exports.CompanieTypeService = CompanieTypeService;
-	//# sourceMappingURL=companieTypesService.js.map
-
-/***/ },
-/* 926 */
-/***/ function(module, exports) {
-
-	var CompanieType = (function () {
-	    function CompanieType(id, name, companies) {
-	        this.isInEditMode = false;
-	        this.id = id;
-	        this.name = name;
-	        //this.companies_no = companies;
-	    }
-	    return CompanieType;
-	})();
-	exports.CompanieType = CompanieType;
-	//# sourceMappingURL=companieType.js.map
-
-/***/ },
-/* 927 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"companies-page clearfix\">\r\n    <div class=\"col-lg-6 col-xs-12 remove-left-padding\">\r\n        <div class=\"companie-type-filter col-lg-6 col-xs-12 clearfix\">\r\n            <div class=\"search-field col-xs-12\">\r\n                <div class=\"input-group\">\r\n \t\t\t\t<span class=\"input-group-addon\">\r\n \t\t\t\t\t<span class=\"glyphicon glyphicon-search\"></span>\r\n \t\t\t\t</span>\r\n                    <input class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"searchQuery\"\r\n                           (ngModelChange)=\"getCompanyTypesWithFilters()\"/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"pull-right\">\r\n            <button class=\"btn btn-primary\" (click)=\"toggleAddCompanieDomain(true)\">\r\n                <span class=\"glyphicon glyphicon-plus\"></span> Adauga tip de companie\r\n            </button>\r\n        </div>\r\n        <div class=\"clearfix\"></div>\r\n        <div class=\"add-companie\" *ngIf=\"showAddCompanieDomainRow\">\r\n            <form [ngFormModel]=\"_newDomainForm\" (ngSubmit)=\"addCompanieDomain()\">\r\n                <div class=\"input-group\">\r\n                    <input [ngFormControl]=\"_newDomainForm.controls['newDomain']\" class=\"form-control\" [(ngModel)]=\"newDomain\"/>\r\n\r\n                    <div class=\"input-group-btn\">\r\n                        <button [disabled]=\"!_newDomainForm.valid\" type=\"submit\" class=\"btn btn-secondary btn-primary\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                            Creeaza\r\n                        </button>\r\n                        <button type=\"button\" class=\"btn btn-secondary btn-default\"\r\n                                (click)=\"toggleAddCompanieDomain(false)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                            Cancel\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n        <!-- *ngIf=\"showAddCompanieDomainRow\" -->\r\n        <div class=\"companie-type\">\r\n            <div class=\"list-group\">\r\n                <div *ngFor=\"let companieType of companieTypes\" class=\"list-group-item clearfix\">\r\n                    <div class=\"pull-right operation-labels\">\r\n                        <a class=\"secondary\" (click)=\"deleteCompanyType(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-trash\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"!companieType.isInEditMode\" class=\"secondary\" (click)=\"toggleEditMode(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-pencil\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"companieType.isInEditMode\" class=\"secondary\" (click)=\"revertEdit(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"companieType.isInEditMode\" class=\"secondary\" (click)=\"editCompaniType(companieType)\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                        </a>\r\n                        <span class=\"pull-right label label-info\">Companii: {{companieType.nrOfCompanies}}</span>\r\n                    </div>\r\n                    <div class=\"col-md-7 col-xs-4 col-sm-4\">\r\n                        <div *ngIf=\"!companieType.isInEditMode\" class=\"text-center-indent\">\r\n \t\t\t\t\t        <span [title]=\"companieType.name\">\r\n \t\t\t\t\t        \t{{companieType.name}}\r\n \t\t\t\t\t        </span>\r\n                        </div>\r\n                        <input autofocus *ngIf=\"companieType.isInEditMode\" class=\"form-control\" [(ngModel)]=\"companieType.name\"/>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 928 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by nick_ on 5/6/2016.
-	 */
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var router_1 = __webpack_require__(355);
-	var common_1 = __webpack_require__(27);
-	var companiesService_1 = __webpack_require__(861);
-	var notificationService_1 = __webpack_require__(825);
-	var companiesEditComponent_1 = __webpack_require__(929);
-	var companiesEditBase_1 = __webpack_require__(932);
-	var localizationService_1 = __webpack_require__(826);
-	var template = __webpack_require__(933);
-	var CompaniesEditPage = (function (_super) {
-	    __extends(CompaniesEditPage, _super);
-	    function CompaniesEditPage(location, router, companiesService, notificationService, localizationService) {
-	        _super.call(this, location, router, companiesService, notificationService, localizationService);
-	    }
-	    CompaniesEditPage.prototype.routerOnActivate = function (curr, prev, currTree, prevTree) {
-	        this.companieId = curr.getParam('id');
-	    };
-	    CompaniesEditPage.prototype.ngOnInit = function () {
-	        this.getCities();
-	        this.getCompanieDomains();
-	        this.getDomains();
-	        var me = this;
-	        this._companiesService.getCompanyDetails(parseInt(this.companieId))
-	            .subscribe(function (response) {
-	            response['city'] = response['city'] ? { displayName: response['city']['name'], boundItem: response['city'] } : null;
-	            response['companyDomain'] = response['companyDomain'] ? { displayName: response['companyDomain']['name'], boundItem: response['companyDomain'] } : null;
-	            response['demandDomains'] = me._localizationService.mapNameToSelect2Item(response['demandDomains']);
-	            me._companie = response;
-	        }, function (error) {
-	            me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!', 5);
-	            me._location.back();
-	        });
-	    };
-	    CompaniesEditPage.prototype.saveCompanie = function (companieDto) {
-	        var me = this;
-	        var logoFile = companieDto['logoFile'];
-	        companieDto['logoFile'] = null;
-	        this._companiesService.editCompany(companieDto)
-	            .subscribe(function (success) {
-	            if (logoFile) {
-	                me.uploadCompanyLogo(companieDto['id'], logoFile);
-	                return;
-	            }
-	            me._location.back();
-	        }, function (error) {
-	        });
-	    };
-	    CompaniesEditPage.prototype.uploadCompanyLogo = function (id, logoImage) {
-	        var me = this;
-	        this._companiesService.uploadCompanyLogo(id, logoImage)
-	            .subscribe(function (success) {
-	            me._location.back();
-	        }, function (error) {
-	        });
-	    };
-	    CompaniesEditPage = __decorate([
-	        core_1.Component({
-	            selector: 'companies-edit-page',
-	            template: template,
-	            directives: [companiesEditComponent_1.CompaniesEditComponent]
-	        }), 
-	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
-	    ], CompaniesEditPage);
-	    return CompaniesEditPage;
-	})(companiesEditBase_1.CompaniesEditBase);
-	exports.CompaniesEditPage = CompaniesEditPage;
-	//# sourceMappingURL=companiesEditPage.js.map
-
-/***/ },
-/* 929 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 5/6/2016.
-	 */
-	var _ = __webpack_require__(354);
-	var core_1 = __webpack_require__(30);
-	var common_1 = __webpack_require__(27);
-	var newCompanyRequest_1 = __webpack_require__(930);
-	var Angular2ExtensionValidators_1 = __webpack_require__(827);
-	var selectComponent_1 = __webpack_require__(830);
-	var template = __webpack_require__(931);
-	var CompaniesEditComponent = (function () {
-	    function CompaniesEditComponent(formBuilder) {
-	        this.saveCompanieEmitter = new core_1.EventEmitter();
-	        this.loaded = new core_1.EventEmitter();
-	        this.discardChangesEmitter = new core_1.EventEmitter();
-	        this._formBuilder = formBuilder;
-	    }
-	    CompaniesEditComponent.prototype.ngOnInit = function () {
-	        this._companieEditForm = this._formBuilder.group([]);
-	        if (!this._companieEditFormModel) {
-	            this._companieEditFormModel = newCompanyRequest_1.NewCompanyRequest.getEmptyCompany();
-	        }
-	        this.buildCompanieEditForm();
-	        this.loaded.emit(this);
-	    };
-	    CompaniesEditComponent.prototype.destroyCompanieEditForm = function () {
-	        var me = this;
-	        _.each(this.getCompanieFormControls(), function (value) {
-	            me._companieEditForm.removeControl(value);
-	        });
-	    };
-	    CompaniesEditComponent.prototype.buildCompanieEditForm = function () {
-	        this._companieEditForm.addControl('name', this._formBuilder.control(this._companieEditFormModel.name, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
-	        this._companieEditForm.addControl('email', this._formBuilder.control(this._companieEditFormModel.email, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateEmail])));
-	        var passwordValidators = this.editMode ? [Angular2ExtensionValidators_1.CustomValidators.validatePassword] : [common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePassword];
-	        this._companieEditForm.addControl('password', this._formBuilder.control(this._companieEditFormModel.password, common_1.Validators.compose()));
-	        this._companieEditForm.addControl('phone', this._formBuilder.control(this._companieEditFormModel.phone, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validatePhoneNumber])));
-	        this._companieEditForm.addControl('contactPerson', this._formBuilder.control(this._companieEditFormModel.contactPerson, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
-	        this._companieEditForm.addControl('address', this._formBuilder.control(this._companieEditFormModel.address, common_1.Validators.required));
-	        this._companieEditForm.addControl('cityId', this._formBuilder.control(this._companieEditFormModel.cityId));
-	        this._companieEditForm.addControl('companyDomain', this._formBuilder.control(this._companieEditFormModel.companyDomain));
-	        this._companieEditForm.addControl('demandDomains', this._formBuilder.control(this._companieEditFormModel.demandDomains));
-	    };
-	    CompaniesEditComponent.prototype.getCompanieFormControls = function () {
-	        var colector = [];
-	        _.each(this._companieEditForm.controls, function (control, name) {
-	            colector[name] = name;
-	        });
-	        return colector;
-	    };
-	    CompaniesEditComponent.prototype.saveFile = function ($event) {
-	        this.fileUpload = $event.srcElement.files;
-	    };
-	    CompaniesEditComponent.prototype.saveEditedCompanie = function () {
-	        if (!this._companieEditForm.valid) {
-	            return;
-	        }
-	        var requestObject = _.clone(this._companieEditFormModel);
-	        requestObject.cityId = this.selectCity && this.selectCity._selectedItem && this.selectCity._selectedItem.boundItem ? this.selectCity._selectedItem.boundItem['id'] : null;
-	        requestObject.companyDomainId = this.selectCompanyDomain && this.selectCompanyDomain._selectedItem && this.selectCompanyDomain._selectedItem.boundItem ? this.selectCompanyDomain._selectedItem.boundItem['id'] : null;
-	        requestObject.demandDomains = this.selectDemandDomain && this.selectDemandDomain._selectedItems && this.selectDemandDomain._selectedItems.length > 0 ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
-	        requestObject['demandDomainIds'] = this.selectDemandDomain && this.selectDemandDomain._selectedItems && this.selectDemandDomain._selectedItems.length > 0 ? this.getDemandDomains(this.selectDemandDomain._selectedItems) : null;
-	        requestObject['logoFile'] = this.fileUpload;
-	        this.saveCompanieEmitter.emit(requestObject);
-	    };
-	    CompaniesEditComponent.prototype.referenceSelectCityComponent = function ($event) {
-	        this.selectCity = $event;
-	    };
-	    CompaniesEditComponent.prototype.referenceSelectCompanyDomainComponent = function ($event) {
-	        this.selectCompanyDomain = $event;
-	    };
-	    CompaniesEditComponent.prototype.referenceSelectDemandDomainComponent = function ($event) {
-	        this.selectDemandDomain = $event;
-	    };
-	    CompaniesEditComponent.prototype.goToPreviousPage = function () {
-	        this.discardChangesEmitter.emit(null);
-	    };
-	    CompaniesEditComponent.prototype.getDemandDomains = function (_selectedItems) {
-	        return _.map(_selectedItems, function (item) {
-	            if (item) {
-	                return item['boundItem']['id'];
-	            }
-	        });
-	    };
-	    __decorate([
-	        core_1.Input('companie-model'), 
-	        __metadata('design:type', newCompanyRequest_1.NewCompanyRequest)
-	    ], CompaniesEditComponent.prototype, "_companieEditFormModel", void 0);
-	    __decorate([
-	        core_1.Input('company-domains'), 
-	        __metadata('design:type', Array)
-	    ], CompaniesEditComponent.prototype, "_companyDomains", void 0);
-	    __decorate([
-	        core_1.Input('cities'), 
-	        __metadata('design:type', Array)
-	    ], CompaniesEditComponent.prototype, "_cities", void 0);
-	    __decorate([
-	        core_1.Input('domains'), 
-	        __metadata('design:type', Array)
-	    ], CompaniesEditComponent.prototype, "_domains", void 0);
-	    __decorate([
-	        core_1.Input('edit-mode'), 
-	        __metadata('design:type', Boolean)
-	    ], CompaniesEditComponent.prototype, "editMode", void 0);
-	    __decorate([
-	        core_1.Output('save-edited-companie'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], CompaniesEditComponent.prototype, "saveCompanieEmitter", void 0);
-	    __decorate([
-	        core_1.Output('reference-companie-edit-component'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], CompaniesEditComponent.prototype, "loaded", void 0);
-	    __decorate([
-	        core_1.Output('discard-changes-companie'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], CompaniesEditComponent.prototype, "discardChangesEmitter", void 0);
-	    CompaniesEditComponent = __decorate([
-	        core_1.Component({
-	            selector: 'companies-edit-componet',
-	            template: template,
-	            directives: [selectComponent_1.SelectComponent, common_1.NgIf],
-	            styles: ["\n        @media (max-width: 990px) {\n            .actions {\n                pa\n            } \n            \n            .actions .btn{\n                width: 100%;\n            }\n        }\n    "]
-	        }), 
-	        __metadata('design:paramtypes', [common_1.FormBuilder])
-	    ], CompaniesEditComponent);
-	    return CompaniesEditComponent;
-	})();
-	exports.CompaniesEditComponent = CompaniesEditComponent;
-	//# sourceMappingURL=companiesEditComponent.js.map
-
-/***/ },
-/* 930 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by NicolaeB on 5/26/2016.
-	 */
-	var NewCompanyRequest = (function () {
-	    function NewCompanyRequest(name, email, phone, contactPerson, address, cityId, companyDomainId, demandDomains) {
-	        this.name = name;
-	        this.email = email;
-	        this.phone = phone;
-	        this.contactPerson = contactPerson;
-	        this.address = address;
-	        this.cityId = cityId;
-	        this.companyDomainId = companyDomainId;
-	        this.demandDomains = demandDomains;
-	    }
-	    NewCompanyRequest.getEmptyCompany = function () {
-	        return new NewCompanyRequest("", "", "", "", "", -1, -1, []);
-	    };
-	    return NewCompanyRequest;
-	})();
-	exports.NewCompanyRequest = NewCompanyRequest;
-	//# sourceMappingURL=newCompanyRequest.js.map
-
-/***/ },
-/* 931 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"companie-edit-component clearfix\">\r\n    <form [ngFormModel]=\"_companieEditForm\" (ngSubmit)=\"saveEditedCompanie()\">\r\n        <div class=\"companie-edit\">\r\n            <div class=\"form-group\">\r\n                <label>Nume companie</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['name']\" [(ngModel)]=\"_companieEditFormModel.name\" class=\"form-control\"\r\n                       placeholder=\"Nume companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Email companie</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['email']\" [(ngModel)]=\"_companieEditFormModel.email\" class=\"form-control\"\r\n                       placeholder=\"Email companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Parola</label>\r\n                <input type=\"password\" [ngFormControl]=\"_companieEditForm.controls['password']\" [(ngModel)]=\"_companieEditFormModel.password\" class=\"form-control\"\r\n                   placeholder=\"Parola cont companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Telefon</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['phone']\" [(ngModel)]=\"_companieEditFormModel.phone\" class=\"form-control\"\r\n                       placeholder=\"0712345689\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Numele persoanei de contact</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['contactPerson']\" [(ngModel)]=\"_companieEditFormModel.contactPerson\" class=\"form-control\"\r\n                       placeholder=\"Numele persoanei de contact\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Adresa companie</label>\r\n                <input type=\"text\" [ngFormControl]=\"_companieEditForm.controls['address']\" [(ngModel)]=\"_companieEditFormModel.address\" class=\"form-control\"\r\n                       placeholder=\"Adresa companie\"/>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Oras</label>\r\n                <select-component\r\n                        [select-items]=\"_cities\"\r\n                        [single-item-selected]=\"_companieEditFormModel.city\"\r\n                        [multi-select]=\"false\"\r\n                        (loaded)=\"referenceSelectCityComponent($event)\"\r\n                ></select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Domeniu companie</label>\r\n                <select-component\r\n                        [select-items]=\"_companyDomains\"\r\n                        [single-item-selected]=\"_companieEditFormModel.companyDomain\"\r\n                        [multi-select]=\"false\"\r\n                        (loaded)=\"referenceSelectCompanyDomainComponent($event)\"\r\n                ></select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Domeniu cereri</label>\r\n                <select-component\r\n                        [select-items]=\"_domains\"\r\n                        [selected-items]=\"_companieEditFormModel.demandDomains\"\r\n                        [multi-select]=\"true\"\r\n                        (loaded)=\"referenceSelectDemandDomainComponent($event)\"\r\n                ></select-component>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label>Logo companie</label>\r\n                <input type=\"file\" accept=\".jpg,.jpeg\" (change)=\"saveFile($event)\" />\r\n            </div>\r\n        </div>\r\n        <div class=\"actions\">\r\n            <button type=\"submit\" class=\"btn btn-success\">\r\n                Salveaza\r\n            </button>\r\n            <button type=\"button\" class=\"btn btn-primary\" (click)=\"goToPreviousPage()\">\r\n                Inapoi\r\n            </button>\r\n        </div>\r\n    </form>\r\n</div>";
-
-/***/ },
-/* 932 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var newCompanyRequest_1 = __webpack_require__(930);
-	var CompaniesEditBase = (function () {
-	    function CompaniesEditBase(location, router, companiesService, notificationService, localizationService) {
-	        this._router = router;
-	        this._companiesService = companiesService;
-	        this._notificationService = notificationService;
-	        this._location = location;
-	        this._localizationService = localizationService;
-	        this._companie = newCompanyRequest_1.NewCompanyRequest.getEmptyCompany();
-	    }
-	    CompaniesEditBase.prototype.referenceComponent = function (companieEditComponent) {
-	        this._companieEditComponent = companieEditComponent;
-	    };
-	    CompaniesEditBase.prototype.goToPreviousLocation = function () {
-	        this._location.back();
-	    };
-	    CompaniesEditBase.prototype.getCities = function () {
-	        var me = this;
-	        this._localizationService.getCityList()
-	            .subscribe(function (success) {
-	            me._cities = me._localizationService.mapNameToSelect2Item(success);
-	        }, function (error) {
-	            me._cities = new Array();
-	        });
-	    };
-	    CompaniesEditBase.prototype.getCompanieDomains = function () {
-	        var me = this;
-	        this._companiesService.getCompanieDomains()
-	            .subscribe(function (success) {
-	            me._companyDomains = me._localizationService.mapNameToSelect2Item(success);
-	        }, function (error) {
-	            me._companyDomains = new Array();
-	        });
-	    };
-	    CompaniesEditBase.prototype.getDomains = function () {
-	        var me = this;
-	        this._companiesService.getDemandDomanins()
-	            .subscribe(function (success) {
-	            me._domains = me._localizationService.mapNameToSelect2Item(success);
-	        }, function (error) {
-	            me._domains = new Array();
-	        });
-	    };
-	    return CompaniesEditBase;
-	})();
-	exports.CompaniesEditBase = CompaniesEditBase;
-	//# sourceMappingURL=companiesEditBase.js.map
-
-/***/ },
-/* 933 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"companies-edit-page clearfix\">\r\n    <companies-edit-componet\r\n        [edit-mode]=\"true\"\r\n        [companie-model]=\"_companie\"\r\n        [company-domains]=\"_companyDomains\"\r\n        [cities]=\"_cities\"\r\n        [domains]=\"_domains\"\r\n        (save-edited-companie)=\"saveCompanie($event)\"\r\n        (navigate-back)=\"goToPreviousLocation()\"\r\n        (reference-companie-edit-component)=\"referenceComponent($event)\"\r\n    ></companies-edit-componet>\r\n</div>";
-
-/***/ },
-/* 934 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by nick_ on 5/6/2016.
-	 */
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var router_1 = __webpack_require__(355);
-	var common_1 = __webpack_require__(27);
-	var companiesService_1 = __webpack_require__(861);
-	var notificationService_1 = __webpack_require__(825);
-	var companiesEditComponent_1 = __webpack_require__(929);
-	var companiesEditBase_1 = __webpack_require__(932);
-	var localizationService_1 = __webpack_require__(826);
-	var template = __webpack_require__(933);
-	var CompanieCreatePage = (function (_super) {
-	    __extends(CompanieCreatePage, _super);
-	    function CompanieCreatePage(location, router, companiesService, notificationService, localizationService) {
-	        _super.call(this, location, router, companiesService, notificationService, localizationService);
-	    }
-	    CompanieCreatePage.prototype.ngOnInit = function () {
-	        this.getCities();
-	        this.getCompanieDomains();
-	        this.getDomains();
-	    };
-	    CompanieCreatePage.prototype.saveCompanie = function (companieDto) {
-	        var me = this;
-	        this._companiesService.createCompany(companieDto)
-	            .subscribe(function (succes) {
-	            if (companieDto['logoFile']) {
-	                me.uploadLogoFile(succes, companieDto['logoFile']);
-	                return;
-	            }
-	            me._location.back();
-	        }, function (error) {
-	            //me.
-	        });
-	    };
-	    CompanieCreatePage.prototype.uploadLogoFile = function (id, logoFile) {
-	        var me = this;
-	        this._companiesService.uploadCompanyLogo(id, logoFile)
-	            .subscribe(function (succes) {
-	            me._location.back();
-	        }, function (error) {
-	        });
-	    };
-	    CompanieCreatePage = __decorate([
-	        core_1.Component({
-	            selector: 'companies-edit-page',
-	            template: template,
-	            directives: [companiesEditComponent_1.CompaniesEditComponent]
-	        }), 
-	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, companiesService_1.CompaniesService, notificationService_1.NotificationService, localizationService_1.LocalizationService])
-	    ], CompanieCreatePage);
-	    return CompanieCreatePage;
-	})(companiesEditBase_1.CompaniesEditBase);
-	exports.CompanieCreatePage = CompanieCreatePage;
-	//# sourceMappingURL=companiesCreatePage.js.map
-
-/***/ },
-/* 935 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var categoriesPage_1 = __webpack_require__(912);
-	var categoriesMenuPage_1 = __webpack_require__(936);
-	var companiesPage_1 = __webpack_require__(924);
-	var domainsPage_1 = __webpack_require__(940);
+	"use strict";
+	var categoriesPage_1 = __webpack_require__(864);
+	var categoriesMenuPage_1 = __webpack_require__(867);
+	var companiesPage_1 = __webpack_require__(871);
+	var domainsPage_1 = __webpack_require__(875);
 	var Roles_1 = __webpack_require__(821);
+	var AuthorizationFilter_1 = __webpack_require__(946);
 	exports.CATEGORIES_PAGE_ROUTE_PROVIDERS = [
 	    {
 	        path: 'categorii',
@@ -103559,17 +104314,20 @@
 	            {
 	                path: 'meniu',
 	                component: categoriesMenuPage_1.CategoriesMenuPage,
-	                roles: [Roles_1.Role.ADMIN]
+	                roles: [Roles_1.Role.ADMIN],
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            },
 	            {
 	                path: 'firme',
 	                component: companiesPage_1.CompaniesPage,
-	                roles: [Roles_1.Role.ADMIN]
+	                roles: [Roles_1.Role.ADMIN],
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            },
 	            {
 	                path: 'domenii',
 	                component: domainsPage_1.DomainsPage,
-	                roles: [Roles_1.Role.ADMIN]
+	                roles: [Roles_1.Role.ADMIN],
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            },
 	        ]
 	    }
@@ -103577,9 +104335,13 @@
 	//# sourceMappingURL=categories.routes.js.map
 
 /***/ },
-/* 936 */
+/* 946 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Created by NicolaeB on 7/12/2016.
+	 */
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -103589,408 +104351,49 @@
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var core_1 = __webpack_require__(30);
-	var categoriesMenuService_1 = __webpack_require__(796);
-	var menuTreeComponent_1 = __webpack_require__(835);
-	var menuItemDialog_1 = __webpack_require__(937);
-	var selectComponent_1 = __webpack_require__(830);
 	var authorizationService_1 = __webpack_require__(793);
 	var Roles_1 = __webpack_require__(821);
-	var template = __webpack_require__(939);
-	var CategoriesMenuPage = (function () {
-	    //</editor-fold>
-	    function CategoriesMenuPage(_categoriesMenuService) {
-	        //</editor-fold>
-	        //<editor-fold desc="Variables">
-	        this.menuDictionary = [];
-	        this.isAdminUser = authorizationService_1.AuthorizationService.isLoggedIn() && authorizationService_1.AuthorizationService.hasRole(Roles_1.Role.ADMIN);
-	        this._categoriesMenuService = _categoriesMenuService;
-	        // code...
-	    }
-	    CategoriesMenuPage.prototype.ngOnInit = function () {
-	        this.getMenuDictionary();
-	        this.getDomains();
-	    };
-	    CategoriesMenuPage.prototype.referenceModal = function (modal) {
-	        this._menuItemModal = modal;
-	    };
-	    CategoriesMenuPage.prototype.getMenuDictionary = function () {
-	        var me = this;
-	        this._categoriesMenuService.getMenuDictionary()
-	            .subscribe(function (response) {
-	            me.menuDictionary = response;
-	        }, function (error) {
-	            me.menuDictionary = [];
-	        });
-	    };
-	    CategoriesMenuPage.prototype.selectMenuItem = function (menuItem) {
-	        //
-	    };
-	    CategoriesMenuPage.prototype.showAddMenuModal = function (parentId) {
-	        this._modalInterface = { parentId: parentId, operationType: "new", positiveLabel: "Create", id: null };
-	        this._menuItemModal.show(this._modalInterface);
-	    };
-	    CategoriesMenuPage.prototype.addMenuItem = function (newDomainMenuItemRequest) {
-	        var me = this;
-	        me._categoriesMenuService.addMenuItem(newDomainMenuItemRequest)
-	            .subscribe(function (response) {
-	            me._menuItemModal.hide();
-	            me.getMenuDictionary();
-	        }, function (error) {
-	            // me._menuItemModal.showErrors();
-	        });
-	    };
-	    CategoriesMenuPage.prototype.showEditMenuModal = function (menuToUpdate) {
-	        this._menuItemModal.update({
-	            operationType: "update",
-	            positiveLabel: "Update",
-	            menuModel: menuToUpdate,
-	            id: null
-	        });
-	    };
-	    CategoriesMenuPage.prototype.editMenuItem = function (updateDomainMenuItemRequest) {
-	        var me = this;
-	        me._categoriesMenuService.updateMenuItem(updateDomainMenuItemRequest)
-	            .subscribe(function (response) {
-	            me._menuItemModal.hide();
-	            me.getMenuDictionary();
-	        }, function (error) {
-	            // me._menuItemModal.showErrors();
-	        });
-	    };
-	    CategoriesMenuPage.prototype.deleteMenuItem = function (id) {
-	        var _this = this;
-	        this._categoriesMenuService.deleteMenuItem(id)
-	            .subscribe(function (response) {
-	            _this.getMenuDictionary();
-	        }, function (errod) {
-	        });
-	    };
-	    CategoriesMenuPage.prototype.getDomains = function () {
-	        var me = this;
-	        this._categoriesMenuService.getDomains()
-	            .subscribe(function (response) {
-	            me._domains = response;
-	        }, function (error) {
-	            me._domains = [];
-	        });
-	    };
-	    CategoriesMenuPage = __decorate([
-	        core_1.Component({
-	            selector: 'companies-Page',
-	            template: template,
-	            //styleUrls: [applicationPath + '/categoriesMenuPage.css'],
-	            directives: [menuTreeComponent_1.MenuTreeComponent, menuItemDialog_1.MenuItemDialog, selectComponent_1.SelectComponent],
-	        }), 
-	        __metadata('design:paramtypes', [categoriesMenuService_1.CategoriesMenuService])
-	    ], CategoriesMenuPage);
-	    return CategoriesMenuPage;
-	})();
-	exports.CategoriesMenuPage = CategoriesMenuPage;
-	//# sourceMappingURL=categoriesMenuPage.js.map
-
-/***/ },
-/* 937 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 4/9/2016.
-	 */
 	var core_1 = __webpack_require__(30);
-	var common_1 = __webpack_require__(27);
-	var selectComponent_1 = __webpack_require__(830);
-	var Angular2ExtensionValidators_1 = __webpack_require__(827);
-	var template = __webpack_require__(938);
-	//used template to not download the same html multiple times
-	var MenuItemDialog = (function () {
-	    function MenuItemDialog(formBuilder) {
-	        this.modalLoaded = new core_1.EventEmitter();
-	        this.newMenuItemEmitter = new core_1.EventEmitter();
-	        this.updateMenuItemEmitter = new core_1.EventEmitter();
-	        this._formBuilder = formBuilder;
-	        this._menuItem = this._formBuilder.group([]);
+	var AuthorizationFilter = (function () {
+	    function AuthorizationFilter() {
 	    }
-	    MenuItemDialog.prototype.ngOnInit = function () {
-	        this.modalLoaded.emit(this);
-	        this._validForm = true;
-	        this.buildMenuItemForm();
+	    AuthorizationFilter.prototype.canActivate = function (activatedRoute, state) {
+	        var requiredUserRoles = activatedRoute['_routeConfig'] ? activatedRoute['_routeConfig'].roles : null;
+	        return this.authorizeRoute(requiredUserRoles);
 	    };
-	    MenuItemDialog.prototype.ngOnChanges = function (changes) {
-	        if (changes.hasOwnProperty('domainsList') && this.domainsList) {
-	            this.items = this.domainsList.map(function (domain) {
-	                return {
-	                    displayName: domain['name'],
-	                    boundItem: domain
-	                };
-	            });
+	    AuthorizationFilter.prototype.authorizeRoute = function (requiredRoles) {
+	        var authorized = false;
+	        var activeUserRole = authorizationService_1.AuthorizationService.getUserRole();
+	        if (!requiredRoles) {
+	            requiredRoles = [Roles_1.Role.ANONYMUS, Roles_1.Role.USER];
 	        }
-	    };
-	    MenuItemDialog.prototype.submitMenuItem = function () {
-	        if (!this._menuItem.valid) {
-	            return;
+	        if (!activeUserRole) {
+	            activeUserRole = Roles_1.Role.ANONYMUS;
 	        }
-	        this.positiveAction();
+	        return requiredRoles.indexOf(activeUserRole) !== -1;
 	    };
-	    MenuItemDialog.prototype.show = function (newModal) {
-	        this.fatchModel(newModal);
-	        this.showModal = true;
-	    };
-	    MenuItemDialog.prototype.referenceSelectComponent = function (select) {
-	        this._select = select;
-	        //build the form only when component is ready
-	    };
-	    MenuItemDialog.prototype.update = function (newModal) {
-	        this.fatchUpdateModel(newModal);
-	        this.showModal = true;
-	    };
-	    MenuItemDialog.prototype.hide = function () {
-	        this.clearModal();
-	        this.showModal = false;
-	    };
-	    MenuItemDialog.prototype.positiveAction = function () {
-	        switch (this.operationType) {
-	            case 'new':
-	                this.newMenuItemEmitter.emit({
-	                    parentId: this.parentId,
-	                    name: this.name,
-	                    orderNr: this.orderNr,
-	                    domainId: this._select._selectedItem.boundItem ? this._select._selectedItem.boundItem['id'] : null
-	                });
-	                break;
-	            case 'update':
-	                this.updateMenuItemEmitter.emit({ id: this.id, newName: this.name, orderNr: this.orderNr, domainId: this._select._selectedItem.boundItem ? this._select._selectedItem.boundItem['id'] : null });
-	                break;
-	        }
-	    };
-	    MenuItemDialog.prototype.cancelAction = function () {
-	        this.clearModal();
-	        this.showModal = false;
-	    };
-	    MenuItemDialog.prototype.stopPropagation = function ($event) {
-	        $event.stopPropagation();
-	    };
-	    MenuItemDialog.prototype.clearModal = function () {
-	        this.parentId = -1;
-	        this.id = "";
-	        this.name = "";
-	        this.orderNr = "";
-	        this._select.selectItem(this._select._chooseItemValue);
-	        this.rebuildFormControls();
-	    };
-	    MenuItemDialog.prototype.fatchModel = function (newModal) {
-	        this.parentId = newModal.parentId;
-	        this.positiveLabel = newModal.positiveLabel;
-	        this.operationType = newModal.operationType;
-	        this.id = newModal.id;
-	    };
-	    MenuItemDialog.prototype.fatchUpdateModel = function (newModal) {
-	        this.id = newModal.menuModel['id'];
-	        this.name = newModal.menuModel['name'];
-	        this.orderNr = newModal.menuModel['orderNr'];
-	        this.selectItemById(newModal.menuModel['domainId']);
-	        this.positiveLabel = newModal.positiveLabel;
-	        this.operationType = newModal.operationType;
-	    };
-	    MenuItemDialog.prototype.selectItemById = function (domainId) {
-	        var i = 0;
-	        while (i < this.items.length) {
-	            if (this.items[i].boundItem && this.items[i].boundItem['id'] === domainId) {
-	                this._select._selectedItem = this.items[i];
-	                return;
-	            }
-	            i++;
-	        }
-	    };
-	    MenuItemDialog.prototype.buildMenuItemForm = function () {
-	        this._menuItem.addControl('orderNr', this._formBuilder.control(this.orderNr, common_1.Validators.compose([common_1.Validators.required, Angular2ExtensionValidators_1.CustomValidators.validateInteger])));
-	        this._menuItem.addControl('name', this._formBuilder.control(this.orderNr, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
-	    };
-	    MenuItemDialog.prototype.rebuildFormControls = function () {
-	        this._menuItem.removeControl('orderNr');
-	        this._menuItem.removeControl('name');
-	        this.buildMenuItemForm();
-	    };
-	    __decorate([
-	        core_1.Output('modal-loaded'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], MenuItemDialog.prototype, "modalLoaded", void 0);
-	    __decorate([
-	        core_1.Output('add-menu-item'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], MenuItemDialog.prototype, "newMenuItemEmitter", void 0);
-	    __decorate([
-	        core_1.Output('update-menu-item'), 
-	        __metadata('design:type', core_1.EventEmitter)
-	    ], MenuItemDialog.prototype, "updateMenuItemEmitter", void 0);
-	    __decorate([
-	        core_1.Input('domains-list'), 
-	        __metadata('design:type', Array)
-	    ], MenuItemDialog.prototype, "domainsList", void 0);
-	    MenuItemDialog = __decorate([
-	        core_1.Component({
-	            selector: 'menu-item-dialog',
-	            template: template,
-	            styles: ["\n        .ng-dirty.ng-invalid.ng-touched {\n            border-color: #ab2424;\n        \n        }\n        \n        .ng-dirty.ng-invalid.ng-touched:focus {\n            border-color: #ab2424;\n            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #ab2424;\n        }\n    "],
-	            directives: [common_1.FORM_DIRECTIVES, selectComponent_1.SelectComponent]
-	        }), 
-	        __metadata('design:paramtypes', [common_1.FormBuilder])
-	    ], MenuItemDialog);
-	    return MenuItemDialog;
-	})();
-	exports.MenuItemDialog = MenuItemDialog;
-	//# sourceMappingURL=menuItemDialog.js.map
+	    AuthorizationFilter = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [])
+	    ], AuthorizationFilter);
+	    return AuthorizationFilter;
+	}());
+	exports.AuthorizationFilter = AuthorizationFilter;
+	//# sourceMappingURL=AuthorizationFilter.js.map
 
 /***/ },
-/* 938 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"modal-backdrop fade in\" [style.display]=\"showModal ? 'block' : 'none'\"></div>\r\n<div class=\"modal fade bs-example-modal-lg in menu-item-dialog\" tabindex=\"-1\" (click)=\"cancelAction()\" role=\"dialog\"\r\n     [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\">\r\n    <div class=\"modal-dialog modal-dialog-very-sm modal\" [style.display]=\"showModal ? 'block' : 'none'\" [style.opacity]=\"showModal ? 1 : 0\" (click)=\"stopPropagation($event)\">\r\n        <div class=\"modal-content\">\r\n            <form [ngFormModel]=\"_menuItem\" (ngSubmit)=\"submitMenuItem()\">\r\n                <div class=\"modal-header\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"cancelAction()\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h4 class=\"modal-title\">\r\n                        Adauga\r\n                    </h4>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                    <div class=\"form-group\">\r\n                        <label>Pozitie</label>\r\n                        <input type=\"number\" class=\"form-control\" [(ngFormControl)]=\"_menuItem.controls['orderNr']\"\r\n                               [(ngModel)]=\"orderNr\"/>\r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <label>Denumire</label>\r\n                        <input class=\"form-control\" [(ngFormControl)]=\"_menuItem.controls['name']\" [(ngModel)]=\"name\"/>\r\n                    </div>\r\n                    <div>\r\n                        <label>Domeniu</label>\r\n                        <select-component\r\n                                [select-items]=\"items\"\r\n                                [single-item-selected]=\"selectedItem\"\r\n                                [multi-select]=\"false\"\r\n                                (loaded)=\"referenceSelectComponent($event)\"\r\n                        ></select-component>\r\n                    </div>\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                    <button type=\"button\" class=\"btn btn-default btn-sm\" (click)=\"hide()\">Cancel</button>\r\n                    <button type=\"submit\" class=\"btn btn-primary btn-sm\"> {{positiveLabel}}\r\n                    </button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 939 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"categories-menu-page\">\r\n    <div class=\"clearfix\">\r\n        <menu-item-dialog\r\n                [domains-list]=\"_domains\"\r\n                (modal-loaded)=\"referenceModal($event)\"\r\n                (add-menu-item)=\"addMenuItem($event)\"\r\n                (update-menu-item)=\"editMenuItem($event)\"\r\n        ></menu-item-dialog>\r\n        <menu-component\r\n                [use-domain-marker]=\"true\"\r\n                [menu-tree-data]=\"menuDictionary\"\r\n                [remove-position]=\"false\"\r\n                [enable-operations]=\"isAdminUser\"\r\n                (item-selected)=\"selectMenuItem($event)\"\r\n                (add-menu-item)=\"showAddMenuModal($event)\"\r\n                (edit-menu-item)=\"showEditMenuModal($event)\"\r\n                (delete-menu-item)=\"deleteMenuItem($event)\">\r\n        </menu-component>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 940 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var common_1 = __webpack_require__(27);
-	var requestTypeService_1 = __webpack_require__(917);
-	var template = __webpack_require__(941);
-	var DomainsPage = (function () {
-	    //</editor-fold>
-	    function DomainsPage(requestTypeService, formBuilder) {
-	        //</editor-fold>
-	        //<editor-fold desc="Variables">
-	        this.searchQuery = "";
-	        this.domainsTypes = [];
-	        this._requestTypeService = requestTypeService;
-	        this._formBuilder = formBuilder;
-	    }
-	    DomainsPage.prototype.ngOnInit = function () {
-	        this._newDomainForm = this._formBuilder.group([]);
-	        this.getRequestTypesWithFilters();
-	        this.buildForm();
-	    };
-	    DomainsPage.prototype.getRequestTypesWithFilters = function () {
-	        var me = this;
-	        this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
-	            .subscribe(function (response) {
-	            me.domainsTypes = response;
-	        }, function (error) {
-	            me.domainsTypes = [];
-	        });
-	    };
-	    DomainsPage.prototype.addRequestType = function () {
-	        if (!this._newDomainForm.valid) {
-	            return;
-	        }
-	        var me = this;
-	        this._requestTypeService.addRequestType(this.newRequestType)
-	            .subscribe(function (response) {
-	            me.getRequestTypesWithFilters();
-	            me.newRequestType = "";
-	            me.toggleAddRequestType(false);
-	        }, function (error) {
-	            //make the field red
-	            //this.companieTypes = [];
-	        });
-	    };
-	    DomainsPage.prototype.deleteRequestType = function (requestType) {
-	        var me = this;
-	        this._requestTypeService.deleteRequestType(requestType.id)
-	            .subscribe(function (response) {
-	            me.domainsTypes = response;
-	            me.getRequestTypesWithFilters();
-	        }, function (error) {
-	            me.getRequestTypesWithFilters();
-	        });
-	    };
-	    DomainsPage.prototype.editRequestType = function (requestType) {
-	        var me = this;
-	        this._requestTypeService.editRequestType(requestType)
-	            .subscribe(function (response) {
-	            requestType.isInEditMode = false;
-	            //this.companieTypes = response.data;
-	        }, function (error) {
-	            //this.companieTypes = [];
-	        });
-	    };
-	    DomainsPage.prototype.toggleAddRequestType = function (value) {
-	        this.showAddRequestRow = value;
-	        if (!value) {
-	            this.rebuildForm();
-	        }
-	    };
-	    DomainsPage.prototype.toggleEditMode = function (requestType) {
-	        requestType.isInEditMode = true;
-	        requestType.backupRequestType = JSON.parse(JSON.stringify(requestType));
-	    };
-	    DomainsPage.prototype.revertEdit = function (requestType) {
-	        requestType.isInEditMode = false;
-	        requestType.id = requestType.backupRequestType.id;
-	        requestType.companies = requestType.backupRequestType.companies;
-	        requestType.name = requestType.backupRequestType.name;
-	    };
-	    DomainsPage.prototype.rebuildForm = function () {
-	        this._newDomainForm.removeControl('newRequestType');
-	        this.buildForm();
-	    };
-	    DomainsPage.prototype.buildForm = function () {
-	        this._newDomainForm.addControl('newRequestType', this._formBuilder.control(this.newRequestType, common_1.Validators.compose([common_1.Validators.required, common_1.Validators.minLength(3)])));
-	    };
-	    DomainsPage = __decorate([
-	        core_1.Component({
-	            selector: 'companies-Page',
-	            template: template,
-	            //styleUrls: [applicationPath + '/domainsPage.css'],
-	            directives: [common_1.FORM_DIRECTIVES]
-	        }), 
-	        __metadata('design:paramtypes', [requestTypeService_1.RequestTypeService, common_1.FormBuilder])
-	    ], DomainsPage);
-	    return DomainsPage;
-	})();
-	exports.DomainsPage = DomainsPage;
-	//# sourceMappingURL=domainsPage.js.map
-
-/***/ },
-/* 941 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"domains-page clearfix\">\r\n    <div class=\"col-lg-6 col-xs-12 remove-left-padding\">\r\n        <div class=\"domain-type-filter col-lg-6\">\r\n            <div class=\"search-field\">\r\n                <div class=\"input-group\">\r\n  \t\t\t\t<span class=\"input-group-addon\">\r\n  \t\t\t\t\t<span class=\"glyphicon glyphicon-search\"></span>\r\n  \t\t\t\t</span>\r\n                    <input class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"searchQuery\"\r\n                           (ngModelChange)=\"getRequestTypesWithFilters()\"/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"pull-right operations\">\r\n            <button class=\"btn btn-primary\" (click)=\"toggleAddRequestType(true)\">\r\n                <span class=\"glyphicon glyphicon-plus\"></span> Adauga tip de cerere\r\n            </button>\r\n        </div>\r\n        <div class=\"clearfix\"></div>\r\n        <!-- *ngIf=\"showAddRequestRow\" -->\r\n        <div class=\"add-request\" *ngIf=\"showAddRequestRow\">\r\n            <form [ngFormModel]=\"_newDomainForm\" (ngSubmit)=\"addRequestType()\">\r\n                <div class=\"input-group\">\r\n                    <input [ngFormControl]=\"_newDomainForm.controls['newRequestType']\" class=\"form-control\" [(ngModel)]=\"newRequestType\"/>\r\n\r\n                    <div class=\"input-group-btn\">\r\n                        <button [disabled]=\"!_newDomainForm.valid\" type=\"submit\" class=\"btn btn-secondary btn-primary\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                            Creeaza\r\n                        </button>\r\n                        <button type=\"button\" class=\"btn btn-secondary btn-default\" (click)=\"toggleAddRequestType(false)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                            Cancel\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n        <div class=\"clearfix\"></div>\r\n        <div class=\"domain-type\">\r\n            <ul class=\"list-group\">\r\n                <li *ngFor=\"let requestType of domainsTypes\" class=\"list-group-item clearfix\">\r\n                    <div class=\"pull-right align-operations\">\r\n                        <a class=\"secondary\" (click)=\"deleteRequestType(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-trash\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"!requestType.isInEditMode\" class=\"secondary\" (click)=\"toggleEditMode(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-cog\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"requestType.isInEditMode\" class=\"secondary\" (click)=\"revertEdit(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-remove\"></span>\r\n                        </a>\r\n                        <a *ngIf=\"requestType.isInEditMode\" type=\"submit\"  class=\"secondary\" (click)=\"editRequestType(requestType)\">\r\n                            <span class=\"glyphicon glyphicon-ok\"></span>\r\n                        </a>\r\n                        <span class=\"pull-right label label-info\">Companii: {{requestType.nrOfCompanies}}</span>\r\n                    </div>\r\n                    <div class=\"col-md-7 col-xs-4 col-sm-4\">\r\n                        <div *ngIf=\"!requestType.isInEditMode\" class=\"text-center-indent\">\r\n  \t\t\t\t\t        <span [title]=\"requestType.name\">\r\n  \t\t\t\t\t\t        {{requestType.name}}\r\n  \t\t\t\t\t        </span>\r\n                        </div>\r\n                        <input autofocus *ngIf=\"requestType.isInEditMode\" class=\"form-control\" [(ngModel)]=\"requestType.name\"/>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 942 */
+/* 947 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by NicolaeB on 7/11/2016.
 	 */
-	var demandsPage_1 = __webpack_require__(914);
-	var newDemandsListPage_1 = __webpack_require__(943);
-	var allDemandsListPage_1 = __webpack_require__(947);
+	"use strict";
+	var demandsPage_1 = __webpack_require__(879);
+	var newDemandsListPage_1 = __webpack_require__(880);
+	var allDemandsListPage_1 = __webpack_require__(887);
 	var Roles_1 = __webpack_require__(821);
+	var AuthorizationFilter_1 = __webpack_require__(946);
 	exports.DEMANDS_PAGE_ROUTE_PROVIDERS = [
 	    {
 	        path: 'cereri',
@@ -104001,278 +104404,18 @@
 	                path: 'newDemands',
 	                roles: [Roles_1.Role.ADMIN],
 	                component: newDemandsListPage_1.NewDemandsListPage,
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            },
 	            {
 	                path: 'lista',
 	                roles: [Roles_1.Role.ADMIN],
 	                component: allDemandsListPage_1.AllDemandsListPage,
+	                canActivate: [AuthorizationFilter_1.AuthorizationFilter]
 	            }
 	        ]
 	    }
 	];
 	//# sourceMappingURL=demand.routes.js.map
-
-/***/ },
-/* 943 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by nick_ on 4/23/2016.
-	 */
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(30);
-	var router_1 = __webpack_require__(355);
-	var requestTypeService_1 = __webpack_require__(917);
-	var categoriesMenuService_1 = __webpack_require__(796);
-	var localizationService_1 = __webpack_require__(826);
-	var demandListBase_1 = __webpack_require__(895);
-	var demandService_1 = __webpack_require__(822);
-	var demandsListPageBase_1 = __webpack_require__(944);
-	var menuTreeDialog_1 = __webpack_require__(833);
-	var notificationService_1 = __webpack_require__(825);
-	var template = __webpack_require__(946);
-	var NewDemandsListPage = (function (_super) {
-	    __extends(NewDemandsListPage, _super);
-	    function NewDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService) {
-	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService);
-	        this.pageName = 'new-demands';
-	        this._demandsRoute = '/new';
-	    }
-	    NewDemandsListPage.prototype.ngOnInit = function () {
-	        //this.getCities();
-	        this.getNewDemandsList();
-	    };
-	    NewDemandsListPage.prototype.removeDemand = function (demand) {
-	        var me = this;
-	        this._demandService.declineDemand(demand)
-	            .subscribe(function (response) {
-	            me.getNewDemandsList();
-	        }, function (error) {
-	            me.getNewDemandsList();
-	        });
-	    };
-	    NewDemandsListPage.prototype.ngOnChanges = function (changes) {
-	        /*if(changes && changes['_demandsList']){
-	            this.getDomains();
-	        }*/
-	    };
-	    NewDemandsListPage = __decorate([
-	        core_1.Component({
-	            selector: 'new-demands-list-page',
-	            template: template,
-	            //styleUrls: [applicationPath + '/demandsListPageBase.css'],
-	            directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
-	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
-	    ], NewDemandsListPage);
-	    return NewDemandsListPage;
-	})(demandsListPageBase_1.DemandsListPageBase);
-	exports.NewDemandsListPage = NewDemandsListPage;
-	//# sourceMappingURL=newDemandsListPage.js.map
-
-/***/ },
-/* 944 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by nick_ on 4/22/2016.
-	 */
-	var _ = __webpack_require__(354);
-	var DemandStatus_1 = __webpack_require__(894);
-	var DemandSearchObject_1 = __webpack_require__(945);
-	var DemandsListPageBase = (function () {
-	    //</editor-fold>
-	    function DemandsListPageBase(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService) {
-	        this.statusList = [{ status: DemandStatus_1.DemandStatus.ACTIVE, displayName: DemandStatus_1.DemandStatus.ACTIVE },
-	            { status: DemandStatus_1.DemandStatus.CLOSED, displayName: DemandStatus_1.DemandStatus.CLOSED },
-	            { status: DemandStatus_1.DemandStatus.IN_REVIEW, displayName: DemandStatus_1.DemandStatus.IN_REVIEW },
-	            { status: DemandStatus_1.DemandStatus.PENDING, displayName: DemandStatus_1.DemandStatus.PENDING },
-	            { status: DemandStatus_1.DemandStatus.REJECTED, displayName: DemandStatus_1.DemandStatus.REJECTED },
-	            { status: DemandStatus_1.DemandStatus.WAITING_FOR_REVIEW, displayName: DemandStatus_1.DemandStatus.WAITING_FOR_REVIEW }];
-	        this._categoriesMenuService = _categoriesMenuService;
-	        this._demandService = _demandService;
-	        this._requestTypeService = _requestTypeService;
-	        this._notificationService = _notificationService;
-	        this._demandsRoute = "";
-	        this._searchObject = new DemandSearchObject_1.DemandSearchObject('', 1, DemandStatus_1.DemandStatus.WAITING_FOR_REVIEW, -1);
-	        this._searchObject.domainName = "Alege domeniu...";
-	        this._router = router;
-	        this._localizationService = _localizationService;
-	    }
-	    DemandsListPageBase.prototype.showDomainsDialog = function () {
-	        this._menuTreeDialog.showMenuTreeDialog();
-	    };
-	    DemandsListPageBase.prototype.getAllDemandsList = function () {
-	        var me = this;
-	        this._demandService.getDemandsWithFilters(this._searchObject)
-	            .subscribe(function (response) {
-	            me._demandsList = response.data;
-	            me.totalPages = response.totalPages;
-	            me._searchObject.page = response.page;
-	        }, function (error) {
-	        });
-	    };
-	    DemandsListPageBase.prototype.getMenuDictionary = function () {
-	        var me = this;
-	        this._categoriesMenuService.getMenuDictionary()
-	            .subscribe(function (response) {
-	            me.menuDictionary = response;
-	        }, function (error) {
-	            me.menuDictionary = [];
-	        });
-	    };
-	    DemandsListPageBase.prototype.getNewDemandsList = function () {
-	        var me = this;
-	        this._demandService.getNewDemands()
-	            .subscribe(function (response) {
-	            me._demandsList = response;
-	        }, function (error) {
-	        });
-	    };
-	    DemandsListPageBase.prototype.referenceDialogInDemandComponent = function (menuItemsModal) {
-	        this._menuTreeDialog = menuItemsModal;
-	    };
-	    DemandsListPageBase.prototype.selectItemUsingMenu = function (item) {
-	        this._searchObject.domainName = item.name;
-	        this._searchObject.domainId = item.domainId;
-	    };
-	    DemandsListPageBase.prototype.getCities = function () {
-	        var me = this;
-	        this._localizationService.getCityList()
-	            .subscribe(function (response) {
-	            me._citiesList = me._localizationService.mapNameToSelect2Item(response);
-	        }, function (error) {
-	        });
-	    };
-	    DemandsListPageBase.prototype.getDomains = function () {
-	        var me = this;
-	        this._requestTypeService.getRequestTypesWithFilters()
-	            .subscribe(function (response) {
-	            me._domainsList = _.map(response, function (domain) {
-	                return {
-	                    displayName: domain['name'],
-	                    boundItem: domain
-	                };
-	            });
-	        }, function (error) {
-	        });
-	    };
-	    DemandsListPageBase.prototype.navigateToDemand = function (demand) {
-	        this._router.navigate([("/admin/cerere-detalii/" + demand.id)]);
-	    };
-	    return DemandsListPageBase;
-	})();
-	exports.DemandsListPageBase = DemandsListPageBase;
-	//# sourceMappingURL=demandsListPageBase.js.map
-
-/***/ },
-/* 945 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by NicolaeB on 5/26/2016.
-	 */
-	var DemandSearchObject = (function () {
-	    function DemandSearchObject(accountId, page, status, domainId) {
-	        this.accountId = accountId;
-	        this.page = page;
-	        this.status = status;
-	        this.domainId = domainId;
-	    }
-	    return DemandSearchObject;
-	})();
-	exports.DemandSearchObject = DemandSearchObject;
-	//# sourceMappingURL=DemandSearchObject.js.map
-
-/***/ },
-/* 946 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"demands-list-page\">\r\n    <div *ngIf=\"pageName==='demands'\" class=\"filters clearfix\">\r\n        <menu-tree-dialog\r\n                [menu-tree-data]=\"menuDictionary\"\r\n                [enable-operations]=\"false\"\r\n                (loaded)=\"referenceDialogInDemandComponent($event)\"\r\n                (action-confirmed)=\"selectItemUsingMenu($event)\"\r\n        ></menu-tree-dialog>\r\n        <div class=\"col-md-2 col-xs-12\">\r\n            <label>Id cont</label>\r\n            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"_searchObject.accountId\"/>\r\n        </div>\r\n        <div class=\"col-md-3 col-xs-12\">\r\n            <label>Domeniu</label>\r\n            <span class=\"form-control select-domain\" (click)=\"showDomainsDialog()\">{{_searchObject.domainName}}</span>\r\n        </div>\r\n        <div class=\"col-md-3 col-xs-12\">\r\n            <label>Status</label>\r\n            <select class=\"domain-select\" [(ngModel)]=\"_searchObject.status\">\r\n                <option *ngFor=\"let option of statusList\" [value]=\"option.status\">{{option.displayName}}\r\n                </option>\r\n            </select>\r\n        </div>\r\n        <div class=\"clearfix\">\r\n            <div class=\"pull-right btn-full-width\" style=\"padding-top:5px;\">\r\n            \t<br/>\r\n            \t\r\n                <input type=\"button\" class=\"btn btn-success\" value=\"Aplica filtre\" (click)=\"getAllDemandsList()\" />\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"demand-list-container clearfix\">\r\n        <demand-list-component\r\n                [demand-list]=\"_demandsList\"\r\n                (demand-selected)=\"navigateToDemand($event)\"\r\n                (remove-demand)=\"removeDemand($event)\">\r\n        </demand-list-component>\r\n    </div>\r\n</div>";
-
-/***/ },
-/* 947 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	/**
-	 * Created by nick_ on 4/22/2016.
-	 */
-	var core_1 = __webpack_require__(30);
-	var router_1 = __webpack_require__(355);
-	var demandService_1 = __webpack_require__(822);
-	var categoriesMenuService_1 = __webpack_require__(796);
-	var localizationService_1 = __webpack_require__(826);
-	var notificationService_1 = __webpack_require__(825);
-	var demandListBase_1 = __webpack_require__(895);
-	var requestTypeService_1 = __webpack_require__(917);
-	var demandsListPageBase_1 = __webpack_require__(944);
-	var menuTreeDialog_1 = __webpack_require__(833);
-	var template = __webpack_require__(946);
-	var AllDemandsListPage = (function (_super) {
-	    __extends(AllDemandsListPage, _super);
-	    function AllDemandsListPage(router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService) {
-	        _super.call(this, router, _categoriesMenuService, _demandService, _requestTypeService, _localizationService, _notificationService);
-	        this.pageName = 'demands';
-	    }
-	    AllDemandsListPage.prototype.ngOnInit = function () {
-	        // this.getCities();
-	        this.getAllDemandsList();
-	        this.getMenuDictionary();
-	    };
-	    AllDemandsListPage.prototype.removeDemand = function (demand) {
-	        var me = this;
-	        this._demandService.declineDemand(demand)
-	            .subscribe(function (response) {
-	            me.getAllDemandsList();
-	        }, function (error) {
-	            me.getAllDemandsList();
-	        });
-	    };
-	    AllDemandsListPage.prototype.ngOnChanges = function (changes) {
-	        // if(changes && changes['_demandsList']){
-	        //     this.getDomains();
-	        // }
-	    };
-	    AllDemandsListPage = __decorate([
-	        core_1.Component({
-	            selector: 'demands-list-page',
-	            template: template,
-	            //styleUrls: [applicationPath + '/demandsListPageBase.css'],
-	            directives: [demandListBase_1.DemandListBaseComponent, menuTreeDialog_1.MenuTreeDialog]
-	        }), 
-	        __metadata('design:paramtypes', [router_1.Router, categoriesMenuService_1.CategoriesMenuService, demandService_1.DemandService, requestTypeService_1.RequestTypeService, localizationService_1.LocalizationService, notificationService_1.NotificationService])
-	    ], AllDemandsListPage);
-	    return AllDemandsListPage;
-	})(demandsListPageBase_1.DemandsListPageBase);
-	exports.AllDemandsListPage = AllDemandsListPage;
-	//# sourceMappingURL=allDemandsListPage.js.map
 
 /***/ }
 /******/ ]);

@@ -22,7 +22,17 @@ import {HeaderComponent} from "./components/headerComponent/headerComponent";
 import {FooterComponent} from "./components/footerComponent/footerComponent";
 
 import {Role} from "./models/Roles";
-import {APPLICATION_ROUTER_DIRECTIVE} from "./components/applicationRouter/applicationRouter";
+import {AdminPage} from "./pages/adminPage/adminPage";
+import {AccountSettingsPage} from "./pages/accountSettingsPage/accountSettingsPage";
+import {HomePage} from "./pages/homePage/homePage";
+import {RegistrationPage} from "./pages/registrationPage/registrationPage";
+import {LoginPage} from "./pages/registrationPage/loginPage/loginPage";
+import {ForgetPasswordPage} from "./pages/registrationPage/forgetPasswordPage/forgetPasswordPage";
+import {SuccessPage} from "./pages/registrationPage/successPages/successPage";
+import {CompanieDetailPage} from "./pages/companiesPage/companieDetailPage/companieDetailPage";
+import {TokenConfirmPage} from "./pages/registrationPage/tokenConfirmPage/tokenConfirmPage";
+import {CompaniesPage} from "./pages/companiesPage/companiesPage";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 
 @Component({
     selector: 'my-app',
@@ -44,7 +54,21 @@ import {APPLICATION_ROUTER_DIRECTIVE} from "./components/applicationRouter/appli
             <footer-component></footer-component>
         </div>
     `,
-    directives: [APPLICATION_ROUTER_DIRECTIVE, HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent]
+    directives: [ROUTER_DIRECTIVES , HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent],
+    precompile: [
+        AdminPage,
+
+        AccountSettingsPage,
+        HomePage,
+        RegistrationPage,
+        LoginPage,
+        ForgetPasswordPage,
+        SuccessPage,
+        CompaniesPage,
+        CompanieDetailPage,
+        TokenConfirmPage,
+
+    ]
 })
 
 export class AppComponent implements OnInit {
@@ -192,7 +216,7 @@ export class AppComponent implements OnInit {
 
     private handleUserState(response, context) {
         if (!response.loggedIn && (context.location.path().indexOf('/admin') !== -1 || context.location.path().indexOf('/account') !== -1)) {
-            context.router.navigate(['/']);
+            context.router.navigate(['']);
         }
     }
 }

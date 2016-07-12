@@ -9,7 +9,7 @@ import {FilterPipe} from "./filterPipe";
     selector: 'select-component',
     template: `
             <div dropdown [(isOpen)]="_dropdownStatus.isopen" [class.dropUp]="dropUp" [class.dropdown]="!dropUp" class="bs-ui-select-2 clearfix">
-                <span #simpleSelectRef *ngIf="!muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [disabled]="checkItems()" 
+                <span #simpleSelectRef *ngIf="!muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [class.disabled]="checkItems()" 
                     class="btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
                         <span *ngIf="!_selectedItem">Alege...</span>
                         <span *ngIf="_selectedItem && _selectedItem.displayName">{{_selectedItem.displayName}}</span>
@@ -17,7 +17,7 @@ import {FilterPipe} from "./filterPipe";
                         <span style="margin-top: 2px;" class="glyphicon glyphicon-remove pull-right simple-dropdown" *ngIf="_selectedItem !== _chooseItemValue"(click)="removeSelection($event)"></span>
                 </span>
                 
-                <button #multiSelectRef *ngIf="muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [disabled]="checkItems()" 
+                <button #multiSelectRef *ngIf="muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [class.disabled]="checkItems()" 
                     class="btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle position-relative" role="button" aria-haspopup="true" aria-expanded="false">
                     <div class="pull-left clearfix remove-right-padding">
                         <div *ngIf="_selectedItems && _selectedItems.length < 1" style="margin-top: 4px;">

@@ -2,7 +2,10 @@ import {Component} from "@angular/core";
 
 import {TabsRoutingComponent} from "../../../components/tabsComponent/tabsRoutingComponent";
 import {TabHeader} from "../../../models/TabHeader";
-import {APPLICATION_ROUTER_DIRECTIVE} from "../../../components/applicationRouter/applicationRouter";
+import {CategoriesMenuPage} from "./categoriesMenuPage/categoriesMenuPage";
+import {CompaniesPage} from "./companiesPage/companiesPage";
+import {DomainsPage} from "./domainsPage/domainsPage";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 
 let template = require('./categoriesPage.html');
 
@@ -10,7 +13,12 @@ let template = require('./categoriesPage.html');
     selector: 'categoryes-page',
     template:template,
     //styleUrls: [applicationPath + '/categoriesPage.css'],
-    directives: [TabsRoutingComponent, APPLICATION_ROUTER_DIRECTIVE]
+    directives: [TabsRoutingComponent, ROUTER_DIRECTIVES],
+    precompile:[
+        CategoriesMenuPage,
+        CompaniesPage,
+        DomainsPage
+    ]
 })
 
 export class CategoriesPage {

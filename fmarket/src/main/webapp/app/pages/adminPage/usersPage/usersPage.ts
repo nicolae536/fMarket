@@ -14,8 +14,8 @@ import {UserService} from "../../../services/usersService";
 import {CreateUserDialog} from "../../../components/createUserDialog/createUserDialog";
 import {ActionDialog} from "../../../components/actionDialog/actionDialog";
 import {User} from "../../../models/user";
-import {STATUS} from "../../../services/mock-providers/mock-Status";
 import {AccountStatus} from "../../../models/accountStatus";
+import {AuthorizationFilter} from "../../../services/AuthorizationFilter";
 
 
 let template = require('./usersPage.html');

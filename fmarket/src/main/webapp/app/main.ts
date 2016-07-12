@@ -27,12 +27,16 @@ import {RegistrationService} from "./services/registrationService";
 import {ApplicationStateService} from "./services/applicationStateService";
 
 import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
+import {PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
+import {RouterContainer} from "./services/routerContainer";
+import {AuthorizationFilter} from "./services/AuthorizationFilter";
 
 //enableProdMode();
 
 bootstrap(AppComponent, [
     HTTP_PROVIDERS,
     APP_ROUTER_PROVIDERS,
+    PAGINATION_DIRECTIVES,
     {provide:LocationStrategy, useClass: HashLocationStrategy},
     GOOGLE_MAPS_PROVIDERS,
 
@@ -51,5 +55,6 @@ bootstrap(AppComponent, [
     SubscribersService,
     UserService,
     CompaniesService,
-    LocalizationService
+    LocalizationService,
+    AuthorizationFilter
 ]);

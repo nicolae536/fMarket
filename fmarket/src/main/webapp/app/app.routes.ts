@@ -16,43 +16,57 @@ import {CompaniesPage} from "./pages/companiesPage/companiesPage";
 
 import {ACCOUNT_SETTINGS_PAGE_ROUTE_PROVIDERS} from './pages/accountSettingsPage/account.routes';
 import {ADMIN_PAGE_ROUTE_PROVIDERS} from "./pages/adminPage/admin.routes";
-import {Role} from "./models/Roles";
+import {AuthorizationFilter} from "./services/AuthorizationFilter";
 
 export const routes:RouterConfig = [
     {
         path: '',
         component: HomePage,
+        canActivate: [AuthorizationFilter]
     },
     {
         path: 'registration',
-        component: RegistrationPage
+        component: RegistrationPage,
+        canActivate: [AuthorizationFilter]
     },{
         path: 'login',
-        component: LoginPage
+        component: LoginPage,
+        canActivate: [AuthorizationFilter]
     },{
         path: 'forget-password',
-        component: ForgetPasswordPage
+        component: ForgetPasswordPage,
+        canActivate: [AuthorizationFilter]
     },{
         path: 'success/:succesOption',
-        component: SuccessPage
+        component: SuccessPage,
+        canActivate: [AuthorizationFilter]
     },{
         path: 'admin',
         component: AdminPage,
+        redirectTo: '',
+        canActivate: [AuthorizationFilter],
+        pathMatch:'full'
     },{
         path: 'account',
         component: AccountSettingsPage,
+        redirectTo: '',
+        canActivate: [AuthorizationFilter]
     },{
         path: 'firme',
-        component: CompaniesPage
+        component: CompaniesPage,
+        canActivate: [AuthorizationFilter]
     },{
         path: 'firma-detalii/:id',
-        component: CompanieDetailPage
+        component: CompanieDetailPage,
+        canActivate: [AuthorizationFilter]
     },{
         path: 'confirm/:registration?token',
-        component: TokenConfirmPage
+        component: TokenConfirmPage,
+        canActivate: [AuthorizationFilter]
     },{
         path: '*',
-        component: HomePage
+        component: HomePage,
+        canActivate: [AuthorizationFilter]
     },
     ...ADMIN_PAGE_ROUTE_PROVIDERS,
     ...ACCOUNT_SETTINGS_PAGE_ROUTE_PROVIDERS
