@@ -17,6 +17,8 @@ import {CompaniesEditPage} from "./companiesPage/companiesEditPage/companiesEdit
 import {CompanieCreatePage} from "./companiesPage/companiesEditPage/companiesCreatePage";
 import * as template from './adminPage.html';
 import {ENTER_LEAVE_ANIMATION} from "../pageAnimations/enterLeavePage";
+import {FADE_IN_ANIMATION} from "../pageAnimations/fadeIn";
+import {SLIDE_DOWN_ANIMATION} from "../pageAnimations/slideDown";
 
 @Component({
     selector: 'admin-Page',
@@ -32,7 +34,7 @@ import {ENTER_LEAVE_ANIMATION} from "../pageAnimations/enterLeavePage";
         CompaniesEditPage,
         CompanieCreatePage,
     ],
-    animations: ENTER_LEAVE_ANIMATION
+    animations: SLIDE_DOWN_ANIMATION.concat(FADE_IN_ANIMATION)
 })
 
 export class AdminPage implements AfterViewChecked {

@@ -16,6 +16,7 @@ export const ENTER_LEAVE_ANIMATION = [
             style({transform: 'translateX(-100%)'}),
             animate(100)
         ]),
+        state('out', style({transform: 'translateX(100%)'})),
         transition('* => void', [
             animate(100, style({transform: 'translateX(100%)'}))
         ])

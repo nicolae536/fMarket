@@ -1,7 +1,7 @@
 <div class="admin-page-container">
     <div class="container-fluid">
         <div class="row content">
-            <div #leftMenu class="col-sm-2 sidenav hidden-xs hidden-sm">
+            <div @fadeInOut #leftMenu class="col-sm-2 sidenav hidden-xs hidden-sm">
                 <div class="menu-container">
                     <div class="admin-menu-title text-left clearfix">
                         <div class="pull-left">
@@ -55,7 +55,7 @@
                     </ul>
                 </div>
             </div>
-            <div #rightMenu class="col-sm-10 col-xs-12 col-sm-12">
+            <div @slideDown #rightMenu class="col-sm-10 col-xs-12 col-sm-12">
                 <div class="upper-page-container">
                     <div class="inner-page-container">
                         <router-outlet></router-outlet>

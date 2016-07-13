@@ -51,8 +51,8 @@
 	var app_component_1 = __webpack_require__(353);
 	var common_1 = __webpack_require__(27);
 	var http_1 = __webpack_require__(798);
-	var app_routes_1 = __webpack_require__(944);
-	var accountService_1 = __webpack_require__(909);
+	var app_routes_1 = __webpack_require__(946);
+	var accountService_1 = __webpack_require__(911);
 	var categoriesMenuService_1 = __webpack_require__(796);
 	var companieTypesService_1 = __webpack_require__(873);
 	var demandService_1 = __webpack_require__(822);
@@ -68,9 +68,9 @@
 	var authorizationService_1 = __webpack_require__(793);
 	var registrationService_1 = __webpack_require__(845);
 	var applicationStateService_1 = __webpack_require__(819);
-	var core_1 = __webpack_require__(924);
+	var core_1 = __webpack_require__(926);
 	var ng2_bootstrap_1 = __webpack_require__(407);
-	var AuthorizationFilter_1 = __webpack_require__(948);
+	var AuthorizationFilter_1 = __webpack_require__(950);
 	//enableProdMode();
 	platform_browser_dynamic_1.bootstrap(app_component_1.AppComponent, [
 	    http_1.HTTP_PROVIDERS,
@@ -55474,19 +55474,19 @@
 	var registrationService_1 = __webpack_require__(845);
 	var jqueryService_1 = __webpack_require__(823);
 	var applicationStateService_1 = __webpack_require__(819);
-	var headerComponent_1 = __webpack_require__(940);
-	var footerComponent_1 = __webpack_require__(942);
+	var headerComponent_1 = __webpack_require__(942);
+	var footerComponent_1 = __webpack_require__(944);
 	var Roles_1 = __webpack_require__(821);
 	var adminPage_1 = __webpack_require__(851);
-	var accountSettingsPage_1 = __webpack_require__(906);
+	var accountSettingsPage_1 = __webpack_require__(908);
 	var homePage_1 = __webpack_require__(795);
 	var registrationPage_1 = __webpack_require__(844);
 	var loginPage_1 = __webpack_require__(849);
 	var forgetPasswordPage_1 = __webpack_require__(850);
 	var successPage_1 = __webpack_require__(840);
-	var companieDetailPage_1 = __webpack_require__(923);
-	var tokenConfirmPage_1 = __webpack_require__(918);
-	var companiesPage_1 = __webpack_require__(919);
+	var companieDetailPage_1 = __webpack_require__(925);
+	var tokenConfirmPage_1 = __webpack_require__(920);
+	var companiesPage_1 = __webpack_require__(921);
 	// import {CompaniesPage as CategoriesCompaniesPage} from "./pages/adminPage/categoriesPage/companiesPage/companiesPage";
 	var router_2 = __webpack_require__(355);
 	// import {UsersPage} from "./pages/adminPage/usersPage/usersPage";
@@ -92636,11 +92636,11 @@
 	var loginPage_1 = __webpack_require__(849);
 	var forgetPasswordPage_1 = __webpack_require__(850);
 	var adminPage_1 = __webpack_require__(851);
-	var accountSettingsPage_1 = __webpack_require__(906);
+	var accountSettingsPage_1 = __webpack_require__(908);
 	var successPage_1 = __webpack_require__(840);
-	var tokenConfirmPage_1 = __webpack_require__(918);
-	var companiesPage_1 = __webpack_require__(919);
-	var companieDetailPage_1 = __webpack_require__(923);
+	var tokenConfirmPage_1 = __webpack_require__(920);
+	var companiesPage_1 = __webpack_require__(921);
+	var companieDetailPage_1 = __webpack_require__(925);
 	var AuthorizationService = (function () {
 	    function AuthorizationService() {
 	    }
@@ -98101,6 +98101,7 @@
 	            core_1.style({ transform: 'translateX(-100%)' }),
 	            core_1.animate(100)
 	        ]),
+	        core_1.state('out', core_1.style({ transform: 'translateX(100%)' })),
 	        core_1.transition('* => void', [
 	            core_1.animate(100, core_1.style({ transform: 'translateX(100%)' }))
 	        ])
@@ -98670,7 +98671,8 @@
 	var companiesEditPage_1 = __webpack_require__(897);
 	var companiesCreatePage_1 = __webpack_require__(904);
 	var template = __webpack_require__(905);
-	var enterLeavePage_1 = __webpack_require__(841);
+	var fadeIn_1 = __webpack_require__(906);
+	var slideDown_1 = __webpack_require__(907);
 	var AdminPage = (function () {
 	    //</editor-fold>
 	    function AdminPage(location, router, notificationService) {
@@ -98709,7 +98711,7 @@
 	                companiesEditPage_1.CompaniesEditPage,
 	                companiesCreatePage_1.CompanieCreatePage,
 	            ],
-	            animations: enterLeavePage_1.ENTER_LEAVE_ANIMATION
+	            animations: fadeIn_1.FADE_IN_ANIMATION.concat(slideDown_1.SLIDE_DOWN_ANIMATION)
 	        }), 
 	        __metadata('design:paramtypes', [common_1.Location, router_1.Router, notificationService_1.NotificationService])
 	    ], AdminPage);
@@ -101522,10 +101524,87 @@
 /* 905 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"admin-page-container\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row content\">\r\n            <div #leftMenu class=\"col-sm-2 sidenav hidden-xs hidden-sm\">\r\n                <div class=\"menu-container\">\r\n                    <div class=\"admin-menu-title text-left clearfix\">\r\n                        <div class=\"pull-left\">\r\n                            <span class=\"glyphicon glyphicon-th-list\"></span>\r\n                        </div>\r\n                        <div class=\"text-center\">\r\n                            <span class=\"h4\">Mangement website</span>\r\n                        </div>\r\n                    </div>\r\n                    <ul class=\"nav nav-pills nav-stacked\">\r\n                        <li [class.active]=\"checkRoute('/admin/users')\">\r\n                            <a [routerLink]=\"['/admin/users']\" class=\"clearfix\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-user\"></span>\r\n                                </div>\r\n                                Utilizatori\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/subscribers')\">\r\n                            <a [routerLink]=\"['/admin/subscribers']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-globe\"></span>\r\n                                </div>\r\n                                Abonati\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/categorii')\">\r\n                            <a [routerLink]=\"['/admin/categorii/meniu']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-tasks\"></span>\r\n                                </div>\r\n                                Categorii\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/cereri')\">\r\n                            <a [routerLink]=\"['/admin/cereri/newDemands']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-list-alt\"></span>\r\n                                </div>\r\n                                Cereri\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/companii') || checkRoute('/admin/ceeaza-companie/ceeaza')\">\r\n                            <a [routerLink]=\"['/admin/companii']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-transfer\"></span>\r\n                                </div>\r\n                                Companii\r\n                            </a>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n            <div #rightMenu class=\"col-sm-10 col-xs-12 col-sm-12\">\r\n                <div class=\"upper-page-container\">\r\n                    <div class=\"inner-page-container\">\r\n                        <router-outlet></router-outlet>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
+	module.exports = "<div class=\"admin-page-container\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row content\">\r\n            <div @fadeInOut #leftMenu class=\"col-sm-2 sidenav hidden-xs hidden-sm\">\r\n                <div class=\"menu-container\">\r\n                    <div class=\"admin-menu-title text-left clearfix\">\r\n                        <div class=\"pull-left\">\r\n                            <span class=\"glyphicon glyphicon-th-list\"></span>\r\n                        </div>\r\n                        <div class=\"text-center\">\r\n                            <span class=\"h4\">Mangement website</span>\r\n                        </div>\r\n                    </div>\r\n                    <ul class=\"nav nav-pills nav-stacked\">\r\n                        <li [class.active]=\"checkRoute('/admin/users')\">\r\n                            <a [routerLink]=\"['/admin/users']\" class=\"clearfix\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-user\"></span>\r\n                                </div>\r\n                                Utilizatori\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/subscribers')\">\r\n                            <a [routerLink]=\"['/admin/subscribers']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-globe\"></span>\r\n                                </div>\r\n                                Abonati\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/categorii')\">\r\n                            <a [routerLink]=\"['/admin/categorii/meniu']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-tasks\"></span>\r\n                                </div>\r\n                                Categorii\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/cereri')\">\r\n                            <a [routerLink]=\"['/admin/cereri/newDemands']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-list-alt\"></span>\r\n                                </div>\r\n                                Cereri\r\n                            </a>\r\n                        </li>\r\n                        <li [class.active]=\"checkRoute('/admin/companii') || checkRoute('/admin/ceeaza-companie/ceeaza')\">\r\n                            <a [routerLink]=\"['/admin/companii']\">\r\n                                <div class=\"pull-left\">\r\n                                    <span class=\"glyphicon glyphicon-transfer\"></span>\r\n                                </div>\r\n                                Companii\r\n                            </a>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n            <div @slideDown #rightMenu class=\"col-sm-10 col-xs-12 col-sm-12\">\r\n                <div class=\"upper-page-container\">\r\n                    <div class=\"inner-page-container\">\r\n                        <router-outlet></router-outlet>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
 /* 906 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by NicolaeB on 7/13/2016.
+	 */
+	/**
+	 * Created by NicolaeB on 7/13/2016.
+	 */
+	"use strict";
+	var core_1 = __webpack_require__(30);
+	/*
+	 @key @flyInOut
+	 add the key @flyInOut to your Dom element
+	 add the const as animations array
+	 */
+	exports.FADE_IN_ANIMATION = [
+	    core_1.trigger('fadeInOut', [
+	        core_1.state('in', core_1.style({
+	            transform: 'translateX(0)',
+	            opacity: '1'
+	        })),
+	        core_1.transition('void => *', [
+	            core_1.style({
+	                transform: 'translateX(-100%)',
+	                opacity: '0'
+	            }),
+	            core_1.animate('700ms ease-in')
+	        ]),
+	        core_1.transition('* => void', [
+	            core_1.animate('700ms ease-in', core_1.style({
+	                transform: 'translateX(100%)',
+	                opacity: '0'
+	            }))
+	        ])
+	    ])
+	];
+	//# sourceMappingURL=fadeIn.js.map
+
+/***/ },
+/* 907 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	/**
+	 * Created by NicolaeB on 7/13/2016.
+	 */
+	var core_1 = __webpack_require__(30);
+	/*
+	 @key @flyInOut
+	 add the key @flyInOut to your Dom element
+	 add the const as animations array
+	 */
+	exports.SLIDE_DOWN_ANIMATION = [
+	    core_1.trigger('slideDown', [
+	        core_1.state('in', core_1.style({
+	            transform: 'translateY(0)',
+	            opacity: '1'
+	        })),
+	        core_1.transition('void => *', [
+	            core_1.style({
+	                transform: 'translateY(-100%)',
+	                opacity: '0'
+	            }),
+	            core_1.animate('700ms ease-in')
+	        ]),
+	        core_1.transition('* => void', [
+	            core_1.animate('700ms ease-in', core_1.style({
+	                transform: 'translateY(100%)',
+	                opacity: '0'
+	            }))
+	        ])
+	    ])
+	];
+	//# sourceMappingURL=slideDown.js.map
+
+/***/ },
+/* 908 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -101547,11 +101626,11 @@
 	var jqueryService_1 = __webpack_require__(823);
 	var applicationConstansts_1 = __webpack_require__(794);
 	var tabsRoutingComponent_1 = __webpack_require__(866);
-	var template = __webpack_require__(907);
-	var accountEditPage_1 = __webpack_require__(908);
-	var accountDemandsPage_1 = __webpack_require__(915);
+	var template = __webpack_require__(909);
+	var accountEditPage_1 = __webpack_require__(910);
+	var accountDemandsPage_1 = __webpack_require__(917);
 	var enterLeavePage_1 = __webpack_require__(841);
-	var autoHeightAnimation_1 = __webpack_require__(917);
+	var autoHeight_1 = __webpack_require__(919);
 	var AccountSettingsPage = (function () {
 	    //</editor-fold>
 	    function AccountSettingsPage(router, notificationService) {
@@ -101570,7 +101649,7 @@
 	                accountEditPage_1.AccountEditPage,
 	                accountDemandsPage_1.AccountDemandsPage
 	            ],
-	            animations: enterLeavePage_1.ENTER_LEAVE_ANIMATION.concat(autoHeightAnimation_1.AUTO_HEIGHT_ANIMATION)
+	            animations: enterLeavePage_1.ENTER_LEAVE_ANIMATION.concat(autoHeight_1.AUTO_HEIGHT_ANIMATION)
 	        }), 
 	        __metadata('design:paramtypes', [router_1.Router, notificationService_1.NotificationService])
 	    ], AccountSettingsPage);
@@ -101580,13 +101659,13 @@
 	//# sourceMappingURL=accountSettingsPage.js.map
 
 /***/ },
-/* 907 */
+/* 909 */
 /***/ function(module, exports) {
 
 	module.exports = "<div @flyInOut class=\"account-settings-page clearfix\">\r\n    <div class=\"sub-container\">\r\n        <div class=\"container-fluid account-settings-page-container\">\r\n            <div class=\"content\">\r\n                <tabs-component\r\n                        [tabs-pages-list]=\"tabPagesList\">\r\n                </tabs-component>\r\n                <div @shrinkIn class=\"sub-pabge-container\">\r\n                    <router-outlet></router-outlet>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 908 */
+/* 910 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -101604,15 +101683,15 @@
 	 */
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(355);
-	var accountService_1 = __webpack_require__(909);
+	var accountService_1 = __webpack_require__(911);
 	var demandService_1 = __webpack_require__(822);
 	var localizationService_1 = __webpack_require__(826);
 	var notificationService_1 = __webpack_require__(825);
-	var accountEditComponent_1 = __webpack_require__(910);
-	var accountDto_1 = __webpack_require__(913);
+	var accountEditComponent_1 = __webpack_require__(912);
+	var accountDto_1 = __webpack_require__(915);
 	var authorizationService_1 = __webpack_require__(793);
 	var successPage_1 = __webpack_require__(840);
-	var template = __webpack_require__(914);
+	var template = __webpack_require__(916);
 	var AccountEditPage = (function () {
 	    //</editor-fold>
 	    function AccountEditPage(accountService, demandService, localizationService, notificationService, router) {
@@ -101694,7 +101773,7 @@
 	//# sourceMappingURL=accountEditPage.js.map
 
 /***/ },
-/* 909 */
+/* 911 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -101757,7 +101836,7 @@
 	//# sourceMappingURL=accountService.js.map
 
 /***/ },
-/* 910 */
+/* 912 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -101778,8 +101857,8 @@
 	var selectComponent_1 = __webpack_require__(830);
 	var _ = __webpack_require__(354);
 	var Angular2ExtensionValidators_1 = __webpack_require__(827);
-	var accountUser_1 = __webpack_require__(911);
-	var template = __webpack_require__(912);
+	var accountUser_1 = __webpack_require__(913);
+	var template = __webpack_require__(914);
 	var AccountEditComponent = (function () {
 	    function AccountEditComponent(formBuilder) {
 	        this._saveAccountEmitter = new core_1.EventEmitter();
@@ -101884,7 +101963,7 @@
 	//# sourceMappingURL=accountEditComponent.js.map
 
 /***/ },
-/* 911 */
+/* 913 */
 /***/ function(module, exports) {
 
 	/**
@@ -101908,13 +101987,13 @@
 	//# sourceMappingURL=accountUser.js.map
 
 /***/ },
-/* 912 */
+/* 914 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"account-edit-component clearfix\">\r\n    <div class=\"clearfix\">\r\n        <div class=\"col-md-6 col-xs-12 col-sm-12\">\r\n            <form *ngIf=\"_accountFormModel\" [ngFormModel]=\"_accountFormModel\" (ngSubmit)=\"saveEditedAccount()\"\r\n                  class=\"account-form\">\r\n                <span class=\"h4\">Date cont</span>\r\n                <hr/>\r\n                <div class=\"form-group\">\r\n                    <label>Email</label>\r\n                    <span class=\"form-control\" type=\"text\" disabled>{{_accountModel.email}}</span>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Nume</label>\r\n                    <input class=\"form-control\" type=\"text\" placeholder=\"Adaugati numele la contul tau\"\r\n                           [ngFormControl]=\"_accountFormModel.controls['name']\"\r\n                           [(ngModel)]=\"_accountModel.name\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Telefon</label>\r\n                    <input class=\"form-control\" type=\"text\" placeholder=\"Adaugati numarul de telefon la contul tau\"\r\n                           [ngFormControl]=\"_accountFormModel.controls['phone']\"\r\n                           [(ngModel)]=\"_accountModel.phone\"/>\r\n                </div>\r\n                <div>\r\n                    <label>Oras</label>\r\n                    <select-component\r\n                            [select-items]=\"_cities\"\r\n                            [single-item-selected]=\"_accountModel.cityItem\"\r\n                            [multi-select]=\"false\"\r\n                            (loaded)=\"referenceCitySelectorComponent($event)\">\r\n                    </select-component>\r\n                </div>\r\n                <div>\r\n                    <div class=\"pull-right\">\r\n                        <button type=\"submit\" class=\"btn btn-primary\">{{submitLabel}}</button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n\r\n        <div class=\"col-md-6 col-xs-12 col-sm-12\">\r\n            <form *ngIf=\"_accountFormModel\" [ngFormModel]=\"_changePasswordFormModel\" (ngSubmit)=\"changePassword()\"\r\n                  class=\"account-form\">\r\n\r\n                <span class=\"h4\">Schimbare parola</span>\r\n                <hr/>\r\n                <div class=\"form-group\">\r\n                    <label>Parola veche</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.lastPassword\"\r\n                           [(ngModel)]=\"_accountModel.lastPassword\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Parola noua</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.passwords.controls.password\"\r\n                           [(ngModel)]=\"_accountModel.newPassword\"\r\n                           (ngModelChange)=\"updateErrorField()\"/>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Confirma parola noua</label>\r\n                    <input type=\"password\" class=\"form-control\"\r\n                           [class.backend-error]=\"checkIfPasswordIsMarked('password')\"\r\n                           placeholder=\"******\"\r\n                           [ngFormControl]=\"_changePasswordFormModel.controls.passwords.controls.repeat\"\r\n                           [(ngModel)]=\"_accountModel.confirmNewPassword\"\r\n                           (ngModelChange)=\"updateErrorField()\"/>\r\n                </div>\r\n                <div class=\"position-relative\" *ngIf=\"showNotMatchPasswordField\">\r\n                    <div class=\"password-error right-to-middle-effect\">\r\n                        Cele doua parole nu sunt la fel!\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <div class=\"pull-right\">\r\n                        <button type=\"submit\" class=\"btn btn-primary\">Schimba parola</button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 913 */
+/* 915 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -101950,13 +102029,13 @@
 	//# sourceMappingURL=accountDto.js.map
 
 /***/ },
-/* 914 */
+/* 916 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"account-edit-page\">\r\n    <account-edit-component\r\n        [account-form-model]=\"_account\"\r\n        [city-list]=\"_cityesList\"\r\n        [submit-label]=\"_submitLabel\"\r\n        (save-edited-account)=\"saveEditedAccount($event)\"\r\n        (change-password)=\"changePassword($event)\">\r\n    </account-edit-component>\r\n</div>";
 
 /***/ },
-/* 915 */
+/* 917 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -101977,7 +102056,7 @@
 	var demandService_1 = __webpack_require__(822);
 	var DemandStatus_1 = __webpack_require__(885);
 	var demandListBase_1 = __webpack_require__(882);
-	var template = __webpack_require__(916);
+	var template = __webpack_require__(918);
 	var AccountDemandsPage = (function () {
 	    //</editor-fold>
 	    function AccountDemandsPage(_demandService) {
@@ -102034,13 +102113,13 @@
 	//# sourceMappingURL=accountDemandsPage.js.map
 
 /***/ },
-/* 916 */
+/* 918 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"user-demands-list-page\">\r\n    <div class=\"demand-filters clearfix\">\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" [class.active-filter]=\"selectedFilter === 'ACTIVE'\"\r\n             (click)=\"getDemandsWithFilter('ACTIVE')\">\r\n            Active\r\n            <span class=\"\"></span>\r\n        </div>\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" [class.active-filter]=\"selectedFilter === 'PENDING&&IN_REVIEW'\"\r\n             (click)=\"getDemandsWithFilter('PENDING&&IN_REVIEW')\">\r\n            In procesare\r\n            <span class=\"\"></span>\r\n        </div>\r\n        <div class=\"filter-demand col-md-4 col-xs-12\" style=\"border-right: none\" [class.active-filter]=\"selectedFilter === 'REJECTED&&CLOSED'\"\r\n             (click)=\"getDemandsWithFilter('REJECTED&&CLOSED')\">\r\n            Dezactivate\r\n            <span class=\"\"></span>\r\n        </div>\r\n    </div>\r\n    <div class=\"clearfix pull-down-10\">\r\n        <demand-list-component\r\n                [hide-operation]=\"true\"\r\n                [demand-list]=\"_demandsList\">\r\n        </demand-list-component>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 917 */
+/* 919 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -102066,10 +102145,10 @@
 	        ])
 	    ])
 	];
-	//# sourceMappingURL=autoHeightAnimation.js.map
+	//# sourceMappingURL=autoHeight.js.map
 
 /***/ },
-/* 918 */
+/* 920 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -102201,7 +102280,7 @@
 	//# sourceMappingURL=tokenConfirmPage.js.map
 
 /***/ },
-/* 919 */
+/* 921 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -102221,11 +102300,11 @@
 	var router_1 = __webpack_require__(355);
 	var common_1 = __webpack_require__(27);
 	var _ = __webpack_require__(354);
-	var companieListComponent_1 = __webpack_require__(920);
+	var companieListComponent_1 = __webpack_require__(922);
 	var ng2_bootstrap_1 = __webpack_require__(407);
 	var companiesService_1 = __webpack_require__(898);
 	var notificationService_1 = __webpack_require__(825);
-	var template = __webpack_require__(922);
+	var template = __webpack_require__(924);
 	var enterLeavePage_1 = __webpack_require__(841);
 	var CompaniesPage = (function () {
 	    //</editor-fold">
@@ -102286,7 +102365,7 @@
 	//# sourceMappingURL=companiesPage.js.map
 
 /***/ },
-/* 920 */
+/* 922 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -102304,7 +102383,7 @@
 	 */
 	var core_1 = __webpack_require__(30);
 	var ng2_bootstrap_1 = __webpack_require__(407);
-	var template = __webpack_require__(921);
+	var template = __webpack_require__(923);
 	var CompanieListComponent = (function () {
 	    function CompanieListComponent() {
 	        this._companieSelectedEmitter = new core_1.EventEmitter();
@@ -102338,19 +102417,19 @@
 	//# sourceMappingURL=companieListComponent.js.map
 
 /***/ },
-/* 921 */
+/* 923 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"companie-list-component clearfix\">\r\n    <div class=\"companies-grid clearfix\">\r\n        <div *ngFor=\"let container of _companieList; let i=index\">\r\n            <div *ngIf=\"container && container.length >0\" class=\"col-md-3 col-xs-12 domain-companies-container\">\r\n                <div *ngFor=\"let cellWrapper of container\">\r\n                    <div class=\"title-wrapper\">\r\n                        <span class=\"h4 cell-tag-label\">\r\n                            {{cellWrapper.domainName}}\r\n                        </span>\r\n                    </div>\r\n                    <div class=\"companies-list\">\r\n                        <div *ngFor=\"let companie of cellWrapper.companies\" class=\"companie-list-item\"  (mouseover)=\"companie.tooltipVisible=true\"\r\n                             (mouseleave)=\"companie.tooltipVisible=false\">\r\n                            <a (click)=\"selectCompanie(companie)\">\r\n                                <span>\r\n                                {{companie.name}}\r\n                                    </span><!--<img [src]=\"\"/>-->\r\n                                <div (mouseover)=\"companie.tooltipVisible=true\"\r\n                                     (mouseleave)=\"companie.tooltipVisible=false\" class=\"tooltip-container\">\r\n                                    <div class=\"inner-tooltip-container blue_arrow_box_top\"\r\n                                         [class.open]=\"companie.tooltipVisible\">\r\n                                        <img [class.open]=\"companie.tooltipVisible\" class=\"logo-item\"\r\n                                             [src]=\"'/companies/logo/' + companie.id\"/>\r\n                                    </div>\r\n                                </div>\r\n                            </a>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div *ngIf=\"(i+1)%4==0\" class=\"clearfix\"></div>\r\n\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 922 */
+/* 924 */
 /***/ function(module, exports) {
 
 	module.exports = "<div @flyInOut class=\"user-companies-page\">\r\n    <div class=\"sub-container\">\r\n        <div class=\"user-companies-page-container\">\r\n            <div class=\"text-center\">\r\n                <h2>Firme partenere</h2>\r\n            </div>\r\n            <div class=\"clearfix search-field-wrapper \">\r\n                <div class=\"col-md-3 col-xs-12\">\r\n                    <div class=\"input-group\">\r\n                        <div class=\"input-group-addon\">\r\n                            <span class=\"glyphicon glyphicon-search\"></span>\r\n                        </div>\r\n                        <input type=\"text\" class=\"form-control\" [(ngModel)]=\"searchFilter\"\r\n                               (ngModelChange)=\"getCompaniesWithFilters()\"/>\r\n                    </div>\r\n                </div>\r\n                <!--<div class=\"col-md-3 col-xs-12 operations\">-->\r\n                    <!--<button class=\"btn btn-primary\" (click)=\"getCompaniesWithFilters()\">-->\r\n                        <!--<span class=\"glyphicon glyphicon-filter\"></span>-->\r\n                        <!--Filtreaza companii-->\r\n                    <!--</button>-->\r\n                <!--</div>-->\r\n            </div>\r\n            <div class=\"clearfix companies-grid-view\">\r\n                <companie-list-component\r\n                        [companies-list]=\"_companiesList\"\r\n                        (companie-selected)=\"selectCompanie($event)\"\r\n                ></companie-list-component>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>";
 
 /***/ },
-/* 923 */
+/* 925 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -102369,7 +102448,7 @@
 	var core_1 = __webpack_require__(30);
 	var jqueryService_1 = __webpack_require__(823);
 	var applicationConstansts_1 = __webpack_require__(794);
-	var core_2 = __webpack_require__(924);
+	var core_2 = __webpack_require__(926);
 	var companiesService_1 = __webpack_require__(898);
 	var notificationService_1 = __webpack_require__(825);
 	var enterLeavePage_1 = __webpack_require__(841);
@@ -102468,7 +102547,7 @@
 	//# sourceMappingURL=companieDetailPage.js.map
 
 /***/ },
-/* 924 */
+/* 926 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -102482,12 +102561,12 @@
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	var core_1 = __webpack_require__(30);
-	var lazy_maps_api_loader_1 = __webpack_require__(925);
-	var maps_api_loader_1 = __webpack_require__(927);
-	var browser_globals_1 = __webpack_require__(926);
+	var lazy_maps_api_loader_1 = __webpack_require__(927);
+	var maps_api_loader_1 = __webpack_require__(929);
+	var browser_globals_1 = __webpack_require__(928);
 	// main modules
-	__export(__webpack_require__(928));
-	__export(__webpack_require__(938));
+	__export(__webpack_require__(930));
+	__export(__webpack_require__(940));
 	// Google Maps types
 	exports.GOOGLE_MAPS_PROVIDERS = [
 	    browser_globals_1.BROWSER_GLOBALS_PROVIDERS,
@@ -102498,7 +102577,7 @@
 
 
 /***/ },
-/* 925 */
+/* 927 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -102526,8 +102605,8 @@
 	    return function (target, key) { decorator(target, key, paramIndex); }
 	};
 	var core_1 = __webpack_require__(30);
-	var browser_globals_1 = __webpack_require__(926);
-	var maps_api_loader_1 = __webpack_require__(927);
+	var browser_globals_1 = __webpack_require__(928);
+	var maps_api_loader_1 = __webpack_require__(929);
 	(function (GoogleMapsScriptProtocol) {
 	    GoogleMapsScriptProtocol[GoogleMapsScriptProtocol["HTTP"] = 0] = "HTTP";
 	    GoogleMapsScriptProtocol[GoogleMapsScriptProtocol["HTTPS"] = 1] = "HTTPS";
@@ -102661,7 +102740,7 @@
 
 
 /***/ },
-/* 926 */
+/* 928 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -102680,7 +102759,7 @@
 
 
 /***/ },
-/* 927 */
+/* 929 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -102715,7 +102794,7 @@
 
 
 /***/ },
-/* 928 */
+/* 930 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -102725,22 +102804,22 @@
 	 * @license MIT
 	 */
 	"use strict";
-	var directives_const_1 = __webpack_require__(929);
+	var directives_const_1 = __webpack_require__(931);
 	exports.GOOGLE_MAPS_DIRECTIVES = directives_const_1.GOOGLE_MAPS_DIRECTIVES;
-	var google_map_1 = __webpack_require__(930);
+	var google_map_1 = __webpack_require__(932);
 	exports.SebmGoogleMap = google_map_1.SebmGoogleMap;
-	var google_map_circle_1 = __webpack_require__(935);
+	var google_map_circle_1 = __webpack_require__(937);
 	exports.SebmGoogleMapCircle = google_map_circle_1.SebmGoogleMapCircle;
-	var google_map_info_window_1 = __webpack_require__(936);
+	var google_map_info_window_1 = __webpack_require__(938);
 	exports.SebmGoogleMapInfoWindow = google_map_info_window_1.SebmGoogleMapInfoWindow;
-	var google_map_marker_1 = __webpack_require__(937);
+	var google_map_marker_1 = __webpack_require__(939);
 	exports.SebmGoogleMapMarker = google_map_marker_1.SebmGoogleMapMarker;
 
 	//# sourceMappingURL=directives.js.map
 
 
 /***/ },
-/* 929 */
+/* 931 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -102750,17 +102829,17 @@
 	 * @license MIT
 	 */
 	"use strict";
-	var google_map_1 = __webpack_require__(930);
-	var google_map_circle_1 = __webpack_require__(935);
-	var google_map_info_window_1 = __webpack_require__(936);
-	var google_map_marker_1 = __webpack_require__(937);
+	var google_map_1 = __webpack_require__(932);
+	var google_map_circle_1 = __webpack_require__(937);
+	var google_map_info_window_1 = __webpack_require__(938);
+	var google_map_marker_1 = __webpack_require__(939);
 	exports.GOOGLE_MAPS_DIRECTIVES = [google_map_1.SebmGoogleMap, google_map_marker_1.SebmGoogleMapMarker, google_map_info_window_1.SebmGoogleMapInfoWindow, google_map_circle_1.SebmGoogleMapCircle];
 
 	//# sourceMappingURL=directives-const.js.map
 
 
 /***/ },
-/* 930 */
+/* 932 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -102780,10 +102859,10 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(30);
-	var google_maps_api_wrapper_1 = __webpack_require__(931);
-	var circle_manager_1 = __webpack_require__(932);
-	var info_window_manager_1 = __webpack_require__(933);
-	var marker_manager_1 = __webpack_require__(934);
+	var google_maps_api_wrapper_1 = __webpack_require__(933);
+	var circle_manager_1 = __webpack_require__(934);
+	var info_window_manager_1 = __webpack_require__(935);
+	var marker_manager_1 = __webpack_require__(936);
 	/**
 	 * SebMGoogleMap renders a Google Map.
 	 * **Important note**: To be able see a map in the browser, you have to define a height for the CSS
@@ -103039,7 +103118,7 @@
 
 
 /***/ },
-/* 931 */
+/* 933 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -103060,7 +103139,7 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var Observable_1 = __webpack_require__(63);
-	var maps_api_loader_1 = __webpack_require__(927);
+	var maps_api_loader_1 = __webpack_require__(929);
 	/**
 	 * Wrapper class that handles the communication with the Google Maps Javascript
 	 * API v3
@@ -103152,7 +103231,7 @@
 
 
 /***/ },
-/* 932 */
+/* 934 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -103173,7 +103252,7 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var Observable_1 = __webpack_require__(63);
-	var google_maps_api_wrapper_1 = __webpack_require__(931);
+	var google_maps_api_wrapper_1 = __webpack_require__(933);
 	var CircleManager = (function () {
 	    function CircleManager(_apiWrapper, _zone) {
 	        this._apiWrapper = _apiWrapper;
@@ -103259,7 +103338,7 @@
 
 
 /***/ },
-/* 933 */
+/* 935 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -103279,8 +103358,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(30);
-	var google_maps_api_wrapper_1 = __webpack_require__(931);
-	var marker_manager_1 = __webpack_require__(934);
+	var google_maps_api_wrapper_1 = __webpack_require__(933);
+	var marker_manager_1 = __webpack_require__(936);
 	var InfoWindowManager = (function () {
 	    function InfoWindowManager(_mapsWrapper, _zone, _markerManager) {
 	        this._mapsWrapper = _mapsWrapper;
@@ -103351,7 +103430,7 @@
 
 
 /***/ },
-/* 934 */
+/* 936 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -103372,7 +103451,7 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var Observable_1 = __webpack_require__(63);
-	var google_maps_api_wrapper_1 = __webpack_require__(931);
+	var google_maps_api_wrapper_1 = __webpack_require__(933);
 	var MarkerManager = (function () {
 	    function MarkerManager(_mapsWrapper, _zone) {
 	        this._mapsWrapper = _mapsWrapper;
@@ -103440,7 +103519,7 @@
 
 
 /***/ },
-/* 935 */
+/* 937 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -103460,7 +103539,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(30);
-	var circle_manager_1 = __webpack_require__(932);
+	var circle_manager_1 = __webpack_require__(934);
 	var SebmGoogleMapCircle = (function () {
 	    function SebmGoogleMapCircle(_manager) {
 	        this._manager = _manager;
@@ -103655,7 +103734,7 @@
 
 
 /***/ },
-/* 936 */
+/* 938 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -103675,7 +103754,7 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(30);
-	var info_window_manager_1 = __webpack_require__(933);
+	var info_window_manager_1 = __webpack_require__(935);
 	var infoWindowId = 0;
 	/**
 	 * SebmGoogleMapInfoWindow renders a info window inside a {@link SebmGoogleMapMarker} or standalone.
@@ -103788,7 +103867,7 @@
 
 
 /***/ },
-/* 937 */
+/* 939 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -103808,8 +103887,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(30);
-	var marker_manager_1 = __webpack_require__(934);
-	var google_map_info_window_1 = __webpack_require__(936);
+	var marker_manager_1 = __webpack_require__(936);
+	var google_map_info_window_1 = __webpack_require__(938);
 	var markerId = 0;
 	/**
 	 * SebmGoogleMapMarker renders a map marker inside a {@link SebmGoogleMap}.
@@ -103926,7 +104005,7 @@
 
 
 /***/ },
-/* 938 */
+/* 940 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -103936,29 +104015,29 @@
 	 * @license MIT
 	 */
 	"use strict";
-	var google_maps_api_wrapper_1 = __webpack_require__(931);
+	var google_maps_api_wrapper_1 = __webpack_require__(933);
 	exports.GoogleMapsAPIWrapper = google_maps_api_wrapper_1.GoogleMapsAPIWrapper;
-	var circle_manager_1 = __webpack_require__(932);
+	var circle_manager_1 = __webpack_require__(934);
 	exports.CircleManager = circle_manager_1.CircleManager;
-	var info_window_manager_1 = __webpack_require__(933);
+	var info_window_manager_1 = __webpack_require__(935);
 	exports.InfoWindowManager = info_window_manager_1.InfoWindowManager;
-	var marker_manager_1 = __webpack_require__(934);
+	var marker_manager_1 = __webpack_require__(936);
 	exports.MarkerManager = marker_manager_1.MarkerManager;
-	var lazy_maps_api_loader_1 = __webpack_require__(925);
+	var lazy_maps_api_loader_1 = __webpack_require__(927);
 	exports.GoogleMapsScriptProtocol = lazy_maps_api_loader_1.GoogleMapsScriptProtocol;
 	exports.LazyMapsAPILoader = lazy_maps_api_loader_1.LazyMapsAPILoader;
 	exports.LazyMapsAPILoaderConfig = lazy_maps_api_loader_1.LazyMapsAPILoaderConfig;
 	exports.provideLazyMapsAPILoaderConfig = lazy_maps_api_loader_1.provideLazyMapsAPILoaderConfig;
-	var maps_api_loader_1 = __webpack_require__(927);
+	var maps_api_loader_1 = __webpack_require__(929);
 	exports.MapsAPILoader = maps_api_loader_1.MapsAPILoader;
-	var noop_maps_api_loader_1 = __webpack_require__(939);
+	var noop_maps_api_loader_1 = __webpack_require__(941);
 	exports.NoOpMapsAPILoader = noop_maps_api_loader_1.NoOpMapsAPILoader;
 
 	//# sourceMappingURL=services.js.map
 
 
 /***/ },
-/* 939 */
+/* 941 */
 /***/ function(module, exports) {
 
 	/**
@@ -103991,7 +104070,7 @@
 
 
 /***/ },
-/* 940 */
+/* 942 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -104017,7 +104096,7 @@
 	var registrationService_1 = __webpack_require__(845);
 	var notificationService_1 = __webpack_require__(825);
 	var applicationStateService_1 = __webpack_require__(819);
-	var template = __webpack_require__(941);
+	var template = __webpack_require__(943);
 	var HeaderComponent = (function () {
 	    function HeaderComponent(router, localStorageService, registrationService, notificationService, applicationStateService) {
 	        this._router = router;
@@ -104130,13 +104209,13 @@
 	//# sourceMappingURL=headerComponent.js.map
 
 /***/ },
-/* 941 */
+/* 943 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"sidenav-mobile visible-xs\" [style.margin-left]=\"sideMenuOpened ? '0' :'-250px'\">\r\n    <div class=\"clearfix\">\r\n        <a href=\"javascript:void(0)\" class=\"closebtn pull-right\" (click)=\"closeNav()\">×</a>\r\n    </div>\r\n    <ul class=\"nav navbar-nav navbar-right\">\r\n        <ul class=\"nav navbar-nav navbar-right\">\r\n            <li><a (click)=\"addDemandFromMobile()\">Adauga cerere</a></li>\r\n            <template  [ngIf]=\"!isAdminUser()\" >\r\n                <li *ngFor=\"let page of _usersApplicationPages\"><a (click)=\"goToPageUsingSideMenu(page.link)\">{{page.name}}</a></li>\r\n            </template>\r\n            <li *ngIf=\"!isLoggedIn()\"><a (click)=\"goToPageUsingSideMenu('/login')\">Contul meu</a></li>\r\n            <li *ngIf=\"chechIdNormalUser()\">\r\n                <ul>\r\n                    <li *ngFor=\"let p of _myAccountDropdownPages\"><a (click)=\"goToPageUsingSideMenu(p.link)\">{{p.name}}</a></li>\r\n                    <li><a (click)=\"logout()\">Iesire din cont</a></li>\r\n                </ul>\r\n            </li>\r\n            <li *ngIf=\"isAdminUser()\">\r\n                <ul>\r\n                    <li *ngFor=\"let p of _adminApplicationPages\"><a (click)=\"goToPageUsingSideMenu(p.link)\">{{p.name}}</a></li>\r\n                    <li><a style=\"cursor: pointer;\" (click)=\"logoutFromSideMenu()\">Iesire din cont</a></li>\r\n                </ul>\r\n            </li>\r\n        </ul>\r\n    </ul>\r\n</div>\r\n<div class=\"header\">\r\n    <nav class=\"navbar navbar-default navbar-fixed-top clearfix\">\r\n        <div class=\"container-fluid clearfix\" [style.margin-left]=\"sideMenuOpened ? '250px' :'0px'\">\r\n            <div class=\"visible-xs visible-sm pull-left mobile-menu\">\r\n                <span (click)=\"openNav()\" class=\"glyphicon glyphicon-align-justify\"></span>\r\n            </div>\r\n            <a [routerLink]=\"['']\" class=\"navbar-header clearfix\">\r\n                <img [style.opacity]=\"hideImage ? 0 : 1\" id=\"element1\" class=\"fMarket-brand-icon\"\r\n                     src=\"/staticResorces/orange_logo_simple.png\"/>\r\n            </a>\r\n            <div class=\"collapse navbar-collapse\">\r\n                <div class=\"pull-right navbar-bottons\">\r\n                    <button class=\"btn btn-success\" (click)=\"addDemand()\">\r\n                        <span class=\"glyphicon glyphicon-plus\"></span>\r\n                        Adauga cerere\r\n                    </button>\r\n                </div>\r\n                <ul class=\"nav navbar-nav navbar-right\">\r\n                    <template  [ngIf]=\"!isAdminUser()\" >\r\n                        <li *ngFor=\"let page of _usersApplicationPages\"><a [routerLink]=\"[page.link]\">{{page.name}}</a></li>\r\n                    </template>\r\n                    <li *ngIf=\"!isLoggedIn()\"><a [routerLink]=\"['/login']\">Contul meu</a></li>\r\n                    <li *ngIf=\"chechIdNormalUser()\" dropdown class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" dropdownToggle role=\"button\" aria-haspopup=\"true\"\r\n                           aria-expanded=\"false\">{{_myAccountLabel}}<span class=\"caret\"></span></a>\r\n                        <ul dropdownMenu class=\"dropdown-menu\">\r\n                            <li *ngFor=\"let p of _myAccountDropdownPages\"><a [routerLink]=\"[p.link]\">{{p.name}}</a></li>\r\n                            <li><a (click)=\"logout()\">Iesire din cont</a></li>\r\n                        </ul>\r\n                    </li>\r\n                    <li *ngIf=\"isAdminUser()\" dropdown class=\"dropdown\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" dropdownToggle role=\"button\" aria-haspopup=\"true\"\r\n                           aria-expanded=\"false\">{{_myAccountLabel}}<span class=\"caret\"></span></a>\r\n                        <ul dropdownMenu class=\"dropdown-menu\">\r\n                            <li *ngFor=\"let p of _adminApplicationPages\"><a [routerLink]=\"[p.link]\">{{p.name}}</a></li>\r\n                            <li><a style=\"cursor: pointer;\" (click)=\"logout()\">Iesire din cont</a></li>\r\n                        </ul>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n        </div>\r\n    </nav>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n";
 
 /***/ },
-/* 942 */
+/* 944 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -104154,7 +104233,7 @@
 	};
 	var core_1 = __webpack_require__(30);
 	var router_1 = __webpack_require__(355);
-	var template = __webpack_require__(943);
+	var template = __webpack_require__(945);
 	var FooterComponent = (function () {
 	    function FooterComponent() {
 	    }
@@ -104172,13 +104251,13 @@
 	//# sourceMappingURL=footerComponent.js.map
 
 /***/ },
-/* 943 */
+/* 945 */
 /***/ function(module, exports) {
 
 	module.exports = "<footer class=\"footer\">\r\n    <div class=\"footer-wrapper\">\r\n        <div class=\"row\">\r\n            <div class=\"col-sm-12 col-md-4\">\r\n                <a [routerLink]=\"['/']\" class=\"logo-image-container\">\r\n                    <img class=\"image\" src=\"/staticResorces/gray_logo_v.png\"/>\r\n                </a>\r\n                <div class=\"footer-row under-image\">\r\n                    <span>© 2016 SimpluSiRapid.ro. Toate drepturile rezervate</span>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-sm-12 col-md-push-4 col-md-2\">\r\n                <div class=\"footer-row first\">\r\n                    <a>Contact</a>\r\n                </div>\r\n                <div class=\"footer-row\">\r\n                    <a [routerLink]=\"['firme']\">Firme ofertante</a>\r\n                </div>\r\n                <div class=\"footer-row last\">\r\n                    <a >Termeni si conditii de utilizare</a>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-sm-12 col-md-push-4 col-md-2\">\r\n                <div class=\"footer-row first\">\r\n                    <a [routerLink]=\"['login']\">Login</a>\r\n                </div>\r\n                <div class=\"footer-row\">\r\n                    <a>Despre SimpluSiRapid.ro</a>\r\n                </div>\r\n                <div class=\"footer-row last\">\r\n                    <a [routerLink]=\"['registration']\">Inregistrare</a>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</footer>";
 
 /***/ },
-/* 944 */
+/* 946 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -104192,13 +104271,13 @@
 	var forgetPasswordPage_1 = __webpack_require__(850);
 	var successPage_1 = __webpack_require__(840);
 	var adminPage_1 = __webpack_require__(851);
-	var accountSettingsPage_1 = __webpack_require__(906);
-	var companieDetailPage_1 = __webpack_require__(923);
-	var tokenConfirmPage_1 = __webpack_require__(918);
-	var companiesPage_1 = __webpack_require__(919);
-	var account_routes_1 = __webpack_require__(945);
-	var admin_routes_1 = __webpack_require__(946);
-	var AuthorizationFilter_1 = __webpack_require__(948);
+	var accountSettingsPage_1 = __webpack_require__(908);
+	var companieDetailPage_1 = __webpack_require__(925);
+	var tokenConfirmPage_1 = __webpack_require__(920);
+	var companiesPage_1 = __webpack_require__(921);
+	var account_routes_1 = __webpack_require__(947);
+	var admin_routes_1 = __webpack_require__(948);
+	var AuthorizationFilter_1 = __webpack_require__(950);
 	var Roles_1 = __webpack_require__(821);
 	exports.routes = [
 	    {
@@ -104264,13 +104343,13 @@
 	//# sourceMappingURL=app.routes.js.map
 
 /***/ },
-/* 945 */
+/* 947 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var accountSettingsPage_1 = __webpack_require__(906);
-	var accountEditPage_1 = __webpack_require__(908);
-	var accountDemandsPage_1 = __webpack_require__(915);
+	var accountSettingsPage_1 = __webpack_require__(908);
+	var accountEditPage_1 = __webpack_require__(910);
+	var accountDemandsPage_1 = __webpack_require__(917);
 	var Roles_1 = __webpack_require__(821);
 	exports.ACCOUNT_SETTINGS_PAGE_ROUTE_PROVIDERS = [
 	    {
@@ -104294,7 +104373,7 @@
 	//# sourceMappingURL=account.routes.js.map
 
 /***/ },
-/* 946 */
+/* 948 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -104310,10 +104389,10 @@
 	var companiesPage_1 = __webpack_require__(872);
 	var companiesEditPage_1 = __webpack_require__(897);
 	var companiesCreatePage_1 = __webpack_require__(904);
-	var categories_routes_1 = __webpack_require__(947);
-	var demand_routes_1 = __webpack_require__(949);
+	var categories_routes_1 = __webpack_require__(949);
+	var demand_routes_1 = __webpack_require__(951);
 	var Roles_1 = __webpack_require__(821);
-	var AuthorizationFilter_1 = __webpack_require__(948);
+	var AuthorizationFilter_1 = __webpack_require__(950);
 	exports.ADMIN_PAGE_ROUTE_PROVIDERS = [
 	    {
 	        path: 'admin',
@@ -104376,7 +104455,7 @@
 	//# sourceMappingURL=admin.routes.js.map
 
 /***/ },
-/* 947 */
+/* 949 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -104385,7 +104464,7 @@
 	var companiesPage_1 = __webpack_require__(872);
 	var domainsPage_1 = __webpack_require__(876);
 	var Roles_1 = __webpack_require__(821);
-	var AuthorizationFilter_1 = __webpack_require__(948);
+	var AuthorizationFilter_1 = __webpack_require__(950);
 	exports.CATEGORIES_PAGE_ROUTE_PROVIDERS = [
 	    {
 	        path: 'categorii',
@@ -104417,7 +104496,7 @@
 	//# sourceMappingURL=categories.routes.js.map
 
 /***/ },
-/* 948 */
+/* 950 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -104464,7 +104543,7 @@
 	//# sourceMappingURL=AuthorizationFilter.js.map
 
 /***/ },
-/* 949 */
+/* 951 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -104475,7 +104554,7 @@
 	var newDemandsListPage_1 = __webpack_require__(881);
 	var allDemandsListPage_1 = __webpack_require__(888);
 	var Roles_1 = __webpack_require__(821);
-	var AuthorizationFilter_1 = __webpack_require__(948);
+	var AuthorizationFilter_1 = __webpack_require__(950);
 	exports.DEMANDS_PAGE_ROUTE_PROVIDERS = [
 	    {
 	        path: 'cereri',

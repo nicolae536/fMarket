@@ -13,7 +13,7 @@ import * as template from './accountSettingsPage.html';
 import {AccountEditPage} from "./accountEditPage/accountEditPage";
 import {AccountDemandsPage} from "./accountDemandsPage/accountDemandsPage";
 import {ENTER_LEAVE_ANIMATION} from "../pageAnimations/enterLeavePage";
-import {AUTO_HEIGHT_ANIMATION} from "../pageAnimations/autoHeightAnimation";
+import {AUTO_HEIGHT_ANIMATION} from "../pageAnimations/autoHeight";
 
 @Component({
     selector: 'account-settings-Page',
