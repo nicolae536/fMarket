@@ -9,11 +9,13 @@ import {NotificationService} from "../../../services/notificationService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
 import {JqueryService} from "../../../services/jqueryService";
 import {ApplicationStateService} from "../../../services/applicationStateService";
+import {ENTER_LEAVE_ANIMATION} from "../../pageAnimations/enterLeavePage";
 
 @Component({
     selector: 'token-confirm',
     templateUrl: '/app/pages/registrationPage/errorPages/errorActivateTokenPage.html',
-    directives:[ROUTER_DIRECTIVES]
+    directives:[ROUTER_DIRECTIVES],
+    animations: ENTER_LEAVE_ANIMATION
 })
 
 export class TokenConfirmPage implements OnInit{

@@ -17,6 +17,7 @@ export const CATEGORIES_PAGE_ROUTE_PROVIDERS: RouterConfig = [
         path: 'categorii',
         component: CategoriesPage,
         roles: [Role.ADMIN],
+        canActivate: [AuthorizationFilter],
         children: [
             {
                 path: 'meniu',

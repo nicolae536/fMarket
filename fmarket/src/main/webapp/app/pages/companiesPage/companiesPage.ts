@@ -10,12 +10,13 @@ import {PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import {CompaniesService} from "../../services/companiesService";
 import {NotificationService} from "../../services/notificationService";
 import {Ng2Pagination} from "../../models/Ng2Pagination";
-
-let template = require('./companiesPage.html');
+import * as template from './companiesPage.html';
+import {ENTER_LEAVE_ANIMATION} from "../pageAnimations/enterLeavePage";
 
 @Component({
     selector: 'compnaies-Page',
     template:template,
+    animations: ENTER_LEAVE_ANIMATION,
     directives: [CompanieListComponent, PAGINATION_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class CompaniesPage implements OnInit {

@@ -21,7 +21,7 @@ export class AuthorizationFilter implements CanActivate{
         let activeUserRole = AuthorizationService.getUserRole();
 
         if (!requiredRoles) {
-            requiredRoles = [Role.ANONYMUS, Role.USER];
+            requiredRoles = [Role.ANONYMUS, Role.USER, Role.ADMIN];
         }
 
         if (!activeUserRole) {

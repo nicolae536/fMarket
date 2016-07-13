@@ -17,59 +17,58 @@ import {CompaniesPage} from "./pages/companiesPage/companiesPage";
 import {ACCOUNT_SETTINGS_PAGE_ROUTE_PROVIDERS} from './pages/accountSettingsPage/account.routes';
 import {ADMIN_PAGE_ROUTE_PROVIDERS} from "./pages/adminPage/admin.routes";
 import {AuthorizationFilter} from "./services/AuthorizationFilter";
+import {Role} from "./models/Roles";
 
 export const routes:RouterConfig = [
     {
         path: '',
-        component: HomePage,
-        canActivate: [AuthorizationFilter]
+        component: HomePage
     },
     {
         path: 'registration',
-        component: RegistrationPage,
-        canActivate: [AuthorizationFilter]
+        component: RegistrationPage
     },{
         path: 'login',
-        component: LoginPage,
-        canActivate: [AuthorizationFilter]
+        component: LoginPage
     },{
         path: 'forget-password',
-        component: ForgetPasswordPage,
-        canActivate: [AuthorizationFilter]
+        component: ForgetPasswordPage
     },{
         path: 'success/:succesOption',
         component: SuccessPage,
+        roles:[Role.ANONYMUS, Role.USER],
         canActivate: [AuthorizationFilter]
     },{
         path: 'admin',
         component: AdminPage,
-        redirectTo: '',
-        canActivate: [AuthorizationFilter],
-        pathMatch:'full'
-    },{
+        roles:[Role.ADMIN],
+        canActivate: [AuthorizationFilter]
+    },
+    ...ADMIN_PAGE_ROUTE_PROVIDERS,
+    {
         path: 'account',
         component: AccountSettingsPage,
-        redirectTo: '',
+        roles:[Role.USER],
         canActivate: [AuthorizationFilter]
-    },{
+    },
+    ...ACCOUNT_SETTINGS_PAGE_ROUTE_PROVIDERS,
+    {
         path: 'firme',
         component: CompaniesPage,
+        roles:[Role.ANONYMUS, Role.USER],
         canActivate: [AuthorizationFilter]
     },{
         path: 'firma-detalii/:id',
         component: CompanieDetailPage,
+        roles:[Role.ANONYMUS, Role.USER],
         canActivate: [AuthorizationFilter]
     },{
         path: 'confirm/:registration?token',
-        component: TokenConfirmPage,
-        canActivate: [AuthorizationFilter]
+        component: TokenConfirmPage
     },{
-        path: '*',
+        path: '**',
         component: HomePage,
-        canActivate: [AuthorizationFilter]
-    },
-    ...ADMIN_PAGE_ROUTE_PROVIDERS,
-    ...ACCOUNT_SETTINGS_PAGE_ROUTE_PROVIDERS
+    }
 ]
 
 

@@ -13,13 +13,14 @@ import {RegistrationComponent} from "../../components/registrationComponent/regi
 
 import {RegisterAccount} from "../../models/registerAccount";
 import {SuccessPageOptions} from "./successPages/successPage";
-
-let template = require('./registrationPage.html');
+import * as template from './registrationPage.html';
+import {ENTER_LEAVE_ANIMATION} from "../pageAnimations/enterLeavePage";
 
 @Component({
     selector: 'registration-page',
     template: template,
-    directives: [RegistrationComponent]
+    directives: [RegistrationComponent],
+    animations: ENTER_LEAVE_ANIMATION
 })
 export class RegistrationPage implements OnInit, AfterViewChecked {
     //<editor-fold desc="Services">

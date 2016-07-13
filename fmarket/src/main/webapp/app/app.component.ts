@@ -32,7 +32,16 @@ import {SuccessPage} from "./pages/registrationPage/successPages/successPage";
 import {CompanieDetailPage} from "./pages/companiesPage/companieDetailPage/companieDetailPage";
 import {TokenConfirmPage} from "./pages/registrationPage/tokenConfirmPage/tokenConfirmPage";
 import {CompaniesPage} from "./pages/companiesPage/companiesPage";
+// import {CompaniesPage as CategoriesCompaniesPage} from "./pages/adminPage/categoriesPage/companiesPage/companiesPage";
+
 import {ROUTER_DIRECTIVES} from "@angular/router";
+// import {UsersPage} from "./pages/adminPage/usersPage/usersPage";
+// import {SubscribersPage} from "./pages/adminPage/subscribersPage/subscribersPage";
+// import {CategoriesPage} from "./pages/adminPage/categoriesPage/categoriesPage";
+// import {DemandsPage} from "./pages/adminPage/demandsPage/demandsPage";
+// import {DemandsEditPage} from "./pages/adminPage/demandsPage/demandsEditPage/demandsEditPage";
+// import {CompaniesEditPage} from "./pages/adminPage/companiesPage/companiesEditPage/companiesEditPage";
+// import {CompanieCreatePage} from "./pages/adminPage/companiesPage/companiesEditPage/companiesCreatePage";
 
 @Component({
     selector: 'my-app',
@@ -57,7 +66,6 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
     directives: [ROUTER_DIRECTIVES , HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent],
     precompile: [
         AdminPage,
-
         AccountSettingsPage,
         HomePage,
         RegistrationPage,
@@ -67,7 +75,15 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
         CompaniesPage,
         CompanieDetailPage,
         TokenConfirmPage,
-
+        //
+        // UsersPage,
+        // SubscribersPage,
+        // CategoriesPage,
+        // DemandsPage,
+        // DemandsEditPage,
+        // CategoriesCompaniesPage,
+        // CompaniesEditPage,
+        // CompanieCreatePage
     ]
 })
 

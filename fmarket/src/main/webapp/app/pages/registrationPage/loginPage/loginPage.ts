@@ -15,13 +15,14 @@ import {RegistrationComponent} from "../../../components/registrationComponent/r
 
 import {RegisterAccount} from "../../../models/registerAccount";
 import {Role} from "../../../models/Roles";
-
-let template = require('../registrationPage.html');
+import {ENTER_LEAVE_ANIMATION} from "../../pageAnimations/enterLeavePage";
+import * as template from '../registrationPage.html';
 
 @Component({
     selector: 'login-page',
     template: template,
-    directives: [RegistrationComponent]
+    directives: [RegistrationComponent],
+    animations: ENTER_LEAVE_ANIMATION
 })
 export class LoginPage implements OnInit, AfterViewChecked {
     //<editor-fold desc="Services">

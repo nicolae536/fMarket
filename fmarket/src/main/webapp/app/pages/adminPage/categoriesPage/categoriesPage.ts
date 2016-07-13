@@ -6,8 +6,7 @@ import {CategoriesMenuPage} from "./categoriesMenuPage/categoriesMenuPage";
 import {CompaniesPage} from "./companiesPage/companiesPage";
 import {DomainsPage} from "./domainsPage/domainsPage";
 import {ROUTER_DIRECTIVES} from "@angular/router";
-
-let template = require('./categoriesPage.html');
+import * as template from './categoriesPage.html';
 
 @Component({
     selector: 'categoryes-page',

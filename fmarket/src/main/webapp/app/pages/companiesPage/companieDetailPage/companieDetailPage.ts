@@ -8,12 +8,14 @@ import {ApplicationConstants} from "../../../models/applicationConstansts";
 import {GOOGLE_MAPS_DIRECTIVES} from "angular2-google-maps/core";
 import {CompaniesService} from "../../../services/companiesService";
 import {NotificationService} from "../../../services/notificationService";
+import {ENTER_LEAVE_ANIMATION} from "../../pageAnimations/enterLeavePage";
 
 @Component({
     selector: 'compnaie-details-Page',
     // template:template,
     templateUrl: '/app/pages/companiesPage/companieDetailPage/companieDetailPage.html',
     directives: [GOOGLE_MAPS_DIRECTIVES],
+    animations: ENTER_LEAVE_ANIMATION,
 })
 export class CompanieDetailPage implements OnInit, AfterViewInit, OnActivate {
     private companiesService:CompaniesService;

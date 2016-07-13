@@ -11,8 +11,8 @@ import {RegisterAccount} from "../../../models/registerAccount";
 import {NotificationService} from "../../../services/notificationService";
 import {JqueryService} from "../../../services/jqueryService";
 import {SuccessPageOptions} from "../successPages/successPage";
-
-let template = require('../registrationPage.html');
+import * as template from '../registrationPage.html';
+import {ENTER_LEAVE_ANIMATION} from "../../pageAnimations/enterLeavePage";
 
 @Component({
     selector: 'forget=password-page',
@@ -22,6 +22,7 @@ let template = require('../registrationPage.html');
         padding-top: 14vh;
     }
     `],
+    animations: ENTER_LEAVE_ANIMATION,
     directives: [RegistrationComponent]
 })
 export class ForgetPasswordPage implements OnInit, AfterViewChecked {

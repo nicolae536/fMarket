@@ -3,7 +3,7 @@
  */
 import {
     Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit, OnDestroy,
-    trigger, transition, animate, style, state
+    trigger, transition, animate, style, state, group, keyframes
 } from "@angular/core";
 import {Router} from "@angular/router";
 import {FormBuilder, Validators} from "@angular/common";
@@ -21,23 +21,13 @@ import {ApplicationConstants} from "../../models/applicationConstansts";
 import {SuccessPageOptions} from "../registrationPage/successPages/successPage";
 import {AuthorizationService} from "../../services/authorizationService";
 import * as template from './homePage.html';
+import {ENTER_LEAVE_ANIMATION} from '../pageAnimations/enterLeavePage';
 
 @Component({
     selector: 'home-page',
     template: template,
     directives: [DemandComponent],
-    animations: [
-        trigger('flyInOut', [
-            state('in', style({transform: 'translateX(0)'})),
-            transition('void => *', [
-                style({transform: 'translateX(-100%)'}),
-                animate(500)
-            ]),
-            transition('* => void', [
-                animate(500, style({transform: 'translateX(100%)'}))
-            ])
-        ])
-    ]
+    animations: ENTER_LEAVE_ANIMATION
 })
 export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
 

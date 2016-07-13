@@ -23,6 +23,7 @@ export const ADMIN_PAGE_ROUTE_PROVIDERS: RouterConfig = [
         path: 'admin',
         component: AdminPage,
         roles: [Role.ADMIN],
+        canActivate: [AuthorizationFilter],
         children: [
             {
                 path: 'users',

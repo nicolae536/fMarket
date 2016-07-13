@@ -6,13 +6,14 @@ import {Component, OnInit} from "@angular/core";
 import {Router, ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
 import {JqueryService} from "../../../services/jqueryService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
-
-let template = require('./successPage.html');
+import {ENTER_LEAVE_ANIMATION} from "../../pageAnimations/enterLeavePage";
+import * as template from './successPage.html';
 
 @Component({
     selector:'success-register-page',
     template: template,
-    directives:[ROUTER_DIRECTIVES]
+    directives:[ROUTER_DIRECTIVES],
+    animations: ENTER_LEAVE_ANIMATION
 })
 export class SuccessPage implements OnInit{
 

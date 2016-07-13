@@ -4,20 +4,12 @@
 import * as _ from 'underscore';
 
 import {Component, OnInit, OnChanges} from "@angular/core";
-import {Router} from "@angular/router";
 
 import {DemandService} from "../../../services/demandService";
-import {RequestTypeService} from "../../../services/requestTypeService";
-import {CategoriesMenuService} from "../../../services/categoriesMenuService";
-import {LocalizationService} from "../../../services/localizationService";
-import {NotificationService} from "../../../services/notificationService";
-
-import {DemandsListPageBase} from "../../adminPage/demandsPage/demandsListPage/demandsListPageBase";
 import {DemandStatus} from "../../../models/DemandStatus";
 import {DemandListBaseComponent} from "../../../components/demandComponent/demandListBase/demandListBase";
 
-
-let template = require('./accountDemandsPage.html');
+import * as template from './accountDemandsPage.html';
 
 @Component({
     selector: 'account-demands-Page',

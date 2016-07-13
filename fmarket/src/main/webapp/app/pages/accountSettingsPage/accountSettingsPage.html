@@ -1,11 +1,11 @@
-<div class="account-settings-page clearfix">
+<div @flyInOut class="account-settings-page clearfix">
     <div class="sub-container">
         <div class="container-fluid account-settings-page-container">
             <div class="content">
                 <tabs-component
                         [tabs-pages-list]="tabPagesList">
                 </tabs-component>
-                <div class="sub-pabge-container">
+                <div @shrinkIn class="sub-pabge-container">
                     <router-outlet></router-outlet>
                 </div>
             </div>

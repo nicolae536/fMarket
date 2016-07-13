@@ -138,7 +138,7 @@ export class HeaderComponent implements OnInit {
             .subscribe(
                 response=> {
                     me._applicationStateService.removeUserSession();
-                    me._router.navigate(['/']);
+                    me._router.navigate(['']);
                 }, error=> {
                     me._notificationService.emitErrorNotificationToRootComponent('Erroare la logout!',5);
                 }

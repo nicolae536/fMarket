@@ -15,9 +15,8 @@ import {DemandsEditPage} from "./demandsPage/demandsEditPage/demandsEditPage";
 import {CompaniesPage} from "./categoriesPage/companiesPage/companiesPage";
 import {CompaniesEditPage} from "./companiesPage/companiesEditPage/companiesEditPage";
 import {CompanieCreatePage} from "./companiesPage/companiesEditPage/companiesCreatePage";
-import {AuthorizationFilter} from "../../services/AuthorizationFilter";
-
-let template = require('./adminPage.html');
+import * as template from './adminPage.html';
+import {ENTER_LEAVE_ANIMATION} from "../pageAnimations/enterLeavePage";
 
 @Component({
     selector: 'admin-Page',
@@ -32,7 +31,8 @@ let template = require('./adminPage.html');
         CompaniesPage,
         CompaniesEditPage,
         CompanieCreatePage,
-    ]
+    ],
+    animations: ENTER_LEAVE_ANIMATION
 })
 
 export class AdminPage implements AfterViewChecked {

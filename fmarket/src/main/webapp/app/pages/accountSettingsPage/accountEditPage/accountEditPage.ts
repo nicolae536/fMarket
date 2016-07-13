@@ -15,8 +15,7 @@ import {Select2Item} from "../../../components/selectComponent/selectComponent";
 import {AccountUser} from "../../../models/accountUser";
 import {AuthorizationService} from "../../../services/authorizationService";
 import {SuccessPageOptions} from "../../registrationPage/successPages/successPage";
-
-let template = require('./accountEditPage.html');
+import * as template from './accountEditPage.html';
 
 @Component({
     selector: 'account-edit-Page',
