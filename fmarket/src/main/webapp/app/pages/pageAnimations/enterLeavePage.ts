@@ -14,11 +14,12 @@ export const ENTER_LEAVE_ANIMATION = [
         state('in', style({transform: 'translateX(0)'})),
         transition('void => *', [
             style({transform: 'translateX(-100%)'}),
-            animate(100)
+            animate('200ms ease-in')
         ]),
         state('out', style({transform: 'translateX(100%)'})),
         transition('* => void', [
-            animate(100, style({transform: 'translateX(100%)'}))
+            style({transform: 'translateX(100%)'}),
+            animate('200ms ease-in')
         ])
     ])
 ]

@@ -23,10 +23,10 @@ export const FADE_IN_ANIMATION = [
                 transform: 'translateX(-100%)',
                 opacity: '0'
             }),
-            animate('700ms ease-in')
+            animate('500ms ease-in')
         ]),
         transition('* => void', [
-            animate('700ms ease-in', style({
+            animate('500ms ease-in', style({
                 transform: 'translateX(100%)',
                 opacity: '0'
             }))

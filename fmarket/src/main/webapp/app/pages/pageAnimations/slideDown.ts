@@ -19,10 +19,10 @@ export const SLIDE_DOWN_ANIMATION = [
                 transform: 'translateY(-100%)',
                 opacity: '0'
             }),
-            animate('700ms ease-in')
+            animate('500ms ease-in')
         ]),
         transition('* => void', [
-            animate('700ms ease-in', style({
+            animate('500ms ease-in', style({
                 transform: 'translateY(100%)',
                 opacity: '0'
             }))

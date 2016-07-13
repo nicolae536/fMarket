@@ -57,11 +57,10 @@ export class AdminPage implements AfterViewChecked {
     }
 
     ngAfterViewChecked():any {
-        // JqueryService.setAdminPageHeight(this.leftMenu.nativeElement, this.rightMenu.nativeElement);
         this._notificationService.removeLoading();
     }
     
     checkRoute(link){
-        return this.location.path().indexOf(link) !==-1;
+        return this.location.path().indexOf(link) !== -1;
     }
 }

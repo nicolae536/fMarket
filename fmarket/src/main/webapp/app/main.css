@@ -1,7 +1,6 @@
 /*
 Css library
 */
-@import "/css_libraries/ng2-bootstrapCss/css/bootstrap.min.css";
 
 /*components styles*/
 @import "/app/components/companieComponent/createCompanieDialog/createCompanieDialog.css";
