@@ -20,12 +20,12 @@ import {UserService} from "./services/usersService";
 import {CompaniesService} from "./services/companiesService";
 import {FMarketApi} from "./services/fMarketApi";
 import {LocalizationService} from "./services/localizationService";
-import {FormBuilder} from "@angular/common";
 import {NotificationService} from "./services/notificationService";
 import {LocalStorageService} from "./services/localStorageService";
 import {AuthorizationService} from "./services/authorizationService";
 import {RegistrationService} from "./services/registrationService";
 import {ApplicationStateService} from "./services/applicationStateService";
+import {SyncronizationService} from "./services/syncronizationService";
 
 import {GOOGLE_MAPS_PROVIDERS} from 'angular2-google-maps/core';
 import {PAGINATION_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
@@ -43,7 +43,6 @@ bootstrap(AppComponent, [
     {provide:LocationStrategy, useClass: HashLocationStrategy},
     GOOGLE_MAPS_PROVIDERS,
 
-    FormBuilder,
     ApplicationStateService,
     FMarketApi,
     NotificationService,
@@ -59,5 +58,6 @@ bootstrap(AppComponent, [
     UserService,
     CompaniesService,
     LocalizationService,
+    SyncronizationService,
     AuthorizationFilter
 ]);

@@ -3,6 +3,7 @@
  */
 import {Select2Item} from "../../components/selectComponent/selectComponent";
 import {Field} from "./registerAccount";
+import { IDemand } from '../interfaces/iDemand';
 
 // export class Demand implements IDemand {
 //     id:string;
@@ -52,5 +53,23 @@ export class DemandFields {
         this.allCities = new Field('id', true, false);
         this.isInEditMode = new Field('id', true, false);
         this.domainId = new Field('id', true, '');        
+    }
+
+    public getValueData(): IDemand{
+        return {
+            id: this.id.value.toString(),
+            title: this.title.value.toString(),
+            message: this.message.value.toString(),
+            email: this.email.value.toString(),
+            cities: this.cities.value as Array<Select2Item>,
+            domain: this.domain.value as Select2Item,
+            termsAgreed: !!this.termsAgreed.value,
+            phone: this.phone.value.toString(),
+            name: this.name.value.toString(),
+            agreePhoneContact: !!this.agreePhoneContact.value,
+            agreeEmailContact: !!this.agreeEmailContact.value,
+            allCities: !!this.allCities.value,
+            domainId: this.domainId.value.toString()
+        }
     }
 }

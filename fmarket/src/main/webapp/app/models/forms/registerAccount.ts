@@ -27,11 +27,13 @@ export class Field {
     valid:boolean; 
     validate: Function;
     value: Object;
+    disabled: boolean
 
-    constructor(key:string, valid:boolean, value?:any, validate?:Function){
+    constructor(key:string, valid:boolean, value?:any, validate?:Function, disabled?: boolean){
         this.key=key;
         this.valid = valid;
         this.value = value;
         this.validate = validate ? validate : ()=>{};
+        this.disabled = disabled === undefined || disabled === null ? false : disabled;
     }
 }

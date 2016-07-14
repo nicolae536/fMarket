@@ -102,7 +102,6 @@ export class AppComponent implements OnInit {
     private _notifications:IAlert [];
     private addItem:boolean = true;
     private adminDemandsWatcher;
-    private rsSubject:Subject;
     //</editor-fold>
 
     constructor(router:Router,
@@ -122,7 +121,6 @@ export class AppComponent implements OnInit {
         //</editor-fold>
 
         this._notifications = new Array<IAlert>();
-        this.rsSubject = new Subject();
         this.startDemadsWatcher();
 
 
@@ -169,7 +167,7 @@ export class AppComponent implements OnInit {
                         .subscribe(
                             response => {
                                 console.log(1);
-                                if (response && response > 0) {
+                                if (response && +response > 0) {
                                     let alertMessage = {
                                         type: "danger",
                                         dismisable: true,

@@ -2,7 +2,7 @@
  * Created by nick_ on 4/16/2016.
  */
 import {Component, OnInit, EventEmitter, Input, Output, OnChanges} from "@angular/core";
-import {FORM_DIRECTIVES, FormGroup, FormControl, Validators} from '@angular/forms';
+import {FORM_DIRECTIVES} from '@angular/forms';
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {RegisterAccount, Field} from "../../models/forms/registerAccount";
 import {ValidatorsCollection} from "../../models/forms/validatorsCollection";
@@ -26,7 +26,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     @Input('create-account-page') _createAccountPage:boolean;
 
     @Output('registration-form') $registrationForm:EventEmitter<RegisterAccount> = new EventEmitter<RegisterAccount>();    
-    @Output('reference-component') loaded:EventEmitter<RegistrationComponent> = new EventEmitter<RegistrationComponent>();
+    @Output('reference-component') $loaded:EventEmitter<RegistrationComponent> = new EventEmitter<RegistrationComponent>();
 
     private registrationForm;
     private reapeatPasswordControl:boolean = true;
@@ -40,7 +40,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     constructor() {}
 
     ngOnInit():any {
-        this.loaded.emit(this);
+        this.$loaded.emit(this);
     }
 
     ngOnChanges(changes:{}):any {

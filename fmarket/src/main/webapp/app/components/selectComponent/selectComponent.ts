@@ -59,6 +59,7 @@ export class SelectComponent implements OnInit, DoCheck {
     @Input('multi-select') muliSelect:boolean;
     
     @Output('loaded') loadedSelect:EventEmitter<SelectComponent> = new EventEmitter<SelectComponent>();
+    @Output('on-selection-change') selectionChangeEmitter:EventEmitter<any> = new EventEmitter<any>();
     _chooseItemValue = {displayName: 'Alege...', boundItem: null};
 
     private dropUp:boolean;
@@ -112,7 +113,7 @@ export class SelectComponent implements OnInit, DoCheck {
         }
 
         if(!this.muliSelect){
-            classView += this._selectedItem.boundItem ? 'ng-valid' : 'ng-invalid';                 
+            classView += this._selectedItem.boundItem !== null ? 'ng-valid' : 'ng-invalid';                 
         }
 
         return classView;
@@ -182,6 +183,13 @@ export class SelectComponent implements OnInit, DoCheck {
         if(this._selectedItems.indexOf(item) === -1){
             this._selectedItems.push(item);
         }
+
+        if(this.muliSelect){
+            this.selectionChangeEmitter.emit(this._selectedItems);
+            return;
+        }
+
+        this.selectionChangeEmitter.emit(this._selectedItem);
     }
 
     private getOffset(el) {
