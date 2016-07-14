@@ -2,7 +2,6 @@
  * Created by nick_ on 4/16/2016.
  */
 import {Component, OnInit, EventEmitter, Input, Output, OnChanges} from "@angular/core";
-import { ControlGroup} from "@angular/common";
 import {FORM_DIRECTIVES, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {RegisterAccount, Field} from "../../models/forms/registerAccount";
@@ -68,9 +67,9 @@ export class RegistrationComponent implements OnInit, OnChanges {
             return;
         }
 
-        //Trigger another value check for the form validator
-        this.accountModel[key].value = newValue;
-        this.accountModel[key].valid = control.valid ? control.valid : this.accountModel[key].validate(newValue);
+        // //Trigger another value check for the form validator
+        // this.accountModel[key].value = newValue;
+        // this.accountModel[key].valid = control.valid ? control.valid : this.accountModel[key].validate(newValue);
         
         //Only for passwords are not the same field
         this.showNotMatchPasswordField = this.accountModel.password.valid && this.accountModel.password.value !== this.accountModel.repeat.value;
@@ -88,7 +87,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     }
 
     //TODO remove form submit hack after angular2 form is not submiting the page
-    registrationFormSubmit($event) {
+    onSubmit() {
         if(!this.hasNoErrors()){
             return;
         }

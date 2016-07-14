@@ -8,7 +8,7 @@ import {FilterPipe} from "./filterPipe";
 @Component({
     selector: 'select-component',
     template: `
-            <div dropdown [(isOpen)]="_dropdownStatus.isopen" [class.dropUp]="dropUp" [class.dropdown]="!dropUp" class="bs-ui-select-2 clearfix">
+            <div dropdown [(isOpen)]="_dropdownStatus.isopen" [class.dropUp]="dropUp" [class.dropdown]="!dropUp" [ngClass]="getClassForComponent()">
                 <span #simpleSelectRef *ngIf="!muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [class.disabled]="checkItems()" 
                     class="btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
                         <span *ngIf="!_selectedItem">Alege...</span>
@@ -35,7 +35,7 @@ import {FilterPipe} from "./filterPipe";
                             <div *ngIf="searchQuery.length > 0" class="ui-select2-search-right-icon">
                                 <span class="glyphicon glyphicon-remove" (click)="removeSearchQuery()"></span>
                             </div>
-                            <input class="form-control" [(ngModel)]="searchQuery" placeholder="Search.."/>
+                            <input class="form-control no-form-validation" [(ngModel)]="searchQuery" placeholder="Search.."/>
                         </div>
                         <div class="ui-select2-list">
                             <div *ngIf="!muliSelect" class="ui-select2-list-item" (click)="selectItem(_chooseItemValue)">{{_chooseItemValue.displayName}}</div>
@@ -47,13 +47,17 @@ import {FilterPipe} from "./filterPipe";
     pipes: [FilterPipe],
     directives: [DROPDOWN_DIRECTIVES]
 })
-export class SelectComponent implements OnInit, OnChanges, DoCheck {
+export class SelectComponent implements OnInit, DoCheck {
     @ViewChild('simpleSelectRef') simpleSelectRef:ElementRef;
     @ViewChild('multiSelectRef') multiSelectRef:ElementRef;
+
+    @Input('activate-validation') activateValidation:boolean;
+
     @Input('select-items') items:Array<Select2Item>;
     @Input('single-item-selected') _selectedItem:Select2Item;
     @Input('selected-items') _selectedItems:Array<Select2Item>;
     @Input('multi-select') muliSelect:boolean;
+    
     @Output('loaded') loadedSelect:EventEmitter<SelectComponent> = new EventEmitter<SelectComponent>();
     _chooseItemValue = {displayName: 'Alege...', boundItem: null};
 
@@ -65,12 +69,6 @@ export class SelectComponent implements OnInit, OnChanges, DoCheck {
         this.loadedSelect.emit(this);
         this._selectedItem = this._selectedItem ? this._selectedItem : this._chooseItemValue;
         this._selectedItems = this._selectedItems ? this._selectedItems : [];
-    }
-
-    ngOnChanges(changes:{}):any {
-        if (changes.hasOwnProperty('_selectedItem')) {
-            //console.log('selected item change', this._selectedItem);
-        }
     }
 
     ngDoCheck() {
@@ -86,6 +84,7 @@ export class SelectComponent implements OnInit, OnChanges, DoCheck {
             document.documentElement["scrollHeight"],
             document.body["offsetHeight"],
             document.documentElement["offsetHeight"]);
+
         if (this.multiSelectRef) {
             multiSelectRefPosition = this.getOffset(this.multiSelectRef.nativeElement);
         }
@@ -99,6 +98,24 @@ export class SelectComponent implements OnInit, OnChanges, DoCheck {
         if (simpleSelectRefPosition) {
             this.dropUp = simpleSelectRefPosition.top + 305 > documentHeight ? true : false;
         }
+    }
+
+    getClassForComponent(){
+        let classView = 'bs-ui-select-2 clearfix';
+        if(!this.activateValidation) {
+            return classView;
+        }        
+        
+        if(this.muliSelect){
+            classView += this._selectedItems.length > 0 ? 'ng-valid' : 'ng-invalid';
+            return classView;                             
+        }
+
+        if(!this.muliSelect){
+            classView += this._selectedItem.boundItem ? 'ng-valid' : 'ng-invalid';                 
+        }
+
+        return classView;
     }
 
     get selectedItem():Select2Item {

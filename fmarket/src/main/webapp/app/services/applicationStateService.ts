@@ -30,7 +30,7 @@ export class ApplicationStateService {
 
         userState = {
             email: null,
-            accountType: Role.USER,
+            accountType: Role.ANONYMUS,
             loggedIn: false
         };
 

@@ -1,4 +1,4 @@
-import 'zone.js';
+import 'zone.js/dist/zone.js';
 import 'reflect-metadata';
 
 import {bootstrap}    from '@angular/platform-browser-dynamic';
@@ -7,7 +7,7 @@ import {bootstrap}    from '@angular/platform-browser-dynamic';
 import {AppComponent} from './app.component';
 import {LocationStrategy, HashLocationStrategy, CORE_DIRECTIVES} from '@angular/common'
 import {HTTP_PROVIDERS} from '@angular/http';
-import { disableDeprecatedForms, provideForms } from '@angular/forms';
+import {disableDeprecatedForms, provideForms} from '@angular/forms';
 
 import {APP_ROUTER_PROVIDERS} from './app.routes';
 import {AccountService} from "./services/accountService";

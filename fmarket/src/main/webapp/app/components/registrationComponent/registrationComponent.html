@@ -4,7 +4,7 @@
             <div class="title-container">
                 <span class="h3">{{formTitle}}</span>
             </div>
-            <form #registrationForm="ngForm" (ngSubmit)="registrationFormSubmit($event)" class="registration-form">
+            <form (ngSubmit)="onSubmit()" class="registration-form" #registrationForm="ngForm">
                 <div class="registration-form-controls-container">
                  <div *ngIf="_loginPage" class="clearfix">
                     <div class="button-container" style="width: 100%; margin-bottom: 15px;">
@@ -17,7 +17,6 @@
 	                                </div>
 	                                
 	                            </button>
-                           
                         </form>
                          <div class="text-center facebook-or">sau</div>
                     </div>
@@ -64,7 +63,7 @@
                
                 <div class="clearfix position-relative">
                     <div class="pull-right button-container">
-                        <input type="button" (click)="registrationFormSubmit($event)" class="btn btn-success" [value]="buttonLabel"/>
+                        <button type="submit" class="btn btn-success">{{buttonLabel}}</button>
                     </div>
                     <div *ngIf="_createAccountPage">
                         <input type="checkbox" [(ngModel)]="accountModel.subscribe.value" name="subscribe"  #subscribe="ngModel"/>

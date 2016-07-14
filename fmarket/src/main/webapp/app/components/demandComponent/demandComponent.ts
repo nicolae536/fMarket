@@ -2,36 +2,38 @@
  * Created by nick_ on 4/16/2016.
  */
 import {Component, OnInit, Output, EventEmitter, Input, OnChanges} from "@angular/core";
-import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup} from "@angular/common";
+import {FORM_DIRECTIVES} from "@angular/forms";
+
+import { LocalStorageService } from '../../services/localStorageService';
+import { ApplicationConstants } from "../../models/applicationConstansts";
+
 import {SelectComponent, Select2Item} from "../selectComponent/selectComponent";
-import {IDemand} from "../../models/interfaces/iDemand";
-import {Demand} from "../../models/demand";
+import {DemandFields} from "../../models/forms/demand";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 import {AuthorizationService} from "../../services/authorizationService";
 import {MenuTreeDialog} from "../menuComponent/menuTreeDialog/menuTreeDialog";
 import {IMenuItem} from "../../models/interfaces/iMenuItem";
-
-let template = require('./demandComponent.html');
+import * as template from './demandComponent.html';
 
 @Component({
     selector: 'demand-component',
-    template:template,
+    template: template,
     directives: [FORM_DIRECTIVES, SelectComponent, MenuTreeDialog]
 })
 export class DemandComponent implements OnInit, OnChanges {
 
     @Input('city-list') _cityList:Array<Select2Item>;
-    @Input('demand-data') _demandData:Demand = new Demand();
+    @Input('demand-data') demandFields:DemandFields = new DemandFields();
 
     @Input('positive-label') positiveLabel:string = 'Creaza cerere';
     @Input('menu-tree-data') menuDictionary;
+    @Input('activate-validation') activateValidation:boolean;
 
     @Output('demand-component-loaded') _componentLoaded:EventEmitter<DemandComponent> = new EventEmitter<DemandComponent>();
-
     @Output('submit-new-demand') _demandFormSubmit:EventEmitter<DemandComponent> = new EventEmitter<DemandComponent>();
-    private _formBuilder:FormBuilder;
 
-    private _demandForm:ControlGroup;
+    private _localStorageService:LocalStorageService;
+
     private _treeDictionary;
     private _selectCityCompnent:SelectComponent;
     private _selectedDomain:IMenuItem = {
@@ -44,29 +46,32 @@ export class DemandComponent implements OnInit, OnChanges {
         hasChildrens: false
     };
 
-    foobarItems;
     private isUserLoggedIn;
     private _menuTreeDialog:MenuTreeDialog;
     private title:string;
 
-    constructor(_formBuilder:FormBuilder) {
-        this._formBuilder = _formBuilder;
-        this._demandForm = this._formBuilder.group([]);
+    constructor(localStorageService:LocalStorageService) {
+        this._localStorageService = localStorageService;
         this.title = 'Adauga cerere';
     }
 
     ngOnInit():any {
         this.fetchUserEmail();
-        this.buildDemandForm();
+        
+        this._localStorageService.storageStateChange.subscribe(newState=>{
+            if(newState.keyChanged !== ApplicationConstants.ACTIVE_USER_STATE){
+                return;
+            }
+            this.fetchUserEmail();
+        })
+        
         this._componentLoaded.emit(this);
     }
 
-    ngOnChanges(changes:{}):any {
-        if (AuthorizationService.isLoggedIn() && changes['_demandData']) {
-            this.fetchUserEmail();
-        }
+    
 
-        if (changes.hasOwnProperty('menuDictionary')) {
+    ngOnChanges(changes:{}):any {
+       if (changes.hasOwnProperty('menuDictionary')) {
             this._treeDictionary = this.menuDictionary;
         }
     }
@@ -88,20 +93,12 @@ export class DemandComponent implements OnInit, OnChanges {
     }
 
     public removeEmail(){
-        this._demandData.email = '';
+        this.demandFields.email.value = '';
         this.fetchUserEmail();
     }
 
     private getFormControllClass(property) {
-        let condition = String(this._demandForm.controls[property]).length > 0;
-        if(this._demandForm.controls[property]){
-            condition = condition && this._demandForm.controls[property].dirty && this._demandForm.controls[property].valid;
-        }
-
-        if(!condition && this._demandForm.controls[property].pristine){
-            return '';
-        }
-
+        let condition = false;
         return condition ? 'glyphicon glyphicon-ok pointer-cursor checking-item': 'glyphicon glyphicon-remove pointer-cursor checking-item';
     }
 
@@ -111,82 +108,30 @@ export class DemandComponent implements OnInit, OnChanges {
 
         if (user) {
             this.isUserLoggedIn = user.loggedIn;
-            this._demandData.email = user.email;
+            this.demandFields.email.value = user.email;
         }
     }
 
-    private buildDemandForm() {
-        this._demandForm.addControl('title', this._formBuilder.control(this._demandData.title, Validators.required));
-        this._demandForm.addControl('message', this._formBuilder.control(this._demandData.message, Validators.required));
-        this._demandForm.addControl('email', this._formBuilder.control(this._demandData.email, Validators.compose([Validators.required, CustomValidators.validateEmail])));
-        this._demandForm.addControl('cities', this._formBuilder.control(this._demandData.cities));
-        this._demandForm.addControl('domain', this._formBuilder.control(this._demandData.domain));
-        this._demandForm.addControl('termsAgreed', this._formBuilder.control(this._demandData.termsAgreed, Validators.required));
-        this._demandForm.addControl('phone', this._formBuilder.control(this._demandData.phone, Validators.compose([Validators.required, Validators.minLength(10), CustomValidators.validatePhoneNumber])));
-        this._demandForm.addControl('name', this._formBuilder.control(this._demandData.name, Validators.required));
-        // this._demandForm.addControl('agreePhoneContact', this._formBuilder.control(this._demandData.agreePhoneContact));
-        // this._demandForm.addControl('agreeEmailContact', this._formBuilder.control(this._demandData.agreeEmailContact));
-        this._demandForm.addControl('allCities', this._formBuilder.control(this._demandData.allCities));
-    }
-
-    private removeDemandControls() {
-        this._demandForm.removeControl('title');
-        this._demandForm.removeControl('message');
-        this._demandForm.removeControl('email');
-        this._demandForm.removeControl('cities');
-        this._demandForm.removeControl('domain');
-        this._demandForm.removeControl('termsAgreed');
-        this._demandForm.removeControl('phone');
-        // this._demandForm.removeControl('agreePhoneContact');
-        // this._demandForm.removeControl('agreeEmailContact');
-        this._demandForm.removeControl('name');
-        this._demandForm.removeControl('allCities');
-    }
-
-    public restData() {
-        this.removeDemandControls();
-        this.buildDemandForm();
-    }
-
-    private demandFormSubmit() {
+    private onSubmit() {
         //toDo take domain from select the two way binding does not work properly
-        if (this._demandForm.valid && this._selectedDomain.id !== -1) {
-            let formValue = this._demandForm.value;
-            formValue.domain = this._selectedDomain;
-            formValue.cities = this._selectCityCompnent._selectedItems;
-            this._demandFormSubmit.emit(formValue);
-        }
+        // if (this._demandForm.valid && this._selectedDomain.id !== -1) {
+            // let formValue = this._demandForm.value;
+            // formValue.domain = this._selectedDomain;
+            // formValue.cities = this._selectCityCompnent._selectedItems;
+            // this._demandFormSubmit.emit(formValue);
+        // }
+        
     }
 
     private referenceCitiesComponent(_selectCityCompnent) {
         this._selectCityCompnent = _selectCityCompnent;
     }
 
-    public IsValid():boolean {
-        return this._demandForm.valid
-            || this._selectedDomain.id !== -1
-            || (this._selectCityCompnent._selectedItems.length > 0 || this._demandForm.value['allCities'])
-    }
-
-    public get getDemandFormData():IDemand {
-        if (this.IsValid()) {
-            let formValue = this._demandForm.value;
-            formValue.domain = this._selectedDomain;
-            formValue.cities = this._selectCityCompnent._selectedItems;
-            return formValue;
-        }
-        return null;
-    }
-
-    checkIfUserIsLoggedId() {
-
-    }
-
     referenceDialogInDemandComponent(menuItemsModal) {
         this._menuTreeDialog = menuItemsModal;
     }
 
-    selectItemUsingMenu(item:IMenuItem) {
+    onSelectMenuItem(item:IMenuItem) {
         this._selectedDomain = item;
     }
 }
