@@ -1,0 +1,86 @@
+<div class="regisration-component clearfix">
+    <div class="form-wrapper">
+        <div class="form-style">
+            <div class="title-container">
+                <span class="h3">{{formTitle}}</span>
+            </div>
+            <form [ngFormModel]="_registrationForm" (ngSubmit)="registrationFormSubmit()" class="registration-form">
+                <div class="registration-form-controls-container">
+                 <div *ngIf="_loginPage" class="clearfix">
+                    <div class="button-container" style="width: 100%; margin-bottom: 15px;">
+                        <form ngNoForm method="post" action="connect/facebook"> 	
+                        	<input type="hidden" name="scope" value="email" />
+	                            <button type="submit" class="facebook-btn">
+	                                <div class="">
+	                                    <i class="fa fa-facebook pull-left fb-icon"></i>
+	                                    <span style="">Logheaza-te cu Facebook</span>
+	                                </div>
+	                                
+	                            </button>
+                           
+                        </form>
+                         <div class="text-center facebook-or">sau</div>
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <!--<span [ngClass]="getFormControllClass('email')"></span>-->
+                        <input type="text" class="form-control" [class.backend-error]="checkIfEmailIsMarked()"
+                               placeholder="E-mail"
+                               (ngModelChange)="checkBackendErrors()"
+                               [ngFormControl]="_registrationForm.controls['email']"/>
+                    </div>
+                    <div class="form-group">
+                        <!--<span [ngClass]="getFormControllClass('passwords')"></span>-->
+                        <input type="password" class="form-control"
+                               [class.backend-error]="checkIfPasswordIsMarked('password')" [placeholder]="passwordLabel"
+                               (ngModelChange)="updateErrorFied($event, 'p')"
+                               [ngFormControl]="_registrationForm.controls.passwords.controls.password"/>
+                    </div>
+                    <div *ngIf="_restPasswordPage || _createAccountPage" class="form-group">
+                        <!--<span [ngClass]="getFormControllClass('passwords')"></span>-->
+                        <input type="password" class="form-control"
+                               [class.backend-error]="checkIfPasswordIsMarked('repeat')" placeholder="Repeta parola"
+                               (ngModelChange)="updateErrorFied($event, 'r')"
+                               [ngFormControl]="_registrationForm.controls.passwords.controls.repeat"/>
+
+                    </div>
+                    <div class="animated-error" *ngIf="showNotMatchPasswordField">
+                        <div class="password-error right-to-middle-effect">
+                            Cele doua parole nu sunt la fel!
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="clearfix position-relative">
+                    <div class="pull-right button-container">
+                        <button type="submit" class="btn btn-success">{{buttonLabel}}</button>
+                    </div>
+                    <div *ngIf="_createAccountPage">
+                        <input type="checkbox" [ngFormControl]="_registrationForm.controls['subscribe']"/>
+                        <label class="checkbox-label">Inscriema la newsletter</label>
+                    </div>
+                    <div *ngIf="_loginPage">
+                        <input type="checkbox" [ngFormControl]="_registrationForm.controls['rememberMe']"/>
+                        <label class="checkbox-label">Tine-ma minte</label>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    <div class="links-container text-center">
+        <div class="links clearfix">
+            <div *ngIf="_loginPage">
+                <label>Ai uitat parola?</label>
+                <a [routerLink]="['/forget-password']">{{_forgetPasswordLabel}}</a>
+            </div>
+            <div *ngIf="_restPasswordPage || _loginPage">
+                <label>Nu ai cont?</label>
+                <a [routerLink]="['/registration']">Inregistreaza-te</a>
+            </div>
+            <div *ngIf="_createAccountPage">
+                <a [routerLink]="['/login']">Ai deja un cont?</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -22,7 +22,7 @@ public class Subscriber extends BaseEntity {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime unsubscribeDate;
 
-	@Column(nullable = false, length = 50, unique = true)
+	@Column(nullable = false, length = 50)
 	private String unsubscribeToken;
 
 }

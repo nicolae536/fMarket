@@ -1,0 +1,46 @@
+<div class="demand-list-base clearfix">
+    <div class="list-group">
+        <table class="table table-striped text-center">
+            <thead class="thead-inverse">
+            <tr>
+                <th class="hidden-xs hidden-sm vertical-align">Id</th>
+                <th class="hidden-xs hidden-sm vertical-align">Id cont</th>
+                <th class="text-left vertical-align">Titlu</th>
+                <th class="hidden-xs hidden-sm vertical-align">Data crearii</th>
+                <th class="vertical-align">Status</th>
+                <th *ngIf="!hideOperation" class="vertical-align" colspan="2">Actiuni</th>
+            </tr>
+            </thead>
+            <tbody class="table-body">
+            <tr *ngFor="let demand of demandList">
+                <td class="hidden-xs hidden-sm">{{demand.id}}</td>
+                <td class="hidden-xs hidden-sm">{{demand.accountId}}</td>
+                <td class="text-left">{{demand.title}}</td>
+                <td>{{demand.creationDate}}</td>
+                <td>{{demand.status}}</td>
+                <td [title]="'Editeaza compania '+demand.title" *ngIf="!hideOperation" >
+                    <a class="action"   (click)="selectDemand(demand)">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                </td>
+                <td [title]="'Sterge compania '+demand.title" *ngIf="!hideOperation" >
+                    <a class="action" (click)="removeDemand($event, demand)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--<div  class="list-group-item">-->
+            <!--<a href="javascript:void(0)">-->
+                <!--<div class="pull-right">-->
+                    <!--<span *ngIf="demand.accountId" class="label label-success" title="Id-ul contului care a postat cererea">Id cont: {{demand.accountId}}</span>-->
+                    <!--<span *ngIf="demand.creationDate" class="label label-success" title="Data la care a fost postata cererea">Data: {{demand.creationDate}}</span>-->
+                <!--</div>-->
+                <!--{{demand.title}}-->
+                <!--<span class="label label-success" title="Statusul cereri" *ngIf="demand.status">{{demand.status}}</span>-->
+            <!--</a>-->
+        <!--</div>-->
+    </div>
+</div>

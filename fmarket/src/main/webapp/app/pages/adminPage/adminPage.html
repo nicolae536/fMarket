@@ -1,0 +1,67 @@
+<div class="admin-page-container">
+    <div class="container-fluid">
+        <div class="row content">
+            <div #leftMenu class="col-sm-2 sidenav hidden-xs hidden-sm">
+                <div @fadeInOut class="menu-container">
+                    <div class="admin-menu-title text-left clearfix">
+                        <div class="pull-left">
+                            <span class="glyphicon glyphicon-th-list"></span>
+                        </div>
+                        <div class="text-center">
+                            <span class="h4">Mangement website</span>
+                        </div>
+                    </div>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li [class.active]="checkRoute('/admin/users')">
+                            <a [routerLink]="['/admin/users']" class="clearfix">
+                                <div class="pull-left">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </div>
+                                Utilizatori
+                            </a>
+                        </li>
+                        <li [class.active]="checkRoute('/admin/subscribers')">
+                            <a [routerLink]="['/admin/subscribers']">
+                                <div class="pull-left">
+                                    <span class="glyphicon glyphicon-globe"></span>
+                                </div>
+                                Abonati
+                            </a>
+                        </li>
+                        <li [class.active]="checkRoute('/admin/categorii')">
+                            <a [routerLink]="['/admin/categorii/meniu']">
+                                <div class="pull-left">
+                                    <span class="glyphicon glyphicon-tasks"></span>
+                                </div>
+                                Categorii
+                            </a>
+                        </li>
+                        <li [class.active]="checkRoute('/admin/cereri')">
+                            <a [routerLink]="['/admin/cereri/newDemands']">
+                                <div class="pull-left">
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                </div>
+                                Cereri
+                            </a>
+                        </li>
+                        <li [class.active]="checkRoute('/admin/companii') || checkRoute('/admin/ceeaza-companie/ceeaza')">
+                            <a [routerLink]="['/admin/companii']">
+                                <div class="pull-left">
+                                    <span class="glyphicon glyphicon-transfer"></span>
+                                </div>
+                                Companii
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div @slideDown #rightMenu class="col-sm-10 col-xs-12 col-sm-12">
+                <div class="upper-page-container">
+                    <div class="inner-page-container">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

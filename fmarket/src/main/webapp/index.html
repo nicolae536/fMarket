@@ -1,0 +1,59 @@
+<html style="overflow-y: scroll; min-height: 100%; position: relative;">
+<head>
+    <base href="/"/>
+    <title>SimpluSiRapid.ro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/css_libraries/ng2-bootstrapCss/css/bootstrap.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="/staticResorces/logo-fav-icon.png?v=4" />
+    <!-- link href="/node_modules/font-awsome-icons/css/font-awesome.min.css" rel="stylesheet" /-->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+    <!--dev-->
+    <link rel="stylesheet" href="/app/main.css">
+
+    <!--prod-->
+    <!--<link rel="stylesheet" href="/dist/main.min.css"/>-->
+
+    <style>
+        .app-layout {
+            display: flex;
+            flex-direction: column;
+            min-width: 100%;
+            min-height: 100%;
+        }
+
+        .app-layout:after {
+            content: "";
+            display: block;
+            position: fixed;
+            top: -50px;
+            bottom: -46px;
+            left: 0;
+            width: 100%;
+            background: url("/staticResorces/homeBackground.jpg");
+            background-repeat: no-repeat;
+            background-repeat-x: no-repeat;
+            background-repeat-y: no-repeat;
+            background-size: cover;
+            background-position: center top;
+        }
+    </style>
+</head>
+
+<body>
+<div id="loadingSpinnerComponent" class="spinner-absolute-center">
+    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw spinner-theme"></i>
+</div>
+<my-app class="app-layout">
+
+</my-app>
+
+<script src="/javascript_libraries/jQueryLibs/jquery.js"></script>
+<script src="/javascript_libraries/jQueryLibs/animatescroll.min.js"></script>
+
+<!--dev-->
+<script src="/dist/fmarket.bundle.dev.js"></script>
+
+<!--prod-->
+<!--<script src="/dist/fmarket.release.js"></script>-->
+</body>
+</html>

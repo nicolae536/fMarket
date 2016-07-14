@@ -1,0 +1,11 @@
+<div class="clearfix">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" *ngFor="let tab of tabPagesList"
+            [class.active]="checkRoute(tab.link)">
+                <a [routerLink]="[tab.link]">
+                    {{tab.name}}
+                </a>
+                <span *ngIf="tab.enableMarker" class="label label-info">{{tab.markerContent}}</span>
+        </li>
+    </ul>
+</div>

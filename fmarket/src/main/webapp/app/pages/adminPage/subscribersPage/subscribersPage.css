@@ -1,0 +1,131 @@
+/*page title*/
+
+.subscribers-page .page-title .row {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.subscribers-page .page-title .row .secondary {
+    float: right;
+}
+
+.subscribers-page .page-title .row .secondary input {
+    margin-left: 5px;
+}
+
+/*page content*/
+.subscribers-page .page-content .row {
+    margin-bottom: 12px;
+}
+
+.subscribers-page .page-content .row .filters {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.subscribers-page .page-content .row .filters .filter-container {
+    position: relative;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.subscribers-page .page-content .row .filters .filter-container .col-lg-3.no-right-padding {
+    padding-right: 0px;
+}
+
+.subscribers-page .page-content .row .filters .filter-container .col-lg-3 .form-group .input-group .input-group-btn .dropdown-menu{
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.subscribers-page .page-content .row .filters .filter-container .col-lg-3 .form-group .input-group .input-group-btn .dropdown-menu .well.well-sm.bg-faded.p-a.card {
+    border: none;
+}
+
+.subscribers-page .page-content .row .filters .filter-container .col-lg-3 .form-group .input-group .input-group-btn button {
+    height: 34px;
+}
+
+.subscribers-page .page-content .row .filters .filter-container .col-lg-2 .user-status-select {
+    height: 34px;
+    width: 100%;
+}
+
+.subscribers-page .page-content .row .filters .filter-container .col-lg-6 .user-status-select {
+    height: 34px;
+    width: 100%;
+}
+
+.subscribers-page .page-content .row .filters .filter-container .secondary {
+    float: right;
+    padding-top: 16px;
+}
+
+.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td > {
+    font-size: 12px;
+}
+
+
+.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td > input {
+    text-align: center;
+}
+
+.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td, th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.subscribers-page .page-content .row .table .thead-inverse .vertical-align th{
+    vertical-align: middle;
+}
+
+.subscribers-page .page-content .row .table .table-body .navigation-row .navigation-column {
+    padding-right: 3%;
+}
+
+.padding-top-25{
+    padding-top: 25px;
+}
+
+.subscribers-page .page-content .row .subscribers .table-responsiv .table .table-body tr > td.text-left{
+    text-align: left;
+}
+
+.subscribers-page .page-content .row .table .thead-inverse .vertical-align th{
+    vertical-align: middle;
+}
+
+
+.subscribers-page .glyphicon.glyphicon-trash{
+    color: #ab2424;
+    transition: .1s;
+}
+
+.subscribers-page .glyphicon.glyphicon-trash:hover{
+    color: #d53939;
+}
+
+.subscribers-page .page-content .row .table .thead-inverse .vertical-align th{
+    vertical-align: middle;
+}
+
+
+
+/*helper classes*/
+.pointer-cursor {
+    cursor: pointer;
+}
+@media (max-width: 990px) {
+    .subscribers-page .page-content .row .filters .filter-container .col-xs-12 {
+        padding: 0px;
+    }
+
+    .subscribers-page .page-content .row .filters .filter-container .btn-full-width .btn {
+        width: 100%;
+    }
+
+    .subscribers-page .page-content .row .filters .filter-container .btn-full-width {
+        padding: 5px 0;
+        width: 100%;
+    }
+}

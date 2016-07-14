@@ -1,0 +1,35 @@
+.admin-companies-list .list-group.admin-companies-list .list-group-item{
+    padding: 0 ;
+    cursor: pointer;
+}
+
+.admin-companies-list .list-group.admin-companies-list .list-group-item .row-data{
+    padding: 10px 0px 10px 15px;
+}
+
+.admin-companies-list .list-group.admin-companies-list .list-group-item .opatations{
+    padding-top: 10px;
+}
+
+.admin-companies-list .list-group.admin-companies-list .list-group-item .opatations .secondary{
+    padding: 12px 15px 13px 15px;
+    border-left: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.admin-companies-list .table.table-striped .table-body > tr > td{
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.admin-companies-list .table.table-striped .table-body > tr > td .action {
+    cursor: pointer;
+    transition: .2s;
+}
+
+.admin-companies-list .table.table-striped .table-body > tr > td .action:hover{
+    color: #009983;
+}

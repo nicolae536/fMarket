@@ -1,0 +1,32 @@
+<div @flyInOut class="user-companies-page">
+    <div class="sub-container">
+        <div class="user-companies-page-container">
+            <div class="text-center">
+                <h2>Firme partenere</h2>
+            </div>
+            <div class="clearfix search-field-wrapper ">
+                <div class="col-md-3 col-xs-12">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="searchFilter"
+                               (ngModelChange)="getCompaniesWithFilters()"/>
+                    </div>
+                </div>
+                <!--<div class="col-md-3 col-xs-12 operations">-->
+                    <!--<button class="btn btn-primary" (click)="getCompaniesWithFilters()">-->
+                        <!--<span class="glyphicon glyphicon-filter"></span>-->
+                        <!--Filtreaza companii-->
+                    <!--</button>-->
+                <!--</div>-->
+            </div>
+            <div class="clearfix companies-grid-view">
+                <companie-list-component
+                        [companies-list]="_companiesList"
+                        (companie-selected)="selectCompanie($event)"
+                ></companie-list-component>
+            </div>
+        </div>
+    </div>
+</div>

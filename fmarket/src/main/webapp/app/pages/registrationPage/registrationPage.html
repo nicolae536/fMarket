@@ -1,0 +1,18 @@
+<div @flyInOut class="registration-page clearfix" #registrationPageRef>
+    <div class="component-wrapper">
+    <registration-component
+        [form-title]="_formTitle"
+        [button-label]="_formButtonLabel"
+        [password-label]="_passwordLabel"
+        [forget-password-label]="_forgetPasswordLabel"
+        [login-page]="_loginPage"
+        [rest-password-page]="_restPasswordPage"
+        [create-account-page]="_createAccountPage"
+        [facebook-text]="_faceBookText"
+
+        (registration-form)="requestHandler($event)"
+        (reference-component)="referenceComponent($event)"
+        (flogin-emit)="initFLogin($event)">
+    </registration-component>
+    </div>
+</div>

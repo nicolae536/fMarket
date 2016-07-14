@@ -1,0 +1,67 @@
+.navbar.navbar-default.navbar-fixed-top {
+    max-height: 50px;
+    border: 0.5px solid transparent;
+    border-top: none;
+    border-bottom: 1px solid #dddddd;
+}
+
+.navbar-bottons{
+    padding-top: 7px;
+    padding-left: 30px;
+}
+
+.navbar.navbar-default.navbar-fixed-top .container-fluid{
+    transition: margin-left .5s;
+    margin-left: 0px;
+}
+
+.navbar.navbar-default.navbar-fixed-top .container-fluid .navbar-header {
+    max-height: 50px;
+    position: relative;
+}
+
+.navbar.navbar-default.navbar-fixed-top .container-fluid .navbar-header .fMarket-brand-icon{
+    max-height: 34px;
+    margin-top: 10px;
+    width: auto;
+    transition: opacity .2s linear;
+}
+
+.dropdown-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: 0px;
+    overflow: hidden;
+    transition: .3s;
+    visibility: hidden;
+    display: block;
+}
+
+.navbar.navbar-default.navbar-fixed-top .container-fluid .visible-xs.visible-sm.mobile-menu{
+    padding-top: 10px;
+
+}
+
+.navbar.navbar-default.navbar-fixed-top .container-fluid .visible-xs.visible-sm.mobile-menu .glyphicon.glyphicon-align-justify{
+    font-size: 28px;
+    cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+    .navbar.navbar-default.navbar-fixed-top .container-fluid{
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .navbar.navbar-default.navbar-fixed-top .container-fluid .navbar-header .fMarket-brand-icon{
+        margin-left: 10px;
+    }
+
+}
+
+.sidenav-mobile .nav.navbar-nav.navbar-right{
+    margin: auto;
+}
+

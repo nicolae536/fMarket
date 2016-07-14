@@ -1,0 +1,28 @@
+.user-demands-list-page .filter-demand{
+    cursor: pointer;
+    text-align: center;
+    padding: 10px 15px;
+    border-right: 3px solid lightgray;
+    background-color: #f8f8f8;
+    transition: background-color .3s;
+    text-decoration: none;
+}
+
+.user-demands-list-page .filter-demand:hover{
+    background-color: #ece6e6;
+}
+
+.user-demands-list-page .filter-demand.active-filter{
+    background-color: #ece6e6;
+}
+
+.pull-down-10{
+    padding-top: 10px;
+}
+
+@media (max-width: 990px){
+    .user-demands-list-page .filter-demand{
+        border-right: none;
+        border-bottom: 3px solid lightgray;
+    }
+}

@@ -1,0 +1,88 @@
+<div *ngIf="_demand" class="demand-edit-component">
+    <div class="row">
+        <div class="col-md-9 col-xs-12">
+            <div class="form-group">
+                <label>Title</label>
+                <span type="text" class="form-control" disabled>{{_demand.title}}</span>
+            </div>
+            <div class="form-group">
+                <label>Mesaj</label>
+                <textarea class="form-control" disabled [ngModel]="_demand.message"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Domeniu</label>
+                <select-component
+                        [select-items]="_domains"
+                        [single-item-selected]="_demand.selectedDomain"
+                        [multi-select]="false"
+                        (loaded)="referenceDemandsComponent($event)">
+                </select-component>
+            </div>
+            <div class="form-group">
+                <label>Orase</label>
+                <span disabled class="form-control city-presentation">
+                    <span *ngFor="let city of _demand.cities" class="label label-success">{{city}}</span>
+                </span>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" [(ngModel)]="_demand.allCities" />
+                <label class="checkbox-label">Doresc sa fiu contactat din orice oras</label>
+            </div>
+            <div class="form-group">
+                <label>Data in care a fost creata cererea</label>
+                <span disabled class="form-control">
+                    {{_demand.creationDate}}
+                </span>
+            </div>
+
+        </div>
+        <div class="col-md-3 col-xs-12 button-group">
+            <div class="button-container">
+                <button class="btn btn-success"
+                    (click)="acceptDemand()">
+                    Accepta
+                </button>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-danger"
+                    (click)="rejectDemand()">
+                    Refuza
+                </button>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-info"
+                        (click)="saveEditedDemand()">
+                    Salveaza modificarile
+                </button>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-warning"
+                        (click)="goBackToPreviousPage()">
+                    Inapoi la lista
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-2">
+            <label> Id cerere: {{_demand.accountId}}</label>
+        </div>
+        <div class="col-md-2">
+            <label> Nume utilizator: {{_demand.name}}</label>
+
+        </div>
+        <div class="col-md-4">
+            <label> Email utilizator: {{_demand.accountEmail}}</label>
+
+        </div>
+        <div class="col-md-2">
+            <label> Statusul contului: {{_demand.accountStatus}}</label>
+
+        </div>
+        <div class="col-md-2">
+            <label> Numar cereri: {{_demand.demandsCount}}</label>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+    <div style="background-color: #EEEEEE; padding-bottom: 30px;">
+      <table border="0" cellpadding="0" cellspacing="0" style="background-color: white; width: 600px; margin: auto; border-collapse: cell-spacing: 0;collapse; border-spacing: 0; border: 0" >
+            <tr>
+                <td style="padding-top: 10px; position: relative; width: 100%"><img
+                    style="max-height: 50px; width: auto; padding: 0px 3px 5px" alt="SimpluSiRapid.ro"
+                    th:src="@{__${baseUrl}__/resources/images/logo/logo.png}" /></td>
+            </tr>
+            <tr>
+                <td style="text-align: center; background-color: #ff6600; color: white;"><span
+                    style="font-size: 26px; padding: 6px 5px 6px; display: inline-block"> Cerere din partea SimpluSiRapid.ro:</span></td>
+            </tr>
+           <tr>
+                <td style="text-align: center; color: #808080;"><span
+                  style="font-size: 26px; padding: 15px 5px 0; display: inline-block" th:text="${title}"></span></td>
+            </tr>
+            <tr>
+                <td style="text-align: left; color: grey;"><span
+                  style="font-size: 18px; padding: 10px 15px 10px; display: inline-block"> Mesajul clientului: </span></td>
+            </tr>
+           <tr>
+             <td style="text-align: left; color:#8c8c8c;"><span
+               style="padding: 8px 12px; font-size: 15px;border-left: 15px solid white;border-right: 15px solid white; background-color: #f2f2f2; display:inline-block" th:text="${message}"></span></td>
+            </tr>
+           <tr>
+                <td style="text-align: left; color: grey;"><span
+                    style="font-size: 18px; padding: 10px 15px 10px; display: inline-block"> Date de contact: </span></td>
+            </tr>
+            <tr>
+              <td style="text-align: left; color:#8c8c8c;"><span
+                style="padding: 8px 12px; font-size: 15px;border-left: 15px solid white;border-right: 15px solid white; background-color: #f2f2f2; display:inline-block">
+               Nume: <span th:text="${name}"></span><br/>
+               <span th:if="${phone} != null">Telefon: <span th:text="${phone}"></span></span><br th:if="${phone} != null"/>
+               Email: <span th:text="${email}"></span><br/>
+               Localitate: <span>Cluj-Napoca, jud. Cluj</span>
+               </span></td>
+            </tr>
+            <tr>
+                <td style="text-align: center; background-color: white; color: grey;"><span
+                    style="font-size: 12px; padding: 20px 5px 15px; display: inline-block"> Daca nu faceti parte din colaboratorii SimpluSiRapid.ro te rugam sa ignori acest mail </span></td>
+            </tr>
+            <tr>
+                <td style="text-align: center; color: grey; background-color: #EEEEEE"><span
+                    style="font-size: 12px; padding: 25px 5px 0; display: inline-block"> Daca butoanele nu
+                        functioneaza, marcheaza acest mail, selectati-l ca fiind Not Spam si accesati-l in Inbox. </span></td>
+            </tr>
+            <tr>
+                <td rowspan="4" style="text-align: center; color: grey; background-color: #EEEEEE;"><span
+                    style="font-size: 12px; padding: 0px 5px 0px; display: inline-block"> Acest mesaj este generat automat, te rugam sa nu dai Reply. Pentru a ne contacta puteti accesa pagina de <a
+                        style="color: #1d66e5" th:href="@{__${baseUrl}__}">contact</a>, prin mail la contact@simplusirapid.ro sau prin telefon la 0728.134.437
+                </span></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

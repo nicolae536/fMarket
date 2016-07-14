@@ -1,0 +1,8 @@
+install css minify tool
+    npm install --save-dev clean-css
+typescript compile
+	tsc   
+build command
+	npm run build
+build css
+	cleancss -o dist/main.min.css app/main.css

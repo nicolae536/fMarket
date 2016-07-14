@@ -1,0 +1,123 @@
+<div class="clearfix">
+    <!-- TODO catch close event -->
+    <action-dialog
+            [title]="'Delete'"
+            [positive-label]="'Delete'"
+            (loaded)="referenceActionDialogInComponent($event)"
+            (action-confirmed)="actionDialogConfirmDelete($event)">
+        <h4>Sunteti sigur ca doriti sa stergeti abonatul ?</h4>
+    </action-dialog>
+    <create-subscriber-dialog
+            (loaded)="referenceCreateSubscriberDialogInComponent($event)"
+            (create-subscriber)="createSubscriber($event)">
+    </create-subscriber-dialog>
+    <div class="subscribers-page">
+        <!-- TODO catch close event -->
+        <div class="page-title">
+            <div class="row">
+                <span class="h3">Abonati</span>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="row">
+                <div class="filters">
+
+                    <div class="clearfix filter-container">
+                        <div class="col-lg-3 col-xs-12 remove-left-padding">
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="text" [(ngModel)]="emailFilter" placeholder="email@domain.com"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-xs-12 no-right-p padding-top-25 remove-right-padding">
+                            <div class="pull-right btn-full-width">
+                                <input type="button" class="btn btn-primary" (click)="showSubscriberDialog()"
+                                       value="Adauga abonat"/>
+                            </div>
+                            <div class="pull-left btn-full-width">
+                                <input type="button" class="btn btn-success" (click)="getSubscribersWithFilters()"
+                                       value="Aplica filtre"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="subscribers">
+                    <div class="table-responsiv">
+                        <table class="table table-striped">
+                            <thead class="thead-inverse">
+                            <tr class="vertical-align">
+                                <th class="col-md-1 col-xs-1">Id</th>
+                                <th class="col-md-4 col-xs-5 pointer-cursor text-left" (click)="sortByColumn('EMAIL')">
+                                    <span>Email</span>
+                                    <span [ngClass]="getClassForSorting('EMAIL')"></span>
+                                </th>
+                                <!--<th class="col-md-1 col-xs-5 pointer-cursor hidden-sm hidden-xs"-->
+                                    <!--(click)="sortByColumn('SUBSCRIBE_DATE')">-->
+                                    <!--<span>Data abonarii</span>-->
+                                    <!--&lt;!&ndash;<span [ngClass]="getClassForSorting('SUBSCRIBE_DATE')" aria-hidden="truet"></span>&ndash;&gt;-->
+                                <!--</th>-->
+                                <!--<th class="col-md-1 hidden-sm hidden-xs pointer-cursor"-->
+                                    <!--(click)="sortByColumn('UNSUBSCRIBE_DATE')">-->
+                                    <!--<span>Data dezabonarii</span>-->
+                                    <!--<span [ngClass]="getClassForSorting('UNSUBSCRIBE_DATE')"></span>-->
+                                <!--</th>-->
+                                <th class="col-md-5 hidden-xs text-left">Cod dezabonare</th>
+                                <th class="col-md-2" colspan="3">Actiuni</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-body">
+                            <tr *ngFor="let subscriber of subscribersList"
+                                [ngClass]="subscriber.isInEditMode ? 'success':''">
+                                <td>
+                                    <span>{{subscriber.id}}</span>
+                                </td>
+                                <td class="text-left">
+                                    <span>{{subscriber.email}}</span>
+                                </td>
+                                <!--<td class="hidden-sm hidden-xs">-->
+                                    <!--<span>{{subscriber.subscribeDate}}</span>-->
+                                <!--</td>-->
+                                <!--<td class="fit-select-to-td hidden-sm hidden-xs">-->
+                                    <!--<span>{{subscriber.unsubscribeDate}}</span>-->
+                                <!--</td>-->
+                                <td class="fit-select-to-td hidden-sm hidden-xs text-left">
+                                    <span>{{subscriber.unsubscribeToken}}</span>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" title="Subscribe" (click)="subscribe(subscriber)">
+                                        <span class="glyphicon glyphicon-log-in"></span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" title="Unsubscribe" (click)="unsubscribe(subscriber)">
+                                        <span class="glyphicon glyphicon-log-out	Try it"></span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" title="Delete"
+                                       (click)="actionDialog.show(deleteMessage,subscriber)">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="navigation-row">
+                                <td colspan="8" class="navigation-column">
+                                    <pagination [totalItems]="pagination.totalItems"
+                                                [(ngModel)]="pagination.currentPage"
+                                                (ngModelChange)="getSubscribersWithFilters()" [maxSize]="pagination.maxSize"
+                                                class="pagination-sm"
+                                                [boundaryLinks]="true" [rotate]="false"
+                                                (numPages)="numPages = $event"></pagination>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

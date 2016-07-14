@@ -1,0 +1,98 @@
+.companies-page{
+    padding-top:1%
+}
+
+.companies-page .companie-type-filter {
+    padding: 0 0;
+}
+
+.companies-page .add-companie {
+    margin-top: 1%;
+    animation: slide-down-49 0.4s;
+}
+
+.companies-page .companie-type-filter .search-field {
+    padding: 0;
+}
+.companies-page .companie-type {
+    padding-top: 1%;
+}
+
+.companies-page .companie-type .list-group .list-group-item {
+    padding-top: 0px;
+    height: 42px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.companies-page .companie-type .list-group .list-group-item .text-center-indent{
+    padding-top: 14px;
+}
+
+.companies-page .companie-type .list-group .list-group-item .col-md-7{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.companies-page .companie-type .list-group .list-group-item .col-md-7 .form-control {
+    margin-top: -1px;
+    height: 42px;
+    margin-left: -16px;
+    text-indent: 18px;
+    z-index: 1000;
+}
+
+.companies-page .companie-type .list-group .list-group-item .operation-labels{
+    padding: 14px 0px 0px 0px;
+}
+
+.companies-page .companie-type .list-group .list-group-item .secondary {
+    float: right;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-left: 1px solid rgb(221, 221, 221);
+    line-height: 20px;
+    height: 42px;
+    margin-top: -15px;
+    padding-top: 15px;
+    cursor: pointer;
+}
+
+.companies-page .companie-type .list-group .list-group-item .secondary.btn{
+    border-right: none;
+    color: #00ccae;
+}
+
+.companies-page .companie-type .list-group .list-group-item .secondary.btn:hover{
+    background-color: #fff;
+    border-color: rgb(221, 221, 221);
+}
+
+.companies-page .companie-type .list-group .list-group-item .secondary.btn:hover span{
+    color: #00806d;
+}
+
+.companies-page .companie-type .list-group .list-group-item .secondary.btn span{
+    margin-top: -12px;
+
+}
+
+.companies-page .companie-type .list-group .list-group-item .pull-right.label.label-info{
+    margin-right: 5px;
+}
+
+@media (max-width: 990px) {
+    .companies-page{
+        padding-top:2%
+    }
+
+    .companies-page.clearfix .col-lg-6.col-xs-12 .pull-right{
+        width: 100%;
+        padding-top: 1%;
+    }
+
+    .companies-page.clearfix .col-lg-6.col-xs-12 .pull-right .btn{
+        width: 100%;
+    }
+}

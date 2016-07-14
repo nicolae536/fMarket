@@ -1,0 +1,75 @@
+<div class="companie-edit-component clearfix">
+    <form [ngFormModel]="_companieEditForm" (ngSubmit)="saveEditedCompanie()">
+        <div class="companie-edit">
+            <div class="form-group">
+                <label>Nume companie</label>
+                <input type="text" [ngFormControl]="_companieEditForm.controls['name']" [(ngModel)]="_companieEditFormModel.name" class="form-control"
+                       placeholder="Nume companie"/>
+            </div>
+            <div class="form-group">
+                <label>Email companie</label>
+                <input type="text" [ngFormControl]="_companieEditForm.controls['email']" [(ngModel)]="_companieEditFormModel.email" class="form-control"
+                       placeholder="Email companie"/>
+            </div>
+            <div class="form-group">
+                <label>Parola</label>
+                <input type="password" [ngFormControl]="_companieEditForm.controls['password']" [(ngModel)]="_companieEditFormModel.password" class="form-control"
+                   placeholder="Parola cont companie"/>
+            </div>
+            <div class="form-group">
+                <label>Telefon</label>
+                <input type="text" [ngFormControl]="_companieEditForm.controls['phone']" [(ngModel)]="_companieEditFormModel.phone" class="form-control"
+                       placeholder="0712345689"/>
+            </div>
+            <div class="form-group">
+                <label>Numele persoanei de contact</label>
+                <input type="text" [ngFormControl]="_companieEditForm.controls['contactPerson']" [(ngModel)]="_companieEditFormModel.contactPerson" class="form-control"
+                       placeholder="Numele persoanei de contact"/>
+            </div>
+            <div class="form-group">
+                <label>Adresa companie</label>
+                <input type="text" [ngFormControl]="_companieEditForm.controls['address']" [(ngModel)]="_companieEditFormModel.address" class="form-control"
+                       placeholder="Adresa companie"/>
+            </div>
+            <div class="form-group">
+                <label>Oras</label>
+                <select-component
+                        [select-items]="_cities"
+                        [single-item-selected]="_companieEditFormModel.city"
+                        [multi-select]="false"
+                        (loaded)="referenceSelectCityComponent($event)"
+                ></select-component>
+            </div>
+            <div class="form-group">
+                <label>Domeniu companie</label>
+                <select-component
+                        [select-items]="_companyDomains"
+                        [single-item-selected]="_companieEditFormModel.companyDomain"
+                        [multi-select]="false"
+                        (loaded)="referenceSelectCompanyDomainComponent($event)"
+                ></select-component>
+            </div>
+            <div class="form-group">
+                <label>Domeniu cereri</label>
+                <select-component
+                        [select-items]="_domains"
+                        [selected-items]="_companieEditFormModel.demandDomains"
+                        [multi-select]="true"
+                        (loaded)="referenceSelectDemandDomainComponent($event)"
+                ></select-component>
+            </div>
+            <div class="form-group">
+                <label>Logo companie</label>
+                <input type="file" accept=".jpg,.jpeg" (change)="saveFile($event)" />
+            </div>
+        </div>
+        <div class="actions">
+            <button type="submit" class="btn btn-success">
+                Salveaza
+            </button>
+            <button type="button" class="btn btn-primary" (click)="goToPreviousPage()">
+                Inapoi
+            </button>
+        </div>
+    </form>
+</div>

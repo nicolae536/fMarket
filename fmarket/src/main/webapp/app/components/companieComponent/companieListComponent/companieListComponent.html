@@ -1,0 +1,35 @@
+<div class="companie-list-component clearfix">
+    <div class="companies-grid clearfix">
+        <div *ngFor="let container of _companieList; let i=index">
+            <div *ngIf="container && container.length >0" class="col-md-3 col-xs-12 domain-companies-container">
+                <div *ngFor="let cellWrapper of container">
+                    <div class="title-wrapper">
+                        <span class="h4 cell-tag-label">
+                            {{cellWrapper.domainName}}
+                        </span>
+                    </div>
+                    <div class="companies-list">
+                        <div *ngFor="let companie of cellWrapper.companies" class="companie-list-item"  (mouseover)="companie.tooltipVisible=true"
+                             (mouseleave)="companie.tooltipVisible=false">
+                            <a (click)="selectCompanie(companie)">
+                                <span>
+                                {{companie.name}}
+                                    </span><!--<img [src]=""/>-->
+                                <div (mouseover)="companie.tooltipVisible=true"
+                                     (mouseleave)="companie.tooltipVisible=false" class="tooltip-container">
+                                    <div class="inner-tooltip-container blue_arrow_box_top"
+                                         [class.open]="companie.tooltipVisible">
+                                        <img [class.open]="companie.tooltipVisible" class="logo-item"
+                                             [src]="'/companies/logo/' + companie.id"/>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="(i+1)%4==0" class="clearfix"></div>
+
+        </div>
+    </div>
+</div>

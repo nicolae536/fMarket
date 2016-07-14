@@ -1,0 +1,24 @@
+.error-page-padding{
+    padding: 3% 5% 3% 5%;
+}
+
+.error-page {
+    padding-left: 15vw;
+    padding-right: 15vw;
+}
+
+.error-page .error-page-wrapper {
+    background-color: #f2dede;
+    padding: 15px;
+    color: #ab2424;
+}
+
+.error-page .error-page-wrapper a{
+    color: #ab2424;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.error-page .error-page-wrapper .glyphicon.glyphicon-remove{
+    font-size: 40px;
+}

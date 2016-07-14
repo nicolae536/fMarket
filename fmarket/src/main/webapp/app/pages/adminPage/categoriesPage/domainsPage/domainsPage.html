@@ -1,0 +1,70 @@
+<div class="domains-page clearfix">
+    <div class="col-lg-6 col-xs-12 remove-left-padding">
+        <div class="domain-type-filter col-lg-6">
+            <div class="search-field">
+                <div class="input-group">
+  				<span class="input-group-addon">
+  					<span class="glyphicon glyphicon-search"></span>
+  				</span>
+                    <input class="form-control" placeholder="Search..." [(ngModel)]="searchQuery"
+                           (ngModelChange)="getRequestTypesWithFilters()"/>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right operations">
+            <button class="btn btn-primary" (click)="toggleAddRequestType(true)">
+                <span class="glyphicon glyphicon-plus"></span> Adauga tip de cerere
+            </button>
+        </div>
+        <div class="clearfix"></div>
+        <!-- *ngIf="showAddRequestRow" -->
+        <div class="add-request" *ngIf="showAddRequestRow">
+            <form [ngFormModel]="_newDomainForm" (ngSubmit)="addRequestType()">
+                <div class="input-group">
+                    <input [ngFormControl]="_newDomainForm.controls['newRequestType']" class="form-control" [(ngModel)]="newRequestType"/>
+
+                    <div class="input-group-btn">
+                        <button [disabled]="!_newDomainForm.valid" type="submit" class="btn btn-secondary btn-primary">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            Creeaza
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-default" (click)="toggleAddRequestType(false)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+        <div class="domain-type">
+            <ul class="list-group">
+                <li *ngFor="let requestType of domainsTypes" class="list-group-item clearfix">
+                    <div class="pull-right align-operations">
+                        <a class="secondary" (click)="deleteRequestType(requestType)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        <a *ngIf="!requestType.isInEditMode" class="secondary" (click)="toggleEditMode(requestType)">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <a *ngIf="requestType.isInEditMode" class="secondary" (click)="revertEdit(requestType)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                        <a *ngIf="requestType.isInEditMode" type="submit"  class="secondary" (click)="editRequestType(requestType)">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </a>
+                        <span class="pull-right label label-info">Companii: {{requestType.nrOfCompanies}}</span>
+                    </div>
+                    <div class="col-md-7 col-xs-4 col-sm-4">
+                        <div *ngIf="!requestType.isInEditMode" class="text-center-indent">
+  					        <span [title]="requestType.name">
+  						        {{requestType.name}}
+  					        </span>
+                        </div>
+                        <input autofocus *ngIf="requestType.isInEditMode" class="form-control" [(ngModel)]="requestType.name"/>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

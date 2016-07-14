@@ -1,0 +1,13 @@
+<div @flyInOut class="error-page-padding">
+    <div *ngIf="showTokenError" class="error-page clearfix">
+        <div class="error-page-wrapper clearfix">
+            <span class="glyphicon glyphicon-remove"></span> <span class="h2">Inregistrare invalida</span>
+            <div style="margin-top: 17px">
+                <div class="pull-right">
+                    <a type="button" [routerLink]="['/']">Continuati</a>
+                </div>
+                {{errorMessage}}
+            </div>
+        </div>
+    </div>
+</div>

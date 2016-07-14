@@ -1,0 +1,79 @@
+<div class="sidenav-mobile visible-xs" [style.margin-left]="sideMenuOpened ? '0' :'-250px'">
+    <div class="clearfix">
+        <a href="javascript:void(0)" class="closebtn pull-right" (click)="closeNav()">×</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a (click)="addDemandFromMobile()">Adauga cerere</a></li>
+            <template  [ngIf]="!isAdminUser()" >
+                <li *ngFor="let page of _usersApplicationPages"><a (click)="goToPageUsingSideMenu(page.link)">{{page.name}}</a></li>
+            </template>
+            <li *ngIf="!isLoggedIn()"><a (click)="goToPageUsingSideMenu('/login')">Contul meu</a></li>
+            <li *ngIf="chechIdNormalUser()">
+                <ul>
+                    <li *ngFor="let p of _myAccountDropdownPages"><a (click)="goToPageUsingSideMenu(p.link)">{{p.name}}</a></li>
+                    <li><a (click)="logout()">Iesire din cont</a></li>
+                </ul>
+            </li>
+            <li *ngIf="isAdminUser()">
+                <ul>
+                    <li *ngFor="let p of _adminApplicationPages"><a (click)="goToPageUsingSideMenu(p.link)">{{p.name}}</a></li>
+                    <li><a style="cursor: pointer;" (click)="logoutFromSideMenu()">Iesire din cont</a></li>
+                </ul>
+            </li>
+        </ul>
+    </ul>
+</div>
+<div class="header">
+    <nav class="navbar navbar-default navbar-fixed-top clearfix">
+        <div class="container-fluid clearfix" [style.margin-left]="sideMenuOpened ? '250px' :'0px'">
+            <div class="visible-xs visible-sm pull-left mobile-menu">
+                <span (click)="openNav()" class="glyphicon glyphicon-align-justify"></span>
+            </div>
+            <a [routerLink]="['']" class="navbar-header clearfix">
+                <img [style.opacity]="hideImage ? 0 : 1" id="element1" class="fMarket-brand-icon"
+                     src="/staticResorces/orange_logo_simple.png"/>
+            </a>
+            <div class="collapse navbar-collapse">
+                <div class="pull-right navbar-bottons">
+                    <button class="btn btn-success" (click)="addDemand()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        Adauga cerere
+                    </button>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <template  [ngIf]="!isAdminUser()" >
+                        <li *ngFor="let page of _usersApplicationPages"><a [routerLink]="[page.link]">{{page.name}}</a></li>
+                    </template>
+                    <li *ngIf="!isLoggedIn()"><a [routerLink]="['/login']">Contul meu</a></li>
+                    <li *ngIf="chechIdNormalUser()" dropdown class="dropdown">
+                        <a href="#" class="dropdown-toggle" dropdownToggle role="button" aria-haspopup="true"
+                           aria-expanded="false">{{_myAccountLabel}}<span class="caret"></span></a>
+                        <ul dropdownMenu class="dropdown-menu">
+                            <li *ngFor="let p of _myAccountDropdownPages"><a [routerLink]="[p.link]">{{p.name}}</a></li>
+                            <li><a (click)="logout()">Iesire din cont</a></li>
+                        </ul>
+                    </li>
+                    <li *ngIf="isAdminUser()" dropdown class="dropdown">
+                        <a href="#" class="dropdown-toggle" dropdownToggle role="button" aria-haspopup="true"
+                           aria-expanded="false">{{_myAccountLabel}}<span class="caret"></span></a>
+                        <ul dropdownMenu class="dropdown-menu">
+                            <li *ngFor="let p of _adminApplicationPages"><a [routerLink]="[p.link]">{{p.name}}</a></li>
+                            <li><a style="cursor: pointer;" (click)="logout()">Iesire din cont</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</div>
+
+
+
+
+
+
+
+
+

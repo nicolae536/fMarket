@@ -1,5 +1,7 @@
 package ro.fmarket.model.geographical.city;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -11,8 +13,9 @@ import ro.fmarket.model.geographical.county.County;
 @Entity
 public class City extends BaseEntity {
 
+	@Column(nullable = false, length = 30, unique = true)
 	private String name;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	private County county;
 }

@@ -2,18 +2,16 @@ package ro.fmarket.core.base;
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BaseDao<T> {
 
 	@Autowired
-	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
 
 	protected Class<T> type;
 
@@ -23,8 +21,7 @@ public class BaseDao<T> {
 	}
 
 	protected Session getSession() {
-		SessionFactory factory = entityManagerFactory.unwrap(SessionFactory.class);
-		return factory.getCurrentSession();
+		return entityManager.unwrap(Session.class);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -32,8 +29,8 @@ public class BaseDao<T> {
 		return (T) getSession().get(type, id);
 	}
 
-	public Long save(T entity) {
-		return (Long) getSession().save(entity);
+	public Integer save(T entity) {
+		return (Integer) getSession().save(entity);
 	}
 
 	public void update(T entity) {
@@ -51,7 +48,6 @@ public class BaseDao<T> {
 
 	protected Criteria getCriteria() {
 		return getSession().createCriteria(type);
-
 	}
 
 	public void delete(T entity) {
@@ -59,10 +55,16 @@ public class BaseDao<T> {
 	}
 	
 	public void deleteById(Integer id) {
-			String hql = "delete " + type.getClass().getSimpleName() + " where id = :id";
-			final Query query = getSession().createQuery(hql);
-			query.setParameter("id", id);
-			query.executeUpdate();
+//			String hql = "delete " + type.getSimpleName() + " where id = :id";
+//			final Query query = getSession().createQuery(hql);
+//			query.setParameter("id", id);
+//			query.executeUpdate();
+		this.delete(this.load(id));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T load(Integer id) {
+		return (T) getSession().load(type, id);
 	}
 
 }

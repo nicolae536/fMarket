@@ -1,0 +1,208 @@
+.home-page .home-page-first {
+    text-align: center;
+    margin-top: -50px;
+    height: 100vh;
+    max-height: 100vh;
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.home-page .how-we-work .advantages {
+    text-align: center;
+    position: relative;
+    border: 1px solid #bfbfbf;
+    padding-bottom: 37px;
+    padding-top: 10px;
+    transition: background-color 0.4s ease;
+    cursor: pointer;
+}
+
+
+.home-page .advantages:hover {
+    background-color: #e9e9e9;
+    transition: background-color 0.4s ease;
+}
+
+.home-page .how-we-work .advantages .advantage-image-container{
+    width: 100%;
+    height: 100%;
+}
+
+.home-page .how-we-work .advantages .advantage-image-container .image{
+    max-height: 100%;
+    height: 100%;
+    width: auto;
+}
+
+.home-page .how-we-work .advantages .advantage-text {
+    text-align:center;
+    width: 100%;
+    font-size: 20px;
+    color: #666666;
+    margin-top: 3px;
+    display: block;
+    bottom: 3vh;
+}
+
+
+.home-page .home-page-first .vertical-demand-align {
+    padding-top: 35vh;
+    color: white;
+    height:100%;
+    position: relative;
+}
+
+.home-page .home-page-first .about-website-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.home-page .home-page-first .about-website {
+    padding: 10px 5% 0px 5%;
+    position: absolute;
+    bottom: 2vh;
+    /* margin-bottom: 10vh; */
+    width: 100%;
+}
+
+.home-page .home-page-first .about-website a {
+    color: white;
+    cursor: pointer;
+}
+
+.home-page .home-page-second {
+    background-color: white;
+    padding-right: 4%;
+    padding-left: 4%;
+}
+
+.home-page .home-page-subscriber {
+    padding: 0 15% 0 0;
+    border-top: 15px solid #12192B;
+    border-bottom: 15px solid #12192B;
+    color: #ffffff;
+    background-color: #12192B;
+}
+
+.home-page .home-page-subscriber .align-input{
+    text-align: right;
+}
+
+.home-page .home-page-subscriber .subscribe-text {
+    font-size: 22px;
+}
+
+.home-page .home-page-subscriber .align-input div{
+    margin-top: 2px;
+}
+
+.home-page .home-page-subscriber .col-mad-11.col-xs-12 .col-md-4.col-xs-12{
+    width:40%;
+}
+
+.home-page .home-page-subscriber button {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.home-page .home-page-subscriber .col-xs-12 input{
+    width: 100%;
+}
+
+.home-page .how-we-work {
+    padding: 0 2% 5% 3%;
+    background-color: #f5f5f5;
+}
+
+.home-page .how-we-work .content-wraapper{
+    padding-left: 8%;
+}
+
+.home-page .how-we-work .text-center {
+    padding-bottom: 40px;
+    padding-top: 30px;
+}
+
+.home-page .home-page-first .vertical-demand-align .demand-action {
+    padding-top: 3vh;
+}
+
+.home-page .home-page-first .vertical-demand-align .demand-action .action-button {
+    padding: 8px 0 8px 0;
+}
+
+.home-page .home-page-first .vertical-demand-align .demand-action .action-button.covered-button {
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.15);
+    display: inline-block;
+}
+
+.videoWrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+}
+
+.videoWrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-height: 570px) {
+    .home-page .home-page-first .vertical-demand-align {
+        padding-top: 20vh;
+    }
+
+    .home-page .home-page-first .about-website {
+        position: relative;
+        padding-top: 7%;
+    }
+}
+
+
+@media (max-height: 500px) {
+    .home-page .home-page-first .vertical-demand-align {
+        padding-top: 47px;
+    }
+
+    .home-page .home-page-first .about-website {
+        position: relative;
+    }
+}
+
+@media (max-width: 990px) {
+    .home-page .home-page-subscriber {
+        padding: 3% 5% 9% 5%;
+    }
+
+    .home-page .how-we-work{
+        padding: 3% 5%  3% 5%;
+    }
+
+    .home-page .home-page-subscriber .col-xs-12 {
+        padding-top: 10px;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .home-page .home-page-subscriber .col-xs-12 .text-align{
+        text-align: center;
+    }
+
+    .home-page .home-page-subscriber .col-xs-12 button{
+        width: 100%;
+    }
+
+    .home-page .how-we-work .col-md-push-1.col-md-3.col-xs-12{
+        margin-top: 3.33%;
+        height: 66.9%;
+        max-height: 66.9%;
+    }
+}

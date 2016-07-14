@@ -1,0 +1,113 @@
+.domains-page {
+    padding-top: 1%;
+}
+
+.domains-page .domain-type-filter{
+    padding: 0;
+}
+
+.domains-page .add-request {
+    padding-top: 1%;
+    animation: slide-down-49 0.4s;
+}
+
+.domains-page .domain-type {
+    padding-top: 1%;
+}
+
+.domains-page .domain-type .list-group .list-group-item {
+    padding: 0px;
+    height: 42px;
+}
+
+.domains-page .domain-type .list-group .list-group-item .align-operations{
+    padding-top: 12px;
+}
+
+.domains-page .domain-type .list-group .list-group-item .col-md-7{
+    white-space: nowrap;
+    overflow: auto;
+    text-overflow: ellipsis;
+}
+
+.domains-page .domain-type .list-group .list-group-item .col-md-7 .text-center-indent{
+    margin-top: 12px;
+}
+
+.domains-page .domain-type .list-group .list-group-item .col-md-7 .form-control {
+    margin-top: -1px;
+    height: 42px;
+    margin-left: -16px;
+    text-indent: 18px;
+    z-index: 1000;
+
+}
+
+.domains-page .domain-type .list-group .list-group-item .col-md-4 {
+    padding: 0px;
+}
+
+.domains-page .domain-type .list-group .list-group-item .secondary {
+    float: right;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-left: 1px solid rgb(221, 221, 221);
+    line-height: 20px;
+    height: 42px;
+    margin-top: -13px;
+    padding-top: 15px;
+    cursor: pointer;
+}
+
+
+.domains-page .domain-type .list-group .list-group-item .secondary.btn{
+    border-right: none;
+    color: #00ccae;
+}
+
+.domains-page .domain-type .list-group .list-group-item .secondary.btn:hover{
+    background-color: #fff;
+    border-color: rgb(221, 221, 221);
+}
+
+.domains-page .domain-type .list-group .list-group-item .secondary.btn:hover span{
+    color: #00806d;
+}
+
+.domains-page .domain-type .list-group .list-group-item .secondary.btn span{
+    margin-top: -12px;
+
+}
+
+.domains-page .domain-type .list-group .list-group-item .pull-right.label.label-info{
+    margin-right: 5px;
+}
+
+@media (max-width: 990px) {
+    .domains-page{
+        padding-top:2%
+    }
+
+    .domains-page .domain-type .list-group .list-group-item .col-md-7.col-xs-4.col-sm-4{
+        width: 25%;
+        padding: 0;
+    }
+
+    .domains-page .domain-type .list-group .list-group-item .col-md-7.col-xs-4.col-sm-4 span{
+        margin-left: 15px;
+    }
+
+    .domains-page .domain-type .list-group .list-group-item .col-md-7 .form-control{
+        margin-left: 0px;
+        text-indent: 0;
+    }
+
+    .domains-page .operations{
+        width: 100%;
+        padding-top: 1%;
+    }
+
+    .domains-page .operations .btn{
+        width: 100%;
+    }
+}

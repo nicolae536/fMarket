@@ -1,0 +1,20 @@
+<div class="categories-menu-page">
+    <div class="clearfix">
+        <menu-item-dialog
+                [domains-list]="_domains"
+                (modal-loaded)="referenceModal($event)"
+                (add-menu-item)="addMenuItem($event)"
+                (update-menu-item)="editMenuItem($event)"
+        ></menu-item-dialog>
+        <menu-component
+                [use-domain-marker]="true"
+                [menu-tree-data]="menuDictionary"
+                [remove-position]="false"
+                [enable-operations]="isAdminUser"
+                (item-selected)="selectMenuItem($event)"
+                (add-menu-item)="showAddMenuModal($event)"
+                (edit-menu-item)="showEditMenuModal($event)"
+                (delete-menu-item)="deleteMenuItem($event)">
+        </menu-component>
+    </div>
+</div>

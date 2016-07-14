@@ -1,0 +1,92 @@
+
+.regisration-component {
+    width: 370px;
+    display: inline-block;
+    text-align: left;
+    text-align: left;
+}
+
+.animated-error{
+    animation: slide-down 0.3s;
+}
+
+.regisration-component .form-wrapper{
+    padding: 10px;
+    background-color: rgba(255,255,255,0.5);
+}
+
+.regisration-component .title-container{
+    padding: 20px 0 20px 20px;
+    background-color: #F4F4F4;
+    border-bottom: 1px solid #CFCFCF;
+    margin-bottom: 5px;
+}
+
+.regisration-component .title-container .h3{
+    font-weight: bold;
+}
+
+.regisration-component .form-style {
+    border: 1px solid #f0dfd5;
+    box-shadow: 0 0 6px;
+    background-color: white;
+}
+
+.regisration-component .form-style .registration-form{
+    padding: 16px;
+}
+
+.regisration-component.clearfix .title {
+    padding-bottom: 20px;
+}
+
+.regisration-component .links-container {
+    padding-top: 15px;
+    color: #FAFAFA;
+}
+
+.regisration-component .links-container a{
+    color:#DEE9EB;
+}
+
+.add-position-relative{
+    position: relative;
+}
+.fb-icon {
+	color: #ffffff;
+	font-size: 22px;
+	margin-right: 0;
+}
+
+.facebook-btn {
+	background-color: #3b5998;
+	border: 0;
+	padding: 14px;
+	color:white;
+	width: 100%;
+	font-size: 15.5px;
+}
+
+.facebook-btn:hover {
+	background-color: #4060a5;
+}
+
+.facebook-or {
+	color: #888888;
+}
+
+@media (max-width: 1176px) {
+    .regisration-component {
+        width: 80vw;
+    }
+
+    .regisration-component.clearfix .btn.btn-primary {
+        width: 100%;
+    }
+}
+
+@media (max-width: 340px) {
+    .regisration-component.clearfix .button-container{
+        width: 100%;
+    }
+}

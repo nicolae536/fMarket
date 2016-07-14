@@ -1,0 +1,143 @@
+<div class="users-page">
+    <!-- TODO catch close event -->
+    <action-dialog
+            [title]="'Delete'"
+            [positive-label]="'Delete'"
+            (loaded)="referenceActionDialogInComponent($event)"
+            (action-confirmed)="actionDialogConfirmDelete($event)">
+    </action-dialog>
+    <create-user-dialog
+            [city-list]="cityList"
+            [status-list]="statusList"
+            (loaded)="referenceCreateUserDialogInComponent($event)"
+            (create-user)="confirmCreateUser()">
+    </create-user-dialog>
+    <div class="page-title">
+        <div class="row">
+            <span class="h3">Conturi</span>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="filters">
+                <div class="clearfix filter-container">
+                    <div class="col-md-1 col-xs-12 remove-left-padding">
+                        <div class="form-group">
+                            <label>Id:</label>
+                            <input type="number" [(ngModel)]="idFilter" placeholder="0"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-xs-12 remove-left-padding">
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="text" [(ngModel)]="emailFilter" placeholder="user@domain.com"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-xs-12 remove-left-padding">
+                        <div class="form-group">
+                            <label>Nume:</label>
+                            <input type="text" [(ngModel)]="nameFilter" placeholder="Andrei" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-xs-12 remove-left-padding">
+                        <label>Status:</label>
+
+                        <div>
+                            <select class="user-status-select" [(ngModel)]="selectedStatusFilter" [disabled]="statusList && statusList.legth > 0">
+                                <option *ngFor="let option of statusList" [value]="option.status">{{option.displayName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-xs-12 remove-left-padding">
+                        <label>Oras:</label>
+
+                        <div>
+                            <select class="user-status-select" [(ngModel)]="cityId">
+                                <option *ngFor="let option of cityList" [value]="option.id">{{option.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 remove-right-padding push-down clearfix">
+                        <div class="pull-left btn-container">
+                            <button class="btn btn-success" (click)="applyFilters()">Aplica Filtre</button>
+                        </div>
+                        <div class="pull-right btn-container">
+                            <button class="btn btn-primary" (click)="createAccount()">
+                                <span class="glyphicon glyphicon-plus"></span> Adauga utilizator
+                            </button>
+                        </div>
+                    </div>
+                    <div class="push-down pull-right">
+
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped" cellspacing="0" width="100%">
+                <thead class="thead-inverse">
+                <tr>
+                    <th class="col-md-1 col-sm-2 col-xs-2 vertical-align">Id</th>
+                    <th class="col-md-3 col-sm-4 col-xs-4 text-left vertical-align">Email</th>
+                    <th class="col-md-2 col-sm-4 col-xs-4 text-left vertical-align">Nume</th>
+                    <th class="col-md-1 hidden-sm hidden-xs vertical-align">Status</th>
+                    <th class="col-md-2 hidden-sm hidden-xs vertical-align">Oras</th>
+                    <th class="col-md-1 hidden-sm hidden-xs vertical-align" colspan="2">Actiuni</th>
+                </tr>
+                </thead>
+                <tbody class="table-body">
+                <tr *ngFor="let user of usersList" [ngClass]="user.isInEditMode ? 'success':''">
+                    <td>
+                        <span>{{user.id}}</span>
+                    </td>
+                    <td class="text-left">
+                        <span *ngIf="!user.isInEditMode">{{user.email}}</span>
+                        <input *ngIf="user.isInEditMode" type="text" class="form-control" [(ngModel)]="user.email"/>
+                    </td>
+                    <td class="text-left">
+                        <span *ngIf="!user.isInEditMode">{{user.name}}</span>
+                        <input *ngIf="user.isInEditMode" type="text" class="form-control" [(ngModel)]="user.name"/>
+                    </td>
+                    <td class="fit-select-to-td hidden-sm hidden-xs">
+                        <span *ngIf="!user.isInEditMode">{{user.status}}</span>
+                        <select *ngIf="user.isInEditMode" class="user-status-select" [(ngModel)]="user.status">
+                            <option *ngFor="let option of statusList" [value]="option.status">{{option.displayName}}
+                            </option>
+                        </select>
+                    </td>
+                    <td class="fit-select-to-td hidden-sm hidden-xs">
+                        <span *ngIf="!user.isInEditMode">{{user.city}}</span>
+                        <select *ngIf="user.isInEditMode" class="user-status-select" [(ngModel)]="user.cityId">
+                            <option *ngFor="let option of cityList" [value]="option.id">{{option.name}}</option>
+                        </select>
+                    </td>
+                    <td class="hidden-sm hidden-xs">
+                        <a href="javascript:void(0)" *ngIf="!user.isInEditMode" (click)="toggleEditMode(user)">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <a href="javascript:void(0)" *ngIf="user.isInEditMode" (click)="saveEditedUser(user)">
+                            <span *ngIf="user.isInEditMode" class="glyphicon glyphicon-ok"></span>
+                        </a>
+                        <a href="javascript:void(0)" *ngIf="user.isInEditMode" (click)="closeEditMode(user)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                    <td class="hidden-sm hidden-xs">
+                        <a href="javascript:void(0)" (click)="deleteUser(user)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr class="navigation-row text-center">
+                    <td colspan="7" class="navigation-column">
+                        <pagination [totalItems]="pagination.totalItems" [(ngModel)]="pagination.currentPage"
+                                    (ngModelChange)="getUsers()" [maxSize]="pagination.maxSize" class="pagination-sm"
+                                    [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

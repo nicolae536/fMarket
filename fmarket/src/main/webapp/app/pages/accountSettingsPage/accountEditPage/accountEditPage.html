@@ -1,0 +1,9 @@
+<div class="account-edit-page">
+    <account-edit-component
+        [account-form-model]="_account"
+        [city-list]="_cityesList"
+        [submit-label]="_submitLabel"
+        (save-edited-account)="saveEditedAccount($event)"
+        (change-password)="changePassword($event)">
+    </account-edit-component>
+</div>

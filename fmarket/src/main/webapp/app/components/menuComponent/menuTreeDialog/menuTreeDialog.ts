@@ -1,0 +1,50 @@
+import {Component, Output, Input, EventEmitter} from '@angular/core';
+import {ModalDialog} from "../../modalDialog/modalDialog";
+import {MenuTreeComponent} from "../menuTreeComponent";
+import {IMenuItem} from "../../../models/interfaces/iMenuItem";
+
+let template = require('./menuTreeDialog.html');
+
+@Component({
+    selector: 'menu-tree-dialog',
+    template:template,
+    directives:[MenuTreeComponent]
+})
+
+export class MenuTreeDialog extends ModalDialog{
+    @Input('title') title:string;
+    @Input('positive-label') positiveLabel:string = 'OK';
+    @Input('cancel-label') cancelLabel:string = 'Cancel';
+    @Input('menu-tree-data') menuDictionary;
+    @Input('enable-operations') enableOperations:boolean;
+
+    @Output('loaded') loadedEmitter:EventEmitter<MenuTreeDialog> = new EventEmitter<MenuTreeDialog>();
+    @Output('action-confirmed') confirmAction:EventEmitter<Object> = new EventEmitter<Object>();
+    private menuTreeComponent:MenuTreeComponent;
+
+    constructor() {
+        super();
+    }
+
+    ngOnInit() {
+        this.loadedEmitter.emit(this);
+    }
+
+    selectMenuItem(menuItem:IMenuItem) {
+        if(!menuItem.hasChildrens && menuItem.domainId){
+            this.responseObject = menuItem;
+            this.positiveAction();
+            this.hide();
+        }
+    }
+
+    referenceMenuTreeCompoent($event:MenuTreeComponent){
+        this.menuTreeComponent=$event;
+    }
+
+    showMenuTreeDialog(){
+        this.menuTreeComponent.reinitMenuSelection();
+        this.show();
+    }
+
+}

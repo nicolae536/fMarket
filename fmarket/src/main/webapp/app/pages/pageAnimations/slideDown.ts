@@ -1,0 +1,31 @@
+/**
+ * Created by NicolaeB on 7/13/2016.
+ */
+import {style, state, animate, transition, trigger} from "@angular/core";
+
+/*
+ @key @flyInOut
+ add the key @flyInOut to your Dom element
+ add the const as animations array
+ */
+export const SLIDE_DOWN_ANIMATION = [
+    trigger('slideDown', [
+        state('in', style({
+            transform: 'translateY(0)',
+            opacity: '1'
+        })),
+        transition('void => *', [
+            style({
+                transform: 'translateY(-100%)',
+                opacity: '0'
+            }),
+            animate('500ms ease-in')
+        ]),
+        transition('* => void', [
+            animate('500ms ease-in', style({
+                transform: 'translateY(100%)',
+                opacity: '0'
+            }))
+        ])
+    ])
+]

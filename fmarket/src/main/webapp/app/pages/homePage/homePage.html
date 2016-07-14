@@ -1,0 +1,110 @@
+<div @flyInOut #widnowElementRef class="home-page clearfix">
+    <div class="home-page-first">
+        <div class="vertical-demand-align">
+            <div class="presentation-text">
+                <h1>Ai nevoie de un produs/serviciu si nu ai timp sa cauti cea mai buna oferta?</h1>
+                <div>
+                    Adauga o cerere si vei fi contactat in cel mai scurt timp de catre partenerii
+                </div>
+                <div>
+                    fmarket.ro, care se ocupa cu domeniul cautat de tine.
+                </div>
+            </div>
+            <div class="demand-action">
+                <div class="action-button covered-button">
+                    <a #goCreateDemandBtn class="btn btn-success btn-lg" (click)="goToCreateDemand()">Adauga cerere</a>
+                </div>
+
+            </div>
+            <div class="about-website clearfix">
+                <a (click)="goToHowWeWork()">
+                    <div>
+                        <span class="h4">
+                            Cum functioneaza?
+                        </span>
+                    </div>
+                    <div style="margin-top: 1vh;">
+                        <span style="font-size: 16px;" class="glyphicon glyphicon-triangle-bottom"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div #createDemandComponent class="home-page-second clearfix" id="createDemandComponent">
+        <demand-component
+                [menu-tree-data]="menuDictionary"
+                [title]="'Creeaza cerere.'"
+                [city-list]="_cityes"
+                (demand-component-loaded)="referenceDemandDialog($event)"
+                (submit-new-demand)="createDemand($event)">
+            
+        </demand-component>
+    </div>
+
+
+    <div #howWeWork class="how-we-work clearfix" (window:resize)="rematchElementsOnView($event)">
+        <div class="text-center">
+            <h1>Cum functioneaza?</h1>
+        </div>
+        <div class="content-wraapper clearfix">
+            <div #videoContainer class="col-md-push-1 col-md-6 col-xs-12">
+                <div class="videoWrapper">
+                    <iframe title="Prezentare fMarket" width="560" height="349"
+                            src="http://www.youtube.com/embed/n_dZNLr2cME?rel=0&hd=1" frameborder="0"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+            <div #videoRightContainer class="col-md-push-1 col-md-3 col-xs-12">
+                <div class="fixed-image-container advantages">
+                    <div class="advantage-image-container">
+                        <img class="image" src="/staticResorces/simplu.png">
+                    </div>
+                    <div class="advantage-text">
+                        <span>Simplu</span>
+                    </div>
+                </div>
+                <div class="fixed-image-container advantages">
+                    <div class="advantage-image-container">
+                        <img class="image" src="/staticResorces/sigur.png">
+                    </div>
+                    <div class="advantage-text">
+                        <span>Sigur</span>
+                    </div>
+                </div>
+                <div class="fixed-image-container advantages">
+                    <div class="advantage-image-container">
+                        <img class="image" src="/staticResorces/rapid.png">
+                    </div>
+                    <div class="advantage-text">
+                        <span>Rapid</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-page-subscriber clearfix">
+        <form [ngFormModel]="_subscribeForm" (ngSubmit)="submitSubscriber()">
+
+            <div class="col-md-11 col-xs-12">
+                <div class="col-md-8 col-xs-12 align-input">
+                    <div class="text-align subscribe-text">
+                    <span>
+                        Inscrie-te si fii la curent cu toate noutatile fmarket
+                    </span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <input type="email" [ngFormControl]="_subscribeForm.controls['email']" class="form-control"
+                           placeholder="Email-ul tau..."/>
+                </div>
+
+            </div>
+            <div class="col-md-1 col-xs-12">
+                <button type="submit" class="btn btn-success">
+                    Inscrie-te
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

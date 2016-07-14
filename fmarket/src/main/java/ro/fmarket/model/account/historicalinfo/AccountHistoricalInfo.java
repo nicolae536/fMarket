@@ -1,5 +1,6 @@
 package ro.fmarket.model.account.historicalinfo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.hibernate.annotations.Type;
@@ -12,12 +13,20 @@ import ro.fmarket.core.base.BaseEntity;
 @Entity
 public class AccountHistoricalInfo extends BaseEntity {
 
-	private Integer loginTimes;
+	@Column(nullable = false)
+	private Integer loginTimes = 0;
+	
+	@Column(nullable = false)
+	private Integer autoLoginTimes = 0;
+	
+	@Column(nullable = false)
+	private Integer facebookLoginTimes = 0;
+	
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime lastFacebookLoginDate;
 	
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime lastLoginDate;
-	
-	private Integer autoLoginTimes;
 	
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime lastAutoLoginDate;

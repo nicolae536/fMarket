@@ -1,0 +1,105 @@
+.bs-ui-select-2{
+    border-radius: 5px;
+    position:relative;
+    margin-bottom:10px;
+}
+
+.bs-ui-select-2 .ui-select-toggle{
+    text-align: left;
+}
+
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect{
+    padding-top: 2px;
+    height: auto;
+    min-height: 34px;
+}
+
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.dropdown-toggle .glyphicon.glyphicon-remove.pull-right{
+    margin-right: 7px;
+}
+
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .label.label-info{
+    top: 3px;
+    margin-bottom: 2px;
+    font-size: 90%;
+    margin-right: 2px;
+}
+
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-9.col-md-10{
+    padding-left: 0px;
+}
+
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-3.col-md-2{
+    padding: 0px;
+}
+
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .options-container{
+    top: 8px;
+    position: absolute;
+    right: 8px;
+}
+
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .col-xs-3.col-md-2 .glyphicon{
+    margin-top: 4px;
+}
+
+.bs-ui-select-2 .btn.btn-default.btn-secondary.form-control.ui-select-toggle.multiselect .remove-selected{
+    font-size: 12px;
+    color: white;
+    margin-top: 1.5px;
+    margin-left: 5px;
+}
+
+.bs-ui-select-2.dropdown .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
+    background-color: white;
+}
+
+.bs-ui-select-2 .ui-select2-list-container{
+    width:100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    max-height:0px;
+    transition: .3s;
+    display:block;
+    visibility:hidden;
+    overflow:hidden;
+    padding-top:0px;
+}
+
+.bs-ui-select-2 .ui-select2-list-container.dropdown-open{
+    max-height:250px;
+    visibility:visible;
+}
+
+.bs-ui-select-2 .ui-select2-list-container .ui-select2-list{
+    max-height: 200px;
+    overflow: auto;
+    transition: max-height 1s ease-in-out;
+}
+
+.bs-ui-select-2 .ui-select2-list-item{
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+}
+
+.bs-ui-select-2 .ui-select2-list-item:hover{
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.bs-ui-select-2 .ui-select2-search{
+    padding: 3px 0px 5px 0px;
+    border-bottom:1px solid #ccc;
+    position: relative;
+    margin-top: 5px;
+}
+
+.bs-ui-select-2 .ui-select2-search-right-icon{
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    cursor: pointer;
+}
