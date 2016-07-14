@@ -40,6 +40,10 @@ Css library
     outline: none;
 }
 
+.front-index-100{
+    z-index: 100;
+}
+
 .modal-dialog.modal {
     height: 100% !important;
     max-height: 100% !important;
@@ -133,35 +137,20 @@ Css library
 }
 
 /*for error style*/
-.ng-dirty.ng-invalid.ng-touched {
+.backend-error {
     border-color: #ab2424;
     background-color: #ffecec;
 }
 
-.ng-untouched.ng-pristine.ng-invalid.backend-error {
+.ng-valid:not(.backend-error) {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-touched.ng-dirty.ng-invalid {
     border-color: #ab2424;
     background-color: #ffecec;
 }
 
-.ng-pristine.ng-invalid.backend-error.ng-touched {
-    border-color: #ab2424;
-    background-color: #ffecec;
-}
-
-.ng-pristine.ng-invalid.backend-error.ng-touched:focus {
-    border-color: #ab2424;
-    background-color: #ffecec;
-}
-
-.ng-dirty.ng-invalid.ng-touched:focus {
-    border-color: #ab2424;
-    background-color: #ffecec;
-}
-
-.ng-untouched.ng-pristine.ng-invalid.backend-error:focus {
-    border-color: #ab2424;
-    background-color: #ffecec;
-}
 
 /*slide down animation*/
 @keyframes slide-down {

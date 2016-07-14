@@ -13,11 +13,13 @@ import {RegistrationService} from "../../services/registrationService";
 import {NotificationService} from "../../services/notificationService";
 import {ApplicationStateService} from "../../services/applicationStateService";
 import * as template from './headerComponent.html';
+import {SLIDE_DOWN_ANIMATION} from "../../pages/pageAnimations/slideDown";
 
 @Component({
     selector: 'header-component',
     template: template,
-    directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES],
+    animations: SLIDE_DOWN_ANIMATION
 })
 
 export class HeaderComponent implements OnInit {

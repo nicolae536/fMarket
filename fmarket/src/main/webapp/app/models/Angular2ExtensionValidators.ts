@@ -41,21 +41,28 @@ export class CustomValidators {
 
     }
 
-    public static validateEmail(c:AbstractControl) {
-        return CustomValidators.EMAIL_REGEX.test(c.value) ? null : {
-            validateEmail: {
-                valid: false
-            }
-        };
+    // public static validateEmail(c:AbstractControl) {
+    //     return CustomValidators.EMAIL_REGEX.test(c.value) ? null : {
+    //         validateEmail: {
+    //             valid: false
+    //         }
+    //     };
+    // }
+
+    public static validateEmail(value:string){
+        return CustomValidators.EMAIL_REGEX.test(value);
     }
 
-    public static validatePassword(c:AbstractControl) {
-        return CustomValidators.PASSWORD_REGEX.test(c.value) ? null : {
-            validatePassword: {
-                valid: false
-            }
-        };
+    public static validatePassword(value:string){
+        return CustomValidators.PASSWORD_REGEX.test(value);
     }
+    // public static validatePassword(c:AbstractControl) {
+    //     return CustomValidators.PASSWORD_REGEX.test(c.value) ? null : {
+    //         validatePassword: {
+    //             valid: false
+    //         }
+    //     };
+    // }
 
     public static validatePhoneNumber(c:AbstractControl) {
 

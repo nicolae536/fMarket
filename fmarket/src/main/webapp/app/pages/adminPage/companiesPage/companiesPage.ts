@@ -15,8 +15,7 @@ import {CompanySearchObject} from "../../../models/companySearchObject";
 import {Ng2Pagination} from "../../../models/Ng2Pagination";
 import {CompanieDto} from "../../../models/companieDto";
 import * as _ from "underscore";
-
-let template = require('./companiesPage.html');
+import * as template from './companiesPage.html';
 
 @Component({
     selector: 'compnaies-Page',
@@ -75,9 +74,10 @@ export class CompaniesPage implements OnInit {
         this._companiesService.getCompanyWithFilters(obj)
             .subscribe(
                 response=> {
-                    me._companiesList = response.data;
+                    let typedResponse:ServerResponse = response as ServerResponse;
+                    me._companiesList = typedResponse.data;
                     // me.pagination.currentPage = response.page;
-                    me.pagination.totalItems = response.totalPages;
+                    me.pagination.totalItems = typedResponse.totalPages;
                     me.searchFilter['page'] = this.pagination['currentPage'];
                 },
                 error=> {
@@ -157,4 +157,10 @@ export class CompaniesPage implements OnInit {
     chengeSearch($event) {
         this.getCompaniesWithFilters();
     }
+}
+
+export interface ServerResponse {
+    data: Array<DomainCompanieDto>,
+    page: number,
+    totalPages:number
 }

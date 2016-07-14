@@ -18,7 +18,8 @@
         </div>
         <div class="clearfix"></div>
         <div class="add-companie" *ngIf="showAddCompanieDomainRow">
-            <form [ngFormModel]="_newDomainForm" (ngSubmit)="addCompanieDomain()">
+            <!--[ngFormModel]="_newDomainForm" -->
+            <!--<form *ngIf="false" (ngSubmit)="addCompanieDomain()">
                 <div class="input-group">
                     <input [ngFormControl]="_newDomainForm.controls['newDomain']" class="form-control" [(ngModel)]="newDomain"/>
 
@@ -34,7 +35,7 @@
                         </button>
                     </div>
                 </div>
-            </form>
+            </form>-->
         </div>
         <!-- *ngIf="showAddCompanieDomainRow" -->
         <div class="companie-type">

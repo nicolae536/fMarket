@@ -11,7 +11,8 @@
                 (loaded)="referenceDialogInDemandComponent($event)"
                 (action-confirmed)="selectItemUsingMenu($event)"
         ></menu-tree-dialog>
-        <form [ngFormModel]="_demandForm" (ngSubmit)="demandFormSubmit()" class="demand-component-container clearfix">
+        <!--[ngFormModel]="_demandForm" -->
+        <!--<form *ngIf="false" (ngSubmit)="demandFormSubmit()" class="demand-component-container clearfix">
             <div class="demand-component">
                 <div class="demand-control-groups">
                     <h3>Cerere</h3>
@@ -122,6 +123,6 @@
                     {{positiveLabel}}
                 </button>
             </div>
-        </form>
+        </form>-->
     </div>
 </div>

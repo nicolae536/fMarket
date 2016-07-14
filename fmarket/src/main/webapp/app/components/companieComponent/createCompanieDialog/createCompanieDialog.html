@@ -2,7 +2,8 @@
 <div class="modal fade bs-example-modal-lg in" tabindex="-1" (click)="cancelCreateCompanie()" role="dialog"
      [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0">
     <div class="modal-dialog modal-lg" (click)="stopPropagation($event)">
-        <form [ngFormModel]="_createCompanieForm" (ngSubmit)="submitNewCompanie()">
+        <!--[ngFormModel]="_createCompanieForm" -->
+        <!--<form *ngIf="false" (ngSubmit)="submitNewCompanie()">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" (click)="cancelCreateCompanie()">
@@ -22,6 +23,6 @@
                     </button>
                 </div>
             </div>
-        </form>
+        </form>-->
     </div>
 </div>

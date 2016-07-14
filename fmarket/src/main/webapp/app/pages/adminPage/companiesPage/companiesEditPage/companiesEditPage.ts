@@ -3,7 +3,7 @@
  */
 
 import {OnInit, Component} from "@angular/core";
-import {Router, OnActivate, RouteSegment, RouteTree} from "@angular/router";
+import {Router, OnActivate, RouteSegment, RouteTree, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {CompaniesService} from "../../../../services/companiesService";
 import {NotificationService} from "../../../../services/notificationService";
@@ -11,8 +11,7 @@ import {CompaniesEditComponent} from "../../../../components/companieComponent/c
 import {CompaniesEditBase} from "./companiesEditBase";
 import {NewCompanyRequest} from "../../../../models/newCompanyRequest";
 import {LocalizationService} from "../../../../services/localizationService";
-
-let template = require('./companiesEditPage.html');
+import * as template from './companiesEditPage.html';
 
 @Component({
     selector: 'companies-edit-page',
@@ -20,25 +19,31 @@ let template = require('./companiesEditPage.html');
     directives: [CompaniesEditComponent]
 })
 
-export class CompaniesEditPage extends CompaniesEditBase implements OnInit, OnActivate {
+export class CompaniesEditPage extends CompaniesEditBase implements OnInit {
     private companieId;
 
     constructor(location:Location,
                 router:Router,
                 companiesService:CompaniesService,
                 notificationService:NotificationService,
-                localizationService:LocalizationService) {
+                localizationService:LocalizationService,
+                private route: ActivatedRoute) {
         super(location, router, companiesService, notificationService, localizationService);
     }
 
-    routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
-        this.companieId = curr.getParam('id');
-    }
-
     ngOnInit() {
+        
         this.getCities();
         this.getCompanieDomains();
         this.getDomains();
+        this.route.params.subscribe(params=>{
+            this.companieId = +params['id'];
+            this.getCompanyDetails();
+        })
+
+    }
+
+    getCompanyDetails(){
 
         let me = this;
         this._companiesService.getCompanyDetails(parseInt(this.companieId))

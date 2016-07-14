@@ -19,7 +19,8 @@
         <div class="clearfix"></div>
         <!-- *ngIf="showAddRequestRow" -->
         <div class="add-request" *ngIf="showAddRequestRow">
-            <form [ngFormModel]="_newDomainForm" (ngSubmit)="addRequestType()">
+             <!--[ngFormModel]="_newDomainForm"-->
+            <!--<form *ngIf="false" (ngSubmit)="addRequestType()">
                 <div class="input-group">
                     <input [ngFormControl]="_newDomainForm.controls['newRequestType']" class="form-control" [(ngModel)]="newRequestType"/>
 
@@ -34,7 +35,7 @@
                         </button>
                     </div>
                 </div>
-            </form>
+            </form>-->
         </div>
         <div class="clearfix"></div>
         <div class="domain-type">

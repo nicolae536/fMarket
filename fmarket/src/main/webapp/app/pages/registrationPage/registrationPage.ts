@@ -11,9 +11,11 @@ import {JqueryService} from "../../services/jqueryService";
 
 import {RegistrationComponent} from "../../components/registrationComponent/registrationComponent";
 
-import {RegisterAccount} from "../../models/registerAccount";
+import {RegisterAccount, Field} from "../../models/forms/registerAccount";
 import {SuccessPageOptions} from "./successPages/successPage";
+
 import * as template from './registrationPage.html';
+
 import {ENTER_LEAVE_ANIMATION} from "../pageAnimations/enterLeavePage";
 
 @Component({
@@ -82,24 +84,17 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
                     me._router.navigate([`/success/${SuccessPageOptions.SuccessRegistration}`]);
                 },
                 error => {
-                    me._registrationComponent.markAllFieldsAsErrors({email:true, password:true});
                     me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Inregistrare invalida!', timeout:5});
+                    
+                    me._registrationComponent.setFieldsAsErrors(
+                        new Array<Field>(
+                            new Field('email', false),
+                            new Field('password', false),
+                            new Field('repeat', false)
+                        )
+                    );
+                    me._registrationComponent.recheckAfterFirstChange = true;
                 }
             )
-    }
-
-    initFLogin($event){
-        let me = this;
-        location.assign('/connect/facebook');
-        //
-        // this._faceBookService.login()
-        //     .subscribe(
-        //         response=>{
-        //
-        //         },
-        //         error=>{
-        //
-        //         }
-        //     )
     }
 }

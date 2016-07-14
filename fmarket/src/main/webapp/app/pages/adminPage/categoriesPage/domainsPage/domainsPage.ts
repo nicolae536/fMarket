@@ -4,8 +4,7 @@ import {FORM_DIRECTIVES, FormBuilder, Validators} from "@angular/common";
 import {RequestTypeService} from "../../../../services/requestTypeService";
 
 import {RequestType} from "../../../../models/requestType";
-
-let template = require('./domainsPage.html');
+import * as template from './domainsPage.html';
 
 @Component({
     selector: 'companies-Page',
@@ -47,7 +46,7 @@ export class DomainsPage implements OnInit {
         this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
             .subscribe(
                 response => {
-                    me.domainsTypes = response;
+                    me.domainsTypes = response as Array<RequestType>;
                 },
                 error => {
                     me.domainsTypes = [];
@@ -80,7 +79,7 @@ export class DomainsPage implements OnInit {
         this._requestTypeService.deleteRequestType(requestType.id)
             .subscribe(
                 response => {
-                    me.domainsTypes = response;
+                    me.domainsTypes = response as Array<RequestType>;
                     me.getRequestTypesWithFilters();
                 },
                 error => {

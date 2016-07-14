@@ -1,7 +1,8 @@
 <div class="account-edit-component clearfix">
     <div class="clearfix">
         <div class="col-md-6 col-xs-12 col-sm-12">
-            <form *ngIf="_accountFormModel" [ngFormModel]="_accountFormModel" (ngSubmit)="saveEditedAccount()"
+            <!--_accountFormModel-->
+            <form *ngIf="false" (ngSubmit)="saveEditedAccount()"
                   class="account-form">
                 <span class="h4">Date cont</span>
                 <hr/>
@@ -39,7 +40,8 @@
         </div>
 
         <div class="col-md-6 col-xs-12 col-sm-12">
-            <form *ngIf="_accountFormModel" [ngFormModel]="_changePasswordFormModel" (ngSubmit)="changePassword()"
+            <!--_accountFormModel-->
+            <!--<form *ngIf="false" (ngSubmit)="changePassword()"
                   class="account-form">
 
                 <span class="h4">Schimbare parola</span>
@@ -80,7 +82,7 @@
                         <button type="submit" class="btn btn-primary">Schimba parola</button>
                     </div>
                 </div>
-            </form>
+            </form>-->
 
         </div>
     </div>

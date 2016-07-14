@@ -3,7 +3,8 @@
      [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0">
     <div class="modal-dialog modal-dialog-very-sm modal" [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0" (click)="stopPropagation($event)">
         <div class="modal-content">
-            <form [ngFormModel]="_menuItem" (ngSubmit)="submitMenuItem()">
+            <!--[ngFormModel]="_menuItem" -->
+            <!--<form *ngIf="false" (ngSubmit)="submitMenuItem()">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" (click)="cancelAction()">
                         <span aria-hidden="true">&times;</span>
@@ -37,7 +38,7 @@
                     <button type="submit" class="btn btn-primary btn-sm"> {{positiveLabel}}
                     </button>
                 </div>
-            </form>
+            </form>-->
         </div>
     </div>
 </div>

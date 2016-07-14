@@ -94,7 +94,7 @@ export class DemandService {
 
     private getSearchObj(search:DemandSearchObject) {
         let response = {}
-        if(search.accountId && !isNaN(parseInt(Number(search.accountId)))){
+        if(search.accountId && !isNaN(parseInt(Number(+search.accountId)))){
             response['accountId'] = search.accountId;
         }
         if(search.page && search.page > 0){
