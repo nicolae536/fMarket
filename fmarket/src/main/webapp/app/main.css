@@ -142,7 +142,7 @@ Css library
     background-color: #ffecec;
 }
 
-.ng-valid:not(.backend-error) {
+.ng-touched.ng-valid:not(.backend-error) {
     border-left: 5px solid #42A948; /* green */
 }
 

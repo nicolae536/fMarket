@@ -33,7 +33,7 @@ export class Field {
         this.key=key;
         this.valid = valid;
         this.value = value;
-        this.validate = validate ? validate : ()=>{};
+        this.validate = validate ? validate : ()=>{ return true };
         this.disabled = disabled === undefined || disabled === null ? false : disabled;
     }
 }

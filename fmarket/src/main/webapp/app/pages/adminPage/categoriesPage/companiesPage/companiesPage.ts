@@ -1,41 +1,39 @@
 import {Component, OnInit} from "@angular/core";
-import {FormBuilder, Validators} from "@angular/common";
+import {FORM_DIRECTIVES} from "@angular/forms";
 
+import { Field } from "../../../../models/forms/registerAccount";
 import {CompanieTypeService} from "../../../../services/companieTypesService";
 
 import {CompanieType} from "../../../../models/companieType";
 
-let template = require('./companiesPage.html');
+import * as template from './companiesPage.html';
 
 @Component({
     selector: 'companies-Page',
     template:template,
+    directives: [FORM_DIRECTIVES]
     //styleUrls: [applicationPath + '/companiesPage.css'],
 })
 
 export class CompaniesPage implements OnInit {
     //<editor-fold desc="Services">
     _companieTypeService:CompanieTypeService;
-    private _formBuilder:FormBuilder;
     //</editor-fold>
 
     //<editor-fold desc="Variables">
     companieTypes:Array<CompanieType> = [new CompanieType("", "test", 1), new CompanieType("", "test", 3), new CompanieType("", "test", 2)];
     searchQuery:string = "";
-    newDomain:string;
+    newDomain:Field = new Field('newDomain', true, '');
     showAddCompanieDomainRow:boolean;
     _newDomainForm;
     //</editor-fold>
 
-    constructor(companieTypeService:CompanieTypeService, formBuilder:FormBuilder) {
+    constructor(companieTypeService:CompanieTypeService) {
         this._companieTypeService = companieTypeService;
-        this._formBuilder = formBuilder;
     }
 
     ngOnInit() {
         this.getCompanyTypesWithFilters();
-        this._newDomainForm = this._formBuilder.group([]);
-        this.buildDomainForm();
     }
 
     getCompanyTypesWithFilters() {
@@ -55,21 +53,15 @@ export class CompaniesPage implements OnInit {
     addCompanieDomain() {
         var me = this;
 
-        if (!this._newDomainForm.valid) {
-            return;
-        }
-
-        this._companieTypeService.addCompanyType(this.newDomain)
+        this._companieTypeService.addCompanyType(this.newDomain.value)
             .subscribe(
                 response => {
-                    me.getCompanyTypesWithFilters();
-                    me.newDomain = "";
-                    me.toggleAddCompanieDomain(false);
-                    me.rebuildForm();
+                    me.reinitModel();
+                    me.getCompanyTypesWithFilters();                    
                 },
                 error => {
-                    //make the field red
-                    //this.companieTypes = [];
+                    //make the field red show add error
+                    this.newDomain.valid = false;
                 });
     }
 
@@ -94,7 +86,7 @@ export class CompaniesPage implements OnInit {
             .subscribe(
                 response => {
                     companyType.isInEditMode = false;
-                    //this.companieTypes = response.data;
+                    me.getCompanyTypesWithFilters()
                 },
                 error => {
                     //this.companieTypes = [];
@@ -114,20 +106,9 @@ export class CompaniesPage implements OnInit {
 
     }
 
-    toggleAddCompanieDomain(value:boolean) {
-        this.showAddCompanieDomainRow = value;
-        if (!value) {
-            this.newDomain = '';
-            this.rebuildForm();
-        }
-    }
-
-    private buildDomainForm() {
-        this._newDomainForm.addControl('newDomain', this._formBuilder.control(this.newDomain, Validators.compose([Validators.required, Validators.minLength(3)])));
-    }
-
-    rebuildForm() {
-        this._newDomainForm.removeControl('newDomain');
-        this.buildDomainForm();
+    //TODO change this when angular has a form reset method
+    reinitModel(){
+        this.newDomain = new Field('newDomain', true, '');
+        this.showAddCompanieDomainRow = false;
     }
 }

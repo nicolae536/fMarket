@@ -6,13 +6,14 @@ const CompressionPlugin = require('compression-webpack-plugin');
 module.exports = {
     debug: false,
     entry: {
-        'main': './app/main',
+        'polyfills.production': './app/polyfills.ts',
+        'vendor.production': './app/vendor.ts',
+        'fmarket.production': "./app/main",
     },
     output: {
         path: __dirname,
-        filename: "../dist/fmarket.release.js",
-        sourceMapFilename: '../dist/fmarket.release.map',
-        chunkFilename:  '../dist/fmarket.release.map'
+        filename: "../dist/[name].js",
+        chunkFilename: '[id].chunk.js'
     },
     resolve: {
         extensions: ['', '.js', '.ts'],
@@ -29,7 +30,9 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(true),
-        new WebpackMd5Hash(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['fmarket.bundle.productio', 'vendor', 'polyfills', Infinity]
+        }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,

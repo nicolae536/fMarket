@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {FMarketApi} from "./fMarketApi";
 
+import { Observable } from 'rxjs/Observable';
+import { CompanieType } from '../models/companieType';
 
 @Injectable()
 export class CompanieTypeService {
@@ -12,8 +14,8 @@ export class CompanieTypeService {
         this.api = api;
     }
 
-    getCompanyTypesWithFilters(searchQuery:string) {
-        return this.api.get(this._CompanyDomainController );
+    getCompanyTypesWithFilters(searchQuery:string):Observable<Array<CompanieType>> {
+        return this.api.get<Array<CompanieType>>(this._CompanyDomainController);
     }
 
     deleteCompanyType(companyId) {

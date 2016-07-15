@@ -1,6 +1,3 @@
-import 'zone.js/dist/zone.js';
-import 'reflect-metadata';
-
 import {bootstrap}    from '@angular/platform-browser-dynamic';
 
 

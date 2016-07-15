@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "commonjs",    
     "moduleResolution": "node",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
@@ -9,10 +9,12 @@
     "removeComments": false,
     "noImplicitAny": false
   },
-  "exclude": [
-    "node_modules",
-    "staticResorces",
-    "config",
-    "dist"
+  "filesGlob": [
+    "./app/**/*.ts",
+    "!node_modules/**",
+    "!staticResorces/**",
+    "!config/**",
+    "!dist/**",
+    "!**/*/node_modules/**/*"    
   ]
 }

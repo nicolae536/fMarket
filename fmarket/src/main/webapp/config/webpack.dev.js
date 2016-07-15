@@ -2,19 +2,22 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        'main': "./app/main",
+        'polyfills': './app/polyfills.ts',
+        'vendor': './app/vendor.ts',
+        'fmarket.bundle.dev': "./app/main",
     },
     output: {
         path: __dirname,
-        filename: "../dist/fmarket.bundle.dev.js"
+        filename: "../dist/[name].js",
+        chunkFilename: '[id].chunk.js'
     },
-    devtool: 'dource-map',
+    devtool: 'cheap-module-eval-source-map',
     resolve: {
-        extensions: ['', '.webpack.js', '.web.js', '.ts', '.js'],
+        extensions: ['', '.ts', '.js'],
     },
     module: {
         loaders: [{
-            test: /\.ts$/, loaders: ['ts-loader'],
+            test: /\.ts$/, loaders: ['ts'],
             exclude: /node_modules/
         },
         {
@@ -26,5 +29,10 @@ module.exports = {
             {test: /\.js$/, loader: "source-map-loader"}
         ]
     },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['fmarket.bundle.dev', 'vendor', 'polyfills', Infinity]
+        })
+    ]
 
 }

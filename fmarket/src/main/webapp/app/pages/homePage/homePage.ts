@@ -8,7 +8,6 @@ import {
 
 import {Subscription} from 'rxjs/Subscription';
 import {Router} from "@angular/router";
-import {FormBuilder, Validators} from "@angular/common";
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
 import {DemandService} from "../../services/demandService";
 import {JqueryService} from "../../services/jqueryService";
@@ -23,6 +22,7 @@ import {ApplicationConstants} from "../../models/applicationConstansts";
 import {SuccessPageOptions} from "../registrationPage/successPages/successPage";
 import {AuthorizationService} from "../../services/authorizationService";
 import {SyncronizationService} from "../../services/syncronizationService";
+import { Role } from '../../models/Roles';
 
 import * as template from './homePage.html';
 import {ENTER_LEAVE_ANIMATION} from '../pageAnimations/enterLeavePage';
@@ -38,7 +38,6 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
     //<editor-fold desc="Services">
     private _categoriesMenuService:CategoriesMenuService;
     private _demandService:DemandService;
-    private _formBuilder:FormBuilder;
     private _subscribersService:SubscribersService;
     private _notificationService:NotificationService;
     private _router:Router;
@@ -58,7 +57,6 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
 
     private subscriber = {email: '', submited: false};
 
-    scrollProperty:string = 'scrollY';
     private _cityes;
     private _subscribeForm;
     menuDictionary;
@@ -95,12 +93,15 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
         this._notificationService.removeLoading();
 
         let me = this;        
+        this.subscribeToApplicationState()
+    }
 
+    subscribeToApplicationState(){
         this._localeStorageService.storageStateChange.subscribe(
             storageItem => {
                 switch (storageItem ['keyChanged']) {
                     case ApplicationConstants.ACTIVE_USER_STATE:
-                        if(AuthorizationService.hasRole(storageItem['newValue'].accountType)){
+                        if(AuthorizationService.hasRole(Role.ADMIN)){
                             this._router.navigate(['/admin/users']);
                             return;
                         }
@@ -120,14 +121,16 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
 
     ngAfterViewInit():any {
         let me = this;
+        //TODO remove the loading using js pure not jquery
         this._notificationService.removeLoading();
+
+
         let subscription = this._syncronizationService.taskSender.subscribe(task=>{
             if(task === ApplicationConstants.NAVIGATE_CREATE_DEMAND){
                 JqueryService.scrollToElemet({nativeElement: '#createDemandComponent'});
             }
         });       
-        this._syncronizationService.subscriberInitialized.next("SUBSCRIBER_INITIALIZED"); 
-
+        this._syncronizationService.subscriberInitialized.next(ApplicationConstants.SUBSCRIBER_INITIALIZED); 
         this.pageSubscriptions.push(subscription);
     }
 
@@ -154,14 +157,6 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
                     me._notificationService.emitErrorNotificationToRootComponent(error.message, 5);
                 }
             )
-    }
-
-    goToCreateDemand() {
-        JqueryService.animateScroll(this.createDemamdViewRef, 'easeInQuad', 500);
-    }
-
-    goToHowWeWork() {
-        JqueryService.animateScroll(this.howWeWorkRef, 'easeInQuad', 500);
     }
 
     createDemand(demand:DemandFields) {
@@ -202,6 +197,18 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
                     me._cityes = [];
                 }
             )
+    }
+
+    /**
+     * Dirty view manipulation ]
+     * TODO remove jquery dependency
+     */
+    goToCreateDemand() {
+        JqueryService.animateScroll(this.createDemamdViewRef, 'easeInQuad', 500);
+    }
+
+    goToHowWeWork() {
+        JqueryService.animateScroll(this.howWeWorkRef, 'easeInQuad', 500);
     }
 
     rematchElementsOnView($event) {

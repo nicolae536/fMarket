@@ -13,31 +13,31 @@ export class FMarketApi {
         this._applicationStateService = applicationStateService;
     }
 
-    request(url:string | Request, options?:RequestOptionsArgs):Observable<Response> {
+    request <T>(url:string | Request, options?:RequestOptionsArgs):Observable<T> {
         return this.http.request(url, this.getRequestOptions(options)).map(this.responseMessageHandler);
     }
 
-    get(url:string, options?:RequestOptionsArgs):Observable<Response> {
+    get <T>(url:string, options?:RequestOptionsArgs):Observable<T> {
         return this.http.get(url, this.getRequestOptions(options)).map(this.responseMessageHandler);
     }
 
-    post(url:string, body:string, options?:RequestOptionsArgs):Observable<Response> {
+    post <T>(url:string, body:string, options?:RequestOptionsArgs):Observable<T> {
         return this.http.post(url, body, this.getRequestOptions(options)).map(this.responseMessageHandler);
     }
 
-    put(url:string, body:string, options?:RequestOptionsArgs):Observable<Response> {
+    put <T>(url:string, body:string, options?:RequestOptionsArgs):Observable<T> {
         return this.http.put(url, body, this.getRequestOptions(options)).map(this.responseMessageHandler);
     }
 
-    delete(url:string, options?:RequestOptionsArgs):Observable<Response> {
+    delete <T>(url:string, options?:RequestOptionsArgs):Observable<T> {
         return this.http.delete(url, this.getRequestOptions(options)).map(this.responseMessageHandler);
     }
 
-    patch(url:string, body:string, options?:RequestOptionsArgs):Observable<Response> {
+    patch <T>(url:string, body:string, options?:RequestOptionsArgs):Observable<T> {
         return this.http.patch(url, body, this.getRequestOptions(options)).map(this.responseMessageHandler);
     }
 
-    head(url:string, options?:RequestOptionsArgs):Observable<Response> {
+    head <T>(url:string, options?:RequestOptionsArgs):Observable<T> {
         return this.http.head(url, this.getRequestOptions(options)).map(this.responseMessageHandler);
     }
 
