@@ -38,6 +38,7 @@ export class MenuItemDialog implements OnInit, OnChanges {
     private showModal:boolean;
     private positiveLabel:string;
     private _selectDomainComponent:SelectComponent;
+    private __selectedDomainItem__:Select2Item;
 
     items:Select2Item[];
 
@@ -105,9 +106,21 @@ export class MenuItemDialog implements OnInit, OnChanges {
     private fatchUpdateModel(newModal:IUpdateModal):void {
         this.menuItemFormModel = new MenuItemForm(newModal.id, null, newModal.name, newModal.orderNr)
         
-        this._selectDomainComponent.selectItemById(newModal.domainId);
+        this.__selectItemById(newModal.domainId);
 
         this.positiveLabel = newModal.positiveLabel;
         this.operationType = newModal.operationType;
+    }
+
+    
+    private __selectItemById(domainId):void {
+        var i=0;
+        while(i < this.items.length){
+            if(this.items[i].boundItem && this.items[i].boundItem['id'] === domainId ){
+                this.__selectedDomainItem__ = this.items[i];
+                return;
+            }
+            i++;
+        }
     }
 }

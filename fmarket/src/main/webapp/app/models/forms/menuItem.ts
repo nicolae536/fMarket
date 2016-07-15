@@ -23,19 +23,19 @@ export class MenuItemForm {
 
     getNewMenuItemValues():INewDomainMenuItemRequest {
         return {
-                    parentId: this.parentId,
-                    name: this.name,
-                    orderNr: this.orderNr,
-                    domainId: this.domainId
+                    parentId: this.parentId.value,
+                    name: this.name.value,
+                    orderNr: this.orderNr.value,
+                    domainId: this.domainId.value
                 }
     }
 
     getEditMenuItemValues():IUpdateDomainMenuItemRequest{
         return {
-                    id: this.id,
-                    newName: this.name,
-                    orderNr: this.orderNr,
-                    domainId: this.domainId
+                    id: this.id.value,
+                    newName: this.name.value,
+                    orderNr: this.orderNr.value,
+                    domainId: this.domainId.value
                 }
     }
 }

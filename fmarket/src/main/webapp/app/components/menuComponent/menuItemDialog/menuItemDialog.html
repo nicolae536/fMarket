@@ -3,7 +3,7 @@
      [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0">
     <div class="modal-dialog modal-dialog-very-sm modal" [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0" (click)="stopPropagation($event)">
         <div class="modal-content">
-            <form (ngSubmit)="submitMenuItem()">
+            <form *ngIf="showModal" (ngSubmit)="submitMenuItem()" #menuItemDialog="ngForm">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" (click)="hideModal()">
                         <span aria-hidden="true">&times;</span>
@@ -34,6 +34,7 @@
                         <select-component
                                 [select-items]="items"
                                 [multi-select]="false"
+                                [single-item-selected]="__selectedDomainItem__"
                                 (loaded)="_selectDomainComponent = $event"
                                 (on-selection-change)="rebindToModel($event)"
                         ></select-component>
