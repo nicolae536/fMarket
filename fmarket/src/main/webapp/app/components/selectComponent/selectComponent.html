@@ -1,0 +1,36 @@
+
+<div dropdown [(isOpen)]="dropdownOptions.isopen" [ngClass]="getClassForComponent()">
+                <span #simpleSelectRef *ngIf="!muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [class.disabled]="checkItems()" 
+                    class="btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span *ngIf="!itemSelected">Alege...</span>
+                        <span *ngIf="itemSelected && itemSelected.displayName">{{itemSelected.displayName}}</span>
+                        <span [class]="getCarretClass()" style="margin-top: 2px;"></span>
+                        <span style="margin-top: 2px;" class="glyphicon glyphicon-remove pull-right simple-dropdown" *ngIf="itemSelected !== _chooseItemValue"(click)="removeSelection($event)"></span>
+                </span>
+                
+                <button #multiSelectRef *ngIf="muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [class.disabled]="checkItems()" 
+                    class="btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle position-relative" role="button" aria-haspopup="true" aria-expanded="false">
+                    <div class="pull-left clearfix remove-right-padding">
+                        <div *ngIf="multiselectItemsSelected && multiselectItemsSelected.length < 1" style="margin-top: 4px;">
+                            <span>Alege...</span>
+                        </div>                    
+                        <span class="label label-info pull-left" *ngFor="let item of multiselectItemsSelected">{{item.displayName}} <span class="remove-selected glyphicon glyphicon-remove" (click)="removeItemFromSelection($event,item)"></span></span>
+                    </div>
+                    <div class="options-container">
+                        <span [ngClass]="getCarretClass()"></span>
+                        <span *ngIf="multiselectItemsSelected.length > 0" class="glyphicon glyphicon-remove pull-right" (click)="removeSelection($event)"></span>
+                    </div>
+                </button>
+                <div dropdownMenu class="ui-select2-list-container dropdown-menu" [class.dropdown-open]="dropdownOptions.isopen">
+                        <div class="ui-select2-search">
+                            <div *ngIf="dropdownOptions.searchQuery.length > 0" class="ui-select2-search-right-icon">
+                                <span class="glyphicon glyphicon-remove" (click)="dropdownOptions.searchQuery = ''"></span>
+                            </div>
+                            <input class="form-control no-form-validation" [(ngModel)]="dropdownOptions.searchQuery" placeholder="Search.."/>
+                        </div>
+                        <div class="ui-select2-list">
+                            <div *ngIf="!muliSelect" class="ui-select2-list-item" (click)="onSelectionChenge(_chooseItemValue)">{{_chooseItemValue.displayName}}</div>
+                            <div class="ui-select2-list-item" *ngFor="let i of items|filterItems:dropdownOptions.searchQuery" (click)="onSelectionChenge(i)">{{i.displayName}}</div>
+                        </div>
+                </div>
+            </div>

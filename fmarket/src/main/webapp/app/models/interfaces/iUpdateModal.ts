@@ -5,6 +5,8 @@
 export interface IUpdateModal {
     positiveLabel;
     operationType;
-    menuModel:Object;
-    id;
+    domainId: number;
+    id: number;
+    name: string;
+    orderNr: number;
 }
