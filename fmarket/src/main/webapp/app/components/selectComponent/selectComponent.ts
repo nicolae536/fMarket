@@ -57,7 +57,6 @@ export class SelectComponent implements OnInit, DoCheck {
 
     ngDoCheck() {
         this.computeSelectView();
-        console.log(this.dropdownOptions.isopen);
     }
 
     private checkItemInDataSource(item:Select2Item) {

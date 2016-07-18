@@ -45,7 +45,7 @@ export class UsersPage implements OnInit {
     emailFilter:string = "";
     nameFilter:string = "";
     idFilter:number;
-    cityId = -1;
+    cityId = null;
 
     selectedStatusFilter:AccountStatus = null;
     private pagination:Ng2Pagination = {totalItems:1, currentPage:1, maxSize:7};
