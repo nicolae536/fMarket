@@ -66,7 +66,7 @@ export class CreateUserDialog extends ModalDialog implements OnInit {
 
     cancelFormAction() {
         this.rebuildForm();
-        this.cancelAction();
+        this.hide();
     }
 
     rebuildForm() {

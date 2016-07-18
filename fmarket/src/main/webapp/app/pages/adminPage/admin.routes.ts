@@ -12,6 +12,7 @@ import {DemandsEditPage} from "./demandsPage/demandsEditPage/demandsEditPage";
 import {CompaniesPage} from "./categoriesPage/companiesPage/companiesPage";
 import {CompaniesEditPage} from "./companiesPage/companiesEditPage/companiesEditPage";
 import {CompanieCreatePage} from "./companiesPage/companiesEditPage/companiesCreatePage";
+import {CompaniesPage as CompaniesListPage} from "./companiesPage/companiesPage";
 import {CATEGORIES_PAGE_ROUTE_PROVIDERS} from "./categoriesPage/categories.routes";
 import {DEMANDS_PAGE_ROUTE_PROVIDERS} from "./demandsPage/demand.routes";
 import {Role} from "../../models/Roles";
@@ -57,7 +58,7 @@ export const ADMIN_PAGE_ROUTE_PROVIDERS: RouterConfig = [
             },
             {
                 path: 'companii',
-                component: CompaniesPage,
+                component: CompaniesListPage,
                 roles: [Role.ADMIN],
                 canActivate: [AuthorizationFilter]
             },

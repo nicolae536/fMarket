@@ -40,7 +40,7 @@ export class SubscribersPage implements OnInit {
         {value: 1, text: "Ascending"},
         {value: 2, text: "Descending"}];
 
-    cityList:Array<Object>;
+    private cityList:Array<Object>;
 
     sortKey = "EMAIL";
 
@@ -55,7 +55,7 @@ export class SubscribersPage implements OnInit {
 
     unsubscriberFormatedDate:string;
     private pagination:Object = {totalItems: 1, currentPage: 1, maxSize: 7};
-    subscribersList:Array<Subscriber> = [];
+    private subscribersList:Array<Subscriber> = [];
     private deleteMessage = "Are you sure that you want to delete this subscriber ?";
     //</editor-fold>
 
@@ -83,17 +83,17 @@ export class SubscribersPage implements OnInit {
     }
 
     showSubscriberDialog() {
-        this.createSubscriberDialog.show("", new Subscriber());
+        this.createSubscriberDialog.show("");
     }
 
-    createSubscriber(subscriberValue:Subscriber) {
+    createSubscriber(email:string) {
         var me = this;
 
-        this._subscribersService.subscribe(subscriberValue.email)
+        this._subscribersService.subscribe(email)
             .subscribe(
                 response => {
                     me.getSubscribersWithFilters();
-                    me.createSubscriberDialog.close();
+                    me.createSubscriberDialog.hide();
                 },
                 error => {
                     me._notificationService.emitErrorNotificationToRootComponent('Abonatul nu a putut fi adaugat', 5);

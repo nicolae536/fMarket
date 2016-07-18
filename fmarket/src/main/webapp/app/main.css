@@ -3,7 +3,6 @@ Css library
 */
 
 /*components styles*/
-@import "/app/components/companieComponent/createCompanieDialog/createCompanieDialog.css";
 @import "/app/components/createUserDialog/createUserDialog.css";
 @import "/app/components/demandComponent/demandComponent.css";
 @import "/app/components/demandComponent/demandEdit/demandEdit.css";
