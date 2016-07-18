@@ -5,6 +5,13 @@ export class ModalDialog {
     showModal:boolean = false;
     message:string = '';
 
+    /**
+     *
+     */
+    constructor() {
+        this.reinitModel();        
+    }
+
     @Output('action-confirmed') confirmAction:EventEmitter<Object> = new EventEmitter<Object>();
     private remove;
 

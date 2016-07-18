@@ -10,4 +10,6 @@ export class ValidatorsCollection {
     public PHONE_REGEX = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$/i;
     public PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
     public INTEGER_REGEX = /^(0|[1-9][0-9]*)$/;
+
+    public NULL_REGEX_HTML = /^(?!.*null).*$/
 }

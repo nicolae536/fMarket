@@ -3,6 +3,7 @@ import * as _ from "underscore";
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Location, CORE_DIRECTIVES} from "@angular/common";
+import {FORM_DIRECTIVES} from "@angular/forms";
 
 import {AlertComponent} from "ng2-bootstrap/ng2-bootstrap";
 
@@ -55,7 +56,7 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
             <footer-component></footer-component>
         </div>
     `,
-    directives: [ROUTER_DIRECTIVES , HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent],
+    directives: [ FORM_DIRECTIVES, ROUTER_DIRECTIVES, HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent],
     precompile: [
         AdminPage,
         AccountSettingsPage,

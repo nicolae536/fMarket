@@ -17,9 +17,11 @@ export class User {
     public loginTimes:number;
     public autoLoginTimes:number;
     public isInEditMode:boolean = false;
+    public accountDetails: string = '';
+    public userBackup: User;
 
 
-    constructor(id ?, name ?, email?, type?, status?:AccountStatus, creationDate?, closedDate?, lastPasswordChangeDate?, lastLoginDate?, lastAutoLoginDate?, cityId?, city?, loginTimes?, autoLoginTimes?, phone?) {
+    constructor(id ?, name ?, email?, type?, status?:AccountStatus, creationDate?, closedDate?, lastPasswordChangeDate?, lastLoginDate?, lastAutoLoginDate?, cityId?, city?, loginTimes?, autoLoginTimes?, phone?, accountDetails?) {
         this.id = id ? id : -1;
         this.name = name ? name : "";
         this.email = email ? email : "";
@@ -35,6 +37,7 @@ export class User {
         this.loginTimes = loginTimes ? loginTimes : -1;
         this.autoLoginTimes = autoLoginTimes ? autoLoginTimes : -1;
         this.phone = phone ? phone : "";
+        this.accountDetails = accountDetails ? accountDetails : "";
     }
 
     getNewInstance():User{

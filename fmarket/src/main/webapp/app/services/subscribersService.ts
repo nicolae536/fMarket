@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {FMarketApi} from "./fMarketApi";
 import {Subscriber} from "../models/subscriber";
+import { IListResponse } from '../models/interfaces/iListResponse';
 
 @Injectable()
 export class SubscribersService {
@@ -45,10 +46,4 @@ interface SubscriberSearchObject {
     email;
     sortKey;
     desc;
-}
-
-export interface IListResponse {
-    data: Array<Subscriber>;
-    totalPages: number;
-    page: number;
 }

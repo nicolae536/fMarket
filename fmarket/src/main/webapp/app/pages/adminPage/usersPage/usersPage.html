@@ -10,7 +10,7 @@
             [city-list]="cityList"
             [status-list]="statusList"
             (loaded)="referenceCreateUserDialogInComponent($event)"
-            (create-user)="confirmCreateUser()">
+            (create-user)="confirmCreateUser($event)">
     </create-user-dialog>
     <div class="page-title">
         <div class="row">
@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-md-3 col-xs-12 remove-right-padding push-down clearfix">
                         <div class="pull-left btn-container">
-                            <button class="btn btn-success" (click)="applyFilters()">Aplica Filtre</button>
+                            <button class="btn btn-success" (click)="getUsers()">Aplica Filtre</button>
                         </div>
                         <div class="pull-right btn-container">
                             <button class="btn btn-primary" (click)="createAccount()">
