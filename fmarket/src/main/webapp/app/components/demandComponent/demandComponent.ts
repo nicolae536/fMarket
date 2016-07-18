@@ -70,7 +70,7 @@ export class DemandComponent implements OnInit {
             return;
         }
 
-        this.$demandFormSubmit.emit(this.demandFields);
+        this.$demandFormSubmit.emit(this.demandFields.getValueData());
     }
     
     private hasNoErrors(){

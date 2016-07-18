@@ -7,8 +7,10 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
 import {RegisterAccount, Field} from "../../models/forms/registerAccount";
 import {ValidatorsCollection} from "../../models/forms/validatorsCollection";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
+import * as _ from 'underscore';
 
 import * as template from './registrationComponent.html';
+
 
 @Component({
     selector: 'registration-component',
@@ -60,19 +62,24 @@ export class RegistrationComponent implements OnInit, OnChanges {
     }
 
     //TODO remove this after angular2 form model validator is checking the value after update
+    /**
+     * The function is defered to be executed after angular 2 form checking
+     */
     syncModel(newValue, key, control){
-        if(this.recheckAfterFirstChange){
-            this.checkFullModel();
-            this.recheckAfterFirstChange = false;
-            return;
-        }
+        _.defer(()=>{
+            if(this.recheckAfterFirstChange){
+                this.checkFullModel();
+                this.recheckAfterFirstChange = false;
+                return;
+            }
 
-        // //Trigger another value check for the form validator
-        // this.accountModel[key].value = newValue;
-        // this.accountModel[key].valid = control.valid ? control.valid : this.accountModel[key].validate(newValue);
+            // //Trigger another value check for the form validator
+            // this.accountModel[key].value = newValue;
+            // this.accountModel[key].valid = control.valid ? control.valid : this.accountModel[key].validate(newValue);
         
-        //Only for passwords are not the same field
-        this.showNotMatchPasswordField = this.accountModel.password.valid && this.accountModel.password.value !== this.accountModel.repeat.value;
+            //Only for passwords are not the same field
+            this.showNotMatchPasswordField = this.accountModel.password.valid && this.accountModel.password.value !== this.accountModel.repeat.value;
+        });        
     }
 
     checkFullModel(){

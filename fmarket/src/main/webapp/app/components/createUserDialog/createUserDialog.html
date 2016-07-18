@@ -3,7 +3,7 @@
      [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0" [ngClass]="{'remove':remove}">
     <div class="modal-dialog modal-dialog-very-sm modal-lg" (click)="stopPropagation($event)">
         <div class="modal-content">
-            <form *ngIf="showModal" #usersForm="ngForm" (ngSubmit)="submitNewUser()">
+            <form *ngIf="showModal" #usersForm="ngForm" (ngSubmit)="submitNewUser(usersForm)" (ngModelChange)="fatchFormErrors()">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" (click)="hide()">
                         <span aria-hidden="true">&times;</span>
@@ -20,8 +20,8 @@
                         </span>
                             <input type="text" 
                                    class="form-control"
-                                   [(ngModel)]="responseObject.name.value"
-                                   placeholder="Name"
+                                   [(ngModel)]="responseObject.name.value"                                   
+                                   placeholder="Nume utilizator"
                                    required
                                    minlength="3"
                                    maxlength="20"
@@ -50,7 +50,7 @@
                                    [(ngModel)]="responseObject.password.value"
                                    required
                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$"
-                                   placeholder="Password"
+                                   placeholder="Parola pentru utilizator"
                                    name="password" #password="ngModel"/>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                                    minlength="8"
                                    maxlength="14"
                                    pattern="^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$"
-                                   placeholder="Numarul de telefon..."
+                                   placeholder="Numarul de telefon"
                                    name="phone" #phone="ngModel"/>
                         </div>
                     </div>
@@ -75,9 +75,11 @@
                           <span class="glyphicon glyphicon-stats"></span>
                         </span>
                             <select class="user-status-select" 
-                                    [(ngModel)]="responseObject.status.value" 
+                                    [class.backend-error]="!responseObject.status.valid && submittedNewUser"
+                                    [(ngModel)]="responseObject.status.value"    
+                                    (ngModelChange)="fatchFormErrors($event, responseObject.status.key)"                                 
                                     required 
-                                    pattern="^(?!.*null).*$"
+                                    pattern="\b(?:(?!null).)+\b"
                                     name="status" #status="ngModel">
                                 <option *ngFor="let option of statusList" [value]="option.status">{{option.displayName}}
                                 </option>
@@ -90,19 +92,21 @@
                           <span class="glyphicon glyphicon-globe"></span>
                         </span>
                             <select class="user-status-select" 
-                                    [(ngModel)]="responseObject.city.value" 
+                                    [class.backend-error]="!responseObject.city.valid && submittedNewUser"
+                                    [(ngModel)]="responseObject.city.value"
+                                    (ngModelChange)="fatchFormErrors($event, responseObject.city.key)"                                     
                                     required 
-                                    pattern="^(?!.*null).*$"
+                                    pattern="\b(?:(?!null).)+\b"
                                     name="city" #city="ngModel">
                                 <option *ngFor="let option of cityList" [value]="option.id">{{option.name}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Account Details:</label>
+                        <label>Detalii cont:</label>
                         <textarea type="text" class="form-control no-resize"
                                     [(ngModel)]="responseObject.accountDetails.value"
-                                    minlength="5"
+                                    minlength="5"                                    
                                     name="accountDetails" #accountDetails="ngModel"></textarea>
                     </div>
                 </div>

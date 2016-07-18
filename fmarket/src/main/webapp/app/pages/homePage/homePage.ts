@@ -159,7 +159,7 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
             )
     }
 
-    createDemand(demand:DemandFields) {
+    createDemand(demand:IDemand) {
         var me = this;
 
         this._demandService.createUserDemand(demand)

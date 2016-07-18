@@ -11,5 +11,5 @@ export class ValidatorsCollection {
     public PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
     public INTEGER_REGEX = /^(0|[1-9][0-9]*)$/;
 
-    public NULL_REGEX_HTML = /^(?!.*null).*$/
+    public NULL_REGEX_HTML = /\b(?:(?!null).)+\b/;
 }

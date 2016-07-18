@@ -19,7 +19,7 @@ export class UserForm {
         this.password = new Field('password', true, password);
         this.phone = new Field('phone', true, phone);
         this.status = new Field('status', true, status ? status : null);
-        this.city = new Field('cityId', true, cityId ? status : null);
+        this.city = new Field('city', true, cityId ? status : null);
         this.accountDetails = new Field('accountDetails', true, accountDetails);
     }
 
