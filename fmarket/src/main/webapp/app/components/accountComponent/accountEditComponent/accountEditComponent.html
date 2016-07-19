@@ -1,7 +1,7 @@
 <div class="account-edit-component clearfix">
     <div class="clearfix">
         <div class="col-md-6 col-xs-12 col-sm-12">
-            <form #_accountFormModel="ngForm" (ngSubmit)="saveEditedAccount()" class="account-form">
+            <form *ngIf="_accountModel" #_accountFormModel="ngForm" (ngSubmit)="saveEditedAccount()" class="account-form">
                 <span class="h4">Date cont</span>
                 <hr/>
                 <div class="form-group">
@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-group">
                     <label>Nume</label>
-                    <input class="form-control" type="text" 
+                    <input *ngIf="_accountModel.name" class="form-control" type="text" 
                            placeholder="Adaugati numele la contul tau"
                            [(ngModel)]="_accountModel.name.value"
                            minlength="3"
@@ -19,7 +19,7 @@
                 </div>
                 <div class="form-group">
                     <label>Telefon</label>
-                    <input class="form-control" type="text"
+                    <input *ngIf="_accountModel.phone" class="form-control" type="text"
                            placeholder="Adaugati numarul de telefon la contul tau"
                            [(ngModel)]="_accountModel.phone.value"
                            minlength="8"
@@ -30,7 +30,7 @@
                 </div>
                 <div>
                     <label>Oras</label>
-                    <select-component 
+                    <select-component *ngIf="_accountModel.cityItem" 
                         [select-items]="_cities" 
                         [single-item-selected]="_accountModel.cityItem.value" 
                         [multi-select]="false" 
@@ -46,7 +46,7 @@
         </div>
 
         <div class="col-md-6 col-xs-12 col-sm-12">
-            <form #_changePasswordFormModel="ngForm" (ngSubmit)="changePassword()" class="account-form">
+            <form *ngIf="changePasswordFormModel" #_changePasswordForm="ngForm" (ngSubmit)="changePassword()" class="account-form">
                 <span class="h4">Schimbare parola</span>
                 <hr/>
                 <div class="form-group">

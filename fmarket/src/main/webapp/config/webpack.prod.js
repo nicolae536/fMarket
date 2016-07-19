@@ -20,8 +20,8 @@ module.exports = {
     },
     module: {
         loaders: [{
-            test: /\.ts/, loaders: ['ts-loader'],
-            exclude:  /node_modules/
+            test: /\.ts$/, loaders: ['ts'],
+            exclude: /node_modules/
         },
         {
             test: /\.html$/,
@@ -31,7 +31,7 @@ module.exports = {
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(true),
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['fmarket.bundle.productio', 'vendor', 'polyfills', Infinity]
+            name: ['fmarket.production', 'vendor.production', 'polyfills.production', Infinity]
         }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {

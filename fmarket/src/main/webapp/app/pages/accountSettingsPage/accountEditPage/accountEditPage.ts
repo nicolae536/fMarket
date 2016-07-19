@@ -35,7 +35,7 @@ export class AccountEditPage implements OnInit {
     //</editor-fold>
 
     //<editor-fold desc="Variables">
-    private _account:AccountFormModel;
+    private _account:AccountFormModel = new AccountFormModel();;
     private _submitLabel:string = 'Salveaza contul';
     private _cityesList:Array<Select2Item> = new Array<Select2Item>();
     //</editor-fold>
@@ -48,7 +48,6 @@ export class AccountEditPage implements OnInit {
         this._accountService = accountService;
         this._demandService = demandService;
         this._router = router;
-        this._account = new AccountFormModel();
         this._localizationService = localizationService;
         this._notificationService = notificationService;
     }
@@ -118,9 +117,11 @@ export class AccountEditPage implements OnInit {
                                                 id:success['cityId'],
                                                 name:success['cityName'],
                                             }};
-                    me._account = new AccountFormModel(AuthorizationService.getUserEmail(), success.name, success.phone, cityItemValue;
+                                            console.log(success);
+                    me._account = new AccountFormModel(AuthorizationService.getUserEmail(), success.name, success.phone, cityItemValue);
                 },
                 error=> {
+                    me._account = new AccountFormModel();
                     //TODO show errors on component
                 }
             )

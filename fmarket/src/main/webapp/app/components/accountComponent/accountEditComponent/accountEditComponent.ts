@@ -15,18 +15,18 @@ import * as template from './accountEditComponent.html';
     template:template,
     directives: [FORM_DIRECTIVES, SelectComponent],
 })
-export class AccountEditComponent {
+export class AccountEditComponent implements OnInit {
 
-    @Input('account-form-model') _accountModel:AccountFormModel;
+    @Input('account-form-model') _accountModel:AccountFormModel = new AccountFormModel();
     @Input('city-list') _cities;
     @Input('submit-label') submitLabel;
     @Output('save-edited-account') _saveAccountEmitter:EventEmitter<AccountUser> = new EventEmitter<AccountUser>();
     @Output('change-password') _changePasswordEmitter:EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('_accountFormModel') private _accountForm;
-    @ViewChild('_changePasswordFormModel') private _changePasswordForm;
+    @ViewChild('_changePasswordForm') private _changePasswordForm;
 
-    public changePasswordFormModel: AccountPasswordFormModel;
+    public changePasswordFormModel: AccountPasswordFormModel = new AccountPasswordFormModel();
 
     private showNotMatchPasswordField:boolean;
 
@@ -38,16 +38,17 @@ export class AccountEditComponent {
         this.changePasswordFormModel = new AccountPasswordFormModel();
     }
 
+    ngOnInit(){
+        this._accountModel = new AccountFormModel();
+        this.changePasswordFormModel = new AccountPasswordFormModel();
+    }
+
     saveEditedAccount() {
         this._saveAccountEmitter.emit(this._accountModel.getValues());
     }
 
     changePassword() {
         this._changePasswordEmitter.emit(this.changePasswordFormModel.getValues());
-    }
-
-    checkIfPasswordIsMarked(controll) {
-        return false;
     }
 
     updateErrorField() {

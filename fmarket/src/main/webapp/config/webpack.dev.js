@@ -8,7 +8,7 @@ module.exports = {
     },
     output: {
         path: __dirname,
-        filename: "../dist/[name].js",
+        filename: "../dev/[name].js",
         chunkFilename: '[id].chunk.js'
     },
     devtool: 'cheap-module-eval-source-map',

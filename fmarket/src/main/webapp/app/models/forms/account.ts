@@ -6,10 +6,10 @@ import { Select2Item } from './../../components/selectComponent/selectComponent'
 import { Field } from './registerAccount';
 
 export class AccountFormModel {
-    public email:Field;
-    public name:Field;
-    public phone:Field;
-    public cityItem:Field;
+    public email:Field = new Field('email', true, '');
+    public name:Field = new Field('email', true, '');
+    public phone:Field = new Field('email', true, '');
+    public cityItem:Field = new Field('email', true, null);
 
     constructor(email?, name?, phone?, cityItem?) {
         this.email = new Field('email', true, email);
