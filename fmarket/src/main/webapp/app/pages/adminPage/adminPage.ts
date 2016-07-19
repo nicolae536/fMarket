@@ -11,7 +11,8 @@ import {SubscribersPage} from "./subscribersPage/subscribersPage";
 import {CategoriesPage} from "./categoriesPage/categoriesPage";
 import {DemandsPage} from "./demandsPage/demandsPage";
 import {DemandsEditPage} from "./demandsPage/demandsEditPage/demandsEditPage";
-import {CompaniesPage} from "./categoriesPage/companiesPage/companiesPage";
+import {CompaniesPage as CategoriesCompaniesPage} from "./categoriesPage/companiesPage/companiesPage";
+import {CompaniesPage} from "./companiesPage/companiesPage";
 import {CompaniesEditPage} from "./companiesPage/companiesEditPage/companiesEditPage";
 import {CompanieCreatePage} from "./companiesPage/companiesEditPage/companiesCreatePage";
 
@@ -29,6 +30,7 @@ import {SLIDE_DOWN_ANIMATION} from "../pageAnimations/slideDown";
         CategoriesPage,
         DemandsPage,
         DemandsEditPage,
+        CategoriesCompaniesPage,
         CompaniesPage,
         CompaniesEditPage,
         CompanieCreatePage,
