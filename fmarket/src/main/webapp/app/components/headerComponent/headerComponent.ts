@@ -146,7 +146,9 @@ export class HeaderComponent implements OnInit {
                 response=> {
                     me._applicationStateService.removeUserSession();
                     //TODO Check active route
-                    // me._router.navigate(['']);
+                    if((window.location.href.indexOf('#/account')!==-1) || window.location.href.indexOf('#/admin')!==-1){
+                        me._router.navigate(['']);
+                    }
                 }, error=> {
                     me._notificationService.emitErrorNotificationToRootComponent('Erroare la logout!',5);
                 }
