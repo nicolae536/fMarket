@@ -1,3 +1,4 @@
+
 /**
  * Created by nick_ on 4/12/2016.
  */
@@ -23,6 +24,7 @@ import {SuccessPageOptions} from "../registrationPage/successPages/successPage";
 import {AuthorizationService} from "../../services/authorizationService";
 import {SyncronizationService} from "../../services/syncronizationService";
 import { Role } from '../../models/Roles';
+import { IDemand } from './../../models/interfaces/iDemand';
 
 import * as template from './homePage.html';
 import {ENTER_LEAVE_ANIMATION} from '../pageAnimations/enterLeavePage';

@@ -19,12 +19,12 @@ export class DemandService {
         this.api = api;
     }
 
-    createDemand(demand:DemandFields) {
+    createDemand(demand:IDemand) {
         var beckedDemand = this.convertDemand(demand);
         return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
     }
 
-    createUserDemand(demand:DemandFields) {
+    createUserDemand(demand:IDemand) {
         var beckedDemand = this.convertToUserDemand(demand);
         return this.api.post('/demands', JSON.stringify(beckedDemand));
     }
@@ -66,7 +66,7 @@ export class DemandService {
         return this.api.put(this._DemandController, JSON.stringify(demand))
     }
 
-    private convertDemand(demand:DemandFields) {
+    private convertDemand(demand:IDemand) {
         let newDemand = demand;
         if (!demand) {
             return null;
@@ -80,8 +80,8 @@ export class DemandService {
         return newDemand;
     }
 
-    private convertToUserDemand(demand:DemandFields) {
-        let newDemand = demand.getValueData();
+    private convertToUserDemand(demand:IDemand) {
+        let newDemand = _.clone(demand);
         
         if (!demand) {
             return null;

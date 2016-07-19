@@ -16,7 +16,6 @@
 .account-settings-page .sub-container .account-settings-page-container .sub-pabge-container{
     background-color: white;
     margin: 10px 1px 0 1px ;
-    overflow: hidden;
 }
 
 @media (max-width: 990px){

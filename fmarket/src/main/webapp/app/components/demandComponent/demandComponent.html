@@ -11,7 +11,7 @@
                 (loaded)="referenceDialogInDemandComponent($event)"
                 (action-confirmed)="onSelectMenuItem($event)"
         ></menu-tree-dialog>
-        <form (ngSubmit)="onSubmit()" class="demand-component-container clearfix" #demandForm="ngForm">
+        <form (ngSubmit)="submitDemand()" class="demand-component-container clearfix" #demandForm="ngForm">
             <div class="demand-component">
                 <div class="demand-control-groups">
                     <h3>Cerere</h3>
@@ -132,6 +132,7 @@
                                     <input type="checkbox" 
                                            [(ngModel)]="demandFields.termsAgreed.value"
                                            (ngModelChange)="demandFields.title.valid = title.valid" 
+                                           required
                                            name="termsAgreed" #termsAgreed="ngModel"/>
                                     <label class="checkbox-label">Sunt de accord cu termeni de utilizare ai siteului
                                         f-market.ro</label>

@@ -84,8 +84,8 @@ export class MenuItemDialog implements OnInit, OnChanges {
      * Simulate two way binding between model and component input
      */
     private rebindToModel($event:Select2Item){
-        this.menuItemFormModel.domainId.value = this._selectDomainComponent.getSelectedItem().boundItem ? this._selectDomainComponent.getSelectedItem().boundItem['id'] : null
-        this.menuItemFormModel.domainId.value = this._selectDomainComponent.getSelectedItem().boundItem !== null;
+        this.menuItemFormModel.domainId.value = $event && $event.boundItem ? $event.boundItem['id'] : null; 
+        this.menuItemFormModel.domainId.valid = $event.boundItem !== null;
     }
 
     public hideModal() {

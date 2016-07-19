@@ -1,3 +1,4 @@
+
 /**
  * Created by nick_ on 4/16/2016.
  */
@@ -12,6 +13,7 @@ import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 import {AuthorizationService} from "../../services/authorizationService";
 import {MenuTreeDialog} from "../menuComponent/menuTreeDialog/menuTreeDialog";
 import {IMenuItem} from "../../models/interfaces/iMenuItem";
+import { IDemand } from './../../models/interfaces/iDemand';
 import * as template from './demandComponent.html';
 
 @Component({
@@ -29,7 +31,7 @@ export class DemandComponent implements OnInit {
     @Input('activate-validation') activateValidation:boolean;
 
     @Output('demand-component-loaded') $componentLoaded:EventEmitter<DemandComponent> = new EventEmitter<DemandComponent>();
-    @Output('submit-new-demand') $demandFormSubmit:EventEmitter<DemandFields> = new EventEmitter<DemandFields>();
+    @Output('submit-new-demand') $demandFormSubmit:EventEmitter<IDemand> = new EventEmitter<IDemand>();
 
     private _menuTreeDialog:MenuTreeDialog;    
     private COMPONENT_TITLE:string;
@@ -65,7 +67,7 @@ export class DemandComponent implements OnInit {
         return condition ? 'glyphicon glyphicon-ok pointer-cursor checking-item': 'glyphicon glyphicon-remove pointer-cursor checking-item';
     }
 
-    private onSubmit() {
+    private submitDemand() {
         if(!this.hasNoErrors()){
             return;
         }

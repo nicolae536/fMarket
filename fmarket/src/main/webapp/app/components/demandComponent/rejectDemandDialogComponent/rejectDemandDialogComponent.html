@@ -3,8 +3,7 @@
      [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0">
     <div class="modal-dialog modal-lg" (click)="stopPropagation($event)">
         <div class="modal-content">
-            <!--[ngFormModel]="rejectDemand" -->
-            <!--<form *ngIf="false" (ngSubmit)="rejectDemandSubmit()">
+            <form *ngIf="showModal" #rejectDemand="ngForm" (ngSubmit)="rejectDemandSubmit()">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" (click)="hide()">
                         <span aria-hidden="true">&times;</span>
@@ -16,7 +15,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Mesaj</label>
-                        <textarea class="form-control message-text" [ngFormControl]="rejectDemand.controls['message']"></textarea>
+                        <textarea class="form-control message-text" 
+                                  [(ngModel)]="rejectDemandMessage.value"
+                                  required
+                                  minlength="5"
+                                  name="message" #message="ngModel"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -25,7 +28,7 @@
                     <button type="submit" class="btn btn-danger btn-sm"> {{positiveLabel}}
                     </button>
                 </div>
-            </form>-->
+            </form>
         </div>
     </div>
 </div>
