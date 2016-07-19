@@ -53,7 +53,7 @@ export class DomainsPage implements OnInit {
     }
 
     addRequestType() {        
-        this._requestTypeService.addRequestType(this.newRequestType)
+        this._requestTypeService.addRequestType(this.newRequestType.value)
             .subscribe(
                 response => {
                     this.getRequestTypesWithFilters();

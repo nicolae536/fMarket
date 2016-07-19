@@ -21,8 +21,8 @@ export class CompanyFormModel {
         this.email = new Field('email', true, email);
         this.phone = new Field('phone', true, phone);
         this.contactPerson = new Field('contactPerson', true, contactPerson);
-        this.address = new Field('city', true, address);
-        this.city = new Field('name', true, cityId);
+        this.address = new Field('address', true, address);
+        this.city = new Field('city', true, cityId);
 
         this.companyDomain = new Field('companyDomain', true, companyDomainId);
         this.demandDomains = new Field('demandDomains', true, demandDomains);
@@ -44,6 +44,7 @@ export class CompanyFormModel {
             companySubmitDomain && companySubmitDomain.boundItem ? +companySubmitDomain.boundItem['id'] : null,
             this.getDemandDomains()            
         )
+        companyRequest.password = this.password.value.toString();
         if(this.id.value){
             companyRequest['id'] = this.id.value;             
         }

@@ -3,7 +3,8 @@
  */
 
 import {OnInit, Component} from "@angular/core";
-import {Router, ActivatedRoute, Location} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
+import {Location} from "@angular/common";
 import {CompaniesService} from "../../../../services/companiesService";
 import {NotificationService} from "../../../../services/notificationService";
 import {CompaniesEditComponent} from "../../../../components/companieComponent/companieEditComponent/companiesEditComponent";

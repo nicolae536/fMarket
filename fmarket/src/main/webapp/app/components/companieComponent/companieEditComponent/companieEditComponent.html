@@ -70,7 +70,7 @@
                         [multi-select]="false"
 
                         [single-item-selected]="companieEditFormModel.city.value"
-                        (on-select-items)="syncViewWithModel($event, companieEditFormModel.city.key)">
+                        (on-selection-change)="syncViewWithModel($event, companieEditFormModel.city.key)">
                 </select-component>
             </div>
             <div class="form-group">
@@ -81,7 +81,7 @@
                         [multi-select]="false"
 
                         [single-item-selected]="companieEditFormModel.companyDomain.value"
-                        (on-select-items)="syncViewWithModel($event, companieEditFormModel.companyDomain.key)">
+                        (on-selection-change)="syncViewWithModel($event, companieEditFormModel.companyDomain.key)">
                 </select-component>
             </div>
             <div class="form-group">
@@ -92,7 +92,7 @@
                         [multi-select]="true"
                         
                         [selected-items]="companieEditFormModel.demandDomains.value"
-                        (on-select-items)="syncViewWithModel($event, companieEditFormModel.demandDomains.key)">
+                        (on-selection-change)="syncViewWithModel($event, companieEditFormModel.demandDomains.key)">
                 </select-component>
             </div>
             <div class="form-group">

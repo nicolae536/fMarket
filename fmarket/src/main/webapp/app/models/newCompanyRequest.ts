@@ -9,8 +9,8 @@ export class NewCompanyRequest{
     address:string;
     cityId:number;
     companyDomainId:number;
-    demandDomainIds:Array<number>;
-    companyDomain;
+    demandDomainIds:Array<number>;    
+    companyDomain:number;
     password:string;
 
 

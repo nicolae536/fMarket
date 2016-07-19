@@ -51,7 +51,7 @@ export class CompaniesEditComponent implements OnInit {
         this.loaded.emit(this);
     }
 
-    saveFile($event) {
+    cacheUploadedFile($event) {
         this.fileUpload = $event.srcElement.files;
     }
 
