@@ -76,7 +76,7 @@ export class CompaniesService {
         });
     }
 
-    getCompanyWithFilters(searchObject:CompanySearchObject) {
+    getCompanyWithFilters(searchObject) {
         return this.api.post(this.ADMIN_COMPANIE_CONTROLLER + '/search', JSON.stringify(searchObject));
     }
 

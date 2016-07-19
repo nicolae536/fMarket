@@ -68,7 +68,10 @@ export class CompaniesEditPage extends CompaniesEditBase implements OnInit {
                                             response['city'], 
                                             response.companyDomain, 
                                             response['newDemandDomains'],
-                                            response['id']);
+                                            response['id'],
+                                            response.website,
+                                            response.latitude,
+                                            response.longitude);
                 },
                 error=> {
                     me._notificationService.emitErrorNotificationToRootComponent('Erroare la incarcarea companiei!', 5);

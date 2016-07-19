@@ -63,6 +63,27 @@
                        name="address" #address="ngModel"/>
             </div>
             <div class="form-group">
+                <label>Latitudine</label>
+                <input type="number" class="form-control" 
+                       [(ngModel)]="companieEditFormModel.latitude.value"
+                       placeholder="Latitudine"
+                       name="latitude" #latitude="ngModel"/>
+            </div>            
+            <div class="form-group">
+                <label>Longitudine</label>
+                <input type="number" class="form-control" 
+                       [(ngModel)]="companieEditFormModel.longitude.value"
+                       placeholder="Longitudine"
+                       name="longitude" #longitude="ngModel"/>
+            </div>  
+            <div class="form-group">
+                <label>Link spre siteul companiei</label>
+                <input type="text" class="form-control" 
+                       [(ngModel)]="companieEditFormModel.website.value"
+                       placeholder="Link spre siteul companiei"
+                       name="website" #website="ngModel"/>
+            </div>            
+            <div class="form-group">
                 <label>Oras</label>
                 <select-component
                         [select-items]="_cities"

@@ -32,8 +32,6 @@ export class CompaniesPage implements OnInit {
 
     //<editor-fold desc="Variables">
     private _createCompanieDialog:CreateCompanieDialog;
-    private selectCompanieDomain:SelectComponent;
-    private selectDomain:SelectComponent;
 
     private _companiesList:Array<DomainCompanieDto> = new Array<DomainCompanieDto>();
 
@@ -62,16 +60,8 @@ export class CompaniesPage implements OnInit {
 
     private getCompaniesWithFilters() {
         let me = this;
-
-
-
-        let obj = _.clone(this.searchFilter);
-        obj.name = obj.name && obj.name.length > 0 ? obj.name : null;
-        obj.companyDomain = this.selectCompanieDomain && this.selectCompanieDomain._selectedItem && this.selectCompanieDomain._selectedItem.boundItem ? this.selectCompanieDomain._selectedItem.boundItem['id'] : null;
-        obj.demandDomains = this.selectDomain && this.selectDomain._selectedItems && this.selectDomain._selectedItems.length > 0 ? this.getDomainsFromSelect(this.selectDomain._selectedItems) : [];
-        obj['page'] = this.pagination['currentPage'];
-
-        this._companiesService.getCompanyWithFilters(obj)
+     
+        this._companiesService.getCompanyWithFilters(this.getSearchObject())
             .subscribe(
                 response=> {
                     let typedResponse:ServerResponse = response as ServerResponse;
@@ -87,9 +77,19 @@ export class CompaniesPage implements OnInit {
             )
     }
 
+    getSearchObject(){
+        let obj = _.clone(this.searchFilter);
+        obj.name = obj.name && obj.name.length > 0 ? obj.name : null;
+        obj.companyDomain = obj.companyDomain && obj.companyDomain.boundItem ? obj.companyDomain.boundItem['id'] : null; 
+        obj.demandDomains = this.getDomainsFromSelect();
+        obj['page'] = this.pagination['currentPage'];
+
+        return obj;
+    }
+
     getDomainsFromSelect(_selectedItems:Array<Select2Item>){
         return _.map(_selectedItems,(v)=>{
-            if(v.boundItem)
+            if(v && v.boundItem)
                 return v.boundItem['id'];
         })
     }
@@ -118,14 +118,6 @@ export class CompaniesPage implements OnInit {
                     me.domains = new Array<Select2Item>();
                 }
             );
-    }
-
-    referenceSelectCompanyDomainComponent($event) {
-        this.selectCompanieDomain = $event;
-    }
-
-    referenceSelectDemandDomainComponent($event) {
-        this.selectDomain = $event;
     }
 
     goToNewCompanyPage() {

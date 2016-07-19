@@ -37,16 +37,12 @@
                     <span class="h3 color-white">Rating</span>
                 </div>
                 <div class="rating">
-                    <div>
-                        <span [class]="getClassUsingSelectedId(1)" (mouseenter)="setOverItem(1)" (mouseleave)="hoveredItemId = -1" (click)="addStarsNumber(1)"></span>
-                        <span [class]="getClassUsingSelectedId(2)" (mouseenter)="setOverItem(2)" (mouseleave)="hoveredItemId = -1" (click)="addStarsNumber(2)"></span>
-                        <span [class]="getClassUsingSelectedId(3)" (mouseenter)="setOverItem(3)" (mouseleave)="hoveredItemId = -1" (click)="addStarsNumber(3)"></span>
-                        <span [class]="getClassUsingSelectedId(4)" (mouseenter)="setOverItem(4)" (mouseleave)="hoveredItemId = -1" (click)="addStarsNumber(4)"></span>
-                        <span [class]="getClassUsingSelectedId(5)" (mouseenter)="setOverItem(5)" (mouseleave)="hoveredItemId = -1" (click)="addStarsNumber(5)"></span>
-                    </div>
-                    <div>
-                        {{companyReview}}
-                    </div>
+                    <rating-component
+                        [max-rating]="ratinArray"
+                        [company-review]="companyReview"
+                        (set-rating)="addStarsNumber($event)">
+                    </rating-component>
+                    
                 </div>
                 <div class="details-container clearfix">
                     <div class="col-md-6">

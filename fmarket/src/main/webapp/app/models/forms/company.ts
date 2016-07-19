@@ -13,10 +13,13 @@ export class CompanyFormModel {
     companyDomain:Field;
     demandDomains:Field;
     password:Field;
-    id:Field
+    id:Field;
+    website:Field;
+    latitude:Field;
+    longitude:Field;
 
 
-    constructor(name?, email?, phone?, contactPerson?, address?, cityId?, companyDomainId?, demandDomains?, id?) {
+    constructor(name?, email?, phone?, contactPerson?, address?, cityId?, companyDomainId?, demandDomains?, id?, website?, latitude?, longitude?) {
         this.name = new Field('name', true, name);
         this.email = new Field('email', true, email);
         this.phone = new Field('phone', true, phone);
@@ -28,6 +31,9 @@ export class CompanyFormModel {
         this.demandDomains = new Field('demandDomains', true, demandDomains);
         this.password = new Field('password', true, '');
         this.id = new Field('id', true, id);
+        this.website = new Field('website', true, website);
+        this.latitude = new Field('latitude', true, latitude);
+        this.longitude = new Field('longitude', true, longitude);
     }
 
     public getValues():NewCompanyRequest{
@@ -42,7 +48,10 @@ export class CompanyFormModel {
             this.address.value.toString(),
             citySubmit && citySubmit.boundItem ? +citySubmit.boundItem['id'] : null,
             companySubmitDomain && companySubmitDomain.boundItem ? +companySubmitDomain.boundItem['id'] : null,
-            this.getDemandDomains()            
+            this.getDemandDomains(),
+            this.website.value,
+            this.latitude.value,
+            this.longitude.value            
         )
         companyRequest.password = this.password.value.toString();
         if(this.id.value){

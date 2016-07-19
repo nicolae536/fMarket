@@ -14,7 +14,9 @@
         <div class="col-md-2 col-xs-12">
             <div class="form-group">
                 <label>Nume</label>
-                <input class="form-control" [(ngModel)]="searchFilter.name"/>
+                <input class="form-control"
+                       placeholder="Name"   
+                       [(ngModel)]="searchFilter.name"/>
             </div>
         </div>
         <div class="col-md-3 col-xs-12">
@@ -24,8 +26,8 @@
                         [select-items]="companieDomains"
                         [single-item-selected]="searchFilter.companyDomain"
                         [multi-select]="false"
-                        (loaded)="referenceSelectCompanyDomainComponent($event)"
-                ></select-component>
+                        (on-selection-change)="searchFilter.companyDomain = $event">
+                </select-component>
             </div>
         </div>
         <div class="col-md-2 col-xs-12">
@@ -35,8 +37,8 @@
                         [select-items]="domains"
                         [selected-items]="searchFilter.demandDomains"
                         [multi-select]="true"
-                        (loaded)="referenceSelectDemandDomainComponent($event)"
-                ></select-component>
+                        (on-selection-change)="searchFilter.demandDomains = $event">
+                </select-component>
             </div>
         </div>
         <div class="pull-left operations">
