@@ -1,11 +1,11 @@
 <div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 0.5 : 0"  [ngClass]="{'remove':remove}"></div>
-<div class="modal fade bs-example-modal-lg in" tabindex="-1" (click)="cancelCreateSubscriber()" role="dialog"
+<div class="modal fade bs-example-modal-lg in" tabindex="-1" (click)="hide()" role="dialog"
      [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0" [ngClass]="{'remove':remove}">
     <div class="modal-dialog modal-dialog-very-sm modal-md" (click)="stopPropagation($event)">
-        <form [ngFormModel]="_subscriberForm" (ngSubmit)="submitSubscriber()">
+        <form *ngIf="showModal" (ngSubmit)="submitSubscriber()" #subscriberForm="ngForm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" (click)="cancelCreateSubscriber()">
+                    <button type="button" class="close" aria-label="Close" (click)="hide()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h4 class="modal-title">
@@ -18,16 +18,22 @@
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-envelope"></span>
 						</span>
-                            <input type="email" [ngFormControl]="_subscriberForm.controls['email']"
-                                   [(ngModel)]="responseObject.email" class="form-control"
-                                   placeholder="E-mail"/>
+                            <input type="email"
+                                   class="form-control" 
+                                   [(ngModel)]="responseObject.value"
+                                   required
+                                   pattern="^(([^&lt;&gt;()\[\]\\.,;:\s@&quot;]+(\.[^&lt;&gt;()\[\]\\.,;:\s@&quot;]+)*)|(&quot;.+&quot;))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
+                                   placeholder="E-mail"
+                                   name="email" #email="ngModel"/>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-sm" (click)="cancelCreateSubscriber()">{{cancelLabel}}
+                    <button type="button" class="btn btn-default btn-sm" (click)="hide()">
+                        {{cancelLabel}}
                     </button>
-                    <button type="submit" [disabled]="!_subscriberForm.valid" class="btn btn-primary btn-sm"> {{positiveLabel}}
+                    <button type="submit" class="btn btn-primary btn-sm"> 
+                        {{positiveLabel}}
                     </button>
                 </div>
             </div>

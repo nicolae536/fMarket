@@ -6,7 +6,7 @@ import {Location} from "@angular/common"
 import {CompaniesEditComponent} from "../../../../components/companieComponent/companieEditComponent/companiesEditComponent";
 import {CompaniesService} from "../../../../services/companiesService";
 import {NotificationService} from "../../../../services/notificationService";
-import {NewCompanyRequest} from "../../../../models/newCompanyRequest";
+import {CompanyFormModel} from "../../../../models/forms/company";
 import {Select2Item} from "../../../../components/selectComponent/selectComponent";
 import {LocalizationService} from "../../../../services/localizationService";
 
@@ -18,10 +18,11 @@ export class CompaniesEditBase{
     public _notificationService:NotificationService;
     public _location:Location;
 
-    public _companie:NewCompanyRequest;
+    public _companie:CompanyFormModel;
     public _companyDomains:Array<Object>;
     public _cities:Array<Object>;
     public _domains:Array<Object>;
+    public _isInEditMode:boolean;
 
     constructor(location:Location, router:Router, companiesService:CompaniesService, notificationService:NotificationService, localizationService:LocalizationService) {
         this._router = router;
@@ -29,7 +30,8 @@ export class CompaniesEditBase{
         this._notificationService = notificationService;
         this._location = location;
         this._localizationService=localizationService;
-        this._companie =NewCompanyRequest.getEmptyCompany();
+        this._isInEditMode = false;
+        this._companie = new CompanyFormModel();
     }
 
     referenceComponent(companieEditComponent:CompaniesEditComponent){

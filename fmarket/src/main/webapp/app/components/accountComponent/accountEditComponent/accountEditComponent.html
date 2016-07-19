@@ -1,33 +1,40 @@
 <div class="account-edit-component clearfix">
     <div class="clearfix">
         <div class="col-md-6 col-xs-12 col-sm-12">
-            <form *ngIf="_accountFormModel" [ngFormModel]="_accountFormModel" (ngSubmit)="saveEditedAccount()"
-                  class="account-form">
+            <form *ngIf="_accountModel" #_accountFormModel="ngForm" (ngSubmit)="saveEditedAccount()" class="account-form">
                 <span class="h4">Date cont</span>
                 <hr/>
                 <div class="form-group">
                     <label>Email</label>
-                    <span class="form-control" type="text" disabled>{{_accountModel.email}}</span>
+                    <span class="form-control" type="text" disabled>{{_accountModel.email.value}}</span>
                 </div>
                 <div class="form-group">
                     <label>Nume</label>
-                    <input class="form-control" type="text" placeholder="Adaugati numele la contul tau"
-                           [ngFormControl]="_accountFormModel.controls['name']"
-                           [(ngModel)]="_accountModel.name"/>
+                    <input *ngIf="_accountModel.name" class="form-control" type="text" 
+                           placeholder="Adaugati numele la contul tau"
+                           [(ngModel)]="_accountModel.name.value"
+                           minlength="3"
+                           required
+                           name="name" #name="ngModel" />
                 </div>
                 <div class="form-group">
                     <label>Telefon</label>
-                    <input class="form-control" type="text" placeholder="Adaugati numarul de telefon la contul tau"
-                           [ngFormControl]="_accountFormModel.controls['phone']"
-                           [(ngModel)]="_accountModel.phone"/>
+                    <input *ngIf="_accountModel.phone" class="form-control" type="text"
+                           placeholder="Adaugati numarul de telefon la contul tau"
+                           [(ngModel)]="_accountModel.phone.value"
+                           minlength="8"
+                           maxlength="14"
+                           required
+                           pattern="^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$"
+                           name="phone" #phone="ngModel" />
                 </div>
                 <div>
                     <label>Oras</label>
-                    <select-component
-                            [select-items]="_cities"
-                            [single-item-selected]="_accountModel.cityItem"
-                            [multi-select]="false"
-                            (loaded)="referenceCitySelectorComponent($event)">
+                    <select-component *ngIf="_accountModel.cityItem" 
+                        [select-items]="_cities" 
+                        [single-item-selected]="_accountModel.cityItem.value" 
+                        [multi-select]="false" 
+                        (on-selection-change)="_accountModel.cityItem.value = $event">
                     </select-component>
                 </div>
                 <div>
@@ -39,36 +46,41 @@
         </div>
 
         <div class="col-md-6 col-xs-12 col-sm-12">
-            <form *ngIf="_accountFormModel" [ngFormModel]="_changePasswordFormModel" (ngSubmit)="changePassword()"
-                  class="account-form">
-
+            <form *ngIf="changePasswordFormModel" #_changePasswordForm="ngForm" (ngSubmit)="changePassword()" class="account-form">
                 <span class="h4">Schimbare parola</span>
                 <hr/>
                 <div class="form-group">
                     <label>Parola veche</label>
                     <input type="password" class="form-control"
-                           [class.backend-error]="checkIfPasswordIsMarked('password')"
-                           placeholder="******"
-                           [ngFormControl]="_changePasswordFormModel.controls.lastPassword"
-                           [(ngModel)]="_accountModel.lastPassword"/>
+                           [class.backend-error]="!changePasswordFormModel.lastPassword.valid && lastPassword.touched"
+                           placeholder="Parola veche"
+                           [(ngModel)]="changePasswordFormModel.lastPassword.value"
+                           (ngModelChange)="updateErrorField()"
+                           required
+                           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$"
+                           name="lastPassword" #lastPassword="ngModel"/>
                 </div>
                 <div class="form-group">
                     <label>Parola noua</label>
                     <input type="password" class="form-control"
-                           [class.backend-error]="checkIfPasswordIsMarked('password')"
-                           placeholder="******"
-                           [ngFormControl]="_changePasswordFormModel.controls.passwords.controls.password"
-                           [(ngModel)]="_accountModel.newPassword"
-                           (ngModelChange)="updateErrorField()"/>
+                           [class.backend-error]="!changePasswordFormModel.newPassword.valid && newPassword.touched"
+                           placeholder="Parola noua"
+                           [(ngModel)]="changePasswordFormModel.newPassword.value"
+                           (ngModelChange)="updateErrorField()"
+                           required
+                           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$"
+                           name="newPassword" #newPassword="ngModel"/>
                 </div>
                 <div class="form-group">
                     <label>Confirma parola noua</label>
                     <input type="password" class="form-control"
-                           [class.backend-error]="checkIfPasswordIsMarked('password')"
-                           placeholder="******"
-                           [ngFormControl]="_changePasswordFormModel.controls.passwords.controls.repeat"
-                           [(ngModel)]="_accountModel.confirmNewPassword"
-                           (ngModelChange)="updateErrorField()"/>
+                           [class.backend-error]="!changePasswordFormModel.confirmNewPassword.valid && confirmNewPassword.touched"
+                           placeholder="Confirma parola noua"
+                           [(ngModel)]="changePasswordFormModel.confirmNewPassword.value"
+                           (ngModelChange)="updateErrorField()"
+                           required
+                           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$"
+                           name="confirmNewPassword" #confirmNewPassword="ngModel"/>
                 </div>
                 <div class="position-relative" *ngIf="showNotMatchPasswordField">
                     <div class="password-error right-to-middle-effect">

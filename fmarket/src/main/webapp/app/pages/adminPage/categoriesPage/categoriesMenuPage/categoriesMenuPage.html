@@ -4,8 +4,8 @@
                 [domains-list]="_domains"
                 (modal-loaded)="referenceModal($event)"
                 (add-menu-item)="addMenuItem($event)"
-                (update-menu-item)="editMenuItem($event)"
-        ></menu-item-dialog>
+                (update-menu-item)="editMenuItem($event)">
+        </menu-item-dialog>
         <menu-component
                 [use-domain-marker]="true"
                 [menu-tree-data]="menuDictionary"

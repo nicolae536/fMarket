@@ -4,7 +4,9 @@
 import {Injectable} from "@angular/core";
 import {FMarketApi} from "./fMarketApi";
 import {Select2Item} from "../components/selectComponent/selectComponent";
-import {Demand} from "../models/demand";
+import {DemandFields} from "../models/forms/demand";
+import { IDemand } from '../models/interfaces/iDemand';
+
 import * as _ from "underscore";
 import {DemandSearchObject} from "../models/DemandSearchObject";
 
@@ -17,12 +19,12 @@ export class DemandService {
         this.api = api;
     }
 
-    createDemand(demand:Demand) {
+    createDemand(demand:IDemand) {
         var beckedDemand = this.convertDemand(demand);
         return this.api.post(this._DemandController, JSON.stringify(beckedDemand));
     }
 
-    createUserDemand(demand:Demand) {
+    createUserDemand(demand:IDemand) {
         var beckedDemand = this.convertToUserDemand(demand);
         return this.api.post('/demands', JSON.stringify(beckedDemand));
     }
@@ -52,7 +54,7 @@ export class DemandService {
         return this.api.get('/demand/domains');
     }
 
-    acceptDemand(demand:Demand) {
+    acceptDemand(demand:IDemand) {
         return this.api.post(this._DemandController + `/accept/${demand.id}`, JSON.stringify(''));
     }
 
@@ -60,11 +62,11 @@ export class DemandService {
         return this.api.post(this._DemandController + `/decline/${requestReject['id']}`, JSON.stringify(requestReject));
     }
 
-    saveDemand(demand:Demand) {
+    saveDemand(demand:IDemand) {
         return this.api.put(this._DemandController, JSON.stringify(demand))
     }
 
-    private convertDemand(demand:Demand) {
+    private convertDemand(demand:IDemand) {
         let newDemand = demand;
         if (!demand) {
             return null;
@@ -78,13 +80,14 @@ export class DemandService {
         return newDemand;
     }
 
-    private convertToUserDemand(demand:Demand) {
-        let newDemand = demand;
+    private convertToUserDemand(demand:IDemand) {
+        let newDemand = _.clone(demand);
+        
         if (!demand) {
             return null;
         }
 
-        newDemand.cities = _.map(demand.cities, (city:Select2Item)=> {
+        newDemand.cities = _.map(newDemand.cities, (city:Select2Item)=> {
             return city.boundItem['id'];
         });
         newDemand.domainId = demand.domain && demand['domain']['domainId'] ? demand['domain']['domainId'] : null;
@@ -94,7 +97,8 @@ export class DemandService {
 
     private getSearchObj(search:DemandSearchObject) {
         let response = {}
-        if(search.accountId && !isNaN(parseInt(Number(search.accountId)))){
+        
+        if(search.accountId && !isNaN(parseInt(search.accountId))){
             response['accountId'] = search.accountId;
         }
         if(search.page && search.page > 0){

@@ -1,11 +1,11 @@
 <div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>
-<div class="modal fade bs-example-modal-lg in menu-item-dialog" tabindex="-1" (click)="cancelAction()" role="dialog"
+<div class="modal fade bs-example-modal-lg in menu-item-dialog" tabindex="-1" (click)="hideModal()" role="dialog"
      [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0">
     <div class="modal-dialog modal-dialog-very-sm modal" [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0" (click)="stopPropagation($event)">
         <div class="modal-content">
-            <form [ngFormModel]="_menuItem" (ngSubmit)="submitMenuItem()">
+            <form *ngIf="showModal" (ngSubmit)="submitMenuItem()" #menuItemDialog="ngForm">
                 <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" (click)="cancelAction()">
+                    <button type="button" class="close" aria-label="Close" (click)="hideModal()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h4 class="modal-title">
@@ -15,25 +15,33 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Pozitie</label>
-                        <input type="number" class="form-control" [(ngFormControl)]="_menuItem.controls['orderNr']"
-                               [(ngModel)]="orderNr"/>
+                        <input type="number" class="form-control"
+                               [(ngModel)]="menuItemFormModel.orderNr.value"
+                               required
+                               pattern="^(0|[1-9][0-9]*)$"
+                               name="orderNr" #orderNr="ngModel"/>
                     </div>
                     <div class="form-group">
                         <label>Denumire</label>
-                        <input class="form-control" [(ngFormControl)]="_menuItem.controls['name']" [(ngModel)]="name"/>
+                        <input class="form-control"
+                               [(ngModel)]="menuItemFormModel.name.value"
+                               required
+                               minlength="3"
+                               name="name" #name="ngModel"/>
                     </div>
                     <div>
                         <label>Domeniu</label>
                         <select-component
                                 [select-items]="items"
-                                [single-item-selected]="selectedItem"
                                 [multi-select]="false"
-                                (loaded)="referenceSelectComponent($event)"
+                                [single-item-selected]="__selectedDomainItem__"
+                                (loaded)="_selectDomainComponent = $event"
+                                (on-selection-change)="rebindToModel($event)"
                         ></select-component>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-sm" (click)="hide()">Cancel</button>
+                    <button type="button" class="btn btn-default btn-sm" (click)="hideModal()">Cancel</button>
                     <button type="submit" class="btn btn-primary btn-sm"> {{positiveLabel}}
                     </button>
                 </div>

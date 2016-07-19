@@ -15,10 +15,10 @@ import {CreateUserDialog} from "../../../components/createUserDialog/createUserD
 import {ActionDialog} from "../../../components/actionDialog/actionDialog";
 import {User} from "../../../models/user";
 import {AccountStatus} from "../../../models/accountStatus";
+import { Ng2Pagination } from '../../../models/Ng2Pagination';
+import { UserForm } from '../../../models/forms/user';
 import {AuthorizationFilter} from "../../../services/AuthorizationFilter";
-
-
-let template = require('./usersPage.html');
+import * as template from './usersPage.html';
 
 @Component({
     selector: 'users-Page',
@@ -30,11 +30,9 @@ let template = require('./usersPage.html');
 export class UsersPage implements OnInit {
 
     //<editor-fold desc="Services">
-    private _notificationService:NotificationService;
     //</editor-fold>
 
     //<editor-fold desc="Variables">
-    private _localizationService:LocalizationService;
     usersList:User[];
     userDialog:CreateUserDialog;
     actionDialog:ActionDialog;
@@ -47,22 +45,20 @@ export class UsersPage implements OnInit {
     emailFilter:string = "";
     nameFilter:string = "";
     idFilter:number;
-    cityId = -1;
+    cityId = null;
 
     selectedStatusFilter:AccountStatus = null;
-    private pagination:Object = {totalItems:1, currentPage:1, maxSize:7};
+    private pagination:Ng2Pagination = {totalItems:1, currentPage:1, maxSize:7};
     //</editor-fold>
 
     constructor(
         private _userService:UserService,
         private _notificationService:NotificationService,
-        private _localizationService:LocalizationService)
-    {
-        this.getCities();
-    }
+        private _localizationService:LocalizationService){}
 
     ngOnInit() {
         var me = this;
+                this.getCities();
         this.getStatusList();
         this.getUsers();
         this._notificationService.removeLoading();
@@ -81,8 +77,8 @@ export class UsersPage implements OnInit {
         this._userService.getUsersWithFilters(this.idFilter, this.emailFilter, this.nameFilter, this.selectedStatusFilter, this.cityId, this.pagination['currentPage'])
             .subscribe(
                 response => {
-                    me.usersList = response['data'];
-                    me.pagination['totalItems']=response['totalPages'];
+                    me.usersList = response.data;
+                    me.pagination.totalItems = response.totalPages;
                 },
                 error => {
                     me._notificationService.emitErrorNotificationToRootComponent('A aparut o eroare, utilizatori nu pot fi afisati.',5);
@@ -148,7 +144,7 @@ export class UsersPage implements OnInit {
         me._localizationService.getCityList()
             .subscribe(
                 succesR=>{
-                    me['cityList']=[{id: -1, name: "Alege..."}].concat(succesR);
+                    me.cityList = [].concat([{id: null, name: "Alege..."}], succesR);
                 },
                 error=>{
                     me.cityList=[];
@@ -162,7 +158,7 @@ export class UsersPage implements OnInit {
         this._userService.getStatuese()
             .subscribe(
                 resp=>{
-                    me.statusList =[{status: null, displayName: "Alege..."}].concat(_.map(resp, (v)=>{
+                    me.statusList =[].concat({status: null, displayName: "Alege..."},_.map(resp, (v)=>{
                         return {
                             status: v,
                             displayName: v
@@ -177,21 +173,16 @@ export class UsersPage implements OnInit {
 
     //grid
     createAccount() {
-        this.userDialog.show("", new User());
+        this.userDialog.show("", new UserForm());
     }
 
-    confirmCreateUser(){
-        let me = this;
-        //post to backend
-        this._userService.createUser(this.userDialog.getValue()).subscribe(resp => {
-            me.userDialog.hide();
-            me.getUsers();
+    confirmCreateUser(userData){
+
+        this._userService.createUser(userData).subscribe(resp => {
+            this.userDialog.hide();
+            this.getUsers();
         }, error => {
-            me._notificationService.emitErrorNotificationToRootComponent('Utilizatorul nu pote fi creat.',5);
+            this._notificationService.emitErrorNotificationToRootComponent('Utilizatorul nu pote fi creat.',5);
         });
-    }
-
-    applyFilters() {
-        this.getUsers();
     }
 }

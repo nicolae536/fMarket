@@ -4,7 +4,7 @@
             <div class="title-container">
                 <span class="h3">{{formTitle}}</span>
             </div>
-            <form [ngFormModel]="_registrationForm" (ngSubmit)="registrationFormSubmit()" class="registration-form">
+            <form (ngSubmit)="onSubmit()" class="registration-form" #registrationForm="ngForm">
                 <div class="registration-form-controls-container">
                  <div *ngIf="_loginPage" class="clearfix">
                     <div class="button-container" style="width: 100%; margin-bottom: 15px;">
@@ -17,34 +17,44 @@
 	                                </div>
 	                                
 	                            </button>
-                           
                         </form>
                          <div class="text-center facebook-or">sau</div>
                     </div>
                 </div>
                     <div class="form-group">
-                        <!--<span [ngClass]="getFormControllClass('email')"></span>-->
-                        <input type="text" class="form-control" [class.backend-error]="checkIfEmailIsMarked()"
+                        <input type="email" class="form-control" 
+                               [class.backend-error]="!accountModel.email.valid"
                                placeholder="E-mail"
-                               (ngModelChange)="checkBackendErrors()"
-                               [ngFormControl]="_registrationForm.controls['email']"/>
+                               (ngModelChange)="syncModel($event, accountModel.email.key, email)"
+                               [(ngModel)]="accountModel.email.value"
+                               required 
+                               pattern="^(([^&lt;&gt;()\[\]\\.,;:\s@&quot;]+(\.[^&lt;&gt;()\[\]\\.,;:\s@&quot;]+)*)|(&quot;.+&quot;))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"                               
+                               name="email"  #email="ngModel"/>
                     </div>
                     <div class="form-group">
-                        <!--<span [ngClass]="getFormControllClass('passwords')"></span>-->
                         <input type="password" class="form-control"
-                               [class.backend-error]="checkIfPasswordIsMarked('password')" [placeholder]="passwordLabel"
-                               (ngModelChange)="updateErrorFied($event, 'p')"
-                               [ngFormControl]="_registrationForm.controls.passwords.controls.password"/>
+                               [class.backend-error]="!accountModel.password.valid"
+                               [placeholder]="passwordLabel"
+                               (ngModelChange)="syncModel($event, accountModel.password.key, password)"
+                               [(ngModel)]="accountModel.password.value"
+                               required 
+                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$" 
+                               minlength="6"
+                               name="password"  #password="ngModel"/>
                     </div>
                     <div *ngIf="_restPasswordPage || _createAccountPage" class="form-group">
-                        <!--<span [ngClass]="getFormControllClass('passwords')"></span>-->
                         <input type="password" class="form-control"
-                               [class.backend-error]="checkIfPasswordIsMarked('repeat')" placeholder="Repeta parola"
-                               (ngModelChange)="updateErrorFied($event, 'r')"
-                               [ngFormControl]="_registrationForm.controls.passwords.controls.repeat"/>
+                               [class.backend-error]="!accountModel.repeat.valid" 
+                               placeholder="Repeta parola"
+                               (ngModelChange)="syncModel($event, accountModel.repeat.key, repeat)"
+                               [(ngModel)]="accountModel.repeat.value"
+                               required 
+                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$" 
+                               minlength="6"
+                               name="repeat"  #repeat="ngModel"/>
 
-                    </div>
-                    <div class="animated-error" *ngIf="showNotMatchPasswordField">
+                    </div>    
+                    <div class="animated-error" *ngIf="showNotMatchPasswordField && (_restPasswordPage || _createAccountPage)">
                         <div class="password-error right-to-middle-effect">
                             Cele doua parole nu sunt la fel!
                         </div>
@@ -56,11 +66,11 @@
                         <button type="submit" class="btn btn-success">{{buttonLabel}}</button>
                     </div>
                     <div *ngIf="_createAccountPage">
-                        <input type="checkbox" [ngFormControl]="_registrationForm.controls['subscribe']"/>
+                        <input type="checkbox" [(ngModel)]="accountModel.subscribe.value" name="subscribe"  #subscribe="ngModel"/>
                         <label class="checkbox-label">Inscriema la newsletter</label>
                     </div>
                     <div *ngIf="_loginPage">
-                        <input type="checkbox" [ngFormControl]="_registrationForm.controls['rememberMe']"/>
+                        <input type="checkbox" [(ngModel)]="accountModel.rememberMe.value" name="rememberMe"  #rememberMe="ngModel"/>
                         <label class="checkbox-label">Tine-ma minte</label>
                     </div>
                 </div>

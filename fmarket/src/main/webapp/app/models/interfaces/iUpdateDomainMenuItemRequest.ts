@@ -6,4 +6,5 @@ export interface IUpdateDomainMenuItemRequest {
     id;
     newName;
     orderNr;
+    domainId;
 }

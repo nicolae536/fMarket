@@ -9,10 +9,10 @@ import {CustomValidators} from "../models/Angular2ExtensionValidators";
 
 @Injectable()
 export class AccountService {
-    private _AccountController:string = '/accounts';
-    private api:FMarketApi;
+    private _AccountController: string = '/accounts';
+    private api: FMarketApi;
 
-    constructor(api:FMarketApi) {
+    constructor(api: FMarketApi) {
         this.api = api;
     }
 
@@ -20,17 +20,15 @@ export class AccountService {
         return this.api.get(this._AccountController + '/user');
     }
 
-    saveEditedAccount(accountDto:AccountUser) {
-        console.log('edit-request');
+    saveEditedAccount(accountDto: AccountUser) {
         return this.api.put(this._AccountController + '/self/update', JSON.stringify({
             name: accountDto.name && accountDto.name.length > 0 ? accountDto.name : null,
-            cityId: accountDto.cityId && !isNaN(accountDto.cityId) ? accountDto.cityId:null,
-            phone: accountDto.phone && accountDto.phone.length > 0 && CustomValidators.PHONE_REGEX.test(accountDto.phone)? accountDto.phone : null
+            cityId: accountDto.cityId && !isNaN(accountDto.cityId) ? accountDto.cityId : null,
+            phone: accountDto.phone && accountDto.phone.length > 0 && CustomValidators.PHONE_REGEX.test(accountDto.phone) ? accountDto.phone : null
         }));
     }
 
-    changePassword(accountDto:AccountUser) {
-        console.log('changepassword-request');
+    changePassword(accountDto: AccountUser) {
         return this.api.post(this._AccountController + '/changepassword-1',
             JSON.stringify({
                 email: accountDto.email,
@@ -40,15 +38,11 @@ export class AccountService {
             }));
     }
 
-    changeSelfPassword(accountDto:AccountUser){
-        return this.api.post(this._AccountController + '/self/changepassword',
-            JSON.stringify({
-                oldPassword: accountDto.lastPassword,
-                newPassword: accountDto.newPassword,
-            }));
+    changeSelfPassword(accountDto) {
+        return this.api.post(this._AccountController + '/self/changepassword', JSON.stringify(accountDto));
     }
 
     getAccountDetails() {
-        return this.api.get(this._AccountController + '/self/details');
+        return this.api.get<AccountUser>(this._AccountController + '/self/details');
     }
 }

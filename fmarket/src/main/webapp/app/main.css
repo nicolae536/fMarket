@@ -3,7 +3,6 @@ Css library
 */
 
 /*components styles*/
-@import "/app/components/companieComponent/createCompanieDialog/createCompanieDialog.css";
 @import "/app/components/createUserDialog/createUserDialog.css";
 @import "/app/components/demandComponent/demandComponent.css";
 @import "/app/components/demandComponent/demandEdit/demandEdit.css";
@@ -38,6 +37,10 @@ Css library
 
 *:focus {
     outline: none;
+}
+
+.front-index-100{
+    z-index: 100;
 }
 
 .modal-dialog.modal {
@@ -133,35 +136,28 @@ Css library
 }
 
 /*for error style*/
-.ng-dirty.ng-invalid.ng-touched {
+.backend-error {
     border-color: #ab2424;
     background-color: #ffecec;
 }
 
-.ng-untouched.ng-pristine.ng-invalid.backend-error {
+.ng-touched.ng-valid:not(.backend-error) {
+    border-left: 5px solid #42A948; /* green */
+}
+
+.ng-touched.ng-valid.no-form-validation{
+    border-left: 1px solid #cccccc;
+}
+
+.ng-untouched.ng-valid.no-form-validation{
+    border-left: 1px solid #cccccc;
+}
+
+.ng-touched.ng-dirty.ng-invalid {
     border-color: #ab2424;
     background-color: #ffecec;
 }
 
-.ng-pristine.ng-invalid.backend-error.ng-touched {
-    border-color: #ab2424;
-    background-color: #ffecec;
-}
-
-.ng-pristine.ng-invalid.backend-error.ng-touched:focus {
-    border-color: #ab2424;
-    background-color: #ffecec;
-}
-
-.ng-dirty.ng-invalid.ng-touched:focus {
-    border-color: #ab2424;
-    background-color: #ffecec;
-}
-
-.ng-untouched.ng-pristine.ng-invalid.backend-error:focus {
-    border-color: #ab2424;
-    background-color: #ffecec;
-}
 
 /*slide down animation*/
 @keyframes slide-down {

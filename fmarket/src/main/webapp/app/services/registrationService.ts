@@ -4,7 +4,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {FMarketApi} from "./fMarketApi";
-import {RegisterAccount} from "../models/registerAccount";
+import {RegisterAccount} from "../models/forms/registerAccount";
 
 @Injectable()
 export class RegistrationService {
@@ -17,20 +17,20 @@ export class RegistrationService {
     }
 
     createAccount(account:RegisterAccount){
-        let newAccount = account ? {email:account.email, password:account.passwords.password, subscribe:account.subscribe} : {email:null, password:null, subscribe:null};
+        let newAccount = account ? {email:account.email.value, password:account.password.value, subscribe:account.subscribe.value} : {email:null, password:null, subscribe:null};
         return this.api.post(this.REGISTRATION_CONTROLLER + '/user', JSON.stringify(newAccount));
     }
 
     resetPassword(account:RegisterAccount) {
-        let newAccount = account ? {email:account.email, newPassword:account.passwords.password} : {email:null, newPassword:null};
+        let newAccount = account ? {email:account.email.value, newPassword:account.password.value} : {email:null, newPassword:null};
 
-        return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({email:account.email, newPassword:account.passwords.password}));
+        return this.api.post(this.ACCOUNT_CONTROLLER + '/changepassword', JSON.stringify({email:account.email, newPassword:account.password.value}));
     }
 
     login(account:RegisterAccount){
-        let newAccount = account ? account : {email:null, passwords:{password:null}, rememberMe:null};
+        let newAccount = account ? account : {email:{value: null}, password: {value: null}, rememberMe:{value: null}};
 
-        let credentials = `username=${newAccount.email}&password=${newAccount.passwords.password}&remember-me=${newAccount.rememberMe}`;
+        let credentials = `username=${newAccount.email.value}&password=${newAccount.password.value}&remember-me=${newAccount.rememberMe.value}`;
 
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');

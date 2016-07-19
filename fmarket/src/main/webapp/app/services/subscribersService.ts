@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {FMarketApi} from "./fMarketApi";
+import {Subscriber} from "../models/subscriber";
+import { IListResponse } from '../models/interfaces/iListResponse';
 
 @Injectable()
 export class SubscribersService {
@@ -19,7 +21,7 @@ export class SubscribersService {
             sortKey: sortKey.length > 0 ? sortKey : null,
             desc: !ascendingOrder
         };
-        return this.api.post(this.apiSubscribersControllerUrl + `/search?page=${currentPageIndex}`, JSON.stringify(filterObject));
+        return this.api.post<IListResponse>(this.apiSubscribersControllerUrl + `/search?page=${currentPageIndex}`, JSON.stringify(filterObject));
     }
 
     subscribe(email) {

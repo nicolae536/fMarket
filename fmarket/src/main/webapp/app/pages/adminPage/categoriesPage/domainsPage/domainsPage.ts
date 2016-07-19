@@ -1,11 +1,13 @@
 import {Component, OnInit} from "@angular/core";
-import {FORM_DIRECTIVES, FormBuilder, Validators} from "@angular/common";
+import {FORM_DIRECTIVES} from "@angular/forms";
+
+import * as _ from 'underscore';
 
 import {RequestTypeService} from "../../../../services/requestTypeService";
-
+import { Field } from '../../../../models/forms/registerAccount';
 import {RequestType} from "../../../../models/requestType";
 
-let template = require('./domainsPage.html');
+import * as template from './domainsPage.html';
 
 @Component({
     selector: 'companies-Page',
@@ -18,7 +20,6 @@ export class DomainsPage implements OnInit {
 
     //<editor-fold desc="Services">
     _requestTypeService:RequestTypeService;
-    private _formBuilder:FormBuilder;
     //</editor-fold>
 
     //<editor-fold desc="Variables">
@@ -26,19 +27,15 @@ export class DomainsPage implements OnInit {
     domainsTypes:Array<RequestType> = [];
 
     showAddRequestRow:boolean;
-    newRequestType:string;
-    private _newDomainForm;
+    newRequestType:Field = new Field('newRequestType', true, '');;
     //</editor-fold>
 
-    constructor(requestTypeService:RequestTypeService, formBuilder:FormBuilder) {
+    constructor(requestTypeService:RequestTypeService) {
         this._requestTypeService = requestTypeService;
-        this._formBuilder = formBuilder;
     }
 
     ngOnInit() {
-        this._newDomainForm = this._formBuilder.group([]);
         this.getRequestTypesWithFilters();
-        this.buildForm();
     }
 
     getRequestTypesWithFilters() {
@@ -47,7 +44,7 @@ export class DomainsPage implements OnInit {
         this._requestTypeService.getRequestTypesWithFilters(this.searchQuery === "" ? null : this.searchQuery)
             .subscribe(
                 response => {
-                    me.domainsTypes = response;
+                    me.domainsTypes = response as Array<RequestType>;
                 },
                 error => {
                     me.domainsTypes = [];
@@ -55,36 +52,28 @@ export class DomainsPage implements OnInit {
 
     }
 
-    addRequestType() {
-        if(!this._newDomainForm.valid){
-            return;
-        }
-        let me = this;
-
-        this._requestTypeService.addRequestType(this.newRequestType)
+    addRequestType() {        
+        this._requestTypeService.addRequestType(this.newRequestType.value)
             .subscribe(
                 response => {
-                    me.getRequestTypesWithFilters();
-                    me.newRequestType = "";
-                    me.toggleAddRequestType(false);
+                    this.getRequestTypesWithFilters();
+                    this.newRequestType = new Field('newRequestType', true, '');
+                    this.showAddRequestRow = false;
                 },
                 error => {
-                    //make the field red
-                    //this.companieTypes = [];
+                    //show add error
+                    this.newRequestType.valid = false;
                 });
     }
 
     deleteRequestType(requestType:RequestType) {
-        let me = this;
-
         this._requestTypeService.deleteRequestType(requestType.id)
             .subscribe(
                 response => {
-                    me.domainsTypes = response;
-                    me.getRequestTypesWithFilters();
+                    this.getRequestTypesWithFilters();
                 },
                 error => {
-                    me.getRequestTypesWithFilters();
+                    //show delete error
                 });
 
     }
@@ -95,19 +84,12 @@ export class DomainsPage implements OnInit {
             .subscribe(
                 response => {
                     requestType.isInEditMode = false;
-                    //this.companieTypes = response.data;
+                    this.getRequestTypesWithFilters();
                 },
                 error => {
-                    //this.companieTypes = [];
+                    this.getRequestTypesWithFilters();
+                    //show edit error
                 });
-    }
-
-    toggleAddRequestType(value) {
-        this.showAddRequestRow = value;
-
-        if(!value){
-            this.rebuildForm();
-        }
     }
 
     toggleEditMode(requestType:RequestType) {
@@ -120,15 +102,11 @@ export class DomainsPage implements OnInit {
         requestType.id = requestType.backupRequestType.id;
         requestType.companies = requestType.backupRequestType.companies;
         requestType.name = requestType.backupRequestType.name;
-
     }
 
-    private rebuildForm() {
-        this._newDomainForm.removeControl('newRequestType');
-        this.buildForm();
-    }
-
-    private buildForm() {
-        this._newDomainForm.addControl('newRequestType', this._formBuilder.control(this.newRequestType, Validators.compose([Validators.required, Validators.minLength(3)])));
+    //TODO change this when angular has a form reset method
+    reinitModel(){
+        this.newRequestType = new Field('newRequestType', true, '');
+        this.showAddRequestRow = false;
     }
 }

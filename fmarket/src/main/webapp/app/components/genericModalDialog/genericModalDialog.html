@@ -1,0 +1,36 @@
+<div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>
+<div class="modal fade bs-example-modal-lg in" tabindex="-1" (click)="hide()" role="dialog"
+     [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0">
+    <div class="modal-dialog modal-lg" (click)="stopPropagation($event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title">
+                    {{title}}
+                </h2>
+                <div *ngFor="let field of configuration.fields" class="form-group">           
+                    <template *ngIf="field.validationConfiguration && field.validationConfiguration.required">
+                        </template>         
+                        <input [type]="field.type" class="form-control" 
+                               [class.backend-error]="!field.valid"
+                               placeholder="E-mail"
+                               (ngModelChange)="field.value = $event"
+                               [(ngModel)]="field.value"
+                               [required]="" 
+                               pattern="^(([^&lt;&gt;()\[\]\\.,;:\s@&quot;]+(\.[^&lt;&gt;()\[\]\\.,;:\s@&quot;]+)*)|(&quot;.+&quot;))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"                               
+                               name="email"  #email="ngModel"/>
+                </div>
+            </div>
+            <div class="modal-body">
+                <h4>{{message}}</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" (click)="hide()">{{cancelLabel}}</button>
+                <button type="button" class="btn btn-danger btn-sm" (click)="positiveAction()"> {{positiveLabel}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

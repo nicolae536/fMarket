@@ -7,11 +7,13 @@ import {Router} from "@angular/router";
 
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
 import {RegistrationService} from "../../../services/registrationService";
-import {RegisterAccount} from "../../../models/registerAccount";
+import {RegisterAccount, Field} from "../../../models/forms/registerAccount";
 import {NotificationService} from "../../../services/notificationService";
 import {JqueryService} from "../../../services/jqueryService";
 import {SuccessPageOptions} from "../successPages/successPage";
+
 import * as template from '../registrationPage.html';
+
 import {ENTER_LEAVE_ANIMATION} from "../../pageAnimations/enterLeavePage";
 
 @Component({
@@ -75,9 +77,17 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
                 response => {
                     me._router.navigate([`/success/${SuccessPageOptions.SuccessRestPassword}`]);
                 },
-                error => {
+                error => {                    
                     me._notificationService.emitNotificationToRootComponent({type:'danger', dismisable:true, message:'Resetare parola invalida!', timeout:5});
-                    me._registrationComponent.markAllFieldsAsErrors({email:true, password:true});
+                    
+                    me._registrationComponent.setFieldsAsErrors(
+                        new Array<Field>(
+                            new Field('email', false),
+                            new Field('password', false),
+                            new Field('repeat', false)
+                        )
+                    );
+                    me._registrationComponent.recheckAfterFirstChange = true;
                 }
             )
     }

@@ -3,6 +3,7 @@ import * as _ from "underscore";
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Location, CORE_DIRECTIVES} from "@angular/common";
+import {FORM_DIRECTIVES} from "@angular/forms";
 
 import {AlertComponent} from "ng2-bootstrap/ng2-bootstrap";
 
@@ -32,16 +33,8 @@ import {SuccessPage} from "./pages/registrationPage/successPages/successPage";
 import {CompanieDetailPage} from "./pages/companiesPage/companieDetailPage/companieDetailPage";
 import {TokenConfirmPage} from "./pages/registrationPage/tokenConfirmPage/tokenConfirmPage";
 import {CompaniesPage} from "./pages/companiesPage/companiesPage";
-// import {CompaniesPage as CategoriesCompaniesPage} from "./pages/adminPage/categoriesPage/companiesPage/companiesPage";
 
 import {ROUTER_DIRECTIVES} from "@angular/router";
-// import {UsersPage} from "./pages/adminPage/usersPage/usersPage";
-// import {SubscribersPage} from "./pages/adminPage/subscribersPage/subscribersPage";
-// import {CategoriesPage} from "./pages/adminPage/categoriesPage/categoriesPage";
-// import {DemandsPage} from "./pages/adminPage/demandsPage/demandsPage";
-// import {DemandsEditPage} from "./pages/adminPage/demandsPage/demandsEditPage/demandsEditPage";
-// import {CompaniesEditPage} from "./pages/adminPage/companiesPage/companiesEditPage/companiesEditPage";
-// import {CompanieCreatePage} from "./pages/adminPage/companiesPage/companiesEditPage/companiesCreatePage";
 
 @Component({
     selector: 'my-app',
@@ -63,7 +56,7 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
             <footer-component></footer-component>
         </div>
     `,
-    directives: [ROUTER_DIRECTIVES , HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent],
+    directives: [ FORM_DIRECTIVES, ROUTER_DIRECTIVES, HeaderComponent, AlertComponent, CORE_DIRECTIVES, FooterComponent],
     precompile: [
         AdminPage,
         AccountSettingsPage,
@@ -75,15 +68,6 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
         CompaniesPage,
         CompanieDetailPage,
         TokenConfirmPage,
-        //
-        // UsersPage,
-        // SubscribersPage,
-        // CategoriesPage,
-        // DemandsPage,
-        // DemandsEditPage,
-        // CategoriesCompaniesPage,
-        // CompaniesEditPage,
-        // CompanieCreatePage
     ]
 })
 
@@ -102,7 +86,6 @@ export class AppComponent implements OnInit {
     private _notifications:IAlert [];
     private addItem:boolean = true;
     private adminDemandsWatcher;
-    private rsSubject:Subject;
     //</editor-fold>
 
     constructor(router:Router,
@@ -122,7 +105,6 @@ export class AppComponent implements OnInit {
         //</editor-fold>
 
         this._notifications = new Array<IAlert>();
-        this.rsSubject = new Subject();
         this.startDemadsWatcher();
 
 
@@ -169,7 +151,7 @@ export class AppComponent implements OnInit {
                         .subscribe(
                             response => {
                                 console.log(1);
-                                if (response && response > 0) {
+                                if (response && +response > 0) {
                                     let alertMessage = {
                                         type: "danger",
                                         dismisable: true,

@@ -16,7 +16,7 @@ export class LocalizationService {
     }
 
     getCityList() {
-        return this.api.get('/cities')
+        return this.api.get<Array<Object>>('/cities')
     }
 
     mapNameToSelect2Item(array):Array<Select2Item>{

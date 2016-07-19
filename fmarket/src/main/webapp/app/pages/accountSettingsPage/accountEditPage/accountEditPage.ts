@@ -1,3 +1,4 @@
+
 /**
  * Created by nick_ on 4/26/2016.
  */
@@ -15,6 +16,7 @@ import {Select2Item} from "../../../components/selectComponent/selectComponent";
 import {AccountUser} from "../../../models/accountUser";
 import {AuthorizationService} from "../../../services/authorizationService";
 import {SuccessPageOptions} from "../../registrationPage/successPages/successPage";
+import { AccountFormModel } from './../../../models/forms/account';
 import * as template from './accountEditPage.html';
 
 @Component({
@@ -33,7 +35,7 @@ export class AccountEditPage implements OnInit {
     //</editor-fold>
 
     //<editor-fold desc="Variables">
-    private _account:AccountDto;
+    private _account:AccountFormModel = new AccountFormModel();;
     private _submitLabel:string = 'Salveaza contul';
     private _cityesList:Array<Select2Item> = new Array<Select2Item>();
     //</editor-fold>
@@ -46,7 +48,6 @@ export class AccountEditPage implements OnInit {
         this._accountService = accountService;
         this._demandService = demandService;
         this._router = router;
-        this._account = AccountDto.getEmptyInstance();
         this._localizationService = localizationService;
         this._notificationService = notificationService;
     }
@@ -56,7 +57,7 @@ export class AccountEditPage implements OnInit {
         this.getAccountData();
     }
 
-    changePassword(editedAccount:AccountUser) {
+    changePassword(editedAccount:any) {
         let me = this;
         if(!editedAccount){
             this._notificationService.emitWarningNotificationToRootComponent('Complectati corect toate campurile pentru parole inainte de a salva!', 5)
@@ -111,16 +112,17 @@ export class AccountEditPage implements OnInit {
         this._accountService.getAccountDetails()
             .subscribe(
                 success=> {
-                    success['cityItem'] = {displayName: success['cityName'],
+                    let cityItemValue = {displayName: success['cityName'],
                                             boundItem:{
                                                 id:success['cityId'],
                                                 name:success['cityName'],
                                             }};
-                    success['email']= AuthorizationService.getUserEmail();
-                    me._account = success;
+                                            console.log(success);
+                    me._account = new AccountFormModel(AuthorizationService.getUserEmail(), success.name, success.phone, cityItemValue);
                 },
                 error=> {
-                    me._account = AccountDto.getEmptyInstance();
+                    me._account = new AccountFormModel();
+                    //TODO show errors on component
                 }
             )
     }

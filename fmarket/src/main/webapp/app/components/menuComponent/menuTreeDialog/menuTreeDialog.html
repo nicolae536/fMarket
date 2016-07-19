@@ -1,5 +1,5 @@
 <div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>
-<div class="modal fade bs-example-modal-lg in" tabindex="-1" (click)="cancelAction()" role="dialog"
+<div class="modal fade bs-example-modal-lg in" tabindex="-1" (click)="hideWithoutAnimation()" role="dialog"
      [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0">
     <div class="modal-dialog modal-lg" (click)="stopPropagation($event)">
         <div class="modal-content">

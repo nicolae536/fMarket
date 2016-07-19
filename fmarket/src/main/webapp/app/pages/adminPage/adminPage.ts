@@ -6,17 +6,17 @@ import {JqueryService} from "../../services/jqueryService";
 import {NotificationService} from "../../services/notificationService";
 
 import {ApplicationConstants} from "../../models/applicationConstansts";
-import {AdminPage} from "./adminPage";
 import {UsersPage} from "./usersPage/usersPage";
 import {SubscribersPage} from "./subscribersPage/subscribersPage";
 import {CategoriesPage} from "./categoriesPage/categoriesPage";
 import {DemandsPage} from "./demandsPage/demandsPage";
 import {DemandsEditPage} from "./demandsPage/demandsEditPage/demandsEditPage";
-import {CompaniesPage} from "./categoriesPage/companiesPage/companiesPage";
+import {CompaniesPage as CategoriesCompaniesPage} from "./categoriesPage/companiesPage/companiesPage";
+import {CompaniesPage} from "./companiesPage/companiesPage";
 import {CompaniesEditPage} from "./companiesPage/companiesEditPage/companiesEditPage";
 import {CompanieCreatePage} from "./companiesPage/companiesEditPage/companiesCreatePage";
+
 import * as template from './adminPage.html';
-import {ENTER_LEAVE_ANIMATION} from "../pageAnimations/enterLeavePage";
 import {FADE_IN_ANIMATION} from "../pageAnimations/fadeIn";
 import {SLIDE_DOWN_ANIMATION} from "../pageAnimations/slideDown";
 
@@ -30,6 +30,7 @@ import {SLIDE_DOWN_ANIMATION} from "../pageAnimations/slideDown";
         CategoriesPage,
         DemandsPage,
         DemandsEditPage,
+        CategoriesCompaniesPage,
         CompaniesPage,
         CompaniesEditPage,
         CompanieCreatePage,

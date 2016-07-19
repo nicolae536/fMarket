@@ -12,23 +12,27 @@
             </div>
         </div>
         <div class="pull-right operations">
-            <button class="btn btn-primary" (click)="toggleAddRequestType(true)">
+            <button class="btn btn-primary" (click)="showAddRequestRow = true">
                 <span class="glyphicon glyphicon-plus"></span> Adauga tip de cerere
             </button>
         </div>
         <div class="clearfix"></div>
-        <!-- *ngIf="showAddRequestRow" -->
-        <div class="add-request" *ngIf="showAddRequestRow">
-            <form [ngFormModel]="_newDomainForm" (ngSubmit)="addRequestType()">
+        <div class="add-request" *ngIf="showAddRequestRow">            
+            <form (ngSubmit)="addRequestType()" #requestTypeForm="ngForm">
                 <div class="input-group">
-                    <input [ngFormControl]="_newDomainForm.controls['newRequestType']" class="form-control" [(ngModel)]="newRequestType"/>
-
+                    <input class="form-control" 
+                           [class.backend-error]="!newRequestType.valid"
+                           [(ngModel)]="newRequestType.value"
+                           (ngModelChange)="newRequestType.valid = requestType.valid"
+                           required
+                           minlength="3"
+                           name="requestType" #requestType="ngModel"/>
                     <div class="input-group-btn">
-                        <button [disabled]="!_newDomainForm.valid" type="submit" class="btn btn-secondary btn-primary">
+                        <button [disabled]="!requestTypeForm.valid" type="submit" class="btn btn-secondary btn-primary">
                             <span class="glyphicon glyphicon-ok"></span>
                             Creeaza
                         </button>
-                        <button type="button" class="btn btn-secondary btn-default" (click)="toggleAddRequestType(false)">
+                        <button type="button" class="btn btn-secondary btn-default" (click)="reinitModel()">
                             <span class="glyphicon glyphicon-remove"></span>
                             Cancel
                         </button>

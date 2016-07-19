@@ -13,7 +13,7 @@ import {JqueryService} from "../../../services/jqueryService";
 
 import {RegistrationComponent} from "../../../components/registrationComponent/registrationComponent";
 
-import {RegisterAccount} from "../../../models/registerAccount";
+import {RegisterAccount, Field} from "../../../models/forms/registerAccount";
 import {Role} from "../../../models/Roles";
 import {ENTER_LEAVE_ANIMATION} from "../../pageAnimations/enterLeavePage";
 import * as template from '../registrationPage.html';
@@ -88,7 +88,13 @@ export class LoginPage implements OnInit, AfterViewChecked {
                 },
                 error => {
                     me._notificationService.emitErrorNotificationToRootComponent("Date de autentificare incorecte!", 5);
-                    me._registrationComponent.markAllFieldsAsErrors({email:true, password:true});
+                    me._registrationComponent.setFieldsAsErrors(
+                        new Array<Field>(
+                            new Field('email', false),
+                            new Field('password', false)
+                        )
+                    );
+                    me._registrationComponent.recheckAfterFirstChange = true;
                 }
             )
     }

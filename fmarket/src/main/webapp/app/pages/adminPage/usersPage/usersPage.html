@@ -10,7 +10,7 @@
             [city-list]="cityList"
             [status-list]="statusList"
             (loaded)="referenceCreateUserDialogInComponent($event)"
-            (create-user)="confirmCreateUser()">
+            (create-user)="confirmCreateUser($event)">
     </create-user-dialog>
     <div class="page-title">
         <div class="row">
@@ -25,27 +25,27 @@
                         <div class="form-group">
                             <label>Id:</label>
                             <input type="number" [(ngModel)]="idFilter" placeholder="0"
-                                   class="form-control"/>
+                                   class="form-control no-form-validation"/>
                         </div>
                     </div>
                     <div class="col-md-2 col-xs-12 remove-left-padding">
                         <div class="form-group">
                             <label>Email:</label>
                             <input type="text" [(ngModel)]="emailFilter" placeholder="user@domain.com"
-                                   class="form-control"/>
+                                   class="form-control no-form-validation"/>
                         </div>
                     </div>
                     <div class="col-md-2 col-xs-12 remove-left-padding">
                         <div class="form-group">
                             <label>Nume:</label>
-                            <input type="text" [(ngModel)]="nameFilter" placeholder="Andrei" class="form-control"/>
+                            <input type="text" [(ngModel)]="nameFilter" placeholder="Andrei" class="form-control no-form-validation"/>
                         </div>
                     </div>
                     <div class="col-md-2 col-xs-12 remove-left-padding">
                         <label>Status:</label>
 
                         <div>
-                            <select class="user-status-select" [(ngModel)]="selectedStatusFilter" [disabled]="statusList && statusList.legth > 0">
+                            <select class="user-status-select no-form-validation" [(ngModel)]="selectedStatusFilter" [disabled]="statusList && statusList.legth > 0">
                                 <option *ngFor="let option of statusList" [value]="option.status">{{option.displayName}}
                                 </option>
                             </select>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-md-3 col-xs-12 remove-right-padding push-down clearfix">
                         <div class="pull-left btn-container">
-                            <button class="btn btn-success" (click)="applyFilters()">Aplica Filtre</button>
+                            <button class="btn btn-success" (click)="getUsers()">Aplica Filtre</button>
                         </div>
                         <div class="pull-right btn-container">
                             <button class="btn btn-primary" (click)="createAccount()">
@@ -131,9 +131,9 @@
                 </tr>
                 <tr class="navigation-row text-center">
                     <td colspan="7" class="navigation-column">
-                        <pagination [totalItems]="pagination.totalItems" [(ngModel)]="pagination.currentPage"
+                        <!--<pagination [totalItems]="pagination.totalItems" [(ngModel)]="pagination.currentPage"
                                     (ngModelChange)="getUsers()" [maxSize]="pagination.maxSize" class="pagination-sm"
-                                    [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
+                                    [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>-->
                     </td>
                 </tr>
                 </tbody>

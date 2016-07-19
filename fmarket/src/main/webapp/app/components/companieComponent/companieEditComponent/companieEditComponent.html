@@ -1,66 +1,103 @@
 <div class="companie-edit-component clearfix">
-    <form [ngFormModel]="_companieEditForm" (ngSubmit)="saveEditedCompanie()">
+    <form #companieEditForm="ngForm" (ngSubmit)="saveEditedCompanie()">
         <div class="companie-edit">
             <div class="form-group">
                 <label>Nume companie</label>
-                <input type="text" [ngFormControl]="_companieEditForm.controls['name']" [(ngModel)]="_companieEditFormModel.name" class="form-control"
-                       placeholder="Nume companie"/>
+                <input type="text"  class="form-control"
+                       [(ngModel)]="companieEditFormModel.name.value"
+                       required
+                       minlength="3"
+                       placeholder="Nume companie"
+                       name="name" #name="ngModel"/>
             </div>
             <div class="form-group">
                 <label>Email companie</label>
-                <input type="text" [ngFormControl]="_companieEditForm.controls['email']" [(ngModel)]="_companieEditFormModel.email" class="form-control"
-                       placeholder="Email companie"/>
+                <input type="text"  class="form-control"
+                       [(ngModel)]="companieEditFormModel.email.value"
+                       required
+                       pattern="^(([^&lt;&gt;()\[\]\\.,;:\s@&quot;]+(\.[^&lt;&gt;()\[\]\\.,;:\s@&quot;]+)*)|(&quot;.+&quot;))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
+                       placeholder="Email companie"
+                       name="email" #email="ngModel"/>
             </div>
             <div class="form-group">
                 <label>Parola</label>
-                <input type="password" [ngFormControl]="_companieEditForm.controls['password']" [(ngModel)]="_companieEditFormModel.password" class="form-control"
-                   placeholder="Parola cont companie"/>
+                <input *ngIf="isInEditMode" type="password" class="form-control"
+                       [(ngModel)]="companieEditFormModel.password.value"
+                       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$"
+                       placeholder="Parola cont companie"
+                       name="password" #password="ngModel"/>
+                <input *ngIf="!isInEditMode" type="password" class="form-control"
+                       [(ngModel)]="companieEditFormModel.password.value"
+                       required
+                       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$"
+                       placeholder="Parola cont companie"
+                       name="password" #password="ngModel"/>
             </div>
             <div class="form-group">
                 <label>Telefon</label>
-                <input type="text" [ngFormControl]="_companieEditForm.controls['phone']" [(ngModel)]="_companieEditFormModel.phone" class="form-control"
-                       placeholder="0712345689"/>
+                <input type="tel" class="form-control" 
+                       [(ngModel)]="companieEditFormModel.phone.value"
+                       required
+                       minlength="8"
+                       maxlength="14"
+                       pattern="^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\. \\\/]?(\d+))?$"
+                       placeholder="Telefonul consulatantului"
+                       name="phone" #phone="ngModel"/>
             </div>
             <div class="form-group">
                 <label>Numele persoanei de contact</label>
-                <input type="text" [ngFormControl]="_companieEditForm.controls['contactPerson']" [(ngModel)]="_companieEditFormModel.contactPerson" class="form-control"
-                       placeholder="Numele persoanei de contact"/>
+                <input type="text" class="form-control"
+                       [(ngModel)]="companieEditFormModel.contactPerson.value"
+                       required
+                       minlength="3"
+                       placeholder="Numele persoanei de contact"
+                       name="contactPerson" #contactPerson="ngModel"/>
             </div>
             <div class="form-group">
                 <label>Adresa companie</label>
-                <input type="text" [ngFormControl]="_companieEditForm.controls['address']" [(ngModel)]="_companieEditFormModel.address" class="form-control"
-                       placeholder="Adresa companie"/>
+                <input type="text" class="form-control" 
+                       [(ngModel)]="companieEditFormModel.address.value"
+                       required
+                       minlength="5"
+                       placeholder="Adresa companie"
+                       name="address" #address="ngModel"/>
             </div>
             <div class="form-group">
                 <label>Oras</label>
                 <select-component
                         [select-items]="_cities"
-                        [single-item-selected]="_companieEditFormModel.city"
+                        [activate-validation]="true"                        
                         [multi-select]="false"
-                        (loaded)="referenceSelectCityComponent($event)"
-                ></select-component>
+
+                        [single-item-selected]="companieEditFormModel.city.value"
+                        (on-selection-change)="syncViewWithModel($event, companieEditFormModel.city.key)">
+                </select-component>
             </div>
             <div class="form-group">
                 <label>Domeniu companie</label>
                 <select-component
                         [select-items]="_companyDomains"
-                        [single-item-selected]="_companieEditFormModel.companyDomain"
+                        [activate-validation]="true"                        
                         [multi-select]="false"
-                        (loaded)="referenceSelectCompanyDomainComponent($event)"
-                ></select-component>
+
+                        [single-item-selected]="companieEditFormModel.companyDomain.value"
+                        (on-selection-change)="syncViewWithModel($event, companieEditFormModel.companyDomain.key)">
+                </select-component>
             </div>
             <div class="form-group">
                 <label>Domeniu cereri</label>
                 <select-component
                         [select-items]="_domains"
-                        [selected-items]="_companieEditFormModel.demandDomains"
+                        [activate-validation]="true"                        
                         [multi-select]="true"
-                        (loaded)="referenceSelectDemandDomainComponent($event)"
-                ></select-component>
+                        
+                        [selected-items]="companieEditFormModel.demandDomains.value"
+                        (on-selection-change)="syncViewWithModel($event, companieEditFormModel.demandDomains.key)">
+                </select-component>
             </div>
             <div class="form-group">
                 <label>Logo companie</label>
-                <input type="file" accept=".jpg,.jpeg" (change)="saveFile($event)" />
+                <input type="file" accept=".jpg,.jpeg" (change)="cacheUploadedFile($event)" />
             </div>
         </div>
         <div class="actions">

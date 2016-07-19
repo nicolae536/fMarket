@@ -12,12 +12,16 @@ import {ApplicationConstants} from "../../models/applicationConstansts";
 import {RegistrationService} from "../../services/registrationService";
 import {NotificationService} from "../../services/notificationService";
 import {ApplicationStateService} from "../../services/applicationStateService";
+import {SyncronizationService} from "../../services/syncronizationService";
+
 import * as template from './headerComponent.html';
+import {SLIDE_DOWN_ANIMATION} from "../../pages/pageAnimations/slideDown";
 
 @Component({
     selector: 'header-component',
     template: template,
-    directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES],
+    animations: SLIDE_DOWN_ANIMATION
 })
 
 export class HeaderComponent implements OnInit {
@@ -30,6 +34,7 @@ export class HeaderComponent implements OnInit {
     private _router:Router;
     private _registrationService:RegistrationService;
     private _notificationService:NotificationService;
+    private _syncronizationService: SyncronizationService;
     private sideMenuOpened:boolean;
     private hideImage:boolean;
     private _applicationStateService:ApplicationStateService;
@@ -38,12 +43,14 @@ export class HeaderComponent implements OnInit {
                 localStorageService:LocalStorageService, 
                 registrationService:RegistrationService, 
                 notificationService:NotificationService,
-                applicationStateService:ApplicationStateService ) {
+                applicationStateService:ApplicationStateService,
+                syncronizationService: SyncronizationService ) {
         this._router = router;
         this._registrationService = registrationService;
         this._notificationService = notificationService;
         this._applicationStateService =applicationStateService;
         this._localStorageService = localStorageService;
+        this._syncronizationService = syncronizationService;
 
         this._myAccountLabel = 'Contul meu';
     }
@@ -138,7 +145,10 @@ export class HeaderComponent implements OnInit {
             .subscribe(
                 response=> {
                     me._applicationStateService.removeUserSession();
-                    me._router.navigate(['']);
+                    //TODO Check active route
+                    if((window.location.href.indexOf('#/account')!==-1) || window.location.href.indexOf('#/admin')!==-1){
+                        me._router.navigate(['']);
+                    }
                 }, error=> {
                     me._notificationService.emitErrorNotificationToRootComponent('Erroare la logout!',5);
                 }
@@ -148,12 +158,14 @@ export class HeaderComponent implements OnInit {
 
     addDemand(){
         this._router.navigate(['/']);
-        this._localStorageService.setItem(ApplicationConstants.NAVIGATE_CREATE_DEMAND,{navigate:true});
+        let subscription = this._syncronizationService.subscriberInitialized.subscribe(i => {
+            this._syncronizationService.taskSender.next(ApplicationConstants.NAVIGATE_CREATE_DEMAND);
+            subscription.unsubscribe();
+        })
     }
 
     addDemandFromMobile(){
-        this._router.navigate(['/']);
-        this._localStorageService.setItem(ApplicationConstants.NAVIGATE_CREATE_DEMAND,{navigate:true});
+        this.addDemand();
         this.closeNav();
     }
 }

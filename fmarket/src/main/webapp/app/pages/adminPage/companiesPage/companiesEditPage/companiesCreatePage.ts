@@ -11,7 +11,7 @@ import {CompaniesEditComponent} from "../../../../components/companieComponent/c
 import {CompaniesEditBase} from "./companiesEditBase";
 import {LocalizationService} from "../../../../services/localizationService";
 import {NewCompanyRequest} from "../../../../models/newCompanyRequest";
-let template = require('./companiesEditPage.html');
+import * as template from './companiesEditPage.html';
 
 @Component({
     selector:'companies-edit-page',
@@ -26,6 +26,7 @@ export class CompanieCreatePage extends CompaniesEditBase implements OnInit {
                 notificationService:NotificationService,
                 localizationService:LocalizationService) {
         super(location, router, companiesService, notificationService, localizationService);
+        this._isInEditMode = false;
     }
 
     ngOnInit() {

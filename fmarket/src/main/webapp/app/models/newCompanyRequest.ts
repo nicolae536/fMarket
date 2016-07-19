@@ -9,8 +9,8 @@ export class NewCompanyRequest{
     address:string;
     cityId:number;
     companyDomainId:number;
-    demandDomains:Array<number>;
-    companyDomain;
+    demandDomainIds:Array<number>;    
+    companyDomain:number;
     password:string;
 
 
@@ -22,7 +22,7 @@ export class NewCompanyRequest{
         this.address = address;
         this.cityId = cityId;
         this.companyDomainId = companyDomainId;
-        this.demandDomains = demandDomains;
+        this.demandDomainIds = demandDomains;
     }
 
     public static getEmptyCompany(){

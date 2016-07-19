@@ -1,20 +1,19 @@
 import {Component, Injectable, Input, Output, EventEmitter} from '@angular/core';
-import {FORM_DIRECTIVES, FormBuilder, Validators} from "@angular/common";
+import {FORM_DIRECTIVES} from "@angular/forms";
 
 import {ModalDialog} from '../modalDialog/modalDialog';
 import {Subscriber} from '../../models/subscriber';
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
-
-let template = require('./createSubscriberDialog.html');
+import {Field} from "../../models/forms/registerAccount";
+import * as template from './createSubscriberDialog.html';
 
 @Component({
     selector: 'create-subscriber-dialog',
-    template:template,
-    directives:[FORM_DIRECTIVES]
+    template: template,
+    directives: [FORM_DIRECTIVES]
 })
 
 export class CreateSubscriberDialog extends ModalDialog {
-    modaleMode:string = "newSubscriber";
     @Input('title') title:string = "Adauga abonat nou";
     @Input('cancel-label') cancelLabel:string = 'Cancel';
     @Input('positive-label') positiveLabel:string = 'Creeaza abonat';
@@ -24,55 +23,19 @@ export class CreateSubscriberDialog extends ModalDialog {
     cityList:Array<Object>;
     statusList:Array<Object>;
 
-    _subscriberForm
-    private _formBuilder:FormBuilder;
-
-    constructor(formBuilder:FormBuilder) {
+    constructor() {
         super();
-        this._formBuilder = formBuilder;
     }
 
     ngOnInit() {
         this.loadedEmitter.emit(this);
-        this.responseObject = new Subscriber();
-
-        this._subscriberForm = this._formBuilder.group([]);
-        this.buildForm();
     }
 
-    clearData() {
-        this.responseObject = new Subscriber();
+    submitSubscriber(){        
+        this.createEmitter.emit(this.responseObject ? this.responseObject['value'] : null);
     }
 
-    setValue(subscriber:Subscriber) {
-        this.responseObject = subscriber;
-    }
-
-    getValue():Subscriber {
-        return this.responseObject as Subscriber;
-    }
-
-    close(){
-        this.hideWithoutAnimation();
-        this._subscriberForm.removeControl("email");
-        this.buildForm();
-    }
-
-    cancelCreateSubscriber(){
-        this._subscriberForm.removeControl('email');
-        this.buildForm();
-        this.cancelAction();
-    }
-
-    public buildForm() {
-        this._subscriberForm.addControl('email', this._formBuilder.control(this.responseObject['email'], Validators.compose([Validators.required, CustomValidators.validateEmail])));
-    }
-
-    submitSubscriber(){
-        if(!this._subscriberForm.valid){
-            return;
-        }
-
-        this.createEmitter.emit(this.responseObject);
+    reinitModel(){
+        this.responseObject = new Field('email', true, '');
     }
 }

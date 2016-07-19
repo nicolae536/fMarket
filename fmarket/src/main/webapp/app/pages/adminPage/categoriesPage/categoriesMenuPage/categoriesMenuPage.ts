@@ -27,7 +27,7 @@ export class CategoriesMenuPage implements OnInit {
 
     //<editor-fold desc="Variables">
     menuDictionary:Array<Object> = [];
-    private _menuItemModal:MenuItemDialog;
+    private __menuItemModalComponent:MenuItemDialog;
     private _modalInterface:IModal;
     _domains:Array<Select2Item>;
     isAdminUser = AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);
@@ -44,8 +44,8 @@ export class CategoriesMenuPage implements OnInit {
         this.getDomains();
     }
 
-    referenceModal(modal:MenuItemDialog) {
-        this._menuItemModal = modal;
+    referenceModal(menuItemModalComponent:MenuItemDialog) {
+        this.__menuItemModalComponent = menuItemModalComponent;
     }
 
     private getMenuDictionary():void {
@@ -65,8 +65,9 @@ export class CategoriesMenuPage implements OnInit {
     }
 
     showAddMenuModal(parentId:number) {
+        console.log('Parent id'+parentId);
         this._modalInterface = {parentId: parentId, operationType: "new", positiveLabel: "Create", id: null};
-        this._menuItemModal.show(this._modalInterface);
+        this.__menuItemModalComponent.show(this._modalInterface);
     }
 
     addMenuItem(newDomainMenuItemRequest:INewDomainMenuItemRequest) {
@@ -74,7 +75,7 @@ export class CategoriesMenuPage implements OnInit {
         me._categoriesMenuService.addMenuItem(newDomainMenuItemRequest)
             .subscribe(
                 response=> {
-                    me._menuItemModal.hide();
+                    me.__menuItemModalComponent.hideModal();
                     me.getMenuDictionary();
                 },
                 error=> {
@@ -84,11 +85,13 @@ export class CategoriesMenuPage implements OnInit {
     }
 
     showEditMenuModal(menuToUpdate:IUpdateDomainMenuItemRequest) {
-        this._menuItemModal.update({
+        this.__menuItemModalComponent.update({
             operationType: "update",
             positiveLabel: "Update",
-            menuModel: menuToUpdate,
-            id: null
+            domainId: menuToUpdate.domainId,
+            id: menuToUpdate.id,
+            orderNr: menuToUpdate.orderNr,
+            name: menuToUpdate.name
         })
     }
 
@@ -98,7 +101,7 @@ export class CategoriesMenuPage implements OnInit {
         me._categoriesMenuService.updateMenuItem(updateDomainMenuItemRequest)
             .subscribe(
                 response=> {
-                    me._menuItemModal.hide();
+                    me.__menuItemModalComponent.hideModal();
                     me.getMenuDictionary();
                 },
                 error=> {

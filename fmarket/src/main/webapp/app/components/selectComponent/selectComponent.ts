@@ -4,121 +4,59 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnChanges, ViewChild, DoCheck, ElementRef} from "@angular/core";
 import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import {FilterPipe} from "./filterPipe";
+import * as template from './selectComponent.html'
 
 @Component({
     selector: 'select-component',
-    template: `
-            <div dropdown [(isOpen)]="_dropdownStatus.isopen" [class.dropUp]="dropUp" [class.dropdown]="!dropUp" class="bs-ui-select-2 clearfix">
-                <span #simpleSelectRef *ngIf="!muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [class.disabled]="checkItems()" 
-                    class="btn btn-default btn-secondary form-control ui-select-toggle dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span *ngIf="!_selectedItem">Alege...</span>
-                        <span *ngIf="_selectedItem && _selectedItem.displayName">{{_selectedItem.displayName}}</span>
-                        <span [class]="getCarretClass()" style="margin-top: 2px;"></span>
-                        <span style="margin-top: 2px;" class="glyphicon glyphicon-remove pull-right simple-dropdown" *ngIf="_selectedItem !== _chooseItemValue"(click)="removeSelection($event)"></span>
-                </span>
-                
-                <button #multiSelectRef *ngIf="muliSelect" dropdownToggle [style.pointerEvents]="checkItems()? 'none' : 'auto'" [class.disabled]="checkItems()" 
-                    class="btn btn-default btn-secondary form-control ui-select-toggle multiselect dropdown-toggle position-relative" role="button" aria-haspopup="true" aria-expanded="false">
-                    <div class="pull-left clearfix remove-right-padding">
-                        <div *ngIf="_selectedItems && _selectedItems.length < 1" style="margin-top: 4px;">
-                            <span>Alege...</span>
-                        </div>                    
-                        <span class="label label-info pull-left" *ngFor="let item of _selectedItems">{{item.displayName}} <span class="remove-selected glyphicon glyphicon-remove" (click)="removeItemFromSelection($event,item)"></span></span>
-                    </div>
-                    <div class="options-container">
-                        <span [class]="getCarretClass()"></span>
-                        <span *ngIf="_selectedItems.length > 0" class="glyphicon glyphicon-remove pull-right" (click)="removeSelection($event)"></span>
-                    </div>
-                </button>
-                <div dropdownMenu class="ui-select2-list-container dropdown-menu" [class.dropdown-open]="_dropdownStatus.isopen">
-                        <div class="ui-select2-search">
-                            <div *ngIf="searchQuery.length > 0" class="ui-select2-search-right-icon">
-                                <span class="glyphicon glyphicon-remove" (click)="removeSearchQuery()"></span>
-                            </div>
-                            <input class="form-control" [(ngModel)]="searchQuery" placeholder="Search.."/>
-                        </div>
-                        <div class="ui-select2-list">
-                            <div *ngIf="!muliSelect" class="ui-select2-list-item" (click)="selectItem(_chooseItemValue)">{{_chooseItemValue.displayName}}</div>
-                            <div class="ui-select2-list-item" *ngFor="let i of items|filterItems:searchQuery" (click)="selectItem(i)">{{i.displayName}}</div>
-                        </div>
-                </div>
-            </div>
-    `,
+    template: template,
     pipes: [FilterPipe],
     directives: [DROPDOWN_DIRECTIVES]
 })
-export class SelectComponent implements OnInit, OnChanges, DoCheck {
+export class SelectComponent implements OnInit, DoCheck {
     @ViewChild('simpleSelectRef') simpleSelectRef:ElementRef;
     @ViewChild('multiSelectRef') multiSelectRef:ElementRef;
+
+    /**
+     * Input created for validation trigger
+     */
+    @Input('activate-validation') activateValidation:boolean;
+
+    /**
+     * Base select options
+     *      @select-items - the list of items
+     *      @single-item-selected - model for a single item selected when the select is used as a simple selector with autocomplete
+     *      @multi-select - converts the single select in multiselect
+     *      @selected-items - the list of selected items when we use the selector as a multiselect
+     */
     @Input('select-items') items:Array<Select2Item>;
-    @Input('single-item-selected') _selectedItem:Select2Item;
-    @Input('selected-items') _selectedItems:Array<Select2Item>;
-    @Input('multi-select') muliSelect:boolean;
-    @Output('loaded') loadedSelect:EventEmitter<SelectComponent> = new EventEmitter<SelectComponent>();
-    _chooseItemValue = {displayName: 'Alege...', boundItem: null};
+    @Input('single-item-selected') itemSelected:Select2Item;    
+    @Input('multi-select') muliSelect:boolean;    
+    @Input('selected-items') multiselectItemsSelected:Array<Select2Item>;
 
-    private dropUp:boolean;
-    private searchQuery = "";
-    public _dropdownStatus:{isopen:boolean} = {isopen: false};
+    /**
+     * Events
+     *      @loaded signals that the component was loaded
+     *      @on-selection-change signals that a new item was selected
+     */
+    @Output('loaded') $loadedSelect:EventEmitter<SelectComponent> = new EventEmitter<SelectComponent>();
+    @Output('on-selection-change') $selectionChangeEmitter:EventEmitter<any> = new EventEmitter<any>();
 
-    ngOnInit():any {
-        this.loadedSelect.emit(this);
-        this._selectedItem = this._selectedItem ? this._selectedItem : this._chooseItemValue;
-        this._selectedItems = this._selectedItems ? this._selectedItems : [];
-    }
+    /**
+     * The null selection
+     */
+    private _chooseItemValue = {displayName: 'Alege...', boundItem: null};
 
-    ngOnChanges(changes:{}):any {
-        if (changes.hasOwnProperty('_selectedItem')) {
-            //console.log('selected item change', this._selectedItem);
-        }
+    public dropdownOptions:DropdownOptions = {dropUp:false, searchQuery:'', isopen: false};
+
+    ngOnInit():any {        
+        this.itemSelected = this.itemSelected ? this.itemSelected : this._chooseItemValue;
+        this.multiselectItemsSelected = this.multiselectItemsSelected ? this.multiselectItemsSelected : [];
+
+        this.$loadedSelect.emit(this);
     }
 
     ngDoCheck() {
         this.computeSelectView();
-    }
-
-    computeSelectView():any {
-        let multiSelectRefPosition = null;
-        let simpleSelectRefPosition = null;
-        let documentHeight = Math.max(
-            document.documentElement["clientHeight"],
-            document.body["scrollHeight"],
-            document.documentElement["scrollHeight"],
-            document.body["offsetHeight"],
-            document.documentElement["offsetHeight"]);
-        if (this.multiSelectRef) {
-            multiSelectRefPosition = this.getOffset(this.multiSelectRef.nativeElement);
-        }
-        if (this.simpleSelectRef) {
-            simpleSelectRefPosition = this.getOffset(this.simpleSelectRef.nativeElement);
-        }
-
-        if (multiSelectRefPosition) {
-            this.dropUp = multiSelectRefPosition.top + 305 > documentHeight ? true : false;
-        }
-        if (simpleSelectRefPosition) {
-            this.dropUp = simpleSelectRefPosition.top + 305 > documentHeight ? true : false;
-        }
-    }
-
-    get selectedItem():Select2Item {
-        return this._selectedItem;
-    }
-
-    set selectedItem(item:Select2Item) {
-        this._selectedItem = item;
-    }
-
-    get multiselectItems():Array<Select2Item> {
-        return this._selectedItems;
-    }
-
-    set multiselectSelectedItems(items:Array<Select2Item>) {
-        this._selectedItems = items ? items : [];
-    }
-
-    private checkItems() {
-        return !this.items || this.items.length < 1;
     }
 
     private checkItemInDataSource(item:Select2Item) {
@@ -133,37 +71,100 @@ export class SelectComponent implements OnInit, OnChanges, DoCheck {
         return false;
     }
 
-    public removeSearchQuery() {
-        this.searchQuery = "";
-    }
-
-    private getCarretClass() {
-        return this._dropdownStatus.isopen ? "glyphicon glyphicon-chevron-up pull-right ui-select2-subscribeDatePicker-icon" : "glyphicon glyphicon-chevron-down pull-right ui-select2-subscribeDatePicker-icon";
-    }
-
     private removeSelection($event) {
         $event.stopPropagation();
 
-        this._selectedItem = this._chooseItemValue;
-        this._selectedItems = [];
+        this.itemSelected = this._chooseItemValue;
+        this.multiselectItemsSelected = [];
     }
 
     removeItemFromSelection($event, item:Select2Item) {
         $event.stopPropagation();
 
-        var index = this._selectedItems.indexOf(item);
+        var index = this.multiselectItemsSelected.indexOf(item);
         if (index === -1) {
             return;
         }
 
-        this._selectedItems.splice(index, 1);
+        this.multiselectItemsSelected.splice(index, 1);
     }
 
-    public selectItem(item) {
-        this._selectedItem = item;
+    public onSelectionChenge(item) {
+        this.itemSelected = item;
 
-        if(this._selectedItems.indexOf(item) === -1){
-            this._selectedItems.push(item);
+        if(this.multiselectItemsSelected.indexOf(item) === -1){
+            this.multiselectItemsSelected.push(item);
+        }
+
+        if(this.muliSelect){
+            this.$selectionChangeEmitter.emit(this.multiselectItemsSelected);
+            return;
+        }
+
+        this.$selectionChangeEmitter.emit(this.itemSelected);
+    }
+
+    
+    public selectItemById(domainId):void {
+        if(this.muliSelect){
+            return;// consider throw exception
+        }
+
+        var i=0;
+        while(i<this.items.length){
+            if(this.items[i].boundItem && this.items[i].boundItem['id'] === domainId ){
+                this.onSelectionChenge(this.items[i]);
+                return;
+            }
+            i++;
+        }
+    }
+
+    /**
+     * Component getters and setters
+     */
+    
+    public getSelectedItem():Select2Item {
+        return this.itemSelected;
+    }
+
+    public setSelectedItem(item:Select2Item) {
+        this.itemSelected = item;
+    }
+
+    public getMultiselectedItems():Array<Select2Item> {
+        return this.multiselectItemsSelected;
+    }
+
+    public setMultiselectedSelectedItems(items:Array<Select2Item>) {
+        this.multiselectItemsSelected = items ? items : [];
+    }
+
+    /**
+     * Compute the dropdown direction to drop down or to drop up
+     */
+    computeSelectView():any {
+        let multiSelectRefPosition = null;
+        let simpleSelectRefPosition = null;
+        let documentHeight = Math.max(
+            document.documentElement["clientHeight"],
+            document.body["scrollHeight"],
+            document.documentElement["scrollHeight"],
+            document.body["offsetHeight"],
+            document.documentElement["offsetHeight"]);
+
+        if (this.multiSelectRef) {
+            multiSelectRefPosition = this.getOffset(this.multiSelectRef.nativeElement);
+        }
+        if (this.simpleSelectRef) {
+            simpleSelectRefPosition = this.getOffset(this.simpleSelectRef.nativeElement);
+        }
+
+        if (multiSelectRefPosition) {
+            this.dropdownOptions.dropUp = multiSelectRefPosition.top + 305 > documentHeight ? true : false;
+        }
+        if (simpleSelectRefPosition) {
+            this.dropdownOptions.dropUp = simpleSelectRefPosition.top + 305 > documentHeight ? true : false;
         }
     }
 
@@ -175,10 +176,59 @@ export class SelectComponent implements OnInit, OnChanges, DoCheck {
         return {top: rect.top + scrollTop, left: rect.left + scrollLeft};
     }
 
+    /**
+     * View checking functions
+     */
+    
+    private getClassForComponent(){
+        let classView = 'bs-ui-select-2 clearfix';
+        
+        if(this.dropdownOptions.dropUp){
+            classView+= ' dropUp';
+        }
+        else{
+            classView+= ' dropdown';
+        }
+        
+        if(!this.activateValidation) {
+            return classView;
+        }        
+
+        if(this.muliSelect){
+            classView += this.multiselectItemsSelected.length > 0 ? ' ng-valid' : ' ng-invalid';
+            return classView;                             
+        }
+
+        if(!this.muliSelect){
+            classView += this.itemSelected.boundItem !== null ? ' ng-valid' : ' ng-invalid';                 
+        }
+
+        return classView;
+    }
+    
+    private getCarretClass() {
+        return this.dropdownOptions.isopen ? 
+                "glyphicon glyphicon-chevron-up pull-right ui-select2-subscribeDatePicker-icon" 
+            :   "glyphicon glyphicon-chevron-down pull-right ui-select2-subscribeDatePicker-icon";
+    }
+
+    private checkItems() {
+        return !this.items || this.items.length < 1;
+    }
+    
 }
+
 //This definition will remain here so the component may be exported with his types
 export class Select2Item {
     displayName:string;
     boundItem:Object;
     //selected:boolean;
+}
+
+//Dropdown interface
+
+export interface DropdownOptions{
+    isopen:boolean;
+    searchQuery:string;
+    dropUp:boolean;
 }

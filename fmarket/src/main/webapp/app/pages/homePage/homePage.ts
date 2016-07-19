@@ -1,3 +1,4 @@
+
 /**
  * Created by nick_ on 4/12/2016.
  */
@@ -5,8 +6,9 @@ import {
     Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit, OnDestroy,
     trigger, transition, animate, style, state, group, keyframes
 } from "@angular/core";
+
+import {Subscription} from 'rxjs/Subscription';
 import {Router} from "@angular/router";
-import {FormBuilder, Validators} from "@angular/common";
 import {CategoriesMenuService} from "../../services/categoriesMenuService";
 import {DemandService} from "../../services/demandService";
 import {JqueryService} from "../../services/jqueryService";
@@ -15,11 +17,15 @@ import {NotificationService} from "../../services/notificationService";
 import {LocalizationService} from "../../services/localizationService";
 import {CustomValidators} from "../../models/Angular2ExtensionValidators";
 import {DemandComponent} from "../../components/demandComponent/demandComponent";
-import {Demand} from "../../models/demand";
+import {DemandFields} from "../../models/forms/demand";
 import {LocalStorageService} from "../../services/localStorageService";
 import {ApplicationConstants} from "../../models/applicationConstansts";
 import {SuccessPageOptions} from "../registrationPage/successPages/successPage";
 import {AuthorizationService} from "../../services/authorizationService";
+import {SyncronizationService} from "../../services/syncronizationService";
+import { Role } from '../../models/Roles';
+import { IDemand } from './../../models/interfaces/iDemand';
+
 import * as template from './homePage.html';
 import {ENTER_LEAVE_ANIMATION} from '../pageAnimations/enterLeavePage';
 
@@ -34,12 +40,12 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
     //<editor-fold desc="Services">
     private _categoriesMenuService:CategoriesMenuService;
     private _demandService:DemandService;
-    private _formBuilder:FormBuilder;
     private _subscribersService:SubscribersService;
     private _notificationService:NotificationService;
     private _router:Router;
     private _localizationService:LocalizationService;
     private _localeStorageService:LocalStorageService;
+    private _syncronizationService:SyncronizationService
     //</editor-fold>
 
     //<editor-fold desc="Variables">
@@ -50,27 +56,33 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
 
     animation = {componentLoad: false};
     private _demandDialog:DemandComponent;
-    scrollProperty:string = 'scrollY';
+
+    private subscriber = {email: '', submited: false};
+
     private _cityes;
     private _subscribeForm;
     menuDictionary;
     private viewInitialized:boolean = false;
+
+    private pageSubscriptions: Array<Subscription> = new Array<Subscription>();
     //</editor-fold>
 
     constructor(_categoriesMenuService:CategoriesMenuService,
                 router:Router,
                 _demandService:DemandService,
-                subscribersService:SubscribersService,
-                formBuilder:FormBuilder,
+                subscribersService:SubscribersService,                
                 notificationService:NotificationService,
                 _localizationService:LocalizationService,
-                localeStorageService:LocalStorageService) {
+                localeStorageService:LocalStorageService,
+                syncronizationService:SyncronizationService) {
+
         this._categoriesMenuService = _categoriesMenuService;
         this._router = router;
         this._demandService = _demandService;
         this._subscribersService = subscribersService;
-        this._formBuilder = formBuilder;
+        
         this._notificationService = notificationService;
+        this._syncronizationService = syncronizationService;
         this._localizationService = _localizationService;
         this._localeStorageService = localeStorageService;
 
@@ -80,64 +92,51 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
     ngOnInit():any {
         this.getCities();
         this.getMenuDictionary();
-        this._subscribeForm = this._formBuilder.group([]);
-        this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
         this._notificationService.removeLoading();
 
-        let me = this;
-        this.navigateToCreateDemandResolver();
+        let me = this;        
+        this.subscribeToApplicationState()
+    }
 
+    subscribeToApplicationState(){
         this._localeStorageService.storageStateChange.subscribe(
             storageItem => {
                 switch (storageItem ['keyChanged']) {
                     case ApplicationConstants.ACTIVE_USER_STATE:
-                        if(AuthorizationService.hasRole(storageItem['newValue'].accountType)){
-                            this._router.navigate('/admin/users');
+                        if(AuthorizationService.hasRole(Role.ADMIN)){
+                            this._router.navigate(['/admin/users']);
                             return;
                         }
 
-                        this._demandDialog.removeEmail();
-                        break;
-                    case ApplicationConstants.NAVIGATE_CREATE_DEMAND:
-                        me.navigateToCreateDemandResolver();
-                        break;
+                        this._demandDialog.fetchUserEmail();
+                        break;                    
                 }
             }
         );
     }
 
     ngOnDestroy():any {
-
-    }
-
-    navigateToCreateDemandResolver() {
-        let me = this;
-        let navigationProperty = this._localeStorageService.getItem(ApplicationConstants.NAVIGATE_CREATE_DEMAND);
-        if (navigationProperty && navigationProperty['navigate']) {
-            let interval = setInterval(()=> {
-                if (me.viewInitialized) {
-                    JqueryService.scrollToElemet({nativeElement: '#createDemandComponent'});
-                    window.clearInterval(interval);
-                }
-            }, 10)
-            localStorage.removeItem(ApplicationConstants.NAVIGATE_CREATE_DEMAND);
+        for(let s of this.pageSubscriptions){
+            s.unsubscribe();
         }
     }
 
     ngAfterViewInit():any {
         let me = this;
+        //TODO remove the loading using js pure not jquery
         this._notificationService.removeLoading();
-        setTimeout(()=> {
-            me.viewInitialized = true;
-            me.animation.componentLoad = true;
-        }, 100);
+
+
+        let subscription = this._syncronizationService.taskSender.subscribe(task=>{
+            if(task === ApplicationConstants.NAVIGATE_CREATE_DEMAND){
+                JqueryService.scrollToElemet({nativeElement: '#createDemandComponent'});
+            }
+        });       
+        this._syncronizationService.subscriberInitialized.next(ApplicationConstants.SUBSCRIBER_INITIALIZED); 
+        this.pageSubscriptions.push(subscription);
     }
 
     ngAfterViewChecked():any {
-        let me = this;
-        setTimeout(()=> {
-            me.viewInitialized = true;
-        }, 100);
         this.rematchElementsOnView(null);
     }
 
@@ -145,17 +144,15 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
         this._demandDialog = demandDialog;
     }
 
-    submitSubscriber() {
-        if (!this._subscribeForm.valid) {
-            return;
-        }
-
+    submitSubscriber(formReference) {
         let me = this;
-        this._subscribersService.subscribeTowebsite(this._subscribeForm.value)
+
+        me.subscriber.submited = !me.subscriber.submited;
+        this._subscribersService.subscribeTowebsite(this.subscriber.email)
             .subscribe(
                 success=> {
-                    me._subscribeForm.removeControl('email');
-                    this._subscribeForm.addControl('email', this._formBuilder.control('', Validators.compose([Validators.required, CustomValidators.validateEmail])));
+                    me.subscriber.email = '';
+                    
                     me._notificationService.emitSuccessNotificationToRootComponent('Te-ai inscris cu success!', 5);
                 },
                 error=> {
@@ -164,25 +161,12 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
             )
     }
 
-    goToCreateDemand() {
-        JqueryService.animateScroll(this.createDemamdViewRef, 'easeInQuad', 500);
-    }
-
-    goToHowWeWork() {
-        JqueryService.animateScroll(this.howWeWorkRef, 'easeInQuad', 500);
-    }
-
-    createDemand(demand:Demand) {
+    createDemand(demand:IDemand) {
         var me = this;
-
-        if (!this._demandDialog.IsValid()) {
-            return;
-        }
 
         this._demandService.createUserDemand(demand)
             .subscribe(
                 respose=> {
-                    me._demandDialog.restData();
                     me._router.navigate([`/success/${SuccessPageOptions.CreateDemand}`])
                 },
                 error=> {
@@ -215,6 +199,18 @@ export class HomePage implements OnInit, AfterViewChecked, AfterViewInit, OnDest
                     me._cityes = [];
                 }
             )
+    }
+
+    /**
+     * Dirty view manipulation ]
+     * TODO remove jquery dependency
+     */
+    goToCreateDemand() {
+        JqueryService.animateScroll(this.createDemamdViewRef, 'easeInQuad', 500);
+    }
+
+    goToHowWeWork() {
+        JqueryService.animateScroll(this.howWeWorkRef, 'easeInQuad', 500);
     }
 
     rematchElementsOnView($event) {

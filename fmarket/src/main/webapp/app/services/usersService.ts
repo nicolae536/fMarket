@@ -3,7 +3,7 @@ import {Http} from "@angular/http";
 import {User} from "../models/user";
 import {FMarketApi} from "./fMarketApi";
 import {AccountStatus} from "../models/accountStatus";
-
+import {IListResponse} from '../models/interfaces/iListResponse';
 
 @Injectable()
 export class UserService {
@@ -28,7 +28,7 @@ export class UserService {
 
     getUsersWithFilters(id, emailFilter, nameFilter, selectedStatusFilter:AccountStatus, cityId, pageIndex) {
         var requestOptions:FilterOptions = this.buildSearchObject(id, emailFilter, nameFilter, selectedStatusFilter, cityId, pageIndex);
-        return this.api.post(this.adminUsersControllerRoute + `/search?page=${pageIndex}`, JSON.stringify(requestOptions));
+        return this.api.post<IListResponse>(this.adminUsersControllerRoute + `/search?page=${pageIndex}`, JSON.stringify(requestOptions));
     }
 
     buildSearchObject(id:number, emailFilter:string, nameFilter:string, selectedStatusFilter:AccountStatus, cityId:number, pageIndex:number):FilterOptions {
@@ -43,7 +43,7 @@ export class UserService {
     }
 
     getStatuese(){
-        return this.api.get(`/admin/users/statuses`);
+        return this.api.get<Array<Object>>(`/admin/users/statuses`);
     }
 }
 

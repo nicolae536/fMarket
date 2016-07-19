@@ -3,7 +3,7 @@
  */
 
 import {Component, OnInit} from "@angular/core";
-import {Router, OnActivate, RouteSegment, RouteTree} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from '@angular/common'
 
 import {DemandService} from "../../../../services/demandService";
@@ -24,13 +24,14 @@ let template = require('./demandsEditPage.html');
     directives: [DemandEditComponent, RejectDemandDialogComponent]
 })
 // @CanActivate(()=>{return AuthorizationService.isLoggedIn() && AuthorizationService.hasRole(Role.ADMIN);})
-export class DemandsEditPage implements OnInit, OnActivate {
+export class DemandsEditPage implements OnInit {
     //<editor-fold desc="Services">
     private _router:Router;
     private _demandService:DemandService;
     private _notificationService:NotificationService;
     private _requestTypeService:RequestTypeService;
     private _location:Location;
+    private _activatedRoute:ActivatedRoute;
     //</editor-fold>
 
     //<editor-fold desc="Variables">
@@ -41,21 +42,21 @@ export class DemandsEditPage implements OnInit, OnActivate {
     //</editor-fold>
 
     constructor(router:Router, _location: Location, demandService:DemandService, requestTypeService:RequestTypeService,
-                notificationService:NotificationService)
+                notificationService:NotificationService, activatedRoute:ActivatedRoute)
     {
         this._location = _location;
         this._notificationService = notificationService;
         this._router = router;
         this._demandService = demandService;
         this._requestTypeService = requestTypeService;
+        this._activatedRoute = activatedRoute;
     }
 
-    routerOnActivate(curr:RouteSegment, prev?:RouteSegment, currTree?:RouteTree, prevTree?:RouteTree):void {
-        this._demandId = Number(curr.getParam('id'))
-    }
-
-    ngOnInit():any {
-        this.getDomains();
+    ngOnInit():any {        
+        this._activatedRoute.params.subscribe(params =>{
+            this._demandId = params['id'];
+            this.getDomains();
+        });
     }
 
     private rejectDemandDialogLoaded($event:RejectDemandDialogComponent){

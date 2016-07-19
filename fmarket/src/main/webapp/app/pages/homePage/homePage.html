@@ -36,8 +36,7 @@
                 [title]="'Creeaza cerere.'"
                 [city-list]="_cityes"
                 (demand-component-loaded)="referenceDemandDialog($event)"
-                (submit-new-demand)="createDemand($event)">
-            
+                (submit-new-demand)="createDemand($event)">            
         </demand-component>
     </div>
 
@@ -84,8 +83,7 @@
     </div>
 
     <div class="home-page-subscriber clearfix">
-        <form [ngFormModel]="_subscribeForm" (ngSubmit)="submitSubscriber()">
-
+        <form *ngIf="!subscriber.submited" (ngSubmit)="submitSubscriber(subscriberForm)" #subscriberForm="ngForm">
             <div class="col-md-11 col-xs-12">
                 <div class="col-md-8 col-xs-12 align-input">
                     <div class="text-align subscribe-text">
@@ -95,8 +93,38 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12">
-                    <input type="email" [ngFormControl]="_subscribeForm.controls['email']" class="form-control"
-                           placeholder="Email-ul tau..."/>
+                    <input type="email" 
+                           [(ngModel)]="subscriber.email" class="form-control"
+                           required
+                           pattern="^(([^&lt;&gt;()\[\]\\.,;:\s@&quot;]+(\.[^&lt;&gt;()\[\]\\.,;:\s@&quot;]+)*)|(&quot;.+&quot;))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
+                           placeholder="Email-ul tau..."
+                           name="email" #email="ngModel"/>
+                </div>
+
+            </div>
+            <div class="col-md-1 col-xs-12">
+                <button type="submit" class="btn btn-success">
+                    Inscrie-te
+                </button>
+            </div>
+        </form>
+
+        <form *ngIf="subscriber.submited" (ngSubmit)="submitSubscriber(subscriberForm)" #newForm="ngForm">
+            <div class="col-md-11 col-xs-12">
+                <div class="col-md-8 col-xs-12 align-input">
+                    <div class="text-align subscribe-text">
+                    <span>
+                        Inscrie-te si fii la curent cu toate noutatile fmarket
+                    </span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <input type="email" 
+                           [(ngModel)]="subscriber.email" class="form-control"
+                           required
+                           pattern="^(([^&lt;&gt;()\[\]\\.,;:\s@&quot;]+(\.[^&lt;&gt;()\[\]\\.,;:\s@&quot;]+)*)|(&quot;.+&quot;))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
+                           placeholder="Email-ul tau..."
+                           name="email" #email="ngModel"/>
                 </div>
 
             </div>
