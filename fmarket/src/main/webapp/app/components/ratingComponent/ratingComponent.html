@@ -1,11 +1,13 @@
-<div>
-    <span *ngFor="let item of ratingArray" 
-          [class]="computeRatingClass(item)" 
-          (mouseenter)="hoveredRating = item" 
-          (mouseleave)="hoveredRating = -1" 
-          (click)="setNewStarsReview(item)">
+<div class="rating-component">
+      <div class="rating-title">
+            <span class="h3">Rating</span>
+      </div>
+      <div class="rating">
+            <span *ngFor="let item of ratingArray" [class]="computeRatingClass(item)" (mouseenter)="hoveredRating = item" (mouseleave)="hoveredRating = -1"
+                  (click)="setNewStarsReview(item)">
     </span>
-    <div>
-          {{companyReview}}
-    </div>
+            <div>
+                  {{companyReview}}
+            </div>
+      </div>
 </div>

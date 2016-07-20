@@ -26,7 +26,7 @@ export class CompaniesService {
     }
 
     getCompanieDetailsForUsers(id:number) {
-        return this.api.get(this.COMPANIE_CONTROLLER + `/${id}`);
+        return this.api.get<NewCompanyRequest>(this.COMPANIE_CONTROLLER + `/${id}`);
     }
 
     addStarsReviewForUsers(review:IStarReview) {

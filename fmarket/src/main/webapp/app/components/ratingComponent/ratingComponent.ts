@@ -19,10 +19,11 @@ export class RatingComponent {
         this.ratingArray = new Array<number>();        
     }
 
-    getClassUsingSelectedId(id:number) {
+    computeRatingClass(id:number) {
         
         if(this.selectedRating !== -1){
-            return this.selectedRating >= id ? this.ACTIVE_CLASS : this.DISABLED_CLASS; 
+            let valueToCompare = this.hoveredRating > this.selectedRating ? this.hoveredRating : this.selectedRating; 
+            return valueToCompare >= id ? this.ACTIVE_CLASS : this.DISABLED_CLASS; 
         }
 
         if(this.hoveredRating >= id){

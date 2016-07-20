@@ -2,6 +2,8 @@
  * Created by nick_ on 6/8/2016.
  */
 import {Component, OnInit, ElementRef, AfterViewInit, ViewChild} from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+
 import {JqueryService} from "../../../services/jqueryService";
 import {ApplicationConstants} from "../../../models/applicationConstansts";
 import {GOOGLE_MAPS_DIRECTIVES} from "angular2-google-maps/core";
@@ -10,7 +12,6 @@ import {NotificationService} from "../../../services/notificationService";
 import {ENTER_LEAVE_ANIMATION} from "../../pageAnimations/enterLeavePage";
 
 import { RatingComponent } from './../../../components/ratingComponent/ratingComponent';
-import { ActivatedRoute } from '"@angular/router"';
 
 @Component({
     selector: 'compnaie-details-Page',
@@ -44,10 +45,10 @@ export class CompanieDetailPage implements OnInit, AfterViewInit {
     }
 
     ngOnInit():any {
+        
+        JqueryService.removeElementWithAnimation('#' + ApplicationConstants.LOADING_SPINNER);
         this.mapModel = {lat: 51.673858, lng: 7.815982, zoom: 15};
         this.marketModel = {lat: 51.673858, lng: 7.815982, label: 'Nume companie', draggable: false};
-
-        JqueryService.removeElementWithAnimation('#' + ApplicationConstants.LOADING_SPINNER);
 
         let me = this;
         this._activatedRoute.params.subscribe(params=>{
@@ -75,20 +76,17 @@ export class CompanieDetailPage implements OnInit, AfterViewInit {
             );
     }
 
-    asd(){
-        this.commentsOpen = !this.commentsOpen;
-
-        if(this.commentsOpen){
-            this.getCompanyReviews();
-        }
-    }
-
     getCompanyDetails() {
         let me = this;
         this.companiesService.getCompanieDetailsForUsers(this.companyId)
             .subscribe(
                 succ=> {
                     me.companieDetailsModel = succ;
+                    if(succ){
+                        // me.mapModel = {lat: succ.latitude , lng: succ.longitude, zoom: 15};
+                        // me.marketModel = {lat: succ.latitude , lng: succ.longitude, label: succ.name, draggable: false};
+                    }
+                    
                 },
                 err=> {
                     me._notificationService.emitErrorNotificationToRootComponent('Detaliile companiei nu pot fi afisate', 5);

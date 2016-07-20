@@ -15,6 +15,8 @@ Css library
 @import "/app/components/selectComponent/selectComponent.css";
 @import "/app/components/demandComponent/rejectDemandDialogComponent/rejectDemandDialogComponent.css";
 @import "/app/components/companieComponent/companieListComponent/companiesAdminListComponent.css";
+@import "/app/components/ratingComponent/ratingComponent.css";
+
 /*pages styles*/
 @import "/app/pages/accountSettingsPage/accountSettingsPage.css";
 @import "/app/pages/accountSettingsPage/accountDemandsPage/accountDemandsPage.css";
@@ -755,6 +757,18 @@ Css library
     position: relative;
 }
 
+.fill-parent-height{
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.parent-size{
+    width: 100%;
+    height: 100%;
+}
+
 .checking-item {
     position: absolute;
     right: -10px;
@@ -784,6 +798,10 @@ Css library
     text-align: center;
     vertical-align: middle;
     height: 32px;
+}
+
+.no-padding{
+    padding: 0;
 }
 
 @media screen and (max-height: 450px) {
