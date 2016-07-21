@@ -1,18 +1,19 @@
 
 .rating-component {
+    padding-top: 20px;
     text-align: center;
 }
 
 .rating-component .rating-title{
-    color: black;
+    color: white;
 }
 
 .rating-component .rating{
     padding: 10px 0;
-    color: black;
+    color: white;
 }
 
 .rating-component .rating .glyphicon{
-    color: black;
+    color: white;
     font-size: 20px;
 }

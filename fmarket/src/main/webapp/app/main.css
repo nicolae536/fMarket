@@ -160,6 +160,9 @@ Css library
     background-color: #ffecec;
 }
 
+.margin-auto{
+    margin: auto;
+}
 
 /*slide down animation*/
 @keyframes slide-down {
@@ -761,6 +764,13 @@ Css library
     height: 100%;
     position: absolute;
     right: 0;
+    top: 0;
+}
+
+.fill-left-parent-height{
+    height: 100%;
+    position: absolute;
+    left: 0;
     top: 0;
 }
 

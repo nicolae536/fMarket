@@ -6,15 +6,11 @@
     background-color: rgba(0, 48, 91, 0.65);
     height: 100%;
 }*/
-/*
+
 .companies-detail-page .companies-presentation-page-container .image-container{
-    margin-bottom: 50px;
-    padding-right: 14%;
-    padding-left: 13%;
-    width: 100%;
-    background: aliceblue;
+    max-width: 400px
 }
-*/
+
 .companies-detail-page .companies-presentation-page-container .image-container .image-logo{
     width: auto;
     height: auto;
@@ -34,13 +30,17 @@
 }*/
 
 .companies-detail-page .companies-presentation-page-container .companie-detail-container{
-    padding-top: 40px;
     text-align: center;
 }
 
 .companies-detail-page .companies-presentation-page-container .title{
-    padding:40px;
+    padding: 40px;
     text-align: center;
+    color: white;
+}
+
+.companies-detail-page .companies-presentation-page-container .title > div > div > span {
+    font-size: 70px;
 }
 
 .companies-detail-page .companies-presentation-page-container .companie-detail-container .details-container{
@@ -157,4 +157,64 @@
 
 .map-container{
     padding: 10px;
+}
+
+.table-row{
+    display: table-row;
+}
+
+.table-cell{
+    display: table-cell;
+}
+
+.vertical-middle{
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.margin-left-50{
+    margin-left: 50%;
+}
+
+@media(max-width:991px){    
+
+    .fill-left-parent-height {
+        position: relative !important;
+        height: auto !important;
+    }
+
+    .vertical-middle{
+            padding: 10px !important;
+            display: block !important;
+            text-align: center !important;
+            position: relative !important;
+            height: auto !important;
+    }
+
+    .margin-left-50 .image-container{
+        max-width: 100% !important;
+        text-align: center;
+    }
+
+    .margin-left-50 .image-container .image-logo{
+        margin: auto;
+    }
+
+    .margin-left-50{
+        text-align: center;
+        margin-left: 0px; 
+    }
+
+    .companies-detail-page .companies-presentation-page-container .title > div > div > span {
+        font-size: 50px;
+    }
+
+    .companies-detail-page .companies-presentation-page-container .companie-detail-container .details-container .content-wrapper {
+        padding-left: 0px;
+    }
 }
