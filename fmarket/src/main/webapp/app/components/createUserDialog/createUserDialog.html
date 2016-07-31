@@ -3,7 +3,7 @@
      [style.display]="showModal ? 'block' : 'none'" [style.opacity]="showModal ? 1 : 0" [ngClass]="{'remove':remove}">
     <div class="modal-dialog modal-dialog-very-sm modal-lg" (click)="stopPropagation($event)">
         <div class="modal-content">
-            <form *ngIf="showModal" #usersForm="ngForm" (ngSubmit)="submitNewUser(usersForm)" (ngModelChange)="fatchFormErrors()">
+            <form *ngIf="showModal" #usersForm="ngForm" (ngSubmit)="submitNewUser()" (ngModelChange)="fatchFormErrors()">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" (click)="hide()">
                         <span aria-hidden="true">&times;</span>

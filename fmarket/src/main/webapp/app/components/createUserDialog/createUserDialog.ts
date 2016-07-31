@@ -33,10 +33,10 @@ export class CreateUserDialog extends ModalDialog implements OnInit {
         this.loadedEmitter.emit(this);
     }
 
-    submitNewUser(usersFormRef) {
+    submitNewUser() {
         this.submittedNewUser = false;
         let response = this.responseObject as UserForm;
-
+        
         if(!this.usersFormRef.valid){
             this.submittedNewUser = true;
             this.fatchFormErrors();

@@ -6,14 +6,14 @@ import {CustomValidators} from '../Angular2ExtensionValidators';
 export class RegisterAccount {
     password:Field;
     repeat:Field;
-    email:Field;
+    username:Field;
     subscribe:Field;
     rememberMe:Field;
 
     constructor(){
         this.password = new Field('password', true, '', CustomValidators.validatePassword);
         this.repeat = new Field('repeat', true, '',  CustomValidators.validatePassword);
-        this.email = new Field('email', true, '', CustomValidators.validateEmail);
+        this.username = new Field('username', true, '', CustomValidators.validateEmail);
         this.subscribe = new Field('subscribe', true, false, ()=>{return true});
         this.rememberMe = new Field('rememberMe', true, false, ()=>{return true});
     }

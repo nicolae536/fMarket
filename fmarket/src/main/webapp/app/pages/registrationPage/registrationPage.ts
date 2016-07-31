@@ -88,7 +88,7 @@ export class RegistrationPage implements OnInit, AfterViewChecked {
                     
                     me._registrationComponent.setFieldsAsErrors(
                         new Array<Field>(
-                            new Field('email', false),
+                            new Field('username', false),
                             new Field('password', false),
                             new Field('repeat', false)
                         )

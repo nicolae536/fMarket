@@ -85,16 +85,20 @@ export class LoginPage implements OnInit, AfterViewChecked {
                     else {
                         me._router.navigate([''])
                     }
+
+                    true;
                 },
                 error => {
                     me._notificationService.emitErrorNotificationToRootComponent("Date de autentificare incorecte!", 5);
                     me._registrationComponent.setFieldsAsErrors(
                         new Array<Field>(
-                            new Field('email', false),
+                            new Field('username', false),
                             new Field('password', false)
                         )
                     );
                     me._registrationComponent.recheckAfterFirstChange = true;
+
+                    false;
                 }
             )
     }
