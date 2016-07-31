@@ -116,7 +116,7 @@ export class CompanieDetailPage implements OnInit, AfterViewInit {
                     me.comment= '';
                 },
                 err=> {
-                    me._notificationService.emitErrorNotificationToRootComponent('Comentariul nu a putut fi adaugat', 5);
+                    me._notificationService.emitErrorNotificationToRootComponent('Reviewul nu a putut fi adaugat', 5);
                 }
             );
     }

@@ -41,6 +41,7 @@ export class ForgetPasswordPage implements OnInit, AfterViewChecked {
     private _formButtonLabel:string;
     private _passwordLabel:string;
     private _forgetPasswordLabel;
+    private _createAccountPage:boolean = false;
     private _loginPage:boolean = false;
     private _restPasswordPage:boolean;
     //</editor-fold>
